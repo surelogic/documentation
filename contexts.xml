@@ -1,7 +1,7 @@
 <contexts>
     <!-- !!!WARNING DO NOT REFORMAT THIS XML!!!: The description contents should not include extra whitespace, Eclipse reacts badly to this. -->
     
-     <!-- MAIN MENU & CONTEXT MENU -->
+     <!-- Menus -->
     
 	<context id="menu-scan-project">
 		<description>This command starts a full scan on the selected set of projects.</description>
@@ -38,7 +38,7 @@
 		<topic href="ch03.html#sec-menu" label="The Sierra menu" />
 	</context>
 	
-	<!-- VIEWS -->
+	<!-- Views -->
 	
 	<context id="view-findings-quick-search">
 		<description>This view allows you to select a set of findings to examine based upon a set of filters.</description>
@@ -55,5 +55,16 @@
 	<context id="view-synchronize-history">
 		<description>This view displays your history of synchronizing with Sierra team servers.</description>
 		<topic href="ch03s03.html#sec-synchronize-history" label="The Synchronize History view" />
+	</context>
+	
+	<!-- Preference panels -->
+	
+	<context id="preferences-sierra">
+		<description>This preference page is used to configure the appearance behavior the Sierra Eclipse client.</description>
+		<topic href="ch03s04.html" label="Configuring Sierra preferences" />
+		<topic href="ch03s04.html#sec-preferences-sierra" label="General Sierra preferences" />
+		<topic href="ch03s04.html#sec-preferences-scan-data" label="Scan Data preferences" />
+		<topic href="ch03s04.html#sec-preferences-scan-filter" label="Scan Filter preferences" />
+		<topic href="ch03s04.html#sec-preferences-tools" label="Tool preferences" />
 	</context>
 </contexts>
