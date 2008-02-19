@@ -4,3 +4,4 @@ Bundle-Name: Sierra Client On-Line Help
 Bundle-SymbolicName: com.surelogic.sierra.client.eclipse.help;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: SureLogic, Inc.
+Require-Bundle: org.eclipse.help
