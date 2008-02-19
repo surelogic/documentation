@@ -1,5 +1,8 @@
 <contexts>
     <!-- !!!WARNING DO NOT REFORMAT THIS XML!!!: The description contents should not include extra whitespace, Eclipse reacts badly to this. -->
+    
+     <!-- MAIN MENU & CONTEXT MENU -->
+    
 	<context id="menu-scan-project">
 		<description>This command starts a full scan on the selected set of projects.</description>
 		<topic href="ch03.html#sec-menu" label="The Sierra menu" />
@@ -16,7 +19,7 @@
 	<context id="menu-configure-team-servers">
 		<description>This command opens the view that is used to manage connections to Sierra team servers.</description>
 		<topic href="ch03.html#sec-menu" label="The Sierra menu" />
-		<topic href="ch03s03.html#sec-team-servers" label="The Sierra Team Servers view" />
+		<topic href="ch03s03.html#sec-team-servers-view" label="The Sierra Team Servers view" />
 	</context>
 	<context id="menu-synchronize-all-connected-projects">
 		<description>This command synchronizes audits for all the projects connected to all Sierra team servers.</description>
@@ -33,5 +36,12 @@
 	<context id="menu-disconnect">
 		<description>This command disconnects the selected project from the Sierra team server it is currently connected to. This action causes all local information about the project to be deleted (so a new scan will have to be run on the project). The disconnected project may then be connected to a different Sierra team server.</description>
 		<topic href="ch03.html#sec-menu" label="The Sierra menu" />
+	</context>
+	
+	<!-- VIEWS -->
+	
+	<context id="view-finding-details">
+		<description>This view displays information about and allows you to audit an analysis finding.</description>
+		<topic href="ch03s03.html#sec-finding-details-view" label="The Finding Details view" />
 	</context>
 </contexts>
