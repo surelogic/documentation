@@ -40,8 +40,20 @@
 	
 	<!-- VIEWS -->
 	
+	<context id="view-findings-quick-search">
+		<description>This view allows you to select a set of findings to examine based upon a set of filters.</description>
+		<topic href="ch03s03.html#sec-findings-quick-search" label="The Findings Quick Search view" />
+	</context>
 	<context id="view-finding-details">
 		<description>This view displays information about and allows you to audit an analysis finding.</description>
 		<topic href="ch03s03.html#sec-finding-details-view" label="The Finding Details view" />
+	</context>
+	<context id="view-team-servers">
+		<description>This view displays information about and allows you configure connections to Sierra team servers.</description>
+		<topic href="ch03s03.html#sec-team-servers-view" label="The Sierra Team Servers view" />
+	</context>
+	<context id="view-synchronize-history">
+		<description>This view displays your history of synchronizing with Sierra team servers.</description>
+		<topic href="ch03s03.html#sec-synchronize-history" label="The Synchronize History view" />
 	</context>
 </contexts>
