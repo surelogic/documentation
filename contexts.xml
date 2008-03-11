@@ -63,6 +63,7 @@
 		<description>This preference page is used to configure the appearance behavior the Sierra Eclipse client.</description>
 		<topic href="ch03s04.html" label="Configuring Sierra preferences" />
 		<topic href="ch03s04.html#sec-preferences-sierra" label="General Sierra preferences" />
+		<topic href="ch03s04.html#sec-preferences-local-team-server" label="Local Team Server preferences" />
 		<topic href="ch03s04.html#sec-preferences-scan-data" label="Scan Data preferences" />
 		<topic href="ch03s04.html#sec-preferences-scan-filter" label="Scan Filter preferences" />
 		<topic href="ch03s04.html#sec-preferences-tools" label="Tool preferences" />
