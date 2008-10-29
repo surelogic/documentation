@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<property name="src" location="./src" />
+	<property name="build" location="./build" />
+	<property name="lib" location="./lib" />
+
+	<property name="docbook.dir" location="${lib}/docbook-xsl-1.73.2" />
+
+	<!-- Sierra Guide definitions -->
+	<property name="sg.source.dir" location="${src}/sierra-guide" />
+	<property name="sg.source.file" location="${sg.source.dir}/sierra-guide.xml" />
+	<property name="sg.build.dir" location="${build}/sierra-guide" />
+	<property name="sg.html.dir" location="${sg.build.dir}/html" />
+	<property name="sg.html.file" location="${sg.html.dir}/sierra-guide.html" />
+	<property name="sg.eclipse.help.dir" location="${sg.build.dir}/eclipse-help" />
+	<property name="sg.deploy.dir" location="../sierra-client-eclipse-help" />
+
+	<!-- Flashlight Guide definitions -->
+	<property name="fg.source.dir" location="${src}/flashlight-guide" />
+	<property name="fg.source.file" location="${fg.source.dir}/flashlight-guide.xml" />
+	<property name="fg.build.dir" location="${build}/flashlight-guide" />
+	<property name="fg.html.dir" location="${fg.build.dir}/html" />
+	<property name="fg.html.file" location="${fg.html.dir}/flashlight-guide.html" />
+	<property name="fg.eclipse.help.dir" location="${fg.build.dir}/eclipse-help" />
+	<property name="fg.deploy.dir" location="../flashlight-client-eclipse-help" />
+
+	<!-- FOP processor to generate PDF from FO files -->
+	<taskdef name="fop" classname="org.apache.fop.tools.anttasks.Fop">
+		<classpath>
+			<fileset dir="${lib}">
+				<include name="fop.jar" />
+				<include name="commons-io-1.3.1.jar" />
+				<include name="commons-logging-1.0.4.jar" />
+				<include name="serializer-2.7.0.jar" />
+				<include name="xmlgraphics-commons-1.2.jar" />
+				<include name="avalon-framework-4.2.0.jar" />
+				<include name="batik-all-1.6.jar" />
+				<include name="fop-hyph.jar" />
+			</fileset>
+		</classpath>
+	</taskdef>
+
+	<!-- XSLT engine class -->
+	<property name="xslt.processor.class" value="com.icl.saxon.StyleSheet" />
+
+	<!-- path for xslt processor -->
+	<path id="xslt.processor.classpath">
+		<pathelement path="${lib}/saxon.jar" />
+		<pathelement path="${lib}/resolver.jar" />
+		<pathelement path="${lib}" />
+		<!-- picks up CatalogManager.properties -->
+	</path>
+</project>

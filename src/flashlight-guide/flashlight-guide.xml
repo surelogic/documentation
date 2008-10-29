@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<book lang="en-US">
+	<title>Flashlight User Guide</title>
+	<subtitle>
+		How to use and configure the Flashlight Eclipse client
+	</subtitle>
+	<bookinfo>
+		<copyright>
+			<year>2008</year>
+			<holder>SureLogic Inc.</holder>
+		</copyright>
+		<legalnotice>
+			<para>
+				The authors and publishers have taken care in the
+				preparation of
+				this documentation, but make no expressed
+				or implied warranty of any
+				kind and assume no
+				responsibility for errors and omissions. No
+				liability is
+				assumed for incidental or consequential damages in
+				connection with or arising out of the use of the
+				information or
+				programs herein.
+			</para>
+		</legalnotice>
+		<pubdate>Version 2.1&mdash;March 2008</pubdate>
+	</bookinfo>
+
+	<chapter id="preface">
+		<title>Preface</title>
+		<section>
+			<title>Audience</title>
+			<para>
+				This document is intended for Java developers who want
+				to use the Flashlight tool within the Eclipse Java IDE. We
+				assume that the reader understands both the Java
+				programming language and the use of Eclipse for Java
+				development.
+			</para>
+		</section>
+		<section>
+			<title>Contact information</title>
+			<para>
+				For technical support or other questions, please
+				contact:
+			</para>
+			<para>
+				<email>support@surelogic.com</email>
+			</para>
+			<para>
+				SureLogic, Inc. Three Penn Center West Suite 300,
+				Pittsburgh, PA 15276.
+			</para>
+		</section>
+	</chapter>
+
+	<chapter id="getting-started">
+		<title>Getting started</title>
+		<section>
+			<title>Introduction</title>
+			<para>
+				<emphasis>What is Sierra?</emphasis>
+				Sierra is a rule-based static analysis toolkit
+				supporting team collaboration. It integrates widely used
+				open source tools, such as FindBugs and PMD, into a
+				single team-oriented tool.
+			</para>
+		</section>
+	</chapter>
+
+</book>

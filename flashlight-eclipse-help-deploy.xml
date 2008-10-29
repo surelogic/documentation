@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="deploy">
+	<import file="./definitions.xml" />
+
+	<target name="deploy">
+		<!-- Flashlight Guide -->
+		<copy file="${fg.eclipse.help.dir}/toc.xml" todir="${fg.deploy.dir}" />
+		<copy todir="${fg.deploy.dir}">
+			<fileset dir="${fg.eclipse.help.dir}">
+				<include name="**/*.html" />
+				<include name="**/*.png" />
+			</fileset>
+		</copy>
+	</target>
+
+</project>
