@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Flashlight Eclipse Client On-Line Help
+Bundle-SymbolicName: com.surelogic.flashlight.client.help;singleton:=true
+Bundle-Version: 2.3.0.qualifier
+Bundle-Vendor: SureLogic, Inc.

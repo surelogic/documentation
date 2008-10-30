@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<toc label="Flashlight User Guide" topic="index.html">
+   <topic label="Preface" href="ch01.html">
+      <topic label="Audience" href="ch01.html#d0e20"/>
+      <topic label="Contact information" href="ch01s02.html"/>
+   </topic>
+   <topic label="Getting started" href="ch02.html">
+      <topic label="Introduction" href="ch02.html#d0e40"/>
+   </topic>
+</toc>
