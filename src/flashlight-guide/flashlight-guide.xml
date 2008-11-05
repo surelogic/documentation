@@ -3,73 +3,89 @@
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
 <book lang="en-US">
-	<title>Flashlight User Guide</title>
-	<subtitle>
-		How to use and configure the Flashlight Eclipse client
-	</subtitle>
-	<bookinfo>
-		<copyright>
-			<year>2008</year>
-			<holder>SureLogic Inc.</holder>
-		</copyright>
-		<legalnotice>
-			<para>
-				The authors and publishers have taken care in the
-				preparation of
-				this documentation, but make no expressed
-				or implied warranty of any
-				kind and assume no
-				responsibility for errors and omissions. No
-				liability is
-				assumed for incidental or consequential damages in
-				connection with or arising out of the use of the
-				information or
-				programs herein.
-			</para>
-		</legalnotice>
-		<pubdate>Version 2.1&mdash;March 2008</pubdate>
-	</bookinfo>
 
-	<chapter id="preface">
-		<title>Preface</title>
-		<section>
-			<title>Audience</title>
-			<para>
-				This document is intended for Java developers who want
-				to use the Flashlight tool within the Eclipse Java IDE. We
-				assume that the reader understands both the Java
-				programming language and the use of Eclipse for Java
-				development.
-			</para>
-		</section>
-		<section>
-			<title>Contact information</title>
-			<para>
-				For technical support or other questions, please
-				contact:
-			</para>
-			<para>
-				<email>support@surelogic.com</email>
-			</para>
-			<para>
-				SureLogic, Inc. Three Penn Center West Suite 300,
-				Pittsburgh, PA 15276.
-			</para>
-		</section>
-	</chapter>
+<title>Flashlight User Guide</title>
+<subtitle>How to use and configure the Flashlight Eclipse client</subtitle>
+<bookinfo>
+  <copyright>
+    <year>2008</year>
+    <holder>SureLogic Inc.</holder>
+  </copyright>
+  <legalnotice>
+    <para>The authors and publishers have taken care in the
+    preparation of this documentation, but make no expressed or
+    implied warranty of any kind and assume no responsibility for
+    errors and omissions. No liability is assumed for incidental or
+    consequential damages in connection with or arising out of the use
+    of the information or programs herein.</para>
+  </legalnotice>
+  <pubdate>Version 1.0&mdash;November 2008</pubdate>
+</bookinfo>
 
-	<chapter id="getting-started">
-		<title>Getting started</title>
-		<section>
-			<title>Introduction</title>
-			<para>
-				<emphasis>What is Sierra?</emphasis>
-				Sierra is a rule-based static analysis toolkit
-				supporting team collaboration. It integrates widely used
-				open source tools, such as FindBugs and PMD, into a
-				single team-oriented tool.
-			</para>
-		</section>
-	</chapter>
+<chapter id="preface">
+  <title>Preface</title>
+  <section>
+    <title>Audience</title>
+    <para>This document is intended for Java developers who want to
+    use the Flashlight tool within the Eclipse Java IDE. We assume
+    that the reader understands both the Java programming language and
+    the use of Eclipse for Java development.</para>
+  </section>
+  <section>
+    <title>Contact information</title>
+    <para>For technical support or other questions, please
+    contact:</para>
+    <para><email>support@surelogic.com</email></para>
+    <para>5806 Forbes Avenue, Pittsburgh, PA USA 15217</para>
+  </section>
+</chapter>
+
+<chapter id="getting-started">
+  <title>Getting started</title>
+  <section>
+    <title>Introduction</title>
+    <para><emphasis>What is Sierra?</emphasis> Sierra is a rule-based
+    static analysis toolkit supporting team collaboration. It
+    integrates widely used open source tools, such as FindBugs and
+    PMD, into a single team-oriented tool.</para>
+  </section>
+</chapter>
+
+<chapter id="reference">
+  <title>Reference</title>
+  <section>
+    <title>The Flashlight menu</title>
+    <para>The Flashlight menu appears as an item on the Eclipse
+    workspace main menu.</para>
+  </section>
+  <section>
+    <title>The Flashlight perspective</title>
+    <para>The Flashlight perspective organizes the Eclipse workbench
+    to show views which will help you to interact with tool
+    findings.</para>
+  </section>
+</chapter>
+
+<chapter>
+  <title>Release notes</title>
+  <para>For each release of Flashlight there are new and noteworthy
+    features to try out, and known limitations to avoid or
+    workaround. These are presented in the sections below for each
+    released version of Flashlight.</para>
+  <section>
+    <title>Flashlight version 1.0</title>
+    <para>This section describes the 1.0 release of Flashlight.</para>
+    <section>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+    </section>
+    <section>
+      <title>Known Problems</title>
+      <para>This section describes known bugs and limitations in this
+      version of Flashlight.</para>
+    </section>
+  </section>
+</chapter>
 
 </book>
