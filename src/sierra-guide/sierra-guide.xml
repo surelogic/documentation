@@ -102,7 +102,8 @@
   </section>
 
   <section>
-    <title>Quick start: How to scan your code and see Sierra findings</title>
+    <title>Quick start: How to scan your code and see Sierra
+    findings</title>
 
     <para>This section assumes that you have installed Sierra. If you
     see a <guimenu>Sierra</guimenu> menu item on your Eclipse main
@@ -140,7 +141,7 @@
     selected.</para>
 
     <para>Small orange <guiicon><inlinegraphic
-    fileref="images/asterisk_orange.gif"></inlinegraphic></guiicon>
+    fileref="images/asterisk_orange.png"></inlinegraphic></guiicon>
     icons appear in the Java editor gutter to highlight tool
     findings. By default, these gutter icons only appear for findings
     deemed of high or critical importance.</para>
