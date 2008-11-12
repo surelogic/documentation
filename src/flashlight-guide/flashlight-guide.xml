@@ -125,9 +125,15 @@
     </figure>
 
     <para>Flashlight will not disrupt your Eclipse installation if a
-    license for it is not installed, however, it will not all you to
-    launch instrumented programs, prepare program run data, or query
-    program run data.</para>
+    license for it is not installed, however, it will not allow you to
+    use Flashlight functionality.  We will assume from this point on
+    that you have installed your license.</para>
+
+    <para>Flashlight is a dynamic analyis tool which means that you
+    have to run your program to use it.  Flashlight instruments your
+    program when it starts up and uses that instrumentation to collect
+    data about your program.  Data is collected to a file located in
+    <filename>~/.flashlight-data</filename>.</para>
 
   </section>
 </chapter>
