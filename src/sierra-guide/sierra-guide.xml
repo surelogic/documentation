@@ -111,15 +111,24 @@
     properly.</para>
 
     <para>From the Sierra main menu select the <guimenuitem>Scan
-    Project</guimenuitem> command. A dialog will open showing you the
-    set of available Java projects that you can scan. Check the
-    projects you want to scan or press the <guibutton>Select
-    All</guibutton> button to check them all and then press the
-    <guibutton>OK</guibutton> button to start the scan. Equivalently,
-    you could right-click a selected set of open Java projects in the
-    <guilabel>Package Explorer</guilabel> and from the
-    <guimenu>Sierra</guimenu> menu select the <guimenuitem>Scan
-    Project</guimenuitem> menu item.</para>
+    Project</guimenuitem> command. (If this is the first time Sierra
+    has been loaded into your Eclipse it might take a few seconds to a
+    minute for it to initialize, please be patient.)</para>
+
+    <mediaobject>
+      <imageobject role="html">
+	<imagedata fileref="images/quick-start-menu.png" />
+      </imageobject>
+    </mediaobject>
+
+    <para>A dialog will open showing you the set of available Java
+    projects that you can scan. Check the projects you want to scan or
+    press the <guibutton>Select All</guibutton> button to check them
+    all and then press the <guibutton>OK</guibutton> button to start
+    the scan. Equivalently, you could right-click a selected set of
+    open Java projects in the <guilabel>Package Explorer</guilabel>
+    and from the <guimenu>Sierra</guimenu> menu select the
+    <guimenuitem>Scan Project</guimenuitem> menu item.</para>
 
     <para>You will receive notification via a balloon that the scan
     has been started and will run in the background. As the scan on
@@ -129,19 +138,21 @@
     change to the <guilabel>Code Review</guilabel> perspective to
     examine the results. To do this, select the <guimenuitem>Open Code
     Review Perspective</guimenuitem> menu item from the
-    <guimenu>Sierra</guimenu> menu item in the Eclipse main menu. The
-    Eclipse layout will change to show views which will help you
-    examine the findings the scan reported.</para>
+    <guimenu>Sierra</guimenu> menu. The Eclipse layout will change to
+    show views which will help you to examine the findings the scan
+    reported.</para>
 
     <para>The <guilabel>Findings Quick Search</guilabel> view allows
     you to select what findings are of interest to you. For example,
     if you select <guibutton>Project</guibutton> you will see your
-    results partitioned by project.  Selecting
+    results partitioned by project. Selecting
     <guibutton>Show</guibutton> shows the list of findings you have
-    selected.</para>
+    filtered down to. Use this view partition and filter your findings
+    as you see fit and then press <guibutton>Show</guibutton> to see
+    individual results.</para>
 
     <para>Small orange <guiicon><inlinegraphic
-    fileref="images/asterisk_orange.png"></inlinegraphic></guiicon>
+    fileref="images/asterisk-orange.png"></inlinegraphic></guiicon>
     icons appear in the Java editor gutter to highlight tool
     findings. By default, these gutter icons only appear for findings
     deemed of high or critical importance.</para>
@@ -219,23 +230,24 @@ public class ShowOff {
     successfully. If not, fix any problems before you continue.</para>
 
     <para>Now run a Sierra scan on the code. To do this right-click on
-    the <application>ShowOff</application> project in the
-    <guilabel>Package Explorer</guilabel> and from the
+    the <application>ShowOff</application> project (not the Java file)
+    in the <guilabel>Package Explorer</guilabel> and from the
     <guimenu>Sierra</guimenu> menu select the <guimenuitem>Scan
     Project</guimenuitem> menu item. Alternatively, you can choose the
     <guimenuitem>Scan Project</guimenuitem> menu item from the
     <guimenu>Sierra</guimenu> menu item in the Eclipse main menu. When
     the dialog appears check the <application>ShowOff</application>
-    project and press the <guibutton>OK</guibutton> button. (If this
-    is the first time Sierra has been loaded into Eclipse it might
-    take a few seconds to initialize, please be patient.)</para>
+    project and press the <guibutton>OK</guibutton> button. If this is
+    the first time Sierra has been loaded into your Eclipse it might
+    take a few seconds to a minute for it to initialize, please be
+    patient.</para>
 
     <para>After the scan is completed change to the <guilabel>Code
     Review</guilabel> perspective. To do this, select the
     <guimenuitem>Open Code Review Perspective</guimenuitem> menu item
-    from the <guimenu>Sierra</guimenu> menu item in the Eclipse main
-    menu. The Eclipse layout will change to show views which will help
-    you examine the findings the scan reported.</para>
+    from the <guimenu>Sierra</guimenu> menu. The Eclipse layout will
+    change to show views which will help you examine the findings the
+    scan reported.</para>
 
     <figure id="fig-tutorial-screenshot">
       <title>The Sierra code review perspective examines findings
@@ -247,21 +259,21 @@ public class ShowOff {
       </mediaobject>
     </figure>
 
-    <para>The <guilabel>Findings Quick Search</guilabel> view in the
-    upper-left of the perspective allows you to "drill-into" findings
-    along several dimensions. It is a powerful control but is
+    <para>The <guilabel>Findings Quick Search</guilabel> view at the
+    top of the perspective allows you to "drill-into" findings along
+    several dimensions. It is a powerful control but is
     straightforward to use. For this tutorial, first click on
     <guibutton>Importance</guibutton> then check
     <guibutton>High</guibutton> and then click on
-    <guibutton>Show</guibutton> finally, select the one finding
-    shown. Selecting this finding will bring up information about it
-    in the <guilabel>Finding Details</guilabel> view. Your screen
-    should now look like <xref linkend="fig-tutorial-screenshot" />
-    (If you get more findings than four you probably have scanned
-    other projects. This can be checked by clicking on
+    <guibutton>Show</guibutton>. Next, select the one finding shown in
+    the table. Selecting this finding will bring up information about
+    it in the <guilabel>Finding Details</guilabel> view. Your screen
+    should now look like <xref linkend="fig-tutorial-screenshot" /> If
+    you get more findings than four you probably have scanned other
+    projects. This can be checked by clicking on
     <guibutton>Project</guibutton> in the far left menu. To delete the
     data from these projects see <xref
-    linkend="sec-preferences-scan-data" />)</para>
+    linkend="sec-preferences-scan-data" /></para>
 
     <para>This high importance finding is about a possible null
     dereference. It was noticed because the <function>box</function>
@@ -288,82 +300,88 @@ if (o == null) {
     seems to disappear, however, the tool knows it has been
     fixed.</para>
 
-    <para>In the <emphasis>Findings Quick Search</emphasis> clear your
-    query using the grey X in the upper-right of the view. Now select
-    <emphasis>Status</emphasis> check <emphasis>Fixed</emphasis> and
-    then <emphasis>Show</emphasis> to see the finding you just
+    <para>In the <guilabel>Findings Quick Search</guilabel> clear your
+    current search by pressing the <guiicon><inlinegraphic
+    fileref="images/asterisk-grey-x.png"></inlinegraphic></guiicon>
+    icon in the upper-right of the view. Now select
+    <guibutton>Status</guibutton> check <guibutton>Fixed</guibutton>
+    and then <guibutton>Show</guibutton> to see the finding you just
     fixed. Sierra works hard to remember findings across scans. It
     does this by matching findings reported in each scan (The matching
-    heuristic is not perfect but will work most of the time, however,
-    aggressive code changes might throw it off).</para>
+    heuristic used by the tool is not perfect but will work most of
+    the time, however, aggressive code changes might throw it
+    off).</para>
 
-    <para>In the <emphasis>Findings Quick Search</emphasis> clear your
-    query again using the grey X in the upper-right of the
-    view. Select <emphasis>Importance</emphasis> and then right click
-    on the bar chart and select <emphasis>Select All</emphasis> from
-    the context menu. This is a quick way to select all the items
-    listed. Select <emphasis>Audited</emphasis> and check the two
+    <para>In the <guilabel>Findings Quick Search</guilabel> clear your
+    current search again by pressing the <guiicon><inlinegraphic
+    fileref="images/asterisk-grey-x.png"></inlinegraphic></guiicon>
+    icon in the upper-right of the view. Select
+    <guibutton>Importance</guibutton> and then right click on the bar
+    chart and select <guibutton>Select All</guibutton> from the
+    context menu. This is a quick way to select all the items
+    listed. Select <guibutton>Audited</guibutton> and check the two
     items listed (Yes and No) and then select
-    <emphasis>Show</emphasis> to see all the findings from the most
+    <guibutton>Show</guibutton> to see all the findings from the most
     recent scan.</para>
 
     <para>Select the first finding shown. It warns that all classes
     and interfaces should belong to a named package.  This is not a
     finding we care about for this project so we can audit
-    it. Right-click on the finding and via the <emphasis>Set
-    Importance</emphasis> context menu select
-    <emphasis>Irrelevant</emphasis> to change the importance of the
-    finding.</para>
+    it. Right-click on the finding and via the <guimenuitem>Set
+    Importance</guimenuitem> context menu select
+    <guimenuitem>Irrelevant</guimenuitem> to change the importance of
+    the finding.</para>
 
     <para>This action, which we call auditing the finding, causes
-    several things to occur. First, if you scroll back to the counts
-    bar chart for <emphasis>Audited</emphasis> you will note that one
+    several things to occur. First, if you examine the counts bar
+    chart for <guibutton>Audited</guibutton> you will note that one
     finding has now been audited and two have not. If you un-check and
-    then re-check <emphasis>No</emphasis> (a choice under the
-    <emphasis>Audited</emphasis> filter) you can see the other two
+    then re-check <guibutton>No</guibutton> (a checkbox under the
+    <guibutton>Audited</guibutton> filter) you can see the other two
     findings in the list go away and then return. Second, in the
-    <emphasis>Finding Details</emphasis> view the audit tab shows one
+    <guilabel>Finding Details</guilabel> view the audit tab shows one
     audit.</para>
 
     <para>Click on the audit tab (the middle tab) in the
-    <emphasis>Finding Details</emphasis> view. The change of the
+    <guilabel>Finding Details</guilabel> view. The change of the
     finding's importance has been time-stamped and logged. Let's note
     that we want to use the default package using another audit. Type
     "The default package is OK for ShowOff." and press the
-    <emphasis>Add</emphasis> button.</para>
+    <guibutton>Add</guibutton> button.</para>
 
     <para>Now the finding has two audits and both are time-stamped. If
     you were using a Sierra team server then audits by your team would
     appear in this audit list as well as audits made by you. When an
     audit is synchronized with a Sierra team server, the name of who
-    made the audit changes from <emphasis>Local</emphasis> to the user
-    name for that user on the team server. A team server helps your
-    team collaborate on finding audits, however, this is not the focus
-    of this tutorial so we will continue without connecting to a
+    made the audit changes from <emphasis>Local</emphasis> to the name
+    for that user on the team server. A team server helps your team
+    collaborate on finding audits, however, collaboration is not the
+    focus of this tutorial so we will continue without connecting to a
     Sierra team server.</para>
 
     <para>We probably do not want to see findings that we have marked
-    as <emphasis>Irrelevant</emphasis> in our list of results. So in
-    the <emphasis>Findings Quick Search</emphasis> click the
-    underlined <emphasis>Importance</emphasis> "breadcrumb" (at the
+    as <guibutton>Irrelevant</guibutton> in our list of results. So in
+    the <guilabel>Findings Quick Search</guilabel> click the
+    underlined <guibutton>Importance</guibutton> "breadcrumb" (at the
     top of the view) to scroll the view over to the importance
     selections. The breadcrumbs allow easy scrolling of the view to
-    areas that might be off the screen.</para>
-
-    <para>Uncheck <emphasis>Irrelevant</emphasis> and then examine the
-    state of the query. If we click on the <emphasis>Show</emphasis>
-    breadcrumb we can see that the one irrelevant finding is filtered
-    out of the set of findings shown.</para>
+    areas that might be off the screen. Uncheck
+    <guibutton>Irrelevant</guibutton> and then examine the state of
+    the view. If we click on the <guibutton>Show</guibutton>
+    breadcrumb to scroll the view back to the far right, we can see
+    that the one irrelevant finding is now filtered out of the set of
+    findings shown.</para>
 
     <para>Let's examine the two remaining findings. Double-click the
-    first one to bring it up in the <emphasis>Finding
-    Details</emphasis> view and highlight the issue in the Java editor
-    (a single-click only brings it up in the <emphasis>Finding
-    Details</emphasis> view). This finding notes that you could append
-    a character rather than a string. This change would result in a
-    slight performance improvement in our code. To fix it we change
+    first one to bring it up in the <guilabel>Finding
+    Details</guilabel> view and highlight the issue in the Java editor
+    (a single-click only brings the finding up in the
+    <guilabel>Finding Details</guilabel> view). This finding notes
+    that you could append a character rather than a string. This
+    change would result in a slight performance improvement in our
+    code. To fix it change
     <computeroutput>line.append("-")</computeroutput> to
-    <computeroutput>line.append('-')</computeroutput> but we want to
+    <computeroutput>line.append('-')</computeroutput>. Next we want to
     indicate our work in the audit trail for this finding.</para>
 
     <figure id="fig-tutorial-audits">
@@ -383,19 +401,18 @@ if (o == null) {
     the code." and then press the <emphasis>Add</emphasis> button to
     add a second audit.</para>
 
-
     <para>Before we leave this finding let's mark set it to a
-    <emphasis>Low</emphasis> importance. In this small program
-    performance is not a big deal. We could just change the radio
-    button at the left, however let's use the drop down in the
-    upper-left of the view. Press the drop down and change the
-    importance. Notice that this changes the views to reflect the new
-    importance and adds a third audit entry to reflect that you made
-    this change. The state of this finding can be seen in <xref
+    <emphasis>Low</emphasis> importance. In this small program such a
+    minor performance improvement is likely not a big deal. We could
+    just change the radio button at the left, but let's use the drop
+    down in the upper-left of the view. Press the drop down and change
+    the importance. Notice that this changes the views to reflect the
+    new importance and adds a third audit entry to reflect that you
+    made this change. The state of this finding can be seen in <xref
     linkend="fig-tutorial-audits" /></para>
 
     <para>Now let's examine the last finding by double-clicking on
-    this finding in the <emphasis>Findings Quick Search</emphasis>
+    this finding in the <guilabel>Findings Quick Search</guilabel>
     view. The finding should be at the bottom of the list list. This
     finding is complaining about our use of <computeroutput>new
     String("hello")</computeroutput> in the code. Explicit use of
@@ -414,11 +431,12 @@ if (o == null) {
       </mediaobject>
     </figure>
 
-    <para>In the <emphasis>Finding Details</emphasis> view select the
+    <para>In the <guilabel>Finding Details</guilabel> view select the
     artifacts tab (the last tab to the right) note that this finding
     has two artifacts. This finding is made up of two tool reports:
-    one from FindBugs and one from PMD.he state of this finding can be
-    seen in <xref linkend="fig-tutorial-artifacts" /></para>
+    one from FindBugs and one from PMD. The two artifacts that
+    establish this finding can be seen in <xref
+    linkend="fig-tutorial-artifacts" /></para>
 
     <para>In Sierra, reports from analysis tools are called
     artifacts. Sierra works to merge artifacts that are really about
@@ -433,14 +451,16 @@ if (o == null) {
     <computeroutput>box("hello")</computeroutput> and then scan the
     project one final time.</para>
 
-    <para>When the scan is completed the <emphasis>Findings Quick
-    Search</emphasis> view will update to show no findings. This
+    <para>When the scan is completed the <guilabel>Findings Quick
+    Search</guilabel> view will update to show no findings. This
     indicates that no new findings have been found and the two we were
-    working on have been fixed. Clear the query in the
-    <emphasis>Findings Quick Search</emphasis> view with the grey X
-    and press <emphasis>Status</emphasis> to see that two findings
-    have been fixed and one finding is unchanged as seen in <xref
-    linkend="fig-tutorial-status-fixed" /></para>
+    working on have been fixed. Clear the search in the
+    <guilabel>Findings Quick Search</guilabel> view by pressing the
+    <guiicon><inlinegraphic
+    fileref="images/asterisk-grey-x.png"></inlinegraphic></guiicon>
+    icon and press <guibutton>Status</guibutton> to see that two
+    findings have been fixed and one finding is unchanged as seen in
+    <xref linkend="fig-tutorial-status-fixed" /></para>
 
     <figure id="fig-tutorial-status-fixed">
       <title>Status bar graph after fixing two findings in the code.</title>
@@ -544,7 +564,7 @@ if (o == null) {
     <emphasis>Code Review</emphasis> perspective (using the
     <emphasis>Window</emphasis> | <emphasis>Reset
     Perspective</emphasis> command from the main menu) this view will
-    appear stacked in the lower-right quadrent of the perspective and
+    appear stacked in the lower-right quadrant of the perspective and
     you can click the title bar to bring it to the front. The second
     approach is to select <emphasis>Window</emphasis> | <emphasis>Show
     View</emphasis> | <emphasis>Other...</emphasis> from the main
@@ -665,7 +685,7 @@ if (o == null) {
     in the view to the right of the <emphasis>Network URL:</emphasis>
     label. This URL should also work from other machines on your local
     network. Sierra tries to determine your external IP address,
-    however, sometimes it mistakenly gets the loopback one (in which
+    however, sometimes it mistakenly gets the loop-back one (in which
     case you should examine the output of the
     <emphasis>ifconfig</emphasis> for Linux/Mac or <emphasis>ipconfig
     /all</emphasis> for Windows).</para>
@@ -764,7 +784,7 @@ if (o == null) {
 
     <para>The user management screen also lets users that have the
     administrative role change the name, role, status, and password of
-    any user. Users without the adminstrative role can only change
+    any user. Users without the administrative role can only change
     their password.</para>
 
     <para>We want to change the name of the user
@@ -1637,7 +1657,7 @@ if (o == null) {
 	  re-scan, synchronize, publish a scan, or disconnect from the
 	  main menu</emphasis> &mdash; The Scan Project, Re-Scan
 	  Changes in Project, Synchronize Project, Publish Latest
-	  Scan, and Disconnect choices are no longer greyed out when
+	  Scan, and Disconnect choices are no longer grayed out when
 	  no projects are selected in the Package Explorer.
 	  <mediaobject>
 	    <imageobject role="html">
@@ -1647,7 +1667,7 @@ if (o == null) {
 	  </mediaobject>
 	  A dialog now appears to allow you to select the set of
 	  projects you want to run the command on. This change is
-	  primarly intended to make it easier to start a scan on a set
+	  primarily intended to make it easier to start a scan on a set
 	  of Java projects. It also makes it easier to scan all open
 	  Java projects by using the <emphasis>Select All</emphasis>
 	  button in the dialog.
@@ -1665,7 +1685,7 @@ if (o == null) {
 	  will also be checked by default.) You may also elect to skip
 	  the dialog if you uncheck <emphasis>Show this dialog even
 	  when projects are selected in the Package
-	  Explorer</emphasis> (or the equilivant setting in the Sierra
+	  Explorer</emphasis> (or the equivalent setting in the Sierra
 	  preferences dialog).</para>
 	</listitem>
 	<listitem>
@@ -1715,7 +1735,7 @@ if (o == null) {
 	  address of your machine. The database and logs for this
 	  local team server appear in the
 	  <emphasis>~/.sierra-data/server</emphasis> directory on your
-	  machine. Three logs are avaiable for you to examine. The
+	  machine. Three logs are available for you to examine. The
 	  first log is the Jetty web server request log which shows
 	  traffic to the local server. The second log is the Sierra
 	  portal log which shows information from the Sierra portal
@@ -2144,7 +2164,7 @@ if (o == null) {
 	  little bit.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>The Sierra team servee does not email
+	  <para><emphasis>The Sierra team server does not email
 	  problems to system administrators</emphasis> &mdash; In this
 	  release the Sierra team server cannot be configured to email
 	  any internal errors to system administrators.
