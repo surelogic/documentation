@@ -686,24 +686,25 @@ if (o == null) {
       </figure>
 
       <para>Now exit Eclipse and open your favorite web browser.  Enter
-      <ulink url="http://localhost:13376/portal/">
-	http://localhost:13376/portal/</ulink> to bring up the team
-	server portal. Alternatively, you may also copy and paste the
-	URL shown in the view to the right of the <emphasis>Network
-	URL:</emphasis> label. This URL should also work from other
-	machines on your local network. Sierra tries to determine your
-	machine's external IP address, however, sometimes it
-	mistakenly gets the loop-back one (in which case you should
-	examine the output of the <emphasis>ifconfig</emphasis> for
-	Linux/Mac or <emphasis>ipconfig /all</emphasis> for Windows to
-	determine your machine's IP address). You do not need to know
-	your machine's external IP address for this tutorial.</para>
+      <ulink url="http://localhost:13376/sl/">
+      http://localhost:13376/sl/</ulink> to bring up the team server
+      portal. Alternatively, you may also copy and paste the URL shown
+      in the view to the right of the <guilabel>Network
+      URL:</guilabel> label. This URL should also work from other
+      machines on your local network. Sierra tries to determine your
+      machine's external IP address, however, sometimes it mistakenly
+      gets the loop-back one (in which case you should examine the
+      output of the <userinput>ifconfig</userinput> for Linux/Mac or
+      <userinput>ipconfig /all</userinput> for Windows to determine
+      your machine's IP address). You do not need to know your
+      machine's external IP address for this tutorial.</para>
 
       <para>A new team server only has one account:
-      <emphasis>admin</emphasis> with <emphasis>adminadmin</emphasis>
-      for its password. Enter this information and press the
-      <emphasis>Log In</emphasis> button. The welcome page for the team
-      server portal should appear as shown in <xref
+      <userinput>admin</userinput> with
+      <userinput>adminadmin</userinput> for its password. Enter this
+      information and press the <guibutton>Log In</guibutton>
+      button. The welcome page for the team server portal should
+      appear as shown in <xref
       linkend="fig-tutorial-portal-welcome-page-empty" /></para>
 
       <figure id="fig-tutorial-portal-welcome-page-empty">
@@ -722,13 +723,16 @@ if (o == null) {
       scans have been published and no users have contributed any audits
       our welcome page is a bit sparse.</para>
 
-      <para>Click on the <emphasis>Users</emphasis> tab to open the user
-      management page. This page lets you add and manage the users of
-      this server. We want to create two new users and disable the
-      default <emphasis>admin</emphasis> user. To add a new user click
-      on <emphasis>Add a new user</emphasis> link near the top of the
-      page. In the dialog that appears enter a <emphasis>zork</emphasis>
-      user using the following information</para>
+      <para>Click on the <guibutton>Manage Site</guibutton> link in
+      the upper-right of the page (just to the left of <guibutton>Log
+      Out</guibutton>) to open the site management page. Select the
+      <guibutton>Users</guibutton> tab to open the user management
+      page.  This page lets you add and manage the users of this
+      server. We want to create two new users and disable the default
+      <userinput>admin</userinput> user. To add a new user click on
+      <guibutton>Create a new user</guibutton> link near the top of
+      the page. In the dialog that appears enter a new user using the
+      following information:</para>
       
       <informaltable>
 	<tgroup cols='2' align='left'>
@@ -759,8 +763,9 @@ if (o == null) {
 	</tgroup>
       </informaltable>
 
-      <para>Repeat the process to create a <emphasis>troll</emphasis> user
-      using the following information:</para>
+      <para>Repeat the process to create a
+      <userinput>troll</userinput> user using the following
+      information:</para>
 
       <informaltable>
 	<tgroup cols='2' align='left'>
@@ -797,17 +802,18 @@ if (o == null) {
       their password.</para>
 
       <para>We want to change the name of the user
-      <emphasis>infocon</emphasis> to <emphasis>zork</emphasis> which is
-      easier for us to remember. Click on <emphasis>infocon</emphasis>
-      in the table to enable an in-place edit of this user name. Change
-      it to <emphasis>zork</emphasis> and press the
-      <emphasis>Enter</emphasis> key.</para>
+      <userinput>infocon</userinput> to <userinput>zork</userinput>
+      which is easier for us to remember. Click on
+      <userinput>infocon</userinput> in the table to enable an
+      in-place edit of this user name. Change it to
+      <userinput>zork</userinput> and press the <keycap>Enter</keycap>
+      key.</para>
 
-      <para>Select <emphasis>Log out</emphasis> in the upper-right-hand
-      corner of the page and log back in as the
-      <emphasis>zork</emphasis> user. Go back to the users panel. (Note
-      that you might need to refresh pages or restart your browser when
-      you log in as a different user.)</para>
+      <para>Select the <guibutton>Log Out</guibutton> link in the
+      upper-right-hand corner of the page and log back in as the
+      <userinput>zork</userinput> user. Go back to the users
+      panel. (Note that you might need to refresh pages or restart
+      your browser when you log in as a different user.)</para>
 
       <para>The status of a user is either enabled or disabled. An
       enabled user can login to the server portal a disabled user
@@ -832,14 +838,15 @@ if (o == null) {
 	</mediaobject>
       </figure>
 
-      <para>Click on <emphasis>Settings</emphasis> to open the settings
-      panel. This panel allows you to see the version of the software
-      and the current and available versions of the database schema as
-      shown in <xref linkend="fig-tutorial-portal-settings-page" /> The
-      current and available versions of the database schema should
-      always be the same number unless a schema upgrade failed for some
-      reason. If this should occur it is a software bug and should be
-      reported to SureLogic.</para>
+      <para>Click on the <guibutton>Settings</guibutton> tab to open
+      the settings panel. This panel allows you to see the version of
+      the software and the current and available versions of the
+      database schema as shown in <xref
+      linkend="fig-tutorial-portal-settings-page" /> The current and
+      available versions of the database schema should always be the
+      same number unless a schema upgrade failed for some reason. If
+      this should occur it is a software bug and should be reported to
+      SureLogic.</para>
 
       <para>This page also allows you to have the server email any
       errors it encounters to an administrator. You can fill in the
@@ -858,17 +865,17 @@ if (o == null) {
 
       <para>Log your browser out of the team server.</para>
 
-      <para>At this point start up Eclipse. Go to the <emphasis>Code
-      Review</emphasis> perspective. Select <emphasis>Sierra</emphasis>
-      | <emphasis>Configure Team Servers</emphasis> from the Eclipse
-      main menu. This will open the <emphasis>Sierra Team
-      Servers</emphasis> view. This is the view where connections from
-      the Eclipse client to team servers are defined. We will now define
-      a connection to the local team server we are running. To do this
-      click on the <emphasis>New team server location</emphasis> button
-      on the view (the only one that is enabled) or right-click in the
-      left-hand list and choose <emphasis>New...</emphasis> from the
-      context menu.</para>
+      <para>At this point start up Eclipse. Go to the <guilabel>Code
+      Review</guilabel> perspective. Select
+      <guimenuitem>Sierra</guimenuitem> | <guimenuitem>Configure Team
+      Servers</guimenuitem> from the Eclipse main menu. This will open
+      the <guilabel>Sierra Team Servers</guilabel> view. This is the
+      view where connections from the Eclipse client to team servers
+      are defined. We will now define a connection to the local team
+      server we are running. To do this click on the <guibutton>New
+      team server location</guibutton> button on the view (the only
+      one that is enabled) or right-click in the left-hand list and
+      choose <emphasis>New...</emphasis> from the context menu.</para>
 
       <para>The <emphasis>New Sierra Team Server Location</emphasis>
       dialog which allows you to fill in the required information about
