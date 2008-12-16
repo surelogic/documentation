@@ -152,10 +152,10 @@
       individual results.</para>
 
       <para>Small orange <guiicon><inlinegraphic
-      fileref="images/asterisk-orange.png"></inlinegraphic></guiicon>
-      icons appear in the Java editor gutter to highlight tool
-      findings. By default, these gutter icons only appear for findings
-      deemed of high or critical importance.</para>
+      fileref="images/asterisk-orange.png" /></guiicon> icons appear
+      in the Java editor gutter to highlight tool findings. By
+      default, these gutter icons only appear for findings deemed of
+      high or critical importance.</para>
 
       <para>If you click on a finding in the <guilabel>Findings Quick
       Search</guilabel> or in the Java editor that finding will be shown
@@ -300,29 +300,29 @@ if (o == null) {
       seems to disappear, however, the tool knows it has been
       fixed.</para>
 
-      <para>In the <guilabel>Findings Quick Search</guilabel> clear your
-      current search by pressing the <guiicon><inlinegraphic
-      fileref="images/asterisk-grey-x.png"></inlinegraphic></guiicon>
-      icon in the upper-right of the view. Now select
+      <para>In the <guilabel>Findings Quick Search</guilabel> clear
+      your current search by pressing the <guiicon><inlinegraphic
+      fileref="images/asterisk-grey-x.png" /></guiicon> icon in the
+      upper-right of the view. Now select
       <guibutton>Status</guibutton> check <guibutton>Fixed</guibutton>
       and then <guibutton>Show</guibutton> to see the finding you just
       fixed. Sierra works hard to remember findings across scans. It
-      does this by matching findings reported in each scan (The matching
-      heuristic used by the tool is not perfect but will work most of
-      the time, however, aggressive code changes might throw it
-      off).</para>
+      does this by matching findings reported in each scan (The
+      matching heuristic used by the tool is not perfect but will work
+      most of the time, however, aggressive code changes might throw
+      it off).</para>
 
-      <para>In the <guilabel>Findings Quick Search</guilabel> clear your
-      current search again by pressing the <guiicon><inlinegraphic
-      fileref="images/asterisk-grey-x.png"></inlinegraphic></guiicon>
-      icon in the upper-right of the view. Select
-      <guibutton>Importance</guibutton> and then right click on the bar
-      chart and select <guibutton>Select All</guibutton> from the
+      <para>In the <guilabel>Findings Quick Search</guilabel> clear
+      your current search again by pressing the
+      <guiicon><inlinegraphic fileref="images/asterisk-grey-x.png"
+      /></guiicon> icon in the upper-right of the view. Select
+      <guibutton>Importance</guibutton> and then right click on the
+      bar chart and select <guibutton>Select All</guibutton> from the
       context menu. This is a quick way to select all the items
       listed. Select <guibutton>Audited</guibutton> and check the two
       items listed (Yes and No) and then select
-      <guibutton>Show</guibutton> to see all the findings from the most
-      recent scan.</para>
+      <guibutton>Show</guibutton> to see all the findings from the
+      most recent scan.</para>
 
       <para>Select the first finding shown. It warns that all classes
       and interfaces should belong to a named package.  This is not a
@@ -453,11 +453,11 @@ if (o == null) {
 
       <para>When the scan is completed the <guilabel>Findings Quick
       Search</guilabel> view will update to show no findings. This
-      indicates that no new findings have been found and the two we were
-      working on have been fixed. Clear the search in the
+      indicates that no new findings have been found and the two we
+      were working on have been fixed. Clear the search in the
       <guilabel>Findings Quick Search</guilabel> view by pressing the
       <guiicon><inlinegraphic
-		   fileref="images/asterisk-grey-x.png"></inlinegraphic></guiicon>
+      fileref="images/asterisk-grey-x.png" /></guiicon>
       icon and press <guibutton>Status</guibutton> to see that two
       findings have been fixed and one finding is unchanged as seen in
       <xref linkend="fig-tutorial-status-fixed" /></para>
@@ -483,53 +483,55 @@ if (o == null) {
 
       <para>This tutorial assumes that you have installed Sierra and
       have run through <xref linkend="sec-tutorial-client" /> (For
-      understanding only, this tutorial does not use the ShowOff
-      project.) It also assumes that you have the <emphasis>Sierra Local
-      Team Server (Optional)</emphasis> featured installed (available on
-      the SureLogic update site). This tutorial introduces you to use of
-      a Sierra team server. The team server helps a group of programmers
+      understanding only, this tutorial does not use the
+      <application>ShowOff</application> project.) It also assumes
+      that you have the <emphasis>Sierra Local Team Server
+      (Optional)</emphasis> featured installed (available on the
+      SureLogic update site). This tutorial introduces you to use of a
+      Sierra team server. The team server helps a group of programmers
       work together with Sierra.</para>
 
-      <para>By providing you with a Team Server that you can quickly and
+      <para>By providing you with a team server that you can quickly and
       easily download and install on your desktop machine to support a
       small development team, we hope to introduce you to the
       collaboration capabilities offered by Sierra. If you are
       interested in hosting large teams, SureLogic offers secure,
-      high-availability hosting of Team Servers in our data center. We
-      also sell enterprise software licenses so that you can deploy Team
-      Server(s) on enterprise hardware/infrastructure at your company.
+      high-availability hosting of team servers in our data center. We
+      also sell enterprise software licenses so that you can deploy team
+      servers on enterprise hardware/infrastructure at your company.
       Please contact us at <email>support@surelogic.com</email> for more
-      information about Team Server hosting and/or enterprise software
+      information about team server hosting and/or enterprise software
       licenses.</para>
 
-      <para>First download the <emphasis>SmallWorld</emphasis> project
-      from www.surelogic.com at <ulink
+      <para>First download the <application>SmallWorld</application>
+      project from www.surelogic.com at <ulink
       url="http://www.surelogic.com/sierra/help/SmallWorld.zip">
       http://www.surelogic.com/sierra/help/SmallWorld.zip</ulink> to
       your disk. Unzip this archive into your workspace and it will
-      create a <emphasis>SmallWorld</emphasis> directory. Next import
+      create a <filename>SmallWorld</filename> directory. Next import
       this project into your Eclipse workspace using
-      <emphasis>File</emphasis> | <emphasis>Import...</emphasis> from
-      the Eclipse main menu and then choosing <emphasis>Existing
-      Projects into Workspace</emphasis> for the import wizard. Follow
-      the import steps of wizard until the SmallWorld project is
-      imported and built.</para>
+      <guimenuitem>File</guimenuitem> |
+      <guimenuitem>Import...</guimenuitem> from the Eclipse main menu
+      and then choosing <emphasis>Existing Projects into
+      Workspace</emphasis> for the import wizard. Follow the import
+      steps of wizard until the <application>SmallWorld</application>
+      project is imported and built.</para>
 
       <para>SmallWorld is a Java text-oriented adventure game. The
       Colossal Cave Adventure game, produced in the 70s, was the
       historic first "interactive fiction" game, in which the computer
-      would simulate and describe a situation and the user would type in
-      what to do next, in simple English. Read through the
-      <emphasis>overview.html</emphasis> file in the
-      <emphasis>src</emphasis> directory for more information about this
-      software.</para>
+      would simulate and describe a situation and the user would type
+      in what to do next, in simple English. Read through the
+      <filename>overview.html</filename> file in the
+      <filename>src</filename> directory for more information about
+      this software.</para>
 
       <para>To run SmallWorld in an Eclipse console run the
-      <emphasis>SmallWorld</emphasis> class in the
-      <emphasis>smallworld.textui.console</emphasis> package. To run
+      <varname>SmallWorld</varname> class in the
+      <varname>smallworld.textui.console</varname> package. To run
       SmallWorld in a graphical window run the
-      <emphasis>SmallWorld</emphasis> class in the
-      <emphasis>smallworld.textui.graphical</emphasis> package. The
+      <varname>SmallWorld</varname> class in the
+      <varname>smallworld.textui.graphical</varname> package. The
       graphical window version of the game is shown in <xref
       linkend="fig-running-smallworld" /></para>
 
@@ -544,36 +546,39 @@ if (o == null) {
       </figure>
 
       <para>Go ahead and run the game and play it for a while. The
-      <emphasis>help</emphasis> command will tell you the commands the
-      software understands. SmallWorld is clearly a work in progress as
-      there is no way to win the game and there are no items to interact
-      with in the virtual world. All you can do is move around and load
-      and save your game.</para>
+      <userinput>help</userinput> command will tell you the commands
+      the software understands. SmallWorld is clearly a work in
+      progress as there is no way to win the game and there are no
+      items to interact with in the virtual world. All you can do is
+      move around and load and save your game.</para>
 
       <para>When you are done playing the game, go ahead and scan the
       SmallWorld project.</para>
 
-      <para>This tutorial will use a team server running on your
+      <para>This tutorial uses a team server running on your
       desktop. The <emphasis>Sierra Local Team Server
-      (Optional)</emphasis> feature contributes a <emphasis>Local Team
-      Server</emphasis> view that allows you to start, stop, and examine
-      the logs of a Sierra team server that you run on your desktop.</para>
+      (Optional)</emphasis> feature contributes a <guilabel>Local Team
+      Server</guilabel> view that allows you to start, stop, and
+      examine the logs of a Sierra team server that you run on your
+      desktop.</para>
 
-      <para>Open the <emphasis>Local Team Server</emphasis> view. You
+      <para>Open the <guilabel>Local Team Server</guilabel> view. You
       can do this one of two ways. The first approach is to reset the
       <emphasis>Code Review</emphasis> perspective (using the
-      <emphasis>Window</emphasis> | <emphasis>Reset
-      Perspective</emphasis> command from the main menu) this view will
-      appear stacked in the lower-right quadrant of the perspective and
-      you can click the title bar to bring it to the front. The second
-      approach is to select <emphasis>Window</emphasis> | <emphasis>Show
-      View</emphasis> | <emphasis>Other...</emphasis> from the main
-      menu. Then from the dialog that appears select the <emphasis>Local
-      Team Server</emphasis> view under the Sierra category and press
-      the <emphasis>OK</emphasis> button. The view appears as shown in
-      <xref linkend="fig-tutorial-local-team-server" /> (If you cannot
-      find this view in Eclipse then it is likely that this feature is
-      not installed. Go back to the SureLogic update site and install
+      <guimenuitem>Window</guimenuitem> | <guimenuitem>Reset
+      Perspective</guimenuitem> command from the main menu) this view
+      will appear stacked in the lower-right quadrant of the
+      perspective and you can click the title bar to bring it to the
+      front. The second approach is to select
+      <guimenuitem>Window</guimenuitem> | <guimenuitem>Show
+      View</guimenuitem> | <guimenuitem>Other...</guimenuitem> from
+      the main menu. Then from the dialog that appears select the
+      <guilabel>Local Team Server</guilabel> view under the Sierra
+      category and press the <guibutton>OK</guibutton> button. The
+      view appears as shown in <xref
+      linkend="fig-tutorial-local-team-server" /> (If you cannot find
+      this view in Eclipse then it is likely that this feature is not
+      installed. Go back to the SureLogic update site and install
       it.)</para>
 
       <figure id="fig-tutorial-local-team-server">
@@ -586,21 +591,22 @@ if (o == null) {
 	</mediaobject>
       </figure>
 
-      <para>The team server controlled by this view is fully functional
-      and can be connected to by other computers on your network using
-      the IP address of your machine (depending, of course, upon the
-      routing and firewall configuration on your network). The database
-      and logs for this local team server appear in the
-      <emphasis>~/.sierra-data/server</emphasis> directory on your
-      machine. Three logs are available for you to examine. The first
-      log is the Jetty web server request log which shows traffic to the
-      local server. The second log is the Sierra portal log which shows
-      information from the Sierra portal web site. The third log is the
-      Sierra services log which shows information about communication
-      between Sierra Eclipse clients and the local server. To view these
-      logs select <emphasis>Show Server Logs</emphasis> from the view
-      menu as shown in <xref
-      linkend="fig-tutorial-local-team-server-logs" /></para>
+      <para>The team server controlled by this view is fully
+      functional and can be connected to by other computers on your
+      network using the IP address of your machine (depending, of
+      course, upon the routing and firewall configuration on your
+      network). The database and logs for this local team server
+      appear in the <filename>~/.sierra-data/server</filename>
+      directory on your machine. Three logs are available for you to
+      examine. The first log is the Jetty web server request log which
+      shows traffic to the local server. The second log is the Sierra
+      portal log which shows information from the Sierra portal web
+      site. The third log is the Sierra services log which shows
+      information about communication between Sierra Eclipse clients
+      and the local server. To view these logs select
+      <guimenuitem>Show Server Logs</guimenuitem> from the view menu
+      as shown in <xref linkend="fig-tutorial-local-team-server-logs"
+      /></para>
 
       <figure id="fig-tutorial-local-team-server-logs">
 	<title>The Local Team Server view showing the server
@@ -613,13 +619,14 @@ if (o == null) {
 	</mediaobject>
       </figure>
 
-      <para>From the same menu used to show the logs you can also access
-      the local team server preferences. Select the
-      <emphasis>Preferences...</emphasis> menu item. You will see <xref
-      linkend="fig-tutorial-local-team-server-preferences" /> This panel
-      lets you adjust the memory used by the local team server. The
-      default value is fine for this tutorial so press the
-      <emphasis>Cancel</emphasis> button to exit the panel. (If your
+      <para>From the same menu used to show the logs you can also
+      access the local team server preferences. Select the
+      <guimenuitem>Preferences...</guimenuitem> menu item. You will
+      see <xref linkend="fig-tutorial-local-team-server-preferences"
+      /> This panel lets you adjust the memory used by the local team
+      server and set the level of logging output. The default value is
+      fine for this tutorial so press the
+      <guibutton>Cancel</guibutton> button to exit the panel. (If your
       computer can't handle the default setting then you might get an
       infinite yellow light below. If this happens restart Eclipse and
       lower the memory to try again.)</para>
@@ -636,17 +643,17 @@ if (o == null) {
       </figure>
 
       <para>So that this tutorial can start with a fresh team server
-      database, delete the <emphasis>~/.sierra-data/server</emphasis>
+      database, delete the <filename>~/.sierra-data/server</filename>
       directory on your machine if it exists. Next, press the
-      <emphasis>Start Server</emphasis> button on the view. A dialog
+      <guibutton>Start Server</guibutton> button on the view. A dialog
       will appear warning you that the life of the server process you
-      are starting is not tied to the life of your Eclipse process. This
-      dialog is shown in <xref
-      linkend="fig-tutorial-local-team-server-warning-dialog" /> Read it
-      and press the <emphasis>OK</emphasis> button. The traffic light
-      will change to yellow during server start up. The first time a
-      local team server is started may take several minutes because its
-      database has to be created.</para>
+      are starting is not tied to the life of your Eclipse
+      process. This dialog is shown in <xref
+      linkend="fig-tutorial-local-team-server-warning-dialog" /> Read
+      it and press the <guibutton>OK</guibutton> button. The traffic
+      light will change to yellow during server start up. The first
+      time a local team server is started may take several minutes
+      because its database has to be created.</para>
 
       <figure id="fig-tutorial-local-team-server-warning-dialog">
 	<title>Warning you that the local team server does not exit when
@@ -659,13 +666,13 @@ if (o == null) {
 	</mediaobject>
       </figure>
 
-      <para>The traffic light will change to green when the team server
-      is up and running. When this occurs click on the hyperlink
-      <emphasis>here</emphasis> within the message line <emphasis> A
-      team server is running. Click here to open a browser. </emphasis>
-      to open a web browser within Eclipse on the team server portal
-      login page. The views appear as shown in <xref
-      linkend="fig-tutorial-local-team-server-running" /></para>
+      <para>The traffic light will change to green when the team
+      server is up and running. When this occurs click on the
+      hyperlink <emphasis>here</emphasis> within the message line
+      <emphasis>A team server is running. Click here to open a
+      browser.</emphasis> to open a web browser within Eclipse on the
+      team server portal login page. The views appear as shown in
+      <xref linkend="fig-tutorial-local-team-server-running" /></para>
 
       <figure id="fig-tutorial-local-team-server-running">
 	<title>The team server web portal and the Local Team Server view
@@ -680,15 +687,17 @@ if (o == null) {
 
       <para>Now exit Eclipse and open your favorite web browser.  Enter
       <ulink url="http://localhost:13376/portal/">
-	http://localhost:13376/portal/</ulink> to bring up the team server
-	portal. Alternatively, you may also copy and paste the URL shown
-	in the view to the right of the <emphasis>Network URL:</emphasis>
-	label. This URL should also work from other machines on your local
-	network. Sierra tries to determine your external IP address,
-	however, sometimes it mistakenly gets the loop-back one (in which
-	case you should examine the output of the
-	<emphasis>ifconfig</emphasis> for Linux/Mac or <emphasis>ipconfig
-      /all</emphasis> for Windows).</para>
+	http://localhost:13376/portal/</ulink> to bring up the team
+	server portal. Alternatively, you may also copy and paste the
+	URL shown in the view to the right of the <emphasis>Network
+	URL:</emphasis> label. This URL should also work from other
+	machines on your local network. Sierra tries to determine your
+	machine's external IP address, however, sometimes it
+	mistakenly gets the loop-back one (in which case you should
+	examine the output of the <emphasis>ifconfig</emphasis> for
+	Linux/Mac or <emphasis>ipconfig /all</emphasis> for Windows to
+	determine your machine's IP address). You do not need to know
+	your machine's external IP address for this tutorial.</para>
 
       <para>A new team server only has one account:
       <emphasis>admin</emphasis> with <emphasis>adminadmin</emphasis>
@@ -1641,7 +1650,7 @@ if (o == null) {
 
     <section id="sec-sierra-release-2-2">
       <title>Sierra version 2.2</title>
-      <para>This section describes the 2.1 version of the Sierra Eclipse
+      <para>This section describes the 2.2 version of the Sierra Eclipse
       client and the Sierra team server.</para>
 
       <section>
@@ -1668,6 +1677,15 @@ if (o == null) {
 	    addition, the user can preview the exact text that will be
 	    sent.
 	    </para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>New look for the Sierra Servers
+	    view</emphasis> &mdash; The Sierra Servers view has a new
+	    tree look. The view contains more information about the
+	    state of connections to one or more Sierra team servers.
+	    In addition, a significant number of preferences can be
+	    set to control interaction with team servers.
+            </para>
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>License management added</emphasis>
@@ -1779,15 +1797,6 @@ if (o == null) {
 	    out of the list the view focuses on the next item in the
 	    list rather than moving you to the top of the list. This
 	    feature helps to resolve SureLogic bug 1391.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>New look for the Sierra Servers
-	    view</emphasis> &mdash; The Sierra Servers view has a new
-	    tree look. The view contains more information about the
-	    state of connections to one or more Sierra team servers.
-	    In addition, a significant number of preferences can be
-	    set to control interaction with team servers.
-            </para>
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>Local team server feature added</emphasis>
