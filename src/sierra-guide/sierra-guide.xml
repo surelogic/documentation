@@ -1181,14 +1181,15 @@ if (o == null) {
 	</mediaobject>
       </figure>
 
-      <para>The Sierra menu appears as an item on the Eclipse workspace
-      main menu. This menu provides direct access to common Sierra
-      commands. Several of the menu items are only available if a
-      project is selected in the <emphasis>Package Explorer</emphasis>
-      view. The menu is divided into two sections. The top section
-      contains commands that are useful in a stand-alone client. The
-      bottom section contains commands that communicate with one or more
-      Sierra team servers.</para>
+      <para>The Sierra menu appears as an item on the Eclipse
+      workspace main menu. This menu provides direct access to common
+      Sierra commands. The menu is divided into four sections. The top
+      section contains commands that are useful in a stand-alone
+      client. The second section (from the top) contains commands that
+      communicate with one or more Sierra team servers. The third
+      section contains commands to report problems or suggest
+      improvements about Sierra to Surelogic.  The bottom section
+      allows access to the license management dialog.</para>
 
       <para>The commands on the Sierra main menu are:</para>
 
@@ -1235,7 +1236,7 @@ if (o == null) {
 	  <emphasis>Scan Project</emphasis> command.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis> Open Code Review Perspective</emphasis>
+	  <para><emphasis>Open Code Review Perspective</emphasis>
 	  &mdash; This menu choice opens the <emphasis>Code
 	  Review</emphasis> perspective. This perspective is useful for
 	  examining and auditing analysis findings. This perspective may
@@ -1243,18 +1244,24 @@ if (o == null) {
 	  perspectives.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Configure Team Servers</emphasis> &mdash; This
-	  menu choice opens and gives the focus to the <emphasis>Sierra
-	  Team Servers</emphasis> view. This view is used to manage
-	  connections to Sierra team servers.</para>
+	  <para><emphasis>Configure Team Servers</emphasis> &mdash;
+	  This menu choice opens and gives the focus to the
+	  <emphasis>Sierra Servers</emphasis> view. This view is used
+	  to manage connections to Sierra team servers.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Synchronize All Connected Projects</emphasis>
+	  <para><emphasis>Synchronize All Server Data</emphasis>
 	  &mdash; This menu choice synchronizes audits for all the
-	  projects connected to all Sierra team servers. This command
-	  has the same effect as selecting each connected project and
-	  selecting the <emphasis>Synchronize Project</emphasis> menu
-	  item.</para>
+	  projects connected to all Sierra team servers. All BugLink
+	  data is synchronized as well.  This command has the same
+	  effect as selecting each connected project and selecting the
+	  <emphasis>Synchronize Project</emphasis> menu item.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Synchronized All BugLink Data</emphasis>
+	  &mdash; This menu choice syncornized all BugLink data with
+	  all known Sierra team servers.  This command doees not
+	  synchronize audits.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis>Synchronize Project</emphasis> &mdash; This
@@ -1263,7 +1270,7 @@ if (o == null) {
 	  (made by other users) from the server to this client.  A
 	  dialog is opened to allow the user to select the set of
 	  projects to run this command on that operates just like the
-	  <emphasis>Scan Project</emphasis> command.</para>
+	  <emphasis>Scan Project</emphasis> command.  All BugLink data is</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis>Publish Latest Scan</emphasis> &mdash; This
@@ -1288,6 +1295,68 @@ if (o == null) {
 	  dialog is opened to allow the user to select the set of
 	  projects to run this command on that operates just like the
 	  <emphasis>Scan Project</emphasis> command.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Send Tip for Improvement</emphasis> &mdash;
+	  This command opens a dialog to allow entry of a suggestion
+	  by the user to improve the Sierra tool.  The dialog allows
+	  the user to control exactly what information is sent to
+	  SureLogic.  In addition, the user can preview the exact text
+	  that will be sent.
+	  </para>
+
+	  <figure id="fig-menu-service-send-tip">
+	    <title>Dialog allowing the user to enter a tip to improve Sierra.</title>
+	    <mediaobject>
+	      <imageobject role="html">
+		<imagedata
+		    fileref="images/service-send-tip.png" />
+	      </imageobject>
+	    </mediaobject>
+	  </figure>
+
+	  <para>Messages sent from these dialogs go over HTTP to
+	  SureLogic.  If a proxy is used on your network then it is
+	  critical to configure Eclipse.  To do this open the
+	  Eclipse <guilabel>Preferences</guilabel> and examine the
+	  <guilabel>Network Connections</guilabel> under the
+	  <guilabel>General</guilabel> preferences.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Send Problem report</emphasis> &mdash; This
+	  command opens a dialog to allow entry of a problem report by
+	  the user about the Sierra tool.  The dialog allows the user
+	  to control exactly what information is sent to SureLogic.
+	  In addition, the user can preview the exact text that will
+	  be sent.
+	  </para>
+
+	  <figure id="fig-menu-service-problem-report">
+	    <title>Dialog allowing the user to enter a problem report about Sierra.</title>
+	    <mediaobject>
+	      <imageobject role="html">
+		<imagedata
+		    fileref="images/service-problem-report.png" />
+	      </imageobject>
+	    </mediaobject>
+	  </figure>
+
+
+	  <para>Messages sent from these dialogs go over HTTP to
+	  SureLogic.  If a proxy is used on your network then it is
+	  critical to configure Eclipse.  To do this open the
+	  Eclipse <guilabel>Preferences</guilabel> and examine the
+	  <guilabel>Network Connections</guilabel> under the
+	  <guilabel>General</guilabel> preferences.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Manage SureLogic Licenses</emphasis> &mdash;
+	  This command opens the SureLogic license management
+	  dialog. This dialog allows the user to install, view, and
+	  uninstall licenses for Sierra and other SureLogic tools.
+	  </para>
 	</listitem>
       </orderedlist>
     </section>
@@ -1683,6 +1752,20 @@ if (o == null) {
 	    control exactly what information is sent to SureLogic.  In
 	    addition, the user can preview the exact text that will be
 	    sent.
+	    </para>
+	    <para>Messages sent from these dialogs go over HTTP to
+	    SureLogic.  If a proxy is used on your network then it is
+	    critical to configure Eclipse.  To do this open the
+	    Eclipse <guilabel>Preferences</guilabel> and examine the
+	    <guilabel>Network Connections</guilabel> under the
+	    <guilabel>General</guilabel> preferences.  This dialog
+	    allows you to configure Eclipse for your network.
+	    <mediaobject>
+	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-2-network-connections.png" />
+	      </imageobject>
+	    </mediaobject>
 	    </para>
 	  </listitem>
 	  <listitem>
