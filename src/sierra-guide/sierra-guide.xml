@@ -94,11 +94,13 @@
       </orderedlist>
 
       <para>The next section describe how to scan your code and get
-      started quickly with the Sierra tool. If you have used FindBugs or
-      PMD and want to get going on your own code this is your quickest
-      route. The final section is a tutorial of using the tool on a
-      small example Java project. If you don't have any code and want to
-      try out Sierra this is your quickest route.</para>
+      started quickly with the Sierra tool. If you have used FindBugs
+      or PMD and want to get going on your own code this is your
+      quickest route. The section after that introduces important
+      concepts and definitions that are important to understand when
+      using Sierra. The final section is a tutorial of using the tool
+      on a small example Java project. If you don't have any code and
+      want to try out Sierra this is your quickest route.</para>
     </section>
 
     <section>
@@ -167,6 +169,62 @@
       <para>This section is a quick overview of how to scan your code
       and examine findings about your code. The next section contains a
       tutorial that describes tool use in further detail.</para>
+    </section>
+
+    <section>
+      <title>Concepts</title>
+
+      <para>This section introduces the concepts and definitions that
+      underly Sierra.</para>
+
+      <para>When Sierra examines your code this is called a
+      <emphasis>scan</emphasis>.  Multiple analysis tools report
+      issues when Sierra performs a scan of your code.  By default,
+      the analysis tools run during a Sierra scan are FindBugs, PMD,
+      and Reckoner. The output of a scan is a <emphasis>scan
+      document</emphasis>.  A scan document is an XML file that
+      contains all the issues reported by all the analysis tools.  The
+      scan document is unfiltered and may contain hundreds of
+      thousands of tool-reported issues.  Scan documents are stored in
+      your Sierra data directory.  This directory, by default, is
+      <filename>~/.sierra-data</filename>.</para>
+
+      <para>The raw results reported by analysis tools during a scan
+      are called <emphasis>artifacts</emphasis> by Sierra.  A
+      <emphasis>finding</emphasis> in Sierra is made up of one or more
+      artifacts.  The reason for this distinction between an artifact
+      and a finding is two-fold: to merge the "same" artifact from two
+      different tools and to track an issue over time (e.g., across
+      multiple scans).  First, two analysis tools may report artifacts
+      that are essentially the same issue.  For example, the line of
+      Java code shown below would generate an artifact from both the
+      FindBugs and PMD analysis tools.
+      </para>
+
+      <programlisting>
+<![CDATA[
+String hi = new String("hi");
+}]]>
+      </programlisting>
+
+      <para>It would be annoying to the user to deal with two reports
+      for the same exact issue, so Sierra maps similar artifacts from
+      two different analysis tools into one finding.</para>
+
+      <para>The second distinction between an artifact and a finding
+      involves tracking the same code issue across multiple scans.  An
+      artifact is tied to one scan.  A finding can exist across
+      multiple scans.  Sierra uses a matching heuristic to try and
+      "attach" an artifact reported by a new scan to an existing
+      finding.  A new finding is only created if no match can be
+      found.  This is desirable because it allows the user to
+      understand change over time, or the lack of change over time, in
+      a code base with respect to the code issues reported by
+      Sierra.</para>
+
+      <para>Findings are created when a scan document is loaded into
+      the Sierra database.</para>
+
     </section>
 
     <section id="sec-tutorial-client">
