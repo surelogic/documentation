@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
@@ -112,30 +112,28 @@
 
       <para>When Sierra examines your code, this is called a
       <emphasis>scan</emphasis>.  By default, a Sierra scan runs three
-      analysis tools: FindBugs, PMD, and Reckoner. 
-      </para>
-     
+      analysis tools: FindBugs, PMD, and Reckoner.</para>
+
       <para>The output of a scan is a <emphasis>scan
       document</emphasis>.  A scan document is an XML file that
-      contains all the issues reported by the various analysis tools.  The
-      scan document is unfiltered and may contain hundreds of
+      contains all the issues reported by the various analysis tools.
+      The scan document is unfiltered and may contain hundreds of
       thousands of tool-reported issues.  Scan documents are stored in
       your Sierra data directory.  This directory, by default, is
       <filename>~/.sierra-data</filename>.</para>
 
       <para>The results reported by analysis tools during a scan are
       called <emphasis>artifacts</emphasis> by Sierra.  It aggregates
-      these results to produce <emphasis>findings</emphasis>, each of 
-      which is made up of one or more artifacts.  The reason for this 
-      distinction between an artifact and a finding is two-fold: 
-      to merge the "same" artifact reported
-      by two different tools and to track a particular code issue over
-      time (e.g., across multiple scans).  Two analysis tools may
-      report artifacts that are essentially the same issue.  For
-      example, the line of Java code shown below would generate an
-      artifact from both the FindBugs and PMD analysis tools that
-      explicit construction of string objects is inefficient.
-      </para>
+      these results to produce <emphasis>findings</emphasis>, each of
+      which is made up of one or more artifacts.  The reason for this
+      distinction between an artifact and a finding is two-fold: to
+      merge the "same" artifact reported by two different tools and to
+      track a particular code issue over time (e.g., across multiple
+      scans).  Two analysis tools may report artifacts that are
+      essentially the same issue.  For example, the line of Java code
+      shown below would generate an artifact from both the FindBugs
+      and PMD analysis tools that explicit construction of string
+      objects is inefficient.</para>
 
       <programlisting><![CDATA[String hi = new String("hi");]]></programlisting>
 
@@ -2109,6 +2107,17 @@ if (o == null) {
 
 	<para>This section describes known bugs and limitations in this
 	version of Sierra.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Shutdown of Eclipse while a scan is
+	    running can cause scan failure.</emphasis> In some cases
+	    shutting down Eclipse when a scan is running in the
+	    background can cause the scan to fail.  It is recommended
+	    that Eclipse be left running until all scans are
+	    completed.</para>
+	  </listitem>
+	</orderedlist>
       </section>
 
     </section>
