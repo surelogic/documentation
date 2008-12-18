@@ -190,12 +190,12 @@
       categories.</para>
 
       <para>Armed with an understanding of what Sierra defines an
-      artifact, a finding, and a category to be we return to what
+      artifact, a finding, and a category to be, we return to what
       happens when Sierra scans code and introduce the idea of a scan
       filter.  When a scan is done several steps occur within Sierra.
       First the analysis tools are run.  These tools produce a scan
       document.  Next this scan document is loaded into a database.
-      While the scan document is loaded findings are matched and
+      While the scan document is loaded, findings are matched and
       created and a scan filter is applied.  A <emphasis>scan
       filter</emphasis> is the mechanism to control what finding types
       are deemed important to report to the user.  The scan filter
@@ -217,15 +217,15 @@
       client stores two scans of each project: the most recent, or
       current, scan and the previous scan.  This model allows the
       client to "diff" the two scans and report to the user what has
-      changed.  In the Sierra Eclipse client Java projects may be
+      changed.  In the Sierra Eclipse client, Java projects may be
       connected to one and only one Sierra team server.  When a Java
-      project is connected to a team server it is possible to publish
+      project is connected to a team server, it is possible to publish
       scans to that team server from Eclipse.  The scan filter used
       for a scan run from the Sierra Eclipse client depends upon if
       the Java project scanned is connected to a team server or not.
-      If the project is connected to a team server then the scan
+      If the project is connected to a team server, then the scan
       filter defined by that team server is used.  If the project is
-      not connected to a team server then the local scan filter is
+      not connected to a team server, then the local scan filter is
       used.</para>
 
       <para><emphasis>Team server scan model:</emphasis> The Sierra
@@ -248,7 +248,7 @@
       that project is subsequently connected to a team server and the
       scan is published (i.e., uploaded) from the client to that team
       server then the default scan filter for that team server is
-      applied to the scan.  In this example two different scan filters
+      applied to the scan.  In this example, two different scan filters
       where applied and they may not be the same.  This issue can be a
       source of confusion, but, as described below, Sierra tries to
       minimize this confusion by using the server scan filter for
