@@ -275,23 +275,25 @@
       be able to produce longitudinal reports and therefore needs to
       save the results of a large number of scans.</para>
 
-      <para><emphasis>BugLink vs. code data:</emphasis> A Sierra team
-      server holds two different kinds of data: BugLink and
-      code. BugLink data includes artifact definitions, finding type
-      definitions, category definitions, and scan filters. Code data
-      includes scan data (findings and artifacts), audit data, code
-      metrics data, and any other analysis results about code.  Why
-      this distinction between types of data?  Because Sierra supports
-      multiple team servers across an organization. BugLink data can
-      be transferred between team servers and code data can't.  Team
-      servers can share category and scan filter definitions, but they
-      can't share scans and audits.</para>
+      <para><emphasis>BugLink vs. ScanLink data:</emphasis> A Sierra
+      team server holds two different kinds of data: BugLink and
+      ScanLink. BugLink data includes artifact definitions, finding
+      type definitions, category definitions, and scan
+      filters. ScanLink data includes scan data (findings and
+      artifacts), audit data, code metrics data, and any other
+      analysis results about code.  Why this distinction between types
+      of data?  Because Sierra supports multiple team servers across
+      an organization. BugLink data can be transferred between team
+      servers and ScanLink data can't (ScanLink data is transferred
+      between clients and a team server).  Team servers can share
+      category and scan filter definitions, but they can't share scans
+      and audits.</para>
 
       <para>All Sierra team servers hold BugLink data, but only some
-      hold code data.  This allows some team servers to be purposed as
-      a repository for category and scan filter information within an
-      organization without hosting the scan and audit data for any
-      projects.</para>
+      hold ScanLink data.  This allows some team servers to be
+      purposed as a repository for category and scan filter
+      information within an organization without hosting the scan and
+      audit data for any projects.</para>
 
     </section>
 
