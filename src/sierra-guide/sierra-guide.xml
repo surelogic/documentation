@@ -124,35 +124,120 @@
 
       <para>The results reported by analysis tools during a scan are
       called <emphasis>artifacts</emphasis> by Sierra.  A
-      <emphasis>finding</emphasis> in Sierra is made up of one or more
+      <emphasis>finding</emphasis> is made up of one or more
       artifacts.  The reason for this distinction between an artifact
-      and a finding is two-fold: to merge the "same" artifact from two
-      different tools and to track an issue over time (e.g., across
-      multiple scans).  First, two analysis tools may report artifacts
-      that are essentially the same issue.  For example, the line of
-      Java code shown below would generate an artifact from both the
-      FindBugs and PMD analysis tools about not explicitly
-      constructing string objects.
+      and a finding is two-fold: to merge the "same" artifact reported
+      by two different tools and to track a particular code issue over
+      time (e.g., across multiple scans).  Two analysis tools may
+      report artifacts that are essentially the same issue.  For
+      example, the line of Java code shown below would generate an
+      artifact from both the FindBugs and PMD analysis tools that
+      explicit construction of string objects is inefficient.
       </para>
 
       <programlisting><![CDATA[String hi = new String("hi");]]></programlisting>
 
       <para>It would be annoying for the user to deal with two reports
-      for the same exact issue, so Sierra maps similar artifacts from
-      two different analysis tools into one finding.</para>
+      for the same issue, so Sierra maps similar artifacts from
+      different analysis tools into one finding.</para>
 
       <para>The second distinction between an artifact and a finding
       involves tracking the same code issue across multiple scans.  An
-      artifact is tied to one scan.  A finding can exist across
-      multiple scans.  Sierra uses a matching heuristic to try and
-      "attach" an artifact reported by a new scan to an existing
+      artifact is tied to one particular scan.  A finding can exist
+      across multiple scans.  Sierra uses a matching heuristic to try
+      and "attach" an artifact reported by a new scan to an existing
       finding.  A new finding is only created if no match can be
       found.  This is desirable because it allows the user to
-      understand change, or the lack of change, over time in a code
-      base with respect to the code issues reported by Sierra.</para>
+      understand change, or the lack of change, in code over time with
+      respect to the issues reported by Sierra.</para>
 
-      <para>Findings are created when a scan document is loaded into
-      the Sierra database.</para>
+      <para>Sierra distinguishes between artifacts and artifact types
+      as well as between findings and finding types.  An
+      <emphasis>artifact type</emphasis> is often called a rule by
+      analysis tools.  Each analysis tool included in Sierra reports
+      artifacts based upon the set of artifact types, or rules, that
+      they contain.  For example, one artifact type (or rule) included
+      in FindBugs and PMD is that explicit construction of string
+      objects is inefficient.  Each artifact reported by a scan has
+      one and only one artifact type.</para>
+
+      <para>A <emphasis>finding type</emphasis> is similar to an
+      artifact type, but it describes a type of finding rather than a
+      type of artifact.  For example, Sierra contains a finding type
+      that explicit construction of string objects is
+      inefficient. This finding type is established by two artifact
+      types: one from FindBugs and one from PMD.  There must be an
+      artifact type that establishes a finding type.  To state this
+      another way, there is no point to having a finding type that is
+      not reported by an analysis tool. Each finding has one and only
+      one finding type. Users of Sierra typically deal with finding
+      types and rarely need to be aware of artifact types.</para>
+
+      <para>Sierra groups findings into categories.  A
+      <emphasis>category</emphasis> is defined by a set of finding
+      types.  Sierra groups scan findings into categories by examining
+      the finding type of each finding and placing it into the correct
+      categories.  Categories are not required to be a partition of
+      the set of finding categories, i.e., a finding type can be used
+      to define two or more categories or no categories.  Sierra users
+      can create and modify categories on a Sierra team server.  The
+      team server allows categories to be defined in terms of other
+      categories as well as by finding types.  User created categories
+      can be shared with both Eclipse users and other Sierra team
+      servers.  Sierra contains a large number of defined "stock"
+      categories.</para>
+
+      <para>Armed with an understanding of what Sierra defines an
+      artifact, a finding, and a category to be we return to what
+      happens when Sierra scans code and introduce the idea of a scan
+      filter.  When a scan is done several steps occur within Sierra.
+      First the analysis tools are run.  These tools produce a scan
+      document.  Next this scan document is loaded into a database.
+      While the scan document is loaded findings are matched and
+      created and a scan filter is applied.  A <emphasis>scan
+      filter</emphasis> is the mechanism to control what finding types
+      are deemed important to report to the user.  The scan filter
+      also controls at what level of importance a finding is reported.
+      A scan filter is a set of categories and/or finding types with
+      an importance level.  When the scan filter is applied as the
+      scan document is loaded into the database it filters out all
+      finding types that are not included by the scan filter.  Sierra
+      allows users to create and modify scan filters on a Sierra team
+      server.  Scan filters can be shared with both Eclipse users and
+      other Sierra team servers.  The Sierra Eclipse client has one
+      special scan filter, called the <emphasis>local scan
+      filter</emphasis> that can be edited within Eclipse.  This scan
+      filter is required if the client is not connected to a Sierra
+      team server, e.g., stand-alone use of the Sierra Eclipse
+      client.</para>
+
+      <para><emphasis>The Sierra client model:</emphasis> The Sierra
+      Eclipse plug-in stores two scans of each project: the most
+      recent, or current, scan and the previous scan.  This model
+      allows the client to "diff" the two scans and report to the user
+      what has changed.  In the Sierra Eclipse plug-in Java projects
+      may be connected to one and only one Sierra team server.  When a
+      Java project is connected to a team server it is possible to
+      publish scans to that team server from Eclipse.  The scan filter
+      used for a scan depends upon if the project scanned is connected
+      to a team server or not.  If the Java project is connected to a
+      team server then the scan filter defined by that team server.
+      If the Java project is not connected to a team server then the
+      local scan filter is used.</para>
+
+      <para><emphasis>The Sierra server model:</emphasis> The Sierra
+      team server stores all uploaded scans. Scans can be uploaded
+      from Eclipse clients or from Ant.</para>
+
+      <para>Why do the client and server use different models?  This
+      is due to the purpose of each.  The client is intended for deep
+      investigation of current findings.  Auditing findings and fixing
+      them in the code.  There is little purpose for saving dozens of
+      scans on the client.  The server is focused on team
+      collaboration and reporting.  The server needs to be able to
+      produce longitudinal reports and therefore needs to save the
+      results of a large number of scans.</para>
+
     </section>
 
     <section>
