@@ -110,24 +110,25 @@
       <para>This section introduces concepts and definitions that are
       important to understand about Sierra.</para>
 
-      <para>When Sierra examines your code this is called a
-      <emphasis>scan</emphasis>.  Multiple analysis tools report
-      issues when Sierra performs a scan of your code.  This is
-      because Sierra aggregates multiple analysis tools. By default,
-      the analysis tools run during a Sierra scan are FindBugs, PMD,
-      and Reckoner. The output of a scan is a <emphasis>scan
+      <para>When Sierra examines your code, this is called a
+      <emphasis>scan</emphasis>.  By default, a Sierra scan runs three
+      analysis tools: FindBugs, PMD, and Reckoner. 
+      </para>
+     
+      <para>The output of a scan is a <emphasis>scan
       document</emphasis>.  A scan document is an XML file that
-      contains all the issues reported by all the analysis tools.  The
+      contains all the issues reported by the various analysis tools.  The
       scan document is unfiltered and may contain hundreds of
       thousands of tool-reported issues.  Scan documents are stored in
       your Sierra data directory.  This directory, by default, is
       <filename>~/.sierra-data</filename>.</para>
 
       <para>The results reported by analysis tools during a scan are
-      called <emphasis>artifacts</emphasis> by Sierra.  A
-      <emphasis>finding</emphasis> is made up of one or more
-      artifacts.  The reason for this distinction between an artifact
-      and a finding is two-fold: to merge the "same" artifact reported
+      called <emphasis>artifacts</emphasis> by Sierra.  It aggregates
+      these results to produce <emphasis>findings</emphasis>, each of 
+      which is made up of one or more artifacts.  The reason for this 
+      distinction between an artifact and a finding is two-fold: 
+      to merge the "same" artifact reported
       by two different tools and to track a particular code issue over
       time (e.g., across multiple scans).  Two analysis tools may
       report artifacts that are essentially the same issue.  For
