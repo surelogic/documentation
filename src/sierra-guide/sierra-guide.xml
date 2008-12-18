@@ -188,28 +188,28 @@
       categories.</para>
 
       <para>Armed with an understanding of what Sierra defines an
-      artifact, a finding, and a category to be, we return to what
-      happens when Sierra scans code and introduce the idea of a scan
-      filter.  When a scan is done several steps occur within Sierra.
-      First the analysis tools are run.  These tools produce a scan
-      document.  Next this scan document is loaded into a database.
-      While the scan document is loaded, findings are matched and
-      created and a scan filter is applied.  A <emphasis>scan
-      filter</emphasis> is the mechanism to control what finding types
-      are deemed important to report to the user.  The scan filter
-      also controls at what level of importance each finding is
-      reported.  A scan filter is therefore a set of categories and/or
-      finding types with an importance level.  When the scan filter is
-      applied as the scan document is loaded into the database it
-      filters out all finding types that are not included by the scan
-      filter.  Sierra allows users to create and modify scan filters
-      on a Sierra team server.  Scan filters can be shared with both
-      Eclipse clients and other Sierra team servers.  The Sierra
-      Eclipse client has one special scan filter, called the
-      <emphasis>local scan filter</emphasis>, that can be edited
-      within Eclipse.  This scan filter is required if the client is
-      not connected to a Sierra team server, e.g., stand-alone use of
-      the Sierra Eclipse client.</para>
+      artifact, a finding, and a category to be, we now return to what
+      happens during a scan with the purpose introducing the concept
+      of a scan filter.  When a scan is performed several steps occur
+      within Sierra.  First the analysis tools are run.  These tools
+      produce a scan document.  Next this scan document is loaded into
+      a database.  While the scan document is loaded, findings are
+      matched and created and a scan filter is applied.  A
+      <emphasis>scan filter</emphasis> is the mechanism to control
+      what finding types are deemed important to report to the user.
+      The scan filter also controls at what level of importance each
+      finding is reported.  A scan filter is therefore a set of
+      categories and/or finding types with an importance level.  When
+      the scan filter is applied as the scan document is loaded into
+      the database it filters out all finding types that are not
+      included by the scan filter.  Sierra allows users to create and
+      modify scan filters on a Sierra team server.  Scan filters can
+      be shared with both Eclipse clients and other Sierra team
+      servers.  The Sierra Eclipse client has one special scan filter,
+      called the <emphasis>local scan filter</emphasis>, that can be
+      edited within Eclipse.  This scan filter is required if the
+      client is not connected to a Sierra team server, e.g.,
+      stand-alone use of the Sierra Eclipse client.</para>
 
       <para><emphasis>Client scan model:</emphasis> The Sierra Eclipse
       client stores two scans of each project: the most recent, or
