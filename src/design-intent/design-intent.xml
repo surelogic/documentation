@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<book lang="en-US">
+  <title>An Introduction to Declaring Design Intent with JSure</title>
+  <bookinfo>
+    <copyright>
+      <year>2008</year>
+      <holder>SureLogic Inc.</holder>
+    </copyright>
+  </bookinfo>
+
+  <chapter id="simple-lock-models">
+    <title>Simple Lock Models</title>
+    <section>
+      <title>The Basic Lock Model</title>
+      <para>The canonical Java model whereby an object protects itself is declared by annotating a class with <varname>@RegionLock</varname>:</para>
+      <programlisting>
+@RegionLock("Lock is this protects Instance")
+public class C {
+  protected int f;
+  …
+}
+      </programlisting>
+
+      <para>This single class annotation does three things:</para>
+
+      <orderedlist>
+	<listitem><para>Declares a new lock named <computeroutput>Lock</computeroutput>.  The lock name enables consistent reference to the lock object in other annotations.</para></listitem>
+	<listitem><para>Identifies that lock with instances of the class (<computeroutput>this</computeroutput>).</para></listitem>
+	<listitem><para>Protects all the fields in instances of the class (the <emphasis>region</emphasis> <computeroutput>Instance</computeroutput>) .  Regions are described in more detail in XXX; for now it is enough to know</para>
+	<itemizedlist>
+	  <listitem><para>All classes have an <computeroutput>Instance</computeroutput> region.</para></listitem>
+	  <listitem><para>The region contains all the non-<computeroutput>static</computeroutput> fields of the class.</para></listitem>
+	</itemizedlist>
+	</listitem>
+      </orderedlist>
+
+      <para>In other words, all accesses to instance variables, for example <varname>f</varname>, of objects of class <varname>C</varname> must be within blocks <varname>synchronized</varname> on the instance.  The following two methods of class <varname>C</varname> would assure</para>
+
+      <programlisting>
+  public synchronized set(final int value) {
+    this.f = value;
+  }
+  public int get() {
+    synchronized (this) {
+      return this.f;
+    }
+  }
+      </programlisting>
+
+      <para>The following method of <varname>C</varname>, however, would not because although the method correctly protects the read of the field <varname>f</varname> of the object referenced by <varname>other</varname>, it does not protect the write to the field <varname>f</varname> of the object referenced by <varname>this</varname>:</para>
+
+      <programlisting>
+  public void copy(final C other) {
+    synchronized (other) {
+      this.f = other.f;
+    }
+  }
+      </programlisting>
+    </section>
+  </chapter>
+</book>

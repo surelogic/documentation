@@ -2,8 +2,48 @@
 <project name="sierra_help_manual" basedir="." default="all">
 	<import file="./definitions.xml" />
 
-	<target name="all" depends="sierra-guide, flashlight-guide" />
+	<target name="all" depends="design-intent, sierra-guide, flashlight-guide" />
 
+	<target name="design-intent" depends="design-intent-html,design-intent-eclipse-help" />	
+
+	<target name="design-intent-html">
+		<mkdir dir="${di.html.dir}" />
+		<java classname="${xslt.processor.class}" fork="yes" dir="${di.html.dir}" failonerror="true">
+			<classpath refid="xslt.processor.classpath" />
+			<arg line="-o '${di.html.file}'" />
+			<arg line="-l" />
+			<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
+			<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
+			<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
+			<arg line="'${di.source.file}' '${docbook.dir}/html/docbook.xsl'" />
+		</java>
+		<copy todir="${di.html.dir}">
+			<fileset dir="${di.source.dir}">
+				<include name="**/*.png" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="design-intent-eclipse-help">
+		<mkdir dir="${di.eclipse.help.dir}" />
+		<java classname="${xslt.processor.class}" fork="yes" dir="${di.eclipse.help.dir}" failonerror="true">
+			<classpath refid="xslt.processor.classpath" />
+			<arg line="-l" />
+			<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
+			<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
+			<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
+			<arg line="'${di.source.file}' '${docbook.dir}/eclipse/eclipse.xsl'" />
+			<arg line="eclipse.plugin.name='Sierra Eclipse Client Help'" />
+			<arg line="eclipse.plugin.id=com.surelogic.sierra.eclipse.client.help" />
+			<arg line="eclipse.plugin.provider='SureLogic, Inc.'" />
+		</java>
+		<copy todir="${di.eclipse.help.dir}">
+			<fileset dir="${di.source.dir}">
+				<include name="**/*.png" />
+			</fileset>
+		</copy>
+	</target>
+		
 	<target name="sierra-guide" depends="sierra-guide-html,sierra-guide-eclipse-help" />
 
 	<target name="sierra-guide-html">

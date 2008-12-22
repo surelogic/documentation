@@ -6,6 +6,15 @@
 
 	<property name="docbook.dir" location="${lib}/docbook-xsl-1.73.2" />
 
+	<!-- Design Intent definitions -->
+	<property name="di.source.dir" location="${src}/design-intent" />
+	<property name="di.source.file" location="${di.source.dir}/design-intent.xml" />
+	<property name="di.build.dir" location="${build}/design-intent" />
+	<property name="di.html.dir" location="${di.build.dir}/html" />
+	<property name="di.html.file" location="${di.html.dir}/design-intent.html" />
+	<property name="di.eclipse.help.dir" location="${di.build.dir}/eclipse-help" />
+	<property name="di.deploy.dir" location="../design-intent-eclipse-help" />
+
 	<!-- Sierra Guide definitions -->
 	<property name="sg.source.dir" location="${src}/sierra-guide" />
 	<property name="sg.source.file" location="${sg.source.dir}/sierra-guide.xml" />

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="undeploy">
+	<import file="./definitions.xml" />
+
+	<target name="undeploy">
+		<!-- Flashlight Guide -->
+		<delete quiet="true" file="${di.deploy.dir}/toc.xml" />
+		<delete quiet="true">
+			<fileset dir="${di.deploy.dir}">
+				<include name="**/*.html" />
+				<include name="**/*.png" />
+				<exclude name="**/about.html" />
+			</fileset>
+		</delete>
+		<delete quiet="true" dir="${di.deploy.dir}/images" />
+	</target>
+
+</project>
