@@ -8,37 +8,66 @@
   <bookinfo>
     <copyright>
       <year>2008</year>
-      <holder>SureLogic Inc.</holder>
+      <holder>SureLogic, Inc.</holder>
     </copyright>
   </bookinfo>
 
   <chapter id="simple-lock-models">
     <title>Simple Lock Models</title>
-    <section>
+    <sect1>
       <title>The Basic Lock Model</title>
-      <para>The canonical Java model whereby an object protects itself is declared by annotating a class with <varname>@RegionLock</varname>:</para>
+      
+      <para>The canonical Java model whereby an object protects itself
+      is declared by annotating a class with
+      <varname>@RegionLock</varname>:<footnote><para>We use empahsis in
+      the code to highlight interesting annotations or interesting
+      segments of code.  Specifically, we are not placing emphasis on
+      all annotations that occur within the displayed source
+      code.</para></footnote></para>
+      
       <programlisting>
-@RegionLock("Lock is this protects Instance")
+<emphasis>@RegionLock("Lock is this protects Instance")</emphasis>
 public class C {
   protected int f;
-  …
+  &hellip;
 }
       </programlisting>
 
       <para>This single class annotation does three things:</para>
 
       <orderedlist>
-	<listitem><para>Declares a new lock named <computeroutput>Lock</computeroutput>.  The lock name enables consistent reference to the lock object in other annotations.</para></listitem>
-	<listitem><para>Identifies that lock with instances of the class (<computeroutput>this</computeroutput>).</para></listitem>
-	<listitem><para>Protects all the fields in instances of the class (the <emphasis>region</emphasis> <computeroutput>Instance</computeroutput>) .  Regions are described in more detail in XXX; for now it is enough to know</para>
-	<itemizedlist>
-	  <listitem><para>All classes have an <computeroutput>Instance</computeroutput> region.</para></listitem>
-	  <listitem><para>The region contains all the non-<computeroutput>static</computeroutput> fields of the class.</para></listitem>
-	</itemizedlist>
+	<listitem><para>Declares a new lock named
+	<computeroutput>Lock</computeroutput>.  The lock name enables
+	consistent reference to the lock object in other
+	annotations.</para></listitem>
+
+	<listitem><para>Identifies that lock with instances of the
+	class
+	(<computeroutput>this</computeroutput>).</para></listitem>
+
+	<listitem><para>Protects all the fields in instances of the
+	class (the <emphasis>region</emphasis>
+	<computeroutput>Instance</computeroutput>) .  Regions are
+	described in more detail in XXX; for now it is enough to
+	know</para>
+
+	  <itemizedlist>
+	    <listitem><para>All classes have an
+	    <computeroutput>Instance</computeroutput>
+	    region.</para></listitem>
+
+	    <listitem><para>The region contains all the
+	    non-<computeroutput>static</computeroutput> fields of the
+	    class.</para></listitem>
+  	  </itemizedlist>
 	</listitem>
       </orderedlist>
 
-      <para>In other words, all accesses to instance variables, for example <varname>f</varname>, of objects of class <varname>C</varname> must be within blocks <varname>synchronized</varname> on the instance.  The following two methods of class <varname>C</varname> would assure</para>
+      <para>In other words, all accesses to instance variables, for
+      example <varname>f</varname>, of objects of class
+      <varname>C</varname> must be within blocks
+      <varname>synchronized</varname> on the instance.  The following
+      two methods of class <varname>C</varname> would assure</para>
 
       <programlisting>
   public synchronized set(final int value) {
@@ -51,7 +80,12 @@ public class C {
   }
       </programlisting>
 
-      <para>The following method of <varname>C</varname>, however, would not because although the method correctly protects the read of the field <varname>f</varname> of the object referenced by <varname>other</varname>, it does not protect the write to the field <varname>f</varname> of the object referenced by <varname>this</varname>:</para>
+      <para>The following method of <varname>C</varname>, however,
+      would not because although the method correctly protects the
+      read of the field <varname>f</varname> of the object referenced
+      by <varname>other</varname>, it does not protect the write to
+      the field <varname>f</varname> of the object referenced by
+      <varname>this</varname>:</para>
 
       <programlisting>
   public void copy(final C other) {
@@ -60,6 +94,349 @@ public class C {
     }
   }
       </programlisting>
-    </section>
+    </sect1>
+    
+    <sect1>
+      <title>Extending the Model: Caller Locking</title>
+      
+	  <para>A frequent exception to the basic lock model is the
+      expectation by a method implementation that it is the
+      responsibility of the caller of the method to acquire the lock. 
+      Analysis can assure this expectation if it is declared using the
+      <varname>@RequiresLock</varname> method annotation:</para>
+      
+      <programlisting>
+@RegionLock("Lock is this protects Instance")
+public class C {
+  private int f;
+
+  <emphasis>@RequiresLock("Lock")</emphasis>
+  public void m() { &hellip; }
+  &hellip;
+}
+      </programlisting>
+      
+      <para>When analyzing the implementation of method
+      <varname>C.m()</varname>, analysis assumes that lock
+      <varname>Lock</varname> is held.  When analyzing the callsite of
+      the method, however, analysis requires that the calling context
+      hold the lock object identified with <varname>Lock</varname>.  The
+      method implementations <varname>C.m()</varname> and
+      <varname>C.calls_m()</varname>, below, are thus both
+      correct:</para>
+
+	  <programlisting>
+  <emphasis>@RequiresLock("Lock")</emphasis>
+  public void m() {
+    this.f = 0;
+  }
+  
+  protected synchronized void calls_m() {
+    this.m();
+  }
+      </programlisting>
+
+      <para>The method implementation of <varname>Other.bad()</varname>
+      is, however, erroneous because it does acquire the lock on the
+      object referenced by <varname>cObject</varname>:</para>
+      
+      <programlisting>
+public class Other {
+  &hellip;
+  public bad(final C cObject) {
+    cObject.m(); // bad callsite!
+  }
+}
+      </programlisting>
+    </sect1>
+    
+    <sect1>
+      <title>Extending the Model: Aggregating Arrays and Other
+      Objects</title>
+      
+      <para>An array in Java is a separate object from the object whose
+      field refers to the array. Protecting an array-typed field thus
+      protects <emphasis>the reference to the array only</emphasis>. It
+      is not sufficient to extend the protection to the elements of the
+      array: we also need to know that the array object is accessible
+      through that field only. If the array could be referenced by
+      through other fields, then it would still be possible to access it
+      concurrently because the locking model could be bypassed by
+      accessing the array through a different field.</para>
+
+      <para>Much of the time, however, it is not intended that an array
+      is aliased; in these cases, the array can be incorporated into the
+      state of the object that references it.  We call this
+      <emphasis>aggregating state</emphasis>. An array is aggregated
+      into the object that references it by adding a pair of annotations
+      to the field that references the array:</para>
+      
+      <programlisting>
+<emphasis>@Unique</emphasis>
+<emphasis>@Aggregate("Instance into Instance")</emphasis>
+private Object[] myArray;
+      </programlisting>
+      
+      <para>This does two things:</para>
+
+      <orderedlist>
+        <listitem><para>Declares the programmer’s intent that the field
+        is the only field that references the array object it
+        references.  A separate analyses is used to assure that a
+        <varname>@Unique</varname> field is never aliased.  A new
+        expression always creates an unaliased object, so it is always
+        safe to assign the results of a new expression to a
+        <varname>@Unique</varname> field.</para></listitem>
+      
+        <listitem><para>Extends the state of the referencing object to
+        include the elements of the array (recall that the
+        <varname>Instance</varname> region is the
+        non-<varname>static</varname> state of an object).  State
+        aggregation is not automatically transitive; thus if the array
+        elements are objects, those objects are not aggregated, only the
+        references to them.</para></listitem>
+      </orderedlist>
+      
+      <para>In the example below, the constructor
+      <varname>Buffer(Object[])</varname> does not assure because it
+      assigns an array to field buf that might be aliased, conflicting
+      with the <varname>@Unique</varname> annotation on the field. The
+      assignment to buf in the constructor
+      <varname>Buffer(int)</varname> assures because it assigns a fresh
+      array to the field.  The lock <varname>Lock</varname> does not
+      need to be held to access the field <varname>buf</varname> because
+      it is <varname>final</varname>. The implementation of
+      <varname>copyContents()</varname> does not assure because even
+      though <varname>Lock</varname> does not need to be held to access
+      the field <varname>buf</varname> or the field
+      <varname>length</varname>, <varname>Lock</varname> must be held to
+      access the contents of the array referenced by
+      <varname>buf</varname>.  Analysis knows that the method
+      <varname>System.arraycopy()</varname> reads from the
+      <varname>Instance</varname> region of its first parameter, and
+      thus via aggregation, reads from the <varname>Instance</varname>
+      region of the <varname>Buffer</varname> object.  (This analysis is
+      informed by effects analysis and annotations, described in
+      XXX.)</para>
+      
+      <programlisting>
+<emphasis>@RegionLock("Lock is this protects Instance")</emphasis>
+public class Buffer {
+  <emphasis>@Unique</emphasis>
+  <emphasis>@Aggregate("Instance into Instance")</emphasis>
+  private final Object[] buf;
+  &hellip;
+  public Buffer(int size) {
+    this.buf = new Object[size]; // good!
+  }
+  &hellip;
+  public Buffer(Object[] newBuffer) {
+    this.buf = newBuffer; // bad!
+  }
+
+  public Object[] copyContents() {
+    final Object[] copy = new Object[this.buf.length];
+    System.arraycopy(this.buf, 0, copy, 0, this.buf.length);
+    return copy;
+  }
+}
+      </programlisting>
+      
+      <para>Aggregation applies not only to arrays, but to objects in
+      general.  So any object-typed field can be declared
+      <varname>@Unique</varname> and can then have its state aggregated
+      into the state of its referring object. </para>
+    </sect1>
+    
+    <sect1>
+      <title>Constructors</title>
+      
+      <para>Constructors cannot be declared
+      <varname>synchronized</varname> in Java, but our assurance
+      requires that fields protected by a lock be accessed only when
+      that lock is held.  So how do we keep assurance from failing when
+      analyzing a constructor?  We rely on the fact that during object
+      construction, an object is almost always accessed by a single
+      thread only: the thread that invoked the constructor. When this is
+      the case, we can proceed as if the locks for the object’s state
+      are already held. The programmer can declare this <emphasis>single
+      threaded intent</emphasis> by annotating the constructor:</para>
+      
+      <programlisting>
+<emphasis>@SingleThreaded</emphasis>
+<emphasis>@Borrowed("this")</emphasis>
+public C(&hellip;) { &hellip; }
+      </programlisting>
+
+      <para>One way that analysis can assure the single-threadedness of
+      a constructor is to leverage the assurance that the constructor
+      <emphasis>borrows</emphasis> the constructed object&mdash;that is,
+      that it does not create an alias to it. (The
+      <varname>@Borrowed</varname> annotation is further described
+      below.) In particular, when analysis knows that the constructor
+      does not create such an alias, it also knows that it is impossible
+      for another thread to obtain a reference to the object under
+      construction during the constructor’s execution.</para>
+      
+      <para>Annotating a constructor as being
+      <varname>@SingleThreaded</varname> requires that the
+      super-constructor it invokes is also
+      <varname>@SingleThreaded</varname>.</para>
+
+      <sect2>
+        <title>Field Initialization and Implicit Constructors</title>
+        
+        <para>Field initializers are part of the object construction
+        process, and fields that have initializers are considered to be
+        written to.  Instance initializer blocks are also part of the
+        object construction process and need to be assured accordingly. 
+        This can be become problematic when a class does not have an
+        explicit constructor:</para>
+        
+        <programlisting>
+@RegionLock("Lock is this protects Instance")
+public class C {
+  private int f = 1;
+  private int g;
+  
+  {
+    g = 2;
+  }
+  public synchronized int getF() {
+    return f;
+  }
+  
+  public synchronized void incG() {
+    g += 1;
+  }
+}
+        </programlisting>
+        
+        <para>Lock assurance will not assure the correct use of
+        <varname>Lock</varname> because the accesses to fields
+        <varname>f</varname> and <varname>g</varname> during
+        construction are not protected.  One way to fix this is to make
+        the constructor explicit and annotate it:</para>
+        
+        <programlisting>
+@RegionLock("Lock is this protects Instance")
+public class C {
+  &hellip;
+  <emphasis>@SingleThreaded</emphasis>
+  <emphasis>@Borrowed("this")</emphasis>
+  public C() {}
+  &hellip;
+}
+        </programlisting>
+        
+        <para>Alternatively, if it is undesirable to insert the
+        constructor explicitly, the constructor can still be annotated
+        using a <emphasis>scoped promise</emphasis>.  These are
+        described in more detail below, but for the case of annotating
+        an implicit constructor, we would annotate the class as follows:
+        </para>
+        
+        <programlisting>
+@RegionLock("Lock is this protects Instance")
+<emphasis>@Promise({</emphasis>
+  <emphasis>"'@SingleThreaded' for new()",</emphasis>
+  <emphasis>"'@Borrowed this' for new()"})</emphasis>
+public class C {
+  &hellip;
+}
+        </programlisting>
+      </sect2>
+    </sect1>
+    
+    <sect1>
+      <title>Self-Protected Objects</title>
+      
+      <para>Region aggregation, described above, is one technique that
+      can be used to deal with the fact that fields
+      <emphasis>reference</emphasis> objects.  But it is not always
+      possible to use region aggregation to simplify reasoning about
+      protected state because a field may be aliased.  In such cases,
+      the tool may produce warnings that a reference of the form
+      <varname>e.f.g</varname>, where <varname>f</varname> is field
+      protected by a lock, is a “possibly unsafe reference to protected
+      shared state.”  The message is meant to remind the programmer that
+      although the field <varname>f</varname> is protected by a lock,
+      this lock does not also protect the field <varname>g</varname> of
+      the referenced object.  (If field <varname>f</varname> is of class
+      <varname>C</varname> and class <varname>C</varname> declares that
+      <varname>g</varname> is protected by a lock then this warning is
+      not produced: the tool instead attempts to assure that the
+      appropriate lock for <varname>g</varname> is held.)  There are
+      situations where invoking a method via <varname>e.f.m()</varname>
+      will also produce a the above warning.</para>
+      
+      <para>Region aggregation and lock declaration (as described above)
+      can be used to suppress these warnings.  In general, we can
+      suppress this warning for a field <varname>f</varname> that
+      referneces objects of class <varname>C</varname> by annotating
+      class <varname>C</varname> with <varname>@SelfProtected</varname>.
+       This <emphasis>unchecked</emphasis> annotation declares that
+      instances of the class/interface are meant to be “thread safe.” 
+      Exactly what is meant by this is presently unspecified; the
+      annotation is intended to encompass non&ndash;lock-based
+      protections schemes such as single-threadedness and
+      immutability.</para>
+      
+      <important>
+        <para>No analysis is performed on classes declared to be
+        self-protected to assure that the implementation is thread
+        safe.</para>
+      </important>
+      
+      <para>As an example, let's consider the simple rational numbers
+      class below.</para>
+
+      <programlisting>
+public class Rational {
+  private final int numerator;
+  private final int denominator;
+
+  public Rational(int n, int d) { 
+    numerator = n; 
+    denominator = d; 
+  }
+
+  public int getNumerator() { return n; }
+  public int getDenominator() { return d; } 
+}
+      </programlisting>
+      
+      <para>Suppose we have a client class that has a lock-protected
+      reference to a <varname>Rational</varname> object:</para>
+      
+      <programlisting>
+@RegionLock("Lock is this protects Intance")
+public class C {
+  &hellip;
+  private Rational r;
+
+  public synchronized doStuff() {
+    int n = r.getNumerator();  // (*)
+    &hellip;
+  }
+}
+      </programlisting>
+      
+      <para> JSure is going to generate a warning attached to call
+      <varname>r.getNumerator()</varname> that “Receiver r may be a
+      shared unprotected object.”  That is, we may be doing something
+      unsafe: accessing the state of the rational object in multiple
+      threads without protection.  But in this case, we know that
+      <varname>Rational</varname> objects are immutable, and thus thread
+      safe, so we can suppress this warning by annotating the
+      <varname>Rational</varname> class:</para>
+      
+      <programlisting>
+<emphasis>@SelfProtected</emphasis>
+public class Rational {
+  &hellip;
+}
+      </programlisting>
+    </sect1>
   </chapter>
 </book>
