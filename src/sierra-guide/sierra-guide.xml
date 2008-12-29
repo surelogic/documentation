@@ -1799,7 +1799,7 @@ if (o == null) {
       <section id="sec-preferences-local-team-server">
 	<title>Local Team Server</title>
 
-	<figure id="fig-preferences-scan-data">
+	<figure id="fig-preferences-server">
 	  <title>The Local Team Server preference pane.</title>
 	  <mediaobject>
 	    <imageobject role="html">
