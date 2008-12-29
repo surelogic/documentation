@@ -648,4 +648,190 @@ public class Logger {
       <para>First, note the <varname>static</varname> method does not change any state directly; it is difficult so say what state the lock <varname>Logger.class</varname> is protecting.  This is because the lock is ensuring that the method <varname>getLogger</varname> executes atomically with respect to itself.  If two threads were allowed to simultaneously execute the method it would be possible to create two new <varname>Logger</varname> objects with the same name, but only one of them would be registered in the global log registry.  This would cause problems later on during the use of the loggers.  The synchronization ensures that only one <varname>Logger</varname> object is ever created for any given name.</para>
     </sect1>
   </chapter>
+    
+  <chapter id="method-effects">
+    <title>Method Effects</title>
+      
+    <para>Regions provide an abstract way to name the state of an object. The effects of a method&mdash;the state read and written during the execution of that method&mdash;may be expressed in terms of regions. Effects are useful when determining whether code can be reordered by a refactoring, and are also necessary to support the analyses that assure <varname>@Unique</varname> and <varname>@RegionLock</varname> annotations. </para>
+
+    <sect1 id="declaring-effects">
+      <title>Declaring Effects</title>
+
+      <para>The effects of a constructor or method are declared using the <varname>@RegionEffects</varname> annotation:</para>
+      
+      <programlisting>
+@RegionEffects(
+  "reads <replaceable>readTarget<subscript>1</subscript></replaceable>, &hellip;, <replaceable>readTarget<subscript>N</subscript></replaceable>; writes <replaceable>writeTarget<subscript>1</subscript></replaceable>, &hellip;, <replaceable>writeTarget<subscript>M</subscript></replaceable>")
+      </programlisting>
+      
+      <para>Specifically, the annotation contains reads and write clauses that each have a list of one or more <emphasis>targets</emphasis>.  The <varname>reads</varname> clause describes the state that may be read by the method/constructor; the <varname>writes</varname> clause describes the state that may be <emphasis>read or written</emphasis> by the method/constructor.  Because writing includes reading, there is no need to list a target in the reads clause if its state is already described in the <varname>writes</varname> clause.</para>
+
+      <para>Both the <varname>reads</varname> and the <varname>writes</varname> clauses are optional: to indicate that there are no effects use <varname>@RegionEffects("none")</varname>.</para>
+
+      <para>A target is an extrinsic syntactic mechanism to name references to regions, and can be one of</para>
+
+      <variablelist>
+        <varlistentry>
+          <term><varname>this:<replaceable>Region</replaceable></varname></term>
+          <term><replaceable>Region</replaceable></term>
+          <listitem><para><replaceable>Region</replaceable> is a region of the class containing the method.  The method affects the named region of the receiver object.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><varname><replaceable>param</replaceable>:<replaceable>Region</replaceable></varname></term>
+          <listitem><para><replaceable>param</replaceable> is a parameter of the method that references an object.  <replaceable>Region</replaceable> is a region of the class of <replaceable>param</replaceable>'s type.  The method affects the named region of the object referenced by <replaceable>param</replaceable> <emphasis>at the start of the method's execution</emphasis>.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><varname><replaceable>pkg.C</replaceable>.this:<replaceable>Region</replaceable></varname></term>
+          <listitem><para><replaceable>pkg.C</replaceable> is an “outer class” of the class that contains the annotated method.  That is, the method being annotated is in class <replaceable>D</replaceable>, and <replaceable>D</replaceable> is an inner class of <replaceable>C</replaceable>.  <replaceable>Region</replaceable> is a region of class <replaceable>pkg.C</replaceable>.  The method affects the named region of the given outer class receiver.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><varname>any(<replaceable>pkg.C</replaceable>):<replaceable>Region</replaceable></varname></term>
+          <listitem><para><replaceable>pkg.C</replaceable> is a class name and <replaceable>Region</replaceable> is a region of <replaceable>pkg.C</replaceable>.  This target indicates that the method affects the given region of any object of class <replaceable>pkg.C</replaceable>.</para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+          <term><varname><replaceable>pkg.C</replaceable>:<replaceable>Region</replaceable></varname></term>
+          <listitem><para><replaceable>Region</replaceable> is a <varname>static</varname> region of class <replaceable>pkg.C</replaceable>.  The method affects the given <varname>static</varname> region.</para></listitem>
+        </varlistentry>
+      </variablelist>
+      
+      <para>Assurance checks that the actual effects of the method implementation are no greater than its declared effects.  There are several fine points to this:</para>
+      
+      <itemizedlist>
+        <listitem><para>Uses of <varname>final</varname> fields produce no effects.</para></listitem>
+        <listitem><para>Effects on local variables are not visible outside of a method/constructor.</para></listitem>
+        <listitem><para>Effects on objects created within a method are not visible outside of a method.</para></listitem>
+        <listitem><para>Constructors do not have to report effects on the <varname>Instance</varname> region of the newly constructed object.</para></listitem>
+        <listitem><para>Region aggregation (described below) is taken into account.</para></listitem>
+      </itemizedlist>
+      
+      <para>Here is a simple “variable” class with effects annotations:</para>
+      
+      <programlisting>
+@Region("public Value")
+public class Var {
+  @InRegion("Value")
+  private int value;
+
+  <emphasis>@RegionEffects("none")</emphasis>
+  public Var(int v) {
+    value = v;
+  }
+
+  <emphasis>@RegionEffects("reads Value")</emphasis>
+  public int getValue() {
+    return value;
+  }
+
+  <emphasis>@RegionEffects("writes Value")</emphasis>
+  public void setValue(int v) {
+    value = v;
+  }
+}
+      </programlisting>
+    </sect1>
+    
+    <sect1 id="effects-and-single-threaded">
+      <title>Effects and Single-Threaded Constructors</title>
+      
+      <para>A <varname>@SingleThreaded</varname> constructor may also be assured by checking whether the declared write effects of the constructor are included in the effect <varname>@RegionEffect("writes Instance")</varname>.  The constructor must also be annotated with a declaration that it does not start any threads: <varname>@Starts("nothing")</varname>.  Such a constructor cannot pass  a reference to the new object to a preexisting thread because it does not write to any objects that existed prior to the invocation of the constructor.  It can write a reference to the new object to other objects created during execution of the constructor, but because it cannot start any threads, such a reference cannot be read by another thread.</para>
+      
+      <para>Here is an example of typical usage, which, for example, was used to assure much of Doug Lea's <application>util.concurrent</application> library (for which <varname>@Borrowed("this")</varname> could not be used because of aliasing of <varname>this</varname> into a <varname>private</varname> field):</para>
+      
+      <programlisting>
+@RegionLock("Lock is this protects Instance")
+public class C {
+  <emphasis>@SingleThreaded</emphasis>
+  <emphasis>@RegionEffects("writes nothing")</emphasis>
+  <emphasis>@Starts("nothing")</emphasis>
+  public C() {
+    &hellip;
+  }
+  &hellip;
+}
+      </programlisting>
+    </sect1>
+    
+    <sect1 id="borrowed-and-effects">
+      <title>Borrowed References and Method Effects</title>
+      
+      <para>Another reason to declare method effects is to support <varname>borrowed</varname> references. Here we first introduce <varname>borrowed</varname> parameters, and then describe how effects are used to support their assurance.</para>
+      
+      <sect2 id="borrowed-params">
+        <title>Borrowed Parameters</title>
+        
+        <para>When an object is passed as a parameter to a method, an alias to that object is created.  Thus, if strictly enforced, a unique field can never be passed as a parameter to a method, even as the receiver!  But if a method is known to not create any additional aliases to the object, then a unique field may safely be passed as a parameter because it is guaranteed that the method will restore the uniqueness of the field.  However, the method is not allowed to directly or indirectly make use of the unique field used as the parameter because the field is <emphasis>not</emphasis> unique within the dynamic scope of the method.  A parameter (including the receiver) is declared to be borrowed by annotating the parameter as <varname>@Borrowed</varname>.  We saw earlier that to declare that the receiver is borrowed we annotate the method/constructor with <varname>@Borrowed("this")</varname>.  Consider method <varname>C.copyInternalArray()</varname>:</para>
+        
+        <programlisting>
+public class C {
+  private Object[] myArray;
+  &hellip;
+  <emphasis>@Borrowed("this")</emphasis>
+  public void copyInternalArray(<emphasis>@Borrowed</emphasis> Object[] array) {
+    for (int i  = 0; i  &lt; array.length; i++) {
+      array[i] = this.myArray[i];
+    }
+  }
+}
+        </programlisting>
+        
+        <para>Because the method declares that its receiver is borrowed it may be invoked on <varname>C</varname> objects referenced through <varname>@Unique</varname> fields.  It may also be passed references to arrays referenced by <varname>@Unique</varname> fields.  Here it is easy to see that no aliases to this or to array are created, but, in general, this is a property that is easily violated, and a separate set of analyses from those used to assure locking are used to assure that <varname>@Unique</varname> fields and <varname>@Borrowed</varname> variables are used correctly.</para>
+       </sect2>
+       
+       <sect2 id="borrowed-with-method-effects">
+         <title>Supporting Borrowed With Method Effects</title>
+         
+         <para>As explained above, when a method is passed the value of a unique field as the actual to a borrowed parameter, the method is not allowed to access the unique field.  Analysis looks to the effects of the methods to determine if the method could possibly read the forbidden field.  Thus, if a method has borrowed parameters it is usually necessary to declare the methods effects as well.</para>
+         
+         <para>Consider the class <varname>Var</varname>:</para>
+         
+         <programlisting>
+class Var {
+  private int value = 0;
+  
+  <emphasis>@Borrowed("this")</emphasis>
+  public void set(int v) { value = v; }
+
+  <emphasis>@Borrowed("this")</emphasis>
+  public int get() { return v; } 
+}
+        </programlisting>
+        
+        <para>Its obvious that we can declare the receiver to be <varname>@Borrowed</varname> for the two methods.  If we never actually use a unique field as the receiver then we do not need to declare the effects of the methods:</para>
+        
+        <programlisting>
+class VarClient {
+  private Var v1 = new Var();
+  private Var v2 = new Var();
+
+  public void doStuff() {
+    v1.set(1);
+    v2.set(2);
+    &hellip;
+    v1.set(v2.get()+3); 
+  } 
+}
+        </programlisting>
+        
+        <para>If instead field <varname>v1</varname> were annotated with <varname>@Unique</varname>, then analysis would need to know that it is not possible for <varname>set()</varname> to read the field <varname>v1</varname> when <varname>v1</varname> is used as the receiver.  Here it is obvious that it cannot, but in cases where the invoked method retrieves objects from collections or other global object pools, it is not so clear.  We must explicitly declare the effects of <varname>set()</varname> to allow the uniqueness analysis to assure the call (we also declare the effects of <varname>get()</varname> for completeness):</para>
+        
+        <programlisting>
+class Var {
+  private int value = 0;
+  
+  @Borrowed("this")
+  <emphasis>@RegionEffects("writes this:Instance")</emphasis>
+  public void set(int v) { value = v; }
+
+  @Borrowed("this")
+  <emphasis>@RegionEffects("reads this:Instance")</emphasis>
+  public int get() { return v; } 
+}
+        </programlisting>
+      </sect2>
+    </sect1>
+  </chapter>
 </book>
