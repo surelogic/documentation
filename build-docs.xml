@@ -4,124 +4,84 @@
 
 	<target name="all" depends="design-intent, sierra-guide, flashlight-guide" />
 
-	<target name="design-intent" depends="design-intent-html,design-intent-eclipse-help" />	
+	
+	
+	<target name="design-intent" depends="design-intent-html, design-intent-eclipse-help, design-intent-pdf" />	
 
 	<target name="design-intent-html">
-		<mkdir dir="${di.html.dir}" />
-		<java classname="${xslt.processor.class}" fork="yes" dir="${di.html.dir}" failonerror="true">
-			<classpath refid="xslt.processor.classpath" />
-			<arg line="-o '${di.html.file}'" />
-			<arg line="-l" />
-			<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
-			<arg line="'${di.source.file}' '${docbook.dir}/html/docbook.xsl'" />
-		</java>
-		<copy todir="${di.html.dir}">
-			<fileset dir="${di.source.dir}">
-				<include name="**/*.png" />
-			</fileset>
-		</copy>
+		<docbook-to-html
+			  srcdir=  "${di.source.dir}"
+		    srcfile= "${di.source.file}"
+			  destdir= "${di.html.dir}"
+			  destfile="${di.html.file}"/>
 	</target>
 
 	<target name="design-intent-eclipse-help">
-		<mkdir dir="${di.eclipse.help.dir}" />
-		<java classname="${xslt.processor.class}" fork="yes" dir="${di.eclipse.help.dir}" failonerror="true">
-			<classpath refid="xslt.processor.classpath" />
-			<arg line="-l" />
-			<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
-			<arg line="'${di.source.file}' '${docbook.dir}/eclipse/eclipse.xsl'" />
-			<arg line="eclipse.plugin.name='Sierra Eclipse Client Help'" />
-			<arg line="eclipse.plugin.id=com.surelogic.sierra.eclipse.client.help" />
-			<arg line="eclipse.plugin.provider='SureLogic, Inc.'" />
-		</java>
-		<copy todir="${di.eclipse.help.dir}">
-			<fileset dir="${di.source.dir}">
-				<include name="**/*.png" />
-			</fileset>
-		</copy>
+		<docbook-to-eclipse-help
+		    srcdir=  "${di.source.dir}"
+		    srcfile= "${di.source.file}"
+		    destdir= "${di.eclipse.help.dir}"/>
 	</target>
 		
-	<target name="sierra-guide" depends="sierra-guide-html,sierra-guide-eclipse-help" />
+	<target name="design-intent-pdf">
+		<docbook-to-pdf srcfile="${di.source.file}"
+			  destfile="${di.pdf.file}"
+	      destdir= "${di.build.dir}"/>
+  </target>
+	
+  	
+  	
+	<target name="sierra-guide" depends="sierra-guide-html, sierra-guide-eclipse-help, sierra-guide-pdf" />
 
 	<target name="sierra-guide-html">
-		<mkdir dir="${sg.html.dir}" />
-		<java classname="${xslt.processor.class}" fork="yes" dir="${sg.html.dir}" failonerror="true">
-			<classpath refid="xslt.processor.classpath" />
-			<arg line="-o '${sg.html.file}'" />
-			<arg line="-l" />
-			<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
-			<arg line="'${sg.source.file}' '${docbook.dir}/html/docbook.xsl'" />
-		</java>
-		<copy todir="${sg.html.dir}">
-			<fileset dir="${sg.source.dir}">
-				<include name="**/*.png" />
-			</fileset>
-		</copy>
+		<docbook-to-html
+			  srcdir=  "${sg.source.dir}"
+		    srcfile= "${sg.source.file}"
+			  destdir= "${sg.html.dir}"
+			  destfile="${sg.html.file}"/>
 	</target>
 
 	<target name="sierra-guide-eclipse-help">
-		<mkdir dir="${sg.eclipse.help.dir}" />
-		<java classname="${xslt.processor.class}" fork="yes" dir="${sg.eclipse.help.dir}" failonerror="true">
-			<classpath refid="xslt.processor.classpath" />
-			<arg line="-l" />
-			<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
-			<arg line="'${sg.source.file}' '${docbook.dir}/eclipse/eclipse.xsl'" />
-			<arg line="eclipse.plugin.name='Sierra Eclipse Client Help'" />
-			<arg line="eclipse.plugin.id=com.surelogic.sierra.eclipse.client.help" />
-			<arg line="eclipse.plugin.provider='SureLogic, Inc.'" />
-		</java>
-		<copy todir="${sg.eclipse.help.dir}">
-			<fileset dir="${sg.source.dir}">
-				<include name="**/*.png" />
-			</fileset>
-		</copy>
+		<docbook-to-eclipse-help
+		    srcdir=  "${sg.source.dir}"
+		    srcfile= "${sg.source.file}"
+		    destdir= "${sg.eclipse.help.dir}"/>
 	</target>
 
-	<target name="flashlight-guide" depends="flashlight-guide-html,flashlight-guide-eclipse-help" />
+	<target name="sierra-guide-pdf">
+		<docbook-to-pdf srcfile="${sg.source.file}"
+			  destfile="${sg.pdf.file}"
+			  destdir= "${sg.build.dir}"/>
+  </target>
+
+  	
+  	
+	<target name="flashlight-guide" depends="flashlight-guide-html, flashlight-guide-eclipse-help, flashlight-guide-pdf" />
 
 	<target name="flashlight-guide-html">
-		<mkdir dir="${fg.html.dir}" />
-		<java classname="${xslt.processor.class}" fork="yes" dir="${fg.html.dir}" failonerror="true">
-			<classpath refid="xslt.processor.classpath" />
-			<arg line="-o '${fg.html.file}'" />
-			<arg line="-l" />
-			<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
-			<arg line="'${fg.source.file}' '${docbook.dir}/html/docbook.xsl'" />
-		</java>
-		<copy todir="${fg.html.dir}">
-			<fileset dir="${fg.source.dir}">
-				<include name="**/*.png" />
-			</fileset>
-		</copy>
+		<docbook-to-html
+			  srcdir=  "${fg.source.dir}"
+		    srcfile= "${fg.source.file}"
+			  destdir= "${fg.html.dir}"
+			  destfile="${fg.html.file}"/>
 	</target>
 
 	<target name="flashlight-guide-eclipse-help">
-		<mkdir dir="${fg.eclipse.help.dir}" />
-		<java classname="${xslt.processor.class}" fork="yes" dir="${fg.eclipse.help.dir}" failonerror="true">
-			<classpath refid="xslt.processor.classpath" />
-			<arg line="-l" />
-			<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
-			<arg line="'${fg.source.file}' '${docbook.dir}/eclipse/eclipse.xsl'" />
-			<arg line="eclipse.plugin.name='Flashlight Eclipse Client Help'" />
-			<arg line="eclipse.plugin.id=com.surelogic.flashlight.eclipse.client.help" />
-			<arg line="eclipse.plugin.provider='SureLogic, Inc.'" />
-		</java>
-		<copy todir="${fg.eclipse.help.dir}">
-			<fileset dir="${fg.source.dir}">
-				<include name="**/*.png" />
-			</fileset>
-		</copy>
+		<docbook-to-eclipse-help
+		    srcdir=  "${fg.source.dir}"
+		    srcfile= "${fg.source.file}"
+	  	  destdir= "${fg.eclipse.help.dir}"/>
 	</target>
 
+	<target name="flashlight-guide-pdf">
+		<docbook-to-pdf srcfile="${fg.source.file}"
+			  destfile="${fg.pdf.file}"
+        destdir= "${fg.build.dir}"/>
+  </target>
+
+
+
+	<target name="clean">
+		<delete quiet="true" dir="${build}" />
+	</target>
 </project>
