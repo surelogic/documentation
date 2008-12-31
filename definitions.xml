@@ -21,7 +21,7 @@
 	<property name="di.html.dir" location="${di.build.dir}/html" />
 	<property name="di.html.file" location="${di.html.dir}/design-intent.html" />
 	<property name="di.eclipse.help.dir" location="${di.build.dir}/eclipse-help" />
-	<property name="di.deploy.dir" location="../design-intent-eclipse-help" />
+	<property name="di.install.dir" location="../design-intent-eclipse-help" />
   <property name="di.pdf.file" location="${di.build.dir}/design-intent.pdf"/>
 	
 	<!-- Sierra Guide definitions -->
@@ -31,7 +31,7 @@
 	<property name="sg.html.dir" location="${sg.build.dir}/html" />
 	<property name="sg.html.file" location="${sg.html.dir}/sierra-guide.html" />
 	<property name="sg.eclipse.help.dir" location="${sg.build.dir}/eclipse-help" />
-	<property name="sg.deploy.dir" location="../sierra-client-eclipse-help" />
+	<property name="sg.install.dir" location="../sierra-client-eclipse-help" />
   <property name="sg.pdf.file" location="${sg.build.dir}/sierra-guide.pdf"/>
 
 	<!-- Flashlight Guide definitions -->
@@ -41,7 +41,7 @@
 	<property name="fg.html.dir" location="${fg.build.dir}/html" />
 	<property name="fg.html.file" location="${fg.html.dir}/flashlight-guide.html" />
 	<property name="fg.eclipse.help.dir" location="${fg.build.dir}/eclipse-help" />
-	<property name="fg.deploy.dir" location="../flashlight-client-eclipse-help" />
+	<property name="fg.install.dir" location="../flashlight-client-eclipse-help" />
   <property name="fg.pdf.file" location="${fg.build.dir}/flashlight-guide.pdf"/>
 
   <!-- FOP engine class -->
@@ -151,4 +151,33 @@
     	<delete file="@{srcfile}.fo"/>
     </sequential>
 	</macrodef>
+	
+	<macrodef name="install-eclipse-help">
+    <attribute name="srcdir"/>
+    <attribute name="installdir"/>
+    <sequential>
+	  	<copy file="@{srcdir}/toc.xml" todir="@{installdir}" />
+  		<copy todir="@{installdir}">
+			  <fileset dir="@{srcdir}">
+			  	<include name="**/*.html" />
+		  		<include name="**/*.png" />
+	  		</fileset>
+  		</copy>
+    </sequential>
+  </macrodef>
+
+	<macrodef name="uninstall-eclipse-help">
+    <attribute name="installdir"/>
+    <sequential>
+  		<delete quiet="true" file="@{installdir}/toc.xml" />
+  		<delete quiet="true">
+  			<fileset dir="@{installdir}">
+  				<include name="**/*.html" />
+  				<include name="**/*.png" />
+  				<exclude name="**/about.html" />
+  			</fileset>
+  		</delete>
+  		<delete quiet="true" dir="@{installdir}/images" />
+    </sequential>
+  </macrodef>
 </project>

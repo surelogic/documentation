@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="sierra_help_manual" basedir="." default="all">
+<project name="sierra_help_manual" basedir="." default="build-and-install">
 	<import file="./definitions.xml" />
 
-	<target name="all" depends="design-intent, sierra-guide, flashlight-guide" />
+	<target name="build-and-install" depends="build-all, install-all"/>
+	
+	<target name="build-all" depends="design-intent, sierra-guide, flashlight-guide" />
 
 	
 	
@@ -84,4 +86,39 @@
 	<target name="clean">
 		<delete quiet="true" dir="${build}" />
 	</target>
+	
+	
+	
+	<target name="install-all" depends="install-design-intent, install-sierra-guide, install-flashlight-guide"/>
+	
+	<target name="install-design-intent">
+    <install-eclipse-help srcdir="${di.eclipse.help.dir}"
+    	  installdir="${di.install.dir}"/>
+  </target>
+
+	<target name="install-sierra-guide">
+    <install-eclipse-help srcdir="${sg.eclipse.help.dir}"
+    	  installdir="${sg.install.dir}"/>
+  </target>
+
+	<target name="install-flashlight-guide">
+    <install-eclipse-help srcdir="${fg.eclipse.help.dir}"
+    	  installdir="${fg.install.dir}"/>
+  </target>
+	
+	
+	
+	<target name="uninstall-all" depends="uninstall-design-intent, uninstall-sierra-guide, uninstall-flashlight-guide"/>
+	
+	<target name="uninstall-design-intent">
+    <uninstall-eclipse-help installdir="${di.install.dir}"/>
+  </target>
+
+	<target name="uninstall-sierra-guide">
+    <uninstall-eclipse-help installdir="${sg.install.dir}"/>
+  </target>
+
+	<target name="uninstall-flashlight-guide">
+    <uninstall-eclipse-help installdir="${fg.install.dir}"/>
+  </target>
 </project>
