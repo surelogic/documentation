@@ -4,7 +4,32 @@
 
 	<target name="build-and-install" depends="build-all, install-all"/>
 	
-	<target name="build-all" depends="design-intent, sierra-guide, flashlight-guide" />
+	<target name="build-all" depends="jsure-examples, design-intent, sierra-guide, flashlight-guide" />
+
+		
+		
+	<target name="jsure-examples" depends="jsure-examples-html, jsure-examples-eclipse-help, jsure-examples-pdf" />	
+
+	<target name="jsure-examples-html">
+		<docbook-to-html
+			  srcdir=  "${je.source.dir}"
+		    srcfile= "${je.source.file}"
+			  destdir= "${je.html.dir}"
+			  destfile="${je.html.file}"/>
+	</target>
+
+	<target name="jsure-examples-eclipse-help">
+		<docbook-to-eclipse-help
+		    srcdir=  "${je.source.dir}"
+		    srcfile= "${je.source.file}"
+		    destdir= "${je.eclipse.help.dir}"/>
+	</target>
+		
+	<target name="jsure-examples-pdf">
+		<docbook-to-pdf srcfile="${je.source.file}"
+			  destfile="${je.pdf.file}"
+	      destdir= "${je.build.dir}"/>
+  </target>
 
 	
 	
@@ -89,8 +114,13 @@
 	
 	
 	
-	<target name="install-all" depends="install-design-intent, install-sierra-guide, install-flashlight-guide"/>
+	<target name="install-all" depends="install-jsure-examples, install-design-intent, install-sierra-guide, install-flashlight-guide"/>
 	
+	<target name="install-jsure-examples">
+    <install-eclipse-help srcdir="${je.eclipse.help.dir}"
+    	  installdir="${je.install.dir}"/>
+  </target>
+
 	<target name="install-design-intent">
     <install-eclipse-help srcdir="${di.eclipse.help.dir}"
     	  installdir="${di.install.dir}"/>
@@ -108,7 +138,11 @@
 	
 	
 	
-	<target name="uninstall-all" depends="uninstall-design-intent, uninstall-sierra-guide, uninstall-flashlight-guide"/>
+	<target name="uninstall-all" depends="uninstall-jsure-examples, uninstall-design-intent, uninstall-sierra-guide, uninstall-flashlight-guide"/>
+	
+	<target name="uninstall-jsure-examples">
+    <uninstall-eclipse-help installdir="${je.install.dir}"/>
+  </target>
 	
 	<target name="uninstall-design-intent">
     <uninstall-eclipse-help installdir="${di.install.dir}"/>

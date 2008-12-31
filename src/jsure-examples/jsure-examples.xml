@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<book id="jsure-examples" lang="en-US">
+  <title>Example Annotations and Analysis with JSure</title>
+  <bookinfo>
+    <copyright>
+      <year>2008</year>
+      <holder>SureLogic, Inc.</holder>
+    </copyright>
+  </bookinfo>
+
+  <chapter id="BoundedFIFO">
+    <title>BoundedFIFO</title>
+    
+    <para>This example walks through the complete assurance of a simple
+    class and its usage. That is, it demonstrates that is not always
+    enough to assure the implementation of a class: <emphasis>sometimes
+    the clients of a class must conform to a specific behavior as
+    well</emphasis>. This example focuses on two classes (plus one
+    auxillary class):</para>
+    
+    <variablelist>
+      <varlistentry>
+        <term><varname>BoundedFIFO</varname></term>
+        <listitem><para>The "thread safe" class.  See <xref
+        linkend="BoundedFIFO.java">foobar</xref></para></listitem>
+      </varlistentry>
+      
+      <varlistentry>
+        <term><varname>BlockingFIFO</varname></term>
+        <listitem><para>The client code.  See <xref
+        linkend="BlockingFIFO.java">foobar</xref></para></listitem>
+      </varlistentry>
+      
+      <varlistentry>
+        <term><varname>LoggingEvent</varname></term>
+        <listitem><para>The class of objects stored in the queue.  See
+        <xref
+        linkend="LoggingEvent.java">foobar</xref></para></listitem>
+      </varlistentry>
+    </variablelist>
+    
+    <para>The class <varname>BoundedFIFO</varname> is taken from the
+    <application>Apache Log4J</application> project. The class
+    <varname>BlockingFIFO</varname> we wrote based on actual client code
+    in <application>Log4J</application>.</para>
+
+    <para>This example shows off basic features of assuring Java lock
+    models using Java intrinsic lock objects:</para>
+    
+    <itemizedlist>
+      <listitem><varname>@RegionLock</varname></listitem>
+      <listitem><varname>@RequiresLock</varname></listitem>
+      <listitem><varname>@SingleThreaded</varname></listitem>
+      <listitem><varname>@Borrowed</varname></listitem>
+      <listitem><varname>@Unique</varname></listitem>
+      <listitem><varname>@Aggregate</varname></listitem>
+      <listitem><varname>@Promise</varname></listitem>
+    </itemizedlist>
+    
+    <figure id="BoundedFIFO.java">
+      <title>Initial Source Code for class <code>BoundedFIFO</code></title>
+      
+      <programlisting>
+<emphasis>@RegionLock("BufLock is this protects Instance")</emphasis>
+public class BoundedFIFO {
+  LoggingEvent[] buf;
+  
+  int numElts = 0;
+  int first = 0;
+  int next = 0;
+  int size;
+
+  /**
+   * Instantiate a new BoundedFIFO with a maximum size passed as argument.
+   *
+   * @param size Maximum size of the BoundedFIFO created.
+   */
+  public BoundedFIFO(int size) {
+    if (size &lt; 1)
+      throw new IllegalArgumentException();
+    this.size = size;
+    buf = new LoggingEvent[size];
+  }
+
+  /**
+   * Get the first element in the buffer. Returns &lt;code&gt;null&lt;/code&gt; if
+   * there are no elements in the buffer.
+   */
+  public LoggingEvent get() {
+    if (numElts == 0)
+      return null;
+    LoggingEvent r = buf[next];
+    if (++first == size)
+      first = 0;
+    numElts--;
+    return r;
+  }
+
+  /**
+   * Place a {@link LoggingEvent} in the buffer. If the buffer is full  then
+   * the event is &lt;b&gt;silently dropped&lt;/b&gt;. It is the caller's  responsibility
+   * to make sure that the buffer has free space.
+   * 
+   * @param o The logging event added into the buffer.
+   */
+  public void put(LoggingEvent o) {
+    if (numElts != size) {
+      buf[next] = o;
+      if (++next == size)
+        next = 0;
+      numElts++;
+    }
+  }
+
+  /** 
+   * Get the maximum size of the buffer.
+   */
+  public int getMaxSize() {
+    return size;
+  }
+
+  /**
+   * Get the number of elements in the buffer. This number is guaranteed to be
+   * in the range 0 to &lt;code&gt;maxSize&lt;/code&gt; (inclusive).
+   */
+  public int length() {
+    return numElts;
+  }
+
+  /**
+   * Returns &lt;code&gt;true&lt;/code&gt; if there is just one element in the buffer. In
+   * other words, if there were no elements before the last {@link #put}
+   * operation completed.
+   */
+  public boolean wasEmpty() {
+    return numElts == 1;
+  }
+
+  /**
+   * Returns &lt;code&gt;true&lt;/code&gt; if the number of elements in the buffer plus 1
+   * equals the maximum buffer size, returns &lt;code&gt;false&lt;/code&gt; otherwise.
+   */
+  public boolean wasFull() {
+    return numElts + 1 == size;
+  }
+
+  /**
+   * Returns &lt;code&gt;true&lt;/code&gt; if the number of elements in the buffer equals
+   * the maximum buffer size, returns &lt;code&gt;false&lt;/code&gt; otherwise.
+   */
+  public boolean isFull() {
+    return numElts == size;
+  }
+}
+      </programlisting>
+    </figure>
+
+    <figure id="BlockingFIFO.java">
+      <title>Initial Source Code for class <code>BlockingFIFO</code></title>
+      
+      <programlisting>
+        <![CDATA[
+public class BlockingFIFO {
+  private final BoundedFIFO fifo;;
+
+  public BlockingFIFO(int size) {
+    fifo = new BoundedFIFO(size);
+  }
+
+  public void put(LoggingEvent e) {
+    synchronized (this) {
+      while (fifo.isFull()) {
+        try {
+          fifo.wait();
+        } catch (InterruptedException ie) {
+          // ignore
+        }
+      }
+      fifo.put(e);
+      if (fifo.wasEmpty()) {
+        fifo.notify();
+      }
+      fifo.put(e);
+      fifo.put(e);
+    }
+  }
+
+  public LoggingEvent get() {
+    synchronized (fifo) {
+      LoggingEvent e;
+      while (fifo.length() == 0) {
+        try {
+          fifo.wait();
+        } catch (InterruptedException ie) {
+          // ignore
+        }
+      }
+      e = fifo.get();
+      if (fifo.wasFull()) {
+        fifo.notify();
+      }
+      return e;
+    }
+  }
+
+  public int length() {
+    synchronized (fifo) {
+      return fifo.length();
+    }
+  }
+}
+        ]]>
+      </programlisting>
+    </figure>
+
+    <figure id="LoggingEvent.java">
+      <title>Initial Source Code for class <code>BlockingFIFO</code></title>
+      
+      <programlisting>
+        <![CDATA[
+public class LoggingEvent { 
+  /* Empty: The contents of this class are not interesting 
+   * for our example.
+   */
+}
+        ]]>
+      </programlisting>
+    </figure>
+    
+    <sect1 id="declaring-protected-state">
+      <title>Declaring Protected State</title>
+      
+      <para>The <varname>BoundedFIFO</varname> class is a buffer meant
+      to be shared between two threads. It obviously must be made
+      thread-safe. The usual assumption is that an object protects its
+      own state.  In <xref linkend="BoundedFIFO.java">foo</xref> the
+      class is already annotated with this assumption:</para>
+      
+      <programlisting>
+<emphasis>@RegionLock("BufLock is this protects Instance")</emphasis>
+public class BoundedFIFO {
+  &hellip;
+}
+      </programlisting>
+
+      <para>With this single annotation, analysis by JSure produces two
+      main concurrency results, mostly indicating that the annotation is
+      not assured, and a few warnings:</para>
+      
+      <mediaobject>
+        <imageobject role="html">
+          <imagedata fileref="images/BoundedFIFO1.png"/>
+        </imageobject>
+      </mediaobject>
+    </sect1>
+    
+  </chapter>
+</book>
