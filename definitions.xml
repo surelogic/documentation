@@ -14,25 +14,25 @@
 	<property name="docbook-to-eclipse-xsl" value="${docbook.dir}/eclipse/eclipse.xsl" />
 	<property name="docbook-to-fo-xsl" value="${docbook.dir}/fo/docbook.xsl" />
 
-	<!-- Design Intent definitions -->
-	<property name="je.source.dir" location="${src}/jsure-examples" />
-	<property name="je.source.file" location="${je.source.dir}/jsure-examples.xml" />
-	<property name="je.build.dir" location="${build}/jsure-examples" />
+	<!-- JSure Guide definitions -->
+	<property name="je.source.dir" location="${src}/jsure-guide" />
+	<property name="je.source.file" location="${je.source.dir}/jsure-guide.xml" />
+	<property name="je.build.dir" location="${build}/jsure-guide" />
 	<property name="je.html.dir" location="${je.build.dir}/html" />
-	<property name="je.html.file" location="${je.html.dir}/jsure-examples.html" />
+	<property name="je.html.file" location="${je.html.dir}/jsure-guide.html" />
 	<property name="je.eclipse.help.dir" location="${je.build.dir}/eclipse-help" />
 	<property name="je.install.dir" location="../jsure-client-eclipse-help" />
-	<property name="je.pdf.file" location="${je.build.dir}/jsure-examples.pdf" />
+	<property name="je.pdf.file" location="${je.build.dir}/jsure-guide.pdf" />
 
 	<!-- Design Intent definitions -->
-	<property name="di.source.dir" location="${src}/design-intent" />
-	<property name="di.source.file" location="${di.source.dir}/design-intent.xml" />
-	<property name="di.build.dir" location="${build}/design-intent" />
+	<property name="di.source.dir" location="${src}/jsure-design-intent" />
+	<property name="di.source.file" location="${di.source.dir}/jsure-design-intent.xml" />
+	<property name="di.build.dir" location="${build}/jsure-design-intent" />
 	<property name="di.html.dir" location="${di.build.dir}/html" />
-	<property name="di.html.file" location="${di.html.dir}/design-intent.html" />
+	<property name="di.html.file" location="${di.html.dir}/jsure-design-intent.html" />
 	<property name="di.eclipse.help.dir" location="${di.build.dir}/eclipse-help" />
-	<property name="di.install.dir" location="../sierra-design-intent-eclipse-help" />
-	<property name="di.pdf.file" location="${di.build.dir}/design-intent.pdf" />
+	<property name="di.install.dir" location="../jsure-design-intent-eclipse-help" />
+	<property name="di.pdf.file" location="${di.build.dir}/jsure-design-intent.pdf" />
 
 	<!-- Sierra Guide definitions -->
 	<property name="sg.source.dir" location="${src}/sierra-guide" />
@@ -80,8 +80,8 @@
 	<path id="xslt.processor.classpath">
 		<pathelement path="${saxon.dir}/saxon.jar" />
 		<pathelement path="${resolver.dir}/resolver.jar" />
+		<!-- Add lib directory to pick up CatalogManager.properties -->
 		<pathelement path="${lib}" />
-		<!-- picks up CatalogManager.properties -->
 	</path>
 
 	<!-- Macro to convert DocBook to HTML -->

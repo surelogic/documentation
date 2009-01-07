@@ -6,37 +6,37 @@
 
 	<target name="clean-and-uninstall" depends="clean, uninstall-all" />
 
-	<target name="build-all" depends="jsure-examples, design-intent, sierra-guide, flashlight-guide" />
+	<target name="build-all" depends="jsure-guide, jsure-design-intent, sierra-guide, flashlight-guide" />
 
 
 
-	<target name="jsure-examples" depends="jsure-examples-html, jsure-examples-eclipse-help, jsure-examples-pdf" />
+	<target name="jsure-guide" depends="jsure-guide-html, jsure-guide-eclipse-help, jsure-guide-pdf" />
 
-	<target name="jsure-examples-html">
+	<target name="jsure-guide-html">
 		<docbook-to-html srcdir="${je.source.dir}" srcfile="${je.source.file}" destdir="${je.html.dir}" destfile="${je.html.file}" />
 	</target>
 
-	<target name="jsure-examples-eclipse-help">
+	<target name="jsure-guide-eclipse-help">
 		<docbook-to-eclipse-help srcdir="${je.source.dir}" srcfile="${je.source.file}" destdir="${je.eclipse.help.dir}" />
 	</target>
 
-	<target name="jsure-examples-pdf">
+	<target name="jsure-guide-pdf">
 		<docbook-to-pdf srcfile="${je.source.file}" destfile="${je.pdf.file}" destdir="${je.build.dir}" />
 	</target>
 
 
 
-	<target name="design-intent" depends="design-intent-html, design-intent-eclipse-help, design-intent-pdf" />
+	<target name="jsure-design-intent" depends="jsure-design-intent-html, jsure-design-intent-eclipse-help, jsure-design-intent-pdf" />
 
-	<target name="design-intent-html">
+	<target name="jsure-design-intent-html">
 		<docbook-to-html srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.html.dir}" destfile="${di.html.file}" />
 	</target>
 
-	<target name="design-intent-eclipse-help">
+	<target name="jsure-design-intent-eclipse-help">
 		<docbook-to-eclipse-help srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.eclipse.help.dir}" />
 	</target>
 
-	<target name="design-intent-pdf">
+	<target name="jsure-design-intent-pdf">
 		<docbook-to-pdf srcfile="${di.source.file}" destfile="${di.pdf.file}" destdir="${di.build.dir}" />
 	</target>
 
@@ -80,13 +80,13 @@
 
 
 
-	<target name="install-all" depends="install-jsure-examples, install-design-intent, install-sierra-guide, install-flashlight-guide" />
+	<target name="install-all" depends="install-jsure-guide, install-jsure-design-intent, install-sierra-guide, install-flashlight-guide" />
 
-	<target name="install-jsure-examples">
+	<target name="install-jsure-guide">
 		<install-eclipse-help srcdir="${je.eclipse.help.dir}" installdir="${je.install.dir}" />
 	</target>
 
-	<target name="install-design-intent">
+	<target name="install-jsure-design-intent">
 		<install-eclipse-help srcdir="${di.eclipse.help.dir}" installdir="${di.install.dir}" />
 	</target>
 
@@ -100,13 +100,13 @@
 
 
 
-	<target name="uninstall-all" depends="uninstall-jsure-examples, uninstall-design-intent, uninstall-sierra-guide, uninstall-flashlight-guide" />
+	<target name="uninstall-all" depends="uninstall-jsure-guide, uninstall-jsure-design-intent, uninstall-sierra-guide, uninstall-flashlight-guide" />
 
-	<target name="uninstall-jsure-examples">
+	<target name="uninstall-jsure-guide">
 		<uninstall-eclipse-help installdir="${je.install.dir}" />
 	</target>
 
-	<target name="uninstall-design-intent">
+	<target name="uninstall-jsure-design-intent">
 		<uninstall-eclipse-help installdir="${di.install.dir}" />
 	</target>
 
