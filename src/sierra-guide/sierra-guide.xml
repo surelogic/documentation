@@ -123,22 +123,22 @@
       <filename>~/.sierra-data</filename>.</para>
 
       <para>The results reported by analysis tools during a scan are
-      called <emphasis>artifacts</emphasis> by Sierra.  It aggregates
-      these results to produce <emphasis>findings</emphasis>, each of
-      which is made up of one or more artifacts.  The reason for this
-      distinction between an artifact and a finding is two-fold: to
-      merge the "same" artifact reported by two different tools and to
-      track a particular code issue over time (e.g., across multiple
-      scans).  Two analysis tools may report artifacts that are
-      essentially the same issue.  For example, the line of Java code
-      shown below would generate an artifact from both the FindBugs
-      and PMD analysis tools that explicit construction of string
-      objects is inefficient.</para>
+      called <emphasis>artifacts</emphasis> by Sierra.  Sierra
+      aggregates these results to produce
+      <emphasis>findings</emphasis>, each of which is made up of one
+      or more artifacts.  The reason for this distinction between an
+      artifact and a finding is two-fold: to merge the "same" artifact
+      reported by two different tools and to track a particular code
+      issue over time (i.e., across multiple scans).  Two analysis
+      tools may report artifacts that are essentially the same issue.
+      For example, the line of Java code shown below would generate an
+      artifact from both the FindBugs and PMD analysis tools that
+      explicit construction of string objects is inefficient.</para>
 
       <programlisting><![CDATA[String hi = new String("hi");]]></programlisting>
 
       <para>It would be annoying for the user to deal with two reports
-      for the same issue, so Sierra maps similar artifacts from
+      for this issue, so Sierra maps similar artifacts from
       different analysis tools into one finding.</para>
 
       <para>The second distinction between an artifact and a finding
@@ -153,13 +153,13 @@
 
       <para>Sierra distinguishes between artifacts and artifact types
       as well as between findings and finding types.  An
-      <emphasis>artifact type</emphasis> is often called a rule by
-      analysis tools.  Each analysis tool included in Sierra reports
-      artifacts based upon the set of artifact types, or rules, that
-      they contain.  For example, one artifact type (or rule) included
-      in FindBugs and PMD is that explicit construction of string
-      objects is inefficient.  Each artifact reported by a scan has
-      one and only one artifact type.</para>
+      <emphasis>artifact type</emphasis> is often called a
+      <emphasis>rule</emphasis> by analysis tools.  Each analysis tool
+      included in Sierra reports artifacts based upon the set of
+      artifact types (or rules) that they contain.  For example, one
+      artifact type included in FindBugs and PMD is that explicit
+      construction of string objects is inefficient.  Each artifact
+      reported by a scan has one and only one artifact type.</para>
 
       <para>A <emphasis>finding type</emphasis> is similar to an
       artifact type, but it describes a type of finding rather than a
@@ -315,7 +315,7 @@
            <imagedata fileref="images/quick-start-menu.png" />
          </imageobject>
          <imageobject role="fo">
-           <imagedata width="100%" scalefit="1" fileref="images/quick-start-menu.png" />
+           <imagedata width="70%" scalefit="1" fileref="images/quick-start-menu.png" />
          </imageobject>
       </mediaobject>
 
@@ -592,7 +592,7 @@ if (o == null) {
 	    <imagedata fileref="images/tutorial-audits.png" />
 	  </imageobject>
 	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1" fileref="images/tutorial-audits.png" />
+	    <imagedata width="50%" scalefit="1" fileref="images/tutorial-audits.png" />
 	  </imageobject>
 	</mediaobject>
       </figure>
@@ -633,7 +633,7 @@ if (o == null) {
 		fileref="images/tutorial-artifacts.png" />
 	  </imageobject>
 	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
+	    <imagedata width="80%" scalefit="1"
 		fileref="images/tutorial-artifacts.png" />
 	  </imageobject>
 	</mediaobject>
@@ -678,7 +678,7 @@ if (o == null) {
 		fileref="images/tutorial-status-fixed.png" />
 	  </imageobject>
 	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
+	    <imagedata width="50%" scalefit="1"
 		fileref="images/tutorial-status-fixed.png" />
 	  </imageobject>
 	</mediaobject>
@@ -755,7 +755,7 @@ if (o == null) {
 		fileref="images/tutorial-running-smallworld.png" />
 	  </imageobject>
 	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
+	    <imagedata width="80%" scalefit="1"
 		fileref="images/tutorial-running-smallworld.png" />
 	  </imageobject>
 	</mediaobject>
