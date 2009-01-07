@@ -3,17 +3,17 @@
 	<property name="src" location="./src" />
 	<property name="build" location="./build" />
 	<property name="lib" location="./lib" />
-		
+
 	<property name="docbook.dir" location="${lib}/docbook-xsl-1.74.0" />
-	<property name="saxon.dir" location="${lib}/saxon-6-5-5"/>
-	<property name="resolver.dir" location="${lib}/xml-commons-resolver-1.2"/>
-  <property name="fop.dir" location="${lib}/fop-0.95"/>
-  <property name="offo.dir" location="${lib}/offo-1.2"/>
-  	
-	<property name="docbook-to-html-xsl" value="${docbook.dir}/html/docbook.xsl"/>
-	<property name="docbook-to-eclipse-xsl" value="${docbook.dir}/eclipse/eclipse.xsl"/>
-	<property name="docbook-to-fo-xsl" value="${docbook.dir}/fo/docbook.xsl"/>
-		
+	<property name="saxon.dir" location="${lib}/saxon-6-5-5" />
+	<property name="resolver.dir" location="${lib}/xml-commons-resolver-1.2" />
+	<property name="fop.dir" location="${lib}/fop-0.95" />
+	<property name="offo.dir" location="${lib}/offo-1.2" />
+
+	<property name="docbook-to-html-xsl" value="${docbook.dir}/html/docbook.xsl" />
+	<property name="docbook-to-eclipse-xsl" value="${docbook.dir}/eclipse/eclipse.xsl" />
+	<property name="docbook-to-fo-xsl" value="${docbook.dir}/fo/docbook.xsl" />
+
 	<!-- Design Intent definitions -->
 	<property name="je.source.dir" location="${src}/jsure-examples" />
 	<property name="je.source.file" location="${je.source.dir}/jsure-examples.xml" />
@@ -22,17 +22,17 @@
 	<property name="je.html.file" location="${je.html.dir}/jsure-examples.html" />
 	<property name="je.eclipse.help.dir" location="${je.build.dir}/eclipse-help" />
 	<property name="je.install.dir" location="../jsure-examples-eclipse-help" />
-  <property name="je.pdf.file" location="${je.build.dir}/jsure-examples.pdf"/>
-	
-  <!-- Design Intent definitions -->
-  <property name="di.source.dir" location="${src}/design-intent" />
-  <property name="di.source.file" location="${di.source.dir}/design-intent.xml" />
-  <property name="di.build.dir" location="${build}/design-intent" />
-  <property name="di.html.dir" location="${di.build.dir}/html" />
-  <property name="di.html.file" location="${di.html.dir}/design-intent.html" />
-  <property name="di.eclipse.help.dir" location="${di.build.dir}/eclipse-help" />
-  <property name="di.install.dir" location="../design-intent-eclipse-help" />
-  <property name="di.pdf.file" location="${di.build.dir}/design-intent.pdf"/>
+	<property name="je.pdf.file" location="${je.build.dir}/jsure-examples.pdf" />
+
+	<!-- Design Intent definitions -->
+	<property name="di.source.dir" location="${src}/design-intent" />
+	<property name="di.source.file" location="${di.source.dir}/design-intent.xml" />
+	<property name="di.build.dir" location="${build}/design-intent" />
+	<property name="di.html.dir" location="${di.build.dir}/html" />
+	<property name="di.html.file" location="${di.html.dir}/design-intent.html" />
+	<property name="di.eclipse.help.dir" location="${di.build.dir}/eclipse-help" />
+	<property name="di.install.dir" location="../design-intent-eclipse-help" />
+	<property name="di.pdf.file" location="${di.build.dir}/design-intent.pdf" />
 
 	<!-- Sierra Guide definitions -->
 	<property name="sg.source.dir" location="${src}/sierra-guide" />
@@ -42,7 +42,7 @@
 	<property name="sg.html.file" location="${sg.html.dir}/sierra-guide.html" />
 	<property name="sg.eclipse.help.dir" location="${sg.build.dir}/eclipse-help" />
 	<property name="sg.install.dir" location="../sierra-client-eclipse-help" />
-  <property name="sg.pdf.file" location="${sg.build.dir}/sierra-guide.pdf"/>
+	<property name="sg.pdf.file" location="${sg.build.dir}/sierra-guide.pdf" />
 
 	<!-- Flashlight Guide definitions -->
 	<property name="fg.source.dir" location="${src}/flashlight-guide" />
@@ -52,26 +52,26 @@
 	<property name="fg.html.file" location="${fg.html.dir}/flashlight-guide.html" />
 	<property name="fg.eclipse.help.dir" location="${fg.build.dir}/eclipse-help" />
 	<property name="fg.install.dir" location="../flashlight-client-eclipse-help" />
-  <property name="fg.pdf.file" location="${fg.build.dir}/flashlight-guide.pdf"/>
+	<property name="fg.pdf.file" location="${fg.build.dir}/flashlight-guide.pdf" />
 
-  <!-- FOP engine class -->
-	<property name="fop.class" value="org.apache.fop.cli.Main"/>
-		
+	<!-- FOP engine class -->
+	<property name="fop.class" value="org.apache.fop.cli.Main" />
+
 	<!-- Classpath for the FOP engine to convert DocBook to PDF -->
 	<path id="fop.classpath">
-		<pathelement path="${fop.dir}/fop.jar"/>
-	  <pathelement path="${fop.dir}/avalon.framework-4.2.0.jar"/>
-    <pathelement path="${fop.dir}/batik-all-1.7.jar"/>
-    <pathelement path="${fop.dir}/commons-io-1.3.1.jar"/>
-    <pathelement path="${fop.dir}/commons-logging-1.0.4.jar"/>
-    <pathelement path="${fop.dir}/serializer-2.7.0.jar"/>
-    <pathelement path="${fop.dir}/xalan-2.7.0.jar"/>
-    <pathelement path="${fop.dir}/xerxesimpl-2.7.1.jar"/>
-    <pathelement path="${fop.dir}/xml-apis-1.3.04.jar"/>
-    <pathelement path="${fop.dir}/xml-apis-ext-1.3.04.jar"/>
-    <pathelement path="${fop.dir}/xmlgraphics-commons-1.3.1.jar"/>
-	  <pathelement path="${offo.dir}/fop-hyph.jar"/>
-  </path>
+		<pathelement path="${fop.dir}/fop.jar" />
+		<pathelement path="${fop.dir}/avalon.framework-4.2.0.jar" />
+		<pathelement path="${fop.dir}/batik-all-1.7.jar" />
+		<pathelement path="${fop.dir}/commons-io-1.3.1.jar" />
+		<pathelement path="${fop.dir}/commons-logging-1.0.4.jar" />
+		<pathelement path="${fop.dir}/serializer-2.7.0.jar" />
+		<pathelement path="${fop.dir}/xalan-2.7.0.jar" />
+		<pathelement path="${fop.dir}/xerxesimpl-2.7.1.jar" />
+		<pathelement path="${fop.dir}/xml-apis-1.3.04.jar" />
+		<pathelement path="${fop.dir}/xml-apis-ext-1.3.04.jar" />
+		<pathelement path="${fop.dir}/xmlgraphics-commons-1.3.1.jar" />
+		<pathelement path="${offo.dir}/fop-hyph.jar" />
+	</path>
 
 	<!-- XSLT engine class -->
 	<property name="xslt.processor.class" value="com.icl.saxon.StyleSheet" />
@@ -80,114 +80,115 @@
 	<path id="xslt.processor.classpath">
 		<pathelement path="${saxon.dir}/saxon.jar" />
 		<pathelement path="${resolver.dir}/resolver.jar" />
-		<pathelement path="${lib}" />	<!-- picks up CatalogManager.properties -->
+		<pathelement path="${lib}" />
+		<!-- picks up CatalogManager.properties -->
 	</path>
-	
+
 	<!-- Macro to convert DocBook to HTML -->
-  <macrodef name="docbook-to-html">
-    <attribute name="srcdir"/>
-    <attribute name="srcfile"/>
-    <attribute name="destdir"/>
-    <attribute name="destfile"/>
-    <sequential>
-      <mkdir dir="@{destdir}"/>
-		  <java classname="${xslt.processor.class}" fork="yes" dir="@{destdir}" failonerror="true">
-			  <classpath refid="xslt.processor.classpath" />
-			  <arg line="-o '@{destfile}'" />
-			  <arg line="-l" />
-			  <arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			  <arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			  <arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
-			  <arg line="'@{srcfile}'"/>
-			  <arg line="'${docbook-to-html-xsl}'"/>
-		  </java>
-		  <copy todir="@{destdir}">
-			  <fileset dir="@{srcdir}">
-				  <include name="**/*.png" />
-			  </fileset>
-		  </copy>
-    </sequential>
+	<macrodef name="docbook-to-html">
+		<attribute name="srcdir" />
+		<attribute name="srcfile" />
+		<attribute name="destdir" />
+		<attribute name="destfile" />
+		<sequential>
+			<mkdir dir="@{destdir}" />
+			<java classname="${xslt.processor.class}" fork="yes" dir="@{destdir}" failonerror="true">
+				<classpath refid="xslt.processor.classpath" />
+				<arg line="-o '@{destfile}'" />
+				<arg line="-l" />
+				<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
+				<arg line="'@{srcfile}'" />
+				<arg line="'${docbook-to-html-xsl}'" />
+			</java>
+			<copy todir="@{destdir}">
+				<fileset dir="@{srcdir}">
+					<include name="**/*.png" />
+				</fileset>
+			</copy>
+		</sequential>
 	</macrodef>
-	
+
 	<!-- Macro to convert DocBook to Eclipse Help -->
-  <macrodef name="docbook-to-eclipse-help">
-    <attribute name="srcdir"/>
-    <attribute name="srcfile"/>
-    <attribute name="destdir"/>
-    <sequential>
-      <mkdir dir="@{destdir}"/>
-		  <java classname="${xslt.processor.class}" fork="yes" dir="@{destdir}" failonerror="true">
-			  <classpath refid="xslt.processor.classpath" />
-			  <arg line="-l" />
-			  <arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			  <arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
-  		  <arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
-			  <arg line="'@{srcfile}'"/>
-		  	<arg line="'${docbook-to-eclipse-xsl}'" />
+	<macrodef name="docbook-to-eclipse-help">
+		<attribute name="srcdir" />
+		<attribute name="srcfile" />
+		<attribute name="destdir" />
+		<sequential>
+			<mkdir dir="@{destdir}" />
+			<java classname="${xslt.processor.class}" fork="yes" dir="@{destdir}" failonerror="true">
+				<classpath refid="xslt.processor.classpath" />
+				<arg line="-l" />
+				<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
+				<arg line="'@{srcfile}'" />
+				<arg line="'${docbook-to-eclipse-xsl}'" />
 				<arg line="eclipse.plugin.name='Sierra Eclipse Client Help'" />
-  			<arg line="eclipse.plugin.id=com.surelogic.sierra.eclipse.client.help" />
-	  		<arg line="eclipse.plugin.provider='SureLogic, Inc.'" />
-		  </java>
-		  <copy todir="@{destdir}">
-			  <fileset dir="@{srcdir}">
-				  <include name="**/*.png" />
-			  </fileset>
-		  </copy>
-    </sequential>
+				<arg line="eclipse.plugin.id=com.surelogic.sierra.eclipse.client.help" />
+				<arg line="eclipse.plugin.provider='SureLogic, Inc.'" />
+			</java>
+			<copy todir="@{destdir}">
+				<fileset dir="@{srcdir}">
+					<include name="**/*.png" />
+				</fileset>
+			</copy>
+		</sequential>
 	</macrodef>
 
 	<!-- Macro to convert DocBook to PDF -->
-  <macrodef name="docbook-to-pdf">
-    <attribute name="srcfile"/>
-    <attribute name="destdir"/>
-    <attribute name="destfile"/>
-    <sequential>
-      <mkdir dir="@{destdir}"/>
-		  <java classname="${xslt.processor.class}" fork="yes" failonerror="true">
-			  <classpath refid="xslt.processor.classpath" />
-			  <arg line="-o '@{srcfile}.fo'" />
-			  <arg line="-l" />
-			  <arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			  <arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
-			  <arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
-			  <arg line="'@{srcfile}'"/>
-			  <arg line="'${docbook-to-fo-xsl}'"/>
-		  </java>
-    	<java classname="${fop.class}" fork="yes" failonerror="true">
-    		<classpath refid="fop.classpath"/>
-    	  <arg line="-fo '@{srcfile}.fo'"/>
-	      <arg line="-pdf '@{destfile}'"/>
-      </java>
-    	<delete file="@{srcfile}.fo"/>
-    </sequential>
+	<macrodef name="docbook-to-pdf">
+		<attribute name="srcfile" />
+		<attribute name="destdir" />
+		<attribute name="destfile" />
+		<sequential>
+			<mkdir dir="@{destdir}" />
+			<java classname="${xslt.processor.class}" fork="yes" failonerror="true">
+				<classpath refid="xslt.processor.classpath" />
+				<arg line="-o '@{srcfile}.fo'" />
+				<arg line="-l" />
+				<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
+				<arg line="'@{srcfile}'" />
+				<arg line="'${docbook-to-fo-xsl}'" />
+			</java>
+			<java classname="${fop.class}" fork="yes" failonerror="true">
+				<classpath refid="fop.classpath" />
+				<arg line="-fo '@{srcfile}.fo'" />
+				<arg line="-pdf '@{destfile}'" />
+			</java>
+			<delete file="@{srcfile}.fo" />
+		</sequential>
 	</macrodef>
-	
+
 	<macrodef name="install-eclipse-help">
-    <attribute name="srcdir"/>
-    <attribute name="installdir"/>
-    <sequential>
-	  	<copy file="@{srcdir}/toc.xml" todir="@{installdir}" />
-  		<copy todir="@{installdir}">
-			  <fileset dir="@{srcdir}">
-			  	<include name="**/*.html" />
-		  		<include name="**/*.png" />
-	  		</fileset>
-  		</copy>
-    </sequential>
-  </macrodef>
+		<attribute name="srcdir" />
+		<attribute name="installdir" />
+		<sequential>
+			<copy file="@{srcdir}/toc.xml" todir="@{installdir}" />
+			<copy todir="@{installdir}">
+				<fileset dir="@{srcdir}">
+					<include name="**/*.html" />
+					<include name="**/*.png" />
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
 
 	<macrodef name="uninstall-eclipse-help">
-    <attribute name="installdir"/>
-    <sequential>
-  		<delete quiet="true" file="@{installdir}/toc.xml" />
-  		<delete quiet="true">
-  			<fileset dir="@{installdir}">
-  				<include name="**/*.html" />
-  				<include name="**/*.png" />
-  				<exclude name="**/about.html" />
-  			</fileset>
-  		</delete>
-  		<delete quiet="true" dir="@{installdir}/images" />
-    </sequential>
-  </macrodef>
+		<attribute name="installdir" />
+		<sequential>
+			<delete quiet="true" file="@{installdir}/toc.xml" />
+			<delete quiet="true">
+				<fileset dir="@{installdir}">
+					<include name="**/*.html" />
+					<include name="**/*.png" />
+					<exclude name="**/about.html" />
+				</fileset>
+			</delete>
+			<delete quiet="true" dir="@{installdir}/images" />
+		</sequential>
+	</macrodef>
 </project>
