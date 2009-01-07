@@ -21,7 +21,7 @@
 	<property name="je.html.dir" location="${je.build.dir}/html" />
 	<property name="je.html.file" location="${je.html.dir}/jsure-examples.html" />
 	<property name="je.eclipse.help.dir" location="${je.build.dir}/eclipse-help" />
-	<property name="je.install.dir" location="../jsure-examples-eclipse-help" />
+	<property name="je.install.dir" location="../jsure-client-eclipse-help" />
 	<property name="je.pdf.file" location="${je.build.dir}/jsure-examples.pdf" />
 
 	<!-- Design Intent definitions -->
@@ -31,7 +31,7 @@
 	<property name="di.html.dir" location="${di.build.dir}/html" />
 	<property name="di.html.file" location="${di.html.dir}/design-intent.html" />
 	<property name="di.eclipse.help.dir" location="${di.build.dir}/eclipse-help" />
-	<property name="di.install.dir" location="../design-intent-eclipse-help" />
+	<property name="di.install.dir" location="../sierra-design-intent-eclipse-help" />
 	<property name="di.pdf.file" location="${di.build.dir}/design-intent.pdf" />
 
 	<!-- Sierra Guide definitions -->
