@@ -310,10 +310,7 @@
       has been loaded into your Eclipse it might take a few seconds to a
       minute for it to initialize, please be patient.)</para>
 
-      <mediaobject>
-	<imageobject role="html">
-	  <imagedata width="100%" scalefit="1" fileref="images/quick-start-menu.png" />
-	</imageobject>
+      <mediaobject>         <imageobject role="html">           <imagedata fileref="images/quick-start-menu.png" />         </imageobject>         <imageobject role="fo">           <imagedata width="100%" scalefit="1" fileref="images/quick-start-menu.png" />         </imageobject>
       </mediaobject>
 
       <para>A dialog will open showing you the set of available Java
@@ -449,6 +446,9 @@ public class ShowOff {
 	about the ShowOff project.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-screenshot.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1" fileref="images/tutorial-screenshot.png" />
 	  </imageobject>
 	</mediaobject>
@@ -583,6 +583,9 @@ if (o == null) {
 	<title>Three audits have been performed on this finding.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-audits.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1" fileref="images/tutorial-audits.png" />
 	  </imageobject>
 	</mediaobject>
@@ -620,6 +623,10 @@ if (o == null) {
 	finding.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-artifacts.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-artifacts.png" />
 	  </imageobject>
@@ -661,6 +668,10 @@ if (o == null) {
 	<title>Status bar graph after fixing two findings in the code.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-status-fixed.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-status-fixed.png" />
 	  </imageobject>
@@ -734,6 +745,10 @@ if (o == null) {
 	<title>Running the SmallWorld game.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-running-smallworld.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-running-smallworld.png" />
 	  </imageobject>
@@ -780,6 +795,10 @@ if (o == null) {
 	<title>The Local Team Server view.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-local-team-server.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-local-team-server.png" />
 	  </imageobject>
@@ -808,6 +827,10 @@ if (o == null) {
 	logs.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-local-team-server-logs.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-local-team-server-logs.png" />
 	  </imageobject>
@@ -831,6 +854,10 @@ if (o == null) {
 	local team server.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-local-team-server-preferences.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-local-team-server-preferences.png" />
 	  </imageobject>
@@ -855,6 +882,10 @@ if (o == null) {
 	Eclipse exits.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-local-team-server-warning-dialog.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-local-team-server-warning-dialog.png" />
 	  </imageobject>
@@ -874,6 +905,10 @@ if (o == null) {
 	indicating that the team server is running.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-local-team-server-running.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-local-team-server-running.png" />
 	  </imageobject>
@@ -906,6 +941,10 @@ if (o == null) {
 	<title>The welcome page on the team server portal.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-portal-welcome-page-empty.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-portal-welcome-page-empty.png" />
 	  </imageobject>
@@ -1027,6 +1066,10 @@ if (o == null) {
 	<title>The users page on the team server portal showing two enabled users.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-portal-users-page.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-portal-users-page.png" />
 	  </imageobject>
@@ -1052,6 +1095,10 @@ if (o == null) {
 	<title>The settings page on the team server portal sending a test notification email.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-portal-settings-page.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-portal-settings-page.png" />
 	  </imageobject>
@@ -1137,6 +1184,10 @@ if (o == null) {
 	the Eclipse client.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-localhost-connection.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-localhost-connection.png" />
 	  </imageobject>
@@ -1174,6 +1225,10 @@ if (o == null) {
 	project is connected to the localhost server.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-smallworld-connected.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-smallworld-connected.png" />
 	  </imageobject>
@@ -1240,6 +1295,10 @@ if (o == null) {
 	<title>The welcome page after the scan of SmallWorld has been published.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-portal-welcome-smallworld-publish.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-portal-welcome-smallworld-publish.png" />
 	  </imageobject>
@@ -1276,6 +1335,10 @@ if (o == null) {
 	<title>After a sync local audits are attributed to the zork user.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-smallworld-zork-audits.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-smallworld-zork-audits.png" />
 	  </imageobject>
@@ -1293,6 +1356,10 @@ if (o == null) {
 	<title>The portal shows the audits attributed to the zork user.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-portal-welcome-page-zork-audits.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-portal-welcome-page-zork-audits.png" />
 	  </imageobject>
@@ -1325,6 +1392,10 @@ if (o == null) {
 	user.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-smallworld-troll-audits.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-smallworld-troll-audits.png" />
 	  </imageobject>
@@ -1343,6 +1414,10 @@ if (o == null) {
 	troll users.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/tutorial-portal-welcome-page-troll-audits.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/tutorial-portal-welcome-page-troll-audits.png" />
 	  </imageobject>
@@ -1371,6 +1446,9 @@ if (o == null) {
 	<title>The Sierra menu.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata fileref="images/menu-sierra.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1" fileref="images/menu-sierra.png" />
 	  </imageobject>
 	</mediaobject>
@@ -1402,6 +1480,10 @@ if (o == null) {
 	    <title>Dialog allowing the user to select which Java projects to scan.</title>
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/menu-sierra-dialog.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/menu-sierra-dialog.png" />
 	      </imageobject>
@@ -1509,6 +1591,10 @@ if (o == null) {
 	    <title>Dialog allowing the user to enter a tip to improve Sierra.</title>
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/service-send-tip.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/service-send-tip.png" />
 	      </imageobject>
@@ -1537,6 +1623,10 @@ if (o == null) {
 	    <title>Dialog allowing the user to enter a problem report about Sierra.</title>
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/service-problem-report.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/service-problem-report.png" />
 	      </imageobject>
@@ -1711,6 +1801,10 @@ if (o == null) {
 	  <title>The Sierra preference pane.</title>
 	  <mediaobject>
 	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/preferences-sierra.png" />
+	    </imageobject>
+	    <imageobject role="fo">
 	      <imagedata width="100%" scalefit="1"
 		  fileref="images/preferences-sierra.png" />
 	    </imageobject>
@@ -1803,6 +1897,10 @@ if (o == null) {
 	  <title>The Local Team Server preference pane.</title>
 	  <mediaobject>
 	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/preferences-local-team-server.png" />
+	    </imageobject>
+	    <imageobject role="fo">
 	      <imagedata width="100%" scalefit="1"
 		  fileref="images/preferences-local-team-server.png" />
 	    </imageobject>
@@ -1832,6 +1930,10 @@ if (o == null) {
 	  <title>The Scan Data preference pane.</title>
 	  <mediaobject>
 	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/preferences-scan-data.png" />
+	    </imageobject>
+	    <imageobject role="fo">
 	      <imagedata width="100%" scalefit="1"
 		  fileref="images/preferences-scan-data.png" />
 	    </imageobject>
@@ -1868,6 +1970,10 @@ if (o == null) {
 	  <title>The Scan Filter preference pane.</title>
 	  <mediaobject>
 	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/preferences-scan-filter.png" />
+	    </imageobject>
+	    <imageobject role="fo">
 	      <imagedata width="100%" scalefit="1"
 		  fileref="images/preferences-scan-filter.png" />
 	    </imageobject>
@@ -1898,6 +2004,10 @@ if (o == null) {
 	  <title>The Tools preference pane.</title>
 	  <mediaobject>
 	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/preferences-tools.png" />
+	    </imageobject>
+	    <imageobject role="fo">
 	      <imagedata width="100%" scalefit="1"
 		  fileref="images/preferences-tools.png" />
 	    </imageobject>
@@ -1939,6 +2049,10 @@ if (o == null) {
 	<title>The SureLogic license management dialog.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/license-management.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/license-management.png" />
 	  </imageobject>
@@ -2001,6 +2115,10 @@ if (o == null) {
 	<title>Dialog warning that the installed Sierra license is about to expire.</title>
 	<mediaobject>
 	  <imageobject role="html">
+	    <imagedata
+		fileref="images/license-management-expiration-warning.png" />
+	  </imageobject>
+	  <imageobject role="fo">
 	    <imagedata width="100%" scalefit="1"
 		fileref="images/license-management-expiration-warning.png" />
 	  </imageobject>
@@ -2042,6 +2160,10 @@ if (o == null) {
 	    within Eclipse.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-2-main-menu-service.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-2-main-menu-service.png" />
 	      </imageobject>
@@ -2060,6 +2182,10 @@ if (o == null) {
 	    allows you to configure Eclipse for your network.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-2-network-connections.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-2-network-connections.png" />
 	      </imageobject>
@@ -2086,6 +2212,10 @@ if (o == null) {
 	    license management form.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-2-license-management.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-2-license-management.png" />
 	      </imageobject>
@@ -2144,6 +2274,10 @@ if (o == null) {
 	    no projects are selected in the Package Explorer.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-1-main-menu-scan.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-1-main-menu-scan.png" />
 	      </imageobject>
@@ -2156,6 +2290,10 @@ if (o == null) {
 	    button in the dialog.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-1-main-menu-scan-dialog.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-1-main-menu-scan-dialog.png" />
 	      </imageobject>
@@ -2179,6 +2317,10 @@ if (o == null) {
 	    Search</emphasis> view.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-1-list-of-findings-columns.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-1-list-of-findings-columns.png" />
 	      </imageobject>
@@ -2204,6 +2346,10 @@ if (o == null) {
 	    easy to run a team server within Eclipse on your desktop.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-1-local-team-server.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-1-local-team-server.png" />
 	      </imageobject>
@@ -2236,6 +2382,10 @@ if (o == null) {
 	    processes.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-1-scan-memory-pref.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-1-scan-memory-pref.png" />
 	      </imageobject>
@@ -2337,6 +2487,10 @@ if (o == null) {
 	    scan the code from the GlassFish project.)
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-1-pmd-scan-failure-jaxb.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-1-pmd-scan-failure-jaxb.png" />
 	      </imageobject>
@@ -2387,6 +2541,10 @@ if (o == null) {
 	    if this problem is detected.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
 	      </imageobject>
@@ -2421,6 +2579,10 @@ if (o == null) {
 	    running on a Java 5 virtual machine.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-0-update-site.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-update-site.png" />
 	      </imageobject>
@@ -2437,6 +2599,10 @@ if (o == null) {
 	    the tool.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-0-help.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-help.png" />
 	      </imageobject>
@@ -2455,6 +2621,10 @@ if (o == null) {
 	    your project.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-0-re-scan.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-re-scan.png" />
 	      </imageobject>
@@ -2471,6 +2641,10 @@ if (o == null) {
 	    the context menu.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-0-multi-select.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-multi-select.png" />
 	      </imageobject>
@@ -2486,12 +2660,20 @@ if (o == null) {
 	    the <emphasis>Sierra Team Servers</emphasis> view.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-0-team-server-scan.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-team-server-scan.png" />
 	      </imageobject>
 	    </mediaobject>
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-0-team-server-scan-all-connected.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-team-server-scan-all-connected.png" />
 	      </imageobject>
@@ -2512,6 +2694,10 @@ if (o == null) {
 	    not show this dialog).
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-0-export.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-export.png" />
 	      </imageobject>
@@ -2538,6 +2724,10 @@ if (o == null) {
 	    method.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-0-cpd.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-cpd.png" />
 	      </imageobject>
@@ -2577,6 +2767,10 @@ if (o == null) {
 	    team server's web portal.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata
+		    fileref="images/release-notes-2-0-team-server-user-mgt.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-team-server-user-mgt.png" />
 	      </imageobject>
@@ -2623,6 +2817,10 @@ if (o == null) {
 	    problem is detected.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
 	      </imageobject>
@@ -2639,6 +2837,10 @@ if (o == null) {
 	    table, i.e., scrolling would not be required.
 	    <mediaobject>
 	      <imageobject role="html">
+		<imagedata 
+		    fileref="images/release-notes-2-0-linux-findings-display-bug.png" />
+	      </imageobject>
+	      <imageobject role="fo">
 		<imagedata width="100%" scalefit="1"
 		    fileref="images/release-notes-2-0-linux-findings-display-bug.png" />
 	      </imageobject>
