@@ -99,9 +99,9 @@
       after that describes how to scan your code and get started
       quickly with the Sierra tool. If you have used FindBugs or PMD
       and want to get going on your own code this is your quickest
-      route.  The final section is a tutorial of using the tool on a
-      small example Java project. If you don't have any code and want
-      to try out Sierra this is your quickest route.</para>
+      route.  The final sections of this chapter contain a series of
+      tutorials that describe how to use the Sierra on example Java
+      projects.</para>
     </section>
 
     <section>
