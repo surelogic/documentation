@@ -5,15 +5,61 @@
 
 <book id="jsure-examples" lang="en-US">
   <title>JSure User Guide</title>
+  <subtitle>How to use and configure the JSure Eclipse client</subtitle>
   <bookinfo>
     <copyright>
       <year>2008</year>
       <holder>SureLogic, Inc.</holder>
     </copyright>
+    <legalnotice>
+      <para>The authors and publishers have taken care in the
+      preparation of this documentation, but make no expressed or
+      implied warranty of any kind and assume no responsibility for
+      errors and omissions. No liability is assumed for incidental or
+      consequential damages in connection with or arising out of the use
+      of the information or programs herein.</para>
+    </legalnotice>
+    <pubdate>Version 1.0&mdash;January 2009</pubdate>
   </bookinfo>
 
-  <chapter id="BoundedFIFO">
-    <title>BoundedFIFO</title>
+  <chapter id="preface">
+    <title>Preface</title>
+    <section>
+      <title>Audience</title>
+      <para>This document is intended for Java developers who want to
+      use the JSure tool within the Eclipse Java IDE. We assume
+      that the reader understands both the Java programming language and
+      the use of Eclipse for Java development.</para>
+    </section>
+    <section>
+      <title>Contact information</title>
+      <para>For technical support or other questions, please
+      contact:</para>
+      <para><email>support@surelogic.com</email></para>
+      <para>5808 Forbes Avenue, Pittsburgh, PA 15217-1602</para>
+    </section>
+  </chapter>
+
+
+<chapter id="getting-started">
+  <title>Getting started</title>
+  <sect1>
+    <title>Introduction</title>
+
+    <para><emphasis>What is JSure?</emphasis> TODO</para>
+  </sect1>
+
+  <sect1>
+    <title>Quick start: How to scan your code and start adding design
+    intent</title>
+
+    <para>This section assumes that you have installed JSure. If you
+    see a <guimenu>JSure</guimenu> menu item on your Eclipse main menu
+    then you can assume JSure has been properly installed.</para>
+  </sect1>
+
+  <sect1>
+    <title>Tutorial: Verifying BoundedFIFO</title>
     
     <para>This example walks through the complete assurance of a simple
     class and its usage. That is, it demonstrates that is not always
@@ -160,7 +206,8 @@ public class BoundedFIFO {
     </figure>
 
     <figure id="BlockingFIFO.java">
-      <title>Initial Source Code for class <code>BlockingFIFO</code></title>
+      <title>Initial Source Code for class
+      <filename>BlockingFIFO</filename></title>
       
       <programlisting>
         <![CDATA[
@@ -260,7 +307,7 @@ public class BoundedFIFO {
       </mediaobject>
     </sect1>
 
-    <sect1 id="declaring-lock-preconditions">
+    <sect2 id="declaring-lock-preconditions">
       <title>Declaring Lock Preconditions</title>
     
       <para>Either this class is horribly broken or something else is
@@ -297,9 +344,9 @@ public class BoundedFIFO {
 
       <para>After adding the annotation we save (and thus reanalyze the
       project).</para>
-    </sect1>  
+    </sect2>  
     
-    <sect1 id="wrong-lock">
+    <sect2 id="wrong-lock">
       <title>Wrong Lock</title>
       
       <para>There is now a "scoped promises" heading, and we can see all
@@ -339,9 +386,9 @@ public class BoundedFIFO {
    }
  }
       </programlisting>
-    </sect1>
+    </sect2>
     
-    <sect1 id="single-threaded-constructor">
+    <sect2 id="single-threaded-constructor">
       <title>Single Threaded Constructor</title>
 
       <para>There are still five unprotected field accesses. These all
@@ -464,7 +511,7 @@ public class BoundedFIFO {
         at line 59.</para>
       </sect2>
       
-      <sect2 id="deeper-analysis">
+      <sect3 id="deeper-analysis">
         <title>Deeper Analysis</title>
         
         <para>The analysis used to assure <varname>@Borrowed</varname>
@@ -499,10 +546,10 @@ public BoundedFIFO(int size) {
             <imagedata fileref="images/BoundedFIFO4-4.png"/>
           </imageobject>
         </mediaobject>
-      </sect2>
-    </sect1>
+      </sect3>
+    </sect2>
     
-    <sect1 id="aggregated-state">
+    <sect2 id="aggregated-state">
       <title>Aggregated State</title>
       
       <para>We now have no red X's, but we still have 2 warnings about
@@ -551,9 +598,9 @@ public BoundedFIFO(int size) {
           <imagedata fileref="images/BoundedFIFO5b.png"/>
         </imageobject>
       </mediaobject>      
-    </sect1>
+    </sect2>
     
-    <sect1 id="assured">
+    <sect2 id="assured">
       <title>Assurance Acheived</title>
       
       <para>The project is now fully assured:</para>
@@ -563,6 +610,45 @@ public BoundedFIFO(int size) {
           <imagedata fileref="images/BoundedFIFO6.png"/>
         </imageobject>
       </mediaobject>      
-    </sect1>
+    </sect2>
+  </sect1>
+</chapter>
+
+
+  <chapter id="reference">
+    <title>Reference</title>
+    <section>
+      <title>The JSure menu</title>
+      <para>The JSure menu appears as an item on the Eclipse workspace
+      main menu.</para>
+    </section>
+    <section>
+      <title>The Code Verification perspective</title>
+      <para>The Code Verification perspective organizes the Eclipse
+      workbench to show views which will help you to interact with
+      tool findings.</para>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Release notes</title>
+    <para>For each release of JSure there are new and noteworthy
+    features to try out, and known limitations to avoid or
+    workaround. These are presented in the sections below for each
+    released version of JSure.</para>
+    <section>
+      <title>JSure version 1.0</title>
+      <para>This section describes the 1.0 release of JSure.</para>
+      <section>
+	<title>New and Noteworthy</title>
+	<para>This section describes new and noteworthy features in this
+	version of JSure.</para>
+      </section>
+      <section>
+	<title>Known Problems</title>
+	<para>This section describes known bugs and limitations in this
+	version of JSure.</para>
+      </section>
+    </section>
   </chapter>
 </book>
