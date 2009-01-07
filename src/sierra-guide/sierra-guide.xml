@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
@@ -310,7 +310,13 @@
       has been loaded into your Eclipse it might take a few seconds to a
       minute for it to initialize, please be patient.)</para>
 
-      <mediaobject>         <imageobject role="html">           <imagedata fileref="images/quick-start-menu.png" />         </imageobject>         <imageobject role="fo">           <imagedata width="100%" scalefit="1" fileref="images/quick-start-menu.png" />         </imageobject>
+      <mediaobject>
+         <imageobject role="html">
+           <imagedata fileref="images/quick-start-menu.png" />
+         </imageobject>
+         <imageobject role="fo">
+           <imagedata width="100%" scalefit="1" fileref="images/quick-start-menu.png" />
+         </imageobject>
       </mediaobject>
 
       <para>A dialog will open showing you the set of available Java
