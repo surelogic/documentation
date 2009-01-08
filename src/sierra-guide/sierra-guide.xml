@@ -299,11 +299,16 @@
     <section>
       <title>Quick start</title>
 
+      <para>This section will quickly get you started with Sierra.  It
+      describes how to install Sierra into your Eclipse, how to
+      install a license file that allows you to use Sierra, and how to
+      scan your code and examine the results.</para>
+
       <section>
 	<title>Installing Sierra</title>
 
 	<para>Sierra installs as a feature in your Eclipse IDE.  It is
-	installed via the normal Eclipse mechansims from an update site.
+	installed via the normal Eclipse mechanisms from an update site.
 	TODO, describe installation from the SureLogic website or from a
 	downloaded zip file.</para>
       </section>
@@ -353,15 +358,19 @@
 	</figure>
 
 	<para>Sierra will not disrupt your Eclipse installation if a
-	license for it is not installed, however, it will not allow you
-	to use Sierra functionality (e.g., performing project scans).
-	We will assume from this point on that you have installed your
-	license.</para>
+	license for it is not installed, however, it will not allow
+	you to use Sierra functionality (e.g., performing project
+	scans).  We will assume from this point on that you have
+	installed your license.  For more information see <xref
+	linkend="sec-license-management" /></para>
       </section>
 
       <section>
-	<title>How to scan your code and see Sierra
-	findings</title>
+	<title>How to scan your code examine the results</title>
+
+	<para>For the impatient, this section provides a "bare-bones"
+	description of how to scan code with Sierra and examine the
+	results that it reports.</para>
 
 	<para>From the Sierra main menu select the <guimenuitem>Scan
 	Project</guimenuitem> command as shown in <xref
@@ -425,9 +434,10 @@
 	change that can be made is to the importance of the
 	finding.</para>
 
-	<para>This section is a quick overview of how to scan your code
-	and examine findings about your code. The next section contains a
-	tutorial that describes tool use in further detail.</para>
+	<para>This section is a quick overview of how to scan your
+	code and examine findings about your code. The next section
+	contains a series of tutorials that describe how to use Sierra
+	in much more detail.</para>
       </section>
     </section>
 
@@ -441,7 +451,7 @@
       for these tutorials.</para>
 
       <section id="sec-tutorial-client">
-	<title>Using Sierra Eclipse client</title>
+	<title>Using the Sierra Eclipse client</title>
 
 	<para>This tutorial assumes that you have installed Sierra. If you
 	see a <guimenu>Sierra</guimenu> menu item on your Eclipse main
@@ -1728,8 +1738,7 @@ if (o == null) {
 	  dialog. This dialog allows the user to install, view, and
 	  uninstall licenses for Sierra and other SureLogic tools.
 	  For more information see <xref
-	  linkend="sec-license-management" />
-	  </para>
+	  linkend="sec-license-management" /></para>
 	</listitem>
       </orderedlist>
     </sect1>
