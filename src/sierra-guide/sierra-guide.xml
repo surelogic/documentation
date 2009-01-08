@@ -26,7 +26,7 @@
     <pubdate>Version 2.2&mdash;January 2009</pubdate>
   </bookinfo>
 
-  <chapter id="preface">
+  <preface id="preface">
     <title>Preface</title>
     <section>
       <title>Audience</title>
@@ -41,7 +41,7 @@
       <para><email>support@surelogic.com</email></para>
       <para>5808 Forbes Avenue, Pittsburgh, PA 15217-1602</para>
     </section>
-  </chapter>
+  </preface>
 
   <chapter id="getting-started">
     <title>Getting started</title>
@@ -96,12 +96,12 @@
 
       <para>The next section introduces concepts and definitions that
       are important to understand when using Sierra.  The section
-      after that describes how to scan your code and get started
-      quickly with the Sierra tool. If you have used FindBugs or PMD
-      and want to get going on your own code this is your quickest
-      route.  The final sections of this chapter contain a series of
-      tutorials that describe how to use the Sierra on example Java
-      projects.</para>
+      after that gets you started quick with the Sierra tool by
+      describing how to install Sierra, install your license, and scan
+      your code. If you have used FindBugs or PMD and want to get
+      going on your own code this is your quickest route.  The final
+      section of this chapter contain a series of tutorials that
+      describe how to use the Sierra on example Java projects.</para>
     </section>
 
     <section>
@@ -297,90 +297,163 @@
     </section>
 
     <section>
-      <title>Quick start: How to scan your code and see Sierra
-      findings</title>
+      <title>Quick start</title>
 
-      <para>This section assumes that you have installed Sierra. If you
-      see a <guimenu>Sierra</guimenu> menu item on your Eclipse main
-      menu then you can assume Sierra has been installed
-      properly.</para>
+      <section>
+	<title>Installing Sierra</title>
 
-      <para>From the Sierra main menu select the <guimenuitem>Scan
-      Project</guimenuitem> command. (If this is the first time Sierra
-      has been loaded into your Eclipse it might take a few seconds to a
-      minute for it to initialize, please be patient.)</para>
+	<para>Sierra installs as a feature in your Eclipse IDE.  It is
+	installed via the normal Eclipse mechansims from an update site.
+	TODO, describe installation from the SureLogic website or from a
+	downloaded zip file.</para>
+      </section>
 
-      <mediaobject>
-         <imageobject role="html">
-           <imagedata fileref="images/quick-start-menu.png" />
-         </imageobject>
-         <imageobject role="fo">
-           <imagedata width="70%" scalefit="1" fileref="images/quick-start-menu.png" />
-         </imageobject>
-      </mediaobject>
+      <section>
+	<title>Installing your license</title>
 
-      <para>A dialog will open showing you the set of available Java
-      projects that you can scan. Check the projects you want to scan or
-      press the <guibutton>Select All</guibutton> button to check them
-      all and then press the <guibutton>OK</guibutton> button to start
-      the scan. Equivalently, you could right-click a selected set of
-      open Java projects in the <guilabel>Package Explorer</guilabel>
-      and from the <guimenu>Sierra</guimenu> menu select the
-      <guimenuitem>Scan Project</guimenuitem> menu item.</para>
+	<para>This section assumes that you have installed Sierra. If you
+	see a <guimenu>Sierra</guimenu> menu item on your Eclipse main
+	menu then you can assume Sierra has been installed
+	properly.</para>
 
-      <para>You will receive notification via a balloon that the scan
-      has been started and will run in the background. As the scan on
-      each project completes another balloon will notify you.</para>
+	<para>You need to install a license to use Sierra.  If you do
+	not have a license file that was sent to you by SureLogic visit
+	<ulink
+	    url="http://www.surelogic.com">http://www.surelogic.com</ulink>
+	to obtain one.  To install the license select
+	<guimenuitem>Manage SureLogic Licenses</guimenuitem> from the
+	<guimenu>Sierra</guimenu> menu as shown in <xref
+	linkend="fig-quick-start-license-menu" /></para>
 
-      <para>After one or more scans have completed running, you can
-      change to the <guilabel>Code Review</guilabel> perspective to
-      examine the results. To do this, select the <guimenuitem>Open Code
-      Review Perspective</guimenuitem> menu item from the
-      <guimenu>Sierra</guimenu> menu. The Eclipse layout will change to
-      show views which will help you to examine the findings the scan
-      reported.</para>
+	<figure id="fig-quick-start-license-menu">
+	  <title>The menu option to install a license for Sierra.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata fileref="images/quick-start-license-menu.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="50%" scalefit="1" fileref="images/quick-start-license-menu.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
 
-      <para>The <guilabel>Findings Quick Search</guilabel> view allows
-      you to select what findings are of interest to you. For example,
-      if you select <guibutton>Project</guibutton> you will see your
-      results partitioned by project. Selecting
-      <guibutton>Show</guibutton> shows the list of findings you have
-      filtered down to. Use this view partition and filter your findings
-      as you see fit and then press <guibutton>Show</guibutton> to see
-      individual results.</para>
+	<para> This will cause the <guilabel>Manage SureLogic
+	Licenses</guilabel> to appear as shown in <xref
+	linkend="fig-quick-start-license-dialog-empty" /> Highlight the
+	Sierra row and select the <guibutton>Install License</guibutton>
+	button to install your license file.</para>
 
-      <para>Small orange <guiicon><inlinegraphic
-      fileref="images/asterisk-orange.png" /></guiicon> icons appear
-      in the Java editor gutter to highlight tool findings. By
-      default, these gutter icons only appear for findings deemed of
-      high or critical importance.</para>
+	<figure id="fig-quick-start-license-dialog-empty">
+	  <title>The SureLogic license management dialog.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata fileref="images/quick-start-license-dialog-empty.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
 
-      <para>If you click on a finding in the <guilabel>Findings Quick
-      Search</guilabel> or in the Java editor that finding will be shown
-      in the <guilabel>Finding Details</guilabel> view. This view allows
-      you to read about the finding and interact with the finding. One
-      change that can be made is to the importance of the
-      finding.</para>
+	<para>Sierra will not disrupt your Eclipse installation if a
+	license for it is not installed, however, it will not allow you
+	to use Sierra functionality (e.g., performing project scans).
+	We will assume from this point on that you have installed your
+	license.</para>
+      </section>
 
-      <para>This section is a quick overview of how to scan your code
-      and examine findings about your code. The next section contains a
-      tutorial that describes tool use in further detail.</para>
+      <section>
+	<title>How to scan your code and see Sierra
+	findings</title>
+
+	<para>From the Sierra main menu select the <guimenuitem>Scan
+	Project</guimenuitem> command as shown in <xref
+	linkend="fig-quick-start-menu" /> (If this is the first time
+	Sierra has been loaded into your Eclipse it might take a few
+	seconds to a minute for it to initialize, please be
+	patient.)</para>
+
+	<figure id="fig-quick-start-menu">
+	  <title>The menu option to scan your projects.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata fileref="images/quick-start-menu.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="70%" scalefit="1" fileref="images/quick-start-menu.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>A dialog will open showing you the set of available Java
+	projects that you can scan. Check the projects you want to scan or
+	press the <guibutton>Select All</guibutton> button to check them
+	all and then press the <guibutton>OK</guibutton> button to start
+	the scan. Equivalently, you could right-click a selected set of
+	open Java projects in the <guilabel>Package Explorer</guilabel>
+	and from the <guimenu>Sierra</guimenu> menu select the
+	<guimenuitem>Scan Project</guimenuitem> menu item.</para>
+
+	<para>You will receive notification via a balloon that the scan
+	has been started and will run in the background. As the scan on
+	each project completes another balloon will notify you.</para>
+
+	<para>After one or more scans have completed running, you can
+	change to the <guilabel>Code Review</guilabel> perspective to
+	examine the results. To do this, select the <guimenuitem>Open Code
+	Review Perspective</guimenuitem> menu item from the
+	<guimenu>Sierra</guimenu> menu. The Eclipse layout will change to
+	show views which will help you to examine the findings the scan
+	reported.</para>
+
+	<para>The <guilabel>Findings Quick Search</guilabel> view allows
+	you to select what findings are of interest to you. For example,
+	if you select <guibutton>Project</guibutton> you will see your
+	results partitioned by project. Selecting
+	<guibutton>Show</guibutton> shows the list of findings you have
+	filtered down to. Use this view partition and filter your findings
+	as you see fit and then press <guibutton>Show</guibutton> to see
+	individual results.</para>
+
+	<para>Small orange <guiicon><inlinegraphic
+	fileref="images/asterisk-orange.png" /></guiicon> icons appear
+	in the Java editor gutter to highlight tool findings. By
+	default, these gutter icons only appear for findings deemed of
+	high or critical importance.</para>
+
+	<para>If you click on a finding in the <guilabel>Findings Quick
+	Search</guilabel> or in the Java editor that finding will be shown
+	in the <guilabel>Finding Details</guilabel> view. This view allows
+	you to read about the finding and interact with the finding. One
+	change that can be made is to the importance of the
+	finding.</para>
+
+	<para>This section is a quick overview of how to scan your code
+	and examine findings about your code. The next section contains a
+	tutorial that describes tool use in further detail.</para>
+      </section>
     </section>
 
-    <section id="sec-tutorial-client">
-      <title>Tutorial: Using the Sierra Eclipse client</title>
+    <section>
+      <title>Tutorials</title>
 
-      <para>This tutorial assumes that you have installed Sierra. If you
-      see a <guimenu>Sierra</guimenu> menu item on your Eclipse main
-      menu than you can assume it has been installed properly.</para>
+      <para>This section contains a series of Sierra tutorials.  It is
+      recommended that you go through these tutorials in order.  It is
+      also recommended that these tutorials be performed "hands-on" at
+      your computer.  You may want to create a new Eclipse workspace
+      for these tutorials.</para>
 
-      <para>Create a Java project called
-      <application>ShowOff</application> within Eclipse and create a
-      class in the default package with the same name. Replace the
-      contents of the <filename>ShowOff.java</filename> file with the
-      Java code below.</para>
+      <section id="sec-tutorial-client">
+	<title>Using Sierra Eclipse client</title>
 
-      <programlisting>
+	<para>This tutorial assumes that you have installed Sierra. If you
+	see a <guimenu>Sierra</guimenu> menu item on your Eclipse main
+	menu than you can assume it has been installed properly.</para>
+
+	<para>Create a Java project called
+	<application>ShowOff</application> within Eclipse and create a
+	class in the default package with the same name. Replace the
+	contents of the <filename>ShowOff.java</filename> file with the
+	Java code below.</para>
+
+	<programlisting>
 <![CDATA[
 public class ShowOff {
 
@@ -422,1030 +495,1031 @@ public class ShowOff {
         System.out.println(line.toString());
     }
 }]]>
-      </programlisting>
+	</programlisting>
 
-      <para>Save your changes and ensure that the file compiles
-      successfully. If not, fix any problems before you continue.</para>
+	<para>Save your changes and ensure that the file compiles
+	successfully. If not, fix any problems before you continue.</para>
 
-      <para>Now run a Sierra scan on the code. To do this right-click on
-      the <application>ShowOff</application> project (not the Java file)
-      in the <guilabel>Package Explorer</guilabel> and from the
-      <guimenu>Sierra</guimenu> menu select the <guimenuitem>Scan
-      Project</guimenuitem> menu item. Alternatively, you can choose the
-      <guimenuitem>Scan Project</guimenuitem> menu item from the
-      <guimenu>Sierra</guimenu> menu item in the Eclipse main menu. When
-      the dialog appears check the <application>ShowOff</application>
-      project and press the <guibutton>OK</guibutton> button. If this is
-      the first time Sierra has been loaded into your Eclipse it might
-      take a few seconds to a minute for it to initialize, please be
-      patient.</para>
+	<para>Now run a Sierra scan on the code. To do this right-click on
+	the <application>ShowOff</application> project (not the Java file)
+	in the <guilabel>Package Explorer</guilabel> and from the
+	<guimenu>Sierra</guimenu> menu select the <guimenuitem>Scan
+	Project</guimenuitem> menu item. Alternatively, you can choose the
+	<guimenuitem>Scan Project</guimenuitem> menu item from the
+	<guimenu>Sierra</guimenu> menu item in the Eclipse main menu. When
+	the dialog appears check the <application>ShowOff</application>
+	project and press the <guibutton>OK</guibutton> button. If this is
+	the first time Sierra has been loaded into your Eclipse it might
+	take a few seconds to a minute for it to initialize, please be
+	patient.</para>
 
-      <para>After the scan is completed change to the <guilabel>Code
-      Review</guilabel> perspective. To do this, select the
-      <guimenuitem>Open Code Review Perspective</guimenuitem> menu item
-      from the <guimenu>Sierra</guimenu> menu. The Eclipse layout will
-      change to show views which will help you examine the findings the
-      scan reported.</para>
+	<para>After the scan is completed change to the <guilabel>Code
+	Review</guilabel> perspective. To do this, select the
+	<guimenuitem>Open Code Review Perspective</guimenuitem> menu item
+	from the <guimenu>Sierra</guimenu> menu. The Eclipse layout will
+	change to show views which will help you examine the findings the
+	scan reported.</para>
 
-      <figure id="fig-tutorial-screenshot">
-	<title>The Sierra code review perspective examines findings
-	about the ShowOff project.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata fileref="images/tutorial-screenshot.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1" fileref="images/tutorial-screenshot.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
+	<figure id="fig-tutorial-screenshot">
+	  <title>The Sierra code review perspective examines findings
+	  about the ShowOff project.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata fileref="images/tutorial-screenshot.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1" fileref="images/tutorial-screenshot.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
 
-      <para>The <guilabel>Findings Quick Search</guilabel> view at the
-      top of the perspective allows you to "drill-into" findings along
-      several dimensions. It is a powerful control but is
-      straightforward to use. For this tutorial, first click on
-      <guibutton>Importance</guibutton> then check
-      <guibutton>High</guibutton> and then click on
-      <guibutton>Show</guibutton>. Next, select the one finding shown in
-      the table. Selecting this finding will bring up information about
-      it in the <guilabel>Finding Details</guilabel> view. Your screen
-      should now look like <xref linkend="fig-tutorial-screenshot" /> If
-      you get more findings than four you probably have scanned other
-      projects. This can be checked by clicking on
-      <guibutton>Project</guibutton> in the far left menu. To delete the
-      data from these projects see <xref
-      linkend="sec-preferences-scan-data" /></para>
+	<para>The <guilabel>Findings Quick Search</guilabel> view at the
+	top of the perspective allows you to "drill-into" findings along
+	several dimensions. It is a powerful control but is
+	straightforward to use. For this tutorial, first click on
+	<guibutton>Importance</guibutton> then check
+	<guibutton>High</guibutton> and then click on
+	<guibutton>Show</guibutton>. Next, select the one finding shown in
+	the table. Selecting this finding will bring up information about
+	it in the <guilabel>Finding Details</guilabel> view. Your screen
+	should now look like <xref linkend="fig-tutorial-screenshot" /> If
+	you get more findings than four you probably have scanned other
+	projects. This can be checked by clicking on
+	<guibutton>Project</guibutton> in the far left menu. To delete the
+	data from these projects see <xref
+	linkend="sec-preferences-scan-data" /></para>
 
-      <para>This high importance finding is about a possible null
-      dereference. It was noticed because the <function>box</function>
-      method checks if <varname>o</varname> is null but then later,
-      regardless of the outcome of this check, dereferences it. This is
-      clearly a problem, and if you run the code the second call from
-      the <function>main</function> method indeed causes a failure in
-      the program: the call prints <literal>null</literal> and then
-      throws a <varname>NullPointerException</varname> to the
-      console.</para>
+	<para>This high importance finding is about a possible null
+	dereference. It was noticed because the <function>box</function>
+	method checks if <varname>o</varname> is null but then later,
+	regardless of the outcome of this check, dereferences it. This is
+	clearly a problem, and if you run the code the second call from
+	the <function>main</function> method indeed causes a failure in
+	the program: the call prints <literal>null</literal> and then
+	throws a <varname>NullPointerException</varname> to the
+	console.</para>
 
-      <para>To fix this problem add a <literal>return</literal>
-      statement after line 25 as shown below:</para>
+	<para>To fix this problem add a <literal>return</literal>
+	statement after line 25 as shown below:</para>
 
-      <programlisting>
+	<programlisting>
 <![CDATA[
 if (o == null) {
     System.out.println("null");
     return;
 }]]>
-      </programlisting>
-
-      <para>Now save your change and scan the project again. The finding
-      seems to disappear, however, the tool knows it has been
-      fixed.</para>
-
-      <para>In the <guilabel>Findings Quick Search</guilabel> clear
-      your current search by pressing the <guiicon><inlinegraphic
-      fileref="images/asterisk-grey-x.png" /></guiicon> icon in the
-      upper-right of the view. Now select
-      <guibutton>Status</guibutton> check <guibutton>Fixed</guibutton>
-      and then <guibutton>Show</guibutton> to see the finding you just
-      fixed. Sierra works hard to remember findings across scans. It
-      does this by matching findings reported in each scan (The
-      matching heuristic used by the tool is not perfect but will work
-      most of the time, however, aggressive code changes might throw
-      it off).</para>
-
-      <para>In the <guilabel>Findings Quick Search</guilabel> clear
-      your current search again by pressing the
-      <guiicon><inlinegraphic fileref="images/asterisk-grey-x.png"
-      /></guiicon> icon in the upper-right of the view. Select
-      <guibutton>Importance</guibutton> and then right click on the
-      bar chart and select <guibutton>Select All</guibutton> from the
-      context menu. This is a quick way to select all the items
-      listed. Select <guibutton>Audited</guibutton> and check the two
-      items listed (Yes and No) and then select
-      <guibutton>Show</guibutton> to see all the findings from the
-      most recent scan.</para>
-
-      <para>Select the first finding shown. It warns that all classes
-      and interfaces should belong to a named package.  This is not a
-      finding we care about for this project so we can audit
-      it. Right-click on the finding and via the <guimenuitem>Set
-      Importance</guimenuitem> context menu select
-      <guimenuitem>Irrelevant</guimenuitem> to change the importance of
-      the finding.</para>
-
-      <para>This action, which we call auditing the finding, causes
-      several things to occur. First, if you examine the counts bar
-      chart for <guibutton>Audited</guibutton> you will note that one
-      finding has now been audited and two have not. If you uncheck and
-      then check <guibutton>No</guibutton> (a checkbox under the
-      <guibutton>Audited</guibutton> filter) you can see the other two
-      findings in the list go away and then return. Second, in the
-      <guilabel>Finding Details</guilabel> view the audit tab shows one
-      audit.</para>
-
-      <para>Click on the audit tab (the middle tab) in the
-      <guilabel>Finding Details</guilabel> view. The change of the
-      finding's importance has been time-stamped and logged. Let's note
-      that we want to use the default package using another audit. Type
-      "The default package is OK for ShowOff." and press the
-      <guibutton>Add</guibutton> button.</para>
-
-      <para>Now the finding has two audits and both are time-stamped. If
-      you were using a Sierra team server then audits by your team would
-      appear in this audit list as well as audits made by you. When an
-      audit is synchronized with a Sierra team server, the name of who
-      made the audit changes from <emphasis>Local</emphasis> to the name
-      for that user on the team server. A team server helps your team
-      collaborate on finding audits, however, collaboration is not the
-      focus of this tutorial so we will continue without connecting to a
-      Sierra team server.</para>
-
-      <para>We probably do not want to see findings that we have marked
-      as <guibutton>Irrelevant</guibutton> in our list of results. So in
-      the <guilabel>Findings Quick Search</guilabel> click the
-      underlined <guibutton>Importance</guibutton> "breadcrumb" (at the
-      top of the view) to scroll the view over to the importance
-      selections. The breadcrumbs allow easy scrolling of the view to
-      areas that might be off the screen. Uncheck
-      <guibutton>Irrelevant</guibutton> and then examine the state of
-      the view. If we click on the <guibutton>Show</guibutton>
-      breadcrumb to scroll the view back to the far right, we can see
-      that the one irrelevant finding is now filtered out of the set of
-      findings shown.</para>
-
-      <para>Let's examine the two remaining findings. Double-click the
-      first one to bring it up in the <guilabel>Finding
-      Details</guilabel> view and highlight the issue in the Java editor
-      (a single-click only brings the finding up in the
-      <guilabel>Finding Details</guilabel> view). This finding notes
-      that you could append a character rather than a string. This
-      change would result in a slight performance improvement in our
-      code. To fix it change
-      <computeroutput>line.append("-")</computeroutput> to
-      <computeroutput>line.append('-')</computeroutput>. Next we want to
-      indicate our work in the audit trail for this finding.</para>
-
-      <figure id="fig-tutorial-audits">
-	<title>Three audits have been performed on this finding.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata fileref="images/tutorial-audits.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="50%" scalefit="1" fileref="images/tutorial-audits.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>In the <emphasis>Finding Details</emphasis> view open the
-      audit tab and click on the stamp image in the upper-left. This
-      creates an audit entry that states, "I examined this finding." and
-      is a quick way to note that you examined this finding. Since we
-      want to note that we have edited the code, type "I fixed this in
-      the code." and then press the <emphasis>Add</emphasis> button to
-      add a second audit.</para>
-
-      <para>Before we leave this finding let's mark set it to a
-      <emphasis>Low</emphasis> importance. In this small program such a
-      minor performance improvement is likely not a big deal. We could
-      just change the radio button at the left, but let's use the drop
-      down in the upper-left of the view. Press the drop down and change
-      the importance. Notice that this changes the views to reflect the
-      new importance and adds a third audit entry to reflect that you
-      made this change. The state of this finding can be seen in <xref
-      linkend="fig-tutorial-audits" /></para>
-
-      <para>Now let's examine the last finding by double-clicking on
-      this finding in the <guilabel>Findings Quick Search</guilabel>
-      view. The finding should be at the bottom of the list list. This
-      finding is complaining about our use of <computeroutput>new
-      String("hello")</computeroutput> in the code. Explicit use of
-      string construction is considered bad practice in Java as it
-      forces the Java virtual machine to make extra copies of
-      strings.</para>
-
-      <figure id="fig-tutorial-artifacts">
-	<title>Two tool artifacts have been combined to create this
-	finding.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-artifacts.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="80%" scalefit="1"
-		fileref="images/tutorial-artifacts.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>In the <guilabel>Finding Details</guilabel> view select the
-      artifacts tab (the last tab to the right) note that this finding
-      has two artifacts. This finding is made up of two tool reports:
-      one from FindBugs and one from PMD. The two artifacts that
-      establish this finding can be seen in <xref
-      linkend="fig-tutorial-artifacts" /></para>
-
-      <para>In Sierra, reports from analysis tools are called
-      artifacts. Sierra works to merge artifacts that are really about
-      the same problem into one finding. One can think of artifacts as
-      raw tool results and findings as what Sierra creates based upon
-      those raw tool results.  One other difference between artifacts
-      and findings is that findings exist across scans while an artifact
-      is connected to one and only one scan.</para>
-
-      <para>To fix this finding change the code from
-      <computeroutput>box(new String("hello"))</computeroutput> to
-      <computeroutput>box("hello")</computeroutput> and then scan the
-      project one final time.</para>
-
-      <para>When the scan is completed the <guilabel>Findings Quick
-      Search</guilabel> view will update to show no findings. This
-      indicates that no new findings have been found and the two we
-      were working on have been fixed. Clear the search in the
-      <guilabel>Findings Quick Search</guilabel> view by pressing the
-      <guiicon><inlinegraphic
-      fileref="images/asterisk-grey-x.png" /></guiicon>
-      icon and press <guibutton>Status</guibutton> to see that two
-      findings have been fixed and one finding is unchanged as seen in
-      <xref linkend="fig-tutorial-status-fixed" /></para>
-
-      <figure id="fig-tutorial-status-fixed">
-	<title>Status bar graph after fixing two findings in the code.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-status-fixed.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="50%" scalefit="1"
-		fileref="images/tutorial-status-fixed.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>This tutorial has introduced basic use of the Sierra Eclipse
-      client to audit Java code. You should now try Sierra on your own
-      code and we encourage you to explore and make Sierra work the way
-      you want it to.</para>
-    </section>
-
-    <section id="sec-tutorial-team-server">
-      <title>Tutorial: Interacting with a Sierra team server</title>
-
-      <para>This tutorial assumes that you have installed Sierra and
-      have run through <xref linkend="sec-tutorial-client" /> (For
-      understanding only, this tutorial does not use the
-      <application>ShowOff</application> project.) It also assumes
-      that you have the <emphasis>Sierra Local Team Server
-      (Optional)</emphasis> featured installed (available on the
-      SureLogic update site). This tutorial introduces you to use of a
-      Sierra team server. The team server helps a group of programmers
-      work together with Sierra.</para>
-
-      <para>By providing you with a team server that you can quickly and
-      easily download and install on your desktop machine to support a
-      small development team, we hope to introduce you to the
-      collaboration capabilities offered by Sierra. If you are
-      interested in hosting large teams, SureLogic offers secure,
-      high-availability hosting of team servers in our data center. We
-      also sell enterprise software licenses so that you can deploy team
-      servers on enterprise hardware/infrastructure at your company.
-      Please contact us at <email>support@surelogic.com</email> for more
-      information about team server hosting and/or enterprise software
-      licenses.</para>
-
-      <para>First download the <application>SmallWorld</application>
-      project from www.surelogic.com at <ulink
-      url="http://www.surelogic.com/sierra/help/SmallWorld.zip">
-      http://www.surelogic.com/sierra/help/SmallWorld.zip</ulink> to
-      your disk. Unzip this archive into your workspace and it will
-      create a <filename>SmallWorld</filename> directory. Next import
-      this project into your Eclipse workspace using
-      <guimenuitem>File</guimenuitem> |
-      <guimenuitem>Import...</guimenuitem> from the Eclipse main menu
-      and then choosing <emphasis>Existing Projects into
-      Workspace</emphasis> for the import wizard. Follow the import
-      steps of wizard until the <application>SmallWorld</application>
-      project is imported and built.</para>
-
-      <para>SmallWorld is a Java text-oriented adventure game. The
-      Colossal Cave Adventure game, produced in the 70s, was the
-      historic first "interactive fiction" game, in which the computer
-      would simulate and describe a situation and the user would type
-      in what to do next, in simple English. Read through the
-      <filename>overview.html</filename> file in the
-      <filename>src</filename> directory for more information about
-      this software.</para>
-
-      <para>To run SmallWorld in an Eclipse console run the
-      <varname>SmallWorld</varname> class in the
-      <varname>smallworld.textui.console</varname> package. To run
-      SmallWorld in a graphical window run the
-      <varname>SmallWorld</varname> class in the
-      <varname>smallworld.textui.graphical</varname> package. The
-      graphical window version of the game is shown in <xref
-      linkend="fig-running-smallworld" /></para>
-
-      <figure id="fig-running-smallworld">
-	<title>Running the SmallWorld game.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-running-smallworld.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="80%" scalefit="1"
-		fileref="images/tutorial-running-smallworld.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>Go ahead and run the game and play it for a while. The
-      <userinput>help</userinput> command will tell you the commands
-      the software understands. SmallWorld is clearly a work in
-      progress as there is no way to win the game and there are no
-      items to interact with in the virtual world. All you can do is
-      move around and load and save your game.</para>
-
-      <para>When you are done playing the game, go ahead and scan the
-      SmallWorld project.</para>
-
-      <para>This tutorial uses a team server running on your
-      desktop. The <emphasis>Sierra Local Team Server
-      (Optional)</emphasis> feature contributes a <guilabel>Local Team
-      Server</guilabel> view that allows you to start, stop, and
-      examine the logs of a Sierra team server that you run on your
-      desktop.</para>
-
-      <para>Open the <guilabel>Local Team Server</guilabel> view. You
-      can do this one of two ways. The first approach is to reset the
-      <emphasis>Code Review</emphasis> perspective (using the
-      <guimenuitem>Window</guimenuitem> | <guimenuitem>Reset
-      Perspective</guimenuitem> command from the main menu) this view
-      will appear stacked in the lower-right quadrant of the
-      perspective and you can click the title bar to bring it to the
-      front. The second approach is to select
-      <guimenuitem>Window</guimenuitem> | <guimenuitem>Show
-      View</guimenuitem> | <guimenuitem>Other...</guimenuitem> from
-      the main menu. Then from the dialog that appears select the
-      <guilabel>Local Team Server</guilabel> view under the Sierra
-      category and press the <guibutton>OK</guibutton> button. The
-      view appears as shown in <xref
-      linkend="fig-tutorial-local-team-server" /> (If you cannot find
-      this view in Eclipse then it is likely that this feature is not
-      installed. Go back to the SureLogic update site and install
-      it.)</para>
-
-      <figure id="fig-tutorial-local-team-server">
-	<title>The Local Team Server view.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-local-team-server.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-local-team-server.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>The team server controlled by this view is fully
-      functional and can be connected to by other computers on your
-      network using the IP address of your machine (depending, of
-      course, upon the routing and firewall configuration on your
-      network). The database and logs for this local team server
-      appear in the <filename>~/.sierra-data/server</filename>
-      directory on your machine. Three logs are available for you to
-      examine. The first log is the Jetty web server request log which
-      shows traffic to the local server. The second log is the Sierra
-      portal log which shows information from the Sierra portal web
-      site. The third log is the Sierra services log which shows
-      information about communication between Sierra Eclipse clients
-      and the local server. To view these logs select
-      <guimenuitem>Show Server Logs</guimenuitem> from the view menu
-      as shown in <xref linkend="fig-tutorial-local-team-server-logs"
-      /></para>
-
-      <figure id="fig-tutorial-local-team-server-logs">
-	<title>The Local Team Server view showing the server
-	logs.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-local-team-server-logs.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-local-team-server-logs.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>From the same menu used to show the logs you can also
-      access the local team server preferences. Select the
-      <guimenuitem>Preferences...</guimenuitem> menu item. You will
-      see <xref linkend="fig-tutorial-local-team-server-preferences"
-      /> This panel lets you adjust the memory used by the local team
-      server and set the level of logging output. The default value is
-      fine for this tutorial so press the
-      <guibutton>Cancel</guibutton> button to exit the panel. (If your
-      computer can't handle the default setting then you might get an
-      infinite yellow light below. If this happens restart Eclipse and
-      lower the memory to try again.)</para>
-
-      <figure id="fig-tutorial-local-team-server-preferences">
-	<title>Preference panel for controlling the memory used by the
-	local team server.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-local-team-server-preferences.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-local-team-server-preferences.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>So that this tutorial can start with a fresh team server
-      database, delete the <filename>~/.sierra-data/server</filename>
-      directory on your machine if it exists. Next, press the
-      <guibutton>Start Server</guibutton> button on the view. A dialog
-      will appear warning you that the life of the server process you
-      are starting is not tied to the life of your Eclipse
-      process. This dialog is shown in <xref
-      linkend="fig-tutorial-local-team-server-warning-dialog" /> Read
-      it and press the <guibutton>OK</guibutton> button. The traffic
-      light will change to yellow during server start up. The first
-      time a local team server is started may take several minutes
-      because its database has to be created.</para>
-
-      <figure id="fig-tutorial-local-team-server-warning-dialog">
-	<title>Warning you that the local team server does not exit when
-	Eclipse exits.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-local-team-server-warning-dialog.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-local-team-server-warning-dialog.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>The traffic light will change to green when the team
-      server is up and running. When this occurs click on the
-      hyperlink <emphasis>here</emphasis> within the message line
-      <emphasis>A team server is running. Click here to open a
-      browser.</emphasis> to open a web browser within Eclipse on the
-      team server portal login page. The views appear as shown in
-      <xref linkend="fig-tutorial-local-team-server-running" /></para>
-
-      <figure id="fig-tutorial-local-team-server-running">
-	<title>The team server web portal and the Local Team Server view
-	indicating that the team server is running.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-local-team-server-running.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-local-team-server-running.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>Now exit Eclipse and open your favorite web browser.  Enter
-      <ulink url="http://localhost:13376/sl/">
-      http://localhost:13376/sl/</ulink> to bring up the team server
-      portal. Alternatively, you may also copy and paste the URL shown
-      in the view to the right of the <guilabel>Network
-      URL:</guilabel> label. This URL should also work from other
-      machines on your local network. Sierra tries to determine your
-      machine's external IP address, however, sometimes it mistakenly
-      gets the loop-back one (in which case you should examine the
-      output of the <userinput>ifconfig</userinput> for Linux/Mac or
-      <userinput>ipconfig /all</userinput> for Windows to determine
-      your machine's IP address). You do not need to know your
-      machine's external IP address for this tutorial.</para>
-
-      <para>A new team server only has one account:
-      <userinput>admin</userinput> with
-      <userinput>adminadmin</userinput> for its password. Enter this
-      information and press the <guibutton>Log In</guibutton>
-      button. The welcome page for the team server portal should
-      appear as shown in <xref
-      linkend="fig-tutorial-portal-welcome-page-empty" /></para>
-
-      <figure id="fig-tutorial-portal-welcome-page-empty">
-	<title>The welcome page on the team server portal.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-portal-welcome-page-empty.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-portal-welcome-page-empty.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>The welcome page shows information about the project scans
-      that have been published to the server as well as the
-      contributions of the users of this server. Because no project
-      scans have been published and no users have contributed any audits
-      our welcome page is a bit sparse.</para>
-
-      <para>Click on the <guibutton>Manage Site</guibutton> link in
-      the upper-right of the page (just to the left of <guibutton>Log
-      Out</guibutton>) to open the site management page. Select the
-      <guibutton>Users</guibutton> tab to open the user management
-      page.  This page lets you add and manage the users of this
-      server. We want to create two new users and disable the default
-      <userinput>admin</userinput> user. To add a new user click on
-      <guibutton>Create a new user</guibutton> link near the top of
-      the page. In the dialog that appears enter a new user using the
-      following information:</para>
-      
-      <informaltable>
-	<tgroup cols='2' align='left'>
-	  <thead>
-	    <row>
-	      <entry>Dialog prompt</entry>
-	      <entry>Entry</entry>
-	    </row>
-	  </thead>
-	  <tbody>
-	    <row>
-	      <entry>User Name:</entry>
-	      <entry>infocon</entry>
-	    </row>
-	    <row>
-	      <entry>Password:</entry>
-	      <entry>zork</entry>
-	    </row>
-	    <row>
-	      <entry>Confirm Password:</entry>
-	      <entry>zork</entry>
-	    </row>
-	    <row>
-	      <entry>Administrator:</entry>
-	      <entry>Check this option</entry>
-	    </row>
-	  </tbody>
-	</tgroup>
-      </informaltable>
-
-      <para>Repeat the process to create a
-      <userinput>troll</userinput> user using the following
-      information:</para>
-
-      <informaltable>
-	<tgroup cols='2' align='left'>
-	  <thead>
-	    <row>
-	      <entry>Dialog prompt</entry>
-	      <entry>Entry</entry>
-	    </row>
-	  </thead>
-	  <tbody>
-	    <row>
-	      <entry>User Name:</entry>
-	      <entry>troll</entry>
-	    </row>
-	    <row>
-	      <entry>Password:</entry>
-	      <entry>troll</entry>
-	    </row>
-	    <row>
-	      <entry>Confirm Password:</entry>
-	      <entry>troll</entry>
-	    </row>
-	    <row>
-	      <entry>Administrator:</entry>
-	      <entry>Leave this option unchecked</entry>
-	    </row>
-	  </tbody>
-	</tgroup>
-      </informaltable>
-
-      <para>The user management screen also lets users that have the
-      administrative role change the name, role, status, and password of
-      any user. Users without the administrative role can only change
-      their password.</para>
-
-      <para>We want to change the name of the user
-      <userinput>infocon</userinput> to <userinput>zork</userinput>
-      which is easier for us to remember. Click on
-      <userinput>infocon</userinput> in the table to enable an
-      in-place edit of this user name. Change it to
-      <userinput>zork</userinput> and press the <keycap>Enter</keycap>
-      key.</para>
-
-      <para>Select the <guibutton>Log Out</guibutton> link in the
-      upper-right-hand corner of the page and log back in as the
-      <userinput>zork</userinput> user. Go back to the users
-      panel. (Note that you might need to refresh pages or restart
-      your browser when you log in as a different user.)</para>
-
-      <para>The status of a user is either enabled or disabled. An
-      enabled user can login to the server portal a disabled user
-      cannot. Users are not deleted from a team server they are just
-      disabled. This keeps the source of all audit information about
-      findings on the server consistent.</para>
-
-      <para>We no longer need the default <emphasis>admin</emphasis>
-      user so change its status to <emphasis>Disabled</emphasis> using
-      the drop-down menu. If the list of disabled users gets long you
-      can uncheck the <emphasis>Show disabled users</emphasis> setting
-      on the table. Uncheck this setting now and your browser should
-      match <xref linkend="fig-tutorial-portal-users-page" /></para>
-
-      <figure id="fig-tutorial-portal-users-page">
-	<title>The users page on the team server portal showing two enabled users.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-portal-users-page.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-portal-users-page.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>Click on the <guibutton>Settings</guibutton> tab to open
-      the settings panel. This panel allows you to see the version of
-      the software and the current and available versions of the
-      database schema as shown in <xref
-      linkend="fig-tutorial-portal-settings-page" /> The current and
-      available versions of the database schema should always be the
-      same number unless a schema upgrade failed for some reason. If
-      this should occur it is a software bug and should be reported to
-      SureLogic.</para>
-
-      <para>This page also allows you to have the server email any
-      errors it encounters to an administrator. You can fill in the
-      information required and send a test email to try out your
-      configuration.</para>
-
-      <figure id="fig-tutorial-portal-settings-page">
-	<title>The settings page on the team server portal sending a test notification email.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-portal-settings-page.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-portal-settings-page.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>Log your browser out of the team server.</para>
-
-      <para>At this point start up Eclipse. Go to the <guilabel>Code
-      Review</guilabel> perspective. Select
-      <guimenuitem>Sierra</guimenuitem> | <guimenuitem>Configure Team
-      Servers</guimenuitem> from the Eclipse main menu. This will open
-      the <guilabel>Sierra Team Servers</guilabel> view. This is the
-      view where connections from the Eclipse client to team servers
-      are defined. We will now define a connection to the local team
-      server we are running. To do this click on the <guibutton>New
-      team server location</guibutton> button on the view (the only
-      one that is enabled) or right-click in the left-hand list and
-      choose <emphasis>New...</emphasis> from the context menu.</para>
-
-      <para>The <emphasis>New Sierra Team Server Location</emphasis>
-      dialog which allows you to fill in the required information about
-      the connection. To connect to our local team server fill in the
-      following:</para>
-
-      <informaltable>
-	<tgroup cols='2' align='left'>
-	  <thead>
-	    <row>
-	      <entry>Dialog prompt</entry>
-	      <entry>Entry</entry>
-	    </row>
-	  </thead>
-	  <tbody>
-	    <row>
-	      <entry>Label:</entry>
-	      <entry>localhost</entry>
-	    </row>
-	    <row>
-	      <entry>Host:</entry>
-	      <entry>localhost</entry>
-	    </row>
-	    <row>
-	      <entry>Port:</entry>
-	      <entry>13376 (the default value)</entry>
-	    </row>
-	    <row>
-	      <entry>Context:</entry>
-	      <entry>/ (the default value)</entry>
-	    </row>
-	    <row>
-	      <entry>Protocol:</entry>
-	      <entry>http (the default value)</entry>
-	    </row>
-	    <row>
-	      <entry>User:</entry>
-	      <entry>zork</entry>
-	    </row>
-	    <row>
-	      <entry>Password:</entry>
-	      <entry>zork</entry>
-	    </row>
-	    <row>
-	      <entry>Save Password:</entry>
-	      <entry>check this option</entry>
-	    </row>
-	  </tbody>
-	</tgroup>
-      </informaltable>
-
-      <para>The panel should look like <xref
-      linkend="fig-tutorial-localhost-connection" /> If it does you can
-      press the <emphasis>OK</emphasis> button. If someone else on
-      another computer wants to connect to your local team server then
-      they cannot use <emphasis>localhost</emphasis> as the host. They
-      will need to enter the IP address of your machine. The rest of the
-      connection settings should be the same, except, of course, that
-      they should probably have a different user name and password. Next
-      we will connect the SmallWorld project to this server.</para>
-
-      <figure id="fig-tutorial-localhost-connection">
-	<title>Defining the connection to the local team server within
-	the Eclipse client.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-localhost-connection.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-localhost-connection.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>A project can be connected to one and only one team server
-      at a time. You can disconnect and reconnect the project to another
-      team server, however, all the local data in your Eclipse client
-      will be deleted when you perform the disconnect. The reason for
-      this is that once you start sharing scans and audit information
-      with that server your local data becomes coupled with the data of
-      that team server.</para>
-
-      <para>The client does allow you to edit the properties of a server
-      connection to reference another team server. This works if the
-      name or IP address of that server was changed (for any reason) on
-      your network. It also works if the server database you were
-      connecting to was moved from one server to another. It also works
-      if your user name or password need to be updated (as we shall
-      demonstrate later in this tutorial using the
-      <emphasis>troll</emphasis> user). Sierra checks on each
-      client-server command that the client and servers databases are
-      the expected ones.</para>
-
-      <para>To connect the SmallWorld project to the localhost server
-      right-click on the server name and select the
-      <emphasis>Connect...</emphasis> menu item from the context
-      menu. Check the SmallWorld project and press the
-      <emphasis>OK</emphasis> button. Your view will look like <xref
-      linkend="fig-tutorial-smallworld-connected" /></para>
-
-      <figure id="fig-tutorial-smallworld-connected">
-	<title>The Sierra Team Servers view showing that the SmallWorld
-	project is connected to the localhost server.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-smallworld-connected.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-smallworld-connected.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>A very useful feature of a team server is that it can store
-      the scan filter for your team. A scan filter defines the types of
-      results your team has deemed completely without merit. These
-      results are filtered out of the scan. For more information about
-      setting up a scan filter see <xref
-      linkend="sec-preferences-scan-filter" /> To send your scan filter
-      to the server right-click on the server name and select the
-      <emphasis>Send Scan Filter...</emphasis> menu item from the
-      context menu. A dialog will warn that this will replace the scan
-      filter currently on the server. Press <emphasis>OK</emphasis> to
-      continue. The localhost server now has the same scan filter as
-      your client.</para>
-
-      <para>Other members of your team get the scan filter settings from
-      the team server. We don't need to download them since we just
-      uploaded them, however, for practice we will. To download and use
-      the scan filter stored on the server you right-click on the server
-      name and select the <emphasis>Get Scan Filter...</emphasis> menu
-      item from the context menu. A dialog will warn that this will
-      replace the scan filter currently on your client. Press
-      <emphasis>OK</emphasis> to continue.</para>
-
-      <para>The reason it is important to keep the scan filter
-      consistent between your clients and your server is that if you
-      have different scan filters you can see different analysis
-      results. For example, if the server filters out findings about
-      null pointers and your client does not then you will see more
-      findings on the client than you do on your server. To understand
-      why this is true you need to understand a bit about how scans
-      work.</para>
-
-      <para>A project scan (via Eclipse or via Ant) creates a scan
-      document file. You can see these files in your
-      <emphasis>~/.sierra-data</emphasis> directory. For the SmallWorld
-      project you will see the <emphasis>SmallWorld.sierra.gz</emphasis>
-      scan document file. This file contains the tool reports about the
-      SmallWorld project. When a scan is loaded into the client database
-      your local scan filter is applied.  When you publish your
-      SmallWorld scan to your server the scan document file is sent to
-      the server, which allows the server to apply its scan filter.</para>
-
-      <para>Since our scan filter is in sync with the localhost server
-      we can now publish our scan of SmallWorld. Select
-      <emphasis>Sierra</emphasis> | <emphasis>Publish Latest
-      Scan</emphasis> from the Eclipse main menu. Check the SmallWorld
-      project and press the <emphasis>OK</emphasis> button.</para>
-
-      <para>One helpful feature of the <emphasis>Sierra Team
-      Servers</emphasis> view is that it can open a web browser to a
-      team server.  To do this select a team server name and press the
-      <emphasis>Browse</emphasis> button (or double-click the team
-      server name). If you have saved your user and password in the
-      server connection you will be logged into the team server. The
-      welcome page should now look like <xref
-      linkend="fig-tutorial-portal-welcome-smallworld-publish" /></para>
-
-      <figure id="fig-tutorial-portal-welcome-smallworld-publish">
-	<title>The welcome page after the scan of SmallWorld has been published.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-portal-welcome-smallworld-publish.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-portal-welcome-smallworld-publish.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>The welcome page on the server now contains data about the
-      SmallWorld scan we just published. You can see the counts of
-      findings for SmallWorld in the <emphasis>Latest Scan
-      Results</emphasis> chart and the <emphasis>Projects</emphasis>
-      table. Using <emphasis>Findings Quick Search</emphasis> view you
-      can verify that these counts are consistent with the data in your
-      client (Filter by project SmallWorld then show the importance
-      counts).</para>
-
-      <para>Use the <emphasis>Findings Quick Search</emphasis> view
-      select all the findings from SmallWorld that are within the
-      <emphasis>Performance</emphasis> finding category. There should be
-      three findings. Since we consider performance critical, change the
-      importance of these three findings to critical.</para>
-
-      <para>You have now made a few audits that you can share with the
-      team server. To do this select <emphasis>Sierra</emphasis> |
-      <emphasis>Synchronize All Connected Projects</emphasis> from the
-      Eclipse main menu. After this command completes, bring up the
-      audit tab in the <emphasis>Finding Details</emphasis> view for one
-      of the three audited findings. Note that the name the audit is
-      attributed to changed from <emphasis>Local</emphasis> to
-      <emphasis>zork</emphasis> because we synchronized under the user
-      zork to the localhost server. This can be seen in <xref
-      linkend="fig-tutorial-smallworld-zork-audits" /></para>
-
-      <figure id="fig-tutorial-smallworld-zork-audits">
-	<title>After a sync local audits are attributed to the zork user.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-smallworld-zork-audits.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-smallworld-zork-audits.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>If you refresh the welcome page in your web browser it will
-      look like <xref
-      linkend="fig-tutorial-portal-welcome-page-zork-audits" /> The
-      charts and graphs have been update to show the contributions made
-      by the zork user. Also we can see that the SmallWorld project now
-      has 3 critical findings and 3 audits.</para>
-
-      <figure id="fig-tutorial-portal-welcome-page-zork-audits">
-	<title>The portal shows the audits attributed to the zork user.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-portal-welcome-page-zork-audits.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-portal-welcome-page-zork-audits.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para> In the Eclipse client mark the three critical findings as
-      being examined by me (or make an ad hoc audit on each
-      finding). Notice that these new audits are attributed to
-      <emphasis>Local</emphasis> not to zork. This is because we have
-      not synchronized these audits with the server. To illustrate this
-      point let's attribute these audits to the
-      <emphasis>troll</emphasis> user not to the
-      <emphasis>zork</emphasis> user.</para>
-
-      <para>Go to the <emphasis>Sierra Team Servers</emphasis> view,
-      right-click on the <emphasis>localhost</emphasis> server and
-      select the <emphasis>Properties...</emphasis> menu item. In the
-      dialog that appears change the user name and password to
-      <emphasis>troll</emphasis> and press the <emphasis>OK</emphasis>
-      button. Now synchronize with the localhost server again by
-      selecting <emphasis>Sierra</emphasis> | <emphasis>Synchronize All
-      Connected Projects</emphasis> from the Eclipse main menu. The new
-      audits will change to the <emphasis>troll</emphasis> user as shown
-      in
-      <xref linkend="fig-tutorial-smallworld-troll-audits" /></para>
-
-      <figure id="fig-tutorial-smallworld-troll-audits">
-	<title>After a sync local audits are attributed to the troll
-	user.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-smallworld-troll-audits.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-smallworld-troll-audits.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>If you refresh the welcome page in your web browser it will
-      look like <xref
-      linkend="fig-tutorial-portal-welcome-page-troll-audits" /> The
-      charts and graphs have been updated to show the contributions made
-      by the troll user. There are six total audits on the SmallWorld
-      project three findings.</para>
-
-      <figure id="fig-tutorial-portal-welcome-page-troll-audits">
-	<title>The portal shows the audits attributed to the zork and
-	troll users.</title>
-	<mediaobject>
-	  <imageobject role="html">
-	    <imagedata
-		fileref="images/tutorial-portal-welcome-page-troll-audits.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1"
-		fileref="images/tutorial-portal-welcome-page-troll-audits.png" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-
-      <para>To complete this tutorial go back to the <emphasis>Local
-      Team Server</emphasis> view and press <emphasis>Stop
-      Server</emphasis> to shutdown your local team server. You can opt
-      to leave the local team server running, however, realize that it
-      is listening on your local network.</para>
-
-      <para>This tutorial has introduced basic interaction of the Sierra
-      Eclipse client with a Sierra team server. You should now try using
-      the Sierra team server on your own code and we encourage you to
-      explore and make Sierra work the way you want it to.</para>
+	</programlisting>
+
+	<para>Now save your change and scan the project again. The finding
+	seems to disappear, however, the tool knows it has been
+	fixed.</para>
+
+	<para>In the <guilabel>Findings Quick Search</guilabel> clear
+	your current search by pressing the <guiicon><inlinegraphic
+	fileref="images/asterisk-grey-x.png" /></guiicon> icon in the
+	upper-right of the view. Now select
+	<guibutton>Status</guibutton> check <guibutton>Fixed</guibutton>
+	and then <guibutton>Show</guibutton> to see the finding you just
+	fixed. Sierra works hard to remember findings across scans. It
+	does this by matching findings reported in each scan (The
+	matching heuristic used by the tool is not perfect but will work
+	most of the time, however, aggressive code changes might throw
+	it off).</para>
+
+	<para>In the <guilabel>Findings Quick Search</guilabel> clear
+	your current search again by pressing the
+	<guiicon><inlinegraphic fileref="images/asterisk-grey-x.png"
+	/></guiicon> icon in the upper-right of the view. Select
+	<guibutton>Importance</guibutton> and then right click on the
+	bar chart and select <guibutton>Select All</guibutton> from the
+	context menu. This is a quick way to select all the items
+	listed. Select <guibutton>Audited</guibutton> and check the two
+	items listed (Yes and No) and then select
+	<guibutton>Show</guibutton> to see all the findings from the
+	most recent scan.</para>
+
+	<para>Select the first finding shown. It warns that all classes
+	and interfaces should belong to a named package.  This is not a
+	finding we care about for this project so we can audit
+	it. Right-click on the finding and via the <guimenuitem>Set
+	Importance</guimenuitem> context menu select
+	<guimenuitem>Irrelevant</guimenuitem> to change the importance of
+	the finding.</para>
+
+	<para>This action, which we call auditing the finding, causes
+	several things to occur. First, if you examine the counts bar
+	chart for <guibutton>Audited</guibutton> you will note that one
+	finding has now been audited and two have not. If you uncheck and
+	then check <guibutton>No</guibutton> (a checkbox under the
+	<guibutton>Audited</guibutton> filter) you can see the other two
+	findings in the list go away and then return. Second, in the
+	<guilabel>Finding Details</guilabel> view the audit tab shows one
+	audit.</para>
+
+	<para>Click on the audit tab (the middle tab) in the
+	<guilabel>Finding Details</guilabel> view. The change of the
+	finding's importance has been time-stamped and logged. Let's note
+	that we want to use the default package using another audit. Type
+	"The default package is OK for ShowOff." and press the
+	<guibutton>Add</guibutton> button.</para>
+
+	<para>Now the finding has two audits and both are time-stamped. If
+	you were using a Sierra team server then audits by your team would
+	appear in this audit list as well as audits made by you. When an
+	audit is synchronized with a Sierra team server, the name of who
+	made the audit changes from <emphasis>Local</emphasis> to the name
+	for that user on the team server. A team server helps your team
+	collaborate on finding audits, however, collaboration is not the
+	focus of this tutorial so we will continue without connecting to a
+	Sierra team server.</para>
+
+	<para>We probably do not want to see findings that we have marked
+	as <guibutton>Irrelevant</guibutton> in our list of results. So in
+	the <guilabel>Findings Quick Search</guilabel> click the
+	underlined <guibutton>Importance</guibutton> "breadcrumb" (at the
+	top of the view) to scroll the view over to the importance
+	selections. The breadcrumbs allow easy scrolling of the view to
+	areas that might be off the screen. Uncheck
+	<guibutton>Irrelevant</guibutton> and then examine the state of
+	the view. If we click on the <guibutton>Show</guibutton>
+	breadcrumb to scroll the view back to the far right, we can see
+	that the one irrelevant finding is now filtered out of the set of
+	findings shown.</para>
+
+	<para>Let's examine the two remaining findings. Double-click the
+	first one to bring it up in the <guilabel>Finding
+	Details</guilabel> view and highlight the issue in the Java editor
+	(a single-click only brings the finding up in the
+	<guilabel>Finding Details</guilabel> view). This finding notes
+	that you could append a character rather than a string. This
+	change would result in a slight performance improvement in our
+	code. To fix it change
+	<computeroutput>line.append("-")</computeroutput> to
+	<computeroutput>line.append('-')</computeroutput>. Next we want to
+	indicate our work in the audit trail for this finding.</para>
+
+	<figure id="fig-tutorial-audits">
+	  <title>Three audits have been performed on this finding.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata fileref="images/tutorial-audits.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="50%" scalefit="1" fileref="images/tutorial-audits.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>In the <emphasis>Finding Details</emphasis> view open the
+	audit tab and click on the stamp image in the upper-left. This
+	creates an audit entry that states, "I examined this finding." and
+	is a quick way to note that you examined this finding. Since we
+	want to note that we have edited the code, type "I fixed this in
+	the code." and then press the <emphasis>Add</emphasis> button to
+	add a second audit.</para>
+
+	<para>Before we leave this finding let's mark set it to a
+	<emphasis>Low</emphasis> importance. In this small program such a
+	minor performance improvement is likely not a big deal. We could
+	just change the radio button at the left, but let's use the drop
+	down in the upper-left of the view. Press the drop down and change
+	the importance. Notice that this changes the views to reflect the
+	new importance and adds a third audit entry to reflect that you
+	made this change. The state of this finding can be seen in <xref
+	linkend="fig-tutorial-audits" /></para>
+
+	<para>Now let's examine the last finding by double-clicking on
+	this finding in the <guilabel>Findings Quick Search</guilabel>
+	view. The finding should be at the bottom of the list list. This
+	finding is complaining about our use of <computeroutput>new
+	String("hello")</computeroutput> in the code. Explicit use of
+	string construction is considered bad practice in Java as it
+	forces the Java virtual machine to make extra copies of
+	strings.</para>
+
+	<figure id="fig-tutorial-artifacts">
+	  <title>Two tool artifacts have been combined to create this
+	  finding.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-artifacts.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="80%" scalefit="1"
+			 fileref="images/tutorial-artifacts.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>In the <guilabel>Finding Details</guilabel> view select the
+	artifacts tab (the last tab to the right) note that this finding
+	has two artifacts. This finding is made up of two tool reports:
+	one from FindBugs and one from PMD. The two artifacts that
+	establish this finding can be seen in <xref
+	linkend="fig-tutorial-artifacts" /></para>
+
+	<para>In Sierra, reports from analysis tools are called
+	artifacts. Sierra works to merge artifacts that are really about
+	the same problem into one finding. One can think of artifacts as
+	raw tool results and findings as what Sierra creates based upon
+	those raw tool results.  One other difference between artifacts
+	and findings is that findings exist across scans while an artifact
+	is connected to one and only one scan.</para>
+
+	<para>To fix this finding change the code from
+	<computeroutput>box(new String("hello"))</computeroutput> to
+	<computeroutput>box("hello")</computeroutput> and then scan the
+	project one final time.</para>
+
+	<para>When the scan is completed the <guilabel>Findings Quick
+	Search</guilabel> view will update to show no findings. This
+	indicates that no new findings have been found and the two we
+	were working on have been fixed. Clear the search in the
+	<guilabel>Findings Quick Search</guilabel> view by pressing the
+	<guiicon><inlinegraphic
+	fileref="images/asterisk-grey-x.png" /></guiicon>
+	icon and press <guibutton>Status</guibutton> to see that two
+	findings have been fixed and one finding is unchanged as seen in
+	<xref linkend="fig-tutorial-status-fixed" /></para>
+
+	<figure id="fig-tutorial-status-fixed">
+	  <title>Status bar graph after fixing two findings in the code.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-status-fixed.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="50%" scalefit="1"
+			 fileref="images/tutorial-status-fixed.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>This tutorial has introduced basic use of the Sierra Eclipse
+	client to audit Java code. You should now try Sierra on your own
+	code and we encourage you to explore and make Sierra work the way
+	you want it to.</para>
+      </section>
+
+      <section id="sec-tutorial-team-server">
+	<title>Interacting with a Sierra team server</title>
+
+	<para>This tutorial assumes that you have installed Sierra and
+	have run through <xref linkend="sec-tutorial-client" /> (For
+	understanding only, this tutorial does not use the
+	<application>ShowOff</application> project.) It also assumes
+	that you have the <emphasis>Sierra Local Team Server
+	(Optional)</emphasis> featured installed (available on the
+	SureLogic update site). This tutorial introduces you to use of a
+	Sierra team server. The team server helps a group of programmers
+	work together with Sierra.</para>
+
+	<para>By providing you with a team server that you can quickly and
+	easily download and install on your desktop machine to support a
+	small development team, we hope to introduce you to the
+	collaboration capabilities offered by Sierra. If you are
+	interested in hosting large teams, SureLogic offers secure,
+	high-availability hosting of team servers in our data center. We
+	also sell enterprise software licenses so that you can deploy team
+	servers on enterprise hardware/infrastructure at your company.
+	Please contact us at <email>support@surelogic.com</email> for more
+	information about team server hosting and/or enterprise software
+	licenses.</para>
+
+	<para>First download the <application>SmallWorld</application>
+	project from www.surelogic.com at <ulink
+	url="http://www.surelogic.com/sierra/help/SmallWorld.zip">
+	http://www.surelogic.com/sierra/help/SmallWorld.zip</ulink> to
+	your disk. Unzip this archive into your workspace and it will
+	create a <filename>SmallWorld</filename> directory. Next import
+	this project into your Eclipse workspace using
+	<guimenuitem>File</guimenuitem> |
+	<guimenuitem>Import...</guimenuitem> from the Eclipse main menu
+	and then choosing <emphasis>Existing Projects into
+	Workspace</emphasis> for the import wizard. Follow the import
+	steps of wizard until the <application>SmallWorld</application>
+	project is imported and built.</para>
+
+	<para>SmallWorld is a Java text-oriented adventure game. The
+	Colossal Cave Adventure game, produced in the 70s, was the
+	historic first "interactive fiction" game, in which the computer
+	would simulate and describe a situation and the user would type
+	in what to do next, in simple English. Read through the
+	<filename>overview.html</filename> file in the
+	<filename>src</filename> directory for more information about
+	this software.</para>
+
+	<para>To run SmallWorld in an Eclipse console run the
+	<varname>SmallWorld</varname> class in the
+	<varname>smallworld.textui.console</varname> package. To run
+	SmallWorld in a graphical window run the
+	<varname>SmallWorld</varname> class in the
+	<varname>smallworld.textui.graphical</varname> package. The
+	graphical window version of the game is shown in <xref
+	linkend="fig-running-smallworld" /></para>
+
+	<figure id="fig-running-smallworld">
+	  <title>Running the SmallWorld game.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-running-smallworld.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="80%" scalefit="1"
+			 fileref="images/tutorial-running-smallworld.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Go ahead and run the game and play it for a while. The
+	<userinput>help</userinput> command will tell you the commands
+	the software understands. SmallWorld is clearly a work in
+	progress as there is no way to win the game and there are no
+	items to interact with in the virtual world. All you can do is
+	move around and load and save your game.</para>
+
+	<para>When you are done playing the game, go ahead and scan the
+	SmallWorld project.</para>
+
+	<para>This tutorial uses a team server running on your
+	desktop. The <emphasis>Sierra Local Team Server
+	(Optional)</emphasis> feature contributes a <guilabel>Local Team
+	Server</guilabel> view that allows you to start, stop, and
+	examine the logs of a Sierra team server that you run on your
+	desktop.</para>
+
+	<para>Open the <guilabel>Local Team Server</guilabel> view. You
+	can do this one of two ways. The first approach is to reset the
+	<emphasis>Code Review</emphasis> perspective (using the
+	<guimenuitem>Window</guimenuitem> | <guimenuitem>Reset
+	Perspective</guimenuitem> command from the main menu) this view
+	will appear stacked in the lower-right quadrant of the
+	perspective and you can click the title bar to bring it to the
+	front. The second approach is to select
+	<guimenuitem>Window</guimenuitem> | <guimenuitem>Show
+	View</guimenuitem> | <guimenuitem>Other...</guimenuitem> from
+	the main menu. Then from the dialog that appears select the
+	<guilabel>Local Team Server</guilabel> view under the Sierra
+	category and press the <guibutton>OK</guibutton> button. The
+	view appears as shown in <xref
+	linkend="fig-tutorial-local-team-server" /> (If you cannot find
+	this view in Eclipse then it is likely that this feature is not
+	installed. Go back to the SureLogic update site and install
+	it.)</para>
+
+	<figure id="fig-tutorial-local-team-server">
+	  <title>The Local Team Server view.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-local-team-server.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-local-team-server.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The team server controlled by this view is fully
+	functional and can be connected to by other computers on your
+	network using the IP address of your machine (depending, of
+	course, upon the routing and firewall configuration on your
+	network). The database and logs for this local team server
+	appear in the <filename>~/.sierra-data/server</filename>
+	directory on your machine. Three logs are available for you to
+	examine. The first log is the Jetty web server request log which
+	shows traffic to the local server. The second log is the Sierra
+	portal log which shows information from the Sierra portal web
+	site. The third log is the Sierra services log which shows
+	information about communication between Sierra Eclipse clients
+	and the local server. To view these logs select
+	<guimenuitem>Show Server Logs</guimenuitem> from the view menu
+	as shown in <xref linkend="fig-tutorial-local-team-server-logs"
+	/></para>
+
+	<figure id="fig-tutorial-local-team-server-logs">
+	  <title>The Local Team Server view showing the server
+	  logs.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-local-team-server-logs.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-local-team-server-logs.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>From the same menu used to show the logs you can also
+	access the local team server preferences. Select the
+	<guimenuitem>Preferences...</guimenuitem> menu item. You will
+	see <xref linkend="fig-tutorial-local-team-server-preferences"
+	/> This panel lets you adjust the memory used by the local team
+	server and set the level of logging output. The default value is
+	fine for this tutorial so press the
+	<guibutton>Cancel</guibutton> button to exit the panel. (If your
+	computer can't handle the default setting then you might get an
+	infinite yellow light below. If this happens restart Eclipse and
+	lower the memory to try again.)</para>
+
+	<figure id="fig-tutorial-local-team-server-preferences">
+	  <title>Preference panel for controlling the memory used by the
+	  local team server.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-local-team-server-preferences.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-local-team-server-preferences.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>So that this tutorial can start with a fresh team server
+	database, delete the <filename>~/.sierra-data/server</filename>
+	directory on your machine if it exists. Next, press the
+	<guibutton>Start Server</guibutton> button on the view. A dialog
+	will appear warning you that the life of the server process you
+	are starting is not tied to the life of your Eclipse
+	process. This dialog is shown in <xref
+	linkend="fig-tutorial-local-team-server-warning-dialog" /> Read
+	it and press the <guibutton>OK</guibutton> button. The traffic
+	light will change to yellow during server start up. The first
+	time a local team server is started may take several minutes
+	because its database has to be created.</para>
+
+	<figure id="fig-tutorial-local-team-server-warning-dialog">
+	  <title>Warning you that the local team server does not exit when
+	  Eclipse exits.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-local-team-server-warning-dialog.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-local-team-server-warning-dialog.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The traffic light will change to green when the team
+	server is up and running. When this occurs click on the
+	hyperlink <emphasis>here</emphasis> within the message line
+	<emphasis>A team server is running. Click here to open a
+	browser.</emphasis> to open a web browser within Eclipse on the
+	team server portal login page. The views appear as shown in
+	<xref linkend="fig-tutorial-local-team-server-running" /></para>
+
+	<figure id="fig-tutorial-local-team-server-running">
+	  <title>The team server web portal and the Local Team Server view
+	  indicating that the team server is running.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-local-team-server-running.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-local-team-server-running.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Now exit Eclipse and open your favorite web browser.  Enter
+	<ulink url="http://localhost:13376/sl/">
+	  http://localhost:13376/sl/</ulink> to bring up the team server
+	  portal. Alternatively, you may also copy and paste the URL shown
+	  in the view to the right of the <guilabel>Network
+	  URL:</guilabel> label. This URL should also work from other
+	  machines on your local network. Sierra tries to determine your
+	  machine's external IP address, however, sometimes it mistakenly
+	  gets the loop-back one (in which case you should examine the
+	  output of the <userinput>ifconfig</userinput> for Linux/Mac or
+	  <userinput>ipconfig /all</userinput> for Windows to determine
+	  your machine's IP address). You do not need to know your
+	machine's external IP address for this tutorial.</para>
+
+	<para>A new team server only has one account:
+	<userinput>admin</userinput> with
+	<userinput>adminadmin</userinput> for its password. Enter this
+	information and press the <guibutton>Log In</guibutton>
+	button. The welcome page for the team server portal should
+	appear as shown in <xref
+	linkend="fig-tutorial-portal-welcome-page-empty" /></para>
+
+	<figure id="fig-tutorial-portal-welcome-page-empty">
+	  <title>The welcome page on the team server portal.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-portal-welcome-page-empty.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-portal-welcome-page-empty.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The welcome page shows information about the project scans
+	that have been published to the server as well as the
+	contributions of the users of this server. Because no project
+	scans have been published and no users have contributed any audits
+	our welcome page is a bit sparse.</para>
+
+	<para>Click on the <guibutton>Manage Site</guibutton> link in
+	the upper-right of the page (just to the left of <guibutton>Log
+	Out</guibutton>) to open the site management page. Select the
+	<guibutton>Users</guibutton> tab to open the user management
+	page.  This page lets you add and manage the users of this
+	server. We want to create two new users and disable the default
+	<userinput>admin</userinput> user. To add a new user click on
+	<guibutton>Create a new user</guibutton> link near the top of
+	the page. In the dialog that appears enter a new user using the
+	following information:</para>
+	
+	<informaltable>
+	  <tgroup cols='2' align='left'>
+	    <thead>
+	      <row>
+		<entry>Dialog prompt</entry>
+		<entry>Entry</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>User Name:</entry>
+		<entry>infocon</entry>
+	      </row>
+	      <row>
+		<entry>Password:</entry>
+		<entry>zork</entry>
+	      </row>
+	      <row>
+		<entry>Confirm Password:</entry>
+		<entry>zork</entry>
+	      </row>
+	      <row>
+		<entry>Administrator:</entry>
+		<entry>Check this option</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>Repeat the process to create a
+	<userinput>troll</userinput> user using the following
+	information:</para>
+
+	<informaltable>
+	  <tgroup cols='2' align='left'>
+	    <thead>
+	      <row>
+		<entry>Dialog prompt</entry>
+		<entry>Entry</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>User Name:</entry>
+		<entry>troll</entry>
+	      </row>
+	      <row>
+		<entry>Password:</entry>
+		<entry>troll</entry>
+	      </row>
+	      <row>
+		<entry>Confirm Password:</entry>
+		<entry>troll</entry>
+	      </row>
+	      <row>
+		<entry>Administrator:</entry>
+		<entry>Leave this option unchecked</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>The user management screen also lets users that have the
+	administrative role change the name, role, status, and password of
+	any user. Users without the administrative role can only change
+	their password.</para>
+
+	<para>We want to change the name of the user
+	<userinput>infocon</userinput> to <userinput>zork</userinput>
+	which is easier for us to remember. Click on
+	<userinput>infocon</userinput> in the table to enable an
+	in-place edit of this user name. Change it to
+	<userinput>zork</userinput> and press the <keycap>Enter</keycap>
+	key.</para>
+
+	<para>Select the <guibutton>Log Out</guibutton> link in the
+	upper-right-hand corner of the page and log back in as the
+	<userinput>zork</userinput> user. Go back to the users
+	panel. (Note that you might need to refresh pages or restart
+	your browser when you log in as a different user.)</para>
+
+	<para>The status of a user is either enabled or disabled. An
+	enabled user can login to the server portal a disabled user
+	cannot. Users are not deleted from a team server they are just
+	disabled. This keeps the source of all audit information about
+	findings on the server consistent.</para>
+
+	<para>We no longer need the default <emphasis>admin</emphasis>
+	user so change its status to <emphasis>Disabled</emphasis> using
+	the drop-down menu. If the list of disabled users gets long you
+	can uncheck the <emphasis>Show disabled users</emphasis> setting
+	on the table. Uncheck this setting now and your browser should
+	match <xref linkend="fig-tutorial-portal-users-page" /></para>
+
+	<figure id="fig-tutorial-portal-users-page">
+	  <title>The users page on the team server portal showing two enabled users.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-portal-users-page.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-portal-users-page.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Click on the <guibutton>Settings</guibutton> tab to open
+	the settings panel. This panel allows you to see the version of
+	the software and the current and available versions of the
+	database schema as shown in <xref
+	linkend="fig-tutorial-portal-settings-page" /> The current and
+	available versions of the database schema should always be the
+	same number unless a schema upgrade failed for some reason. If
+	this should occur it is a software bug and should be reported to
+	SureLogic.</para>
+
+	<para>This page also allows you to have the server email any
+	errors it encounters to an administrator. You can fill in the
+	information required and send a test email to try out your
+	configuration.</para>
+
+	<figure id="fig-tutorial-portal-settings-page">
+	  <title>The settings page on the team server portal sending a test notification email.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-portal-settings-page.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-portal-settings-page.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Log your browser out of the team server.</para>
+
+	<para>At this point start up Eclipse. Go to the <guilabel>Code
+	Review</guilabel> perspective. Select
+	<guimenuitem>Sierra</guimenuitem> | <guimenuitem>Configure Team
+	Servers</guimenuitem> from the Eclipse main menu. This will open
+	the <guilabel>Sierra Team Servers</guilabel> view. This is the
+	view where connections from the Eclipse client to team servers
+	are defined. We will now define a connection to the local team
+	server we are running. To do this click on the <guibutton>New
+	team server location</guibutton> button on the view (the only
+	one that is enabled) or right-click in the left-hand list and
+	choose <emphasis>New...</emphasis> from the context menu.</para>
+
+	<para>The <emphasis>New Sierra Team Server Location</emphasis>
+	dialog which allows you to fill in the required information about
+	the connection. To connect to our local team server fill in the
+	following:</para>
+
+	<informaltable>
+	  <tgroup cols='2' align='left'>
+	    <thead>
+	      <row>
+		<entry>Dialog prompt</entry>
+		<entry>Entry</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Label:</entry>
+		<entry>localhost</entry>
+	      </row>
+	      <row>
+		<entry>Host:</entry>
+		<entry>localhost</entry>
+	      </row>
+	      <row>
+		<entry>Port:</entry>
+		<entry>13376 (the default value)</entry>
+	      </row>
+	      <row>
+		<entry>Context:</entry>
+		<entry>/ (the default value)</entry>
+	      </row>
+	      <row>
+		<entry>Protocol:</entry>
+		<entry>http (the default value)</entry>
+	      </row>
+	      <row>
+		<entry>User:</entry>
+		<entry>zork</entry>
+	      </row>
+	      <row>
+		<entry>Password:</entry>
+		<entry>zork</entry>
+	      </row>
+	      <row>
+		<entry>Save Password:</entry>
+		<entry>check this option</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>The panel should look like <xref
+	linkend="fig-tutorial-localhost-connection" /> If it does you can
+	press the <emphasis>OK</emphasis> button. If someone else on
+	another computer wants to connect to your local team server then
+	they cannot use <emphasis>localhost</emphasis> as the host. They
+	will need to enter the IP address of your machine. The rest of the
+	connection settings should be the same, except, of course, that
+	they should probably have a different user name and password. Next
+	we will connect the SmallWorld project to this server.</para>
+
+	<figure id="fig-tutorial-localhost-connection">
+	  <title>Defining the connection to the local team server within
+	  the Eclipse client.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-localhost-connection.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-localhost-connection.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>A project can be connected to one and only one team server
+	at a time. You can disconnect and reconnect the project to another
+	team server, however, all the local data in your Eclipse client
+	will be deleted when you perform the disconnect. The reason for
+	this is that once you start sharing scans and audit information
+	with that server your local data becomes coupled with the data of
+	that team server.</para>
+
+	<para>The client does allow you to edit the properties of a server
+	connection to reference another team server. This works if the
+	name or IP address of that server was changed (for any reason) on
+	your network. It also works if the server database you were
+	connecting to was moved from one server to another. It also works
+	if your user name or password need to be updated (as we shall
+	demonstrate later in this tutorial using the
+	<emphasis>troll</emphasis> user). Sierra checks on each
+	client-server command that the client and servers databases are
+	the expected ones.</para>
+
+	<para>To connect the SmallWorld project to the localhost server
+	right-click on the server name and select the
+	<emphasis>Connect...</emphasis> menu item from the context
+	menu. Check the SmallWorld project and press the
+	<emphasis>OK</emphasis> button. Your view will look like <xref
+	linkend="fig-tutorial-smallworld-connected" /></para>
+
+	<figure id="fig-tutorial-smallworld-connected">
+	  <title>The Sierra Team Servers view showing that the SmallWorld
+	  project is connected to the localhost server.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-smallworld-connected.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-smallworld-connected.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>A very useful feature of a team server is that it can store
+	the scan filter for your team. A scan filter defines the types of
+	results your team has deemed completely without merit. These
+	results are filtered out of the scan. For more information about
+	setting up a scan filter see <xref
+	linkend="sec-preferences-scan-filter" /> To send your scan filter
+	to the server right-click on the server name and select the
+	<emphasis>Send Scan Filter...</emphasis> menu item from the
+	context menu. A dialog will warn that this will replace the scan
+	filter currently on the server. Press <emphasis>OK</emphasis> to
+	continue. The localhost server now has the same scan filter as
+	your client.</para>
+
+	<para>Other members of your team get the scan filter settings from
+	the team server. We don't need to download them since we just
+	uploaded them, however, for practice we will. To download and use
+	the scan filter stored on the server you right-click on the server
+	name and select the <emphasis>Get Scan Filter...</emphasis> menu
+	item from the context menu. A dialog will warn that this will
+	replace the scan filter currently on your client. Press
+	<emphasis>OK</emphasis> to continue.</para>
+
+	<para>The reason it is important to keep the scan filter
+	consistent between your clients and your server is that if you
+	have different scan filters you can see different analysis
+	results. For example, if the server filters out findings about
+	null pointers and your client does not then you will see more
+	findings on the client than you do on your server. To understand
+	why this is true you need to understand a bit about how scans
+	work.</para>
+
+	<para>A project scan (via Eclipse or via Ant) creates a scan
+	document file. You can see these files in your
+	<emphasis>~/.sierra-data</emphasis> directory. For the SmallWorld
+	project you will see the <emphasis>SmallWorld.sierra.gz</emphasis>
+	scan document file. This file contains the tool reports about the
+	SmallWorld project. When a scan is loaded into the client database
+	your local scan filter is applied.  When you publish your
+	SmallWorld scan to your server the scan document file is sent to
+	the server, which allows the server to apply its scan filter.</para>
+
+	<para>Since our scan filter is in sync with the localhost server
+	we can now publish our scan of SmallWorld. Select
+	<emphasis>Sierra</emphasis> | <emphasis>Publish Latest
+	Scan</emphasis> from the Eclipse main menu. Check the SmallWorld
+	project and press the <emphasis>OK</emphasis> button.</para>
+
+	<para>One helpful feature of the <emphasis>Sierra Team
+	Servers</emphasis> view is that it can open a web browser to a
+	team server.  To do this select a team server name and press the
+	<emphasis>Browse</emphasis> button (or double-click the team
+	server name). If you have saved your user and password in the
+	server connection you will be logged into the team server. The
+	welcome page should now look like <xref
+	linkend="fig-tutorial-portal-welcome-smallworld-publish" /></para>
+
+	<figure id="fig-tutorial-portal-welcome-smallworld-publish">
+	  <title>The welcome page after the scan of SmallWorld has been published.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-portal-welcome-smallworld-publish.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-portal-welcome-smallworld-publish.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The welcome page on the server now contains data about the
+	SmallWorld scan we just published. You can see the counts of
+	findings for SmallWorld in the <emphasis>Latest Scan
+	Results</emphasis> chart and the <emphasis>Projects</emphasis>
+	table. Using <emphasis>Findings Quick Search</emphasis> view you
+	can verify that these counts are consistent with the data in your
+	client (Filter by project SmallWorld then show the importance
+	counts).</para>
+
+	<para>Use the <emphasis>Findings Quick Search</emphasis> view
+	select all the findings from SmallWorld that are within the
+	<emphasis>Performance</emphasis> finding category. There should be
+	three findings. Since we consider performance critical, change the
+	importance of these three findings to critical.</para>
+
+	<para>You have now made a few audits that you can share with the
+	team server. To do this select <emphasis>Sierra</emphasis> |
+	<emphasis>Synchronize All Connected Projects</emphasis> from the
+	Eclipse main menu. After this command completes, bring up the
+	audit tab in the <emphasis>Finding Details</emphasis> view for one
+	of the three audited findings. Note that the name the audit is
+	attributed to changed from <emphasis>Local</emphasis> to
+	<emphasis>zork</emphasis> because we synchronized under the user
+	zork to the localhost server. This can be seen in <xref
+	linkend="fig-tutorial-smallworld-zork-audits" /></para>
+
+	<figure id="fig-tutorial-smallworld-zork-audits">
+	  <title>After a sync local audits are attributed to the zork user.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-smallworld-zork-audits.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-smallworld-zork-audits.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>If you refresh the welcome page in your web browser it will
+	look like <xref
+	linkend="fig-tutorial-portal-welcome-page-zork-audits" /> The
+	charts and graphs have been update to show the contributions made
+	by the zork user. Also we can see that the SmallWorld project now
+	has 3 critical findings and 3 audits.</para>
+
+	<figure id="fig-tutorial-portal-welcome-page-zork-audits">
+	  <title>The portal shows the audits attributed to the zork user.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-portal-welcome-page-zork-audits.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-portal-welcome-page-zork-audits.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para> In the Eclipse client mark the three critical findings as
+	being examined by me (or make an ad hoc audit on each
+	finding). Notice that these new audits are attributed to
+	<emphasis>Local</emphasis> not to zork. This is because we have
+	not synchronized these audits with the server. To illustrate this
+	point let's attribute these audits to the
+	<emphasis>troll</emphasis> user not to the
+	<emphasis>zork</emphasis> user.</para>
+
+	<para>Go to the <emphasis>Sierra Team Servers</emphasis> view,
+	right-click on the <emphasis>localhost</emphasis> server and
+	select the <emphasis>Properties...</emphasis> menu item. In the
+	dialog that appears change the user name and password to
+	<emphasis>troll</emphasis> and press the <emphasis>OK</emphasis>
+	button. Now synchronize with the localhost server again by
+	selecting <emphasis>Sierra</emphasis> | <emphasis>Synchronize All
+	Connected Projects</emphasis> from the Eclipse main menu. The new
+	audits will change to the <emphasis>troll</emphasis> user as shown
+	in
+	<xref linkend="fig-tutorial-smallworld-troll-audits" /></para>
+
+	<figure id="fig-tutorial-smallworld-troll-audits">
+	  <title>After a sync local audits are attributed to the troll
+	  user.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-smallworld-troll-audits.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-smallworld-troll-audits.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>If you refresh the welcome page in your web browser it will
+	look like <xref
+	linkend="fig-tutorial-portal-welcome-page-troll-audits" /> The
+	charts and graphs have been updated to show the contributions made
+	by the troll user. There are six total audits on the SmallWorld
+	project three findings.</para>
+
+	<figure id="fig-tutorial-portal-welcome-page-troll-audits">
+	  <title>The portal shows the audits attributed to the zork and
+	  troll users.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-portal-welcome-page-troll-audits.png" />
+	    </imageobject>
+	    <imageobject role="fo">
+	      <imagedata width="100%" scalefit="1"
+			 fileref="images/tutorial-portal-welcome-page-troll-audits.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>To complete this tutorial go back to the <emphasis>Local
+	Team Server</emphasis> view and press <emphasis>Stop
+	Server</emphasis> to shutdown your local team server. You can opt
+	to leave the local team server running, however, realize that it
+	is listening on your local network.</para>
+
+	<para>This tutorial has introduced basic interaction of the Sierra
+	Eclipse client with a Sierra team server. You should now try using
+	the Sierra team server on your own code and we encourage you to
+	explore and make Sierra work the way you want it to.</para>
+      </section>
     </section>
   </chapter>
 
   <chapter id="reference">
     <title>Reference</title>
-    <section id="sec-menu">
+    <sect1 id="sec-menu">
       <title>The Sierra menu</title>
 
       <figure id="fig-menu-sierra">
@@ -1658,9 +1732,9 @@ if (o == null) {
 	  </para>
 	</listitem>
       </orderedlist>
-    </section>
+    </sect1>
 
-    <section id="sec-code-review-perspective">
+    <sect1 id="sec-code-review-perspective">
       <title>The Code Review perspective</title>
 
       <para>The Code Review perspective organizes the Eclipse workbench
@@ -1673,15 +1747,15 @@ if (o == null) {
       capabilities of the tool. However, advanced users may want to
       reconfigure the screen layout and save a custom perspective or add
       one or more of the Sierra views to the Java perspective.</para>
-    </section>
+    </sect1>
 
-    <section>
+    <sect1>
       <title>Views</title>
 
       <para>This section describes the Eclipse views defined by the
       Sierra Eclipse client.</para>
 
-      <section id="sec-findings-quick-search">
+      <sect2 id="sec-findings-quick-search">
 	<title>Findings Quick Search</title>
 
 	<para>This view allows you to select a set of findings to
@@ -1754,37 +1828,37 @@ if (o == null) {
 
 	<para>Described further in <xref linkend="sec-tutorial-client"
 	/></para>
-      </section>
+      </sect2>
 
-      <section id="sec-finding-details-view">
+      <sect2 id="sec-finding-details-view">
 	<title>Finding Details</title>
 	<para>This view displays information about and allows you to
 	audit an analysis finding. Described further in <xref
 	linkend="sec-tutorial-client" /></para>
-      </section>
+      </sect2>
 
-      <section id="sec-team-servers-view">
+      <sect2 id="sec-team-servers-view">
 	<title>Sierra Team Servers</title>
 	<para>Described further in <xref linkend="sec-tutorial-client"
 	/></para>
-      </section>
+      </sect2>
 
-      <section id="sec-synchronize-history">
+      <sect2 id="sec-synchronize-history">
 	<title>Synchronize History</title>
 	<para>Described further in <xref linkend="sec-tutorial-client"
 	/></para>
-      </section>
+      </sect2>
 
-      <section>
+      <sect2>
 	<title>Query Sierra</title>
 	<para>This view allows direct queries on the embedded relational
 	database used to store Sierra data. It is typically only used
 	for serviceability of Sierra.
 	</para>
-      </section>
-    </section>
+      </sect2>
+    </sect1>
 
-    <section>
+    <sect1>
       <title>Preferences</title>
 
       <para>The Sierra Eclipse client has many preferences. These
@@ -1800,7 +1874,7 @@ if (o == null) {
       the dialog then the outline will be filtered to only shown the
       Sierra preference pages.</para>
 
-      <section id="sec-preferences-sierra">
+      <sect2 id="sec-preferences-sierra">
 	<title>Sierra</title>
 
 	<figure id="fig-preferences-sierra">
@@ -1894,9 +1968,9 @@ if (o == null) {
 	    starting).</para>
 	  </listitem>
 	</orderedlist>
-      </section>
+      </sect2>
 
-      <section id="sec-preferences-local-team-server">
+      <sect2 id="sec-preferences-local-team-server">
 	<title>Local Team Server</title>
 
 	<figure id="fig-preferences-server">
@@ -1927,9 +2001,9 @@ if (o == null) {
 	large a value for your computer configuration could be set. In
 	this case the server startup will hang at the yellow light
 	forever and if you restart Eclipse will become the red light.</para>
-      </section>
+      </sect2>
 
-      <section id="sec-preferences-scan-data">
+      <sect2 id="sec-preferences-scan-data">
 	<title>Scan Data</title>
 
 	<figure id="fig-preferences-scan-data">
@@ -1967,9 +2041,9 @@ if (o == null) {
 	needed, but is useful for serviceability of Sierra.  Beware that
 	all audits that have not been synchronized to a team server will
 	be lost.</para>
-      </section>
+      </sect2>
 
-      <section id="sec-preferences-scan-filter">
+      <sect2 id="sec-preferences-scan-filter">
 	<title>Scan Filter</title>
 
 	<figure id="fig-preferences-scan-filter">
@@ -2002,9 +2076,9 @@ if (o == null) {
 	also select a server and on its context menu click <emphasis>Get
 	Scan Filter...</emphasis> to download the scan filter setting
 	from that server and overwrite your local settings.</para>
-      </section>
+      </sect2>
 
-      <section id="sec-preferences-tools">
+      <sect2 id="sec-preferences-tools">
 	<title>Tools</title>
 	<figure id="fig-preferences-tools">
 	  <title>The Tools preference pane.</title>
@@ -2031,10 +2105,10 @@ if (o == null) {
 	to use this panel to ensure the tool is not invoked. If either
 	of these problems occur, them please file a bug with SureLogic
 	about them.</para>
-      </section>
-    </section>
+      </sect2>
+    </sect1>
 
-    <section id="sec-license-management">
+    <sect1 id="sec-license-management">
       <title>License management</title>
 
       <para>Sierra is commercial software and a license is required to
@@ -2135,7 +2209,7 @@ if (o == null) {
       The tool is considered unlicensed at that point. To fix this
       situation install a new license (it is not required to install a
       new version of Sierra).</para>
-    </section>
+    </sect1>
   </chapter>
 
   <chapter id="release-notes">
