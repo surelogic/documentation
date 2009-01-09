@@ -849,10 +849,11 @@ if (o == null) {
 	the software understands. SmallWorld is clearly a work in
 	progress as there is no way to win the game and there are no
 	items to interact with in the virtual world. All you can do is
-	move around and load and save your game.</para>
+	move around and load and save your game. When you are done
+	playing the game, type <userinput>exit</userinput> to
+	terminate the program.</para>
 
-	<para>When you are done playing the game, go ahead and scan the
-	SmallWorld project.</para>
+	<para>Scan the SmallWorld project with Sierra.</para>
 
 	<para>This tutorial uses a team server running on your
 	desktop. The <emphasis>Sierra Local Team Server
@@ -861,24 +862,24 @@ if (o == null) {
 	examine the logs of a Sierra team server that you run on your
 	desktop.</para>
 
-	<para>Open the <guilabel>Local Team Server</guilabel> view. You
-	can do this one of two ways. The first approach is to reset the
-	<emphasis>Code Review</emphasis> perspective (using the
-	<guimenuitem>Window</guimenuitem> | <guimenuitem>Reset
-	Perspective</guimenuitem> command from the main menu) this view
-	will appear stacked in the lower-right quadrant of the
-	perspective and you can click the title bar to bring it to the
-	front. The second approach is to select
+	<para>Open the <guilabel>Local Team Server</guilabel>
+	view. You can do this one of two ways. The first approach is
+	to reset the <emphasis>Code Review</emphasis> perspective
+	(using the <guimenuitem>Window</guimenuitem> |
+	<guimenuitem>Reset Perspective</guimenuitem> command from the
+	main menu) this view will appear stacked in the top portion of
+	the perspective and you can click the title bar to bring it to
+	the front. The second approach is to select
 	<guimenuitem>Window</guimenuitem> | <guimenuitem>Show
 	View</guimenuitem> | <guimenuitem>Other...</guimenuitem> from
 	the main menu. Then from the dialog that appears select the
 	<guilabel>Local Team Server</guilabel> view under the Sierra
 	category and press the <guibutton>OK</guibutton> button. The
 	view appears as shown in <xref
-	linkend="fig-tutorial-local-team-server" /> (If you cannot find
-	this view in Eclipse then it is likely that this feature is not
-	installed. Go back to the SureLogic update site and install
-	it.)</para>
+	linkend="fig-tutorial-local-team-server" /> (If you cannot
+	find this view in Eclipse then it is likely that this feature
+	is not installed. Go back to the Eclipse update site you used
+	to install Sierra and install it.)</para>
 
 	<figure id="fig-tutorial-local-team-server">
 	  <title>The Local Team Server view.</title>
@@ -900,16 +901,14 @@ if (o == null) {
 	course, upon the routing and firewall configuration on your
 	network). The database and logs for this local team server
 	appear in the <filename>~/.sierra-data/server</filename>
-	directory on your machine. Three logs are available for you to
-	examine. The first log is the Jetty web server request log which
-	shows traffic to the local server. The second log is the Sierra
-	portal log which shows information from the Sierra portal web
-	site. The third log is the Sierra services log which shows
-	information about communication between Sierra Eclipse clients
-	and the local server. To view these logs select
-	<guimenuitem>Show Server Logs</guimenuitem> from the view menu
-	as shown in <xref linkend="fig-tutorial-local-team-server-logs"
-	/></para>
+	directory on your machine. Two logs are available for you to
+	examine. The first is the Jetty console output which shows
+	logging output from the local server. The second is the Jetty
+	request log which shows information about requests made from
+	clients to the web site. If the logs panel is not visible in
+	your view, select <guimenuitem>Show Server Logs</guimenuitem>
+	from the view menu as shown in <xref
+	linkend="fig-tutorial-local-team-server-logs" /></para>
 
 	<figure id="fig-tutorial-local-team-server-logs">
 	  <title>The Local Team Server view showing the server
@@ -954,17 +953,20 @@ if (o == null) {
 	</figure>
 
 	<para>So that this tutorial can start with a fresh team server
-	database, delete the <filename>~/.sierra-data/server</filename>
-	directory on your machine if it exists. Next, press the
-	<guibutton>Start Server</guibutton> button on the view. A dialog
-	will appear warning you that the life of the server process you
-	are starting is not tied to the life of your Eclipse
-	process. This dialog is shown in <xref
-	linkend="fig-tutorial-local-team-server-warning-dialog" /> Read
-	it and press the <guibutton>OK</guibutton> button. The traffic
-	light will change to yellow during server start up. The first
-	time a local team server is started may take several minutes
-	because its database has to be created.</para>
+	database, delete the
+	<filename>~/.sierra-data/server</filename> directory on your
+	machine if it exists (If you already started a local team
+	server using the <guibutton>Start Server</guibutton>, stop it
+	before you delete this directory). Next, press the
+	<guibutton>Start Server</guibutton> button on the view. A
+	dialog will appear warning you that the life of the server
+	process you are starting is not tied to the life of your
+	Eclipse process. This dialog is shown in <xref
+	linkend="fig-tutorial-local-team-server-warning-dialog" />
+	Read it and press the <guibutton>OK</guibutton> button. The
+	traffic light will change to yellow during server start
+	up. The first time a local team server is started may take
+	several minutes because its database has to be created.</para>
 
 	<figure id="fig-tutorial-local-team-server-warning-dialog">
 	  <title>Warning you that the local team server does not exit when
@@ -1251,7 +1253,15 @@ if (o == null) {
 		<entry>zork</entry>
 	      </row>
 	      <row>
-		<entry>Save Password:</entry>
+		<entry>Validate connection on finish</entry>
+		<entry>check this option</entry>
+	      </row>
+	      <row>
+		<entry>Synchronize BugLink data on finish</entry>
+		<entry>check this option</entry>
+	      </row>
+	      <row>
+		<entry>Save Password</entry>
 		<entry>check this option</entry>
 	      </row>
 	    </tbody>
