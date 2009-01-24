@@ -32,7 +32,7 @@ We first convert from docbook to FO using "fo/docbook.xsl" in the DocBook
 definition project.
 
 We then use Apache FOP <http://xmlgraphics.apache.org/fop/> to convert from
-DocBook to PDF.  The library files for this are in "lib/fop-<version>".
+FO to PDF.  The library files for this are in "lib/fop-<version>".
 
 We use the OFFO library <http://offo.sourceforge.net/index.html> to control
 hyphenation.  The library file for this is in "lib/offo-<version>".
