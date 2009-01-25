@@ -105,6 +105,7 @@
 			<copy todir="@{destdir}">
 				<fileset dir="@{srcdir}">
 					<include name="**/*.png" />
+					<include name="**/*.jpg" />
 				</fileset>
 			</copy>
 		</sequential>
@@ -131,6 +132,7 @@
 			</java>
 			<copy todir="@{destdir}">
 				<fileset dir="@{srcdir}">
+					<include name="**/*.jpg" />
 					<include name="**/*.png" />
 				</fileset>
 			</copy>
@@ -172,6 +174,7 @@
 				<fileset dir="@{srcdir}">
 					<include name="**/*.html" />
 					<include name="**/*.png" />
+     			<include name="**/*.jpg" />
 				</fileset>
 			</copy>
 		</sequential>
@@ -185,6 +188,7 @@
 				<fileset dir="@{installdir}">
 					<include name="**/*.html" />
 					<include name="**/*.png" />
+      		<include name="**/*.jpg" />
 					<exclude name="**/about.html" />
 				</fileset>
 			</delete>

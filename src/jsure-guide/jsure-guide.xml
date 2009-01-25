@@ -622,6 +622,300 @@ public BoundedFIFO(int size) {
     </sect1>
   </chapter>
 
+  <chapter id="understanding-assurance-output">
+    <title>Understanding JSure Assurance Output</title>
+    
+    <para>This chapter descibes using examples the wide variety of
+    messages that appear in the JSure assurance output.</para>
+    
+    <sect1 id="effects-assurance">
+      <title>Effects Assurance</title>
+      
+      <para>This discussion of effects assurance results is based
+      on assuring the class <varname>EffectsExample</varname>. This class does absolutely
+      nothing useful except to demonstrate the various effects assurance
+      results.</para>
+      
+      <figure id="EffectsExample.java">
+        <title>The class <varname>EffectsExample</varname>.</title>
+      
+        <programlisting>
+/**
+ * This is a simple class that exists only to show off the 
+ * assurance results the Effects Assurance can produce.
+ */
+public class EffectsExample {
+  private int f1;
+  private int f2;
+  private int f3;
+
+  <emphasis>@RegionEffects("writes java.lang.Object:All")</emphasis>
+  private int doesAnything() {
+    return 0;
+  }
+
+  <emphasis>@RegionEffects("none")</emphasis>
+  public EffectsExample(final int x, final int y, final int z) {
+    f1 = x;
+    f2 = y;
+    f3 = z;
+  }
+
+  <emphasis>@RegionEffects("reads Instance")</emphasis>
+  public int getSum() {
+    return f1 + f2 + f3;
+  }
+
+  <emphasis>@RegionEffects("writes Instance")</emphasis>
+  public void update() {
+    final int sum = getSum();
+    f1 += sum;
+    f2 += sum;
+    f3 += sum;
+  }
+
+  /**
+   * Indirectly bad!
+   */
+  <emphasis>@RegionEffects("reads Instance")</emphasis>
+  public int indirectlyBad() {
+    return bad();
+  }
+
+  /**
+   * Missing effects!
+   */
+  <emphasis>@RegionEffects("reads Instance")</emphasis>
+  public int bad() {
+    return getSum() + doesAnything();
+  }
+}
+        </programlisting>
+      </figure>
+      
+      <para>The results of effects assurance are displayed under the
+      top-level heading <guilabel>Effects</guilabel> in the
+      <guilabel>JSure Verification</guilabel> view.  Under this heading
+      is a subheading for each method and constructor that is annotated
+      with <varname>@RegionEffects</varname>. Each entry is marked with
+      either a green plus <guiicon><inlinegraphic
+      fileref="images/green-plus.jpg"/></guiicon> or a red X
+      <guiicon><inlinegraphic fileref="images/red-x.jpg"/></guiicon>
+      indicating whether the effects annotation has been positively or
+      negatively assured, respectively.</para>
+      
+      <para>In our example, the the methods <varname>bad()</varname> and
+      <varname>indirectlyBad()</varname> fail to assure, while the
+      methods <varname>getSum()</varname>, <varname>update()</varname>,
+      <varname>doesAnything()</varname>, and the constructor
+      <varname>EffectsExample()</varname> assure.</para>
+      
+      <mediaobject>
+        <imageobject role="html">
+          <imagedata fileref="images/effects-assurance-01.png"/>
+        </imageobject>
+      </mediaobject>
+      
+      <para>There are four kinds of results that can appear as 
+      evidence for and children of the promise drops:</para>
+      
+      <variablelist>
+        <varlistentry>
+          <term><replaceable>effect</replaceable> not accounted for by
+          declared effect(s)</term>
+          <listitem><para>The given effect of the method/constructor
+          implementation is not accounted for by any of the declared
+          effects of the method/constructor. That is, the
+          method/constructor implementation affects more state than it
+          declares it does.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Empty effects trivially satisfy declared effects</term>
+          <listitem><para>The method/constructor has no effects at all
+          and thus trivially satisfies its declared effects.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><replaceable>effect<subscript>1</subscript></replaceable> checked by
+          <replaceable>effect<subscript>2</subscript></replaceable></term>
+          <listitem><para>The particular effect of the
+          method/constructor implemenation, <replaceable>effect<subscript>1</subscript></replaceable>, is accounted for by
+          the particular declared effect <replaceable>effect<subscript>2</subscript></replaceable>. Often, the
+          implementation effect is more specific than the declared
+          effect, i.e., it affects a region that is included in the
+          region of the declared effect.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><replaceable>effect</replaceable> checked by constructor rule: writes to a newly
+          created object are invisible</term>
+          <listitem><para>The particular effect of the constructor
+          implemenation is accounted for by a special rule. Constructors
+          do not need to report any effects they have on the object
+          being constructed because these effects are invisible to the
+          caller of the constructor (the object doesn't exist before the
+          constructor was called).</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>The meanings of these results are further elaborated in
+      the discussion below.</para>
+
+      <sect2 id="simple-positive-assurances">
+        <title>Simple Positive Assurances</title>
+        
+        <para>Let us examine the assurance results for <varname>doesAnything</varname>,
+        <varname>getSum()</varname>, and <varname>EffectsExample()</varname> in more detail.
+        Their chains of evidence expand as follows</para>
+        
+        <mediaobject>
+          <imageobject role="html">
+            <imagedata fileref="images/effects-assurance-02.png"/>
+          </imageobject>
+        </mediaobject>
+        
+        <sect3 id="doesAnything">
+          <title>Method <varname>doesAnything()</varname></title>
+          
+          <para>This method declares that it could read or write anything
+          (<varname>@RegionEffects("writes java.lang.Object:All")</varname>),
+          but in fact its implementation has no effects at all:</para>
+          
+          <programlisting>
+  <emphasis>@RegionEffects("writes java.lang.Object:All")</emphasis>
+  private int doesAnything() {
+    return 0;
+  }
+          </programlisting>
+          
+          <para>Thus, the method assures and the result “Empty effects
+          trivially satisfy declared effects” appears as evidence for
+          the assurance of the declared effects.</para>
+        </sect3>
+
+        <sect3 id="getSum">
+          <title>Method <varname>getSum()</varname></title>
+          
+          <para>Method getSum has the following implementation:</para>
+          
+          <programlisting>
+  <emphasis>@RegionEffects("reads Instance")</emphasis>
+  public int getSum() {
+    return f1 + f2 + f3;
+  }
+          </programlisting>
+
+          <para>This method declares that could read any of the instance
+          fields of the reciever (<varname>"reads instance"</varname>,
+          really a shorthand for <varname>"reads
+          this:Instance"</varname>). The body of the method reads the
+          three fields <varname>f1</varname>, <varname>f2</varname>, and
+          <varname>f3</varname>. Thus, there are three effects that need
+          to be accounted for in order for the declared effects to be
+          assured. We see this in the three result drops that appear as
+          evidence for the method's declared effects:</para>
+          
+          <itemizedlist>
+            <listitem>
+              <para>"reads &lt;this&gt;:f1" checked by "reads &lt;this&gt;:Instance" at EffectsExample.java line 30</para>
+            </listitem>
+            <listitem>
+              <para>"reads &lt;this&gt;:f2" checked by "reads &lt;this&gt;:Instance" at EffectsExample.java line 30</para>
+            </listitem>
+            <listitem>
+              <para>"reads &lt;this&gt;:f3" checked by "reads &lt;this&gt;:Instance" at EffectsExample.java line 30</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>In particular, there is one result for each
+          implementation effect of the method, and the result is
+          tagged to the line of code that corresponds to the expression
+          that creates the effect.  In this case, all the effects eminate
+          from line 30.</para>
+        </sect3>
+        
+        <sect3 id="EffectsExample">
+          <title>Constructor <varname>EffectsExample</varname></title>
+
+          <para>The constructor declares that has no effects
+          (<varname>@RegionEffects("none")</varname>) and has the
+          following implementation:</para>
+          
+          <programlisting>
+  <emphasis>@RegionEffects("none")</emphasis>
+  public EffectsExample(final int x, final int y, final int z) {
+    f1 = x;
+    f2 = y;
+    f3 = z;
+  }
+          </programlisting>
+          
+          <para>This case is similar to <varname>getSum()</varname>
+          except that the evidence for the assurance is that the special
+          constructor rule applies:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>"reads &lt;this&gt;:f1" checked by constructor rule: writes to a newly
+          created object are invisible at EffectsExample.java line 23</para>
+            </listitem>
+            <listitem>
+              <para>"reads &lt;this&gt;:f1" checked by constructor rule: writes to a newly
+          created object are invisible at EffectsExample.java line 24</para>
+            </listitem>
+            <listitem>
+              <para>"reads &lt;this&gt;:f1" checked by constructor rule: writes to a newly
+          created object are invisible at EffectsExample.java line 25</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+      </sect2>
+      
+      <sect2 id="complex-positive-assurance">
+        <title>Complex Positive Assurance</title>
+        
+        <para>The assurance results for method <varname>update()</varname> are
+        more complicated. This method calls another method, <varname>getSum()</varname>;
+        thus some the effects of this method are due to the method that it calls:</para>
+        
+        <programlisting>
+  <emphasis>@RegionEffects("writes Instance")</emphasis>
+  public void update() {
+    final int sum = getSum();
+    f1 += sum;
+    f2 += sum;
+    f3 += sum;
+  }
+        </programlisting>
+        
+        <para>This dependency is reflected in the assurance results:</para>
+        
+        <mediaobject>
+          <imageobject role="html">
+            <imagedata fileref="images/effects-assurance-03.png"/>
+          </imageobject>
+        </mediaobject>
+        
+        <para>In particular, we see that the effect "reads
+        &lt;this&gt;:Instance" is due to the declared effects of method
+        <varname>getSum()</varname>.  Because of this, the results
+        become a graph: the results go on to show that the declared
+        effects of <varname>getSum()</varname> are assured. These are exactly the same
+        results as described above. The point here is that we can see
+        the complete line of assurance; in particular, the effect within
+        <varname>update()</varname> is accounted for and the source of that effect has been
+        assured as well. This is why the icon for the result-drop (line
+        35) is a double-plus <guiicon><inlinegraphic
+      fileref="images/plus-plus.jpg"/></guiicon>: the large plus indicates effect is
+        assured in the context of the method <varname>update()</varname>, while the small
+        plus indicates that the source of that effect has also been
+        assured.</para>
+      </sect2>
+    </sect1>
+  </chapter>
+
   <chapter id="reference">
     <title>Reference</title>
     <sect1>
