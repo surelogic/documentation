@@ -790,8 +790,8 @@ public class EffectsExample {
   }
           </programlisting>
           
-          <para>Thus, the method assures and the result “Empty effects
-          trivially satisfy declared effects” appears as evidence for
+          <para>Thus, the method assures and the result <computeroutput>"Empty effects
+          trivially satisfy declared effects"</computeroutput> appears as evidence for
           the assurance of the declared effects.</para>
         </sect3>
 
@@ -819,13 +819,13 @@ public class EffectsExample {
           
           <itemizedlist>
             <listitem>
-              <para>"reads &lt;this&gt;:f1" checked by "reads &lt;this&gt;:Instance" at EffectsExample.java line 30</para>
+              <para><computeroutput>"reads &lt;this&gt;:f1" checked by "reads &lt;this&gt;:Instance" at EffectsExample.java line 30</computeroutput></para>
             </listitem>
             <listitem>
-              <para>"reads &lt;this&gt;:f2" checked by "reads &lt;this&gt;:Instance" at EffectsExample.java line 30</para>
+              <para><computeroutput>"reads &lt;this&gt;:f2" checked by "reads &lt;this&gt;:Instance" at EffectsExample.java line 30</computeroutput></para>
             </listitem>
             <listitem>
-              <para>"reads &lt;this&gt;:f3" checked by "reads &lt;this&gt;:Instance" at EffectsExample.java line 30</para>
+              <para><computeroutput>"reads &lt;this&gt;:f3" checked by "reads &lt;this&gt;:Instance" at EffectsExample.java line 30</computeroutput></para>
             </listitem>
           </itemizedlist>
 
@@ -858,16 +858,16 @@ public class EffectsExample {
 
           <itemizedlist>
             <listitem>
-              <para>"reads &lt;this&gt;:f1" checked by constructor rule: writes to a newly
-          created object are invisible at EffectsExample.java line 23</para>
+              <para><computeroutput>"reads &lt;this&gt;:f1" checked by constructor rule: writes to a newly
+          created object are invisible at EffectsExample.java line 23</computeroutput></para>
             </listitem>
             <listitem>
-              <para>"reads &lt;this&gt;:f1" checked by constructor rule: writes to a newly
-          created object are invisible at EffectsExample.java line 24</para>
+              <para><computeroutput>"reads &lt;this&gt;:f1" checked by constructor rule: writes to a newly
+          created object are invisible at EffectsExample.java line 24</computeroutput></para>
             </listitem>
             <listitem>
-              <para>"reads &lt;this&gt;:f1" checked by constructor rule: writes to a newly
-          created object are invisible at EffectsExample.java line 25</para>
+              <para><computeroutput>"reads &lt;this&gt;:f1" checked by constructor rule: writes to a newly
+          created object are invisible at EffectsExample.java line 25</computeroutput></para>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -910,8 +910,83 @@ public class EffectsExample {
         35) is a double-plus <guiicon><inlinegraphic
       fileref="images/plus-plus.jpg"/></guiicon>: the large plus indicates effect is
         assured in the context of the method <varname>update()</varname>, while the small
-        plus indicates that the source of that effect has also been
+        plus indicates that the <emphasis>source</emphasis> of that effect has also been
         assured.</para>
+      </sect2>
+      
+      <sect2 id="effects-failures">
+        <title>Assurance Failures</title>
+        
+        <para>Now we examine the assurance results of the negatively assured methods
+        <varname>bad()</varname> and <varname>indirectlyBad()</varname>.</para>
+        
+        <mediaobject>
+          <imageobject role="html">
+            <imagedata fileref="images/effects-assurance-04.png"/>
+          </imageobject>
+        </mediaobject>
+        
+        <sect3 id="method-bad">
+          <title>Method <varname>bad()</varname></title>
+          
+          <para>Method <varname>bad()</varname> is incorrect because it
+          invokes the method <varname>doesAnything()</varname> but only
+          declares that it could read the state of the receiver
+          (<varname>"reads Instance"</varname>).</para>
+
+          <programlisting>
+  <emphasis>@RegionEffects("reads Instance")</emphasis>
+  public int bad() {
+    return getSum() + doesAnything();
+  }
+          </programlisting>
+
+          <para>In particular, there are two results:</para>
+
+          <orderedlist>
+            <listitem>
+              <para><computeroutput>"reads &lt;this&gt;:Instance" checked by
+              "reads &lt;this&gt;:Instance" at EffectsExample.java line
+              54</computeroutput> indicates that the effects of invoking
+              <varname>getSum()</varname> on line 54 are accounted for by the declared
+              effects.</para>
+            </listitem>
+            <listitem>
+              <para><computeroutput>"writes java.lang.Object:All" not
+              accounted for by declared effect(s) at EffectsExample.java
+              line 54</computeroutput> indicates that the effects of
+              invoking <varname>doesAnything()</varname> on line 54 are
+              not accounted for.</para>
+            </listitem>
+          </orderedlist>
+        </sect3>
+        
+        <sect3 id="method-indirectly-bad">
+          <title>Method <varname>indirectlyBad()</varname></title>
+          
+          <para>This method is interesting because its declared effects
+          do account for all the effects of its implementation, in the
+          sense that the declared effects of called methods are considered
+          to be part of the effects of this method. But the method still
+          fails to assure because the declared effects of the called
+          method&mdash;in this case <varname>bad()</varname>&mdash;cannot be assured.</para>
+
+          <programlisting>
+  <emphasis>@RegionEffects("reads Instance")</emphasis>
+  public int indirectlyBad() {
+    return bad();
+  }
+          </programlisting>
+
+          <para>The method has a single result <computeroutput>"reads
+          &lt;this&gt;:Instance" checked by "reads
+          &lt;this&gt;:Instance" at EffectsExample.java line
+          46</computeroutput>. What is interesting, however, is that
+          this drop is marked with a plus subscripted with a red X <guiicon><inlinegraphic
+      fileref="images/plus-x.jpg"/></guiicon>.  This means that the effects assure, but that
+          the basis for the implementation effects, namely the effects declaration of
+          the method <varname>bad</varname>, fails to assure.</para>
+        </sect3>
       </sect2>
     </sect1>
   </chapter>
