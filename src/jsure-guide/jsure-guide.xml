@@ -695,7 +695,7 @@ public class EffectsExample {
       
       <para>The results of effects assurance are displayed under the
       top-level heading <guilabel>Effects</guilabel> in the
-      <guilabel>JSure Verification</guilabel> view.  Under this heading
+      <guilabel>Verification Status</guilabel> view.  Under this heading
       is a subheading for each method and constructor that is annotated
       with <varname>@RegionEffects</varname>. Each entry is marked with
       either a green plus <guiicon><inlinegraphic
@@ -986,6 +986,226 @@ public class EffectsExample {
       fileref="images/plus-x.jpg"/></guiicon>.  This means that the effects assure, but that
           the basis for the implementation effects, namely the effects declaration of
           the method <varname>bad</varname>, fails to assure.</para>
+        </sect3>
+      </sect2>
+    </sect1>
+    
+    <sect1 id="lock-assurance">
+      <title>Lock Assurance</title>
+      
+      <para>Each <varname>@RegionLock</varname> annotion results in a
+      new chain of evidence under <guilabel>Concurrency</guilabel>
+      heading in the <guilabel>Verification Status</guilabel> view. Each
+      of these chains is marked to indicate whether the model associated
+      with it is assured or not, via <guiicon><inlinegraphic
+      fileref="images/green-plus.jpg"/></guiicon> and
+      <guiicon><inlinegraphic fileref="images/red-x.jpg"/></guiicon>,
+      respectively, and contains additional levels of detail describing
+      the particulars of the assurance. This detail includes both
+      assurance about the protected state, marked with
+      <guiicon><inlinegraphic
+      fileref="images/folder-plus.jpg"/></guiicon> and
+      <guiicon><inlinegraphic fileref="images/folder-x.jpg"/></guiicon>,
+      as well as with chains of evidence for other annotations used to
+      support the lock model (e.g., <varname>@ReturnsLock</varname> and
+      <varname>@SingleThreaded</varname>), again marked with
+      <guiicon><inlinegraphic
+      fileref="images/green-plus.jpg"/></guiicon> and
+      <guiicon><inlinegraphic fileref="images/red-x.jpg"/></guiicon>. 
+      See, for example, <xref linkend="lock-assurance-figure"/>.</para>
+      
+      <figure id="lock-assurance-figure">
+        <title>Example Chains of Evidence for Lock Assurance</title>
+
+        <mediaobject>
+          <imageobject role="html">
+            <imagedata fileref="images/lock-assurance-01.png"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
+      
+      <sect2 id="assuring-region-lock">
+        <title>Assuring <varname>@RegionLock</varname></title>
+        
+        <para>The example class <varname>SimpleLockExample</varname>
+        demonstrates the basics of lock assurance:</para>
+
+        <programlisting>
+<emphasis>@RegionLock("L1 is this protects Instance")</emphasis>
+public class SimpleLockExample {
+  private int f;
+  private int g;
+  
+  public synchronized int getF() {
+    // Good
+    return f;
+  }
+  
+  public void setF(final int v) {
+    synchronized (this) {
+      // Good
+      f = v;
+    }
+  }
+  
+  <emphasis>@RequiresLock("L1")</emphasis>
+  public void doStuff() {
+    // Good
+    f = 0;
+  }
+  
+  public int getG() {
+    // Bad
+    return g;
+  }
+}
+        </programlisting>
+
+        <para>The receiver (<varname>this</varname>) is used as a lock
+        to protect the <varname>Instance</varname> region of the object.
+        The field <varname>f</varname> is always accessed correctly,
+        while the field <varname>g</varname> is accessed
+        incorrectly.</para>
+        
+        <mediaobject>
+          <imageobject role="html">
+            <imagedata fileref="images/lock-assurance-02.png"/>
+          </imageobject>
+        </mediaobject>
+        
+        <para>The correct and incorrect field accesses are grouped under
+        distinct subheadings, described below.  The heading <guilabel>lock
+        precondition(s)</guilabel> is described below in <xref
+        linkend="lock-preconditions"/>.</para>
+        
+        <sect3 id="protected-field-accesses">
+          <title>protected field access(es)</title>
+          
+          <para>This heading groups together all the accesses to fields in the
+          protected region that JSure can assure occur when the correct
+          lock is held. For our example, this would be the fields in the
+          region <varname>Instance</varname> and the lock referenced by
+          <varname>this</varname>.  The individual assurance results
+          under this subheading are of the form <computeroutput>Lock
+          "<replaceable>lock</replaceable>" held when accessing
+          <replaceable>field</replaceable></computeroutput>. In our
+          example, there are three of these, one for each access to
+          field <varname>f</varname> on lines 13, 19, and 26.</para>
+          
+          <para>Each assurance result is backed up by
+          <guilabel>supporting information</guilabel> that shows the
+          locks that can be assured to be held when the field is
+          accessed: <computeroutput>Intrinsic lock
+          "<replaceable>lock</replaceable>" is held</computeroutput>.
+          This result links to the source line of code of the expression
+          that acquires the lock. In our example, for the access on line
+          11, the supporting information links to the declaration of the
+          surrounding <varname>synchronized</varname> method
+          <varname>getF()</varname> on line 11. For the access on line
+          19, the supporting information links to the surrounding
+          <varname>synchronized</varname> block on line 17.  Finally,
+          for the access on line 26, the supporting information links to
+          the the <varname>@RequiresLock</varname> annotation of the
+          surrounding method <varname>doStuff()</varname>on line 23. In
+          a more complete example, one in which we have calls to the
+          method <varname>doStuff()</varname>, the use of
+          <varname>@RequiresLock</varname> would be assured based on the
+          correctness of its callsites. If there were unassured
+          callsites, then this field access would be marked with a
+          <guiicon><inlinegraphic
+          fileref="images/plus-x.jpg"/></guiicon> to indicate that
+          assurance of one its preconditions failed.</para>
+        </sect3>
+        
+        <sect3 id="unprotected-field-accesses">
+          <title>unprotected field access(es); possible race condition detected</title>
+          
+          <para>This heading groups together all the accesses to fields in the
+          protected region that JSure cannot assure always occur when the lock is held.
+          The individual assurance results under this subheading are of the 
+          form <computeroutput>Lock "<replaceable>lock</replaceable>" not held when
+          accessing <replaceable>field</replaceable></computeroutput>.  In our example,
+          there is one of these results for the access to the field <varname>g</varname> 
+          at line 31.</para>
+        </sect3>
+      </sect2>
+      
+      <sect2 id="assuring-requires-lock">
+        <title>Assuring Method Preconditions: <varname>@RequiresLock</varname></title>
+        
+        <para>The result heading for each <varname>@RegionLock</varname>
+        annotation collects all the <varname>@RequiresLock</varname> annotations that name
+        its lock under the heading <guilabel>lock preconditions</guilabel>; see <xref linkend="RequiresLockExample-results"/>.
+        Each <varname>@RequiresLock</varname> annotation is assured by checking
+        each call site of the annotated method to see if the correct
+        lock is held. As with field access, the good and bad call sites
+        are grouped together; again, see <xref linkend="RequiresLockExample-results"/>.</para>
+        
+        <figure id="RequiresLockExample-results">
+          <title>Chains of Evidence for <varname>RequiresLockExample</varname></title>.
+          
+          <mediaobject>
+            <imageobject role="html">
+              <imagedata fileref="images/lock-assurance-03.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
+        
+        <para>This section uses class
+        <varname>RequiresLockExample</varname> to describe how
+        <varname>@RequiresLock</varname> annotations are assured:</para>
+        
+        <programlisting>
+<emphasis>@RegionLock("RL is this protects Instance")</emphasis>
+public class RequiresLockExample {
+  private int f;
+  
+  <emphasis>@RequiresLock("RL")</emphasis>
+  public int get() { return f; }
+  
+  <emphasis>@RequiresLock("RL")</emphasis>
+  public void set(final int v) { f = v; }
+  
+  public synchronized void doStuff() {
+    //good
+    set(
+        // good
+        get() + 10);
+  }
+  
+  public void doMoreStuff(final int v) {
+    synchronized (this) {
+      // good
+      set(v + 100);
+    }
+  }
+  
+  public int bad() {
+    // bad
+    return get();
+  }
+}
+        </programlisting>
+        
+        <sect3 id="preconditions-satisfied">
+          <title>lock precondition(s) satisfied</title>
+
+          <para>Each call site for which JSure can determine that the
+          required lock is held results in an entry under this heading.
+          The individual results read <computeroutput>Lock
+          "<replaceable>lock</replaceable>" held when invoking
+          <replaceable>method</replaceable></computeroutput>.  As with
+          the field assurances, these results have supporting
+          information indicating which statements acquire the locks. In
+          our example, both uses of <varname>set()</varname>, on lines
+          18 and 26, are correct, and one use of
+          <varname>get()</varname>, on line 20, is correct. For
+          <varname>set()</varname>, the supporting information refers to
+          the <varname>synchronized</varname> method on line 16 and the
+          <varname>synchronized</varname> block on line 24,
+          respectively. For <varname>get()</varname>, the supporting
+          information refers to the <varname>synchronized</varname>
+          method on line 16.</para>
         </sect3>
       </sect2>
     </sect1>
