@@ -304,6 +304,9 @@ public class BoundedFIFO {
           <imageobject role="html">
             <imagedata fileref="images/BoundedFIFO1.png"/>
           </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO1.png"/>
+          </imageobject>
         </mediaobject>
       </sect2>
 
@@ -361,6 +364,9 @@ public class BoundedFIFO {
           <imageobject role="html">
             <imagedata fileref="images/BoundedFIFO2.png"/>
           </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO2.png"/>
+          </imageobject>
         </mediaobject>
       
         <para>Looking at the chain of evidence for the call to
@@ -371,6 +377,9 @@ public class BoundedFIFO {
         <mediaobject>
           <imageobject role="html">
             <imagedata fileref="images/BoundedFIFO3.png"/>
+          </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO3.png"/>
           </imageobject>
         </mediaobject>
 
@@ -401,6 +410,9 @@ public class BoundedFIFO {
         <mediaobject>
           <imageobject role="html">
             <imagedata fileref="images/BoundedFIFO4.png"/>
+          </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4.png"/>
           </imageobject>
         </mediaobject>
       
@@ -444,6 +456,9 @@ public class BoundedFIFO {
           <imageobject role="html">
             <imagedata fileref="images/BoundedFIFO4-1.png"/>
           </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-1.png"/>
+          </imageobject>
         </mediaobject>
       
         <sect3 id="deep-analysis">
@@ -467,6 +482,9 @@ public class BoundedFIFO {
           <mediaobject>
             <imageobject role="html">
               <imagedata fileref="images/BoundedFIFO4-2.png"/>
+            </imageobject>
+            <imageobject role="fo">
+              <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-2.png"/>
             </imageobject>
           </mediaobject>
 
@@ -506,6 +524,9 @@ public class BoundedFIFO {
           <mediaobject>
             <imageobject role="html">
               <imagedata fileref="images/BoundedFIFO4-3.png"/>
+            </imageobject>
+            <imageobject role="fo">
+              <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-3.png"/>
             </imageobject>
           </mediaobject>
         
@@ -550,6 +571,9 @@ public BoundedFIFO(int size) {
             <imageobject role="html">
               <imagedata fileref="images/BoundedFIFO4-4.png"/>
             </imageobject>
+            <imageobject role="fo">
+              <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-4.png"/>
+            </imageobject>
           </mediaobject>
         </sect3>
       </sect2>
@@ -563,6 +587,9 @@ public BoundedFIFO(int size) {
         <mediaobject>
           <imageobject role="html">
             <imagedata fileref="images/BoundedFIFO5.png"/>
+          </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO5.png"/>
           </imageobject>
         </mediaobject>
 
@@ -605,6 +632,9 @@ public BoundedFIFO(int size) {
           <imageobject role="html">
             <imagedata fileref="images/BoundedFIFO5b.png"/>
           </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO5b.png"/>
+          </imageobject>
         </mediaobject>      
       </sect2>
     
@@ -616,6 +646,9 @@ public BoundedFIFO(int size) {
         <mediaobject>
           <imageobject role="html">
             <imagedata fileref="images/BoundedFIFO6.png"/>
+          </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO6.png"/>
           </imageobject>
         </mediaobject>      
       </sect2>
@@ -714,6 +747,9 @@ public class EffectsExample {
         <imageobject role="html">
           <imagedata fileref="images/effects-assurance-01.png"/>
         </imageobject>
+        <imageobject role="fo">
+          <imagedata width="100%" scalefit="1" fileref="images/effects-assurance-01.png"/>
+        </imageobject>
       </mediaobject>
       
       <para>There are four kinds of results that can appear as 
@@ -773,6 +809,9 @@ public class EffectsExample {
         <mediaobject>
           <imageobject role="html">
             <imagedata fileref="images/effects-assurance-02.png"/>
+          </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/effects-assurance-02.png"/>
           </imageobject>
         </mediaobject>
         
@@ -896,6 +935,9 @@ public class EffectsExample {
           <imageobject role="html">
             <imagedata fileref="images/effects-assurance-03.png"/>
           </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/effects-assurance-03.png"/>
+          </imageobject>
         </mediaobject>
         
         <para>In particular, we see that the effect "reads
@@ -923,6 +965,9 @@ public class EffectsExample {
         <mediaobject>
           <imageobject role="html">
             <imagedata fileref="images/effects-assurance-04.png"/>
+          </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/effects-assurance-04.png"/>
           </imageobject>
         </mediaobject>
         
@@ -1021,6 +1066,9 @@ public class EffectsExample {
           <imageobject role="html">
             <imagedata fileref="images/lock-assurance-01.png"/>
           </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-01.png"/>
+          </imageobject>
         </mediaobject>
       </figure>
       
@@ -1071,12 +1119,15 @@ public class SimpleLockExample {
           <imageobject role="html">
             <imagedata fileref="images/lock-assurance-02.png"/>
           </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-02.png"/>
+          </imageobject>
         </mediaobject>
         
         <para>The correct and incorrect field accesses are grouped under
         distinct subheadings, described below.  The heading <guilabel>lock
         precondition(s)</guilabel> is described below in <xref
-        linkend="lock-preconditions"/>.</para>
+        linkend="assuring-requires-lock"/>.</para>
         
         <sect3 id="protected-field-accesses">
           <title>protected field access(es)</title>
@@ -1148,6 +1199,9 @@ public class SimpleLockExample {
             <imageobject role="html">
               <imagedata fileref="images/lock-assurance-03.png"/>
             </imageobject>
+            <imageobject role="fo">
+              <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-03.png"/>
+            </imageobject>
           </mediaobject>
         </figure>
         
@@ -1206,6 +1260,370 @@ public class RequiresLockExample {
           respectively. For <varname>get()</varname>, the supporting
           information refers to the <varname>synchronized</varname>
           method on line 16.</para>
+        </sect3>
+
+        <sect3 id="preconditions-unsatisfied">
+          <title>lock precondition(s) not satisfied; possible race
+          conditions enabled</title>
+
+          <para>Each call site for which JSure is unable to asure the
+          required lock is always held is grouped under this subheading.
+           The individual results read <computeroutput>Lock
+          "<replaceable>lock</replaceable>" not held when invoking
+          <replaceable>method</replaceable></computeroutput>.  The call
+          to <varname>get()</varname> on line 32 is not assured in our
+          example.</para>
+        </sect3>
+      </sect2>
+      
+      <sect2 id="assuring-singled-threaded">
+        <title>Assuring Constructors: <varname>@SingleThreaded</varname></title>
+        
+        <para>The class <varname>ConstructorExample</varname> below
+        demonstrates assurance issues with object constructors.
+        Specifically, each <varname>@SingleThreaded</varname> annotation
+        appears directly under the <guilabel>Concurrency</guilabel>
+        top-level heading, and field initializers and their
+        initialization expressions are assured once <emphasis>for
+        each</emphasis> constructor in the class. This section discusses
+        the single-threaded constructors; the next, <xref linkend="assuring-field-init"/> discusses field
+        initialization issues.</para>
+        
+        <programlisting>
+<emphasis>@RegionLock("L2 is this protects Instance")</emphasis>
+public class ConstructorExample {
+  private int f = 100;
+  private int g = f + 10;
+  private int h;
+  
+  private final Aux aux = new Aux();
+  private final int bad = aux.doStuff();
+  
+  public ConstructorExample(final int a) {
+    // bad
+    h = a;
+  }
+
+  <emphasis>@SingleThreaded</emphasis>
+  <emphasis>@Borrowed("this")</emphasis>
+  // good constructor
+  public ConstructorExample(final int a, final int b) {
+    // good
+    h = a;
+    // good
+    f += b;
+  }
+  
+  <emphasis>@SingleThreaded</emphasis>
+  // bad constructor
+  public ConstructorExample() {
+    h = 10;
+  }
+  
+  <emphasis>@RegionLock("AuxLock is this protects Instance")</emphasis>
+  static class Aux {
+    private int x;
+    
+    <emphasis>@RequiresLock("AuxLock")</emphasis>
+    public int doStuff() {
+      return x; 
+    }
+  }
+}
+        </programlisting>
+        
+        <para>Class <varname>ConstructorExample</varname> has two
+        constructors annotated with <varname>@SingleThreaded</varname>:
+        <varname>ConstructorExample(int, int)</varname> at line 28, and
+        <varname>ConstructorExample()</varname> at line 37. The
+        annotation assures for the first, but not for the second:</para>
+        
+        <mediaobject>
+          <imageobject role="html">
+            <imagedata fileref="images/lock-assurance-04.png"/>
+          </imageobject>
+          <imageobject role="fo">
+            <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-04.png"/>
+          </imageobject>
+        </mediaobject>
+
+        <sect3 id="singledThreaded-supported">
+          <title>singleThreaded constructor supported</title>
+
+          <para>This result indicates that JSure is able to assure that
+          the constructor has exclusive access to the object being
+          constructed. This assurance is acheived in one of two ways:</para>
+
+          <orderedlist>
+            <listitem>
+              <para>The constructor has a borrowed receiver.  That is,
+              the constructor is also annotated with
+              <varname>@Borrowed("this")</varname>.</para>
+            </listitem>
+            <listitem>
+              <para>The constructor does not start any threads and only writes to the newly created object under construction.
+              Specifically, the constructor is annotated with <varname>@Starts("nothing")</varname> and its declared effects
+              are contained in the effect <varname>"writes this:Instance"</varname>.</para>
+            </listitem>
+          </orderedlist>
+
+          <para>JSure attempts to assure the annotation using both
+          techniques, and the results of this are shown under the
+          <guilabel>precondition choice(s)</guilabel> subheading. For constructor
+          <varname>ConstructorExample(int, int)</varname> only the first case applies, an we see
+          the <guilabel>by borrowed receiver</guilabel> subheading. Under that heading are the
+          results elaborating the assurance that the receiver is unaliased. Any
+          evidence about using the second option would appear under the
+          subheading <guilabel>by effects</guilabel>.</para>
+        </sect3>
+       
+        <sect3 id="singleThreaded-escaping">
+          <title>singleThreaded constructor has possibly escaping receiver</title>
+         
+          <para>This result indicates that JSure is unable to assure that
+          the object being constructed is accessed by the thread that is
+          constructing it only. That is, the receiver may escape the
+          constructing thread and not be accessed by a single thread. In
+          our example, the constructor ConstructorExample() fails to assure
+          because we do not provide any design intent that can be used to
+          back up the claims of single-threadedness.</para>
+        </sect3>
+      </sect2>
+      
+      <sect2 id="assuring-field-init">
+        <title>Assuring Constructors: Field Initialization</title>
+        
+        <para>Assurance of constructors is also complicated by field
+        initializers. Non-static fields with initializers need to be
+        assured separately for each constructor in the class because the
+        single-threadedness (or not) of the constructor can affect their
+        assurance.</para>
+
+        <para>In the case of the example class
+        <varname>ConstructorExample</varname> above, the fields
+        <varname>f</varname> and <varname>g</varname> have initializers
+        and thus the use of the fields and their initialization
+        expressions need to be incorporated into the assurance of the
+        constructors. Because there are three constructors, these uses
+        are analyzed three times.</para>
+
+        <sect3 id="constructor-1">
+          <title>Constructor <varname>ConstructorExample(int)</varname></title>
+          
+          <para>The first constructor is not annotated with
+          <varname>@SingleThread</varname> and thus all the field accesses it makes
+          are unprotected. The JSure results reflect this:</para>
+          
+          <mediaobject>
+            <imageobject role="html">
+              <imagedata fileref="images/lock-assurance-05.png"/>
+            </imageobject>
+            <imageobject role="fo">
+              <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-05.png"/>
+            </imageobject>
+          </mediaobject>
+
+          <para>The uses of field <varname>f</varname> on line 10, the
+          fields <varname>f</varname> and <varname>g</varname> on line
+          12, and the use of field <varname>h</varname> on line 22 are
+          all marked as unprotected. The uses on lines 10 and 12 occur
+          due to field declarations and thus are marked with
+          <guilabel>supporting information</guilabel> indicating which
+          constructor the access is considered to be a part of:
+          <computeroutput>Analyzed on behalf of constructor
+          "test.ConstructorExample.ConstructorExample(int)"</computeroutput>.</para>
+        </sect3>
+        
+        <sect3 id="constructor-2">
+          <title>Constructor <varname>ConstructorExample(int, int)</varname></title>
+          
+          <para>This constructor is declared to be <varname>@SingleThreaded</varname>, and JSure is 
+          able to assure that its implementation is in fact so.  Thus all its field accesses
+          are protected:</para>
+          
+          <mediaobject>
+            <imageobject role="html">
+              <imagedata fileref="images/lock-assurance-06.png"/>
+            </imageobject>
+            <imageobject role="fo">
+              <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-06.png"/>
+            </imageobject>
+          </mediaobject>
+          
+          <para>Observe in particular that the uses of the field
+          <varname>f</varname> on line 10, and the fields
+          <varname>f</varname> and <varname>g</varname> on line 12 are
+          assured, and the supporting information indicates that they
+          are <computeroutput>Analyzed on behalf of constructor
+          "test.ConstructorExample.ConstructorExample(int, int)"</computeroutput>.
+          Also note that all the field access assuranced depend on the <varname>@SingleThreaded</varname>
+          annotation on the constructor itself, which we previously observed is assured.</para>
+        </sect3>
+        
+        <sect3 id="constructor-03">
+          <title>Constructor <varname>ConstructorExample()</varname></title>
+          
+          <para>This constructor is annotated with
+          <varname>@SingleThreaded</varname>, but JSure is not able to
+          assure that this is the case.  Thus all its field accesses are
+          found to be protected, but with unsatisfied preconditions and are
+          marked with <guiicon><inlinegraphic
+          fileref="images/plus-x.jpg"/></guiicon>:</para>
+      
+          <mediaobject>
+            <imageobject role="html">
+              <imagedata fileref="images/lock-assurance-07.png"/>
+            </imageobject>
+            <imageobject role="fo">
+              <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-07.png"/>
+            </imageobject>
+          </mediaobject>
+          
+          <para>Again, observe that the uses of the field <varname>f</varname> on line 10,
+          and the fields <varname>f</varname> and <varname>g</varname> on line 12 are assured.
+          In this case, the supporting information marks that they are
+          <computeroutput>Analyzed on behalf of constructor
+          "test.ConstructorExample.ConstructorExample()"</computeroutput>.</para>
+        </sect3>
+        
+        <sect3 id="aux.doStuff">
+          <title>Assuring Calls to <varname>Aux.doStuff()</varname></title>
+          
+          <para>Finally, there is the case of the call to <varname>Aux.doStuff()</varname> in
+          the initializer for field <varname>bad</varname>. This method has a lock
+          precondition that must be satisfied each time the method is
+          called. This is interesting in the context of assuring
+          constructors because this method has three call sites: one for
+          each constructor. Indeed, this is reflected in the assurance
+          results:</para>
+          
+          <mediaobject>
+            <imageobject role="html">
+              <imagedata fileref="images/lock-assurance-08.png"/>
+            </imageobject>
+            <imageobject role="fo">
+              <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-08.png"/>
+            </imageobject>
+          </mediaobject>
+          
+          <para>This call cannot be assured for any of the constructors
+          because <emphasis>it is not possible for the necessary lock to be
+          acquired in the field declaration</emphasis>. This can be remedied by
+          initializing <varname>bad</varname> in each constructor, or by moving the
+          initialization to a single instance initializer block:</para>
+
+          <programlisting>
+@RegionLock("L2 is this protects Instance")
+public class ConstructorExample {
+  &hellip;
+  private final Aux aux = new Aux();
+  private final int bad;
+  
+  {
+    synchronized (aux) {
+      bad = aux.doStuff();
+    }
+  }
+  &hellip;
+}
+          </programlisting>
+          
+          <para>This changes the assurance results for
+          <varname>AuxLock</varname> to be</para>
+          
+          <mediaobject>
+            <imageobject role="html">
+              <imagedata fileref="images/lock-assurance-09.png"/>
+            </imageobject>
+            <imageobject role="fo">
+              <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-09.png"/>
+            </imageobject>
+          </mediaobject>
+          
+          <para>Again, observe how the initializer block is analyzed
+          once for each constructor.</para>
+        </sect3>
+      </sect2>
+      
+      <sect2 id="assuring-returns-lock">
+        <title>Assuring <varname>@ReturnsLock</varname></title>
+        
+        <para>Each <varname>@ReturnsLock("<replaceable>lock</replaceable>")</varname>
+        annotation creatse a result subheading under the heading for the named 
+        lock <replaceable>lock</replaceable>.  The
+        implementation of the annotated method&mdash;actually each <varname>return</varname>
+        expression in the method&mdash;is checked to assure that it actually
+        returns the named lock.</para>
+
+        <para>The class <varname>ReturnsLockExample</varname>, below,
+        demonstrates the two kinds of results (see <xref
+        linkend="returns-lock-results"/>):</para>
+
+        <programlisting>
+<emphasis>@RegionLock("L is this protects Instance")</emphasis>
+public class ReturnsLockExample {
+  protected int v;
+  
+  <emphasis>@ReturnsLock("L")</emphasis>
+  private Object goodGetLock() {
+    return this;
+  }
+  
+  <emphasis>@ReturnsLock("L")</emphasis>
+  private Object badGetLock() {
+    return new Object();
+  }
+  
+  public void doStuff() {
+    synchronized (goodGetLock()) {
+      v = 1; 
+    }
+    synchronized (badGetLock()) {
+      v = 2;
+    }
+  }
+}
+        </programlisting>
+        
+        <figure id="returns-lock-results">
+          <title>Assurance results for <varname>ReturnsLockExample</varname>.</title>
+          <mediaobject>
+            <imageobject role="html">
+              <imagedata fileref="images/lock-assurance-10.png"/>
+            </imageobject>
+            <imageobject role="fo">
+              <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-10.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <sect3 id="good-return">
+          <title>return statement(s) returning the correct lock</title>
+          
+          <para>All the positive assurance results for a single
+          <varname>@ReturnsLock</varname> annotation are grouped under
+          this subheading.  Each result is of the form
+          <computeroutput>Return statement correctly returns lock
+          "<replaceable>lock</replaceable>"</computeroutput>.</para>
+
+          <para>In our example, method <varname>goodGetLock()</varname>
+          always returns <varname>this</varname>, and thus is assured to
+          be correct.</para>
+        </sect3>
+        
+        <sect3 id="returns-lock-bad">
+          <title>return statement(s) possibly returning the wrong lock</title>
+
+          <para>All the negative assurance results for a single
+          <varname>@ReturnsLock</varname> annotation are grouped under
+          this subheading.  Each result is of the form
+          <computeroutput>Return statement expected to returned lock
+          "<replaceable>lock</replaceable>"</computeroutput>.</para>
+
+          <para>In our example, method <varname>badGetLock()</varname>
+          cannot be assured to always return the correct lock (the
+          object referenced by <varname>this</varname>)&mdash;in fact,
+          it never does&mdash;so it is marked as unassured.</para>
         </sect3>
       </sect2>
     </sect1>
