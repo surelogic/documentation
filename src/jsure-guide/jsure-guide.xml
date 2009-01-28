@@ -1626,6 +1626,392 @@ public class ReturnsLockExample {
           it never does&mdash;so it is marked as unassured.</para>
         </sect3>
       </sect2>
+      
+      <sect2 id="lock-warnings">
+        <title>Suggestions and Warnings</title>
+        
+        <para>Lock assurance can also yield several classes of reults under the
+        top-level <guilabel>Suggestions and Warnings</guilabel> heading.</para>
+        
+        <sect3 id="redudant-locks">
+          <title>redundant lock acquisition(s)</title>
+          
+          <para>This subheading groups together warnings about lock
+          acquisitions that may be redundant, that is, that acquire a
+          lock that <emphasis>must</emphasis> already be held. The
+          speficic warnings under this heading read
+          <computeroutput>Acquisition of lock
+          "<replaceable>lock</replaceable>" may be
+          redundant</computeroutput>.  Each results links to the expression or annotation
+          that is a potentially redundant lock acquisition.
+          Class <varname>RedundantLockExample</varname> demonstrates these results, 
+          shown in <xref linkend="redundant-lock-results"/>:</para>
+          
+          <programlisting>
+<emphasis>@RegionLock("L is this protects Instance")</emphasis>
+public class RedundantLockExample {
+  private int f;
+  
+  // not redundant
+  public synchronized void m() {
+    f = 1;
+    // redundant
+    synchronized (this) {
+      f = 2;
+    }
+  }
+  
+  public void n() {
+    // not redundant
+    synchronized (this) {
+      f = 3;
+      
+      // redundant
+      synchronized (this) {
+        f = 4;
+      }
+    }
+  }
+  
+  // Not redundant 
+  <emphasis>@RequiresLock("L")</emphasis>
+  public void o() {
+    f = 5;
+    
+    // redundant for L, but not for MUTEX
+    synchronized (this) {
+      f = 6;
+    }
+  }
+}
+          </programlisting>
+          
+          <figure id="redundant-lock-results">
+            <title>Assurance results for <varname>RedundantLockExample</varname>.</title>
+            <mediaobject>
+              <imageobject role="html">
+                <imagedata fileref="images/lock-assurance-11.png"/>
+              </imageobject>
+              <imageobject role="fo">
+                <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-11.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>
+          
+          <para>The lock acquisitions on lines 15 and 26 are seen as
+          redundant acquisitions of two locks, <varname>MUTEX</varname>
+          and <varname>L</varname>, because the expression
+          <varname>this</varname> could refer to either one of those
+          locks. The acquision on line 38 is only redundant for lock
+          <varname>L</varname> because the
+          <varname>@RequiresLock</varname> precondition on the method
+          only requires that specific lock.  Thus, although, the
+          expression on line 38 acquires both locks, the acquisition of
+          <varname>MUTEX</varname> is not redundant.</para>
+
+          <para>JSure warns about redundant lock acquisitions because
+          they make it more difficult to understand the program's design
+          intent. Ideally, redudant lock acquisitions should be removed
+          from the program.  We are careful to say that these
+          acquisitions <emphasis>may be</emphasis> redundant because a
+          program's design intent can be more complicated than is
+          expressable using JSure's annotations, and thus the lock
+          acquision may satisfy an intent that has not been
+          expressed.</para>
+        </sect3>
+        
+        <sect3 id="inidentifiable-locks">
+          <title>unidentifiable lock(s); what is the name of the lock? what state is being protected?</title>
+          
+          <para>This class of warnings identifies those lock
+          acquisitions where JSure is unable to determine that a named
+          lock is being acquired. That is, there is no lock declared
+          with a <varname>@RegionLock</varname> or
+          <varname>@PolicyLock</varname> annotation that can be
+          determined to be acquired at the identified locations. There are
+          three messages that can appear under this heading:</para>
+          
+          <variablelist>
+            <varlistentry>
+              <term>Synchronized block: Lock expression
+              "<replaceable>expr</replaceable>" is not identifiable as a
+              programmer-declared lock</term>
+              
+              <listitem><para>The given expression in the identified
+              <varname>synchronized</varname> statement is not
+              identifiable as a lock declared in a
+              <varname>@RegionLock</varname> or
+              <varname>@PolicyLock</varname> annotation.
+              </para></listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>Synchronized method <replaceable>method</replaceable>: "this" is not
+              identifiable as a programmer-declared lock</term>
+              
+              <listitem><para>This identifies a
+              non-<varname>static</varname>
+              <varname>synchronized</varname> method for which the
+              receiver (<varname>this</varname>) is not identifiable as
+              a lock.</para></listitem>
+            </varlistentry>
+
+            <varlistentry>
+              <term>Synchronized method
+              <replaceable>method</replaceable>:
+              "<replaceable>Class</replaceable>.class" is not
+              identifiable as a programmer-declared lock</term>
+
+              <listitem><para>This identifies a
+              <varname>static</varname>
+              <varname>synchronized</varname> method for which the
+              class reference is not identifiable as
+              a lock.</para></listitem>
+            </varlistentry>
+          </variablelist>
+          
+          <para>Class <varname>UnidentifiableLockExample</varname> demonstrates these
+          results, shown in <xref linkend="unidentifiable-lock-results"/>:</para>
+          
+          <programlisting>
+public class UnidentifiableLockExample {
+  private final Object lock = new Object();
+  
+  private static int s;
+  
+  private int x;
+  private int y;
+  
+  static {
+    // Unidentifiable lock expression
+    synchronized (UnidentifiableLockExample.class) {
+      s = 100;
+    }
+  }
+  
+  // Unidentifiable lock expression
+  public static synchronized int getS() {
+    return UnidentifiableLockExample.s;
+  }
+  
+  // Unidentifiable lock expression
+  public synchronized int getX() {
+    return x;
+  }
+  
+  public void setX(final int v) {
+    // Unidentifiable lock expression
+    synchronized (this) {
+      x = v;
+    }
+  }
+  
+  public int getY() {
+    // Unidentifiable lock expression
+    synchronized (lock) {
+      return y;
+    }
+  }
+  
+  public void setY(final int v) {
+    // Unidentifiable lock expression
+    synchronized (lock) {
+      y = v;
+    }
+  }
+}
+          </programlisting>
+          
+          <figure id="unidentifiable-lock-results">
+            <title>Assurance results for <varname>UnidentifiableLockExample</varname>.</title>
+            <mediaobject>
+              <imageobject role="html">
+                <imagedata fileref="images/lock-assurance-12.png"/>
+              </imageobject>
+              <imageobject role="fo">
+                <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-12.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>
+          
+          <para>This class does not have any lock annotations, but
+          there are numerous lock acquisitions contained within it.  All
+          the points where a lock might be acquired have have a warning
+          about the undentifiable nature of the lock.</para>
+          
+          <para>JSure warns about this situation as way to identify
+          potentially missing lock models. For example, the warnings in
+          the example can be removed by adding the following annotation to the 
+          class:</para>
+          
+          <programlisting>
+@RegionLocks({
+  @RegionLock("xLock is this protects x"),
+  @RegionLock("yLock is lock protects y"),
+  @RegionLock("sLock is class protects s")})
+          </programlisting>
+
+        </sect3>
+        
+        <sect3 id="non-final-locks">
+          <title>non-final lock expression(s); analysis cannot determine
+          which lock is being acquired</title>
+
+          <para>JSure groups together all warnings about non-final
+          expressions in <varname>synchronized</varname> statements under this heading.
+          Each warning has the form <computeroutput>Lock expression "<replaceable>lock</replaceable>" is not final</computeroutput>.
+          A <emphasis>final expression</emphasis> is a reference-valued expression that JSure
+          can determine refers to the same object no matter where it is
+          evaluated within the context of the <varname>synchronized</varname> statement.
+          JSure requires that the lock expression in a <varname>synchronized</varname>
+          statement be final to guarantee that the lock that is acquired
+          is the same lock that is needed inside of the statement. The
+          <varname>test</varname> method of the class
+          <varname>NonFinalLockExample</varname> contains two examples
+          of non-final lock expressions, see <xref linkend="non-final-lock-results"/>:</para>
+          
+          <programlisting>
+<emphasis>@RegionLock("L is this protects Instance")</emphasis>
+public class NonFinalLockExample {
+  private int val;
+  
+  <emphasis>@RequiresLock("L")</emphasis>
+  public int get() {
+    return val;
+  }
+
+  <emphasis>@RequiresLock("L")</emphasis>
+  public void set(final int v) {
+    val = v;
+  }
+  
+  public static NonFinalLockExample getNF() {
+    return new NonFinalLockExample();
+  }
+  
+  public static void test() {
+    NonFinalLockExample nf = new NonFinalLockExample();
+    
+    // Non-final lock acquisition
+    synchronized (nf) {
+      int x = nf.get();
+      nf = new NonFinalLockExample();
+      nf.set(x+1);
+    }
+    
+    // Non-final lock acquisition
+    synchronized (getNF()) {
+      getNF().set(getNF().get()+1);
+    }
+  }
+}
+          </programlisting>
+
+          <figure id="non-final-lock-results">
+            <title>Assurance results for <varname>NonFinalLockExample</varname>.</title>
+            <mediaobject>
+              <imageobject role="html">
+                <imagedata fileref="images/lock-assurance-13.png"/>
+              </imageobject>
+              <imageobject role="fo">
+                <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-13.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>
+          
+          <para>The expression <varname>nf</varname> on line 28 is
+          considered non-final because the variable
+          <varname>nf</varname> is assigned to inside of the
+          <varname>synchronized</varname> statement. This means that the
+          object locked by the <varname>synchronized</varname> statement
+          is not the object that needs to be locked to call the method
+          <varname>set</varname> in the expression
+          <varname>nf.set(&hellip;)</varname> on the following line. The
+          situation is worse on line 35: each call to <varname>getNF()</varname>
+          returns a <emphasis>new</emphasis> object.</para>
+
+          <note>
+            <para>This example demonstrates why pattern matching is
+            insufficient: the above cases would check using a lexical
+            scanner because all the object references are made using the
+            same expression. But the <emphasis>value</emphasis> of that
+            expression also needs to be considered to reach correct
+            understanding of the program.</para>
+          </note>
+        </sect3>
+        
+        <sect3 id="not-protecting">
+          <title>synchronized blocks not protecting any state; what state is being protected?</title>
+          
+          <para>JSure collects warnings about possibly superfluous
+          locking under this heading.  Individual warnings read
+          <computeroutput>Locks <replaceable>set of locks</replaceable>
+          not needed by body of synchronized block</computeroutput>.
+          This warning is an attempt to suggest areas where the lock
+          model might be too narrow; that is a lock may protect more
+          state than it has been declared to protect.  Class
+          <varname>UnusedLockExample</varname>, whose results are shown
+          in <xref linkend="not-protecting-results"/>, only declares
+          that lock <varname>L</varname> protects region
+          <varname>R</varname>:</para>
+
+          <programlisting>
+<emphasis>@Regions({</emphasis>
+  <emphasis>@Region("R"),</emphasis>
+  <emphasis>@Region("Q")})</emphasis>
+<emphasis>@RegionLock("L is this protects R")</emphasis>
+public class UnusedLockExample {
+  <emphasis>@InRegion("R")</emphasis>
+  private int f;
+  
+  <emphasis>@InRegion("Q")</emphasis>
+  private int g;
+  
+  public synchronized int getF() {
+    return f;
+  }
+  
+  public synchronized int getG() {
+    return g;
+  }
+  
+  public void setBoth(final int a, final int b) {
+    synchronized (this) {
+      f = a;
+      g = b;
+    }
+  }
+}
+          </programlisting>
+
+          <figure id="not-protecting-results">
+            <title>Assurance results for <varname>UnusedLockExample</varname>.</title>
+            <mediaobject>
+              <imageobject role="html">
+                <imagedata fileref="images/lock-assurance-14.png"/>
+              </imageobject>
+              <imageobject role="fo">
+                <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-14.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>The JSure results call our attention to method
+          <varname>getG()</varname> because it is
+          <varname>synchronized</varname> but based on the current
+          annotations its body does not require any locks.  In this
+          case, it is clear that the intent is that <varname>this</varname> is to be used
+          to protect both fields of the class, so we should modify the
+          lock annotation to be <varname>@RegionLock("L is this protects Instance")</varname>.</para>
+
+          <para>This situation often arrises when the class is being annotated
+          incrementally: It is first discovered that a particular field
+          is being protected by some lock, so the annotation is narrowly
+          tailored to that case. Then, it can be discovered that the
+          lock protects more state, and so on.</para>
+
+        </sect3>
+      </sect2>
     </sect1>
   </chapter>
 
