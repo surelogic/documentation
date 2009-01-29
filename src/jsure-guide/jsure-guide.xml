@@ -756,7 +756,7 @@ public class EffectsExample {
       evidence for and children of the promise drops:</para>
       
       <variablelist>
-        <varlistentry>
+        <varlistentry id="not-accounted-for">
           <term><replaceable>effect</replaceable> not accounted for by
           declared effect(s)</term>
           <listitem><para>The given effect of the method/constructor
@@ -766,14 +766,14 @@ public class EffectsExample {
           declares it does.</para>
           </listitem>
         </varlistentry>
-        <varlistentry>
+        <varlistentry id="trivially-satisfy">
           <term>Empty effects trivially satisfy declared effects</term>
           <listitem><para>The method/constructor has no effects at all
           and thus trivially satisfies its declared effects.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><replaceable>effect<subscript>1</subscript></replaceable> checked by
+          <term id="checked-by"><replaceable>effect<subscript>1</subscript></replaceable> checked by
           <replaceable>effect<subscript>2</subscript></replaceable></term>
           <listitem><para>The particular effect of the
           method/constructor implemenation, <replaceable>effect<subscript>1</subscript></replaceable>, is accounted for by
@@ -784,7 +784,7 @@ public class EffectsExample {
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><replaceable>effect</replaceable> checked by constructor rule: writes to a newly
+          <term id="constructor-rule"><replaceable>effect</replaceable> checked by constructor rule: writes to a newly
           created object are invisible</term>
           <listitem><para>The particular effect of the constructor
           implemenation is accounted for by a special rule. Constructors
@@ -1248,7 +1248,7 @@ public class RequiresLockExample {
           required lock is held results in an entry under this heading.
           The individual results read <computeroutput>Lock
           "<replaceable>lock</replaceable>" held when invoking
-          <replaceable>method</replaceable></computeroutput>.  As with
+          <replaceable>method</replaceable>; precondition satisfied</computeroutput>.  As with
           the field assurances, these results have supporting
           information indicating which statements acquire the locks. In
           our example, both uses of <varname>set()</varname>, on lines
@@ -1270,7 +1270,7 @@ public class RequiresLockExample {
           required lock is always held is grouped under this subheading.
            The individual results read <computeroutput>Lock
           "<replaceable>lock</replaceable>" not held when invoking
-          <replaceable>method</replaceable></computeroutput>.  The call
+          <replaceable>method</replaceable>; precondition unsatisfied</computeroutput>.  The call
           to <varname>get()</varname> on line 32 is not assured in our
           example.</para>
         </sect3>
@@ -1423,7 +1423,7 @@ public class ConstructorExample {
             </imageobject>
           </mediaobject>
 
-          <para>The uses of field <varname>f</varname> on line 10, the
+          <para id="on-behalf-of">The uses of field <varname>f</varname> on line 10, the
           fields <varname>f</varname> and <varname>g</varname> on line
           12, and the use of field <varname>h</varname> on line 22 are
           all marked as unprotected. The uses on lines 10 and 12 occur
@@ -1633,7 +1633,7 @@ public class ReturnsLockExample {
         <para>Lock assurance can also yield several classes of reults under the
         top-level <guilabel>Suggestions and Warnings</guilabel> heading.</para>
         
-        <sect3 id="redudant-locks">
+        <sect3 id="redundant-locks">
           <title>redundant lock acquisition(s)</title>
           
           <para>This subheading groups together warnings about lock
@@ -1711,7 +1711,7 @@ public class RedundantLockExample {
 
           <para>JSure warns about redundant lock acquisitions because
           they make it more difficult to understand the program's design
-          intent. Ideally, redudant lock acquisitions should be removed
+          intent. Ideally, redundant lock acquisitions should be removed
           from the program.  We are careful to say that these
           acquisitions <emphasis>may be</emphasis> redundant because a
           program's design intent can be more complicated than is
@@ -1720,7 +1720,7 @@ public class RedundantLockExample {
           expressed.</para>
         </sect3>
         
-        <sect3 id="inidentifiable-locks">
+        <sect3 id="unidentifiable-locks">
           <title>unidentifiable lock(s); what is the name of the lock? what state is being protected?</title>
           
           <para>This class of warnings identifies those lock
@@ -1733,9 +1733,10 @@ public class RedundantLockExample {
           
           <variablelist>
             <varlistentry>
-              <term>Synchronized block: Lock expression
-              "<replaceable>expr</replaceable>" is not identifiable as a
-              programmer-declared lock</term>
+              <term id="does-not-name">Lock expression
+              "<replaceable>expr</replaceable>"does not name a
+              programmer-declared lock; consider declaring the state
+              protected by the referenced lock</term>
               
               <listitem><para>The given expression in the identified
               <varname>synchronized</varname> statement is not
@@ -1746,7 +1747,7 @@ public class RedundantLockExample {
             </varlistentry>
 
             <varlistentry>
-              <term>Synchronized method <replaceable>method</replaceable>: "this" is not
+              <term id="does-not-name-instance">Synchronized method <replaceable>method</replaceable>: "this" is not
               identifiable as a programmer-declared lock</term>
               
               <listitem><para>This identifies a
@@ -1757,7 +1758,7 @@ public class RedundantLockExample {
             </varlistentry>
 
             <varlistentry>
-              <term>Synchronized method
+              <term id="does-not-name-static">Synchronized method
               <replaceable>method</replaceable>:
               "<replaceable>Class</replaceable>.class" is not
               identifiable as a programmer-declared lock</term>
@@ -2012,6 +2013,143 @@ public class UnusedLockExample {
 
         </sect3>
       </sect2>
+    </sect1>
+      
+    <sect1 id="result-index">
+      <title>Index of JSure Results</title>
+        
+      <itemizedlist>
+        <listitem><para><link linkend="todo">{0}() call has a different number of matching unlock() calls along different control paths</link></para></listitem>
+
+        <listitem><para><link linkend="todo">{0}() call has matching unlock() call at line {1}</link></para></listitem>
+
+        <listitem><para><link linkend="todo">{0}() call has no matching unlock() calls</link></para></listitem>
+
+        <listitem><para><link linkend="checked-by"><replaceable>effect<subscript>1</subscript></replaceable> checked by
+          <replaceable>effect<subscript>2</subscript></replaceable></link></para></listitem>
+
+        <listitem><para><link linkend="constructor-rule"><replaceable>effect</replaceable> checked by constructor rule: writes to a newly
+          created object are invisible</link></para></listitem>
+
+        <listitem><para><link linkend="todo">"{0}" does not call a method from java.util.concurrent.Lock</link></para></listitem>
+
+        <listitem><para><link linkend="todo">"{0}" does not call a method from java.util.concurrent.ReadWriteLock</link></para></listitem>
+
+        <listitem><para><link linkend="not-accounted-for"><replaceable>effect</replaceable> not accounted for by
+          declared effect(s)</link></para></listitem>
+
+        <listitem><para><link linkend="redundant-locks">Acquisition of lock "<replaceable>lock</replaceable>" may be redundant</link></para></listitem>
+
+        <listitem><para><link linkend="on-behalf-of">Analyzed on behalf of constructor "<replaceable>constructor</replaceable>"</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Call " {0} " has not promised to start nothing</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Call " {0} " promises to start nothing</link></para></listitem>
+
+        <listitem><para><link linkend="todo">calls to methods masquerading as java.util.concurrent.Lock methods</link></para></listitem>
+
+        <listitem><para><link linkend="trivially-satisfy">Empty effects trivially satisfy declared effects</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Field Declaration: {0}</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Field reference "{0}" may be to a shared unprotected object</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Intrinsic lock "{0}" is held</link></para></listitem>
+
+        <listitem><para><link linkend="todo">java.util.concurrent lock "{0}" is held</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Lock "{0}" held as "{2}" when accessing {1}</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Lock "{0}" held as "{2}" when invoking {1}; precondition satisfied</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Lock "{0}" held as "{2}" when invoking {1}</link></para></listitem>
+
+        <listitem><para><link linkend="protected-field-accesses">Lock "{0}" held when accessing {1}</link></para></listitem>
+
+        <listitem><para><link linkend="preconditions-satisfied">Lock "{0}" held when invoking {1}; precondition satisfied</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Lock "{0}" held when invoking {1}</link></para></listitem>
+
+        <listitem><para><link linkend="unprotected-field-accesses">Lock "{0}" not held when accessing {1}</link></para></listitem>
+
+        <listitem><para><link linkend="preconditions-unsatisfied">Lock "{0}" not held when invoking {1}; precondition unsatisfied</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Lock "{0}" not held when invoking {1}</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Lock "{0}", needed for accessing {1}, is not held within the anonymous class and cannot be resolved in the calling context; lock must be held within the anonymous class</link></para></listitem>
+
+        <listitem><para><link linkend="does-not-name">Lock expression "{0}" does not name a programmer-declared lock; consider declaring the state protected by the referenced lock</link></para></listitem>
+
+        <listitem><para><link linkend="non-final-locks">Lock expression "{0}" is not final</link></para></listitem>
+
+        <listitem><para><link linkend="preconditions-unsatisfied">lock precondition(s) not satisfied; possible race conditions enabled</link></para></listitem>
+
+        <listitem><para><link linkend="preconditions-satisfied">lock precondition(s) satisfied</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Lock specification "{0}" cannot be resolved in the calling context for {1}; precondition unsatisfied</link></para></listitem>
+
+        <listitem><para><link linkend="todo">lock()\u2013unlock() matches</link></para></listitem>
+
+        <listitem><para><link linkend="not-protecting">Locks {0} not needed by body of synchronized block</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Method effect {0} affects region {1} of {2} which is aggregated into region {3}</link></para></listitem>
+
+        <listitem><para><link linkend="todo">mixed java.util.concurrent/intrinsic locking usage(s)</link></para></listitem>
+
+        <listitem><para><link linkend="todo">No threads started within {0}</link></para></listitem>
+
+        <listitem><para><link linkend="non-final-locks">non-final lock expression(s); analysis cannot determine which lock is being acquired</link></para></listitem>
+
+        <listitem><para><link linkend="protected-field-accesses">protected field access(es)</link></para></listitem>
+
+        <listitem><para><link linkend="todo">protected indirect field access(es)</link></para></listitem>
+
+        <listitem><para><link linkend="todo">protected reference(s) to a possibly shared unprotected object; possible race condition detected</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Receiver "{0}" may be a shared unprotected object</link></para></listitem>
+
+        <listitem><para><link linkend="redundant-locks">redundant lock acquisition(s)</link></para></listitem>
+
+        <listitem><para><link linkend="good-return">Return statement correctly returns lock "{0}"</link></para></listitem>
+
+        <listitem><para><link linkend="returns-lock-bad">Return statement expected to return lock "{0}"</link></para></listitem>
+
+        <listitem><para><link linkend="returns-lock-bad">return statement(s) possibly returning the wrong lock</link></para></listitem>
+
+        <listitem><para><link linkend="good-return">return statement(s) returning the correct lock</link></para></listitem>
+
+        <listitem><para><link linkend="singleThreaded-escaping">singleThreaded constructor has possibly escaping receiver</link></para></listitem>
+
+        <listitem><para><link linkend="singledThreaded-supported">singleThreaded constructor supported</link></para></listitem>
+
+        <listitem><para><link linkend="not-protecting">synchronized block(s) not protecting any state; what state is being protected?</link></para></listitem>
+
+        <listitem><para><link linkend="does-not-name-static">Synchronized method {0}: "{1}.class" is not identifiable as a programmer-declared lock</link></para></listitem>
+
+        <listitem><para><link linkend="does-not-name-instance">Synchronized method {0}: "this" is not identifiable as a programmer-declared lock</link></para></listitem>
+
+        <listitem><para><link linkend="todo">The object referenced by "{0}" is not a known lock, but its xxx {2} xx java.util.concurrent xxx.</link></para></listitem>
+
+        <listitem><para><link linkend="todo">The object referenced by "{0}" is not a known lock, but its field "{1}" is declared to be java.util.concurrent lock "{2}".</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Thread effect declaration prohibits: {0}</link></para></listitem>
+
+        <listitem><para><link linkend="unidentifiable-locks">unidentifiable lock(s); what is the name of the lock? what state is being protected?</link></para></listitem>
+
+        <listitem><para><link linkend="todo">unlock() call has a different number of matching lock() calls along different control paths</link></para></listitem>
+
+        <listitem><para><link linkend="todo">unlock() call has matching {0}() call at line {1}</link></para></listitem>
+
+        <listitem><para><link linkend="todo">unlock() call has no matching lock() calls</link></para></listitem>
+
+        <listitem><para><link linkend="unprotected-field-accesses">unprotected field access(es); possible race condition detected</link></para></listitem>
+
+        <listitem><para><link linkend="todo">unprotected indirect field access(es); possible race condition detected</link></para></listitem>
+
+        <listitem><para><link linkend="todo">Using a java.util.concurrent.locks lock object "{0}" in a syncronized statement</link></para></listitem>
+      </itemizedlist>
+        
+      <para id="todo">To be done</para>
     </sect1>
   </chapter>
 
