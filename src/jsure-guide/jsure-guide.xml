@@ -948,7 +948,7 @@ public class EffectsExample {
         results as described above. The point here is that we can see
         the complete line of assurance; in particular, the effect within
         <varname>update()</varname> is accounted for and the source of that effect has been
-        assured as well. This is why the icon for the result-drop (line
+        assured as well. This is why the icon for the result (line
         35) is a double-plus <guiicon><inlinegraphic
       fileref="images/plus-plus.jpg"/></guiicon>: the large plus indicates effect is
         assured in the context of the method <varname>update()</varname>, while the small
@@ -1027,7 +1027,7 @@ public class EffectsExample {
           &lt;this&gt;:Instance" checked by "reads
           &lt;this&gt;:Instance" at EffectsExample.java line
           46</computeroutput>. What is interesting, however, is that
-          this drop is marked with a plus subscripted with a red X <guiicon><inlinegraphic
+          this result is marked with a plus subscripted with a red X <guiicon><inlinegraphic
       fileref="images/plus-x.jpg"/></guiicon>.  This means that the effects assure, but that
           the basis for the implementation effects, namely the effects declaration of
           the method <varname>bad</varname>, fails to assure.</para>
@@ -1348,7 +1348,7 @@ public class ConstructorExample {
         </mediaobject>
 
         <sect3 id="singledThreaded-supported">
-          <title>singleThreaded constructor supported</title>
+          <title>single-threaded constructor supported</title>
 
           <para>This result indicates that JSure is able to assure that
           the constructor has exclusive access to the object being
@@ -1378,7 +1378,7 @@ public class ConstructorExample {
         </sect3>
        
         <sect3 id="singleThreaded-escaping">
-          <title>singleThreaded constructor has possibly escaping receiver</title>
+          <title>single-threaded constructor has possibly escaping receiver</title>
          
           <para>This result indicates that JSure is unable to assure that
           the object being constructed is accessed by the thread that is
@@ -1734,7 +1734,7 @@ public class RedundantLockExample {
           <variablelist>
             <varlistentry>
               <term id="does-not-name">Lock expression
-              "<replaceable>expr</replaceable>"does not name a
+              "<replaceable>expr</replaceable>" does not name a
               programmer-declared lock; consider declaring the state
               protected by the referenced lock</term>
               
@@ -2015,141 +2015,406 @@ public class UnusedLockExample {
       </sect2>
     </sect1>
       
+    <sect1 id="thread-effects">
+      <title>Thread Effects</title>
+      
+      <para>Each <varname>@SingleThreaded</varname> annotation creates a new chain of evidence
+      under the <guilabel>Thread effects</guilabel> heading in the <guilabel>Verification Status</guilabel>
+      view.  The class <varname>ThreadEffectsExample</varname> is used to explore these results:</para>
+      
+      <programlisting>
+public class ThreadEffectsExample {
+  private int field;
+  
+  <emphasis>@Starts("nothing")</emphasis>
+  public void goodMethod_Simple() {
+    field = 10;
+  }
+  
+  <emphasis>@Starts("nothing")</emphasis>
+  public int goodMethod_Complex() {
+    goodMethod_Simple();
+    return field + 5;
+  }
+  
+  <emphasis>@Starts("nothing")</emphasis>
+  public void badMethod_Simple(final Thread t) {
+    // BAD: we start a thread
+    t.start();
+  }
+  
+  <emphasis>@Starts("nothing")</emphasis>
+  public void badMethod_Indirect1(final Thread t) {
+    badMethod_Simple(t);
+  }
+  
+  <emphasis>@Starts("nothing")</emphasis>
+  public void badMethod_Indirect2() {
+    unannotated_method();
+  }
+  
+  // good, but not declared to start nothing
+  public void unannotated_method() {
+    field = 20;
+  }
+}
+      </programlisting>
+
+      <para>Two of these annotations assure, while three of them fail to assure:</para>
+      
+      <mediaobject>
+        <imageobject role="html">
+          <imagedata fileref="images/thread-effects-01.png"/>
+        </imageobject>
+        <imageobject role="fo">
+          <imagedata width="100%" scalefit="1" fileref="images/thread-effects-01.png"/>
+        </imageobject>
+      </mediaobject>
+      
+      <para>The thread effects analysis checks that a method annotated
+      with <varname>@Starts("nothing")</varname></para>
+
+      <itemizedlist spacing="compact">
+        <listitem><para>Does not invoke the <varname>start()</varname>
+        on a thread object</para></listitem>
+
+        <listitem><para>Only invokes methods/constructors annotated with
+        <varname>@Starts("nothing")</varname></para></listitem>
+      </itemizedlist>
+      
+      <para>Thus, there are four result messages:</para>
+      
+      <variablelist>
+        <varlistentry>
+          <term id="no-threads-started"><computeroutput>No threads started within <replaceable>method</replaceable></computeroutput></term>
+          <listitem><para>The body of the annotated method does not
+          directly start any threads.  This does
+          <emphasis>not</emphasis> mean that the methods/constructors
+          invoked by the method do not start any threads; each
+          method/constructor call is handled
+          individually.</para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term id="thread-started"><computeroutput>Thread effect declaration prohibits: <replaceable>call to <varname>start()</varname></replaceable></computeroutput></term>
+          <listitem><para>The body of the annotated method starts a
+          thread.  This result links to the <varname>start()</varname>
+          method call.</para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term id="call-starts-nothing"><computeroutput>Call "<replaceable>method call</replaceable>" promises to start nothing</computeroutput></term>
+          <listitem><para>The annotated method calls a method that is
+          annotated with <varname>@Starts("nothing")</varname>.  This
+          result starts a new chain of evidence indicating whether the
+          called method is assured or not.  This results links to the
+          method call in the method body.</para></listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term id="call-does-not-promise"><computeroutput>Call "<replaceable>method call</replaceable>" does not promise to start nothing</computeroutput></term>
+          <listitem><para>The annotated emehtod invokes a method is not
+          annoated with <varname>@Starts("nothing")</varname>.  This is
+          an assurance failure because the called method might start a
+          thread.  The result links to the offending method
+          call.</para></listitem>
+        </varlistentry>
+      </variablelist>
+      
+      <sect2 id="thread-effects-good">
+        <title>Positive Assurance</title>
+
+        <para>The simple method <varname>goodMethod_Simple()</varname>
+        assures.  Its body consists of a single field assignment that
+        obviously does not invoke <varname>Thread.start()</varname>, or
+        any other method.  Thus, the chain of evidence for the method is
+        a simple <computeroutput>No threads started within
+        goodMethod_Simple()</computeroutput>.</para>
+
+        <para>The method <varname>goodMethod_Complex()</varname> calls
+        the method <varname>goodMethod_Simple()</varname>, which, as we
+        discuss above, assures.  So the result <computeroutput>Call
+        "this.goodMethod_Simple" promises to start
+        nothing</computeroutput> is decorated with the icon
+        <guiicon><inlinegraphic
+        fileref="images/plus-plus.jpg"/></guiicon> indicating deep
+        assurance.</para>
+      </sect2>
+      
+      <sect2 id="thread-effects-bad">
+        <title>Negative Assurance</title>
+
+        <para>The method <varname>badMethod_Simple()</varname> does
+        exactly what it is not supposed to do: invokes the
+        <varname>start()</varname> method of the
+        <varname>Thread</varname> object passed to it.  Its chain of
+        evidence is thus the single negative result
+        <computeroutput>Thread effect declaration prohibits:
+        t.start()</computeroutput>.</para>
+
+        <para>Method <varname>badMethod_Indirect1()</varname> calls the
+        method <varname>badMethod_Simple()</varname>.  The method
+        <emphasis>does not</emphasis> start any threads itself, so it
+        has a <computeroutput>No threads started within
+        badMethod_Indirect1(java.lang.Thread)</computeroutput> result. 
+        Because the method <varname>badMethod_Simple()</varname> is
+        annotated with <varname>@Starts("nothing")</varname>, there is
+        also a <computeroutput>Call "this.badMethod_Simple(t)" promises
+        to start nothing</computeroutput> result.  But because, as we
+        say above, this method does not assure, this result is decorated
+        with the icon <guiicon><inlinegraphic
+        fileref="images/plus-x.jpg"/></guiicon>. Overall, the annotation
+        on <varname>badMethod_Indirect1()</varname> fails to
+        assure.</para>
+
+        <para>Method <varname>badMethod_Indirect2()</varname> calls the
+        method <varname>unannotated_method()</varname> that does not
+        have a <varname>@Starts("nothing")</varname> annotation.  This
+        call prevents assurance of the method because the called method
+        could start a thread.  Analysis produces the result
+        <computeroutput>Call "this.unannotated_method" does not promise
+        to start nothing</computeroutput>.</para>
+      </sect2>
+      
+    </sect1>
+    
     <sect1 id="result-index">
       <title>Index of JSure Results</title>
         
       <itemizedlist>
-        <listitem><para><link linkend="todo">{0}() call has a different number of matching unlock() calls along different control paths</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: {0}() call has a different
+        number of matching unlock() calls along different control
+        paths</link></para></listitem>
 
-        <listitem><para><link linkend="todo">{0}() call has matching unlock() call at line {1}</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: {0}() call has matching
+        unlock() call at line {1}</link></para></listitem>
 
-        <listitem><para><link linkend="todo">{0}() call has no matching unlock() calls</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: {0}() call has no matching
+        unlock() calls</link></para></listitem>
 
-        <listitem><para><link linkend="checked-by"><replaceable>effect<subscript>1</subscript></replaceable> checked by
-          <replaceable>effect<subscript>2</subscript></replaceable></link></para></listitem>
+        <listitem><para><link
+        linkend="checked-by"><replaceable>effect<subscript>1</subscript>
+        </replaceable> checked by
+        <replaceable>effect<subscript>2</subscript></replaceable></link>
+        </para></listitem>
 
-        <listitem><para><link linkend="constructor-rule"><replaceable>effect</replaceable> checked by constructor rule: writes to a newly
-          created object are invisible</link></para></listitem>
+        <listitem><para><link
+        linkend="constructor-rule"><replaceable>effect</replaceable>
+        checked by constructor rule: writes to a newly created object
+        are invisible</link></para></listitem>
 
-        <listitem><para><link linkend="todo">"{0}" does not call a method from java.util.concurrent.Lock</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: "{0}" does not call a
+        method from java.util.concurrent.Lock</link></para></listitem>
 
-        <listitem><para><link linkend="todo">"{0}" does not call a method from java.util.concurrent.ReadWriteLock</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: "{0}" does not call a
+        method from
+        java.util.concurrent.ReadWriteLock</link></para></listitem>
 
-        <listitem><para><link linkend="not-accounted-for"><replaceable>effect</replaceable> not accounted for by
-          declared effect(s)</link></para></listitem>
+        <listitem><para><link
+        linkend="not-accounted-for"><replaceable>effect</replaceable>
+        not accounted for by declared effect(s)</link></para></listitem>
 
-        <listitem><para><link linkend="redundant-locks">Acquisition of lock "<replaceable>lock</replaceable>" may be redundant</link></para></listitem>
+        <listitem><para><link linkend="redundant-locks">Acquisition of
+        lock "<replaceable>lock</replaceable>" may be
+        redundant</link></para></listitem>
 
-        <listitem><para><link linkend="on-behalf-of">Analyzed on behalf of constructor "<replaceable>constructor</replaceable>"</link></para></listitem>
+        <listitem><para><link linkend="on-behalf-of">Analyzed on behalf
+        of constructor
+        "<replaceable>constructor</replaceable>"</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Call " {0} " has not promised to start nothing</link></para></listitem>
+        <listitem><para><link linkend="call-does-not-promise">Call "<replaceable>method call</replaceable>" does not
+        promise to start nothing</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Call " {0} " promises to start nothing</link></para></listitem>
+        <listitem><para><link linkend="call-starts-nothing">Call "<replaceable>method call</replaceable>" promises to
+        start nothing</link></para></listitem>
 
-        <listitem><para><link linkend="todo">calls to methods masquerading as java.util.concurrent.Lock methods</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: calls to methods
+        masquerading as java.util.concurrent.Lock
+        methods</link></para></listitem>
 
-        <listitem><para><link linkend="trivially-satisfy">Empty effects trivially satisfy declared effects</link></para></listitem>
+        <listitem><para><link linkend="trivially-satisfy">Empty effects
+        trivially satisfy declared effects</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Field Declaration: {0}</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Field Declaration:
+        {0}</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Field reference "{0}" may be to a shared unprotected object</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Field reference "{0}" may
+        be to a shared unprotected object</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Intrinsic lock "{0}" is held</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Intrinsic lock "{0}" is
+        held</link></para></listitem>
 
-        <listitem><para><link linkend="todo">java.util.concurrent lock "{0}" is held</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: java.util.concurrent lock
+        "{0}" is held</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Lock "{0}" held as "{2}" when accessing {1}</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Lock "{0}" held as "{2}"
+        when accessing {1}</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Lock "{0}" held as "{2}" when invoking {1}; precondition satisfied</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Lock "{0}" held as "{2}"
+        when invoking {1}; precondition
+        satisfied</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Lock "{0}" held as "{2}" when invoking {1}</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Lock "{0}" held as "{2}"
+        when invoking {1}</link></para></listitem>
 
-        <listitem><para><link linkend="protected-field-accesses">Lock "{0}" held when accessing {1}</link></para></listitem>
+        <listitem><para><link linkend="protected-field-accesses">Lock
+        "<replaceable>lock</replaceable>" held when accessing <replaceable>field</replaceable></link></para></listitem>
 
-        <listitem><para><link linkend="preconditions-satisfied">Lock "{0}" held when invoking {1}; precondition satisfied</link></para></listitem>
+        <listitem><para><link linkend="preconditions-satisfied">Lock
+        "<replaceable>lock</replaceable>" held when invoking <replaceable>method</replaceable>; precondition
+        satisfied</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Lock "{0}" held when invoking {1}</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Lock "{0}" held when
+        invoking {1}</link></para></listitem>
 
-        <listitem><para><link linkend="unprotected-field-accesses">Lock "{0}" not held when accessing {1}</link></para></listitem>
+        <listitem><para><link linkend="unprotected-field-accesses">Lock
+        "<replaceable>lock</replaceable>" not held when accessing <replaceable>field</replaceable></link></para></listitem>
 
-        <listitem><para><link linkend="preconditions-unsatisfied">Lock "{0}" not held when invoking {1}; precondition unsatisfied</link></para></listitem>
+        <listitem><para><link linkend="preconditions-unsatisfied">Lock
+        "<replaceable>lock</replaceable>" not held when invoking <replaceable>method</replaceable>; precondition
+        unsatisfied</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Lock "{0}" not held when invoking {1}</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Lock "{0}" not held when
+        invoking {1}</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Lock "{0}", needed for accessing {1}, is not held within the anonymous class and cannot be resolved in the calling context; lock must be held within the anonymous class</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Lock "{0}", needed for
+        accessing {1}, is not held within the anonymous class and cannot
+        be resolved in the calling context; lock must be held within the
+        anonymous class</link></para></listitem>
 
-        <listitem><para><link linkend="does-not-name">Lock expression "{0}" does not name a programmer-declared lock; consider declaring the state protected by the referenced lock</link></para></listitem>
+        <listitem><para><link linkend="does-not-name">Lock expression
+        "<replaceable>expr</replaceable>" does not name a programmer-declared lock; consider
+        declaring the state protected by the referenced
+        lock</link></para></listitem>
 
-        <listitem><para><link linkend="non-final-locks">Lock expression "{0}" is not final</link></para></listitem>
+        <listitem><para><link linkend="non-final-locks">Lock expression
+        "<replaceable>expr</replaceable>" is not final</link></para></listitem>
 
-        <listitem><para><link linkend="preconditions-unsatisfied">lock precondition(s) not satisfied; possible race conditions enabled</link></para></listitem>
+        <listitem><para><link linkend="preconditions-unsatisfied">lock
+        precondition(s) not satisfied; possible race conditions
+        enabled</link></para></listitem>
 
-        <listitem><para><link linkend="preconditions-satisfied">lock precondition(s) satisfied</link></para></listitem>
+        <listitem><para><link linkend="preconditions-satisfied">lock
+        precondition(s) satisfied</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Lock specification "{0}" cannot be resolved in the calling context for {1}; precondition unsatisfied</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Lock specification "{0}"
+        cannot be resolved in the calling context for {1}; precondition
+        unsatisfied</link></para></listitem>
 
-        <listitem><para><link linkend="todo">lock()\u2013unlock() matches</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: lock()&ndash;unlock()
+        matches</link></para></listitem>
 
-        <listitem><para><link linkend="not-protecting">Locks {0} not needed by body of synchronized block</link></para></listitem>
+        <listitem><para><link linkend="not-protecting">Locks <replaceable>set of locks</replaceable> not
+        needed by body of synchronized block</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Method effect {0} affects region {1} of {2} which is aggregated into region {3}</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Method effect {0} affects
+        region {1} of {2} which is aggregated into region
+        {3}</link></para></listitem>
 
-        <listitem><para><link linkend="todo">mixed java.util.concurrent/intrinsic locking usage(s)</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: mixed
+        java.util.concurrent/intrinsic locking
+        usage(s)</link></para></listitem>
 
-        <listitem><para><link linkend="todo">No threads started within {0}</link></para></listitem>
+        <listitem><para><link linkend="no-threads-started">No threads started within
+        <replaceable>method</replaceable></link></para></listitem>
 
-        <listitem><para><link linkend="non-final-locks">non-final lock expression(s); analysis cannot determine which lock is being acquired</link></para></listitem>
+        <listitem><para><link linkend="non-final-locks">non-final lock
+        expression(s); analysis cannot determine which lock is being
+        acquired</link></para></listitem>
 
-        <listitem><para><link linkend="protected-field-accesses">protected field access(es)</link></para></listitem>
+        <listitem><para><link
+        linkend="protected-field-accesses">protected field
+        access(es)</link></para></listitem>
 
-        <listitem><para><link linkend="todo">protected indirect field access(es)</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: protected indirect field
+        access(es)</link></para></listitem>
 
-        <listitem><para><link linkend="todo">protected reference(s) to a possibly shared unprotected object; possible race condition detected</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: protected reference(s) to a
+        possibly shared unprotected object; possible race condition
+        detected</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Receiver "{0}" may be a shared unprotected object</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Receiver "{0}" may be a
+        shared unprotected object</link></para></listitem>
 
-        <listitem><para><link linkend="redundant-locks">redundant lock acquisition(s)</link></para></listitem>
+        <listitem><para><link linkend="redundant-locks">redundant lock
+        acquisition(s)</link></para></listitem>
 
-        <listitem><para><link linkend="good-return">Return statement correctly returns lock "{0}"</link></para></listitem>
+        <listitem><para><link linkend="good-return">Return statement
+        correctly returns lock "<replaceable>lock</replaceable>"</link></para></listitem>
 
-        <listitem><para><link linkend="returns-lock-bad">Return statement expected to return lock "{0}"</link></para></listitem>
+        <listitem><para><link linkend="returns-lock-bad">Return
+        statement expected to return lock "<replaceable>lock</replaceable>"</link></para></listitem>
 
-        <listitem><para><link linkend="returns-lock-bad">return statement(s) possibly returning the wrong lock</link></para></listitem>
+        <listitem><para><link linkend="returns-lock-bad">return
+        statement(s) possibly returning the wrong
+        lock</link></para></listitem>
 
-        <listitem><para><link linkend="good-return">return statement(s) returning the correct lock</link></para></listitem>
+        <listitem><para><link linkend="good-return">return statement(s)
+        returning the correct lock</link></para></listitem>
 
-        <listitem><para><link linkend="singleThreaded-escaping">singleThreaded constructor has possibly escaping receiver</link></para></listitem>
+        <listitem><para><link
+        linkend="singleThreaded-escaping">single-threaded constructor has
+        possibly escaping receiver</link></para></listitem>
 
-        <listitem><para><link linkend="singledThreaded-supported">singleThreaded constructor supported</link></para></listitem>
+        <listitem><para><link
+        linkend="singledThreaded-supported">single-threaded constructor
+        supported</link></para></listitem>
 
-        <listitem><para><link linkend="not-protecting">synchronized block(s) not protecting any state; what state is being protected?</link></para></listitem>
+        <listitem><para><link linkend="not-protecting">synchronized
+        block(s) not protecting any state; what state is being
+        protected?</link></para></listitem>
 
-        <listitem><para><link linkend="does-not-name-static">Synchronized method {0}: "{1}.class" is not identifiable as a programmer-declared lock</link></para></listitem>
+        <listitem><para><link
+        linkend="does-not-name-static">Synchronized method <replaceable>method</replaceable>:
+        "<replaceable>Class</replaceable>.class" is not identifiable as a programmer-declared
+        lock</link></para></listitem>
 
-        <listitem><para><link linkend="does-not-name-instance">Synchronized method {0}: "this" is not identifiable as a programmer-declared lock</link></para></listitem>
+        <listitem><para><link
+        linkend="does-not-name-instance">Synchronized method <replaceable>method</replaceable>: "this"
+        is not identifiable as a programmer-declared
+        lock</link></para></listitem>
 
-        <listitem><para><link linkend="todo">The object referenced by "{0}" is not a known lock, but its xxx {2} xx java.util.concurrent xxx.</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: The object referenced by
+        "{0}" is not a known lock, but its xxx {2} xx
+        java.util.concurrent xxx.</link></para></listitem>
 
-        <listitem><para><link linkend="todo">The object referenced by "{0}" is not a known lock, but its field "{1}" is declared to be java.util.concurrent lock "{2}".</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: The object referenced by
+        "{0}" is not a known lock, but its field "{1}" is declared to be
+        java.util.concurrent lock "{2}".</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Thread effect declaration prohibits: {0}</link></para></listitem>
+        <listitem><para><link linkend="thread-started">Thread effect declaration
+        prohibits: <replaceable>call to start()</replaceable></link></para></listitem>
 
-        <listitem><para><link linkend="unidentifiable-locks">unidentifiable lock(s); what is the name of the lock? what state is being protected?</link></para></listitem>
+        <listitem><para><link
+        linkend="unidentifiable-locks">unidentifiable lock(s); what is
+        the name of the lock? what state is being
+        protected?</link></para></listitem>
 
-        <listitem><para><link linkend="todo">unlock() call has a different number of matching lock() calls along different control paths</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: unlock() call has a
+        different number of matching lock() calls along different
+        control paths</link></para></listitem>
 
-        <listitem><para><link linkend="todo">unlock() call has matching {0}() call at line {1}</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: unlock() call has matching
+        {0}() call at line {1}</link></para></listitem>
 
-        <listitem><para><link linkend="todo">unlock() call has no matching lock() calls</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: unlock() call has no
+        matching lock() calls</link></para></listitem>
 
-        <listitem><para><link linkend="unprotected-field-accesses">unprotected field access(es); possible race condition detected</link></para></listitem>
+        <listitem><para><link
+        linkend="unprotected-field-accesses">unprotected field
+        access(es); possible race condition
+        detected</link></para></listitem>
 
-        <listitem><para><link linkend="todo">unprotected indirect field access(es); possible race condition detected</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: unprotected indirect field
+        access(es); possible race condition
+        detected</link></para></listitem>
 
-        <listitem><para><link linkend="todo">Using a java.util.concurrent.locks lock object "{0}" in a syncronized statement</link></para></listitem>
+        <listitem><para><link linkend="todo">TO DO: Using a
+        java.util.concurrent.locks lock object "{0}" in a syncronized
+        statement</link></para></listitem>
       </itemizedlist>
         
-      <para id="todo">To be done</para>
+      <para id="todo">TO DO: To be done</para>
     </sect1>
   </chapter>
 
