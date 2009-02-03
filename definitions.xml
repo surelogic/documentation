@@ -4,7 +4,8 @@
 	<property name="build" location="./build" />
 	<property name="lib" location="./lib" />
 
-	<property name="docbook.dir" location="${lib}/docbook-xsl-1.74.0" />
+	<property name="docbook.package.name" value="docbook-xsl-1.74.0" />
+	<property name="docbook.dir" location="${lib}/${docbook.package.name}" />
 	<property name="saxon.dir" location="${lib}/saxon-6-5-5" />
 	<property name="resolver.dir" location="${lib}/xml-commons-resolver-1.2" />
 	<property name="fop.dir" location="${lib}/fop-0.95" />
@@ -84,6 +85,29 @@
 		<pathelement path="${lib}" />
 	</path>
 
+	<macrodef name="copy-images-for-html">
+		<attribute name="srcdir" />
+		<attribute name="destdir" />
+	  <sequential>
+			<copy todir="@{destdir}">
+				<fileset dir="@{srcdir}">
+					<include name="**/*.png" />
+					<include name="**/*.jpg" />
+				</fileset>
+			</copy>
+			<mkdir dir="@{destdir}/images"/>
+	    <copy todir="@{destdir}/images">
+	      <fileset dir="${docbook.dir}/images">
+	      	<include name="caution.png"/>
+	      	<include name="important.png"/>
+	      	<include name="note.png"/>
+        	<include name="tip.png"/>
+        	<include name="warning.png"/>
+	      </fileset>
+	    </copy>
+	  </sequential>
+	</macrodef>
+	
 	<!-- Macro to convert DocBook to HTML -->
 	<macrodef name="docbook-to-html">
 		<attribute name="srcdir" />
@@ -101,13 +125,12 @@
 				<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
 				<arg line="'@{srcfile}'" />
 				<arg line="'${docbook-to-html-xsl}'" />
+				<arg line="callout.unicode='1'"/>
+				<arg line="callout.graphics='0'"/>
+				<arg line="admon.graphics='1'"/>
+				<arg line="admon.graphics.extension='.png'"/>
 			</java>
-			<copy todir="@{destdir}">
-				<fileset dir="@{srcdir}">
-					<include name="**/*.png" />
-					<include name="**/*.jpg" />
-				</fileset>
-			</copy>
+			<copy-images-for-html srcdir="@{srcdir}" destdir="@{destdir}"/>
 		</sequential>
 	</macrodef>
 
@@ -129,13 +152,12 @@
 				<arg line="eclipse.plugin.name='Sierra Eclipse Client Help'" />
 				<arg line="eclipse.plugin.id=com.surelogic.sierra.eclipse.client.help" />
 				<arg line="eclipse.plugin.provider='SureLogic, Inc.'" />
+				<arg line="callout.unicode='1'"/>
+				<arg line="callout.graphics='0'"/>
+				<arg line="admon.graphics='1'"/>
+				<arg line="admon.graphics.extension='.png'"/>
 			</java>
-			<copy todir="@{destdir}">
-				<fileset dir="@{srcdir}">
-					<include name="**/*.jpg" />
-					<include name="**/*.png" />
-				</fileset>
-			</copy>
+    	<copy-images-for-html srcdir="@{srcdir}" destdir="@{destdir}"/>
 		</sequential>
 	</macrodef>
 
@@ -155,6 +177,11 @@
 				<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
 				<arg line="'@{srcfile}'" />
 				<arg line="'${docbook-to-fo-xsl}'" />
+  			<arg line="callout.unicode='1'"/>
+				<arg line="callout.graphics='0'"/>
+				<arg line="admon.graphics='1'"/>
+				<arg line="admon.graphics.path='../../lib/${docbook.package.name}/images/'"/>
+				<arg line="admon.graphics.extension='.svg'"/>
 			</java>
 			<java classname="${fop.class}" fork="yes" failonerror="true">
 				<classpath refid="fop.classpath" />
