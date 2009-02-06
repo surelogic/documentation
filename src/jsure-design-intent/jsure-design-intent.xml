@@ -2034,7 +2034,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
           </calloutlist>
         </para>
         
-        <sect3>
+        <sect3 id="lock.id.constraints">
           <title>Lock Id Constraints</title>
           
           <itemizedlist>
@@ -2051,7 +2051,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
           </itemizedlist>
         </sect3>
         
-        <sect3>
+        <sect3 id="lock.field.constraints">
           <title>Lock Field Constraints</title>
 
           <itemizedlist>
@@ -2172,6 +2172,350 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                 cannot contain fields. This is necessary to prevent
                 upcasting from being used to compromise lock
                 policies.</para>
+              </formalpara>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Policy Lock Declaration</title>
+        
+        <para>Policy lock declarations have the form
+          <synopsis>
+@RegionLock("<co id="policy.lock.name"/><replaceable>lock</replaceable> is <co id="policy.lock.field"/><replaceable>field</replaceable>")          
+          </synopsis>
+          
+          <calloutlist>
+            <callout arearefs="policy.lock.name">
+              <para>The name of the lock or <emphasis>lock id</emphasis>.</para>
+            </callout>
+            <callout arearefs="policy.lock.field">
+              <para>The <emphasis>lock field</emphasis>: the name of a
+              field, <structfield>class</structfield>,
+              <varname>this</varname>, or a qualified
+              <varname>this</varname> expression
+              (<varname><replaceable>class_name</replaceable>.this</varname>).</para>
+            </callout>
+          </calloutlist>
+        </para>
+        
+        <sect3>
+          <title>Constraints</title>
+          
+          <para>Policy lock declarations have the same <link
+          linkend="lock.id.constraints">lock id</link> and <link
+          linkend="lock.field.constraints">lock field</link> constraints
+          as region lock declarations.</para>
+        </sect3>
+      </sect2>
+      
+      <sect2 id="lock.names">
+        <title>Lock Names</title>
+      
+        <para><classname>@ReturnsLock</classname> and
+        <classname>@RequiresLock</classname> annotations make use of
+        <emphasis>lock names</emphasis>. Lock names have their own
+        semantic constraints. A lock name identifies a lock in a
+        particular object reference or class. It differs from a
+        <emphasis>lock id</emphasis>: The lock id is the name of the
+        lock as it is declared, while the lock name represents a
+        particular instance of the lock.</para>
+        
+        <para>For <emphasis><code>static</code> locks</emphasis>
+        (locks whose lock field is a <code>static</code> field or a
+        class object), there is only one instance of the lock and its
+        name is the lock id qualified by the name of the class in which
+        it is declared.</para>
+        
+        <para>Otherwise we have an <emphasis>instance lock</emphasis> whose
+        lock name is the lock id qualified by the name of a local
+        variable (possibly <varname>this</varname>) that references the
+        object that contains the lock.</para>
+        
+        <para>More specifically, lock names have the following forms and
+        associated constraints:</para>
+       
+        <informaltable id="lock.name.constraints">
+          <tgroup align="left" cols="2">
+            <thead>
+              <row align="center">
+                <entry>Syntax</entry>
+                <entry>Constraints</entry>
+              </row>
+            </thead>
+          
+            <tbody>
+              <row>
+                <entry>
+                  <synopsis>
+<co id="lockid1"/><replaceable>lock_id</replaceable><!--no break here--><footnote><para>This form is really a shorthand for either
+                  <varname>this</varname><code>:</code><replaceable>lock_id</replaceable> or
+                  <classname>fully.qualified.class.name</classname><code>:</code><replaceable>lock_id</replaceable> where
+                  <classname>fully.qualified.class.name</classname> is
+                  the name of the class containing the annotated method.
+                   The ambiquity is resolved by checking whether
+                  <replaceable>lock_id</replaceable> names a instance or
+                  <code>static</code> lock, respectively.</para></footnote></synopsis>
+                  
+                  <calloutlist>
+                    <callout arearefs="lockid1">
+                      <para>A lock id.</para>
+                    </callout>
+                  </calloutlist>
+                </entry>
+                
+                <entry>
+                  <itemizedlist>
+                    <listitem>
+                      <formalpara>
+                        <title><replaceable>lock_id</replaceable> must
+                        exist in the class containing the annotated
+                        method</title>
+                      </formalpara>
+                    </listitem>
+
+                    <listitem>
+                      <formalpara>
+                        <title>The lock id <replaceable>lock_id</replaceable> must
+                        refer to a <code>static</code> lock if the
+                        method is <code>static</code></title>
+
+                        <para>Although, a non-<code>static</code> method
+                        may refer to either a <code>static</code> or an instance
+                        lock.</para>
+                      </formalpara>
+                    </listitem>
+                  </itemizedlist>
+                </entry>
+              </row>
+
+              <row>
+                <entry>
+                  <synopsis>
+<co id="lock.name.param"/><replaceable>parameter_name</replaceable>:<co id="lockid2"/><replaceable>lock_id</replaceable>
+                  </synopsis>
+                  
+                  <calloutlist>
+                    <callout arearefs="lock.name.param">
+                      <para>The name of a method/constructor parameter,
+                      including <varname>this</varname>.</para>
+                    </callout>
+                    <callout arearefs="lockid2">
+                      <para>A lock id.</para>
+                    </callout>
+                  </calloutlist>
+                </entry>
+                
+                <entry>
+                  <itemizedlist>
+                    <listitem>
+                      <formalpara>
+                        <title>The parameter
+                        <replaceable>parameter_name</replaceable> must
+                        be a <code>final</code> parameter of the annotated
+                        method/constructor</title>
+                        
+                        <para>If the parameter isn't <code>final</code>
+                        then the object referenced by the parameter can
+                        change during execution of the method and the
+                        named lock is not unique.  Note that
+                        <varname>this</varname> <emphasis>is
+                        not</emphasis> a parameter of
+                        <code>static</code> methods.</para>
+                      </formalpara>
+                    </listitem>
+
+                    <listitem>
+                      <formalpara>
+                        <title>The lock id <replaceable>lock_id</replaceable> must
+                        name an instance lock in the type of the parameter</title>
+                        
+                        <para>For clarity purposes we do not allow
+                        <code>static</code> locks to be named through instances; it
+                        only leads to confusion.</para>
+                      </formalpara>
+                    </listitem>
+                  </itemizedlist>
+                </entry>
+              </row>
+
+              <row>
+                <entry>
+                  <synopsis>
+<co id="lock.name.fqclass1"/><replaceable>fully.qualified.class.name</replaceable>:<co id="lockid3"/><replaceable>lock_id</replaceable>
+                  </synopsis>
+                  
+                  <calloutlist>
+                    <callout arearefs="lock.name.fqclass1">
+                      <para>A fully qualified class name.</para>
+                    </callout>
+                    <callout arearefs="lockid3">
+                      <para>A lock id.</para>
+                    </callout>
+                  </calloutlist>
+                </entry>
+                
+                <entry>
+                  <itemizedlist>
+                    <listitem>
+                      <formalpara>
+                        <title>The named class
+                        <replaceable>fully.qualified.class.name</replaceable>
+                        must exist.</title>
+                      </formalpara>
+                    </listitem>
+
+                    <listitem>
+                      <formalpara>
+                        <title>The lock id <replaceable>lock_id</replaceable> must
+                        name a <code>static</code> lock in the type <replaceable>fully.qualified.class.name</replaceable></title>
+                      </formalpara>
+                    </listitem>
+                  </itemizedlist>
+                </entry>
+              </row>
+
+              <row>
+                <entry>
+                  <synopsis>
+<co id="lock.name.fqclass2"/><replaceable>fully.qualified.class.name</replaceable>.this:<co id="lockid4"/><replaceable>lock_id</replaceable>
+                  </synopsis>
+                  
+                  <calloutlist>
+                    <callout arearefs="lock.name.fqclass2">
+                      <para>A fully qualified class name.</para>
+                    </callout>
+                    <callout arearefs="lockid4">
+                      <para>A lock id.</para>
+                    </callout>
+                  </calloutlist>
+                </entry>
+                
+                <entry>
+                  <itemizedlist>
+                    <listitem>
+                      <formalpara>
+                        <title>The qualified receiver
+                        <replaceable>fully.qualified.class.name</replaceable>.this
+                        must exist for the annotated method</title>
+                      </formalpara>
+                    </listitem>
+
+                    <listitem>
+                      <formalpara>
+                        <title>The lock id <replaceable>lock_id</replaceable> must
+                        name an instance lock in the type <replaceable>fully.qualified.class.name</replaceable></title>
+                      </formalpara>
+                    </listitem>
+                  </itemizedlist>
+                </entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+      </sect2>
+      
+      <sect2>
+        <title>Returns Lock</title>
+        
+        <para>A declaration that a method returns a particular lock has the form
+
+          <synopsis>
+@ReturnsLock("<co id="ret.lock.name"/><replaceable>lock_name</replaceable>")
+          </synopsis>
+          
+          <calloutlist>
+            <callout arearefs="ret.lock.name">
+              <para>A <link linkend="ret.lock.name">lock
+              name</link>.</para>
+            </callout>
+          </calloutlist>
+        </para>
+        
+        <sect3>
+          <title>Constraints</title>
+          
+          <itemizedlist>
+            <listitem>
+              <formalpara>
+                <title>The lock name <replaceable>lock_name</replaceable> must be
+                <link linkend="lock.name.constraints">well-formed</link></title>
+              </formalpara>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+      </sect2>
+      
+      <sect2>
+        <title>Lock Preconditions</title>
+        
+        <para>Methods and constructors declare lock preconditions using
+
+          <synopsis>
+@RequiresLock("<co id="req.lock.name"/><replaceable>lock_name<subscript>1</subscript></replaceable>, &hellip;, <replaceable>lock_name<subscript>n</subscript></replaceable>")<co id="req.lock.n"/>
+          </synopsis>
+          
+          <calloutlist>
+            <callout arearefs="req.lock.name">
+              <para><replaceable>lock_name<subscript>i</subscript></replaceable> are <link linkend="ret.lock.name">lock
+              names</link>.</para>
+            </callout>
+            <callout arearefs="req.lock.n">
+              <para><replaceable>n</replaceable> &ge; 1.</para>
+            </callout>
+          </calloutlist>
+        </para>
+        
+        <sect3>
+          <title>Constraints</title>
+          
+          <itemizedlist>
+            <listitem>
+              <formalpara>
+                <title>Each <replaceable>lock_name<subscript>i</subscript></replaceable> must be
+                <link linkend="lock.name.constraints">well-formed</link></title>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>Constructors and <code>static</code> methods
+                cannot require callers to hold locks on the receiver
+                (<varname>this</varname>)</title>
+                
+                <para><code>static</code> methods don't have a receiver
+                so this would be nonsense. For constructors, the
+                receiver doesn't yet exist at the call site, so a caller
+                could never acquire it before hand.</para>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>If the lock is a non-<code>static</code> lock of the receiver,
+                or is a <code>static</code> lock from the same class as the annotated
+                method/constructor then it must be at least as visible as
+                the method/constructor</title>
+                
+                <para>To be truly useful, the required lock should be
+                visible at the <emphasis>call site</emphasis> of the
+                method. This is not determinable in general when looking
+                at the annotated method; it can only be determined by
+                looking at the call sites. But these are two common
+                cases that can be checked at the method
+                declaration.</para>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>A particular lock for a particular object can
+                only be named once per method</title>
+                
+                <para>There is no advantage to naming a lock more than
+                once; it probably represents an error on the part of the
+                programmer.</para>
               </formalpara>
             </listitem>
           </itemizedlist>
