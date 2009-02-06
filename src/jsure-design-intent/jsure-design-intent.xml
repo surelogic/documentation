@@ -450,7 +450,7 @@ public class C {
   private Rational r;
 
   public synchronized doStuff() {
-    int n = r.getNumerator();  // (*)
+    int n = r.getNumerator();
     &hellip;
   }
 }
@@ -521,9 +521,12 @@ public class Rational {
         
           <programlisting>
 <emphasis>@Regions</emphasis>({
-  @Region("region1"), // region with default visibility, extends Instance
-  @Region("private static region2"), // static private region, extends All
-  @Region("public region3 extends region2") // public instance region
+  // region with default visibility, extends Instance
+  @Region("region1"),
+  // static private region, extends All
+  @Region("private static region2"),
+  // public instance region
+  @Region("public region3 extends region2")
 })
           </programlisting>
         </para>
@@ -1128,7 +1131,7 @@ class Var {
             visibility.</para></callout>
 
             <callout arearefs="region.decl.name"><para>The name of the
-            new region</para></callout>
+            new region.</para></callout>
 
             <callout arearefs="region.decl.parent"><para>The name of the
             region's parent.  If ommitted, the parent for
@@ -1384,7 +1387,7 @@ public class Blooper extends Duper {
             that declares the field.</para></callout>
 
             <callout arearefs="agg.n"><para><replaceable>n</replaceable>
-            &ge; 1</para></callout>
+            &ge; 1.</para></callout>
           </calloutlist>
 
           <para>The flexibility of the aggregation depends on whether
@@ -1750,10 +1753,14 @@ protected PersonRecord record;
             <tbody>
               <row>
                 <entry>
-                  <simplelist>
-                    <member><code><replaceable>region_name</replaceable></code></member>
-                    <member><code>this:<replaceable>region_name</replaceable></code></member>
-                  </simplelist>
+                  <synopsis>
+<optional>this:</optional><co id="instance.target.reg1"/><replaceable>region_name</replaceable>
+                  </synopsis>
+                  <calloutlist>
+                    <callout arearefs="instance.target.reg1">
+                      <para>The name of a region.</para>
+                    </callout>
+                  </calloutlist>
                 </entry>
               
                 <entry>
@@ -1788,7 +1795,17 @@ protected PersonRecord record;
 
               <row>
                 <entry>
-                  <code><replaceable>parameter_name</replaceable>:<replaceable>region_name</replaceable></code>
+                  <synopsis>
+<co id="instance.target.param"/><replaceable>parameter_name</replaceable>:<co id="instance.target.reg2"/><replaceable>region_name</replaceable>
+                  </synopsis>
+                  <calloutlist>
+                    <callout arearefs="instance.target.param">
+                      <para>The name of a method/constructor parameter.</para>
+                    </callout>
+                    <callout arearefs="instance.target.reg2">
+                      <para>The name of a region.</para>
+                    </callout>
+                  </calloutlist>
                 </entry>
               
                 <entry>
@@ -1820,7 +1837,17 @@ protected PersonRecord record;
 
               <row>
                 <entry>
-                  <code><replaceable>type_name</replaceable>.this:<replaceable>region_name</replaceable></code>
+                  <synopsis>
+<co id="instance.target.type"/><replaceable>type_name</replaceable>.this:<co id="instance.target.reg3"/><replaceable>region_name</replaceable>
+                  </synopsis>
+                  <calloutlist>
+                    <callout arearefs="instance.target.type">
+                      <para>The name of a class.</para>
+                    </callout>
+                    <callout arearefs="instance.target.reg3">
+                      <para>The name of a region.</para>
+                    </callout>
+                  </calloutlist>
                 </entry>
               
                 <entry>
@@ -1849,7 +1876,7 @@ protected PersonRecord record;
                       <formalpara>
                         <title>The class named by <code>type_name</code>
                         must exist and be a lexically enclosing
-                        class<footnote><para>An object
+                        class<footnote><para>A class
                         <replaceable>O</replaceable> is the zeroth
                         lexically enclosing class of itself.  A class
                         <replaceable>O</replaceable> is the
@@ -1859,7 +1886,7 @@ protected PersonRecord record;
                         immediately enclosing class of the
                         (<replaceable>n</replaceable>-1)<superscript>st</superscript>
                         lexically enclosing class of
-                        <replaceable>C</replaceable>.  (<ulink url="http://java.sun.com/docs/books/jls/third_edition/html/classes.html#8.1.3">JLS3
+                        <replaceable>C</replaceable>.  (<ulink url="http://java.sun.com/docs/books/jls/third_edition/html/classes.html#8.1.3"><citetitle pubwork="book">The Java Language Specification, 3<superscript>rd</superscript> Edition</citetitle>
                         &sect;8.1.3</ulink>)</para></footnote> of the class that
                         contains the method/constructor being
                         annotated.</title>
@@ -1878,8 +1905,104 @@ protected PersonRecord record;
               </row>
             </tbody>
           </tgroup>
-        </informaltable>
+        </informaltable>        
+      </sect2>
+      
+      <sect2>
+        <title>Any-Instance Target</title>
         
+        <para>An any-instance target has the form
+        
+          <synopsis>
+any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="any.instance.region"/><replaceable>region_name</replaceable>
+          </synopsis>
+          
+          <calloutlist>
+            <callout arearefs="any.instance.type">
+              <para>The name of a class or interface.</para>
+            </callout>
+            <callout arearefs="any.instance.region">
+              <para>The name of a region.</para>
+            </callout>
+          </calloutlist>
+        </para>
+        
+        <sect3>
+          <title>Constraints</title>
+          
+          <itemizedlist>
+            <listitem>
+              <formalpara>
+                <title>The target must <link linkend="preserve.abstraction">preserve
+                abstraction</link></title>
+              </formalpara>
+            </listitem>
+            <listitem>
+              <formalpara>
+                <title>The class/interface identified by
+                <replaceable>type_name</replaceable> must exist</title>
+              </formalpara>
+            </listitem>
+            <listitem>
+              <formalpara>
+                <title>The region identified by
+                <replaceable>region_name</replaceable> must a
+                non-<code>static</code> region that exists in
+                <replaceable>type_name</replaceable></title>
+                
+                <para>There is no point in the region being <code>static</code>: in
+                that case a <link linkend="class.target">class target</link> can be used.</para>
+              </formalpara>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+      </sect2>
+      
+      <sect2 id="class.target">
+        <title>Class Target</title>
+        
+        <para>An any-instance target has the form
+        
+          <synopsis>
+<co id="class.instance.type"/><replaceable>type_name</replaceable>:<co id="class.instance.region"/><replaceable>region_name</replaceable>
+          </synopsis>
+          
+          <calloutlist>
+            <callout arearefs="class.instance.type">
+              <para>The name of a class or interface.</para>
+            </callout>
+            <callout arearefs="class.instance.region">
+              <para>The name of a region.</para>
+            </callout>
+          </calloutlist>
+        </para>
+        
+        <sect3>
+          <title>Constraints</title>
+          
+          <itemizedlist>
+            <listitem>
+              <formalpara>
+                <title>The target must <link linkend="preserve.abstraction">preserve
+                abstraction</link></title>
+              </formalpara>
+            </listitem>
+            <listitem>
+              <formalpara>
+                <title>The class/interface identified by
+                <replaceable>type_name</replaceable> must exist</title>
+              </formalpara>
+            </listitem>
+            <listitem>
+              <formalpara>
+                <title>The region identified by
+                <replaceable>region_name</replaceable> must a
+                <code>static</code> region that exists in
+                <replaceable>type_name</replaceable></title>
+              </formalpara>
+            </listitem>
+          </itemizedlist>
+        </sect3>
       </sect2>
     </sect1>
     
