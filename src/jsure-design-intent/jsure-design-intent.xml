@@ -1556,7 +1556,331 @@ protected PersonRecord record;
     </sect1>
     
     <sect1 id="effect-annotations">
-      <title>Effect Annotations</title>
+      <title>Region Effect Annotations</title>
+      
+      <para>The effects a method may have on the state of the program
+      are declared using a single annotation
+      <classname>@RegionEffects</classname>.  The syntax and constraints
+      for this annotation are described below.  Effects declarations are
+      effectively lists of <emphasis>targets</emphasis>. In Java, the handle on an object is
+      a reference. Therefore, it is not possible to name a region of a
+      particular object, only to name a region of the object referenced
+      by a particular expression. Targets, are an extrinsic syntactic
+      mechanism to name references to regions. Targets have several
+      syntactic forms due to the different way that state may be
+      identified.  The syntax and constraint for these different forms are 
+      described below.</para>
+      
+      <para>All targets contain a reference to a region name. <emphasis
+      id="preserve.abstraction">Access to this region must preserve
+      abstraction.</emphasis>  This requires two things:
+
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title> The region must be accessible to the method being annotated</title>
+              
+              <para>If the method cannot use the region, it has no
+              business naming it in an annotation.</para>
+            </formalpara>
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title>The region must be accessible to all potential
+              callers of the method.</title>
+              
+              <para>It's not fair, for example, to expose the existence
+              of <code>private</code> regions to contexts that wouldn't
+              normally be able to access them.</para>
+            </formalpara>
+          </listitem>
+        </itemizedlist>
+      </para>
+      
+      <para>In general, the second point is satisfied by only allowing a
+      method to name a region in a target based on the visibility of the
+      method and the visibility of the region:
+      
+        <informaltable>
+          <tgroup align="center" cols="6">
+            <colspec colnum="1" colname="c1"/>
+            <colspec colnum="2" align="right" colname="c2"/>
+            <colspec colnum="3" colname="c3"/>
+            <colspec colnum="6" colname="c6"/>
+            <thead>
+              <row>
+                <entry namest="c1" nameend="c2" morerows="1"></entry>
+                <entry namest="c3" nameend="c6">Region Visibility</entry>
+              </row>
+              <row>
+                <entry namest="c3"><code>private</code></entry>
+                <entry>default</entry>
+                <entry><code>protected</code></entry>
+                <entry><code>public</code></entry>
+              </row>
+            </thead>
+            
+            <tbody>
+              <row>
+                <entry morerows="3" valign="middle" rotate="1"><emphasis role="strong">Method Visibility</emphasis></entry>
+                <entry><emphasis role="strong"><code>private</code></emphasis></entry>
+                <entry>Yes</entry>
+                <entry>Yes</entry>
+                <entry morerows="2" valign="middle"><co id="protected.special.case"/></entry>
+                <entry>Yes</entry>
+              </row>
+            
+              <row>
+                <entry><emphasis role="strong">default</emphasis></entry>
+                <entry>No</entry>
+                <entry>Yes</entry>
+                <!-- protected case -->
+                <entry>Yes</entry>
+              </row>
+            
+              <row>
+                <entry><emphasis role="strong"><code>protected</code></emphasis></entry>
+                <entry>No</entry>
+                <entry>No</entry>
+                <!-- protected case -->
+                <entry>Yes</entry>
+              </row>
+             
+              <row>
+                <entry><emphasis role="strong"><code>public</code></emphasis></entry>
+                <entry>No</entry>
+                <entry>No</entry>
+                <entry>No</entry>
+                <entry>Yes</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+        
+        <calloutlist>
+          <callout arearefs="protected.special.case">
+            <para>The region may be use <emphasis>unless</emphasis> the
+            region is declared in a superclass <classname>S</classname>
+            of the class <classname>C</classname> that contains the
+            method being annotated and <classname>S</classname> is not
+            in the same package as <classname>C</classname>.</para>
+          </callout>
+        </calloutlist>
+      </para>
+      
+      <sect2>
+        <title>Region Effect Declaration</title>
+        
+        <para>A method's effects on the state of the program are declared using
+        the annotation
+        
+          <synopsis>
+@RegionEffects("reads <optional><co id="read.targets"/><replaceable>readTarget<subscript>1</subscript></replaceable>, &hellip;, <replaceable>readTarget<subscript>n</subscript></replaceable></optional>
+    <optional>; writes <co id="write.targets"/><replaceable>writeTarget<subscript>1</subscript></replaceable>, &hellip;, <replaceable>writeTarget<subscript>m</subscript></replaceable></optional>")        
+          </synopsis>
+
+          <calloutlist>
+            <callout arearefs="read.targets">
+              <para><replaceable>readTarget<subscript>i</subscript></replaceable> are targets;
+              <replaceable>n</replaceable> &ge; 1.</para>
+            </callout>
+            <callout arearefs="write.targets">
+              <para><replaceable>writeTarget<subscript>j</subscript></replaceable> are targets;
+              <replaceable>m</replaceable>
+              &ge; 1.</para>
+            </callout>
+          </calloutlist>
+
+        The order of the <code>reads</code> and <code>writes</code>
+        clauses does not matter. If there are no read or write effects,
+        the respective clause may be omitted. If the method has no
+        effects the appropriate annotation is
+
+          <synopsis>
+@RegionEffects("none")
+          </synopsis>
+        </para>
+        
+        <para>Thus the following are all legal effects annotations
+        (assuming that their targets are legal):
+
+          <simplelist>
+            <member><code>@RegionEffects("none")</code></member>
+            <member><code>@RegionEffects("reads this:Instance; writes p:Instance")</code></member>
+            <member><code>@RegionEffects("writes this:Color, this:Location; reads this:Size")</code></member>
+            <member><code>@RegionEffects("writes Instance")</code></member>
+            <member><code>@RegionEffects("reads Instance")</code></member>
+          </simplelist>
+        </para>
+        
+        <sect3>
+          <title>Constraints</title>
+          
+          <itemizedlist>
+            <listitem>
+              <formalpara>
+                <title>The targets
+                <replaceable>readTarget<subscript>i</subscript></replaceable> and
+                <replaceable>writeTarget<subscript>i</subscript></replaceable>
+                must be legal.</title>
+                
+                <para>The rules for legal targets are enumerated in the
+                following subsections.</para>
+              </formalpara>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+      </sect2>
+      
+      <sect2>
+        <title>Instance Targets</title>
+        
+        <para>An instance target has one of the following forms:</para>
+        
+        <informaltable>
+          <tgroup align="left" cols="2">
+            <thead>
+              <row align="center">
+                <entry>Syntax</entry>
+                <entry>Constraints</entry>
+              </row>
+            </thead>
+          
+            <tbody>
+              <row>
+                <entry>
+                  <simplelist>
+                    <member><code><replaceable>region_name</replaceable></code></member>
+                    <member><code>this:<replaceable>region_name</replaceable></code></member>
+                  </simplelist>
+                </entry>
+              
+                <entry>
+                  <itemizedlist>
+                    <listitem>
+                      <formalpara>
+                        <title>The target must <link
+                        linkend="preserve.abstraction">preserve
+                        abstraction</link></title>
+                      </formalpara>
+                    </listitem>
+                    <listitem>
+                      <formalpara>
+                        <title>The annotation must be on a non-<code>static</code> method</title>
+                      
+                        <para>Methods that are <code>static</code> don't
+                        have a receiver. Constructors mask their effects
+                        on the receiver, so there is no point in
+                        declaring them</para>
+                      </formalpara>
+                    </listitem>
+                    <listitem>
+                      <formalpara>
+                        <title>The region identified by <replaceable>region_name</replaceable> must a
+                        non-<code>static</code> region that exists in the type of the
+                        method receiver</title>
+                      </formalpara>
+                    </listitem>
+                  </itemizedlist>
+                </entry>
+              </row>
+
+              <row>
+                <entry>
+                  <code><replaceable>parameter_name</replaceable>:<replaceable>region_name</replaceable></code>
+                </entry>
+              
+                <entry>
+                  <itemizedlist>
+                    <listitem>
+                      <formalpara>
+                        <title>The target must <link
+                        linkend="preserve.abstraction">preserve
+                        abstraction</link></title>
+                      </formalpara>
+                    </listitem>
+                    <listitem>
+                      <formalpara>
+                        <title>The parameter <replaceable>parameter_name</replaceable> must be a
+                        parameter of the annotated method/constructor
+                        and be of a non-primitive type</title>
+                      </formalpara>
+                    </listitem>
+                    <listitem>
+                      <formalpara>
+                        <title>The region identified by <replaceable>region_name</replaceable> must
+                        a non-<code>static</code> region that exists in the type of
+                        the parameter <replaceable>parameter_name</replaceable></title>
+                      </formalpara>
+                    </listitem>
+                  </itemizedlist>
+                </entry>
+              </row>
+
+              <row>
+                <entry>
+                  <code><replaceable>type_name</replaceable>.this:<replaceable>region_name</replaceable></code>
+                </entry>
+              
+                <entry>
+                  <itemizedlist>
+                    <listitem>
+                      <formalpara>
+                        <title>The target must <link
+                        linkend="preserve.abstraction">preserve
+                        abstraction</link></title>
+                      </formalpara>
+                    </listitem>
+                    <listitem>
+                      <formalpara>
+                        <title>The method/constructor being annotated
+                        must be in a non-<code>static</code> inner class</title>
+                        
+                        <para>If a nested class is <code>static</code>
+                        then it doesn't have an outer receiver. (A
+                        <code>static</code> method may never refer to a
+                        qualified receiver because they must always be
+                        inside of <code>static</code> nested
+                        class.)</para>
+                      </formalpara>
+                    </listitem>
+                    <listitem>
+                      <formalpara>
+                        <title>The class named by <code>type_name</code>
+                        must exist and be a lexically enclosing
+                        class<footnote><para>An object
+                        <replaceable>O</replaceable> is the zeroth
+                        lexically enclosing class of itself.  A class
+                        <replaceable>O</replaceable> is the
+                        <replaceable>n</replaceable><superscript>th</superscript>
+                        lexically enclosing class of a
+                        class <replaceable>C</replaceable> if it is the
+                        immediately enclosing class of the
+                        (<replaceable>n</replaceable>-1)<superscript>st</superscript>
+                        lexically enclosing class of
+                        <replaceable>C</replaceable>.  (<ulink url="http://java.sun.com/docs/books/jls/third_edition/html/classes.html#8.1.3">JLS3
+                        &sect;8.1.3</ulink>)</para></footnote> of the class that
+                        contains the method/constructor being
+                        annotated.</title>
+                      </formalpara>
+                    </listitem>
+                    <listitem>
+                      <formalpara>
+                        <title>The region identified by
+                        <replaceable>region_name</replaceable> must a
+                        non-<code>static</code> region that exists in
+                        <replaceable>type_name</replaceable></title>
+                      </formalpara>
+                    </listitem>
+                  </itemizedlist>
+                </entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+        
+      </sect2>
     </sect1>
     
     <sect1 id="lock-annotations">
