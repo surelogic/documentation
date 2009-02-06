@@ -580,6 +580,10 @@ if (o == null) {
 }]]>
 	</programlisting>
 
+	<para>(To show line numbers in the Eclipse editor you
+	right-click in the left-hand margin of the editor and check
+	<guimenuitem>Show Line Numbers</guimenuitem>.)</para>
+
 	<para>Now save your change and scan the project again. The finding
 	seems to disappear, however, the tool knows it has been
 	fixed.</para>
