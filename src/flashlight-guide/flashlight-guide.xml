@@ -129,12 +129,157 @@
     use Flashlight functionality.  We will assume from this point on
     that you have installed your license.</para>
 
-    <para>Flashlight is a dynamic analyis tool which means that you
+    <para>Flashlight is a dynamic analysis tool which means that you
     have to run your program to use it.  Flashlight instruments your
     program when it starts up and uses that instrumentation to collect
     data about your program.  Data is collected to a file located in
     <filename>~/.flashlight-data</filename>.</para>
 
+  </section>
+
+  <section>
+    <title>Tutorials</title>
+
+    <para>This section contains a series of Flashlight tutorials.  It is
+    recommended that you go through these tutorials in order.  It is
+    also recommended that these tutorials be performed "hands-on" at
+    your computer.  You may want to create a new Eclipse workspace
+    for these tutorials.</para>
+
+    <section id="sec-tutorial-client">
+      <title>Using the Flashlight Eclipse client</title>
+
+      <para>This tutorial assumes that you have installed
+      Flashlight. If you see a <guimenu>Flashlight</guimenu> menu item
+      on your Eclipse main menu than you can assume it has been
+      installed properly.</para>
+
+      <para>First download the <application>PlanetBaron</application>
+      project from www.surelogic.com at <ulink
+      url="http://www.surelogic.com/static/flashlight/PlanetBaron.zip">
+      http://www.surelogic.com/static/flashlight/PlanetBaron.zip</ulink>
+      to your disk. Unzip this archive into your workspace and it will
+      create a <filename>PlanetBaron</filename> directory. Next import
+      this project into your Eclipse workspace using
+      <guimenuitem>File</guimenuitem> |
+      <guimenuitem>Import...</guimenuitem> from the Eclipse main menu
+      and then choosing <emphasis>Existing Projects into
+      Workspace</emphasis> for the import wizard. Follow the import
+      steps of wizard until the <application>SmallWorld</application>
+      project is imported and built.</para>
+
+      <para>PlanetBaron is a network-based real-time strategy game.
+      It contains three programs. First, there is a server program
+      that manages game state. Second, there is a client user
+      interface program that allows players to interact with the
+      game. Finally, there is a program, called the chat-test client,
+      that allows direct interaction with the server. The chat-test
+      client is used to shutdown a running server.</para>
+
+      <para>Flashlight is a dynamic analysis tool. To get any useful
+      results from Flashlight we have to collect data while a program
+      is running. For this tutorial we will collect data about running
+      PlanetBaron programs. Therefore we now describe how to run and
+      play a PlanetBaron game. After we understand a bit about how to
+      run this game we will return to using Flashlight on it.</para>
+
+      <para>Let's run a PlanetBaron game. Select
+      <filename>Server.java</filename> in the
+      <varname>edu.afit.planetbaron.server</varname>
+      package. Right-click and select <guimenuitem>Run
+      As</guimenuitem> and then <guimenuitem>Java
+      Application</guimenuitem>. You should see following output in
+      the console which indicates that the server has started
+      successfully:</para>
+
+      <programlisting>
+	[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map
+      </programlisting>
+
+      <para>Now we need to add some players. Select
+      <filename>PlayerUI.java</filename> in the
+      <varname>edu.afit.planetbaron.client</varname> package.
+      Right-click and select <guimenuitem>Run As</guimenuitem> and
+      then <guimenuitem>Java Application</guimenuitem>. You will see a
+      Swing application start that has a blank grid. In the lower
+      right-hand-corner enter a player name, 
+      <userinput>Laurel</userinput>, and press
+      <guibutton>Connect</guibutton>.</para>
+
+      <para>The screen will change to contain several planets and one
+      ship with "Laurel" as its label. By moving your mouse around the
+      grid you can direct your ship. Place your mouse over a planet
+      and left-click. This action will cause your ship to move slowly
+      to that planet. When your ship arrives you will become the owner
+      of that planet. This is called "taking ownership" of a planet.
+      Go ahead an take ownership of a planet. Note that while your
+      ship is moving you are not allowed to change its destination.
+      Once it arrives at the destination you selected you can then
+      select a subsequent destination.</para>
+
+      <para>Now, go back to Eclipse and start a second instance of
+      <filename>PlayerUI.java</filename>. In the lower
+      right-hand-corner enter a player name,
+      <userinput>Hardy</userinput>, and press
+      <guibutton>Connect</guibutton>.</para>
+
+      <para>The game supports as many players as you choose to connect
+      to the server.  Notice that the planets that Laurel owns are red
+      in the Hardy PlayerUI while they are white in the Laurel
+      PlayerUI.  Moving back and forth between the two PlayerUIs move
+      the ships to play the game.  Note that the idea of the game is
+      to own as many planets as you can. A game screenshot is shown in
+      <xref linkend="fig-tutorial-planetbaron-playerui" /></para>
+
+      <figure id="fig-tutorial-planetbaron-playerui">
+	<title>The PlanetBaron PlayerUI for Laurel.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-playerui.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>To finish the game press <guibutton>Disconnect</guibutton>
+      in both PlayerUI instances and then terminate the programs by
+      using the windowing system <guibutton>X</guibutton>. This action
+      ends both player user interfaces but the server is still
+      running.  To terminate the server we need to use the chat-test
+      client program.</para>
+
+      <para>Select <filename>ChatTestClient.java</filename> in the
+      <varname>edu.afit.planetbaron.client</varname> package.
+      Right-click and select <guimenuitem>Run As</guimenuitem> and
+      then <guimenuitem>Java Application</guimenuitem>. You will see a
+      Swing application start. This program allows you to directly
+      control the game server. We want to use it to shutdown the game
+      server. To do this press <guibutton>Connect</guibutton> to
+      connect to the game server and enter
+      <userinput>shutdown</userinput> as the command. You're screen
+      should now look like the one shown in <xref
+      linkend="fig-tutorial-planetbaron-chattestclient" /></para>
+
+      <figure id="fig-tutorial-planetbaron-chattestclient">
+	<title>Using the ChatTestClient to shutdown the game server.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-chattestclient.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>Press <guibutton>Send</guibutton> to shutdown the
+      server. A dialog will appear stating that the server has
+      disconnected from the ChatTestClient that you may dismiss. You
+      can now terminate the ChatTestClient using the windowing system
+      <guibutton>X</guibutton>. Back in the Eclipse console for the
+      server you should see the following message:</para>
+
+      <programlisting>
+	[INFO "server-main"] PlanetBaron game server shutdown complete
+      </programlisting>
+
+    </section>
   </section>
 </chapter>
 
