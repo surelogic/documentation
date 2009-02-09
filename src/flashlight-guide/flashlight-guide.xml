@@ -147,7 +147,7 @@
     for these tutorials.</para>
 
     <section id="sec-tutorial-client">
-      <title>Using the Flashlight Eclipse client</title>
+      <title>Using the Flashlight Eclipse client on PlanetBaron</title>
 
       <para>This tutorial assumes that you have installed
       Flashlight. If you see a <guimenu>Flashlight</guimenu> menu item
@@ -320,8 +320,8 @@
 	</mediaobject>
       </figure>
 
-      <para>Press <guibutton>Yes</guibutton> and the Flashight will
-      appear as shown in <xref
+      <para>Press <guibutton>Yes</guibutton> and the Flashlight
+      perspective will appear as shown in <xref
       linkend="fig-tutorial-planetbaron-perspective-empty" /></para>
 
       <figure id="fig-tutorial-planetbaron-perspective-empty">
@@ -334,7 +334,351 @@
       </figure>
 
       <para>The Flashlight perspective is used to manage and query
-      data collected from instrumented programs.</para>
+      data collected from instrumented programs. The
+      <guilabel>Flashlight Runs</guilabel> view in the upper-left
+      manages the instrumented runs of programs. This view allows you
+      to prepare data to be queried, select a prepared run for
+      querying, and delete runs from the disk.  We need to prepare, or
+      <emphasis>prep</emphasis>, the ChatTestClient run. To do this
+      double-click the row in the table.  Alternatively you can select
+      the run, right-click, and select
+      <guimenuitem>Prepare</guimenuitem>.</para>
+
+      <para>A dialog will appear showing the progress of prepping the
+      data for querying. For large runs prepping can take a significant
+      amount of time. This run, which only collected roughly 5KB of
+      data, should prep quickly.</para>
+
+      <para>When the prep is complete two changes will occur. First, a
+      <guiicon><inlinegraphic fileref="images/drum.png" /></guiicon>
+      will appear under the <guilabel>Prep</guilabel> of the
+      <guilabel>Flashlight Runs</guilabel> view table for this
+      run. Second, several queries are now able to be run on the
+      data. These queries are listed in the <guilabel>Runnable
+      Queries</guilabel> portion of the <guilabel>Query
+      Flashlight</guilabel> view.</para>
+
+      <para>At this point we can run a query on the data. Double-click
+      on the <emphasis>What non-static fields are shared?</emphasis>
+      query. The results will appear in the <guilabel>Flashlight Query
+      Results</guilabel> view. Select the
+      <emphasis>f_connectDisconnectButton</emphasis> and open the tree
+      to display the two threads that shared this object. Your screen
+      should appear as shown in <xref
+      linkend="fig-tutorial-planetbaron-perspective-ctc1" /></para>
+
+      <figure id="fig-tutorial-planetbaron-perspective-ctc1">
+	<title>Non-static fields that were observed to be shared in a
+	ChatTestClient run.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc1.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>Query results are presented as a table, tree, or
+      tree-table. This result is a tree-table. The result reports the
+      shared non-static fields noted in the run. In the case of
+      f_connectDisconnectButton the AWT-EventQueue-0, known as the
+      event dispatch thread (EDT), and the main thread shared this
+      field. Note that all the accesses by the main thread where
+      during construction of the ChatTestClient. If you examine the
+      other results you will note that all the shared objects are
+      Swing components and that they are shared, but similar to
+      f_connectDisconnectButton they are only accessed by the main
+      thread during construction.</para>
+
+      <para>Selecting fields in the query result causes these fields
+      to be highlighted in two views at the bottom of the Flashlight
+      perspective. The view to the left is the normal Java editor and
+      represents the current state of the source code. The view to the
+      left is an <guilabel>Historical Source Snapshot</guilabel> view
+      that shows you the code as it existed when the program was
+      executed.  This view helps you to understand if the code has
+      evolved since the run you are querying was made.</para>
+
+      <para>Select the f_connectDisconnectButton and right-click. This
+      brings up a menu of queries that can be run on this
+      result. Select <emphasis>Show me all accesses of this non-static
+      field?</emphasis> as shown in <xref
+      linkend="fig-tutorial-planetbaron-perspective-ctc2" /></para>
+
+      <figure id="fig-tutorial-planetbaron-perspective-ctc2">
+	<title>Drilling in to all accesses of the f_connectDisconnectButton.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc2.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>The result of this query will show you each read and write
+      of the field that was observed by the instrumentation as the
+      program executed. It shows the time at which the event occurred
+      and the thread it happened within. Select the second access by
+      the main thread and right-click. Drill-in again by selecting
+      <emphasis>Show stack trace for a field access</emphasis> as
+      shown in <xref
+      linkend="fig-tutorial-planetbaron-perspective-ctc3" /></para>
+
+      <figure id="fig-tutorial-planetbaron-perspective-ctc3">
+	<title>Drilling in to see the stack trace for this field access.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc3.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+     <para>Which will result in a stack trace for the selected
+     access. Selecting each row of the result will show that line of
+     code in the program.  The bottom row is, in fact, a bug in the
+     program.  This line is shown in <xref
+     linkend="fig-tutorial-planetbaron-perspective-ctc3" /></para>
+
+      <figure id="fig-tutorial-planetbaron-perspective-ctc4">
+	<title>The broken line of code in ChatTestClient.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc4.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>What is wrong? To understand this problem we quote from
+      Haase and Guy's <emphasis>Filthy Rich Clients</emphasis>:</para>
+
+      <blockquote><para>Swing's threading model is based on a single
+      rule: The EDT is responsible for executing any method that
+      modifies a component's state. This includes any component's
+      constructor. According to this rule, and despite what you can
+      read in many books and tutorials about Swing. the
+      <varname>main()</varname> method in the previous code example is
+      invalid and can cause deadlock.</para></blockquote>
+
+      <para>To fix this problem we need to call the ChatTestClient
+      constructor on the EDT. We can do this by changing the
+      <varname>main()</varname> method to look like the code
+      below.</para>
+
+      <programlisting>
+<![CDATA[
+public static void main(String[] args) {
+  // run the application
+  SwingUtilities.invokeLater(new Runnable() {
+    @Override
+    public void run() {
+      new ChatTestClient();
+    }
+  });
+}
+]]>
+      </programlisting>
+
+      <para>Save this change and launch ChatTestClient using the
+      Flashlight launch shortcut again. Perform the same actions that
+      you did during the first run (i.e., try to connect, dismiss the
+      dialog, and exit).</para>
+
+      <para>A new run will appear in the <guilabel>Flashlight
+      Runs</guilabel> view. Double-click this run to prep it.</para>
+
+      <para>Clear out the previous query results by clicking the
+      <guiicon><inlinegraphic fileref="images/gray_x_double.png"
+      /></guiicon> in either the <guilabel>Result Explorer</guilabel>
+      portion of the <guilabel>Query Flashlight</guilabel> view or the
+      <guilabel>Flashlight Query Results</guilabel> view. This action
+      clears out the saved results from all previous queries (the set
+      of these results is saved in the <guilabel>Result
+      Explorer</guilabel> portion of the <guilabel>Query
+      Flashlight</guilabel> view).</para>
+
+      <para>Check that you have the new run selected in the
+      <guilabel>Flashlight Runs</guilabel> view and then double-click
+      on the <emphasis>What non-static fields are shared?</emphasis>
+      query. The query is successful but no rows are returned. This
+      indicates that no shared fields were observed. This run provides
+      some evidence that we have fixed the bug discovered in
+      ChatTestClient.</para>
+
+      <para>Before we move on let's examine the old run one final
+      time. Clear out the previous query results by again clicking the
+      <guiicon><inlinegraphic fileref="images/gray_x_double.png"
+      /></guiicon> icon. Select the first ChatTestClient run and
+      double-click the <emphasis>What non-static fields are
+      shared?</emphasis> query. Select the f_connectDisconnectButton
+      and right-click to select the <emphasis>Show me all accesses of
+      this non-static field?</emphasis> query. Select the second
+      access by the main thread and right-click to select the
+      <emphasis>Show stack trace for a field access</emphasis>
+      query. By selecting the bottom row of the stack trace you can
+      see that, while the Java editor code might prove confusing
+      (because we changed it), the <guilabel>Historical Source
+      Snapshot</guilabel> view remembers what the code looked like in
+      this previous run.  This difference is shown in <xref
+      linkend="fig-tutorial-planetbaron-perspective-ctc5" /></para>
+
+      <figure id="fig-tutorial-planetbaron-perspective-ctc5">
+	<title>The broken line of code in ChatTestClient is remembered
+	by the Historical Source Snapshot view.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc5.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>We are finished with our examination of these runs, so
+      let's delete them. First, clear out all the queries by pressing
+      the <guiicon><inlinegraphic fileref="images/gray_x_double.png"
+      /></guiicon> icon. In the <guilabel>Flashlight Runs</guilabel>
+      view select both runs and right-click. Select
+      <guimenuitem>Delete</guimenuitem> as shown in <xref
+      linkend="fig-tutorial-planetbaron-perspective-ctc6" /></para>
+
+      <figure id="fig-tutorial-planetbaron-perspective-ctc6">
+	<title>Deleting two Flashlight runs.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc6.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>You will be prompted once per run to ensure that you
+      really want to delete this Flashlight run data. In both cases
+      check the <guilabel>Delete raw data files from the
+      disk</guilabel> option and press <guibutton>OK</guibutton>.
+      After a short delay the <guilabel>Flashlight Runs</guilabel>
+      view should be empty. It is important to delete old runs to
+      ensure that you free up disk space on your computer.</para>
+
+      <para>ChatTestClient was a simple Swing application that we
+      tried out one query on. This query let us understand shared
+      state that was observed by Flashlight during a run of the
+      ChatTestClient program. Even this simple query uncovered a bug
+      that could easily be overlooked in a code inspection. We now
+      turn our attention to a more complex multi-threaded program, the
+      PlanetBaron server, to illustrate several more complex queries
+      Flashlight is capable of. The basic user interaction with the
+      Flashlight tool will remain the same: run a instrumented
+      program, prep the data, query the data, drill into query
+      results, and act (e.g., change/fix code).</para>
+
+      <para>Start a server using the Flashlight launch tab the Eclipse
+      toolbar as shown in <xref
+      linkend="fig-tutorial-planetbaron-running-server"
+      /></para>
+
+      <figure id="fig-tutorial-planetbaron-running-server">
+	<title>Running Server with Flashlight instrumentation.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-running-server.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>Next start three PlayerUI instances. We don't want to
+      instrument these programs, so use the normal launch tab as shown
+      in <xref linkend="fig-tutorial-planetbaron-running-playerui"
+      /></para>
+
+      <figure id="fig-tutorial-planetbaron-running-playerui">
+	<title>Running a PlayerUI without Flashlight
+	instrumentation.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-running-playerui.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>Go ahead and connect into the game as Laurel, Hardy, and
+      Groucho. Exercise the game by having each player take several
+      planets. Have one planet be owned by each player at one time. To
+      do this click on the same planet in all three PlayerUI
+      instances. This is shown in <xref
+      linkend="fig-tutorial-planetbaron-running-game" /></para>
+
+      <figure id="fig-tutorial-planetbaron-running-game">
+	<title>Running three players at once on an instrumented server.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-planetbaron-running-game.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>When you have exercised the three players, terminate the
+      thee PlayerUI instances by pressing the windowing system
+      <guibutton>X</guibutton>. Run a ChatTestClient (without
+      instrumentation) and use it to shutdown the server.</para>
+
+      <para>In the Flashlight perspective go ahead and prep the server
+      run so that it can be queried. This will take a few minutes to
+      complete.</para>
+
+      <para>The queries we do on the server results may or may not be
+      similar to what you see at your computer. The program we are
+      examining is a multi-threaded network-based game
+      server. Therefore, it is impossible to duplicate a
+      run&mdash;even for tutorial purposes. You should, however, see
+      similar results to what we present and you are encouraged to see
+      what you can find in your run results.</para>
+
+      <para>TODO: Run the <emphasis>What non-static fields have a
+      lockset?</emphasis> query. A lockset analysis examines each
+      access of an object that was observed in the program and
+      intersects the set of locks held. If shared state has a lockset
+      it is a good thing&mdash;this state was observed to be protected
+      consistently by at least one lock. Note that this state may not
+      always be protected in all possible runs of the program (to make
+      this determination a sound verification tool like SureLogic
+      JSure is required), but it was for the particular run of the
+      program observed.  If shared state has no lockset then this may
+      be a bad thing&mdash;it might mean that your program contains a
+      race condition.</para>
+
+      <para>Drill into <emphasis>Show me all accesses of this
+      non-static field</emphasis> and introduce the idea of a "lock
+      trace".</para>
+
+      <para>TODO: Run the <emphasis>What non-static fields have an
+      empty lockset?</emphasis> query. The
+      <emphasis>f_location</emphasis> field of the
+      <filename>Ship</filename> class will likely show up. This is an
+      actual problem in the program. Drill in on an instance and run
+      the <emphasis>* What locks are held for each access of this
+      non-static field *</emphasis> which will take a long
+      time. Examine the lock trace of the first access to see that it
+      is a ReadWriteLock being used to protect this field. Now look
+      for a result that is holding only one lock (on the ClientHandler
+      object). The stack trace will lead you to an unprotected
+      access. This is locking on the wrong lock (This same problem was
+      also discovered with the JSure tool).</para>
+
+      <para>TODO: run the <emphasis>Where does a thread hold a lock
+      and acquire another?</emphasis> and examine the results to show
+      potential deadlock.</para>
+
+      <para>TODO: Show the query editor. None of these queries are
+      special and they can be edited. Select <guimenuitem>Window |
+      Show View | Flashlight Query Editor</guimenuitem> from the
+      Eclipse main menu to open the <guilabel>Flashlight Query
+      Editor</guilabel> view. This view is shown in <xref
+      linkend="fig-tutorial-query-editor" /></para>
+
+      <figure id="fig-tutorial-query-editor">
+	<title>The query to show where a thread is holding a lock and
+	acquires another.</title>
+	<mediaobject>
+	  <imageobject role="html">
+	    <imagedata fileref="images/tutorial-query-editor.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
 
     </section>
   </section>
