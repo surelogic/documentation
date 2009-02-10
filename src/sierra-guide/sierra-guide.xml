@@ -804,8 +804,8 @@ if (o == null) {
 
 	<para>First download the <application>SmallWorld</application>
 	project from www.surelogic.com at <ulink
-	url="http://www.surelogic.com/sierra/help/SmallWorld.zip">
-	http://www.surelogic.com/sierra/help/SmallWorld.zip</ulink> to
+	url="http://www.surelogic.com/static/sierra/SmallWorld.zip">
+	http://www.surelogic.com/static/sierra/SmallWorld.zip</ulink> to
 	your disk. Unzip this archive into your workspace and it will
 	create a <filename>SmallWorld</filename> directory. Next import
 	this project into your Eclipse workspace using
@@ -1010,26 +1010,47 @@ if (o == null) {
 	  </mediaobject>
 	</figure>
 
-	<para>Now exit Eclipse and open your favorite web browser.  Enter
-	<ulink url="http://localhost:13376/sl/">
-	  http://localhost:13376/sl/</ulink> to bring up the team server
-	  portal. Alternatively, you may also copy and paste the URL shown
-	  in the view to the right of the <guilabel>Network
-	  URL:</guilabel> label. This URL should also work from other
-	  machines on your local network. Sierra tries to determine your
-	  machine's external IP address, however, sometimes it mistakenly
-	  gets the loop-back one (in which case you should examine the
-	  output of the <userinput>ifconfig</userinput> for Linux/Mac or
-	  <userinput>ipconfig /all</userinput> for Windows to determine
-	  your machine's IP address). You do not need to know your
+	<para>Now exit Eclipse and open your favorite web browser.
+	Enter <ulink
+	url="http://localhost:13376/sl/">http://localhost:13376/sl/</ulink>
+	to bring up the team server portal. Alternatively, you may
+	also copy and paste the URL shown in the view to the right of
+	the <guilabel>Network URL:</guilabel> label. This URL should
+	also work from other machines on your local network. Sierra
+	tries to determine your machine's external IP address,
+	however, sometimes it mistakenly gets the loop-back one (in
+	which case you should examine the output of the
+	<userinput>ifconfig</userinput> for Linux/Mac or
+	<userinput>ipconfig /all</userinput> for Windows to determine
+	your machine's IP address). You do not need to know your
 	machine's external IP address for this tutorial.</para>
 
 	<para>A new team server only has one account:
 	<userinput>admin</userinput> with
 	<userinput>adminadmin</userinput> for its password. Enter this
 	information and press the <guibutton>Log In</guibutton>
-	button. The welcome page for the team server portal should
-	appear as shown in <xref
+	button. Because this is the first time any user has logged
+	into the portal you are asked to give it a name.  The name is
+	used to identify this team server from other team servers.
+	Typically you will want to use a name that makes sense for
+	your organization, such as <emphasis>engineering</emphasis> or
+	<emphasis>QA</emphasis>.  For this tutorial, enter
+	<userinput>local desktop</userinput> and then press
+	<guibutton>Set Server Name</guibutton> as shown in <xref
+	linkend="fig-tutorial-portal-name-page" /></para>
+
+	<figure id="fig-tutorial-portal-name-page">
+	  <title>Naming the team server upon first portal login.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-portal-name-page.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>At this point the welcome page for the team server
+	portal should appear as shown in <xref
 	linkend="fig-tutorial-portal-welcome-page-empty" /></para>
 
 	<figure id="fig-tutorial-portal-welcome-page-empty">
@@ -1038,10 +1059,6 @@ if (o == null) {
 	    <imageobject role="html">
 	      <imagedata
 		  fileref="images/tutorial-portal-welcome-page-empty.png" />
-	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-portal-welcome-page-empty.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
@@ -1059,7 +1076,7 @@ if (o == null) {
 	page.  This page lets you add and manage the users of this
 	server. We want to create two new users and disable the default
 	<userinput>admin</userinput> user. To add a new user click on
-	<guibutton>Create a new user</guibutton> link near the top of
+	<guibutton>Create a New User</guibutton> link near the top of
 	the page. In the dialog that appears enter a new user using the
 	following information:</para>
 	
@@ -1164,10 +1181,6 @@ if (o == null) {
 	      <imagedata
 		  fileref="images/tutorial-portal-users-page.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-portal-users-page.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1193,10 +1206,6 @@ if (o == null) {
 	      <imagedata
 		  fileref="images/tutorial-portal-settings-page.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-portal-settings-page.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1204,15 +1213,15 @@ if (o == null) {
 
 	<para>At this point start up Eclipse. Go to the <guilabel>Code
 	Review</guilabel> perspective. Select
-	<guimenuitem>Sierra</guimenuitem> | <guimenuitem>Configure Team
-	Servers</guimenuitem> from the Eclipse main menu. This will open
-	the <guilabel>Sierra Team Servers</guilabel> view. This is the
-	view where connections from the Eclipse client to team servers
-	are defined. We will now define a connection to the local team
-	server we are running. To do this click on the <guibutton>New
-	team server location</guibutton> button on the view (the only
-	one that is enabled) or right-click in the left-hand list and
-	choose <emphasis>New...</emphasis> from the context menu.</para>
+	<guimenuitem>Sierra</guimenuitem> | <guimenuitem>Configure
+	Team Servers</guimenuitem> from the Eclipse main menu. This
+	will open the <guilabel>Team Servers</guilabel> view. This is
+	the view where connections from the Eclipse client to team
+	servers are defined. We will now define a connection to the
+	local team server we are running. To do this click on the
+	<guibutton>New team server location</guibutton> button on the
+	view or right-click in the left-hand list and choose
+	<emphasis>New...</emphasis> from the context menu.</para>
 
 	<para>The <emphasis>New Sierra Team Server Location</emphasis>
 	dialog which allows you to fill in the required information about
@@ -1229,12 +1238,8 @@ if (o == null) {
 	    </thead>
 	    <tbody>
 	      <row>
-		<entry>Label:</entry>
-		<entry>localhost</entry>
-	      </row>
-	      <row>
 		<entry>Host:</entry>
-		<entry>localhost</entry>
+		<entry>localhost (the default value)</entry>
 	      </row>
 	      <row>
 		<entry>Port:</entry>
@@ -1242,7 +1247,7 @@ if (o == null) {
 	      </row>
 	      <row>
 		<entry>Context:</entry>
-		<entry>/ (the default value)</entry>
+		<entry>/sl/ (the default value)</entry>
 	      </row>
 	      <row>
 		<entry>Protocol:</entry>
@@ -1257,16 +1262,12 @@ if (o == null) {
 		<entry>zork</entry>
 	      </row>
 	      <row>
-		<entry>Validate connection on finish</entry>
-		<entry>check this option</entry>
-	      </row>
-	      <row>
-		<entry>Synchronize BugLink data on finish</entry>
-		<entry>check this option</entry>
-	      </row>
-	      <row>
 		<entry>Save Password</entry>
-		<entry>check this option</entry>
+		<entry>checked (the default value)</entry>
+	      </row>
+	      <row>
+		<entry>Enable automatic synchronization</entry>
+		<entry>unchecked (the default value)</entry>
 	      </row>
 	    </tbody>
 	  </tgroup>
@@ -1290,10 +1291,6 @@ if (o == null) {
 	      <imagedata
 		  fileref="images/tutorial-localhost-connection.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-localhost-connection.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1316,40 +1313,52 @@ if (o == null) {
 	client-server command that the client and servers databases are
 	the expected ones.</para>
 
-	<para>To connect the SmallWorld project to the localhost server
-	right-click on the server name and select the
-	<emphasis>Connect...</emphasis> menu item from the context
-	menu. Check the SmallWorld project and press the
-	<emphasis>OK</emphasis> button. Your view will look like <xref
+	<para>To connect the SmallWorld project to the local server
+	right-click on the server name and select <guimenuitem>Connect
+	Projects...</guimenuitem> from the context menu. Check the
+	SmallWorld project and press the <guibutton>OK</guibutton>
+	button. Your view will look like <xref
 	linkend="fig-tutorial-smallworld-connected" /></para>
 
 	<figure id="fig-tutorial-smallworld-connected">
-	  <title>The Sierra Team Servers view showing that the SmallWorld
-	  project is connected to the localhost server.</title>
+	  <title>The Team Servers view showing that the SmallWorld
+	  project is connected to local server.</title>
 	  <mediaobject>
 	    <imageobject role="html">
 	      <imagedata
 		  fileref="images/tutorial-smallworld-connected.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-smallworld-connected.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
-	<para>A very useful feature of a team server is that it can store
-	the scan filter for your team. A scan filter defines the types of
-	results your team has deemed completely without merit. These
-	results are filtered out of the scan. For more information about
-	setting up a scan filter see <xref
-	linkend="sec-preferences-scan-filter" /> To send your scan filter
-	to the server right-click on the server name and select the
-	<emphasis>Send Scan Filter...</emphasis> menu item from the
-	context menu. A dialog will warn that this will replace the scan
-	filter currently on the server. Press <emphasis>OK</emphasis> to
-	continue. The localhost server now has the same scan filter as
-	your client.</para>
+	<para>A very useful feature of a team server is that it can
+	store the scan filter for your team. A scan filter defines the
+	types of results your team has deemed completely without
+	merit. These results are filtered out of the scan. For more
+	information about setting up a scan filter see <xref
+	linkend="sec-preferences-scan-filter" /> To send your scan
+	filter to the server right-click on the server name and select
+	the <emphasis>Send Local Scan Filter As...</emphasis> menu
+	item from the context menu. A dialog appear prompting you for
+	a name to save the scan filter with on the server as shown in
+	<xref linkend="fig-tutorial-send-scan-filter" /> Enter
+	<userinput>tutorial</userinput> and press
+	<guibutton>Send</guibutton> to continue. The local server now
+	has a copy the same scan filter as your client. You should see
+	this copy of the scan filter in the <guilabel>Team
+	Servers</guilabel> under the Scan Filters portion of local
+	server, it will be called
+	<emphasis>Tutorial</emphasis>.</para>
+
+	<figure id="fig-tutorial-send-scan-filter">
+	  <title>Sending a copy of the client scan filter to local server.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-send-scan-filter.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
 
 	<para>Other members of your team get the scan filter settings from
 	the team server. We don't need to download them since we just
