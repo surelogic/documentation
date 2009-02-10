@@ -1,120 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="sierra_help_manual" basedir="." default="build-and-install">
-	<import file="./definitions.xml" />
+  <import file="./definitions.xml" />
 
-	<target name="build-and-install" depends="build-all, install-all" />
+  <target name="build-and-install"
+      depends="build-all, install-all" />
 
-	<target name="clean-and-uninstall" depends="clean, uninstall-all" />
+  <target name="clean-and-uninstall"
+      depends="clean, uninstall-all" />
 
-	<target name="build-all" depends="jsure-guide, jsure-design-intent, sierra-guide, flashlight-guide" />
-
-
-
-	<target name="jsure-guide" depends="jsure-guide-html, jsure-guide-eclipse-help, jsure-guide-pdf" />
-
-	<target name="jsure-guide-html">
-		<docbook-to-html srcdir="${je.source.dir}" srcfile="${je.source.file}" destdir="${je.html.dir}" destfile="${je.html.file}" />
-	</target>
-
-	<target name="jsure-guide-eclipse-help">
-		<docbook-to-eclipse-help srcdir="${je.source.dir}" srcfile="${je.source.file}" destdir="${je.eclipse.help.dir}" />
-	</target>
-
-	<target name="jsure-guide-pdf">
-		<docbook-to-pdf srcfile="${je.source.file}" destfile="${je.pdf.file}" destdir="${je.build.dir}" />
-	</target>
+  <target name="build-all"
+      depends="jsure-guide, jsure-design-intent, sierra-guide, flashlight-guide" />
 
 
 
-	<target name="jsure-design-intent" depends="jsure-design-intent-html, jsure-design-intent-eclipse-help, jsure-design-intent-pdf" />
+  <target name="jsure-guide"
+      depends="jsure-guide-html, jsure-guide-eclipse-help, jsure-guide-pdf" />
 
-	<target name="jsure-design-intent-html">
-		<docbook-to-html srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.html.dir}" destfile="${di.html.file}" />
-	</target>
+  <target name="jsure-guide-html">
+    <docbook-to-html srcdir="${je.source.dir}"
+        srcfile="${je.source.file}"
+        destdir="${je.html.dir}"
+        destfile="${je.html.file}" />
+  </target>
 
-	<target name="jsure-design-intent-eclipse-help">
-		<docbook-to-eclipse-help srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.eclipse.help.dir}" />
-	</target>
+  <target name="jsure-guide-eclipse-help">
+    <docbook-to-eclipse-help srcdir="${je.source.dir}"
+        srcfile="${je.source.file}"
+        destdir="${je.eclipse.help.dir}" />
+  </target>
 
-	<target name="jsure-design-intent-pdf">
-		<docbook-to-pdf srcfile="${di.source.file}" destfile="${di.pdf.file}" destdir="${di.build.dir}" />
-	</target>
-
-
-
-	<target name="sierra-guide" depends="sierra-guide-html, sierra-guide-eclipse-help, sierra-guide-pdf" />
-
-	<target name="sierra-guide-html">
-		<docbook-to-html srcdir="${sg.source.dir}" srcfile="${sg.source.file}" destdir="${sg.html.dir}" destfile="${sg.html.file}" />
-	</target>
-
-	<target name="sierra-guide-eclipse-help">
-		<docbook-to-eclipse-help srcdir="${sg.source.dir}" srcfile="${sg.source.file}" destdir="${sg.eclipse.help.dir}" />
-	</target>
-
-	<target name="sierra-guide-pdf">
-		<docbook-to-pdf srcfile="${sg.source.file}" destfile="${sg.pdf.file}" destdir="${sg.build.dir}" />
-	</target>
+  <target name="jsure-guide-pdf">
+    <docbook-to-pdf srcfile="${je.source.file}"
+        destfile="${je.pdf.file}"
+        destdir="${je.build.dir}" />
+  </target>
 
 
 
-	<target name="flashlight-guide" depends="flashlight-guide-html, flashlight-guide-eclipse-help, flashlight-guide-pdf" />
+  <target name="jsure-design-intent"
+      depends="jsure-design-intent-html, jsure-design-intent-eclipse-help, jsure-design-intent-pdf" />
 
-	<target name="flashlight-guide-html">
-		<docbook-to-html srcdir="${fg.source.dir}" srcfile="${fg.source.file}" destdir="${fg.html.dir}" destfile="${fg.html.file}" />
-	</target>
+  <target name="jsure-design-intent-html">
+    <docbook-to-html srcdir="${di.source.dir}"
+        srcfile="${di.source.file}"
+        destdir="${di.html.dir}"
+        destfile="${di.html.file}" />
+  </target>
 
-	<target name="flashlight-guide-eclipse-help">
-		<docbook-to-eclipse-help srcdir="${fg.source.dir}" srcfile="${fg.source.file}" destdir="${fg.eclipse.help.dir}" />
-	</target>
+  <target name="jsure-design-intent-eclipse-help">
+    <docbook-to-eclipse-help srcdir="${di.source.dir}"
+        srcfile="${di.source.file}"
+        destdir="${di.eclipse.help.dir}" />
+  </target>
 
-	<target name="flashlight-guide-pdf">
-		<docbook-to-pdf srcfile="${fg.source.file}" destfile="${fg.pdf.file}" destdir="${fg.build.dir}" />
-	</target>
-
-
-
-	<target name="clean">
-		<delete quiet="true" dir="${build}" />
-	</target>
-
-
-
-	<target name="install-all" depends="install-jsure-guide, install-jsure-design-intent, install-sierra-guide, install-flashlight-guide" />
-
-	<target name="install-jsure-guide">
-		<install-eclipse-help srcdir="${je.eclipse.help.dir}" installdir="${je.install.dir}" />
-	</target>
-
-	<target name="install-jsure-design-intent">
-		<install-eclipse-help srcdir="${di.eclipse.help.dir}" installdir="${di.install.dir}" />
-	</target>
-
-	<target name="install-sierra-guide">
-		<install-eclipse-help srcdir="${sg.eclipse.help.dir}" installdir="${sg.install.dir}" />
-	</target>
-
-	<target name="install-flashlight-guide">
-		<install-eclipse-help srcdir="${fg.eclipse.help.dir}" installdir="${fg.install.dir}" />
-	</target>
+  <target name="jsure-design-intent-pdf">
+    <docbook-to-pdf srcfile="${di.source.file}"
+        destfile="${di.pdf.file}"
+        destdir="${di.build.dir}" />
+  </target>
 
 
 
-	<target name="uninstall-all" depends="uninstall-jsure-guide, uninstall-jsure-design-intent, uninstall-sierra-guide, uninstall-flashlight-guide" />
+  <target name="sierra-guide"
+      depends="sierra-guide-html, sierra-guide-eclipse-help, sierra-guide-pdf" />
 
-	<target name="uninstall-jsure-guide">
-		<uninstall-eclipse-help installdir="${je.install.dir}" />
-	</target>
+  <target name="sierra-guide-html">
+    <docbook-to-html srcdir="${sg.source.dir}"
+        srcfile="${sg.source.file}"
+        destdir="${sg.html.dir}"
+        destfile="${sg.html.file}" />
+  </target>
 
-	<target name="uninstall-jsure-design-intent">
-		<uninstall-eclipse-help installdir="${di.install.dir}" />
-	</target>
+  <target name="sierra-guide-eclipse-help">
+    <docbook-to-eclipse-help srcdir="${sg.source.dir}"
+        srcfile="${sg.source.file}"
+        destdir="${sg.eclipse.help.dir}" />
+  </target>
 
-	<target name="uninstall-sierra-guide">
-		<uninstall-eclipse-help installdir="${sg.install.dir}" />
-	</target>
+  <target name="sierra-guide-pdf">
+    <docbook-to-pdf srcfile="${sg.source.file}"
+        destfile="${sg.pdf.file}"
+        destdir="${sg.build.dir}" />
+  </target>
 
-	<target name="uninstall-flashlight-guide">
-		<uninstall-eclipse-help installdir="${fg.install.dir}" />
-	</target>
+
+
+  <target name="flashlight-guide"
+      depends="flashlight-guide-html, flashlight-guide-eclipse-help, flashlight-guide-pdf" />
+
+  <target name="flashlight-guide-html">
+    <docbook-to-html srcdir="${fg.source.dir}"
+        srcfile="${fg.source.file}"
+        destdir="${fg.html.dir}"
+        destfile="${fg.html.file}" />
+  </target>
+
+  <target name="flashlight-guide-eclipse-help">
+    <docbook-to-eclipse-help srcdir="${fg.source.dir}"
+        srcfile="${fg.source.file}"
+        destdir="${fg.eclipse.help.dir}" />
+  </target>
+
+  <target name="flashlight-guide-pdf">
+    <docbook-to-pdf srcfile="${fg.source.file}"
+        destfile="${fg.pdf.file}"
+        destdir="${fg.build.dir}" />
+  </target>
+
+
+
+  <target name="clean">
+    <delete quiet="true" dir="${build}" />
+  </target>
+
+
+
+  <target name="install-all"
+      depends="install-jsure-guide, install-jsure-design-intent, install-sierra-guide, install-flashlight-guide" />
+
+  <target name="install-jsure-guide">
+    <install-eclipse-help srcdir="${je.eclipse.help.dir}"
+        installdir="${je.install.dir}" />
+  </target>
+
+  <target name="install-jsure-design-intent">
+    <install-eclipse-help srcdir="${di.eclipse.help.dir}"
+        installdir="${di.install.dir}" />
+  </target>
+
+  <target name="install-sierra-guide">
+    <install-eclipse-help srcdir="${sg.eclipse.help.dir}"
+        installdir="${sg.install.dir}" />
+  </target>
+
+  <target name="install-flashlight-guide">
+    <install-eclipse-help srcdir="${fg.eclipse.help.dir}"
+        installdir="${fg.install.dir}" />
+  </target>
+
+
+
+  <target name="uninstall-all"
+      depends="uninstall-jsure-guide, uninstall-jsure-design-intent, uninstall-sierra-guide, uninstall-flashlight-guide" />
+
+  <target name="uninstall-jsure-guide">
+    <uninstall-eclipse-help installdir="${je.install.dir}" />
+  </target>
+
+  <target name="uninstall-jsure-design-intent">
+    <uninstall-eclipse-help installdir="${di.install.dir}" />
+  </target>
+
+  <target name="uninstall-sierra-guide">
+    <uninstall-eclipse-help installdir="${sg.install.dir}" />
+  </target>
+
+  <target name="uninstall-flashlight-guide">
+    <uninstall-eclipse-help installdir="${fg.install.dir}" />
+  </target>
 </project>
