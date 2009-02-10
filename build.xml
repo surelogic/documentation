@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="sierra_help_manual" basedir="." default="build-and-install">
+<project name="surelogic-docs"
+	  basedir="."
+	  default="build-and-install">
   <import file="./definitions.xml" />
 
   <target name="build-and-install"
-      depends="build-all, install-all" />
+      depends="build-all-but-pdf, install-all" />
 
   <target name="clean-and-uninstall"
       depends="clean, uninstall-all" />
 
   <target name="build-all"
+      depends="build-all-but-pdf, build-pdf" />
+  
+  <target name="build-all-but-pdf"
       depends="jsure-guide, jsure-design-intent, sierra-guide, flashlight-guide" />
 
+  <target name="build-pdf"
+      depends="jsure-guide-pdf, jsure-design-intent-pdf, sierra-guide-pdf, flashlight-guide-pdf" />
 
 
   <target name="jsure-guide"
-      depends="jsure-guide-html, jsure-guide-eclipse-help, jsure-guide-pdf" />
+      depends="jsure-guide-html, jsure-guide-eclipse-help" />
 
   <target name="jsure-guide-html">
     <docbook-to-html srcdir="${je.source.dir}"
@@ -38,19 +45,21 @@
 
 
   <target name="jsure-design-intent"
-      depends="jsure-design-intent-html, jsure-design-intent-eclipse-help, jsure-design-intent-pdf" />
+      depends="jsure-design-intent-html, jsure-design-intent-eclipse-help" />
 
   <target name="jsure-design-intent-html">
     <docbook-to-html srcdir="${di.source.dir}"
         srcfile="${di.source.file}"
         destdir="${di.html.dir}"
         destfile="${di.html.file}" />
+    <build-and-copy-javadoc destdir="${di.html.dir}"/>
   </target>
 
   <target name="jsure-design-intent-eclipse-help">
     <docbook-to-eclipse-help srcdir="${di.source.dir}"
         srcfile="${di.source.file}"
         destdir="${di.eclipse.help.dir}" />
+    <build-and-copy-javadoc destdir="${di.eclipse.help.dir}"/>
   </target>
 
   <target name="jsure-design-intent-pdf">
@@ -62,7 +71,7 @@
 
 
   <target name="sierra-guide"
-      depends="sierra-guide-html, sierra-guide-eclipse-help, sierra-guide-pdf" />
+      depends="sierra-guide-html, sierra-guide-eclipse-help" />
 
   <target name="sierra-guide-html">
     <docbook-to-html srcdir="${sg.source.dir}"
@@ -86,7 +95,7 @@
 
 
   <target name="flashlight-guide"
-      depends="flashlight-guide-html, flashlight-guide-eclipse-help, flashlight-guide-pdf" />
+      depends="flashlight-guide-html, flashlight-guide-eclipse-help" />
 
   <target name="flashlight-guide-html">
     <docbook-to-html srcdir="${fg.source.dir}"

@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
-  <property name="src" location="./src" />
-  <property name="build" location="./build" />
-  <property name="lib" location="./lib" />
+<project
+    xmlns:antcontrib="antlib:net.sf.antcontrib">
 
+  <property name="src" location="${basedir}/src" />
+  <property name="build" location="${basedir}/build" />
+  <property name="lib" location="${basedir}/lib" />
+	
+  <property name="ant-contrib.jar" value="${lib}/ant-contrib-1.0b3.jar"/>
+
+  <property name="promises-project" location="${basedir}/../promises"/>   
+  <available property="promises-project-exists" file="${promises-project}"/>
+  <property name="javadoc.src" location="${promises-project}/src"/>
+  <property name="javadoc.dest" location="${promises-project}/javadoc"/>
+    
   <property name="docbook.package.name" value="docbook-xsl-1.74.0" />
   <property name="docbook.dir" location="${lib}/${docbook.package.name}" />
   <property name="saxon.dir" location="${lib}/saxon-6-5-5" />
@@ -11,9 +20,9 @@
   <property name="fop.dir" location="${lib}/fop-0.95" />
   <property name="offo.dir" location="${lib}/offo-1.2" />
 
-  <property name="docbook-to-html-xsl" value="${docbook.dir}/html/docbook.xsl" />
-  <property name="docbook-to-eclipse-xsl" value="${docbook.dir}/eclipse/eclipse.xsl" />
-  <property name="docbook-to-fo-xsl" value="${docbook.dir}/fo/docbook.xsl" />
+  <property name="docbook-to-html-xsl" value="${docbook.dir}/html/profile-docbook.xsl" />
+  <property name="docbook-to-eclipse-xsl" value="${docbook.dir}/eclipse/profile-eclipse.xsl" />
+  <property name="docbook-to-fo-xsl" value="${docbook.dir}/fo/profile-docbook.xsl" />
 
   <!-- JSure Guide definitions -->
   <property name="je.source.dir" location="${src}/jsure-guide" />
@@ -85,7 +94,14 @@
     <pathelement path="${lib}" />
   </path>
 
-  <macrodef name="copy-images-for-html">
+  <taskdef uri="antlib:net.sf.antcontrib"
+      resource="net/sf/antcontrib/antlib.xml">
+    <classpath>
+      <pathelement location="${ant-contrib.jar}"/>
+    </classpath>
+  </taskdef>
+
+	<macrodef name="copy-images-for-html">
     <attribute name="srcdir" />
     <attribute name="destdir" />
     <sequential>
@@ -125,6 +141,7 @@
         <arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-html-xsl}'" />
+        <arg line="profile.condition='isHTML'"/>
         <arg line="callout.unicode='1'"/>
         <arg line="callout.graphics='0'"/>
         <arg line="admon.graphics='1'"/>
@@ -149,6 +166,7 @@
         <arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-eclipse-xsl}'" />
+        <arg line="profile.condition='add-javadoc'"/>
         <arg line="eclipse.plugin.name='Sierra Eclipse Client Help'" />
         <arg line="eclipse.plugin.id=com.surelogic.sierra.eclipse.client.help" />
         <arg line="eclipse.plugin.provider='SureLogic, Inc.'" />
@@ -177,10 +195,11 @@
         <arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-fo-xsl}'" />
+        <arg line="profile.condition='isFO'"/>
         <arg line="callout.unicode='1'"/>
         <arg line="callout.graphics='0'"/>
         <arg line="admon.graphics='1'"/>
-        <arg line="admon.graphics.path='../../lib/${docbook.package.name}/images/'"/>
+        <arg line="admon.graphics.path='${docbook.dir}/images/'"/>
         <arg line="admon.graphics.extension='.svg'"/>
       </java>
       <java classname="${fop.class}" fork="yes" failonerror="true">
@@ -220,6 +239,54 @@
         </fileset>
       </delete>
       <delete quiet="true" dir="@{installdir}/images" />
+    </sequential>
+  </macrodef>
+  
+  <macrodef name="build-javadoc">
+    <sequential>
+      <antcontrib:if>
+        <isset property="promises-project-exists"/>
+        <then>
+          <antcontrib:if>
+            <isset property="javadoc-already-built"/>
+            <then>
+              <!-- We already build the javadoc, do nothing -->
+            </then>
+            <else>
+              <javadoc packagenames="net.jcip.annotations,com.surelogic"
+                  sourcepath="${javadoc.src}"
+                  destdir="${javadoc.dest}"
+                  access="public"
+                  author="false"
+                  nodeprecated="false"
+                  nodeprecatedlist="false"
+                  noindex="false"
+                  nonavbar="false"
+                  notree="false"
+                  source="1.5"
+                  splitindex="true"
+                  use="true"
+                  version="true"/>
+              <property name="javadoc-already-built" value="true"/>
+            </else>
+          </antcontrib:if>
+        </then>
+        <else>
+           <fail>
+             Could not build the javadoc: Please add the "promises" project to your workspace.
+           </fail>
+        </else>
+      </antcontrib:if>
+    </sequential>
+  </macrodef>
+  
+  <macrodef name="build-and-copy-javadoc">
+    <attribute name="destdir"/>
+    <sequential>
+      <build-javadoc/>
+      <copy todir="@{destdir}/javadoc">
+        <fileset dir="${javadoc.dest}"/>
+      </copy>
     </sequential>
   </macrodef>
 </project>
