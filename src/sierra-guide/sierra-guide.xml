@@ -1639,10 +1639,9 @@ if (o == null) {
 	server again by pressing the <guiicon><inlinegraphic
 	fileref="images/sierra-sync.png" /></guiicon> icon (or by
 	selecting <guimenu>Sierra</guimenu> | <guimenuitem>Synchronize
-	All Connected Projects</guimenuitem> from the Eclipse main
-	menu). The new audits will change to the
-	<emphasis>troll</emphasis> user as shown in <xref
-	linkend="fig-tutorial-smallworld-troll-audits" /></para>
+	All</guimenuitem> from the Eclipse main menu). The new audits
+	will change to the <emphasis>troll</emphasis> user as shown in
+	<xref linkend="fig-tutorial-smallworld-troll-audits" /></para>
 
 	<figure id="fig-tutorial-smallworld-troll-audits">
 	  <title>After a sync local audits are attributed to the troll user.</title>
@@ -1715,12 +1714,12 @@ if (o == null) {
       <orderedlist>
 	<listitem>
 	  <para><emphasis>Scan Project</emphasis> &mdash; This command
-	  starts a full scan on the selected set of projects. The scans
-	  are run in background jobs and progress can be seen in the
-	  Eclipse <emphasis>Progress</emphasis> view and (by default)
-	  via balloon notifications.  A dialog is opened to allow the
-	  user to select which Java projects to scan as seen in <xref
-	  linkend="fig-menu-sierra-dialog" /></para>
+	  starts a full scan on the selected set of projects. The
+	  scans are run in background jobs and progress can be seen in
+	  the Eclipse <guilabel>Progress</guilabel> view and (by
+	  default) via balloon notifications.  A dialog is opened to
+	  allow the user to select which Java projects to scan as seen
+	  in <xref linkend="fig-menu-sierra-dialog" /></para>
 
 	  <figure id="fig-menu-sierra-dialog">
 	    <title>Dialog allowing the user to select which Java projects to scan.</title>
@@ -1729,87 +1728,75 @@ if (o == null) {
 		<imagedata
 		    fileref="images/menu-sierra-dialog.png" />
 	      </imageobject>
-	      <imageobject role="fo">
-		<imagedata width="100%" scalefit="1"
-		    fileref="images/menu-sierra-dialog.png" />
-	      </imageobject>
 	    </mediaobject>
 	  </figure>
 
 	  <para>If one or more projects are selected in the
-	  <emphasis>Package Explorer</emphasis> view then these projects
-	  will be checked when the dialog opens. (If only one Java
-	  project is open in the workspace then that project will also
-	  be checked by default.) If you do not want this dialog to
-	  appear when you have selected projects in the
-	  <emphasis>Package Explorer</emphasis> view then uncheck
-	  <emphasis>Show this dialog even when projects are selected in
-	  the Package Explorer</emphasis> before you press the
-	  <emphasis>OK</emphasis> button.</para>
+	  <guilabel>Package Explorer</guilabel> view then these
+	  projects will be checked when the dialog opens. (If only one
+	  Java project is open in the workspace then that project will
+	  also be checked by default.) If you do not want this dialog
+	  to appear when you have selected projects in the
+	  <guilabel>Package Explorer</guilabel> view then uncheck
+	  <emphasis>Show this dialog even when projects are selected
+	  in the Package Explorer</emphasis> before you press the
+	  <guibutton>OK</guibutton> button.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Re-Scan Changes in Project</emphasis> &mdash;
-	  This command starts a partial scan on only those Java types in
-	  the project that have been recompiled since the last scan. If
-	  little has been changed in a project then this choice will be
-	  quicker than running a full scan. For the purpose of finding
-	  differences, only those types that are scanned are changed. A
-	  dialog is opened to allow the user to select the set of
-	  projects to run this command on that operates just like the
-	  <emphasis>Scan Project</emphasis> command.</para>
+	  <para><emphasis>Re-Scan Changes in Project</emphasis>
+	  &mdash; This command starts a partial scan on only those
+	  Java types in the project that have been recompiled since
+	  the last scan. If little has been changed in a project then
+	  this choice will be quicker than running a full scan. For
+	  the purpose of finding differences, only those types that
+	  are scanned are changed. A dialog is opened to allow the
+	  user to select the set of projects to run this command on
+	  that operates just like the <guimenuitem>Scan
+	  Project</guimenuitem> command.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis>Open Code Review Perspective</emphasis>
-	  &mdash; This menu choice opens the <emphasis>Code
-	  Review</emphasis> perspective. This perspective is useful for
-	  examining and auditing analysis findings. This perspective may
-	  also be opened via the normal Eclipse menus and toolbars for
-	  perspectives.</para>
+	  &mdash; This menu choice opens the <guilabel>Code
+	  Review</guilabel> perspective. This perspective is useful
+	  for examining and auditing analysis findings. This
+	  perspective may also be opened via the normal Eclipse menus
+	  and toolbars for perspectives.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis>Configure Team Servers</emphasis> &mdash;
 	  This menu choice opens and gives the focus to the
-	  <emphasis>Sierra Servers</emphasis> view. This view is used
-	  to manage connections to Sierra team servers.</para>
+	  <guilabel>Sierra Servers</guilabel> view. This view is used
+	  to manage connections to Sierra team servers.  This view may
+	  also be opened via the normal Eclipse menus and toolbars for
+	  views.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Synchronize All Server Data</emphasis>
-	  &mdash; This menu choice synchronizes audits for all the
-	  projects connected to all Sierra team servers. All BugLink
-	  data is synchronized as well (i.e., you do not need to run
-	  <guimenuitem>Synchronize All BugLink Data</guimenuitem>).
-	  This command has the same effect as selecting each connected
-	  project and selecting the <emphasis>Synchronize
-	  Project</emphasis> menu item.</para>
-	</listitem>
-	<listitem>
-	  <para><emphasis>Synchronized All BugLink Data</emphasis>
-	  &mdash; This menu choice synchronizes all BugLink data with
-	  all Sierra servers.  This command does not synchronize
-	  audits (i.e., it only does part of what the
-	  <guimenuitem>Synchronize All Server Data</guimenuitem>
-	  command does).</para>
+	  <para><emphasis>Synchronize All</emphasis> &mdash; This menu
+	  choice synchronizes audits for all the projects connected to
+	  all Sierra team servers. All BugLink data is synchronized as
+	  well. This command has the same effect as selecting each
+	  connected project and selecting the <guimenuitem>Synchronize
+	  Project</guimenuitem> menu item.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis>Synchronize Project</emphasis> &mdash; This
 	  command sends all local audits to the Sierra team server the
-	  selected project is connected to. It also downloads all audits
-	  (made by other users) from the server to this client.  A
-	  dialog is opened to allow the user to select the set of
+	  selected project is connected to. It also downloads all
+	  audits (made by other users) from the server to this client.
+	  A dialog is opened to allow the user to select the set of
 	  projects to run this command on that operates just like the
-	  <emphasis>Scan Project</emphasis> command.  All BugLink data is</para>
+	  <guimenuitem>Scan Project</guimenuitem> command.  All
+	  BugLink data is synchronized as well.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis>Publish Latest Scan</emphasis> &mdash; This
-	  command sends the scan results from the last full scan to the
-	  Sierra team server that the project is connected to. Note that
-	  only <emphasis>full scans</emphasis> can be published to a
-	  team server. The user is prompted to pick one or more
-	  timeseries on that server to publish the scan into. This data
-	  is then used by the Sierra team server for web-based
-	  reports. A dialog is opened to allow the user to select the
-	  set of projects to run this command on that operates just like
-	  the <emphasis>Scan Project</emphasis> command.
+	  command sends the scan results from the last full scan to
+	  the Sierra team server that the project is connected
+	  to. Note that only <emphasis>full scans</emphasis> can be
+	  published to a team server.  A dialog is opened to allow the
+	  user to select the set of projects to run this command on
+	  that operates just like the <guimenuitem>Scan
+	  Project</guimenuitem> command.
 	  </para>
 	</listitem>
 	<listitem>
@@ -1817,11 +1804,12 @@ if (o == null) {
 	  disconnects the selected project from the Sierra team server
 	  it is currently connected to. This action causes all local
 	  information about the project to be deleted (so a new scan
-	  will have to be run on the project). The disconnected project
-	  may then be connected to a different Sierra team server.  A
-	  dialog is opened to allow the user to select the set of
-	  projects to run this command on that operates just like the
-	  <emphasis>Scan Project</emphasis> command.</para>
+	  will have to be run on the project). The disconnected
+	  project may then be connected to a different Sierra team
+	  server.  A dialog is opened to allow the user to select the
+	  set of projects to run this command on that operates just
+	  like the <guimenuitem>Scan Project</guimenuitem>
+	  command.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis>Send Tip for Improvement</emphasis> &mdash;
@@ -1840,10 +1828,6 @@ if (o == null) {
 		<imagedata
 		    fileref="images/service-send-tip.png" />
 	      </imageobject>
-	      <imageobject role="fo">
-		<imagedata width="100%" scalefit="1"
-		    fileref="images/service-send-tip.png" />
-	      </imageobject>
 	    </mediaobject>
 	  </figure>
 
@@ -1856,7 +1840,7 @@ if (o == null) {
 	  </para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Send Problem report</emphasis> &mdash; This
+	  <para><emphasis>Send Problem Report</emphasis> &mdash; This
 	  command opens a dialog to allow entry of a problem report by
 	  the user about the Sierra tool as seen in <xref
 	  linkend="fig-menu-service-problem-report" /> The dialog
@@ -1872,13 +1856,8 @@ if (o == null) {
 		<imagedata
 		    fileref="images/service-problem-report.png" />
 	      </imageobject>
-	      <imageobject role="fo">
-		<imagedata width="100%" scalefit="1"
-		    fileref="images/service-problem-report.png" />
-	      </imageobject>
 	    </mediaobject>
 	  </figure>
-
 
 	  <para>Messages sent from these dialogs go over HTTP to
 	  SureLogic.  If a proxy is used on your network then it is
