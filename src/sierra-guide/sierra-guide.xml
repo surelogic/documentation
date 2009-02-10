@@ -336,9 +336,6 @@
 	    <imageobject role="html">
 	      <imagedata fileref="images/quick-start-license-menu.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="50%" scalefit="1" fileref="images/quick-start-license-menu.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -384,9 +381,6 @@
 	  <mediaobject>
 	    <imageobject role="html">
 	      <imagedata fileref="images/quick-start-menu.png" />
-	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="70%" scalefit="1" fileref="images/quick-start-menu.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
@@ -537,9 +531,6 @@ public class ShowOff {
 	    <imageobject role="html">
 	      <imagedata fileref="images/tutorial-screenshot.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1" fileref="images/tutorial-screenshot.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -678,9 +669,6 @@ if (o == null) {
 	    <imageobject role="html">
 	      <imagedata fileref="images/tutorial-audits.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="50%" scalefit="1" fileref="images/tutorial-audits.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -718,10 +706,6 @@ if (o == null) {
 	    <imageobject role="html">
 	      <imagedata
 		  fileref="images/tutorial-artifacts.png" />
-	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="80%" scalefit="1"
-			 fileref="images/tutorial-artifacts.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
@@ -763,10 +747,6 @@ if (o == null) {
 	    <imageobject role="html">
 	      <imagedata
 		  fileref="images/tutorial-status-fixed.png" />
-	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="50%" scalefit="1"
-			 fileref="images/tutorial-status-fixed.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
@@ -841,10 +821,6 @@ if (o == null) {
 	      <imagedata
 		  fileref="images/tutorial-running-smallworld.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="80%" scalefit="1"
-			 fileref="images/tutorial-running-smallworld.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -857,7 +833,12 @@ if (o == null) {
 	playing the game, type <userinput>exit</userinput> to
 	terminate the program.</para>
 
-	<para>Scan the SmallWorld project with Sierra.</para>
+	<para>Scan the SmallWorld project with Sierra. Examine the
+	findings using the <guilabel>Findings Quick Search</guilabel>
+	view in the <guilabel>Code Review</guilabel> perspective.  If
+	you select <guilabel>Project</guilabel> you will note that
+	seven findings were reported from this scan about the
+	SmallWorld code.</para>
 
 	<para>This tutorial uses a team server running on your
 	desktop. The <emphasis>Sierra Local Team Server
@@ -892,10 +873,6 @@ if (o == null) {
 	      <imagedata
 		  fileref="images/tutorial-local-team-server.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-local-team-server.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -922,10 +899,6 @@ if (o == null) {
 	      <imagedata
 		  fileref="images/tutorial-local-team-server-logs.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-local-team-server-logs.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -948,10 +921,6 @@ if (o == null) {
 	    <imageobject role="html">
 	      <imagedata
 		  fileref="images/tutorial-local-team-server-preferences.png" />
-	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-local-team-server-preferences.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
@@ -980,10 +949,6 @@ if (o == null) {
 	      <imagedata
 		  fileref="images/tutorial-local-team-server-warning-dialog.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-local-team-server-warning-dialog.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1002,10 +967,6 @@ if (o == null) {
 	    <imageobject role="html">
 	      <imagedata
 		  fileref="images/tutorial-local-team-server-running.png" />
-	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-local-team-server-running.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
@@ -1184,20 +1145,20 @@ if (o == null) {
 	  </mediaobject>
 	</figure>
 
-	<para>Click on the <guibutton>Settings</guibutton> tab to open
-	the settings panel. This panel allows you to see the version of
-	the software and the current and available versions of the
+	<para>Click on the <guilabel>Settings</guilabel> tab to open
+	the settings panel. This panel allows you to see the version
+	of the software and the current and available versions of the
 	database schema as shown in <xref
 	linkend="fig-tutorial-portal-settings-page" /> The current and
 	available versions of the database schema should always be the
 	same number unless a schema upgrade failed for some reason. If
-	this should occur it is a software bug and should be reported to
-	SureLogic.</para>
-
-	<para>This page also allows you to have the server email any
-	errors it encounters to an administrator. You can fill in the
-	information required and send a test email to try out your
-	configuration.</para>
+	this should occur it is a software bug and should be reported
+	to SureLogic. This page also allows you to configure the
+	server to email any errors it encounters to an
+	administrator. You can fill in the information required and
+	send a test email to try out your configuration. (This is
+	optional for this tutorial but recommened for a production
+	server.)</para>
 
 	<figure id="fig-tutorial-portal-settings-page">
 	  <title>The settings page on the team server portal sending a test notification email.</title>
@@ -1360,14 +1321,26 @@ if (o == null) {
 	  </mediaobject>
 	</figure>
 
-	<para>Other members of your team get the scan filter settings from
-	the team server. We don't need to download them since we just
-	uploaded them, however, for practice we will. To download and use
-	the scan filter stored on the server you right-click on the server
-	name and select the <emphasis>Get Scan Filter...</emphasis> menu
-	item from the context menu. A dialog will warn that this will
-	replace the scan filter currently on your client. Press
-	<emphasis>OK</emphasis> to continue.</para>
+	<para>Other members of your team get the scan filter settings
+	from the team server. We don't need to download them since we
+	just uploaded them, however, for practice we will. To download
+	and use the Tutorial scan filter stored on the local server
+	you right-click on the scan filter name and select
+	<emphasis>Copy to Local Scan Filter...</emphasis> from the
+	context menu as shown in <xref
+	linkend="fig-tutorial-copy-scan-filter" /> A dialog will warn
+	that this will replace the scan filter currently on your
+	client. Press <emphasis>OK</emphasis> to continue.</para>
+
+	<figure id="fig-tutorial-copy-scan-filter">
+	  <title>Downloading a copy of the Tutorial scan filter to the client from local server.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-copy-scan-filter.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
 
 	<para>The reason it is important to keep the scan filter
 	consistent between your clients and your server is that if you
@@ -1380,28 +1353,161 @@ if (o == null) {
 
 	<para>A project scan (via Eclipse or via Ant) creates a scan
 	document file. You can see these files in your
-	<emphasis>~/.sierra-data</emphasis> directory. For the SmallWorld
-	project you will see the <emphasis>SmallWorld.sierra.gz</emphasis>
-	scan document file. This file contains the tool reports about the
-	SmallWorld project. When a scan is loaded into the client database
-	your local scan filter is applied.  When you publish your
-	SmallWorld scan to your server the scan document file is sent to
-	the server, which allows the server to apply its scan filter.</para>
+	<filename>~/.sierra-data</filename> directory. For the
+	SmallWorld project you will see the
+	<filename>SmallWorld.sierra.gz</filename> scan document
+	file. This file contains the tool reports about the SmallWorld
+	project. When a scan is loaded into the client database your
+	local scan filter is applied.  When you publish your
+	SmallWorld scan to your server the scan document file is sent
+	to the server, which allows the server to apply its scan
+	filter.</para>
 
-	<para>Since our scan filter is in sync with the localhost server
-	we can now publish our scan of SmallWorld. Select
-	<emphasis>Sierra</emphasis> | <emphasis>Publish Latest
-	Scan</emphasis> from the Eclipse main menu. Check the SmallWorld
-	project and press the <emphasis>OK</emphasis> button.</para>
+	<para>When you connect a project to a server, as we have done
+	with SmallWorld. That project stops using the local client
+	scan filter and starts using the one assigned to it by the
+	team server. If you drill into the SmallWorld project in the
+	<guilabel>Team Servers</guilabel> view you can see that
+	SmallWorld is assigned <emphasis>Scan filter: Defaults for
+	local server</emphasis>.  This assignment is done on the
+	portal.</para>
 
-	<para>One helpful feature of the <emphasis>Sierra Team
-	Servers</emphasis> view is that it can open a web browser to a
-	team server.  To do this select a team server name and press the
-	<emphasis>Browse</emphasis> button (or double-click the team
-	server name). If you have saved your user and password in the
-	server connection you will be logged into the team server. The
-	welcome page should now look like <xref
-	linkend="fig-tutorial-portal-welcome-smallworld-publish" /></para>
+	<para>We will now edit the Tutorial scan filter on the portal
+	and assign it to the connected SmallWorld project. In your web
+	browser log back into the portal as the
+	<userinput>zork</userinput> user. Select the <guilabel>Scan
+	Filters</guilabel> tab and then select the
+	<emphasis>Tutorial</emphasis> scan filter in the list at the
+	left.  This scan filter is defined in terms of finding types,
+	let's define it with just a few focused categories. To do this
+	we will first delete the scan filter and then build it from
+	scratch.  Press the <emphasis>Delete</emphasis> link at the
+	upper-right to delete the scan filter.  Next, press the
+	<guibutton>Create a Scan Filter</guibutton> button at the
+	upper-left and enter <userinput>Tutorial</userinput> and press
+	<guibutton>Create</guibutton>. The new scan filter will be
+	created.</para>
+
+	<para>Select the now empty <emphasis>Tutorial</emphasis> scan
+	filter in the list af the left. Select the
+	<emphasis>Edit</emphasis> link a the upper-right to edit the
+	Tutorial scan filter.  Select the <emphasis>Add
+	Category</emphasis> link. In the dialog that opens select
+	<userinput>Correctness (FindBugs)</userinput> and
+	<userinput>Performance (FindBugs)</userinput> as shown in
+	<xref linkend="fig-tutorial-portal-scan-filter-add-categories"
+	/> and press <guibutton>OK</guibutton>.</para>
+
+	<figure id="fig-tutorial-portal-scan-filter-add-categories">
+	  <title>Adding Correctness and Performance to the Tutorial scan filter.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-portal-scan-filter-add-categories.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Change the imporance of the categories as follows:</para>
+
+	<informaltable>
+	  <tgroup cols='2' align='left'>
+	    <thead>
+	      <row>
+		<entry>Name</entry>
+		<entry>Importance</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Correctness (FindBugs)</entry>
+		<entry>Critical</entry>
+	      </row>
+	      <row>
+		<entry>Performance (FindBugs)</entry>
+		<entry>High</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>Finally, press the <emphasis>Save</emphasis> link to
+	finish setting up this scan filter.  The result should look
+	like the screen shown in <xref
+	linkend="fig-tutorial-portal-scan-filter-done" /></para>
+
+	<figure id="fig-tutorial-portal-scan-filter-done">
+	  <title>The completed Tutorial scan filter.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-portal-scan-filter-done.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>We now need to assign this scan filter to the SmallWorld
+	project. To do this click on the <guilabel>Projects</guilabel>
+	tab. Select the SmallWorld project in the list to the left.
+	To change the scan filter assigned to this project select the
+	<emphasis>(Change)</emphasis> link on line where the scan
+	filter for this project is listed.  In the dialog that appears
+	select the <userinput>Tutorial</userinput> scan filter and
+	press <guibutton>OK</guibutton>. The result should look like
+	the screen shown in <xref
+	linkend="fig-tutorial-portal-scan-filter-assigned-to-smallworld"
+	/></para>
+
+	<figure id="fig-tutorial-portal-scan-filter-assigned-to-smallworld">
+	  <title>The Tutorial scan filter is assigned to the SmallWorld project.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-portal-scan-filter-assigned-to-smallworld.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>We need to synchronize our Eclipse client with the
+	changes we have made.  To do this select the
+	<guimenuitem>Synchronize All</guimenuitem> command from the
+	<guimenu>Sierra</guimenu> menu or click the
+	<guiicon><inlinegraphic fileref="images/sierra-sync.png"
+	/></guiicon> icon in the <guilabel>Team Servers</guilabel>
+	view. This will synchronize with the local server and you
+	should see the scan filter for SmallWorld change as shown in
+	<xref
+	linkend="fig-tutorial-scan-filter-assigned-to-smallworld"
+	/></para>
+
+	<figure id="fig-tutorial-scan-filter-assigned-to-smallworld">
+	  <title>After a Synchronize All the client knows that the
+	  Tutorial scan filter is assigned to the SmallWorld
+	  project.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-scan-filter-assigned-to-smallworld.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Run another scan of the SmallWorld project. You should
+	now have four findings.  Because during this scan our scan
+	filter was in sync with the local server we can now publish
+	our scan of SmallWorld to the server. Select
+	<guimenu>Sierra</guimenu> | <guimenuitem>Publish Latest
+	Scan</guimenuitem> from the Eclipse main menu. Check the
+	SmallWorld project and press the <guibutton>OK</guibutton>
+	button.</para>
+
+	<para>After the publish has completed, select the
+	<guilabel>Welcome</guilabel> tab in your web browser. The
+	welcome pages should now look like <xref
+	linkend="fig-tutorial-portal-welcome-smallworld-publish" /> It
+	is possible that you might need to refresh your browser to get
+	the page to reflect the changes caused by the scan
+	publish.</para>
 
 	<figure id="fig-tutorial-portal-welcome-smallworld-publish">
 	  <title>The welcome page after the scan of SmallWorld has been published.</title>
@@ -1410,37 +1516,81 @@ if (o == null) {
 	      <imagedata
 		  fileref="images/tutorial-portal-welcome-smallworld-publish.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-portal-welcome-smallworld-publish.png" />
+	  </mediaobject>
+	</figure>
+
+	<para>The welcome page on the server now contains data about
+	the SmallWorld scan we just published. You can see the counts
+	of findings for SmallWorld in the <emphasis>Latest Scan
+	Results</emphasis> chart and the <emphasis>Projects Published
+	To This Portal</emphasis> table. Using <emphasis>Findings
+	Quick Search</emphasis> view you can verify that these counts
+	are consistent with the data in your client (Filter by the
+	project SmallWorld then show the importance counts).</para>
+
+	<para>Use the <emphasis>Findings Quick Search</emphasis> view
+	select all the findings from SmallWorld that are within the
+	<emphasis>Performance (FindBugs)</emphasis> finding
+	category. There should be three findings as shown in <xref
+	linkend="fig-tutorial-smallworld-category-counts" /></para>
+
+	<figure id="fig-tutorial-smallworld-category-counts">
+	  <title>The findings by category for the SmallWorld scan.</title>
+	  <mediaobject>
+	    <imageobject role="html">
+	      <imagedata
+		  fileref="images/tutorial-smallworld-category-counts.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
 
-	<para>The welcome page on the server now contains data about the
-	SmallWorld scan we just published. You can see the counts of
-	findings for SmallWorld in the <emphasis>Latest Scan
-	Results</emphasis> chart and the <emphasis>Projects</emphasis>
-	table. Using <emphasis>Findings Quick Search</emphasis> view you
-	can verify that these counts are consistent with the data in your
-	client (Filter by project SmallWorld then show the importance
-	counts).</para>
+	<para>The counts in the finding categories may appear
+	surprising. It states that there are 4 findings but the bars
+	add up to 6. In addition, the scan filter used for the scan
+	(i.e., Tutorial) only included two of the four categories
+	shown. What is the reason for these apparent inconsistencies?
+	The reason is that Sierra categories are not a partition of
+	the finding types.  It is possible for a finding type to be in
+	one or more categories.  In this case there is overlap. To see
+	this, add the <guilabel>Finding Type</guilabel> filter after
+	the <guilabel>Finding Category</guilabel> and check and
+	uncheck each finging category one at at time. Note that
+	<emphasis>Should be static</emphasis> finding type is in both
+	the <emphasis>Design Rules (PMD)</emphasis> and the
+	<emphasis>Performance (FindBugs)</emphasis> catgories. In
+	addition, the <emphasis>Superfluous instanceof</emphasis>
+	finding type is in both the <emphasis>Correctness
+	(FindBugs)</emphasis> and <emphasis>Style
+	(FindBugs)</emphasis> categories. Go back and show the three
+	<emphasis>Performance (FindBugs)</emphasis> findings.</para>
 
-	<para>Use the <emphasis>Findings Quick Search</emphasis> view
-	select all the findings from SmallWorld that are within the
-	<emphasis>Performance</emphasis> finding category. There should be
-	three findings. Since we consider performance critical, change the
-	importance of these three findings to critical.</para>
+	<para>The two findings about changing the anonymous inner
+	classes to named static classes we consider unimportant for
+	this program. Change the importance of these two findings to
+	Irrelevant.</para>
 
-	<para>You have now made a few audits that you can share with the
-	team server. To do this select <emphasis>Sierra</emphasis> |
-	<emphasis>Synchronize All Connected Projects</emphasis> from the
-	Eclipse main menu. After this command completes, bring up the
-	audit tab in the <emphasis>Finding Details</emphasis> view for one
-	of the three audited findings. Note that the name the audit is
-	attributed to changed from <emphasis>Local</emphasis> to
-	<emphasis>zork</emphasis> because we synchronized under the user
-	zork to the localhost server. This can be seen in <xref
+	<para>The third finding suggests that the
+	<varname>f_description</varname> field can be declared
+	static. Looking at the code of this class it is clear that
+	this field can be removed from the class, i.e., the string
+	literal could simply be returned from the
+	<varname>getDescription()</varname> method.  This can be
+	deemed a minor problem. First, change the importance of this
+	finding to low and enter an audit that states:</para>
+	
+	<blockquote>
+	  <para>Remove this field and simply return the string literal
+	  "Our Hero" from the getDescription() method.</para>
+	</blockquote>
+
+	<para>You have now made a few audits that you can share with
+	the team server. To do this select <guimenu>Sierra</guimenu> |
+	<guimenuitem>Synchronize All</guimenuitem> from the Eclipse
+	main menu. After this command completes, note that the name
+	the audit is attributed to changed from
+	<emphasis>Local</emphasis> to <emphasis>zork</emphasis>
+	because we synchronized under the user zork to the local
+	server. This can be seen in <xref
 	linkend="fig-tutorial-smallworld-zork-audits" /></para>
 
 	<figure id="fig-tutorial-smallworld-zork-audits">
@@ -1450,19 +1600,16 @@ if (o == null) {
 	      <imagedata
 		  fileref="images/tutorial-smallworld-zork-audits.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-smallworld-zork-audits.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
-	<para>If you refresh the welcome page in your web browser it will
-	look like <xref
+	<para>If you refresh the welcome page in your web browser it
+	will look like <xref
 	linkend="fig-tutorial-portal-welcome-page-zork-audits" /> The
-	charts and graphs have been update to show the contributions made
-	by the zork user. Also we can see that the SmallWorld project now
-	has 3 critical findings and 3 audits.</para>
+	charts and graphs have been update to show the contributions
+	made by the zork user. Also we can see that the SmallWorld
+	project now has 4 findings (1 critical, 1 low, and 2
+	irrelevant) and 4 audits on 3 findings.</para>
 
 	<figure id="fig-tutorial-portal-welcome-page-zork-audits">
 	  <title>The portal shows the audits attributed to the zork user.</title>
@@ -1471,55 +1618,48 @@ if (o == null) {
 	      <imagedata
 		  fileref="images/tutorial-portal-welcome-page-zork-audits.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-portal-welcome-page-zork-audits.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
-	<para> In the Eclipse client mark the three critical findings as
-	being examined by me (or make an ad hoc audit on each
-	finding). Notice that these new audits are attributed to
-	<emphasis>Local</emphasis> not to zork. This is because we have
-	not synchronized these audits with the server. To illustrate this
-	point let's attribute these audits to the
+	<para>In the Eclipse client mark the three performance
+	findings as being examined by me (or make an ad hoc audit on
+	each finding). Notice that these new audits are attributed to
+	<emphasis>Local</emphasis> not to zork. This is because we
+	have not synchronized these audits with the server. To
+	illustrate this point let's attribute these audits to the
 	<emphasis>troll</emphasis> user not to the
 	<emphasis>zork</emphasis> user.</para>
 
-	<para>Go to the <emphasis>Sierra Team Servers</emphasis> view,
-	right-click on the <emphasis>localhost</emphasis> server and
-	select the <emphasis>Properties...</emphasis> menu item. In the
+	<para>Go to the <guilabel>Team Servers</guilabel> view,
+	right-click on the local server and select the
+	<guimenuitem>Properties...</guimenuitem> menu item. In the
 	dialog that appears change the user name and password to
-	<emphasis>troll</emphasis> and press the <emphasis>OK</emphasis>
-	button. Now synchronize with the localhost server again by
-	selecting <emphasis>Sierra</emphasis> | <emphasis>Synchronize All
-	Connected Projects</emphasis> from the Eclipse main menu. The new
-	audits will change to the <emphasis>troll</emphasis> user as shown
-	in
-	<xref linkend="fig-tutorial-smallworld-troll-audits" /></para>
+	<userinput>troll</userinput> and press the
+	<guibutton>OK</guibutton> button. Now synchronize with the
+	server again by pressing the <guiicon><inlinegraphic
+	fileref="images/sierra-sync.png" /></guiicon> icon (or by
+	selecting <guimenu>Sierra</guimenu> | <guimenuitem>Synchronize
+	All Connected Projects</guimenuitem> from the Eclipse main
+	menu). The new audits will change to the
+	<emphasis>troll</emphasis> user as shown in <xref
+	linkend="fig-tutorial-smallworld-troll-audits" /></para>
 
 	<figure id="fig-tutorial-smallworld-troll-audits">
-	  <title>After a sync local audits are attributed to the troll
-	  user.</title>
+	  <title>After a sync local audits are attributed to the troll user.</title>
 	  <mediaobject>
 	    <imageobject role="html">
 	      <imagedata
 		  fileref="images/tutorial-smallworld-troll-audits.png" />
 	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-smallworld-troll-audits.png" />
-	    </imageobject>
 	  </mediaobject>
 	</figure>
 
-	<para>If you refresh the welcome page in your web browser it will
-	look like <xref
+	<para>If you refresh the welcome page in your web browser it
+	will look like <xref
 	linkend="fig-tutorial-portal-welcome-page-troll-audits" /> The
-	charts and graphs have been updated to show the contributions made
-	by the troll user. There are six total audits on the SmallWorld
-	project three findings.</para>
+	charts and graphs have been updated to show the contributions
+	made by the troll user. There are seven audits by two users
+	about three SmallWorld project findings.</para>
 
 	<figure id="fig-tutorial-portal-welcome-page-troll-audits">
 	  <title>The portal shows the audits attributed to the zork and
@@ -1528,10 +1668,6 @@ if (o == null) {
 	    <imageobject role="html">
 	      <imagedata
 		  fileref="images/tutorial-portal-welcome-page-troll-audits.png" />
-	    </imageobject>
-	    <imageobject role="fo">
-	      <imagedata width="100%" scalefit="1"
-			 fileref="images/tutorial-portal-welcome-page-troll-audits.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
@@ -1560,9 +1696,6 @@ if (o == null) {
 	<mediaobject>
 	  <imageobject role="html">
 	    <imagedata fileref="images/menu-sierra.png" />
-	  </imageobject>
-	  <imageobject role="fo">
-	    <imagedata width="100%" scalefit="1" fileref="images/menu-sierra.png" />
 	  </imageobject>
 	</mediaobject>
       </figure>
