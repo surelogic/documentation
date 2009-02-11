@@ -103,7 +103,7 @@
     <figure id="fig-quick-start-license-menu">
       <title>The menu option to install a license for Flashlight.</title>
       <mediaobject>
-	<imageobject condition="isHTML">
+	<imageobject>
 	  <imagedata fileref="images/quick-start-license-menu.png" />
 	</imageobject>
       </mediaobject>
@@ -118,7 +118,7 @@
     <figure id="fig-quick-start-license-dialog-empty">
       <title>The SureLogic license management dialog.</title>
       <mediaobject>
-	<imageobject condition="isHTML">
+	<imageobject>
 	  <imagedata fileref="images/quick-start-license-dialog-empty.png" />
 	</imageobject>
       </mediaobject>
@@ -234,7 +234,7 @@
       <figure id="fig-tutorial-planetbaron-playerui">
 	<title>The PlanetBaron PlayerUI for Laurel.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-playerui.png" />
 	  </imageobject>
 	</mediaobject>
@@ -262,7 +262,7 @@
       <figure id="fig-tutorial-planetbaron-chattestclient">
 	<title>Using the ChatTestClient to shutdown the game server.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-chattestclient.png" />
 	  </imageobject>
 	</mediaobject>
@@ -290,7 +290,7 @@
 	<title>Running ChatTestClient with Flashlight
 	instrumentation.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-running-chattestclient.png" />
 	  </imageobject>
 	</mediaobject>
@@ -314,7 +314,7 @@
 	<title>Prompting the user to switch to the Flashlight
 	perspective.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-switch-dialog.png" />
 	  </imageobject>
 	</mediaobject>
@@ -327,7 +327,7 @@
       <figure id="fig-tutorial-planetbaron-perspective-empty">
 	<title>The Flashlight perspective.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-empty.png" />
 	  </imageobject>
 	</mediaobject>
@@ -371,7 +371,7 @@
 	<title>Non-static fields that were observed to be shared in a
 	ChatTestClient run.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc1.png" />
 	  </imageobject>
 	</mediaobject>
@@ -407,7 +407,7 @@
       <figure id="fig-tutorial-planetbaron-perspective-ctc2">
 	<title>Drilling in to all accesses of the f_connectDisconnectButton.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc2.png" />
 	  </imageobject>
 	</mediaobject>
@@ -425,7 +425,7 @@
       <figure id="fig-tutorial-planetbaron-perspective-ctc3">
 	<title>Drilling in to see the stack trace for this field access.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc3.png" />
 	  </imageobject>
 	</mediaobject>
@@ -440,7 +440,7 @@
       <figure id="fig-tutorial-planetbaron-perspective-ctc4">
 	<title>The broken line of code in ChatTestClient.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc4.png" />
 	  </imageobject>
 	</mediaobject>
@@ -523,7 +523,7 @@ public static void main(String[] args) {
 	<title>The broken line of code in ChatTestClient is remembered
 	by the Historical Source Snapshot view.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc5.png" />
 	  </imageobject>
 	</mediaobject>
@@ -540,7 +540,7 @@ public static void main(String[] args) {
       <figure id="fig-tutorial-planetbaron-perspective-ctc6">
 	<title>Deleting two Flashlight runs.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc6.png" />
 	  </imageobject>
 	</mediaobject>
@@ -574,7 +574,7 @@ public static void main(String[] args) {
       <figure id="fig-tutorial-planetbaron-running-server">
 	<title>Running Server with Flashlight instrumentation.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-running-server.png" />
 	  </imageobject>
 	</mediaobject>
@@ -589,7 +589,7 @@ public static void main(String[] args) {
 	<title>Running a PlayerUI without Flashlight
 	instrumentation.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-running-playerui.png" />
 	  </imageobject>
 	</mediaobject>
@@ -605,7 +605,7 @@ public static void main(String[] args) {
       <figure id="fig-tutorial-planetbaron-running-game">
 	<title>Running three players at once on an instrumented server.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-running-game.png" />
 	  </imageobject>
 	</mediaobject>
@@ -674,7 +674,7 @@ public static void main(String[] args) {
 	<title>The query to show where a thread is holding a lock and
 	acquires another.</title>
 	<mediaobject>
-	  <imageobject condition="isHTML">
+	  <imageobject>
 	    <imagedata fileref="images/tutorial-query-editor.png" />
 	  </imageobject>
 	</mediaobject>
