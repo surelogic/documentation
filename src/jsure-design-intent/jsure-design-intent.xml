@@ -7,7 +7,7 @@
   <title>JSure Annotation Guide</title>
   <bookinfo>
     <copyright>
-      <year>2008</year>
+      <year>2009</year>
       <holder>SureLogic, Inc.</holder>
     </copyright>
     <legalnotice>
@@ -21,83 +21,86 @@
     <pubdate>Version 1.0&mdash;January 2009</pubdate>
   </bookinfo>
 
-  <chapter id="preface">
+  <preface id="preface">
     <title>Preface</title>
-    <section>
+    <sect1>
       <title>Audience</title>
       <para>This document is intended for Java developers who want to
       use the JSure. We assume that the reader understands both the
       Java programming language and the use of Eclipse for Java
       development.</para>
-    </section>
-    <section>
+    </sect1>
+    <sect1>
       <title>Contact information</title>
       <para>For technical support or other questions, please
       contact:</para>
       <para><email>support@surelogic.com</email></para>
       <para>5808 Forbes Avenue, Pittsburgh, PA 15217-1602</para>
-    </section>
-  </chapter>
+    </sect1>
+  </preface>
 
-  <chapter id="simple-lock-models">
-    <title>Simple Lock Models</title>
-    <sect1 id="basic-model">
-      <title>The Basic Lock Model</title>
+  <part>
+    <title>Tutorial</title>
+  
+    <chapter id="simple-lock-models">
+      <title>Simple Lock Models</title>
+      <sect1 id="basic-model">
+        <title>The Basic Lock Model</title>
       
-      <para>The canonical Java model whereby an object protects itself
-      is declared by annotating a class with
-      <classname>@RegionLock</classname>:<footnote><para>We use emphasis in
-      the code to highlight interesting annotations or interesting
-      segments of code.  Specifically, we are not placing emphasis on
-      all annotations that occur within the displayed source
-      code.</para></footnote>
+        <para>The canonical Java model whereby an object protects itself
+        is declared by annotating a class with
+        <classname>@RegionLock</classname>:<footnote><para>We use
+        emphasis in the code to highlight interesting annotations or
+        interesting segments of code.  Specifically, we are not placing
+        emphasis on all annotations that occur within the displayed
+        source code.</para></footnote>
       
-        <programlisting>
+          <programlisting>
 <emphasis>@RegionLock("Lock is this protects Instance")</emphasis>
 public class C {
   protected int f;
   &hellip;
 }
-        </programlisting>
+          </programlisting>
+ 
+        This single class annotation does three things:
 
-      This single class annotation does three things:
+          <orderedlist>
+            <listitem><para>Declares a new lock named
+            <structfield>Lock</structfield>.  The lock name enables
+            consistent reference to the lock object in other
+            annotations.</para></listitem>
 
-        <orderedlist>
-          <listitem><para>Declares a new lock named
-          <structfield>Lock</structfield>.  The lock name enables
-          consistent reference to the lock object in other
-          annotations.</para></listitem>
+            <listitem><para>Identifies that lock with instances of the
+            class (<varname>this</varname>).</para></listitem>
 
-          <listitem><para>Identifies that lock with instances of the
-          class (<varname>this</varname>).</para></listitem>
+            <listitem><para>Protects all the fields in instances of the
+            class (the <emphasis>region</emphasis>
+            <structfield>Instance</structfield>) .  Regions are
+            described in more detail in <xref
+            linkend="declaring-regions"/>; for now it is enough to know
 
-          <listitem><para>Protects all the fields in instances of the
-          class (the <emphasis>region</emphasis>
-          <structfield>Instance</structfield>) .  Regions are described
-          in more detail in <xref linkend="declaring-regions"/>; for now
-          it is enough to know
+              <itemizedlist> 
+                <listitem><para>All classes have an
+                <structfield>Instance</structfield>
+                region.</para></listitem>
 
-            <itemizedlist>
-              <listitem><para>All classes have an
-              <structfield>Instance</structfield>
-              region.</para></listitem>
+                <listitem><para>The region contains all the
+                non-<code>static</code> fields of the
+                class.</para></listitem>
+              </itemizedlist>
+            </para></listitem>
+          </orderedlist>
 
-              <listitem><para>The region contains all the
-              non-<code>static</code> fields of the
-              class.</para></listitem>
-            </itemizedlist>
-          </para></listitem>
-        </orderedlist>
-
-      In other words, all accesses to instance variables, for
-      example <structfield>f</structfield>, of objects of class
-      <classname>C</classname> must be within blocks
-      <code>synchronized</code> on the instance.</para>
+        In other words, all accesses to instance variables, for example
+        <structfield>f</structfield>, of objects of class
+        <classname>C</classname> must be within blocks
+        <code>synchronized</code> on the instance.</para>
       
-      <para>The following two methods of class <classname>C</classname>
-      would assure
+        <para>The following two methods of class
+        <classname>C</classname> would assure
 
-        <programlisting>
+          <programlisting>
   public synchronized set(final int value) {
     this.f = value;
   }
@@ -106,35 +109,35 @@ public class C {
       return this.f;
     }
   }
-        </programlisting>
+         </programlisting>
 
-      The following method of <classname>C</classname>, however,
-      would not because although the method correctly protects the
-      read of the field <structfield>f</structfield> of the object referenced
-      by <parameter>other</parameter>, it does not protect the write to
-      the field <structfield>f</structfield> of the object referenced by
-      <varname>this</varname>:
+        The following method of <classname>C</classname>, however, would
+        not because although the method correctly protects the read of
+        the field <structfield>f</structfield> of the object referenced
+        by <parameter>other</parameter>, it does not protect the write
+        to the field <structfield>f</structfield> of the object
+        referenced by <varname>this</varname>:
 
-        <programlisting>
+          <programlisting>
   public void copy(final C other) {
     synchronized (other) {
       this.f = other.f;
     }
   }
-        </programlisting>
-      </para>
-    </sect1>
+          </programlisting>
+        </para>
+      </sect1>
     
-    <sect1 id="extended-model1">
-      <title>Extending the Model: Caller Locking</title>
+      <sect1 id="extended-model1">
+        <title>Extending the Model: Caller Locking</title>
       
-	  <para>A frequent exception to the basic lock model is the
-      expectation by a method implementation that it is the
-      responsibility of the caller of the method to acquire the lock. 
-      Analysis can assure this expectation if it is declared using the
-      <classname>@RequiresLock</classname> method annotation:
+        <para>A frequent exception to the basic lock model is the
+        expectation by a method implementation that it is the
+        responsibility of the caller of the method to acquire the lock.
+        Analysis can assure this expectation if it is declared using the
+        <classname>@RequiresLock</classname> method annotation:
       
-        <programlisting>
+          <programlisting>
 @RegionLock("Lock is this protects Instance")
 public class C {
   private int f;
@@ -143,18 +146,18 @@ public class C {
   public void m() { &hellip; }
   &hellip;
 }
-        </programlisting>
+          </programlisting>
       
-      When analyzing the implementation of method
-      <function>C.m()</function>, analysis assumes that lock
-      <structfield>Lock</structfield> is held.  When analyzing the callsite of
-      the method, however, analysis requires that the calling context
-      hold the lock object identified with <structfield>Lock</structfield>.  The
-      method implementations <function>C.m()</function> and
-      <function>C.calls_m()</function>, below, are thus both
-      correct:
+        When analyzing the implementation of method
+        <function>C.m()</function>, analysis assumes that lock
+        <structfield>Lock</structfield> is held.  When analyzing the
+        callsite of the method, however, analysis requires that the
+        calling context hold the lock object identified with
+        <structfield>Lock</structfield>.  The method implementations
+        <function>C.m()</function> and <function>C.calls_m()</function>,
+        below, are thus both correct:
 
-        <programlisting>
+          <programlisting>
   <emphasis>@RequiresLock("Lock")</emphasis>
   public void m() {
     this.f = 0;
@@ -163,95 +166,100 @@ public class C {
   protected synchronized void calls_m() {
     this.m();
   }
-        </programlisting>
-      </para>
+          </programlisting>
+        </para>
       
-      <para>The method implementation of <function>Other.bad()</function>
-      is, however, erroneous because it does acquire the lock on the
-      object referenced by <parameter>cObject</parameter>:
+        <para>The method implementation of
+        <function>Other.bad()</function> is, however, erroneous because
+        it does acquire the lock on the object referenced by
+        <parameter>cObject</parameter>:
       
-        <programlisting>
+          <programlisting>
 public class Other {
   &hellip;
   public bad(final C cObject) {
     cObject.m(); // bad callsite!
   }
-}
-        </programlisting>
-      </para>
-    </sect1>
+} 
+          </programlisting>
+        </para>
+      </sect1>
     
-    <sect1 id="extended-model2">
-      <title>Extending the Model: Aggregating Arrays and Other
-      Objects</title>
+      <sect1 id="extended-model2">
+        <title>Extending the Model: Aggregating Arrays and Other
+        Objects</title>
       
-      <para>An array in Java is a separate object from the object whose
-      field refers to the array. Protecting an array-typed field thus
-      protects <emphasis>the reference to the array only</emphasis>. It
-      is not sufficient to extend the protection to the elements of the
-      array: we also need to know that the array object is accessible
-      through that field only. If the array could be referenced by
-      through other fields, then it would still be possible to access it
-      concurrently because the locking model could be bypassed by
-      accessing the array through a different field.</para>
+        <para>An array in Java is a separate object from the object
+        whose field refers to the array. Protecting an array-typed field
+        thus protects <emphasis>the reference to the array
+        only</emphasis>. It is not sufficient to extend the protection
+        to the elements of the array: we also need to know that the
+        array object is accessible through that field only. If the array
+        could be referenced by through other fields, then it would still
+        be possible to access it concurrently because the locking model
+        could be bypassed by accessing the array through a different
+        field.</para>
 
-      <para>Much of the time, however, it is not intended that an array
-      is aliased; in these cases, the array can be incorporated into the
-      state of the object that references it.  We call this
-      <emphasis>aggregating state</emphasis>. An array is aggregated
-      into the object that references it by adding a pair of annotations
-      to the field that references the array:
+        <para>Much of the time, however, it is not intended that an
+        array is aliased; in these cases, the array can be incorporated
+        into the state of the object that references it.  We call this
+        <emphasis>aggregating state</emphasis>. An array is aggregated
+        into the object that references it by adding a pair of
+        annotations to the field that references the array:
       
-        <programlisting>
+          <programlisting>
 <emphasis>@Unique</emphasis>
 <emphasis>@Aggregate("Instance into Instance")</emphasis>
 private Object[] myArray;
-        </programlisting>
+          </programlisting>
       
-      This does two things:
+        This does two things:
 
-        <orderedlist>
-          <listitem><para>Declares the programmer’s intent that the
-          field is the only field that references the array object it
-          references.  A separate analyses is used to assure that a
-          <classname>@Unique</classname> field is never aliased.  A new
-          expression always creates an unaliased object, so it is always
-          safe to assign the results of a new expression to a
-          <classname>@Unique</classname> field.</para></listitem>
+          <orderedlist>
+            <listitem><para>Declares the programmer’s intent that the
+            field is the only field that references the array object it
+            references.  A separate analyses is used to assure that a
+            <classname>@Unique</classname> field is never aliased.  A
+            new expression always creates an unaliased object, so it is
+            always safe to assign the results of a new expression to a
+            <classname>@Unique</classname> field.</para></listitem>
   
-          <listitem><para>Extends the state of the referencing object to
-          include the elements of the array (recall that the
-          <structfield>Instance</structfield> region is the
-          non-<code>static</code> state of an object).  State
-          aggregation is not automatically transitive; thus if the array
-          elements are objects, those objects are not aggregated, only
-          the references to them.</para></listitem>
-        </orderedlist>
-      </para>
+            <listitem><para>Extends the state of the referencing object
+            to include the elements of the array (recall that the
+            <structfield>Instance</structfield> region is the
+            non-<code>static</code> state of an object).  State
+            aggregation is not automatically transitive; thus if the
+            array elements are objects, those objects are not
+            aggregated, only the references to them.</para></listitem>
+          </orderedlist>
+        </para>
       
-      <para>In the example below, the constructor
-      <function>Buffer(Object[])</function> does not assure because it
-      assigns an array to field buf that might be aliased, conflicting
-      with the <classname>@Unique</classname> annotation on the field. The
-      assignment to buf in the constructor
-      <function>Buffer(int)</function> assures because it assigns a fresh
-      array to the field.  The lock <structfield>Lock</structfield> does not
-      need to be held to access the field <structfield>buf</structfield> because
-      it is <code>final</code>. The implementation of
-      <function>copyContents()</function> does not assure because even
-      though <structfield>Lock</structfield> does not need to be held to access
-      the field <structfield>buf</structfield> or the field
-      <structfield>length</structfield>, <structfield>Lock</structfield> must be held to
-      access the contents of the array referenced by
-      <structfield>buf</structfield>.  Analysis knows that the method
-      <function>System.arraycopy()</function> reads from the
-      <structfield>Instance</structfield> region of its first parameter, and
-      thus via aggregation, reads from the <structfield>Instance</structfield>
-      region of the <classname>Buffer</classname> object.  (This analysis is
-      informed by effects analysis and annotations, described in
-      <xref linkend="method-effects"/>.)</para>
+        <para>In the example below, the constructor
+        <function>Buffer(Object[])</function> does not assure because it
+        assigns an array to field buf that might be aliased, conflicting
+        with the <classname>@Unique</classname> annotation on the field.
+        The assignment to buf in the constructor
+        <function>Buffer(int)</function> assures because it assigns a
+        fresh array to the field.  The lock
+        <structfield>Lock</structfield> does not need to be held to
+        access the field <structfield>buf</structfield> because it is
+        <code>final</code>. The implementation of
+        <function>copyContents()</function> does not assure because even
+        though <structfield>Lock</structfield> does not need to be held
+        to access the field <structfield>buf</structfield> or the field
+        <structfield>length</structfield>,
+        <structfield>Lock</structfield> must be held to access the
+        contents of the array referenced by
+        <structfield>buf</structfield>.  Analysis knows that the method
+        <function>System.arraycopy()</function> reads from the
+        <structfield>Instance</structfield> region of its first
+        parameter, and thus via aggregation, reads from the
+        <structfield>Instance</structfield> region of the
+        <classname>Buffer</classname> object.  (This analysis is
+        informed by effects analysis and annotations, described in <xref
+        linkend="method-effects"/>.)</para>
       
-      <programlisting>
+        <programlisting>
 <emphasis>@RegionLock("Lock is this protects Instance")</emphasis>
 public class Buffer {
   <emphasis>@Unique</emphasis>
@@ -272,61 +280,62 @@ public class Buffer {
     return copy;
   }
 }
-      </programlisting>
+        </programlisting>
       
-      <para>Aggregation applies not only to arrays, but to objects in
-      general.  So any object-typed field can be declared
-      <classname>@Unique</classname> and can then have its state aggregated
-      into the state of its referring object. </para>
-    </sect1>
+        <para>Aggregation applies not only to arrays, but to objects in
+        general.  So any object-typed field can be declared
+        <classname>@Unique</classname> and can then have its state
+        aggregated into the state of its referring object. </para>
+      </sect1>
     
-    <sect1 id="constructors">
-      <title>Constructors</title>
+      <sect1 id="constructors">
+        <title>Constructors</title>
       
-      <para>Constructors cannot be declared
-      <code>synchronized</code> in Java, but our assurance
-      requires that fields protected by a lock be accessed only when
-      that lock is held.  So how do we keep assurance from failing when
-      analyzing a constructor?  We rely on the fact that during object
-      construction, an object is almost always accessed by a single
-      thread only: the thread that invoked the constructor. When this is
-      the case, we can proceed as if the locks for the object’s state
-      are already held. The programmer can declare this <emphasis>single
-      threaded intent</emphasis> by annotating the constructor:
+        <para>Constructors cannot be declared <code>synchronized</code>
+        in Java, but our assurance requires that fields protected by a
+        lock be accessed only when that lock is held.  So how do we keep
+        assurance from failing when analyzing a constructor?  We rely on
+        the fact that during object construction, an object is almost
+        always accessed by a single thread only: the thread that invoked
+        the constructor. When this is the case, we can proceed as if the
+        locks for the object’s state are already held. The programmer
+        can declare this <emphasis>single threaded intent</emphasis> by
+        annotating the constructor:
       
-        <programlisting>
+          <programlisting>
 <emphasis>@SingleThreaded</emphasis>
 <emphasis>@Borrowed("this")</emphasis>
 public C(&hellip;) { &hellip; }
-        </programlisting>
-      </para>
+          </programlisting>
+        </para>
       
-      <para>One way that analysis can assure the single-threadedness of
-      a constructor is to leverage the assurance that the constructor
-      <emphasis>borrows</emphasis> the constructed object&mdash;that is,
-      that it does not create an alias to it. (The
-      <classname>@Borrowed</classname> annotation is further described
-      below.) In particular, when analysis knows that the constructor
-      does not create such an alias, it also knows that it is impossible
-      for another thread to obtain a reference to the object under
-      construction during the constructor’s execution.</para>
+        <para>One way that analysis can assure the single-threadedness
+        of a constructor is to leverage the assurance that the
+        constructor <emphasis>borrows</emphasis> the constructed
+        object&mdash;that is, that it does not create an alias to it.
+        (The <classname>@Borrowed</classname> annotation is further
+        described below.) In particular, when analysis knows that the
+        constructor does not create such an alias, it also knows that it
+        is impossible for another thread to obtain a reference to the
+        object under construction during the constructor’s
+        execution.</para>
       
-      <para>Annotating a constructor as being
-      <classname>@SingleThreaded</classname> requires that the
-      super-constructor it invokes is also
-      <classname>@SingleThreaded</classname>.</para>
+        <para>Annotating a constructor as being
+        <classname>@SingleThreaded</classname> requires that the
+        super-constructor it invokes is also
+        <classname>@SingleThreaded</classname>.</para>
 
-      <sect2 id="field-initialization">
-        <title>Field Initialization and Implicit Constructors</title>
+        <sect2 id="field-initialization">
+          <title>Field Initialization and Implicit Constructors</title>
         
-        <para>Field initializers are part of the object construction
-        process, and fields that have initializers are considered to be
-        written to.  Instance initializer blocks are also part of the
-        object construction process and need to be assured accordingly. 
-        This can be become problematic when a class does not have an
-        explicit constructor:
+          <para>Field initializers are part of the object construction
+          process, and fields that have initializers are considered to
+          be written to.  Instance initializer blocks are also part of
+          the object construction process and need to be assured
+          accordingly. This can be become problematic when a class does
+          not have an explicit constructor:
         
-          <programlisting>
+            <programlisting>
 @RegionLock("Lock is this protects Instance")
 public class C {
   private int f = 1;
@@ -343,15 +352,15 @@ public class C {
     g += 1;
   }
 }
-          </programlisting>
+            </programlisting>
         
-        Lock assurance will not assure the correct use of
-        <structfield>Lock</structfield> because the accesses to fields
-        <structfield>f</structfield> and <structfield>g</structfield> during
-        construction are not protected.  One way to fix this is to make
-        the constructor explicit and annotate it:
+          Lock assurance will not assure the correct use of
+          <structfield>Lock</structfield> because the accesses to fields
+          <structfield>f</structfield> and <structfield>g</structfield>
+          during construction are not protected.  One way to fix this is
+          to make the constructor explicit and annotate it:
         
-          <programlisting>
+            <programlisting>
 @RegionLock("Lock is this protects Instance")
 public class C {
   &hellip;
@@ -360,16 +369,17 @@ public class C {
   public C() {}
   &hellip;
 }
-          </programlisting>
-        </para>
+            </programlisting>
+          </para>
         
-        <para>Alternatively, if it is undesirable to insert the
-        constructor explicitly, the constructor can still be annotated
-        using a <emphasis>scoped promise</emphasis>.  These are
-        described in more detail below, but for the case of annotating
-        an implicit constructor, we would annotate the class as follows:
+          <para>Alternatively, if it is undesirable to insert the
+          constructor explicitly, the constructor can still be annotated
+          using a <emphasis>scoped promise</emphasis>.  These are
+          described in more detail below, but for the case of annotating
+          an implicit constructor, we would annotate the class as
+          follows:
         
-          <programlisting>
+            <programlisting>
 @RegionLock("Lock is this protects Instance")
 <emphasis>@Promise({</emphasis>
   <emphasis>"'@SingleThreaded' for new()",</emphasis>
@@ -377,55 +387,59 @@ public class C {
 public class C {
   &hellip;
 }
-          </programlisting>
-        </para>
-      </sect2>
-    </sect1>
+            </programlisting>
+          </para>
+        </sect2>
+      </sect1>
     
-    <sect1 id="self-protected-objects">
-      <title>Self-Protected Objects</title>
+      <sect1 id="self-protected-objects">
+        <title>Self-Protected Objects</title>
       
-      <para>Region aggregation, described above, is one technique that
-      can be used to deal with the fact that fields
-      <emphasis>reference</emphasis> objects.  But it is not always
-      possible to use region aggregation to simplify reasoning about
-      protected state because a field may be aliased.  In such cases,
-      the tool may produce warnings that a reference of the form
-      <code>e.f.g</code>, where <structfield>f</structfield> is field
-      protected by a lock, is a “possibly unsafe reference to protected
-      shared state.”  The message is meant to remind the programmer that
-      although the field <structfield>f</structfield> is protected by a lock,
-      this lock does not also protect the field <structfield>g</structfield> of
-      the referenced object.  (If field <structfield>f</structfield> is of class
-      <classname>C</classname> and class <classname>C</classname> declares that
-      <structfield>g</structfield> is protected by a lock then this warning is
-      not produced: the tool instead attempts to assure that the
-      appropriate lock for <structfield>g</structfield> is held.)  There are
-      situations where invoking a method via <code>e.f.m()</code>
-      will also produce a the above warning.</para>
+        <para>Region aggregation, described above, is one technique that
+        can be used to deal with the fact that fields
+        <emphasis>reference</emphasis> objects.  But it is not always
+        possible to use region aggregation to simplify reasoning about
+        protected state because a field may be aliased.  In such cases,
+        the tool may produce warnings that a reference of the form
+        <code>e.f.g</code>, where <structfield>f</structfield> is field
+        protected by a lock, is a “possibly unsafe reference to
+        protected shared state.”  The message is meant to remind the
+        programmer that although the field <structfield>f</structfield>
+        is protected by a lock, this lock does not also protect the
+        field <structfield>g</structfield> of the referenced object. 
+        (If field <structfield>f</structfield> is of class
+        <classname>C</classname> and class <classname>C</classname>
+        declares that <structfield>g</structfield> is protected by a
+        lock then this warning is not produced: the tool instead
+        attempts to assure that the appropriate lock for
+        <structfield>g</structfield> is held.)  There are situations
+        where invoking a method via <code>e.f.m()</code> will also
+        produce a the above warning.</para>
       
-      <para>Region aggregation and lock declaration (as described above)
-      can be used to suppress these warnings.  In general, we can
-      suppress this warning for a field <structfield>f</structfield> that
-      references objects of class <classname>C</classname> by annotating
-      class <classname>C</classname> with <classname>@SelfProtected</classname>.
-       This <emphasis>unchecked</emphasis> annotation declares that
-      instances of the class/interface are meant to be “thread safe.” 
-      Exactly what is meant by this is presently unspecified; the
-      annotation is intended to encompass non&ndash;lock-based
-      protections schemes such as single-threadedness and
-      immutability.</para>
+        <para>Region aggregation and lock declaration (as described
+        above) can be used to suppress these warnings.  In general, we
+        can suppress this warning for a field
+        <structfield>f</structfield> that references objects of class
+        <classname>C</classname> by annotating class
+        <classname>C</classname> with
+        <classname>@SelfProtected</classname>. This
+        <emphasis>unchecked</emphasis> annotation declares that
+        instances of the class/interface are meant to be “thread safe.”
+        Exactly what is meant by this is presently unspecified; the
+        annotation is intended to encompass non&ndash;lock-based
+        protections schemes such as single-threadedness and
+        immutability.</para>
       
-      <important>
-        <para>No analysis is performed on classes declared to be
-        self-protected to assure that the implementation is thread
-        safe.</para>
-      </important>
+        <important>
+          <para>No analysis is performed on classes declared to be
+          self-protected to assure that the implementation is thread
+          safe.</para>
+        </important>
       
-      <para>As an example, let us consider the simple rational numbers
-      class below:
+        <para>As an example, let us consider the simple rational numbers
+        class below:
 
-        <programlisting>
+          <programlisting>
 public class Rational {
   private final int numerator;
   private final int denominator;
@@ -438,12 +452,12 @@ public class Rational {
   public int getNumerator() { return n; }
   public int getDenominator() { return d; } 
 }
-        </programlisting>
+          </programlisting>
       
-      Suppose we have a client class that has a lock-protected
-      reference to a <classname>Rational</classname> object:
+        Suppose we have a client class that has a lock-protected
+        reference to a <classname>Rational</classname> object:
       
-        <programlisting>
+          <programlisting>
 @RegionLock("Lock is this protects Instance")
 public class C {
   &hellip;
@@ -454,72 +468,71 @@ public class C {
     &hellip;
   }
 }
-        </programlisting>
-      </para>
+          </programlisting>
+        </para>
       
-      <para>JSure is going to generate a warning attached to call
-      <code>r.getNumerator()</code> that <computeroutput>Receiver r may be a
-      shared unprotected object</computeroutput>.  That is, we may be doing something
-      unsafe: accessing the state of the rational object in multiple
-      threads without protection.  But in this case, we know that
-      <classname>Rational</classname> objects are immutable, and thus thread
-      safe, so we can suppress this warning by annotating the
-      <classname>Rational</classname> class:
+        <para>JSure is going to generate a warning attached to call
+        <code>r.getNumerator()</code> that <computeroutput>Receiver r
+        may be a shared unprotected object</computeroutput>.  That is,
+        we may be doing something unsafe: accessing the state of the
+        rational object in multiple threads without protection.  But in
+        this case, we know that <classname>Rational</classname> objects
+        are immutable, and thus thread safe, so we can suppress this
+        warning by annotating the <classname>Rational</classname> class:
       
-        <programlisting>
+          <programlisting>
 <emphasis>@SelfProtected</emphasis>
 public class Rational {
   &hellip;
 }
-        </programlisting>
-      </para>
-    </sect1>
-  </chapter>
+          </programlisting>
+        </para>
+      </sect1>
+    </chapter>
   
-  <chapter id="advanced-locks">
-    <title>Advanced Lock Models</title>
+    <chapter id="advanced-locks">
+      <title>Advanced Lock Models</title>
     
-    <sect1 id="regions-and-locks">
-      <title>Regions and Locks</title>
+      <sect1 id="regions-and-locks">
+        <title>Regions and Locks</title>
       
-      <para>The lock annotation <classname>@RegionLock</classname> actually
-      associates a lock with a region.  A <emphasis>region</emphasis> is
-      a named, hierarchical abstraction of state.  All fields are
-      regions, and thus a region is a named, extensible set of fields. 
-      Using annotations, the programmer can declare new abstract regions
-      as members of a class, and then associate different locks with
-      different regions.  The state of an object may thus be partitioned
-      into multiple abstract regions, each protected by a different
-      lock, enabling concurrent access to different segments of the
-      object’s state.</para>
+        <para>The lock annotation <classname>@RegionLock</classname>
+        actually associates a lock with a region.  A
+        <emphasis>region</emphasis> is a named, hierarchical abstraction
+        of state.  All fields are regions, and thus a region is a named,
+        extensible set of fields. Using annotations, the programmer can
+        declare new abstract regions as members of a class, and then
+        associate different locks with different regions.  The state of
+        an object may thus be partitioned into multiple abstract
+        regions, each protected by a different lock, enabling concurrent
+        access to different segments of the object’s state.</para>
 
-      <sect2 id="declaring-regions">
-        <title>Declaring New Regions</title>
+        <sect2 id="declaring-regions">
+          <title>Declaring New Regions</title>
         
-        <para>New regions are declared by annotating a class with
+          <para>New regions are declared by annotating a class with
         
-          <synopsis>
+            <synopsis>
 @Region("<replaceable>visibility</replaceable> <replaceable>Region</replaceable> extends <replaceable>Parent</replaceable>")
-          </synopsis>
+            </synopsis>
         
-        which declares a new region
-        <replaceable>Region</replaceable> which is a subregion of
-        <replaceable>Parent</replaceable>.  A region may be declared to
-        be <code>static</code>, and may have any of the standard
-        Java visibility modifiers (or none).  A
-        <code>static</code> region must extend another
-        <code>static</code> region; non-<code>static</code>
-        regions may extend <code>static</code> regions.  If no
-        parent region is specified, <code>Instance</code> is used
-        for non-<code>static</code> regions; the root
-        region&mdash;the <code>static</code> region
-        <structfield>All</structfield>&mdash;is used for
-        <code>static</code> regions.  Java only allows a single
-        annotation of each type to be used at time, so to declare more
-        than one region on a class, the <classname>@Regions</classname>
-        annotation is used:
+          which declares a new region <replaceable>Region</replaceable>
+          which is a subregion of <replaceable>Parent</replaceable>.  A
+          region may be declared to be <code>static</code>, and may have
+          any of the standard Java visibility modifiers (or none).  A
+          <code>static</code> region must extend another
+          <code>static</code> region; non-<code>static</code> regions
+          may extend <code>static</code> regions.  If no parent region
+          is specified, <code>Instance</code> is used for
+          non-<code>static</code> regions; the root region&mdash;the
+          <code>static</code> region
+          <structfield>All</structfield>&mdash;is used for
+          <code>static</code> regions.  Java only allows a single
+          annotation of each type to be used at time, so to declare more
+          than one region on a class, the
+          <classname>@Regions</classname> annotation is used:
         
-          <programlisting>
+            <programlisting>
 <emphasis>@Regions</emphasis>({
   // region with default visibility, extends Instance
   @Region("region1"),
@@ -528,155 +541,154 @@ public class Rational {
   // public instance region
   @Region("public region3 extends region2")
 })
-          </programlisting>
-        </para>
+            </programlisting>
+          </para>
         
-        <para>Unless otherwise specified, a <code>static</code>
-        field is in the region <structfield>All</structfield>, and a
-        non-<code>static</code> field is in the region
-        <structfield>Instance</structfield>.  To place a field in a
-        user-declared region, the <classname>@InRegion</classname> annotation
-        is used:
+          <para>Unless otherwise specified, a <code>static</code> field
+          is in the region <structfield>All</structfield>, and a
+          non-<code>static</code> field is in the region
+          <structfield>Instance</structfield>.  To place a field in a
+          user-declared region, the <classname>@InRegion</classname>
+          annotation is used:
         
-          <programlisting>
+            <programlisting>
 @Region("protected NewRegion")
 public class C {
   <emphasis>@InRegion("NewRegion")</emphasis>
   private int f;
   &hellip;
 }
-          </programlisting>
-        </para>
+            </programlisting>
+          </para>
         
-        <para>As with abstract regions, a <code>static</code>
-        field may only be placed into a <code>static</code>
-        region.  Non-<code>static</code> fields may be placed into
-        either <code>static</code> or
-        non-<code>static</code> regions.</para>
-      </sect2>
+          <para>As with abstract regions, a <code>static</code> field
+          may only be placed into a <code>static</code> region. 
+          Non-<code>static</code> fields may be placed into either
+          <code>static</code> or non-<code>static</code> regions.</para>
+        </sect2>
       
-      <sect2 id="locks-with-regions">
-        <title>Associating Locks with Regions</title>
+        <sect2 id="locks-with-regions">
+          <title>Associating Locks with Regions</title>
         
-        <para>The general form of the <classname>@RegionLock</classname> annotation is
+          <para>The general form of the <classname>@RegionLock</classname> annotation is
         
-          <synopsis>
+            <synopsis>
 @RegionLock("<replaceable>LockName</replaceable> is <replaceable>Lock</replaceable> protects <replaceable>Region</replaceable>")
-          </synopsis>
+            </synopsis>
         
-        where <replaceable>LockName</replaceable> is a
-        programmer-declared name for the lock,
-        <replaceable>Lock</replaceable> is a reference to the lock
-        object, and <replaceable>Region</replaceable> is the name of a
-        region.  More specifically, <replaceable>Lock</replaceable> must
-        be one of the following:
+          where <replaceable>LockName</replaceable> is a
+          programmer-declared name for the lock,
+          <replaceable>Lock</replaceable> is a reference to the lock
+          object, and <replaceable>Region</replaceable> is the name of a
+          region.  More specifically, <replaceable>Lock</replaceable>
+          must be one of the following:
 
-          <variablelist>
-            <varlistentry>
-              <term><varname>this</varname></term>
+            <variablelist>
+              <varlistentry>
+                <term><varname>this</varname></term>
             
-              <listitem><para>The object itself is acquired to protect
-              the state.</para></listitem>
-            </varlistentry>
+                <listitem><para>The object itself is acquired to protect
+                the state.</para></listitem>
+              </varlistentry>
           
-            <varlistentry>
+              <varlistentry>
               <term>A field declared in the class being annotated or an
-              ancestor of the class being annotated that is visible
-              within the class, for example, a protected field from an
-              ancestor.</term>
-      
-              <listitem><para>The field must refer to an object.  The
-              field must be <code>final</code>: otherwise the lock
-              object referenced by the field could change.  The field
-              may be <code>static</code> or instance.</para></listitem>
-            </varlistentry>
-          
-            <varlistentry>
-              <term><structfield>class</structfield></term>
-            
-              <listitem><para>The unique <classname>Class</classname>
-              object referenced by the <code>static</code> pseudo-field
-              <structfield>class</structfield>.  (This is the object
-              that is locked by <code>static synchronized</code>
-              methods.)</para></listitem>
-            </varlistentry>
-            
-            <varlistentry>
-              <term>A field of an outer class.</term>
-            
-              <listitem><para>If a class is declared inside class
-              <classname>Outer</classname>, and wants to declare that
-              the field <structfield>f</structfield> of the
-              <classname>Outer</classname> instance that is the
-              container for the inner class's instance protects a region
-              of the inner class, then the lock reference is given by
-              <code>Outer.this.f</code>.</para>
-      
-              <para>Although the tool supports declaring locks that are
-              the fields of outer classes, it is not presently possible
-              to assure their correct use.  This is because of
-              deficiencies in both our internal representation and with
-              Java syntax. Given a variable <varname>v</varname> that
-              refers to an instance of a non-<code>static</code> inner
-              class, there is no syntactic expression that evaluates to
-              the “outer” object of that instance, that is, the object
-              referenced by <varname>o</varname> in the expression
-              <code>o.new Inner()</code>.</para>
-          
-              <para>We allow the declaration of such locks, even though
-              they cannot be assured, because we have encountered them
-              in real code and it is nice to be able to document the
-              design intent.</para></listitem>
-            </varlistentry>
-          </variablelist>
-        </para>
+                ancestor of the class being annotated that is visible
+                within the class, for example, a protected field from an
+                ancestor.</term>
         
-        <para>A region may only be associated with a lock declared in a
-        class <classname>C</classname> if the region doesn't contain any
-        fields from superclasses of <classname>C</classname>.  This is
-        trivially true if the region is declared in
-        <classname>C</classname>.  The region may have abstract sub-regions,
-        but they also cannot contain any fields.  Specifically, the
-        region (and any of its subregions) cannot contain any fields,
-        when considered from the point of view of the class in which the
-        lock declaration appears.  (Indeed, otherwise you could never
-        associate a lock with a region.)  This restriction exists to
-        prevent unsoundness.  Suppose class <classname>C</classname>
-        declares a region <structfield>R</structfield> and populates it with
-        field <structfield>f</structfield>.  Suppose <classname>D</classname>
-        extends <classname>C</classname>, adds field <structfield>g</structfield> to
-        region <structfield>R</structfield>, and also associates
-        <structfield>R</structfield> with a lock.  The problem is, in contexts
-        where a <classname>D</classname> object is viewed as a
-        <classname>C</classname>, such as when a <classname>D</classname> object
-        is passed a method with a <classname>C</classname> parameter,
-        analysis cannot enforce <classname>D</classname>'s locking policy. 
-        Thus, fields in <structfield>R</structfield> that should be protected
-        might not be, and analysis would not complain.</para>
-          
-        <para>We allow the protection of an empty region to be delayed
-        because no state can be accessed through that region by
-        “unprotected” superclasses.  Any actual code that accesses state
-        in that region must access the region through a subclass that
-        does know about the protection, and therefore analysis can
-        enforce the protection.</para>
-          
-        <para>A <code>static</code> region must be protected by a
-        <code>static</code> field or by
-        <structfield>class</structfield>.</para>
-
-        <para>A region may be associated with a lock only if none of its
-        ancestors are associated with a lock.  This prevents a region
-        from being protected by multiple locks.</para>
-      </sect2>
-      
-      <sect2 id="multiple-locks">
-        <title>Declaring Multiple Locks</title>
+                <listitem><para>The field must refer to an object.  The
+                field must be <code>final</code>: otherwise the lock
+                object referenced by the field could change.  The field
+                may be <code>static</code> or instance.</para></listitem>
+              </varlistentry>
+            
+              <varlistentry>
+                <term><structfield>class</structfield></term>
+              
+                <listitem><para>The unique <classname>Class</classname>
+                object referenced by the <code>static</code> pseudo-field
+                <structfield>class</structfield>.  (This is the object
+                that is locked by <code>static synchronized</code>
+                methods.)</para></listitem>
+              </varlistentry>
+              
+              <varlistentry>
+                <term>A field of an outer class.</term>
+              
+                <listitem><para>If a class is declared inside class
+                <classname>Outer</classname>, and wants to declare that
+                the field <structfield>f</structfield> of the
+                <classname>Outer</classname> instance that is the
+                container for the inner class's instance protects a region
+                of the inner class, then the lock reference is given by
+                <code>Outer.this.f</code>.</para>
         
-        <para>Multiple locks are declared as members of a class my using
-        the <classname>@RegionLocks</classname> annotation:</para>
+                <para>Although the tool supports declaring locks that are
+                the fields of outer classes, it is not presently possible
+                to assure their correct use.  This is because of
+                deficiencies in both our internal representation and with
+                Java syntax. Given a variable <varname>v</varname> that
+                refers to an instance of a non-<code>static</code> inner
+                class, there is no syntactic expression that evaluates to
+                the “outer” object of that instance, that is, the object
+                referenced by <varname>o</varname> in the expression
+                <code>o.new Inner()</code>.</para>
+            
+                <para>We allow the declaration of such locks, even though
+                they cannot be assured, because we have encountered them
+                in real code and it is nice to be able to document the
+                design intent.</para></listitem>
+              </varlistentry>
+            </variablelist>
+          </para>
+          
+          <para>A region may only be associated with a lock declared in a
+          class <classname>C</classname> if the region doesn't contain any
+          fields from superclasses of <classname>C</classname>.  This is
+          trivially true if the region is declared in
+          <classname>C</classname>.  The region may have abstract sub-regions,
+          but they also cannot contain any fields.  Specifically, the
+          region (and any of its subregions) cannot contain any fields,
+          when considered from the point of view of the class in which the
+          lock declaration appears.  (Indeed, otherwise you could never
+          associate a lock with a region.)  This restriction exists to
+          prevent unsoundness.  Suppose class <classname>C</classname>
+          declares a region <structfield>R</structfield> and populates it with
+          field <structfield>f</structfield>.  Suppose <classname>D</classname>
+          extends <classname>C</classname>, adds field <structfield>g</structfield> to
+          region <structfield>R</structfield>, and also associates
+          <structfield>R</structfield> with a lock.  The problem is, in contexts
+          where a <classname>D</classname> object is viewed as a
+          <classname>C</classname>, such as when a <classname>D</classname> object
+          is passed a method with a <classname>C</classname> parameter,
+          analysis cannot enforce <classname>D</classname>'s locking policy. 
+          Thus, fields in <structfield>R</structfield> that should be protected
+          might not be, and analysis would not complain.</para>
+            
+          <para>We allow the protection of an empty region to be delayed
+          because no state can be accessed through that region by
+          “unprotected” superclasses.  Any actual code that accesses state
+          in that region must access the region through a subclass that
+          does know about the protection, and therefore analysis can
+          enforce the protection.</para>
+            
+          <para>A <code>static</code> region must be protected by a
+          <code>static</code> field or by
+          <structfield>class</structfield>.</para>
+  
+          <para>A region may be associated with a lock only if none of its
+          ancestors are associated with a lock.  This prevents a region
+          from being protected by multiple locks.</para>
+        </sect2>
         
-        <programlisting>
+        <sect2 id="multiple-locks">
+          <title>Declaring Multiple Locks</title>
+          
+          <para>Multiple locks are declared as members of a class my using
+          the <classname>@RegionLocks</classname> annotation:</para>
+          
+          <programlisting>
 @Regions({
   @Region("public Location"),
   @Region("public Appearance")
@@ -689,26 +701,26 @@ public class Sprite {
   protected static Object appLock = new Object();
   &hellip;
 }
-        </programlisting>
-      </sect2>
-    </sect1>
-    
-    <sect1 id="returning-locks">
-      <title>Returning Locks</title>
+          </programlisting>
+        </sect2>
+      </sect1>
       
-      <para>A method may be declared to return a particular lock using
-      the <classname>@ReturnsLock</classname> annotation.  This allows an
-      implementation to provide access to a lock object without
-      revealing how that lock is “implemented.”  That is, the identity
-      of the field that refers to the lock is kept hidden by the
-      implementation, although the lock object is made accessible to
-      clients.  The <classname>@ReturnsLock</classname> annotation is fully
-      checked: it is checked that the method actually returns the object
-      representing the lock it says it returns.  The following code
-      fragment shows an example use of the
-      <classname>@ReturnsLock</classname> annotation.</para>
-      
-      <programlisting>
+      <sect1 id="returning-locks">
+        <title>Returning Locks</title>
+        
+        <para>A method may be declared to return a particular lock using
+        the <classname>@ReturnsLock</classname> annotation.  This allows an
+        implementation to provide access to a lock object without
+        revealing how that lock is “implemented.”  That is, the identity
+        of the field that refers to the lock is kept hidden by the
+        implementation, although the lock object is made accessible to
+        clients.  The <classname>@ReturnsLock</classname> annotation is fully
+        checked: it is checked that the method actually returns the object
+        representing the lock it says it returns.  The following code
+        fragment shows an example use of the
+        <classname>@ReturnsLock</classname> annotation.</para>
+        
+        <programlisting>
 @RegionLock("DataLock is lock protects DataRegion")
 @Region("protected DataRegion")
 public class C {
@@ -726,40 +738,40 @@ public class C {
     }
   }
 }
-      </programlisting>
-
-      <para>An example of this sort of thing in production code is the
-      method <function>getTreeLock()</function> in the JDK class
-      <classname>java.awt.Container</classname>.</para>
-    </sect1>
-    
-    <sect1 id="policy-locks">
-      <title>Policy Locks</title>
+        </programlisting>
+  
+        <para>An example of this sort of thing in production code is the
+        method <function>getTreeLock()</function> in the JDK class
+        <classname>java.awt.Container</classname>.</para>
+      </sect1>
       
-        <para>Sometimes there is no obvious state to associate with a
-        lock.  That is, a lock is being used to enforce a higher-level
-        invariant that requires a section of code to execute atomically
-        with respect to some other section of code.  We call locks used
-        for such a purpose <emphasis>policy locks</emphasis>.  They can
-        be declared using the class annotation
+      <sect1 id="policy-locks">
+        <title>Policy Locks</title>
         
-          <synopsis>
+          <para>Sometimes there is no obvious state to associate with a
+          lock.  That is, a lock is being used to enforce a higher-level
+          invariant that requires a section of code to execute atomically
+          with respect to some other section of code.  We call locks used
+          for such a purpose <emphasis>policy locks</emphasis>.  They can
+          be declared using the class annotation
+          
+            <synopsis>
 @PolicyLock("<replaceable>LockName</replaceable> is <replaceable>Lock</replaceable>")
-          </synopsis>
-        
-        This annotation is basically the same as the
-        <classname>@RegionLock</classname> annotation except that it does
-        not associate the lock with any particular region of state.  The
-        tool does not provide any assurance about the uses of policy
-        locks.  The annotation is primarily used to document the intent
-        behind the lock, and to suppress tool warnings about a
-        particular lock object being an unknown lock.</para>
-        
-        <para>One common use for policy locks is to enforce an
-        "initialize once" invariant.  Consider this example from
-        <classname>java.util.logging.Logger</classname>:
-        
-          <programlisting>
+            </synopsis>
+          
+          This annotation is basically the same as the
+          <classname>@RegionLock</classname> annotation except that it does
+          not associate the lock with any particular region of state.  The
+          tool does not provide any assurance about the uses of policy
+          locks.  The annotation is primarily used to document the intent
+          behind the lock, and to suppress tool warnings about a
+          particular lock object being an unknown lock.</para>
+          
+          <para>One common use for policy locks is to enforce an
+          "initialize once" invariant.  Consider this example from
+          <classname>java.util.logging.Logger</classname>:
+          
+            <programlisting>
 <emphasis>@PolicyLock("InitLock is class")</emphasis>
 public class Logger {
   &hellip;
@@ -774,145 +786,145 @@ public class Logger {
    return result;
   }
 }
-        </programlisting>
-      </para>
+          </programlisting>
+        </para>
+        
+        <para>First, note the <code>static</code> method does not
+        change any state directly; it is difficult so say what state the
+        lock <code>Logger.class</code> is protecting.  This is
+        because the lock is ensuring that the method
+        <function>getLogger</function> executes atomically with respect to
+        itself.  If two threads were allowed to simultaneously execute the
+        method it would be possible to create two new
+        <classname>Logger</classname> objects with the same name, but only one
+        of them would be registered in the global log registry.  This
+        would cause problems later on during the use of the loggers.  The
+        synchronization ensures that only one <classname>Logger</classname>
+        object is ever created for any given name.</para>
+      </sect1>
+    </chapter>
       
-      <para>First, note the <code>static</code> method does not
-      change any state directly; it is difficult so say what state the
-      lock <code>Logger.class</code> is protecting.  This is
-      because the lock is ensuring that the method
-      <function>getLogger</function> executes atomically with respect to
-      itself.  If two threads were allowed to simultaneously execute the
-      method it would be possible to create two new
-      <classname>Logger</classname> objects with the same name, but only one
-      of them would be registered in the global log registry.  This
-      would cause problems later on during the use of the loggers.  The
-      synchronization ensures that only one <classname>Logger</classname>
-      object is ever created for any given name.</para>
-    </sect1>
-  </chapter>
-    
-  <chapter id="method-effects">
-    <title>Method Effects</title>
-      
-    <para>Regions provide an abstract way to name the state of an
-    object. The effects of a method&mdash;the state read and written
-    during the execution of that method&mdash;may be expressed in terms
-    of regions. Effects are useful when determining whether code can be
-    reordered by a refactoring, and are also necessary to support the
-    analyses that assure <classname>@Unique</classname> and
-    <classname>@RegionLock</classname> annotations.</para>
-
-    <sect1 id="declaring-effects">
-      <title>Declaring Effects</title>
-
-      <para>The effects of a constructor or method are declared using
-      the <classname>@RegionEffects</classname> annotation:
-      
-        <synopsis>
+    <chapter id="method-effects">
+      <title>Method Effects</title>
+        
+      <para>Regions provide an abstract way to name the state of an
+      object. The effects of a method&mdash;the state read and written
+      during the execution of that method&mdash;may be expressed in terms
+      of regions. Effects are useful when determining whether code can be
+      reordered by a refactoring, and are also necessary to support the
+      analyses that assure <classname>@Unique</classname> and
+      <classname>@RegionLock</classname> annotations.</para>
+  
+      <sect1 id="declaring-effects">
+        <title>Declaring Effects</title>
+  
+        <para>The effects of a constructor or method are declared using
+        the <classname>@RegionEffects</classname> annotation:
+        
+          <synopsis>
 @RegionEffects("reads <replaceable>readTarget<subscript>1</subscript></replaceable>, &hellip;, <replaceable>readTarget<subscript>N</subscript></replaceable>;
     writes <replaceable>writeTarget<subscript>1</subscript></replaceable>, &hellip;, <replaceable>writeTarget<subscript>M</subscript></replaceable>")
-        </synopsis>
-      
-      Specifically, the annotation contains reads and write
-      clauses that each have a list of one or more
-      <emphasis>targets</emphasis>.  The <code>reads</code> clause
-      describes the state that may be read by the method/constructor;
-      the <code>writes</code> clause describes the state that may
-      be <emphasis>read or written</emphasis> by the method/constructor.
-       Because writing includes reading, there is no need to list a
-      target in the reads clause if its state is already described in
-      the <code>writes</code> clause.</para>
-
-      <para>Both the <code>reads</code> and the
-      <code>writes</code> clauses are optional: to indicate that
-      there are no effects use
-      <code>@RegionEffects("none")</code>.</para>
-
-      <para>A target is an extrinsic syntactic mechanism to name
-      references to regions, and can be one of
-
-        <variablelist>
-          <varlistentry>
-            <term><code>this:<replaceable>Region</replaceable></code></term>
-            <term><replaceable>Region</replaceable></term>
-            <listitem><para><replaceable>Region</replaceable> is a
-            region of the class containing the method.  The method
-            affects the named region of the receiver
-            object.</para></listitem>
-          </varlistentry>
+          </synopsis>
         
-          <varlistentry>
-            <term><code><replaceable>param</replaceable>:<replaceable>Region</replaceable></code></term>
-            <listitem><para><replaceable>param</replaceable> is a
-            parameter of the method that references an object.
-            <replaceable>Region</replaceable> is a region of the class
-            of <replaceable>param</replaceable>'s type.  The method
-            affects the named region of the object referenced by
-            <replaceable>param</replaceable> <emphasis>at the start of
-            the method's execution</emphasis>.</para></listitem>
-          </varlistentry>
-        
-          <varlistentry>
-            <term><code><replaceable>pkg.C</replaceable>.this:<replaceable>Region</replaceable></code></term>
-            <listitem><para><replaceable>pkg.C</replaceable> is an
-            “outer class” of the class that contains the annotated
-            method.  That is, the method being annotated is in class
-            <replaceable>D</replaceable>, and
-            <replaceable>D</replaceable> is an inner class of
-            <replaceable>C</replaceable>.
-            <replaceable>Region</replaceable> is a region of class
-            <replaceable>pkg.C</replaceable>.  The method affects the
-            named region of the given outer class
-            receiver.</para></listitem>
-          </varlistentry>
-        
-          <varlistentry>
-            <term><code>any(<replaceable>pkg.C</replaceable>):<replaceable>Region</replaceable></code></term>
-            <listitem><para><replaceable>pkg.C</replaceable> is a class
-            name and <replaceable>Region</replaceable> is a region of
-            <replaceable>pkg.C</replaceable>.  This target indicates
-            that the method affects the given region of any object of
-            class <replaceable>pkg.C</replaceable>.</para></listitem>
-          </varlistentry>
-        
-          <varlistentry>
-            <term><code><replaceable>pkg.C</replaceable>:<replaceable>Region</replaceable></code></term>
-            <listitem><para><replaceable>Region</replaceable> is a
-            <code>static</code> region of class
-            <replaceable>pkg.C</replaceable>.  The method affects the
-            given <code>static</code> region.</para></listitem>
-          </varlistentry>
-        </variablelist>
-      </para>
-      
-      <para>Assurance checks that the actual effects of the method
-      implementation are no greater than its declared effects.  There
-      are several fine points to this:
-      
-        <itemizedlist>
-          <listitem><para>Uses of <code>final</code> fields produce no
-          effects.</para></listitem>
-
-          <listitem><para>Effects on local variables are not visible
-          outside of a method/constructor.</para></listitem>
-
-          <listitem><para>Effects on objects created within a method are
-          not visible outside of a method.</para></listitem>
+        Specifically, the annotation contains reads and write
+        clauses that each have a list of one or more
+        <emphasis>targets</emphasis>.  The <code>reads</code> clause
+        describes the state that may be read by the method/constructor;
+        the <code>writes</code> clause describes the state that may
+        be <emphasis>read or written</emphasis> by the method/constructor.
+         Because writing includes reading, there is no need to list a
+        target in the reads clause if its state is already described in
+        the <code>writes</code> clause.</para>
+  
+        <para>Both the <code>reads</code> and the
+        <code>writes</code> clauses are optional: to indicate that
+        there are no effects use
+        <code>@RegionEffects("none")</code>.</para>
+  
+        <para>A target is an extrinsic syntactic mechanism to name
+        references to regions, and can be one of
+  
+          <variablelist>
+            <varlistentry>
+              <term><code>this:<replaceable>Region</replaceable></code></term>
+              <term><replaceable>Region</replaceable></term>
+              <listitem><para><replaceable>Region</replaceable> is a
+              region of the class containing the method.  The method
+              affects the named region of the receiver
+              object.</para></listitem>
+            </varlistentry>
           
-          <listitem><para>Constructors do not have to report effects on
-          the <structfield>Instance</structfield> region of the newly
-          constructed object.</para></listitem>
-
-          <listitem><para>Region aggregation (described below) is taken
-          into account.</para></listitem>
-        </itemizedlist>
-      </para>
-      
-      <para>Here is a simple "variable" class with effects
-      annotations:
-      
-        <programlisting>
+            <varlistentry>
+              <term><code><replaceable>param</replaceable>:<replaceable>Region</replaceable></code></term>
+              <listitem><para><replaceable>param</replaceable> is a
+              parameter of the method that references an object.
+              <replaceable>Region</replaceable> is a region of the class
+              of <replaceable>param</replaceable>'s type.  The method
+              affects the named region of the object referenced by
+              <replaceable>param</replaceable> <emphasis>at the start of
+              the method's execution</emphasis>.</para></listitem>
+            </varlistentry>
+          
+            <varlistentry>
+              <term><code><replaceable>pkg.C</replaceable>.this:<replaceable>Region</replaceable></code></term>
+              <listitem><para><replaceable>pkg.C</replaceable> is an
+              “outer class” of the class that contains the annotated
+              method.  That is, the method being annotated is in class
+              <replaceable>D</replaceable>, and
+              <replaceable>D</replaceable> is an inner class of
+              <replaceable>C</replaceable>.
+              <replaceable>Region</replaceable> is a region of class
+              <replaceable>pkg.C</replaceable>.  The method affects the
+              named region of the given outer class
+              receiver.</para></listitem>
+            </varlistentry>
+          
+            <varlistentry>
+              <term><code>any(<replaceable>pkg.C</replaceable>):<replaceable>Region</replaceable></code></term>
+              <listitem><para><replaceable>pkg.C</replaceable> is a class
+              name and <replaceable>Region</replaceable> is a region of
+              <replaceable>pkg.C</replaceable>.  This target indicates
+              that the method affects the given region of any object of
+              class <replaceable>pkg.C</replaceable>.</para></listitem>
+            </varlistentry>
+          
+            <varlistentry>
+              <term><code><replaceable>pkg.C</replaceable>:<replaceable>Region</replaceable></code></term>
+              <listitem><para><replaceable>Region</replaceable> is a
+              <code>static</code> region of class
+              <replaceable>pkg.C</replaceable>.  The method affects the
+              given <code>static</code> region.</para></listitem>
+            </varlistentry>
+          </variablelist>
+        </para>
+        
+        <para>Assurance checks that the actual effects of the method
+        implementation are no greater than its declared effects.  There
+        are several fine points to this:
+        
+          <itemizedlist>
+            <listitem><para>Uses of <code>final</code> fields produce no
+            effects.</para></listitem>
+  
+            <listitem><para>Effects on local variables are not visible
+            outside of a method/constructor.</para></listitem>
+  
+            <listitem><para>Effects on objects created within a method are
+            not visible outside of a method.</para></listitem>
+            
+            <listitem><para>Constructors do not have to report effects on
+            the <structfield>Instance</structfield> region of the newly
+            constructed object.</para></listitem>
+  
+            <listitem><para>Region aggregation (described below) is taken
+            into account.</para></listitem>
+          </itemizedlist>
+        </para>
+        
+        <para>Here is a simple "variable" class with effects
+        annotations:
+        
+          <programlisting>
 @Region("public Value")
 public class Var {
   @InRegion("Value")
@@ -933,34 +945,34 @@ public class Var {
     value = v;
   }
 }
-        </programlisting>
-      </para>
-    </sect1>
-    
-    <sect1 id="effects-and-single-threaded">
-      <title>Effects and Single-Threaded Constructors</title>
+          </programlisting>
+        </para>
+      </sect1>
       
-      <para>A <classname>@SingleThreaded</classname> constructor may also be
-      assured by checking whether the declared write effects of the
-      constructor are included in the effect
-      <code>@RegionEffect("writes Instance")</code>.  The
-      constructor must also be annotated with a declaration that it does
-      not start any threads: <code>@Starts("nothing")</code>. 
-      Such a constructor cannot pass  a reference to the new object to a
-      preexisting thread because it does not write to any objects that
-      existed prior to the invocation of the constructor.  It can write
-      a reference to the new object to other objects created during
-      execution of the constructor, but because it cannot start any
-      threads, such a reference cannot be read by another thread.</para>
-      
-      <para>Here is an example of typical usage, which, for example, was
-      used to assure much of Doug Lea's
-      <application>util.concurrent</application> library (for which
-      <code>@Borrowed("this")</code> could not be used because of
-      aliasing of <varname>this</varname> into a
-      <code>private</code> field):
-      
-        <programlisting>
+      <sect1 id="effects-and-single-threaded">
+        <title>Effects and Single-Threaded Constructors</title>
+        
+        <para>A <classname>@SingleThreaded</classname> constructor may also be
+        assured by checking whether the declared write effects of the
+        constructor are included in the effect
+        <code>@RegionEffect("writes Instance")</code>.  The
+        constructor must also be annotated with a declaration that it does
+        not start any threads: <code>@Starts("nothing")</code>. 
+        Such a constructor cannot pass  a reference to the new object to a
+        preexisting thread because it does not write to any objects that
+        existed prior to the invocation of the constructor.  It can write
+        a reference to the new object to other objects created during
+        execution of the constructor, but because it cannot start any
+        threads, such a reference cannot be read by another thread.</para>
+        
+        <para>Here is an example of typical usage, which, for example, was
+        used to assure much of Doug Lea's
+        <application>util.concurrent</application> library (for which
+        <code>@Borrowed("this")</code> could not be used because of
+        aliasing of <varname>this</varname> into a
+        <code>private</code> field):
+        
+          <programlisting>
 @RegionLock("Lock is this protects Instance")
 public class C {
   <emphasis>@SingleThreaded</emphasis>
@@ -971,40 +983,40 @@ public class C {
   }
   &hellip;
 }
-        </programlisting>
-      </para>
-    </sect1>
-    
-    <sect1 id="borrowed-and-effects">
-      <title>Borrowed References and Method Effects</title>
+          </programlisting>
+        </para>
+      </sect1>
       
-      <para>Another reason to declare method effects is to support
-      <classname>@Borrowed</classname> references. Here we first introduce
-      <classname>@Borrowed</classname> parameters, and then describe how
-      effects are used to support their assurance.</para>
-      
-      <sect2 id="borrowed-params">
-        <title>Borrowed Parameters</title>
+      <sect1 id="borrowed-and-effects">
+        <title>Borrowed References and Method Effects</title>
         
-        <para>When an object is passed as a parameter to a method, an
-        alias to that object is created.  Thus, if strictly enforced, a
-        unique field can never be passed as a parameter to a method,
-        even as the receiver!  But if a method is known to not create
-        any additional aliases to the object, then a unique field may
-        safely be passed as a parameter because it is guaranteed that
-        the method will restore the uniqueness of the field.  However,
-        the method is not allowed to directly or indirectly make use of
-        the unique field used as the parameter because the field is
-        <emphasis>not</emphasis> unique within the dynamic scope of the
-        method.  A parameter (including the receiver) is declared to be
-        borrowed by annotating the parameter as
-        <classname>@Borrowed</classname>.  We saw earlier that to declare
-        that the receiver is borrowed we annotate the method/constructor
-        with <code>@Borrowed("this")</code>.</para>
+        <para>Another reason to declare method effects is to support
+        <classname>@Borrowed</classname> references. Here we first introduce
+        <classname>@Borrowed</classname> parameters, and then describe how
+        effects are used to support their assurance.</para>
         
-        <para>Consider method <function>C.copyInternalArray()</function>:
-        
-          <programlisting>
+        <sect2 id="borrowed-params">
+          <title>Borrowed Parameters</title>
+          
+          <para>When an object is passed as a parameter to a method, an
+          alias to that object is created.  Thus, if strictly enforced, a
+          unique field can never be passed as a parameter to a method,
+          even as the receiver!  But if a method is known to not create
+          any additional aliases to the object, then a unique field may
+          safely be passed as a parameter because it is guaranteed that
+          the method will restore the uniqueness of the field.  However,
+          the method is not allowed to directly or indirectly make use of
+          the unique field used as the parameter because the field is
+          <emphasis>not</emphasis> unique within the dynamic scope of the
+          method.  A parameter (including the receiver) is declared to be
+          borrowed by annotating the parameter as
+          <classname>@Borrowed</classname>.  We saw earlier that to declare
+          that the receiver is borrowed we annotate the method/constructor
+          with <code>@Borrowed("this")</code>.</para>
+          
+          <para>Consider method <function>C.copyInternalArray()</function>:
+          
+            <programlisting>
 public class C {
   private Object[] myArray;
   &hellip;
@@ -1015,35 +1027,35 @@ public class C {
     }
   }
 }
-          </programlisting>
-        
-        Because the method declares that its receiver is borrowed
-        it may be invoked on <classname>C</classname> objects referenced
-        through <classname>@Unique</classname> fields.  It may also be
-        passed references to arrays referenced by
-        <classname>@Unique</classname> fields.  Here it is easy to see that
-        no aliases to this or to array are created, but, in general,
-        this is a property that is easily violated, and a separate set
-        of analyses from those used to assure locking are used to assure
-        that <classname>@Unique</classname> fields and
-        <classname>@Borrowed</classname> variables are used
-        correctly.</para>
-       </sect2>
-       
-       <sect2 id="borrowed-with-method-effects">
-         <title>Supporting Borrowed With Method Effects</title>
+            </programlisting>
+          
+          Because the method declares that its receiver is borrowed
+          it may be invoked on <classname>C</classname> objects referenced
+          through <classname>@Unique</classname> fields.  It may also be
+          passed references to arrays referenced by
+          <classname>@Unique</classname> fields.  Here it is easy to see that
+          no aliases to this or to array are created, but, in general,
+          this is a property that is easily violated, and a separate set
+          of analyses from those used to assure locking are used to assure
+          that <classname>@Unique</classname> fields and
+          <classname>@Borrowed</classname> variables are used
+          correctly.</para>
+         </sect2>
          
-         <para>As explained above, when a method is passed the value of
-         a unique field as the actual to a borrowed parameter, the
-         method is not allowed to access the unique field.  Analysis
-         looks to the effects of the methods to determine if the method
-         could possibly read the forbidden field.  Thus, if a method has
-         borrowed parameters it is usually necessary to declare the
-         methods effects as well.</para>
-         
-         <para>Consider the class <classname>Var</classname>:
-         
-           <programlisting>
+         <sect2 id="borrowed-with-method-effects">
+           <title>Supporting Borrowed With Method Effects</title>
+           
+           <para>As explained above, when a method is passed the value of
+           a unique field as the actual to a borrowed parameter, the
+           method is not allowed to access the unique field.  Analysis
+           looks to the effects of the methods to determine if the method
+           could possibly read the forbidden field.  Thus, if a method has
+           borrowed parameters it is usually necessary to declare the
+           methods effects as well.</para>
+           
+           <para>Consider the class <classname>Var</classname>:
+           
+             <programlisting>
 class Var {
   private int value = 0;
   
@@ -1053,14 +1065,14 @@ class Var {
   <emphasis>@Borrowed("this")</emphasis>
   public int get() { return v; } 
 }
-          </programlisting>
-        
-        It's obvious that we can declare the receiver to be
-        <classname>@Borrowed</classname> for the two methods.  If we never
-        actually use a unique field as the receiver then we do not need
-        to declare the effects of the methods:
-        
-          <programlisting>
+            </programlisting>
+          
+          It's obvious that we can declare the receiver to be
+          <classname>@Borrowed</classname> for the two methods.  If we never
+          actually use a unique field as the receiver then we do not need
+          to declare the effects of the methods:
+          
+            <programlisting>
 class VarClient {
   private Var v1 = new Var();
   private Var v2 = new Var();
@@ -1072,22 +1084,22 @@ class VarClient {
     v1.set(v2.get()+3); 
   } 
 }
-          </programlisting>
-        </para>
-        
-        <para>If instead field <structfield>v1</structfield> were annotated with
-        <classname>@Unique</classname>, then analysis would need to know
-        that it is not possible for <function>set()</function> to read the
-        field <structfield>v1</structfield> when <structfield>v1</structfield> is used
-        as the receiver.  Here it is obvious that it cannot, but in
-        cases where the invoked method retrieves objects from
-        collections or other global object pools, it is not so clear. 
-        We must explicitly declare the effects of
-        <function>set()</function> to allow the uniqueness analysis to
-        assure the call (we also declare the effects of
-        <function>get()</function> for completeness):
-        
-          <programlisting>
+            </programlisting>
+          </para>
+          
+          <para>If instead field <structfield>v1</structfield> were annotated with
+          <classname>@Unique</classname>, then analysis would need to know
+          that it is not possible for <function>set()</function> to read the
+          field <structfield>v1</structfield> when <structfield>v1</structfield> is used
+          as the receiver.  Here it is obvious that it cannot, but in
+          cases where the invoked method retrieves objects from
+          collections or other global object pools, it is not so clear. 
+          We must explicitly declare the effects of
+          <function>set()</function> to allow the uniqueness analysis to
+          assure the call (we also declare the effects of
+          <function>get()</function> for completeness):
+          
+            <programlisting>
 class Var {
   private int value = 0;
   
@@ -1099,22 +1111,20 @@ class Var {
   <emphasis>@RegionEffects("reads this:Instance")</emphasis>
   public int get() { return v; } 
 }
-          </programlisting>
-        </para>
-      </sect2>
-    </sect1>
-  </chapter>
+            </programlisting>
+          </para>
+        </sect2>
+      </sect1>
+    </chapter>
+  </part>
   
-  <chapter id="scrubbing">
+  <part id="scrubbing">
     <title>Annotation Syntax and Consistency</title>
     
-    <para>This chapter is the definitive reference guide to both the syntax and
-    semantic consistency rules of the JSure annotations.</para>
-    
-    <sect1 id="region-annotations">
+    <chapter id="region-annotations">
       <title>Region Annotations</title>
       
-      <sect2 id="region-declaration">
+      <sect1 id="region-declaration">
         <title>Region Declaration</title>
         
         <para>A new <emphasis>abstract</emphasis> region is declared using the annotation
@@ -1147,7 +1157,7 @@ class Var {
         region declaration, possibly augmented by an
         <classname>@InRegion</classname> annotation.</para>
         
-        <sect3 id="region.decl.constraints">
+        <sect2 id="region.decl.constraints">
           <title>Constraints</title>
           
           <itemizedlist>
@@ -1210,9 +1220,9 @@ class Var {
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
+        </sect2>
         
-        <sect3 id="region.hiding">
+        <sect2 id="region.hiding">
           <title>Region Hiding</title>
           
           <para>Regions/fields may be hidden. That is, if class <classname>C</classname>
@@ -1292,10 +1302,10 @@ public class Blooper extends Duper {
           ancestor classes <classname>Super</classname> and <classname>Duper</classname>
           from annotations in class <classname>Blooper</classname>.</para>
           
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
       
-      <sect2 id="field.as.region">
+      <sect1 id="field.as.region">
         <title>Fields as Regions</title>
         
         <para>A field is placed into a non-default region using the annotation
@@ -1310,7 +1320,7 @@ public class Blooper extends Duper {
           </calloutlist>
         </para>
         
-        <sect3>
+        <sect2>
           <title>Constraints</title>
 
           <itemizedlist>
@@ -1360,10 +1370,10 @@ public class Blooper extends Duper {
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
       
-      <sect2>
+      <sect1>
         <title>Region Aggregation</title>
         
         <para>When a field refers to a <classname>@Unique</classname>
@@ -1415,7 +1425,7 @@ protected PersonRecord record;
           </para>
         </para>
         
-        <sect3>
+        <sect2>
           <title>Constraints</title>
           
           <para>An <classname>@Aggregate</classname> annotation on a
@@ -1548,17 +1558,17 @@ protected PersonRecord record;
               </listitem>
             </itemizedlist>
           </para>
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
       
-      <sect2>
+      <sect1>
         <title>MapFields</title>
         
         <para>To do&hellip;</para>
-      </sect2>
-    </sect1>
+      </sect1>
+    </chapter>
     
-    <sect1 id="effect-annotations">
+    <chapter id="effect-annotations">
       <title>Region Effect Annotations</title>
       
       <para>The effects a method may have on the state of the program
@@ -1672,7 +1682,7 @@ protected PersonRecord record;
         </calloutlist>
       </para>
       
-      <sect2>
+      <sect1>
         <title>Region Effect Declaration</title>
         
         <para>A method's effects on the state of the program are declared using
@@ -1717,7 +1727,7 @@ protected PersonRecord record;
           </simplelist>
         </para>
         
-        <sect3>
+        <sect2>
           <title>Constraints</title>
           
           <itemizedlist>
@@ -1733,10 +1743,10 @@ protected PersonRecord record;
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
       
-      <sect2>
+      <sect1>
         <title>Instance Targets</title>
         
         <para>An instance target has one of the following forms:</para>
@@ -1906,9 +1916,9 @@ protected PersonRecord record;
             </tbody>
           </tgroup>
         </informaltable>        
-      </sect2>
+      </sect1>
       
-      <sect2>
+      <sect1>
         <title>Any-Instance Target</title>
         
         <para>An any-instance target has the form
@@ -1927,7 +1937,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
           </calloutlist>
         </para>
         
-        <sect3>
+        <sect2>
           <title>Constraints</title>
           
           <itemizedlist>
@@ -1955,10 +1965,10 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
       
-      <sect2 id="class.target">
+      <sect1 id="class.target">
         <title>Class Target</title>
         
         <para>An any-instance target has the form
@@ -1977,7 +1987,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
           </calloutlist>
         </para>
         
-        <sect3>
+        <sect2>
           <title>Constraints</title>
           
           <itemizedlist>
@@ -2002,14 +2012,14 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
-    </sect1>
+        </sect2>
+      </sect1>
+    </chapter>
     
-    <sect1 id="lock-annotations">
+    <chapter id="lock-annotations">
       <title>Lock Annotations</title>
       
-      <sect2>
+      <sect1>
         <title>Region Lock Declaration</title>
         
         <para>Region lock declarations have the form
@@ -2034,7 +2044,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
           </calloutlist>
         </para>
         
-        <sect3 id="lock.id.constraints">
+        <sect2 id="lock.id.constraints">
           <title>Lock Id Constraints</title>
           
           <itemizedlist>
@@ -2049,9 +2059,9 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
+        </sect2>
         
-        <sect3 id="lock.field.constraints">
+        <sect2 id="lock.field.constraints">
           <title>Lock Field Constraints</title>
 
           <itemizedlist>
@@ -2091,9 +2101,9 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
+        </sect2>
         
-        <sect3>
+        <sect2>
           <title>Region Constraints</title>
 
           <itemizedlist>
@@ -2175,10 +2185,10 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
 
-      <sect2>
+      <sect1>
         <title>Policy Lock Declaration</title>
         
         <para>Policy lock declarations have the form
@@ -2200,17 +2210,17 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
           </calloutlist>
         </para>
         
-        <sect3>
+        <sect2>
           <title>Constraints</title>
           
           <para>Policy lock declarations have the same <link
           linkend="lock.id.constraints">lock id</link> and <link
           linkend="lock.field.constraints">lock field</link> constraints
           as region lock declarations.</para>
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
       
-      <sect2 id="lock.names">
+      <sect1 id="lock.names">
         <title>Lock Names</title>
       
         <para><classname>@ReturnsLock</classname> and
@@ -2414,9 +2424,9 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
             </tbody>
           </tgroup>
         </informaltable>
-      </sect2>
+      </sect1>
       
-      <sect2>
+      <sect1>
         <title>Returns Lock</title>
         
         <para>A declaration that a method returns a particular lock has the form
@@ -2433,7 +2443,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
           </calloutlist>
         </para>
         
-        <sect3>
+        <sect2>
           <title>Constraints</title>
           
           <itemizedlist>
@@ -2444,10 +2454,10 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
       
-      <sect2>
+      <sect1>
         <title>Lock Preconditions</title>
         
         <para>Methods and constructors declare lock preconditions using
@@ -2467,7 +2477,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
           </calloutlist>
         </para>
         
-        <sect3>
+        <sect2>
           <title>Constraints</title>
           
           <itemizedlist>
@@ -2519,14 +2529,14 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
-    </sect1>
+        </sect2>
+      </sect1>
+    </chapter>
     
-    <sect1 id="uniqueness-annotations">
+    <chapter id="uniqueness-annotations">
       <title>Uniqueness Annotations</title>
       
-      <sect2>
+      <sect1>
         <title>Uniqueness Declarations</title>
         
         <para>The same annotation, <classname>@Unique</classname>, is used to annotate
@@ -2606,7 +2616,7 @@ class C {
         <classname>@Unique("this, return")</classname> or
         <classname>@Unique("return, this")</classname>.</para>
         
-        <sect3>
+        <sect2>
           <title>Field Contraints</title>
           
           <itemizedlist>
@@ -2621,9 +2631,9 @@ class C {
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
+        </sect2>
         
-        <sect3>
+        <sect2>
           <title>Parameter Contraints</title>
           
           <itemizedlist>
@@ -2635,9 +2645,9 @@ class C {
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
+        </sect2>
         
-        <sect3>
+        <sect2>
           <title>Return Value Contraints</title>
           
           <itemizedlist>
@@ -2649,10 +2659,10 @@ class C {
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
       
-      <sect2>
+      <sect1>
         <title>Non-Uniquness Declaration</title>
         
         <para>Uniqueness on parameters is <emphasis>contravariant</emphasis>, meaning that
@@ -2696,7 +2706,7 @@ class D extends C {
           </programlisting>
         </para>
         
-        <sect3>
+        <sect2>
           <title>Constraints</title>
           
           <itemizedlist>
@@ -2714,10 +2724,10 @@ class D extends C {
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
+        </sect2>
+      </sect1>
       
-      <sect2>
+      <sect1>
         <title>Borrowed Parameter Declarations</title>
         
         <para>A method can be constrained to not create aliases to
@@ -2732,7 +2742,7 @@ class D extends C {
         paramater declaration, and the method annotation <classname>@Borrowed("this")</classname>
         is used when annotating the receiver.</para>
         
-        <sect3>
+        <sect2>
           <title>Constraints</title>
           
           <itemizedlist>
@@ -2751,8 +2761,15 @@ class D extends C {
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect3>
-      </sect2>
-    </sect1>
-  </chapter>
+        </sect2>
+      </sect1>
+    </chapter>
+  
+    <appendix condition="isHTML">
+      <title>SureLogic Annotation Types JavaDoc</title>
+    
+      <para>Please see the <ulink url="javadoc/index.html">generated JavaDoc pages</ulink> for
+      more information.</para>
+    </appendix>
+  </part>
 </book>
