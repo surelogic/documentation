@@ -665,9 +665,7 @@ if (o == null) {
 	<figure id="fig-tutorial-audits">
 	  <title>Three audits have been performed on this finding.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="images/tutorial-audits.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-audits.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -701,10 +699,7 @@ if (o == null) {
 	<figure id="fig-tutorial-artifacts">
 	  <title>Two tool artifacts have been combined to create this finding.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-artifacts.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-artifacts.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -742,10 +737,7 @@ if (o == null) {
 	<figure id="fig-tutorial-status-fixed">
 	  <title>Status bar graph after fixing two findings in the code.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-status-fixed.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-status-fixed.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -815,10 +807,7 @@ if (o == null) {
 	<figure id="fig-running-smallworld">
 	  <title>Running the SmallWorld game.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-running-smallworld.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-running-smallworld.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -830,13 +819,6 @@ if (o == null) {
 	move around and load and save your game. When you are done
 	playing the game, type <userinput>exit</userinput> to
 	terminate the program.</para>
-
-	<para>Scan the SmallWorld project with Sierra. Examine the
-	findings using the <guilabel>Findings Quick Search</guilabel>
-	view in the <guilabel>Code Review</guilabel> perspective.  If
-	you select <guilabel>Project</guilabel> you will note that
-	seven findings were reported from this scan about the
-	SmallWorld code.</para>
 
 	<para>This tutorial uses a team server running on your
 	desktop. The <emphasis>Sierra Local Team Server
@@ -867,10 +849,7 @@ if (o == null) {
 	<figure id="fig-tutorial-local-team-server">
 	  <title>The Local Team Server view.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-local-team-server.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-local-team-server.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -893,10 +872,7 @@ if (o == null) {
 	  <title>The Local Team Server view showing the server
 	  logs.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-local-team-server-logs.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-local-team-server-logs.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -916,10 +892,7 @@ if (o == null) {
 	  <title>Preference panel for controlling the memory used by the
 	  local team server.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-local-team-server-preferences.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-local-team-server-preferences.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -943,10 +916,7 @@ if (o == null) {
 	  <title>Warning you that the local team server does not exit when
 	  Eclipse exits.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-local-team-server-warning-dialog.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-local-team-server-warning-dialog.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -962,10 +932,7 @@ if (o == null) {
 	  <title>The team server web portal and the Local Team Server view
 	  indicating that the team server is running.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-local-team-server-running.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-local-team-server-running.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1001,10 +968,7 @@ if (o == null) {
 	<figure id="fig-tutorial-portal-name-page">
 	  <title>Naming the team server upon first portal login.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-portal-name-page.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-name-page.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1015,10 +979,7 @@ if (o == null) {
 	<figure id="fig-tutorial-portal-welcome-page-empty">
 	  <title>The welcome page on the team server portal.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-portal-welcome-page-empty.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-welcome-page-empty.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1136,10 +1097,7 @@ if (o == null) {
 	<figure id="fig-tutorial-portal-users-page">
 	  <title>The users page on the team server portal showing two enabled users.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-portal-users-page.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-users-page.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1161,10 +1119,7 @@ if (o == null) {
 	<figure id="fig-tutorial-portal-settings-page">
 	  <title>The settings page on the team server portal sending a test notification email.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-portal-settings-page.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-settings-page.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1246,10 +1201,7 @@ if (o == null) {
 	  <title>Defining the connection to the local team server within
 	  the Eclipse client.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-localhost-connection.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-localhost-connection.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1280,13 +1232,9 @@ if (o == null) {
 	linkend="fig-tutorial-smallworld-connected" /></para>
 
 	<figure id="fig-tutorial-smallworld-connected">
-	  <title>The Team Servers view showing that the SmallWorld
-	  project is connected to local server.</title>
+	  <title>The Team Servers view showing that the SmallWorld project is connected to local server.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-smallworld-connected.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-smallworld-connected.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1312,10 +1260,7 @@ if (o == null) {
 	<figure id="fig-tutorial-send-scan-filter">
 	  <title>Sending a copy of the client scan filter to local server.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/tutorial-send-scan-filter.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-send-scan-filter.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1490,14 +1435,14 @@ if (o == null) {
 	  </mediaobject>
 	</figure>
 
-	<para>Run another scan of the SmallWorld project. You should
-	now have four findings.  Because during this scan our scan
-	filter was in sync with the local server we can now publish
-	our scan of SmallWorld to the server. Select
+	<para>Run a scan of the SmallWorld project. We can now publish
+	this scan of SmallWorld to the local server. Select
 	<guimenu>Sierra</guimenu> | <guimenuitem>Publish Latest
 	Scan</guimenuitem> from the Eclipse main menu. Check the
 	SmallWorld project and press the <guibutton>OK</guibutton>
-	button.</para>
+	button. This client operation is the first of two ways to
+	publish a scan to a team server. The second way to publish a
+	scan to a team server is to use Ant.</para>
 
 	<para>After the publish has completed, select the
 	<guilabel>Welcome</guilabel> tab in your web browser. The
