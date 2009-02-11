@@ -301,10 +301,10 @@ public class BoundedFIFO {
         no protected field accesses:</para>
       
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/BoundedFIFO1.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO1.png"/>
           </imageobject>
         </mediaobject>
@@ -361,10 +361,10 @@ public class BoundedFIFO {
         satisfied:</para>
       
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/BoundedFIFO2.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO2.png"/>
           </imageobject>
         </mediaobject>
@@ -375,10 +375,10 @@ public class BoundedFIFO {
         evidenced by the caller holding the lock "this.MUTEX"):</para>
       
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/BoundedFIFO3.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO3.png"/>
           </imageobject>
         </mediaobject>
@@ -408,10 +408,10 @@ public class BoundedFIFO {
         or in the constructor: </para>
       
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/BoundedFIFO4.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4.png"/>
           </imageobject>
         </mediaobject>
@@ -453,10 +453,10 @@ public class BoundedFIFO {
         <para>Save and reanalyze. The model now assures:</para>
 
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/BoundedFIFO4-1.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-1.png"/>
           </imageobject>
         </mediaobject>
@@ -480,10 +480,10 @@ public class BoundedFIFO {
           annotation, the assurance now fails:</para>
         
           <mediaobject>
-            <imageobject role="html">
+            <imageobject condition="isHTML">
               <imagedata fileref="images/BoundedFIFO4-2.png"/>
             </imageobject>
-            <imageobject role="fo">
+            <imageobject condition="isFO">
               <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-2.png"/>
             </imageobject>
           </mediaobject>
@@ -522,10 +522,10 @@ public class BoundedFIFO {
           <para>Again, we see that assurance fails:</para>
 
           <mediaobject>
-            <imageobject role="html">
+            <imageobject condition="isHTML">
               <imagedata fileref="images/BoundedFIFO4-3.png"/>
             </imageobject>
-            <imageobject role="fo">
+            <imageobject condition="isFO">
               <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-3.png"/>
             </imageobject>
           </mediaobject>
@@ -568,10 +568,10 @@ public BoundedFIFO(int size) {
           </itemizedlist>
         
           <mediaobject>
-            <imageobject role="html">
+            <imageobject condition="isHTML">
               <imagedata fileref="images/BoundedFIFO4-4.png"/>
             </imageobject>
-            <imageobject role="fo">
+            <imageobject condition="isFO">
               <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-4.png"/>
             </imageobject>
           </mediaobject>
@@ -585,10 +585,10 @@ public BoundedFIFO(int size) {
         about references to possibly shared objects:</para>
 
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/BoundedFIFO5.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO5.png"/>
           </imageobject>
         </mediaobject>
@@ -629,10 +629,10 @@ public BoundedFIFO(int size) {
         and 89):</para>
       
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/BoundedFIFO5b.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO5b.png"/>
           </imageobject>
         </mediaobject>      
@@ -644,10 +644,10 @@ public BoundedFIFO(int size) {
         <para>The project is now fully assured:</para>
 
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/BoundedFIFO6.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO6.png"/>
           </imageobject>
         </mediaobject>      
@@ -744,10 +744,10 @@ public class EffectsExample {
       <varname>EffectsExample()</varname> assure.</para>
       
       <mediaobject>
-        <imageobject role="html">
+        <imageobject condition="isHTML">
           <imagedata fileref="images/effects-assurance-01.png"/>
         </imageobject>
-        <imageobject role="fo">
+        <imageobject condition="isFO">
           <imagedata width="100%" scalefit="1" fileref="images/effects-assurance-01.png"/>
         </imageobject>
       </mediaobject>
@@ -807,10 +807,10 @@ public class EffectsExample {
         Their chains of evidence expand as follows</para>
         
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/effects-assurance-02.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/effects-assurance-02.png"/>
           </imageobject>
         </mediaobject>
@@ -932,10 +932,10 @@ public class EffectsExample {
         <para>This dependency is reflected in the assurance results:</para>
         
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/effects-assurance-03.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/effects-assurance-03.png"/>
           </imageobject>
         </mediaobject>
@@ -963,10 +963,10 @@ public class EffectsExample {
         <varname>bad()</varname> and <varname>indirectlyBad()</varname>.</para>
         
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/effects-assurance-04.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/effects-assurance-04.png"/>
           </imageobject>
         </mediaobject>
@@ -1063,10 +1063,10 @@ public class EffectsExample {
         <title>Example Chains of Evidence for Lock Assurance</title>
 
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/lock-assurance-01.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-01.png"/>
           </imageobject>
         </mediaobject>
@@ -1116,10 +1116,10 @@ public class SimpleLockExample {
         incorrectly.</para>
         
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/lock-assurance-02.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-02.png"/>
           </imageobject>
         </mediaobject>
@@ -1196,10 +1196,10 @@ public class SimpleLockExample {
           <title>Chains of Evidence for <varname>RequiresLockExample</varname></title>.
           
           <mediaobject>
-            <imageobject role="html">
+            <imageobject condition="isHTML">
               <imagedata fileref="images/lock-assurance-03.png"/>
             </imageobject>
-            <imageobject role="fo">
+            <imageobject condition="isFO">
               <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-03.png"/>
             </imageobject>
           </mediaobject>
@@ -1339,10 +1339,10 @@ public class ConstructorExample {
         annotation assures for the first, but not for the second:</para>
         
         <mediaobject>
-          <imageobject role="html">
+          <imageobject condition="isHTML">
             <imagedata fileref="images/lock-assurance-04.png"/>
           </imageobject>
-          <imageobject role="fo">
+          <imageobject condition="isFO">
             <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-04.png"/>
           </imageobject>
         </mediaobject>
@@ -1415,10 +1415,10 @@ public class ConstructorExample {
           are unprotected. The JSure results reflect this:</para>
           
           <mediaobject>
-            <imageobject role="html">
+            <imageobject condition="isHTML">
               <imagedata fileref="images/lock-assurance-05.png"/>
             </imageobject>
-            <imageobject role="fo">
+            <imageobject condition="isFO">
               <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-05.png"/>
             </imageobject>
           </mediaobject>
@@ -1442,10 +1442,10 @@ public class ConstructorExample {
           are protected:</para>
           
           <mediaobject>
-            <imageobject role="html">
+            <imageobject condition="isHTML">
               <imagedata fileref="images/lock-assurance-06.png"/>
             </imageobject>
-            <imageobject role="fo">
+            <imageobject condition="isFO">
               <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-06.png"/>
             </imageobject>
           </mediaobject>
@@ -1471,10 +1471,10 @@ public class ConstructorExample {
           fileref="images/plus-x.jpg"/></guiicon>:</para>
       
           <mediaobject>
-            <imageobject role="html">
+            <imageobject condition="isHTML">
               <imagedata fileref="images/lock-assurance-07.png"/>
             </imageobject>
-            <imageobject role="fo">
+            <imageobject condition="isFO">
               <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-07.png"/>
             </imageobject>
           </mediaobject>
@@ -1498,10 +1498,10 @@ public class ConstructorExample {
           results:</para>
           
           <mediaobject>
-            <imageobject role="html">
+            <imageobject condition="isHTML">
               <imagedata fileref="images/lock-assurance-08.png"/>
             </imageobject>
-            <imageobject role="fo">
+            <imageobject condition="isFO">
               <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-08.png"/>
             </imageobject>
           </mediaobject>
@@ -1532,10 +1532,10 @@ public class ConstructorExample {
           <varname>AuxLock</varname> to be</para>
           
           <mediaobject>
-            <imageobject role="html">
+            <imageobject condition="isHTML">
               <imagedata fileref="images/lock-assurance-09.png"/>
             </imageobject>
-            <imageobject role="fo">
+            <imageobject condition="isFO">
               <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-09.png"/>
             </imageobject>
           </mediaobject>
@@ -1588,10 +1588,10 @@ public class ReturnsLockExample {
         <figure id="returns-lock-results">
           <title>Assurance results for <varname>ReturnsLockExample</varname>.</title>
           <mediaobject>
-            <imageobject role="html">
+            <imageobject condition="isHTML">
               <imagedata fileref="images/lock-assurance-10.png"/>
             </imageobject>
-            <imageobject role="fo">
+            <imageobject condition="isFO">
               <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-10.png"/>
             </imageobject>
           </mediaobject>
@@ -1689,10 +1689,10 @@ public class RedundantLockExample {
           <figure id="redundant-lock-results">
             <title>Assurance results for <varname>RedundantLockExample</varname>.</title>
             <mediaobject>
-              <imageobject role="html">
+              <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-11.png"/>
               </imageobject>
-              <imageobject role="fo">
+              <imageobject condition="isFO">
                 <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-11.png"/>
               </imageobject>
             </mediaobject>
@@ -1826,10 +1826,10 @@ public class UnidentifiableLockExample {
           <figure id="unidentifiable-lock-results">
             <title>Assurance results for <varname>UnidentifiableLockExample</varname>.</title>
             <mediaobject>
-              <imageobject role="html">
+              <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-12.png"/>
               </imageobject>
-              <imageobject role="fo">
+              <imageobject condition="isFO">
                 <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-12.png"/>
               </imageobject>
             </mediaobject>
@@ -1911,10 +1911,10 @@ public class NonFinalLockExample {
           <figure id="non-final-lock-results">
             <title>Assurance results for <varname>NonFinalLockExample</varname>.</title>
             <mediaobject>
-              <imageobject role="html">
+              <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-13.png"/>
               </imageobject>
-              <imageobject role="fo">
+              <imageobject condition="isFO">
                 <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-13.png"/>
               </imageobject>
             </mediaobject>
@@ -1988,10 +1988,10 @@ public class UnusedLockExample {
           <figure id="not-protecting-results">
             <title>Assurance results for <varname>UnusedLockExample</varname>.</title>
             <mediaobject>
-              <imageobject role="html">
+              <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-14.png"/>
               </imageobject>
-              <imageobject role="fo">
+              <imageobject condition="isFO">
                 <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-14.png"/>
               </imageobject>
             </mediaobject>
@@ -2063,10 +2063,10 @@ public class ThreadEffectsExample {
       <para>Two of these annotations assure, while three of them fail to assure:</para>
       
       <mediaobject>
-        <imageobject role="html">
+        <imageobject condition="isHTML">
           <imagedata fileref="images/thread-effects-01.png"/>
         </imageobject>
-        <imageobject role="fo">
+        <imageobject condition="isFO">
           <imagedata width="100%" scalefit="1" fileref="images/thread-effects-01.png"/>
         </imageobject>
       </mediaobject>

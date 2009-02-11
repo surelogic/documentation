@@ -15,20 +15,20 @@ with Saxon to handle XML catalog files.  This library is found in
 all about, but they are described here
 <http://www.sagehill.net/docbookxsl/Catalogs.html>.)
 
-We use the "html/docbook.xsl" XSLT style sheet from the DocBook definition
+We use the "html/profile-docbook.xsl" XSLT style sheet from the DocBook definition
 <http://sourceforge.net/project/showfiles.php?group_id=21935> to define the
 DocBook to HTML transformation.  This is found in "lib/docbook-xsl-<version>".
 
 
 DOCBOOK to ECLIPSE HELP Conversion
 ----------------------------------
-Same as above except that we use the "eclipse/eclipse.xsl" transformation from
+Same as above except that we use the "eclipse/profile-eclipse.xsl" transformation from
 the DocBook definition project.
 
 
 DOCBOOK to PDF Conversion
 -------------------------
-We first convert from docbook to FO using "fo/docbook.xsl" in the DocBook
+We first convert from docbook to FO using "fo/profile-docbook.xsl" in the DocBook
 definition project.
 
 We then use Apache FOP <http://xmlgraphics.apache.org/fop/> to convert from
@@ -37,3 +37,13 @@ FO to PDF.  The library files for this are in "lib/fop-<version>".
 We use the OFFO library <http://offo.sourceforge.net/index.html> to control
 hyphenation.  The library file for this is in "lib/offo-<version>".
 
+
+Conditional Content
+-------------------
+We use the "profile-*" versions of the style sheets so that we can generate
+some content conditionally, depending on whether we are generating HTML or
+FO/PDF.  Elements that are only relevant to HTML should have the attribute
+"condition='isHTML'".  Elements that are only relevant to FO should have the
+attribute "condition='isFO'".
+
+ 
