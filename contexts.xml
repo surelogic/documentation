@@ -56,6 +56,10 @@
 		<description>This view displays your history of synchronizing with Sierra team servers.</description>
 		<topic href="ch03s03.html#sec-synchronize-history" label="The Synchronize History view" />
 	</context>
+    <context id="view-synchronize-history-details">
+		<description>This view displays details about one synchronize with a Sierra team server.</description>
+		<topic href="ch03s03.html#sec-synchronize-history-details" label="The Synchronize History Details view" />
+	</context>
 	
 	<!-- Preference panels -->
 	
