@@ -1636,9 +1636,7 @@ if (o == null) {
       <figure id="fig-menu-sierra">
 	<title>The Sierra menu.</title>
 	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/menu-sierra.png" />
-	  </imageobject>
+	  <imageobject><imagedata fileref="images/menu-sierra.png"/></imageobject>
 	</mediaobject>
       </figure>
 
@@ -1667,10 +1665,7 @@ if (o == null) {
 	  <figure id="fig-menu-sierra-dialog">
 	    <title>Dialog allowing the user to select which Java projects to scan.</title>
 	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/menu-sierra-dialog.png" />
-	      </imageobject>
+	      <imageobject><imagedata fileref="images/menu-sierra-dialog.png"/></imageobject>
 	    </mediaobject>
 	  </figure>
 
@@ -1767,10 +1762,7 @@ if (o == null) {
 	  <figure id="fig-menu-service-send-tip">
 	    <title>Dialog allowing the user to enter a tip to improve Sierra.</title>
 	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/service-send-tip.png" />
-	      </imageobject>
+	      <imageobject><imagedata fileref="images/service-send-tip.png"/></imageobject>
 	    </mediaobject>
 	  </figure>
 
@@ -1795,10 +1787,7 @@ if (o == null) {
 	  <figure id="fig-menu-service-problem-report">
 	    <title>Dialog allowing the user to enter a problem report about Sierra.</title>
 	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/service-problem-report.png" />
-	      </imageobject>
+	      <imageobject><imagedata fileref="images/service-problem-report.png"/></imageobject>
 	    </mediaobject>
 	  </figure>
 
@@ -1816,7 +1805,7 @@ if (o == null) {
 	  dialog. This dialog allows the user to install, view, and
 	  uninstall licenses for Sierra and other SureLogic tools.
 	  For more information see <xref
-	  linkend="sec-license-management" /></para>
+	  linkend="sec-license-management" />.</para>
 	</listitem>
       </orderedlist>
     </sect1>
@@ -1856,18 +1845,23 @@ if (o == null) {
 	    audited by a programmer.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Audits</emphasis> &mdash; Partitions based
-	    upon the number of times they have been audited by a
-	    programmer.</para>
+	    <para><emphasis>Audits</emphasis> &mdash; Partitions
+	    findings based upon the number of times they have been
+	    audited by a programmer. A 0 indicates that no audits have
+	    been performed.</para>
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>Finding Category</emphasis> &mdash;
-	    Partitions findings by the finding category their finding
-	    type is part of.</para>
+	    Separates findings by the category their finding type is
+	    part of. Categories are defined by a set of finding
+	    types. Because a finding type can be included in more than
+	    one category, and thus a finding can be in more than one
+	    category, this does not strictly partition
+	    findings.</para>
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>Finding Type</emphasis> &mdash; Partitions
-	    findings by their assigned finding type.</para>
+	    findings by their finding type.</para>
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>Importance</emphasis> &mdash; Partitions
@@ -1892,10 +1886,10 @@ if (o == null) {
 	  <listitem>
 	    <para><emphasis>Status</emphasis> &mdash; Partitions
 	    findings by the status of the finding compared to the last
-	    scan.  <emphasis>New</emphasis> indicates that the finding
+	    scan. <emphasis>New</emphasis> indicates that the finding
 	    was not in the last scan (or that there is no last scan).
 	    <emphasis>Unchanged</emphasis> indicates that the finding
-	    was in the last scan.  <emphasis>Fixed</emphasis> indicates
+	    was in the last scan. <emphasis>Fixed</emphasis> indicates
 	    that the finding was in the last scan, but is not in the
 	    current scan.</para>
 	  </listitem>
@@ -1907,40 +1901,75 @@ if (o == null) {
 	    tools</emphasis> is indicated.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Tool Artifacts</emphasis> &mdash; Partitions
-	    based upon the number of analysis tool artifacts reported
-	    about them.</para>
+	    <para><emphasis>Tool Artifacts</emphasis> &mdash;
+	    Partitions findings based upon the number of analysis tool
+	    artifacts reported about them. A 1 indicates that one
+	    analysis tool artifact supported the finding, a 2
+	    indicates that two analysis tool artifacts supported the
+	    finding, and so on.</para>
 	  </listitem>
 	</orderedlist>
 
 	<para>Described further in <xref linkend="sec-tutorial-client"
-	/></para>
+	/>.</para>
       </sect2>
 
       <sect2 id="sec-finding-details-view">
 	<title>Finding Details</title>
+
 	<para>This view displays information about and allows you to
-	audit an analysis finding. Described further in <xref
-	linkend="sec-tutorial-client" /></para>
+	audit an analysis finding. It also displays all analysis tool
+	artifacts that support a finding.</para>
+
+	<para>Described further in <xref linkend="sec-tutorial-client"
+	/>.</para>
       </sect2>
 
       <sect2 id="sec-team-servers-view">
 	<title>Sierra Team Servers</title>
-	<para>Described further in <xref linkend="sec-tutorial-client"
-	/></para>
+
+	<para>This view provides a tree that shows the Sierra Eclipse
+	client's connections to Sierra Team Servers on the
+	network. The view shows what projects are connected to
+	particular team servers and what scan filters exist and are in
+	use. This view has a shortcut <guiicon><inlinegraphic
+	fileref="images/sierra-sync.png" /></guiicon> icon that allows
+	all information to be synchronized with the set of known
+	Sierra Team Servers.</para>
+
+	<para>Described further in <xref
+	linkend="sec-tutorial-team-server" />.</para>
       </sect2>
 
       <sect2 id="sec-synchronize-history">
 	<title>Synchronize History</title>
-	<para>Described further in <xref linkend="sec-tutorial-client"
-	/></para>
+	<para>This view provides a table that lists each synchronize
+	that has been done with a Sierra Team Server. The table lists
+	when the synchronize occurred, what server was involved, and a
+	summary of the audit data passed back and forth.  Selecting a
+	row in this table brings up the <guilabel>Synchronize History
+	Details</guilabel> view. This view is described in <xref
+	linkend="sec-synchronize-history-details" />.</para>
+      </sect2>
+
+      <sect2 id="sec-synchronize-history-details">
+	<title>Synchronize History Details</title>
+	<para>This view provides details linking to particular audits
+	for a synchronize with a Sierra Team Server.  A synchronize
+	event is selected in the <guilabel>Synchronize
+	History</guilabel> view that focuses the information shown in
+	this view.  The <guilabel>Synchronize History</guilabel> view
+	is described in <xref linkend="sec-synchronize-history"
+	/>.</para>
       </sect2>
 
       <sect2>
 	<title>Query Sierra</title>
-	<para>This view allows direct queries on the embedded relational
-	database used to store Sierra data. It is typically only used
-	for serviceability of Sierra.
+	<para>This view allows direct queries on the embedded
+	relational database used to store Sierra data. It is typically
+	only used for serviceability of Sierra or by consultants
+	(using its ability to perform ad hoc queries on the Sierra
+	results for client reports).
 	</para>
       </sect2>
     </sect1>
@@ -1967,10 +1996,7 @@ if (o == null) {
 	<figure id="fig-preferences-sierra">
 	  <title>The Sierra preference pane.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/preferences-sierra.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/preferences-sierra.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1981,7 +2007,7 @@ if (o == null) {
 
 	<orderedlist>
 	  <listitem>
-	    <para><emphasis> Maximum number of findings shown in
+	    <para><emphasis>Maximum number of findings shown in
 	    'Findings Quick Search' results:</emphasis> This setting
 	    limits the number of findings that the <emphasis>Findings
 	    Quick Search</emphasis> view will show. This setting ensures
@@ -1994,7 +2020,7 @@ if (o == null) {
 	    Search</emphasis> view if a list is truncated.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis> Show 'balloon' notifications for scan start
+	    <para><emphasis>Show 'balloon' notifications for scan start
 	    and completion:</emphasis> This setting controls if balloon
 	    notifications pop up when a scan is run.</para>
 
@@ -2059,10 +2085,7 @@ if (o == null) {
 	<figure id="fig-preferences-server">
 	  <title>The Local Team Server preference pane.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/preferences-local-team-server.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/preferences-local-team-server.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -2088,10 +2111,7 @@ if (o == null) {
 	<figure id="fig-preferences-scan-data">
 	  <title>The Scan Data preference pane.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/preferences-scan-data.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/preferences-scan-data.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -2124,10 +2144,7 @@ if (o == null) {
 	<figure id="fig-preferences-scan-filter">
 	  <title>The Scan Filter preference pane.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/preferences-scan-filter.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/preferences-scan-filter.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -2149,15 +2166,26 @@ if (o == null) {
 	from that server and overwrite your local settings.</para>
       </sect2>
 
+      <sect2 id="sec-preferences-server-interaction">
+	<title>Server Interaction</title>
+	<figure id="fig-preferences-server-interaction">
+	  <title>The Server Interaction preference pane.</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/preferences-server-interaction.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The server interaction preference pane allows control
+	over automatic synchronization with Sierra Team
+	Servers.</para>
+      </sect2>
+
       <sect2 id="sec-preferences-tools">
 	<title>Tools</title>
 	<figure id="fig-preferences-tools">
 	  <title>The Tools preference pane.</title>
 	  <mediaobject>
-	    <imageobject>
-	      <imagedata
-		  fileref="images/preferences-tools.png" />
-	    </imageobject>
+	    <imageobject><imagedata fileref="images/preferences-tools.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -2195,10 +2223,7 @@ if (o == null) {
       <figure id="fig-license-management">
 	<title>The SureLogic license management dialog.</title>
 	<mediaobject>
-	  <imageobject>
-	    <imagedata
-		fileref="images/license-management.png" />
-	  </imageobject>
+	  <imageobject><imagedata fileref="images/license-management.png"/></imageobject>
 	</mediaobject>
       </figure>
 
@@ -2257,10 +2282,7 @@ if (o == null) {
       <figure id="fig-license-management-expiration-warning">
 	<title>Dialog warning that the installed Sierra license is about to expire.</title>
 	<mediaobject>
-	  <imageobject>
-	    <imagedata
-		fileref="images/license-management-expiration-warning.png" />
-	  </imageobject>
+	  <imageobject><imagedata fileref="images/license-management-expiration-warning.png"/></imageobject>
 	</mediaobject>
       </figure>
 
