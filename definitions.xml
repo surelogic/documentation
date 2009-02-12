@@ -88,8 +88,9 @@
 
   <!-- path for xslt processor -->
   <path id="xslt.processor.classpath">
-    <pathelement path="${saxon.dir}/saxon.jar" />
+    <pathelement path="${saxon.dir}/saxon.jar" />  <!-- Saxon itself -->
     <pathelement path="${resolver.dir}/resolver.jar" />
+    <pathelement path="${docbook.dir}/extensions/saxon65.jar" /> <!-- DocBook extensions for XSLT -->
     <!-- Add lib directory to pick up CatalogManager.properties -->
     <pathelement path="${lib}" />
   </path>
@@ -142,6 +143,10 @@
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-html-xsl}'" />
         <arg line="profile.condition='isHTML'"/>
+        <arg line="use.extensions='1'"/>
+        <arg line="linenumbering.extension='1'"/>
+        <arg line="linenumbering.everyNth='1'"/>
+        <arg line="linenumbering.separator=': '"/>
         <arg line="callout.unicode='1'"/>
         <arg line="callout.graphics='0'"/>
         <arg line="admon.graphics='1'"/>
@@ -166,7 +171,11 @@
         <arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-eclipse-xsl}'" />
-        <arg line="profile.condition='add-javadoc'"/>
+        <arg line="profile.condition='isHTML'"/>
+        <arg line="use.extensions='1'"/>
+        <arg line="linenumbering.extension='1'"/>
+        <arg line="linenumbering.everyNth='1'"/>
+        <arg line="linenumbering.separator=': '"/>
         <arg line="eclipse.plugin.name='Sierra Eclipse Client Help'" />
         <arg line="eclipse.plugin.id=com.surelogic.sierra.eclipse.client.help" />
         <arg line="eclipse.plugin.provider='SureLogic, Inc.'" />
@@ -196,6 +205,10 @@
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-fo-xsl}'" />
         <arg line="profile.condition='isFO'"/>
+        <arg line="use.extensions='1'"/>
+        <arg line="linenumbering.extension='1'"/>
+        <arg line="linenumbering.everyNth='1'"/>
+        <arg line="linenumbering.separator=': '"/>
         <arg line="callout.unicode='1'"/>
         <arg line="callout.graphics='0'"/>
         <arg line="admon.graphics='1'"/>
