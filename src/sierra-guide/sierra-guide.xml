@@ -863,9 +863,12 @@ if (o == null) {
 	examine. The first is the Jetty console output which shows
 	logging output from the local server. The second is the Jetty
 	request log which shows information about requests made from
-	clients to the web site. If the logs panel is not visible in
-	your view, select <guimenuitem>Show Server Logs</guimenuitem>
-	from the view menu as shown in <xref
+	clients to the web site. <ulink
+	url="http://www.mortbay.org/jetty/">Jetty</ulink> is a
+	lighweight web server implemented entirely in Java. It is used
+	to execute the team server. If the logs panel is not visible
+	in your view, select <guimenuitem>Show Server
+	Logs</guimenuitem> from the view menu as shown in <xref
 	linkend="fig-tutorial-local-team-server-logs" /></para>
 
 	<figure id="fig-tutorial-local-team-server-logs">
@@ -1269,7 +1272,7 @@ if (o == null) {
 	just uploaded them, however, for practice we will. To download
 	and use the Tutorial scan filter stored on the local server
 	you right-click on the scan filter name and select
-	<emphasis>Copy to Local Scan Filter...</emphasis> from the
+	<emphasis>Copy to Local Scan Filter</emphasis> from the
 	context menu as shown in <xref
 	linkend="fig-tutorial-copy-scan-filter" /> A dialog will warn
 	that this will replace the scan filter currently on your
@@ -2005,6 +2008,17 @@ if (o == null) {
 
 	<para>The settings that may be configured are described below:</para>
 
+	<para>The <emphasis>Data directory</emphasis> sets where
+	Sierra stores scan data and logs. In addition, the
+	<filename>server</filename> subdirectory of the data directory
+	is used to store all data for the Local Team Server. All
+	Sierra data goes into the data directory except the local
+	Database which is stored under the current Eclipse
+	workspace.</para>
+
+	<para>The <emphasis>Appearance</emphasis> group contains the
+	following settings:</para>
+
 	<orderedlist>
 	  <listitem>
 	    <para><emphasis>Maximum number of findings shown in
@@ -2021,18 +2035,41 @@ if (o == null) {
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>Show 'balloon' notifications for scan start
-	    and completion:</emphasis> This setting controls if balloon
+	    and completion.</emphasis> This setting controls if balloon
 	    notifications pop up when a scan is run.</para>
 
 	    <para>The default value for this setting is checked
 	    (notifications are shown).</para>
 	  </listitem>
 	  <listitem>
+	    <para><emphasis>Allow the user to select the set of
+	    projects to scan even when projects are selected in the
+	    Package Explorer.</emphasis> This setting controls if the
+	    dialog is shown to allow the user to select projects when
+	    the user preforms a scan or publish. If this setting is
+	    checked then the dialog always appears even if projects
+	    are selected in the Package Explorer. If this setting is
+	    not checked then the dialog will only appear when no
+	    projects are selected in the Package Explorer.</para>
+
+	    <para>The default value for this setting is
+	    checked.</para>
+	  </listitem>
+          <listitem>
+	    <para><emphasis>Display results from the SureLogic JSure
+	    verification tool.</emphasis> This setting allows JSure
+	    results to be viewed in Sierra.</para>
+
+	    <para>The default value for this setting is not checked
+	    (JSure results are not shown).</para>
+	  </listitem>
+	  <listitem>
 	    <para><emphasis>Show markers for findings in the Java
-	    editor:</emphasis> This setting turns on or off the *
-	    markers that highlight tool findings in the gutter of the
-	    Java editor. This setting must be checked for the next
-	    setting to be taken into account by Sierra.</para>
+	    editor (requires Eclipse restart).</emphasis> This setting
+	    turns on or off the * markers that highlight tool findings
+	    in the gutter of the Java editor. This setting must be
+	    checked for the next setting to be taken into account by
+	    Sierra.</para>
 
 	    <para>The default value for this setting is checked (markers
 	    are shown).</para>
@@ -2048,29 +2085,37 @@ if (o == null) {
 	    or Critical importance are highlighted in the gutter of the
 	    Java editor.</para>
 	  </listitem>
+	</orderedlist>
+
+	<para>The <emphasis>Code Scanning</emphasis> settings are used
+	when code scans are preformed by Sierra from within
+	Eclipse. This group contains the following settings:</para>
+
+	<orderedlist>
 	  <listitem>
 	    <para><emphasis>Maximum VM memory allowed for
-	    scans:</emphasis> Code cans run in a separate Java VM. This
-	    preference controls the maximum memory used by code scan
-	    processes.</para>
-	    <para>The default value for this setting is 1024 MB.</para>
+	    scans:</emphasis> Code scans run in a separate Java
+	    VM. This preference controls the maximum memory used by
+	    code scan processes.</para>
 
-	    <para>This maximum value for this setting is difficult to
-	    determine and is different on each computer configuration
-	    due to technical limitations in Java VM implementations.
-	    Sierra calculates this maximum for your computer
-	    configuration as best it can and limits your setting based
-	    upon the results of this calculation. However, it is
-	    possible, in rare cases, that too large a value for your
-	    computer configuration could be set. In this case the scan
-	    will abort right away and you should get an indication of
-	    what the problem is.</para>
+	    <para>The default value for this setting is 1024 MB. The
+	    maximum value for your computer is shown in the
+	    dialog. This maximum value for this setting is difficult
+	    to determine and is different on each computer
+	    configuration due to technical limitations in Java VM
+	    implementations.  Sierra calculates this maximum for your
+	    computer configuration as best it can and limits your
+	    setting based upon the results of this
+	    calculation. However, it is possible, in rare cases, that
+	    too large a value for your computer configuration could be
+	    set. In this case the scan will abort right away and you
+	    should get an indication of what the problem is.</para>
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>Save all modified resources automatically
-	    prior to a scan:</emphasis> This indicates that any unsaved
-	    resources in the workspace are automatically saved prior to
-	    a scan without prompted the user.</para>
+	    prior to starting a scan.</emphasis> This indicates that
+	    any unsaved resources in the workspace are automatically
+	    saved prior to a scan without prompted the user.</para>
 
 	    <para>The default value for this setting is unchecked (the
 	    user is prompted to save resources prior to a scan
@@ -2090,19 +2135,37 @@ if (o == null) {
 	</figure>
 
 	<para>The Local Team Server preference pane allows you to
-	control the maximum memory used by the local team server.</para>
+	control the maximum memory used by and the logging level of
+	the local team server.</para>
 
-	<para>The default value for this setting is 1024 MB.</para>
+	<para>The <emphasis>Memory Use</emphasis> setting controls the
+	memory used by the Local Team Server process. The Local Team
+	Server runs in a separate Java VM. The Local Team Server is
+	executed within the Jetty web container. <ulink
+	url="http://www.mortbay.org/jetty/">Jetty</ulink> is a
+	lighweight web server implemented entirely in Java.</para>
 
-	<para>This maximum value for this setting is difficult to
-	determine and is different on each computer configuration due to
-	technical limitations in Java VM implementations. Sierra
-	calculates this maximum for your computer configuration as best
-	it can and limits your setting based upon the results of this
+	<para>The default value for this setting is 1024 MB. The
+	maximum value for your computer is shown in the dialog.  This
+	maximum value for this setting is difficult to determine and
+	is different on each computer configuration due to technical
+	limitations in Java VM implementations. Sierra calculates this
+	maximum for your computer configuration as best it can and
+	limits your setting based upon the results of this
 	calculation. However, it is possible, in rare cases, that too
 	large a value for your computer configuration could be set. In
 	this case the server startup will hang at the yellow light
-	forever and if you restart Eclipse will become the red light.</para>
+	forever and if you restart Eclipse will become the red
+	light. You should see an error in the Jetty console log on
+	most Java VMs.</para>
+
+	<para>The <emphasis>Logging</emphasis> setting sets the
+	minimum threshold at or above which server log messages are
+	output to the Jetty console log. This log can be viewed in the
+	<guilabel>Local Team Server</guilabel> view.</para>
+
+	<para>The default value for this setting is
+	<emphasis>INFO</emphasis>.</para>
       </sect2>
 
       <sect2 id="sec-preferences-scan-data">
@@ -2119,23 +2182,27 @@ if (o == null) {
 	about old and no longer needed projects. It also allows the
 	entire Sierra Eclipse client database to be wiped clean.</para>
 
-	<para>The list of projects shown in this panel reflect projects
-	that have scan data and audits about them.  One or more of these
+	<para>The list of projects shown in the <emphasis>Scanned
+	Projects</emphasis> group of this panel reflect projects that
+	have scan data and audits about them.  One or more of these
 	projects can be selected and deleted from the Sierra client
-	database. It is important to understand that the data is deleted
-	immediately when the <emphasis>Delete Sierra Data</emphasis>
-	button is pressed (not when the <emphasis>OK</emphasis> or
-	<emphasis>Apply</emphasis> is pressed for the preference
-	pane).</para>
+	database. It is important to understand that the data is
+	deleted immediately when the <guibutton>Delete Sierra
+	Data</guibutton> button is pressed (not when the
+	<guibutton>OK</guibutton> or <guibutton>Apply</guibutton> is
+	pressed for the preference pane).</para>
 
 	<para>Sierra uses an embedded relational database to store its
 	results about your code. It is possible to wipe this database
 	clean by pressing the<emphasis>Delete All Sierra Data For This
-	Workspace</emphasis> button. This schedules a database wipe the
-	next time you restart Eclipse. This action is not typically
-	needed, but is useful for serviceability of Sierra.  Beware that
-	all audits that have not been synchronized to a team server will
-	be lost.</para>
+	Workspace</emphasis> button. This wipes all the data in the
+	database for the Sierra Eclipse client. This action is not
+	typically needed, but is useful for serviceability of Sierra.
+	Beware that all audits that have not been synchronized to a
+	team server will be lost. This action does not delete the
+	database for the Local Team Server. To do that select the
+	<guimenuitem>Wipe Local Team Server Database</guimenuitem> from
+	the <guilabel>Local Team Server</guilabel> view menu.</para>
       </sect2>
 
       <sect2 id="sec-preferences-scan-filter">
@@ -2149,20 +2216,27 @@ if (o == null) {
 	</figure>
 
 	<para>The Scan Filter preference pane allows fine control over
-	what analysis rules are loaded into the Sierra database during a
-	partial or full scan.</para>
+	what analysis rules are loaded into the Sierra database during
+	a partial or full scan. This preference pane reflects the
+	local scan filter used <emphasis>only</emphasis> for
+	unconnected projects. If a project is connected to a team
+	server then it uses the scan filter assigned to it by that
+	team server.</para>
 
 	<para>Individual finding types can be checked or unchecked. If a
 	rule is checked it is included when a scan is run. If it is
 	unchecked it is excluded when a scan is run.</para>
 
-	<para>The Scan Filter settings may be shared among a development
-	team using a Sierra team server. In the <emphasis>Sierra Team
-	Servers</emphasis> view you can select a server and on its
-	context menu click <emphasis>Send Scan Filter...</emphasis> to
-	send your local scan filter settings to that server. You can
-	also select a server and on its context menu click <emphasis>Get
-	Scan Filter...</emphasis> to download the scan filter setting
+	<para>The local scan filter may be shared among a development
+	team using a Sierra team server. In the <guilabel>Team
+	Servers</guilabel> view you can select a server and on its
+	context menu select <emphasis>Send Local Scan Filter
+	As...</emphasis> to send your local scan filter settings to
+	that server. You will be prompted for a name for the scan
+	filter (all scan filters on a team server are explicitly
+	named). You can also select any named scan filter on a team
+	server and on its context menu select <emphasis>Copy to Local
+	Scan Filter</emphasis> to download that scan filter setting
 	from that server and overwrite your local settings.</para>
       </sect2>
 
@@ -2176,8 +2250,36 @@ if (o == null) {
 	</figure>
 
 	<para>The server interaction preference pane allows control
-	over automatic synchronization with Sierra Team
-	Servers.</para>
+	over automatic synchronization with Sierra Team Servers. To
+	enable automatic interaction with a server, right-click on a
+	team server in the <guilabel>Team Servers</guilabel> view and
+	check <guimenuitem>Use Automatic
+	Synchronization</guimenuitem>.</para>
+
+	<para>If automatic synchronization is turned on for a server
+	then the settings in this preference pane control the
+	interaction with that server.</para>
+
+	<para><emphasis>Period between team server
+	interactions:</emphasis> This sets the time in minutes between
+	automatic synchronization of a server.</para>
+
+	<para><emphasis>Policy for handling server
+	failures:</emphasis> This setting sets what to do if it is not
+	possible to communicate with a particular server.  A value of
+	<emphasis>Ignore</emphasis> logs the problem but does not
+	notify the user. A value of <emphasis>Pop-up a
+	balloon</emphasis> logs the problem and puts up a balloon
+	notification to the user for a short period of time (this is
+	the default setting). A value of <emphasis>Pop-up a
+	dialog</emphasis> logs the problem and pops up a dialog (which
+	must be dismissed) to notify the user.</para>
+
+	<para><emphasis>Retry threshold (# of consecutive failures
+	before switching into manual mode):</emphasis> If the number
+	of failed attempts to contact the server during one Eclipse
+	session exceeds this number then no further attempts are
+	made.</para>
       </sect2>
 
       <sect2 id="sec-preferences-tools">
@@ -2482,10 +2584,7 @@ if (o == null) {
 	    server a new optional feature has been added to make it
 	    easy to run a team server within Eclipse on your desktop.
 	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/release-notes-2-1-local-team-server.png" />
-	      </imageobject>
+	      <imageobject><imagedata fileref="images/release-notes-2-1-local-team-server.png"/></imageobject>
 	    </mediaobject>
 	    The feature contributes a <emphasis>Local Team
 	    Server</emphasis> view that allows you to start, stop, and
