@@ -865,7 +865,7 @@ if (o == null) {
 	request log which shows information about requests made from
 	clients to the web site. <ulink
 	url="http://www.mortbay.org/jetty/">Jetty</ulink> is a
-	lighweight web server implemented entirely in Java. It is used
+	lightweight web server implemented entirely in Java. It is used
 	to execute the team server. If the logs panel is not visible
 	in your view, select <guimenuitem>Show Server
 	Logs</guimenuitem> from the view menu as shown in <xref
@@ -1116,7 +1116,7 @@ if (o == null) {
 	server to email any errors it encounters to an
 	administrator. You can fill in the information required and
 	send a test email to try out your configuration. (This is
-	optional for this tutorial but recommened for a production
+	optional for this tutorial but recommended for a production
 	server.)</para>
 
 	<figure id="fig-tutorial-portal-settings-page">
@@ -1335,7 +1335,7 @@ if (o == null) {
 	created.</para>
 
 	<para>Select the now empty <emphasis>Tutorial</emphasis> scan
-	filter in the list af the left. Select the
+	filter in the list at the left. Select the
 	<emphasis>Edit</emphasis> link a the upper-right to edit the
 	Tutorial scan filter.  Select the <emphasis>Add
 	Category</emphasis> link. In the dialog that opens select
@@ -1354,7 +1354,7 @@ if (o == null) {
 	  </mediaobject>
 	</figure>
 
-	<para>Change the imporance of the categories as follows:</para>
+	<para>Change the importance of the categories as follows:</para>
 
 	<informaltable>
 	  <tgroup cols='2' align='left'>
@@ -1500,10 +1500,10 @@ if (o == null) {
 	one or more categories.  In this case there is overlap. To see
 	this, add the <guilabel>Finding Type</guilabel> filter after
 	the <guilabel>Finding Category</guilabel> and check and
-	uncheck each finging category one at at time. Note that
+	uncheck each finding category one at at time. Note that
 	<emphasis>Should be static</emphasis> finding type is in both
 	the <emphasis>Design Rules (PMD)</emphasis> and the
-	<emphasis>Performance (FindBugs)</emphasis> catgories. In
+	<emphasis>Performance (FindBugs)</emphasis> categories. In
 	addition, the <emphasis>Superfluous instanceof</emphasis>
 	finding type is in both the <emphasis>Correctness
 	(FindBugs)</emphasis> and <emphasis>Style
@@ -1929,7 +1929,7 @@ if (o == null) {
       </sect2>
 
       <sect2 id="sec-team-servers-view">
-	<title>Sierra Team Servers</title>
+	<title>Team Servers</title>
 
 	<para>This view provides a tree that shows the Sierra Eclipse
 	client's connections to Sierra Team Servers on the
@@ -2143,7 +2143,7 @@ if (o == null) {
 	Server runs in a separate Java VM. The Local Team Server is
 	executed within the Jetty web container. <ulink
 	url="http://www.mortbay.org/jetty/">Jetty</ulink> is a
-	lighweight web server implemented entirely in Java.</para>
+	lightweight web server implemented entirely in Java.</para>
 
 	<para>The default value for this setting is 1024 MB. The
 	maximum value for your computer is shown in the dialog.  This
