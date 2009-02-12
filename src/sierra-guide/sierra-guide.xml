@@ -2526,12 +2526,18 @@ if (o == null) {
 	    </para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>New look for the Sierra Servers
-	    view</emphasis> &mdash; The Sierra Servers view has a new
+	    <para><emphasis>New look for the Team Servers
+	    view</emphasis> &mdash; The Team Servers view has a new
 	    tree look. The view contains more information about the
 	    state of connections to one or more Sierra team servers.
 	    In addition, a significant number of preferences can be
 	    set to control interaction with team servers.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-2-team-servers-view.png" />
+	      </imageobject>
+	    </mediaobject>
             </para>
 	  </listitem>
 	  <listitem>
