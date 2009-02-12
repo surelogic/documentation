@@ -22,7 +22,7 @@
     <pubdate>Version 1.0&mdash;January 2009</pubdate>
   </bookinfo>
 
-  <chapter id="preface">
+  <preface id="preface">
     <title>Preface</title>
     <sect1>
       <title>Audience</title>
@@ -38,7 +38,7 @@
       <para><email>support@surelogic.com</email></para>
       <para>5808 Forbes Avenue, Pittsburgh, PA 15217-1602</para>
     </sect1>
-  </chapter>
+  </preface>
 
   <chapter id="getting-started">
     <title>Getting started</title>
@@ -69,45 +69,45 @@
     
       <variablelist>
         <varlistentry>
-          <term><varname>BoundedFIFO</varname></term>
+          <term><classname>BoundedFIFO</classname></term>
           <listitem><para>The "thread safe" class.  See <xref
           linkend="BoundedFIFO.java"/></para></listitem>
         </varlistentry>
       
         <varlistentry>
-          <term><varname>BlockingFIFO</varname></term>
+          <term><classname>BlockingFIFO</classname></term>
           <listitem><para>The client code.  See <xref
           linkend="BlockingFIFO.java"/></para></listitem>
         </varlistentry>
       
         <varlistentry>
-          <term><varname>LoggingEvent</varname></term>
+          <term><classname>LoggingEvent</classname></term>
           <listitem><para>The class of objects stored in the queue.  See
           <xref
           linkend="LoggingEvent.java"/></para></listitem>
         </varlistentry>
       </variablelist>
     
-      <para>The class <varname>BoundedFIFO</varname> is taken from the
+      <para>The class <classname>BoundedFIFO</classname> is taken from the
       <application>Apache Log4J</application> project. The class
-      <varname>BlockingFIFO</varname> we wrote based on actual client code
+      <classname>BlockingFIFO</classname> we wrote based on actual client code
       in <application>Log4J</application>.</para>
 
       <para>This example shows off basic features of assuring Java
       lock models using Java intrinsic lock objects:</para>
     
       <itemizedlist>
-        <listitem><para><varname>@RegionLock</varname></para></listitem>
-        <listitem><para><varname>@RequiresLock</varname></para></listitem>
-        <listitem><para><varname>@SingleThreaded</varname></para></listitem>
-        <listitem><para><varname>@Borrowed</varname></para></listitem>
-        <listitem><para><varname>@Unique</varname></para></listitem>
-        <listitem><para><varname>@Aggregate</varname></para></listitem>
-        <listitem><para><varname>@Promise</varname></para></listitem>
+        <listitem><para><classname>@RegionLock</classname></para></listitem>
+        <listitem><para><classname>@RequiresLock</classname></para></listitem>
+        <listitem><para><classname>@SingleThreaded</classname></para></listitem>
+        <listitem><para><classname>@Borrowed</classname></para></listitem>
+        <listitem><para><classname>@Unique</classname></para></listitem>
+        <listitem><para><classname>@Aggregate</classname></para></listitem>
+        <listitem><para><classname>@Promise</classname></para></listitem>
       </itemizedlist>
     
       <figure id="BoundedFIFO.java">
-        <title>Initial Source Code for class <varname>BoundedFIFO</varname></title>
+        <title>Initial Source Code for class <classname>BoundedFIFO</classname></title>
       
         <programlisting>
 <emphasis>@RegionLock("BufLock is this protects Instance")</emphasis>
@@ -264,7 +264,7 @@ public class BlockingFIFO {
       </figure>
 
       <figure id="LoggingEvent.java">
-        <title>Initial Source Code for class <varname>BlockingFIFO</varname></title>
+        <title>Initial Source Code for class <classname>BlockingFIFO</classname></title>
       
         <programlisting>
           <![CDATA[
@@ -280,7 +280,7 @@ public class LoggingEvent {
       <sect2 id="declaring-protected-state">
         <title>Declaring Protected State</title>
       
-        <para>The <varname>BoundedFIFO</varname> class is a buffer
+        <para>The <classname>BoundedFIFO</classname> class is a buffer
         meant to be shared between two threads. It obviously must be
         made thread-safe. The usual assumption is that an object
         protects its own state.  In <xref
@@ -297,7 +297,7 @@ public class BoundedFIFO {
         <para>With this single annotation, analysis by JSure produces
         two main concurrency results, mostly indicating that the
         annotation is not assured, and a few warnings.  There are 27
-        unprotected field accesses for <varname>BufLock</varname>, and
+        unprotected field accesses for <structfield>BufLock</structfield>, and
         no protected field accesses:</para>
       
         <mediaobject>
@@ -316,25 +316,25 @@ public class BoundedFIFO {
         <para>Either this class is horribly broken or something else
         is going on.  By double clicking on any of the errors in the
         view, we can focus on the source line in
-        <varname>BoundedFIFO</varname>. A quick inspectiion of the
+        <classname>BoundedFIFO</classname>. A quick inspectiion of the
         class reveals that it does not acquire the lock anywhere.  So
         we look at its clients by viewing the call chain, in this case
         by viewing the call hierarchy of method
-        <varname>get()</varname> (Select the method
-        <varname>get()</varname> in the "Outline" view and then choose
+        <function>get()</function> (Select the method
+        <function>get()</function> in the "Outline" view and then choose
         <menuchoice><guimenuitem>Open Call
         Hierarchy</guimenuitem></menuchoice> in the context menu).  We
-        see that the client, <varname>BlockingFIFO</varname> acquires
-        the lock on the <varname>BoundedFIFO</varname> object before
+        see that the client, <classname>BlockingFIFO</classname> acquires
+        the lock on the <classname>BoundedFIFO</classname> object before
         invoking any of the methods on the
-        <varname>BoundedFIFO</varname> object, so we decide that the
+        <classname>BoundedFIFO</classname> object, so we decide that the
         intent is that the caller should acquire the lock before
         calling any of the methods of
-        <varname>BoundedFIFO</varname>.</para>
+        <classname>BoundedFIFO</classname>.</para>
 
-        <para>To add this intent to <varname>BoundedFIFO</varname>, we
+        <para>To add this intent to <classname>BoundedFIFO</classname>, we
         need to add the lock precondition
-        <varname>@RequiresLock("BufLock")</varname> to all the methods
+        <classname>@RequiresLock("BufLock")</classname> to all the methods
         of the class.  We can do this in a single annotation on the
         class itself by using a <emphasis>scoped promise</emphasis> to
         add the annotation to all the methods of the class:</para>
@@ -355,8 +355,8 @@ public class BoundedFIFO {
         <title>Wrong Lock</title>
       
         <para>There is now a "scoped promises" heading, and we can see
-        all the places where our <varname>@Promise</varname>
-        annotation added <varname>@RequiresLock</varname>
+        all the places where our <classname>@Promise</classname>
+        annotation added <classname>@RequiresLock</classname>
         annotations. Only 4 out of the 7 are currently
         satisfied:</para>
       
@@ -370,8 +370,8 @@ public class BoundedFIFO {
         </mediaobject>
       
         <para>Looking at the chain of evidence for the call to
-        <varname>isFull()</varname>, we see that the caller is
-        confused and is synchronized on <varname>this</varname> (as
+        <function>isFull()</function>, we see that the caller is
+        confused and is synchronized on <parameter>this</parameter> (as
         evidenced by the caller holding the lock "this.MUTEX"):</para>
       
         <mediaobject>
@@ -384,12 +384,12 @@ public class BoundedFIFO {
         </mediaobject>
 
         <para>But in the context of the caller,
-        <varname>BlockingFIFO</varname>, <varname>this</varname>
-        refers to the <varname>BlockingFIFO</varname> object, not the
-        <varname>BoundedFIFO</varname> object that is correctly
-        refered to by <varname>fifo</varname>. The
-        <varname>synchronized</varname> statement in method
-        <varname>isFull()</varname> needs to be changed:</para>
+        <classname>BlockingFIFO</classname>, <parameter>this</parameter>
+        refers to the <classname>BlockingFIFO</classname> object, not the
+        <classname>BoundedFIFO</classname> object that is correctly
+        refered to by <structfield>fifo</structfield>. The
+        <code>synchronized</code> statement in method
+        <function>isFull()</function> needs to be changed:</para>
 
         <programlisting>
  public void put(LoggingEvent e) {
@@ -416,16 +416,16 @@ public class BoundedFIFO {
           </imageobject>
         </mediaobject>
       
-        <para>Because the lock on the <varname>BoundedFIFO</varname>
+        <para>Because the lock on the <classname>BoundedFIFO</classname>
         object is not held during construction, we need to make sure
         that during construction a reference to the object cannot be
         leaked to another thread. Note that we cannot require the
         caller of the constructor to hold the lock because the object
         doesn't exist yet!  In general, we cannot use
-        <varname>synchronized</varname> blocks in the constructor to
+        <code>synchronized</code> blocks in the constructor to
         protect the state during construction because we cannot create
         a single atomic block: there would have to be multiple
-        distinct <varname>synchronized</varname> blocks in the
+        distinct <code>synchronized</code> blocks in the
         constructor and in the constructors of any subclasses. But if
         we can guarantee that the thread that invokes the constructor
         is the only thread that can access the newly created object
@@ -446,8 +446,8 @@ public class BoundedFIFO {
         during the execution of the constructor.  The second that no
         aliases to the newly constructed object will be created during
         the execution of the constructor.  The assurance of the
-        <varname>@SingleThreaded</varname> annotation actually depends
-        in part on the assurance of the <varname>@Borrowed</varname>
+        <classname>@SingleThreaded</classname> annotation actually depends
+        in part on the assurance of the <classname>@Borrowed</classname>
         annotation.</para>
 
         <para>Save and reanalyze. The model now assures:</para>
@@ -465,18 +465,18 @@ public class BoundedFIFO {
           <title>Deep Analysis</title>
         
           <para>As stated above, the assurance of
-          <varname>@SingleThreaded</varname> depends on the assurance
-          of <varname>@Borrowed("this")</varname> on the
+          <classname>@SingleThreaded</classname> depends on the assurance
+          of <classname>@Borrowed("this")</classname> on the
           constructor. We can see this by</para>
         
           <itemizedlist>
-            <listitem><para>Removing the <varname>@Borrowed</varname>
+            <listitem><para>Removing the <classname>@Borrowed</classname>
             annotation.</para></listitem>
             <listitem><para>Changing the code to be inconsistent with the
             annotation.</para></listitem>
           </itemizedlist>
 
-          <para>If we remove the <varname>@Borrowed</varname>
+          <para>If we remove the <classname>@Borrowed</classname>
           annotation, the assurance now fails:</para>
         
           <mediaobject>
@@ -490,20 +490,21 @@ public class BoundedFIFO {
 
           <para>Here we see that the 27 protected field accesses
           heading has a red X because assurance of some of the
-          accesses depends on the constructor being single-threaded,
-          and the <varname>@SingleThreaded</varname> annotation is not
+          accesses depends on the constructor being single threaded,
+          and the <classname>@SingleThreaded</classname> annotation is not
           assured.</para>
 
-          <para>We can reinstate the <varname>@Borrowed</varname>
+          <para>We can reinstate the <classname>@Borrowed</classname>
           annotation and instead make the code inconsistent by
-          changing the constructor to alias the receiver:</para>
+          changing the constructor to alias the receiver (in this case by storing
+          a reference to it in a <code>static</code> field):</para>
        
           <programlisting>
 @RegionLock("BufLock is this protects Instance")
 @Promise("'@RequiresLock BufLock' for *(**)")
 public class BoundedFIFO {
   &hellip;
-  <emphasis>static BoundedFIFO foo;</emphasis>
+  static BoundedFIFO foo;
 
   @SingleThreaded
   @Borrowed("this")
@@ -513,7 +514,7 @@ public class BoundedFIFO {
     this.size = size;
     buf = new LoggingEvent[size];
     
-    <emphasis>foo = this;</emphasis>
+    foo = this; <lineannotation>(Line 59)</lineannotation>
   }
   &hellip;
 }
@@ -531,8 +532,8 @@ public class BoundedFIFO {
           </mediaobject>
         
           <para>In this case, we can see that the assurance of
-          <varname>@SingleThreaded</varname> fails because the
-          <varname>@Borrowed</varname> annotation is violated by the
+          <classname>@SingleThreaded</classname> fails because the
+          <classname>@Borrowed</classname> annotation is violated by the
           code at line 59.</para>
         </sect3>
       
@@ -540,7 +541,7 @@ public class BoundedFIFO {
           <title>Deeper Analysis</title>
         
           <para>The analysis used to assure
-          <varname>@Borrowed</varname> is sophisticated, and it does
+          <classname>@Borrowed</classname> is sophisticated, and it does
           allow temporary local aliases to the receiver.  If the
           constructor were instead</para>
         
@@ -560,7 +561,7 @@ public BoundedFIFO(int size) {
           <para>then the class would still assure because</para>
         
           <itemizedlist>
-            <listitem><para>The alias to <varname>this</varname> in
+            <listitem><para>The alias to <parameter>this</parameter> in
             <varname>local</varname> is never itself aliased to a global
             location.</para></listitem>
             <listitem><para>The alias disappears when the constructor finishes
@@ -594,20 +595,20 @@ public BoundedFIFO(int size) {
         </mediaobject>
 
         <para>These 2 warnings refer to access to the contents of the
-        array referenced by the field <varname>buf</varname>. This
+        array referenced by the field <structfield>buf</structfield>. This
         array is an object separate from the
-        <varname>BoundedFIFO</varname> object and is not protected by
+        <classname>BoundedFIFO</classname> object and is not protected by
         the lock protecting the fields of the
-        <varname>BoundedFIFO</varname> object. We can extend
+        <classname>BoundedFIFO</classname> object. We can extend
         protection to the contents of the array by declaring the array
-        reference to be <varname>@Unique</varname>&mdash;no object but
-        the <varname>BoundedFIFO</varname> object can hold a reference
+        reference to be <classname>@Unique</classname>&mdash;no object but
+        the <classname>BoundedFIFO</classname> object can hold a reference
         to it&mdash;and then by declaring that the state of the array
-        is part of the state of the <varname>BoundedFIFO</varname>
+        is part of the state of the <classname>BoundedFIFO</classname>
         object:</para>
       
         <programlisting>
-       @RegionLock("BufLock is this protects Instance")
+ @RegionLock("BufLock is this protects Instance")
  @Promise("'@RequiresLock BufLock' for *(**)")
  public class BoundedFIFO {
    <emphasis>@Unique</emphasis>
@@ -618,8 +619,8 @@ public BoundedFIFO(int size) {
         </programlisting>
       
         <para>Now, as part of the state of the
-        <varname>BoundedFIFO</varname> object, the array object
-        referenced by <varname>buf</varname> is also protected by the
+        <classname>BoundedFIFO</classname> object, the array object
+        referenced by <structfield>buf</structfield> is also protected by the
         lock that protects that state of the buffer.</para>
 
         <para>Aftering saving (and reanalyzing) we can see the effects
@@ -665,21 +666,22 @@ public BoundedFIFO(int size) {
       <title>Effects Assurance</title>
       
       <para>This discussion of effects assurance results is based
-      on assuring the class <varname>EffectsExample</varname>. This class does absolutely
+      on assuring the class <classname>EffectsExample</classname>. This class does absolutely
       nothing useful except to demonstrate the various effects assurance
       results.</para>
       
       <figure id="EffectsExample.java">
-        <title>The class <varname>EffectsExample</varname>.</title>
+        <title>The class <classname>EffectsExample</classname>.</title>
       
-        <programlisting>
-/**
+        <programlisting linenumbering="numbered" startinglinenumber="5">/**
  * This is a simple class that exists only to show off the 
  * assurance results the Effects Assurance can produce.
  */
 public class EffectsExample {
   private int f1;
+  
   private int f2;
+  
   private int f3;
 
   <emphasis>@RegionEffects("writes java.lang.Object:All")</emphasis>
@@ -722,26 +724,25 @@ public class EffectsExample {
   public int bad() {
     return getSum() + doesAnything();
   }
-}
-        </programlisting>
+}</programlisting>
       </figure>
       
       <para>The results of effects assurance are displayed under the
       top-level heading <guilabel>Effects</guilabel> in the
       <guilabel>Verification Status</guilabel> view.  Under this heading
       is a subheading for each method and constructor that is annotated
-      with <varname>@RegionEffects</varname>. Each entry is marked with
+      with <classname>@RegionEffects</classname>. Each entry is marked with
       either a green plus <guiicon><inlinegraphic
       fileref="images/green-plus.jpg"/></guiicon> or a red X
       <guiicon><inlinegraphic fileref="images/red-x.jpg"/></guiicon>
       indicating whether the effects annotation has been positively or
       negatively assured, respectively.</para>
       
-      <para>In our example, the the methods <varname>bad()</varname> and
-      <varname>indirectlyBad()</varname> fail to assure, while the
-      methods <varname>getSum()</varname>, <varname>update()</varname>,
-      <varname>doesAnything()</varname>, and the constructor
-      <varname>EffectsExample()</varname> assure.</para>
+      <para>In our example, the the methods <function>bad()</function> and
+      <function>indirectlyBad()</function> fail to assure, while the
+      methods <function>getSum()</function>, <function>update()</function>,
+      <function>doesAnything()</function>, and the constructor
+      <function>EffectsExample()</function> assure.</para>
       
       <mediaobject>
         <imageobject condition="isHTML">
@@ -753,7 +754,7 @@ public class EffectsExample {
       </mediaobject>
       
       <para>There are four kinds of results that can appear as 
-      evidence for and children of the promise drops:</para>
+      evidence for and children of the promise results:</para>
       
       <variablelist>
         <varlistentry id="not-accounted-for">
@@ -802,8 +803,8 @@ public class EffectsExample {
       <sect2 id="simple-positive-assurances">
         <title>Simple Positive Assurances</title>
         
-        <para>Let us examine the assurance results for <varname>doesAnything</varname>,
-        <varname>getSum()</varname>, and <varname>EffectsExample()</varname> in more detail.
+        <para>Let us examine the assurance results for <function>doesAnything()</function>,
+        <function>getSum()</function>, and <function>EffectsExample()</function> in more detail.
         Their chains of evidence expand as follows</para>
         
         <mediaobject>
@@ -816,18 +817,16 @@ public class EffectsExample {
         </mediaobject>
         
         <sect3 id="doesAnything">
-          <title>Method <varname>doesAnything()</varname></title>
+          <title>Method <function>doesAnything()</function></title>
           
           <para>This method declares that it could read or write anything
-          (<varname>@RegionEffects("writes java.lang.Object:All")</varname>),
+          (<classname>@RegionEffects("writes java.lang.Object:All")</classname>),
           but in fact its implementation has no effects at all:</para>
           
-          <programlisting>
-  <emphasis>@RegionEffects("writes java.lang.Object:All")</emphasis>
+          <programlisting linenumbering="numbered" startinglinenumber="16">  <emphasis>@RegionEffects("writes java.lang.Object:All")</emphasis>
   private int doesAnything() {
     return 0;
-  }
-          </programlisting>
+  }</programlisting>
           
           <para>Thus, the method assures and the result <computeroutput>"Empty effects
           trivially satisfy declared effects"</computeroutput> appears as evidence for
@@ -835,23 +834,21 @@ public class EffectsExample {
         </sect3>
 
         <sect3 id="getSum">
-          <title>Method <varname>getSum()</varname></title>
+          <title>Method <function>getSum()</function></title>
           
           <para>Method getSum has the following implementation:</para>
           
-          <programlisting>
-  <emphasis>@RegionEffects("reads Instance")</emphasis>
+          <programlisting linenumbering="numbered" startinglinenumber="28">  <emphasis>@RegionEffects("reads Instance")</emphasis>
   public int getSum() {
     return f1 + f2 + f3;
-  }
-          </programlisting>
+  }</programlisting>
 
           <para>This method declares that could read any of the instance
-          fields of the reciever (<varname>"reads instance"</varname>,
-          really a shorthand for <varname>"reads
-          this:Instance"</varname>). The body of the method reads the
-          three fields <varname>f1</varname>, <varname>f2</varname>, and
-          <varname>f3</varname>. Thus, there are three effects that need
+          fields of the reciever (<code>"reads instance"</code>,
+          really a shorthand for <code>"reads
+          this:Instance"</code>). The body of the method reads the
+          three fields <structfield>f1</structfield>, <structfield>f2</structfield>, and
+          <structfield>f3</structfield>. Thus, there are three effects that need
           to be accounted for in order for the declared effects to be
           assured. We see this in the three result drops that appear as
           evidence for the method's declared effects:</para>
@@ -876,22 +873,20 @@ public class EffectsExample {
         </sect3>
         
         <sect3 id="EffectsExample">
-          <title>Constructor <varname>EffectsExample</varname></title>
+          <title>Constructor <function>EffectsExample</function></title>
 
           <para>The constructor declares that has no effects
-          (<varname>@RegionEffects("none")</varname>) and has the
+          (<classname>@RegionEffects("none")</classname>) and has the
           following implementation:</para>
           
-          <programlisting>
-  <emphasis>@RegionEffects("none")</emphasis>
+          <programlisting linenumbering="numbered" startinglinenumber="21">  <emphasis>@RegionEffects("none")</emphasis>
   public EffectsExample(final int x, final int y, final int z) {
     f1 = x;
     f2 = y;
     f3 = z;
-  }
-          </programlisting>
+  }</programlisting>
           
-          <para>This case is similar to <varname>getSum()</varname>
+          <para>This case is similar to <function>getSum()</function>
           except that the evidence for the assurance is that the special
           constructor rule applies:</para>
 
@@ -915,19 +910,17 @@ public class EffectsExample {
       <sect2 id="complex-positive-assurance">
         <title>Complex Positive Assurance</title>
         
-        <para>The assurance results for method <varname>update()</varname> are
-        more complicated. This method calls another method, <varname>getSum()</varname>;
+        <para>The assurance results for method <function>update()</function> are
+        more complicated. This method calls another method, <function>getSum()</function>;
         thus some the effects of this method are due to the method that it calls:</para>
         
-        <programlisting>
-  <emphasis>@RegionEffects("writes Instance")</emphasis>
+        <programlisting linenumbering="numbered" startinglinenumber="33">  <emphasis>@RegionEffects("writes Instance")</emphasis>
   public void update() {
     final int sum = getSum();
     f1 += sum;
     f2 += sum;
     f3 += sum;
-  }
-        </programlisting>
+  }</programlisting>
         
         <para>This dependency is reflected in the assurance results:</para>
         
@@ -942,16 +935,16 @@ public class EffectsExample {
         
         <para>In particular, we see that the effect "reads
         &lt;this&gt;:Instance" is due to the declared effects of method
-        <varname>getSum()</varname>.  Because of this, the results
+        <function>getSum()</function>.  Because of this, the results
         become a graph: the results go on to show that the declared
-        effects of <varname>getSum()</varname> are assured. These are exactly the same
+        effects of <function>getSum()</function> are assured. These are exactly the same
         results as described above. The point here is that we can see
         the complete line of assurance; in particular, the effect within
-        <varname>update()</varname> is accounted for and the source of that effect has been
+        <function>update()</function> is accounted for and the source of that effect has been
         assured as well. This is why the icon for the result (line
         35) is a double-plus <guiicon><inlinegraphic
       fileref="images/plus-plus.jpg"/></guiicon>: the large plus indicates effect is
-        assured in the context of the method <varname>update()</varname>, while the small
+        assured in the context of the method <function>update()</function>, while the small
         plus indicates that the <emphasis>source</emphasis> of that effect has also been
         assured.</para>
       </sect2>
@@ -960,7 +953,7 @@ public class EffectsExample {
         <title>Assurance Failures</title>
         
         <para>Now we examine the assurance results of the negatively assured methods
-        <varname>bad()</varname> and <varname>indirectlyBad()</varname>.</para>
+        <function>bad()</function> and <function>indirectlyBad()</function>.</para>
         
         <mediaobject>
           <imageobject condition="isHTML">
@@ -972,19 +965,17 @@ public class EffectsExample {
         </mediaobject>
         
         <sect3 id="method-bad">
-          <title>Method <varname>bad()</varname></title>
+          <title>Method <function>bad()</function></title>
           
-          <para>Method <varname>bad()</varname> is incorrect because it
-          invokes the method <varname>doesAnything()</varname> but only
+          <para>Method <function>bad()</function> is incorrect because it
+          invokes the method <function>doesAnything()</function> but only
           declares that it could read the state of the receiver
-          (<varname>"reads Instance"</varname>).</para>
+          (<code>"reads Instance"</code>).</para>
 
-          <programlisting>
-  <emphasis>@RegionEffects("reads Instance")</emphasis>
+          <programlisting linenumbering="numbered" startinglinenumber="52">  <emphasis>@RegionEffects("reads Instance")</emphasis>
   public int bad() {
     return getSum() + doesAnything();
-  }
-          </programlisting>
+  }</programlisting>
 
           <para>In particular, there are two results:</para>
 
@@ -993,35 +984,33 @@ public class EffectsExample {
               <para><computeroutput>"reads &lt;this&gt;:Instance" checked by
               "reads &lt;this&gt;:Instance" at EffectsExample.java line
               54</computeroutput> indicates that the effects of invoking
-              <varname>getSum()</varname> on line 54 are accounted for by the declared
+              <function>getSum()</function> on line 54 are accounted for by the declared
               effects.</para>
             </listitem>
             <listitem>
               <para><computeroutput>"writes java.lang.Object:All" not
               accounted for by declared effect(s) at EffectsExample.java
               line 54</computeroutput> indicates that the effects of
-              invoking <varname>doesAnything()</varname> on line 54 are
+              invoking <function>doesAnything()</function> on line 54 are
               not accounted for.</para>
             </listitem>
           </orderedlist>
         </sect3>
         
         <sect3 id="method-indirectly-bad">
-          <title>Method <varname>indirectlyBad()</varname></title>
+          <title>Method <function>indirectlyBad()</function></title>
           
           <para>This method is interesting because its declared effects
           do account for all the effects of its implementation, in the
           sense that the declared effects of called methods are considered
           to be part of the effects of this method. But the method still
           fails to assure because the declared effects of the called
-          method&mdash;in this case <varname>bad()</varname>&mdash;cannot be assured.</para>
+          method&mdash;in this case <function>bad()</function>&mdash;cannot be assured.</para>
 
-          <programlisting>
-  <emphasis>@RegionEffects("reads Instance")</emphasis>
+          <programlisting linenumbering="numbered" startinglinenumber="44">  <emphasis>@RegionEffects("reads Instance")</emphasis>
   public int indirectlyBad() {
     return bad();
-  }
-          </programlisting>
+  }</programlisting>
 
           <para>The method has a single result <computeroutput>"reads
           &lt;this&gt;:Instance" checked by "reads
@@ -1030,7 +1019,7 @@ public class EffectsExample {
           this result is marked with a plus subscripted with a red X <guiicon><inlinegraphic
       fileref="images/plus-x.jpg"/></guiicon>.  This means that the effects assure, but that
           the basis for the implementation effects, namely the effects declaration of
-          the method <varname>bad</varname>, fails to assure.</para>
+          the method <function>bad</function>, fails to assure.</para>
         </sect3>
       </sect2>
     </sect1>
@@ -1038,7 +1027,7 @@ public class EffectsExample {
     <sect1 id="lock-assurance">
       <title>Lock Assurance</title>
       
-      <para>Each <varname>@RegionLock</varname> annotion results in a
+      <para>Each <classname>@RegionLock</classname> annotion results in a
       new chain of evidence under <guilabel>Concurrency</guilabel>
       heading in the <guilabel>Verification Status</guilabel> view. Each
       of these chains is marked to indicate whether the model associated
@@ -1052,8 +1041,8 @@ public class EffectsExample {
       fileref="images/folder-plus.jpg"/></guiicon> and
       <guiicon><inlinegraphic fileref="images/folder-x.jpg"/></guiicon>,
       as well as with chains of evidence for other annotations used to
-      support the lock model (e.g., <varname>@ReturnsLock</varname> and
-      <varname>@SingleThreaded</varname>), again marked with
+      support the lock model (e.g., <classname>@ReturnsLock</classname> and
+      <classname>@SingleThreaded</classname>), again marked with
       <guiicon><inlinegraphic
       fileref="images/green-plus.jpg"/></guiicon> and
       <guiicon><inlinegraphic fileref="images/red-x.jpg"/></guiicon>. 
@@ -1073,13 +1062,12 @@ public class EffectsExample {
       </figure>
       
       <sect2 id="assuring-region-lock">
-        <title>Assuring <varname>@RegionLock</varname></title>
+        <title>Assuring <classname>@RegionLock</classname></title>
         
-        <para>The example class <varname>SimpleLockExample</varname>
+        <para>The example class <classname>SimpleLockExample</classname>
         demonstrates the basics of lock assurance:</para>
 
-        <programlisting>
-<emphasis>@RegionLock("L1 is this protects Instance")</emphasis>
+        <programlisting linenumbering="numbered" startinglinenumber="6"><emphasis>@RegionLock("L1 is this protects Instance")</emphasis>
 public class SimpleLockExample {
   private int f;
   private int g;
@@ -1106,13 +1094,12 @@ public class SimpleLockExample {
     // Bad
     return g;
   }
-}
-        </programlisting>
+}</programlisting>
 
-        <para>The receiver (<varname>this</varname>) is used as a lock
-        to protect the <varname>Instance</varname> region of the object.
-        The field <varname>f</varname> is always accessed correctly,
-        while the field <varname>g</varname> is accessed
+        <para>The receiver (<parameter>this</parameter>) is used as a lock
+        to protect the <structfield>Instance</structfield> region of the object.
+        The field <structfield>f</structfield> is always accessed correctly,
+        while the field <structfield>g</structfield> is accessed
         incorrectly.</para>
         
         <mediaobject>
@@ -1135,32 +1122,32 @@ public class SimpleLockExample {
           <para>This heading groups together all the accesses to fields in the
           protected region that JSure can assure occur when the correct
           lock is held. For our example, this would be the fields in the
-          region <varname>Instance</varname> and the lock referenced by
-          <varname>this</varname>.  The individual assurance results
+          region <structfield>Instance</structfield> and the lock referenced by
+          <parameter>this</parameter>.  The individual assurance results
           under this subheading are of the form <computeroutput>Lock
           "<replaceable>lock</replaceable>" held when accessing
           <replaceable>field</replaceable></computeroutput>. In our
           example, there are three of these, one for each access to
-          field <varname>f</varname> on lines 13, 19, and 26.</para>
+          field <structfield>f</structfield> on lines 13, 19, and 26.</para>
           
           <para>Each assurance result is backed up by
           <guilabel>supporting information</guilabel> that shows the
           locks that can be assured to be held when the field is
-          accessed: <computeroutput>Intrinsic lock
+          accessed: <computeroutput id="intrinsic-lock-held">Intrinsic lock
           "<replaceable>lock</replaceable>" is held</computeroutput>.
           This result links to the source line of code of the expression
           that acquires the lock. In our example, for the access on line
           11, the supporting information links to the declaration of the
-          surrounding <varname>synchronized</varname> method
-          <varname>getF()</varname> on line 11. For the access on line
+          surrounding <code>synchronized</code> method
+          <function>getF()</function> on line 11. For the access on line
           19, the supporting information links to the surrounding
-          <varname>synchronized</varname> block on line 17.  Finally,
+          <code>synchronized</code> block on line 17.  Finally,
           for the access on line 26, the supporting information links to
-          the the <varname>@RequiresLock</varname> annotation of the
-          surrounding method <varname>doStuff()</varname>on line 23. In
+          the the <classname>@RequiresLock</classname> annotation of the
+          surrounding method <function>doStuff()</function>on line 23. In
           a more complete example, one in which we have calls to the
-          method <varname>doStuff()</varname>, the use of
-          <varname>@RequiresLock</varname> would be assured based on the
+          method <function>doStuff()</function>, the use of
+          <classname>@RequiresLock</classname> would be assured based on the
           correctness of its callsites. If there were unassured
           callsites, then this field access would be marked with a
           <guiicon><inlinegraphic
@@ -1176,24 +1163,24 @@ public class SimpleLockExample {
           The individual assurance results under this subheading are of the 
           form <computeroutput>Lock "<replaceable>lock</replaceable>" not held when
           accessing <replaceable>field</replaceable></computeroutput>.  In our example,
-          there is one of these results for the access to the field <varname>g</varname> 
+          there is one of these results for the access to the field <structfield>g</structfield> 
           at line 31.</para>
         </sect3>
       </sect2>
       
       <sect2 id="assuring-requires-lock">
-        <title>Assuring Method Preconditions: <varname>@RequiresLock</varname></title>
+        <title>Assuring Method Preconditions: <classname>@RequiresLock</classname></title>
         
-        <para>The result heading for each <varname>@RegionLock</varname>
-        annotation collects all the <varname>@RequiresLock</varname> annotations that name
+        <para>The result heading for each <classname>@RegionLock</classname>
+        annotation collects all the <classname>@RequiresLock</classname> annotations that name
         its lock under the heading <guilabel>lock preconditions</guilabel>; see <xref linkend="RequiresLockExample-results"/>.
-        Each <varname>@RequiresLock</varname> annotation is assured by checking
+        Each <classname>@RequiresLock</classname> annotation is assured by checking
         each call site of the annotated method to see if the correct
         lock is held. As with field access, the good and bad call sites
         are grouped together; again, see <xref linkend="RequiresLockExample-results"/>.</para>
         
         <figure id="RequiresLockExample-results">
-          <title>Chains of Evidence for <varname>RequiresLockExample</varname></title>.
+          <title>Chains of Evidence for <classname>RequiresLockExample</classname></title>.
           
           <mediaobject>
             <imageobject condition="isHTML">
@@ -1206,11 +1193,10 @@ public class SimpleLockExample {
         </figure>
         
         <para>This section uses class
-        <varname>RequiresLockExample</varname> to describe how
-        <varname>@RequiresLock</varname> annotations are assured:</para>
+        <classname>RequiresLockExample</classname> to describe how
+        <classname>@RequiresLock</classname> annotations are assured:</para>
         
-        <programlisting>
-<emphasis>@RegionLock("RL is this protects Instance")</emphasis>
+        <programlisting linenumbering="numbered" startinglinenumber="6"><emphasis>@RegionLock("RL is this protects Instance")</emphasis>
 public class RequiresLockExample {
   private int f;
   
@@ -1238,8 +1224,7 @@ public class RequiresLockExample {
     // bad
     return get();
   }
-}
-        </programlisting>
+}</programlisting>
         
         <sect3 id="preconditions-satisfied">
           <title>lock precondition(s) satisfied</title>
@@ -1251,14 +1236,14 @@ public class RequiresLockExample {
           <replaceable>method</replaceable>; precondition satisfied</computeroutput>.  As with
           the field assurances, these results have supporting
           information indicating which statements acquire the locks. In
-          our example, both uses of <varname>set()</varname>, on lines
+          our example, both uses of <function>set()</function>, on lines
           18 and 26, are correct, and one use of
-          <varname>get()</varname>, on line 20, is correct. For
-          <varname>set()</varname>, the supporting information refers to
-          the <varname>synchronized</varname> method on line 16 and the
-          <varname>synchronized</varname> block on line 24,
-          respectively. For <varname>get()</varname>, the supporting
-          information refers to the <varname>synchronized</varname>
+          <function>get()</function>, on line 20, is correct. For
+          <function>set()</function>, the supporting information refers to
+          the <code>synchronized</code> method on line 16 and the
+          <code>synchronized</code> block on line 24,
+          respectively. For <function>get()</function>, the supporting
+          information refers to the <code>synchronized</code>
           method on line 16.</para>
         </sect3>
 
@@ -1271,17 +1256,17 @@ public class RequiresLockExample {
            The individual results read <computeroutput>Lock
           "<replaceable>lock</replaceable>" not held when invoking
           <replaceable>method</replaceable>; precondition unsatisfied</computeroutput>.  The call
-          to <varname>get()</varname> on line 32 is not assured in our
+          to <function>get()</function> on line 32 is not assured in our
           example.</para>
         </sect3>
       </sect2>
       
       <sect2 id="assuring-singled-threaded">
-        <title>Assuring Constructors: <varname>@SingleThreaded</varname></title>
+        <title>Assuring Constructors: <classname>@SingleThreaded</classname></title>
         
-        <para>The class <varname>ConstructorExample</varname> below
+        <para>The class <classname>ConstructorExample</classname> below
         demonstrates assurance issues with object constructors.
-        Specifically, each <varname>@SingleThreaded</varname> annotation
+        Specifically, each <classname>@SingleThreaded</classname> annotation
         appears directly under the <guilabel>Concurrency</guilabel>
         top-level heading, and field initializers and their
         initialization expressions are assured once <emphasis>for
@@ -1289,14 +1274,16 @@ public class RequiresLockExample {
         the single-threaded constructors; the next, <xref linkend="assuring-field-init"/> discusses field
         initialization issues.</para>
         
-        <programlisting>
-<emphasis>@RegionLock("L2 is this protects Instance")</emphasis>
+        <programlisting linenumbering="numbered" startinglinenumber="8"><emphasis>@RegionLock("L2 is this protects Instance")</emphasis>
 public class ConstructorExample {
   private int f = 100;
+  
   private int g = f + 10;
+  
   private int h;
   
   private final Aux aux = new Aux();
+  
   private final int bad = aux.doStuff();
   
   public ConstructorExample(final int a) {
@@ -1329,13 +1316,12 @@ public class ConstructorExample {
       return x; 
     }
   }
-}
-        </programlisting>
+}</programlisting>
         
-        <para>Class <varname>ConstructorExample</varname> has two
-        constructors annotated with <varname>@SingleThreaded</varname>:
-        <varname>ConstructorExample(int, int)</varname> at line 28, and
-        <varname>ConstructorExample()</varname> at line 37. The
+        <para>Class <classname>ConstructorExample</classname> has two
+        constructors annotated with <classname>@SingleThreaded</classname>:
+        <function>ConstructorExample(int, int)</function> at line 28, and
+        <function>ConstructorExample()</function> at line 37. The
         annotation assures for the first, but not for the second:</para>
         
         <mediaobject>
@@ -1358,19 +1344,19 @@ public class ConstructorExample {
             <listitem>
               <para>The constructor has a borrowed receiver.  That is,
               the constructor is also annotated with
-              <varname>@Borrowed("this")</varname>.</para>
+              <classname>@Borrowed("this")</classname>.</para>
             </listitem>
             <listitem>
               <para>The constructor does not start any threads and only writes to the newly created object under construction.
-              Specifically, the constructor is annotated with <varname>@Starts("nothing")</varname> and its declared effects
-              are contained in the effect <varname>"writes this:Instance"</varname>.</para>
+              Specifically, the constructor is annotated with <classname>@Starts("nothing")</classname> and its declared effects
+              are contained in the effect <code>"writes this:Instance"</code>.</para>
             </listitem>
           </orderedlist>
 
           <para>JSure attempts to assure the annotation using both
           techniques, and the results of this are shown under the
           <guilabel>precondition choice(s)</guilabel> subheading. For constructor
-          <varname>ConstructorExample(int, int)</varname> only the first case applies, an we see
+          <function>ConstructorExample(int, int)</function> only the first case applies, an we see
           the <guilabel>by borrowed receiver</guilabel> subheading. Under that heading are the
           results elaborating the assurance that the receiver is unaliased. Any
           evidence about using the second option would appear under the
@@ -1384,7 +1370,7 @@ public class ConstructorExample {
           the object being constructed is accessed by the thread that is
           constructing it only. That is, the receiver may escape the
           constructing thread and not be accessed by a single thread. In
-          our example, the constructor ConstructorExample() fails to assure
+          our example, the constructor <function>ConstructorExample()</function> fails to assure
           because we do not provide any design intent that can be used to
           back up the claims of single-threadedness.</para>
         </sect3>
@@ -1400,18 +1386,18 @@ public class ConstructorExample {
         assurance.</para>
 
         <para>In the case of the example class
-        <varname>ConstructorExample</varname> above, the fields
-        <varname>f</varname> and <varname>g</varname> have initializers
+        <classname>ConstructorExample</classname> above, the fields
+        <structfield>f</structfield> and <structfield>g</structfield> have initializers
         and thus the use of the fields and their initialization
         expressions need to be incorporated into the assurance of the
         constructors. Because there are three constructors, these uses
         are analyzed three times.</para>
 
         <sect3 id="constructor-1">
-          <title>Constructor <varname>ConstructorExample(int)</varname></title>
+          <title>Constructor <function>ConstructorExample(int)</function></title>
           
           <para>The first constructor is not annotated with
-          <varname>@SingleThread</varname> and thus all the field accesses it makes
+          <classname>@SingleThread</classname> and thus all the field accesses it makes
           are unprotected. The JSure results reflect this:</para>
           
           <mediaobject>
@@ -1423,9 +1409,9 @@ public class ConstructorExample {
             </imageobject>
           </mediaobject>
 
-          <para id="on-behalf-of">The uses of field <varname>f</varname> on line 10, the
-          fields <varname>f</varname> and <varname>g</varname> on line
-          12, and the use of field <varname>h</varname> on line 22 are
+          <para id="on-behalf-of">The uses of field <structfield>f</structfield> on line 10, the
+          fields <structfield>f</structfield> and <structfield>g</structfield> on line
+          12, and the use of field <structfield>h</structfield> on line 22 are
           all marked as unprotected. The uses on lines 10 and 12 occur
           due to field declarations and thus are marked with
           <guilabel>supporting information</guilabel> indicating which
@@ -1435,9 +1421,9 @@ public class ConstructorExample {
         </sect3>
         
         <sect3 id="constructor-2">
-          <title>Constructor <varname>ConstructorExample(int, int)</varname></title>
+          <title>Constructor <function>ConstructorExample(int, int)</function></title>
           
-          <para>This constructor is declared to be <varname>@SingleThreaded</varname>, and JSure is 
+          <para>This constructor is declared to be <classname>@SingleThreaded</classname>, and JSure is 
           able to assure that its implementation is in fact so.  Thus all its field accesses
           are protected:</para>
           
@@ -1451,20 +1437,20 @@ public class ConstructorExample {
           </mediaobject>
           
           <para>Observe in particular that the uses of the field
-          <varname>f</varname> on line 10, and the fields
-          <varname>f</varname> and <varname>g</varname> on line 12 are
+          <structfield>f</structfield> on line 10, and the fields
+          <structfield>f</structfield> and <structfield>g</structfield> on line 12 are
           assured, and the supporting information indicates that they
           are <computeroutput>Analyzed on behalf of constructor
           "test.ConstructorExample.ConstructorExample(int, int)"</computeroutput>.
-          Also note that all the field access assuranced depend on the <varname>@SingleThreaded</varname>
+          Also note that all the field access assuranced depend on the <classname>@SingleThreaded</classname>
           annotation on the constructor itself, which we previously observed is assured.</para>
         </sect3>
         
         <sect3 id="constructor-03">
-          <title>Constructor <varname>ConstructorExample()</varname></title>
+          <title>Constructor <function>ConstructorExample()</function></title>
           
           <para>This constructor is annotated with
-          <varname>@SingleThreaded</varname>, but JSure is not able to
+          <classname>@SingleThreaded</classname>, but JSure is not able to
           assure that this is the case.  Thus all its field accesses are
           found to be protected, but with unsatisfied preconditions and are
           marked with <guiicon><inlinegraphic
@@ -1479,18 +1465,18 @@ public class ConstructorExample {
             </imageobject>
           </mediaobject>
           
-          <para>Again, observe that the uses of the field <varname>f</varname> on line 10,
-          and the fields <varname>f</varname> and <varname>g</varname> on line 12 are assured.
+          <para>Again, observe that the uses of the field <structfield>f</structfield> on line 10,
+          and the fields <structfield>f</structfield> and <structfield>g</structfield> on line 12 are assured.
           In this case, the supporting information marks that they are
           <computeroutput>Analyzed on behalf of constructor
           "test.ConstructorExample.ConstructorExample()"</computeroutput>.</para>
         </sect3>
         
         <sect3 id="aux.doStuff">
-          <title>Assuring Calls to <varname>Aux.doStuff()</varname></title>
+          <title>Assuring Calls to <function>Aux.doStuff()</function></title>
           
-          <para>Finally, there is the case of the call to <varname>Aux.doStuff()</varname> in
-          the initializer for field <varname>bad</varname>. This method has a lock
+          <para>Finally, there is the case of the call to <function>Aux.doStuff()</function> in
+          the initializer for field <structfield>bad</structfield>. This method has a lock
           precondition that must be satisfied each time the method is
           called. This is interesting in the context of assuring
           constructors because this method has three call sites: one for
@@ -1509,27 +1495,25 @@ public class ConstructorExample {
           <para>This call cannot be assured for any of the constructors
           because <emphasis>it is not possible for the necessary lock to be
           acquired in the field declaration</emphasis>. This can be remedied by
-          initializing <varname>bad</varname> in each constructor, or by moving the
+          initializing <structfield>bad</structfield> in each constructor, or by moving the
           initialization to a single instance initializer block:</para>
 
-          <programlisting>
-@RegionLock("L2 is this protects Instance")
+          <programlisting>@RegionLock("L2 is this protects Instance")
 public class ConstructorExample {
   &hellip;
   private final Aux aux = new Aux();
   private final int bad;
   
   {
-    synchronized (aux) {
+    synchronized (aux) { <lineannotation>(Line 21)</lineannotation>
       bad = aux.doStuff();
     }
   }
   &hellip;
-}
-          </programlisting>
+} </programlisting>
           
           <para>This changes the assurance results for
-          <varname>AuxLock</varname> to be</para>
+          <classname>AuxLock</classname> to be</para>
           
           <mediaobject>
             <imageobject condition="isHTML">
@@ -1546,21 +1530,20 @@ public class ConstructorExample {
       </sect2>
       
       <sect2 id="assuring-returns-lock">
-        <title>Assuring <varname>@ReturnsLock</varname></title>
+        <title>Assuring <classname>@ReturnsLock</classname></title>
         
-        <para>Each <varname>@ReturnsLock("<replaceable>lock</replaceable>")</varname>
+        <para>Each <classname>@ReturnsLock("<replaceable>lock</replaceable>")</classname>
         annotation creatse a result subheading under the heading for the named 
         lock <replaceable>lock</replaceable>.  The
-        implementation of the annotated method&mdash;actually each <varname>return</varname>
+        implementation of the annotated method&mdash;actually each <code>return</code>
         expression in the method&mdash;is checked to assure that it actually
         returns the named lock.</para>
 
-        <para>The class <varname>ReturnsLockExample</varname>, below,
+        <para>The class <classname>ReturnsLockExample</classname>, below,
         demonstrates the two kinds of results (see <xref
         linkend="returns-lock-results"/>):</para>
 
-        <programlisting>
-<emphasis>@RegionLock("L is this protects Instance")</emphasis>
+        <programlisting linenumbering="numbered" startinglinenumber="6"><emphasis>@RegionLock("L is this protects Instance")</emphasis>
 public class ReturnsLockExample {
   protected int v;
   
@@ -1582,11 +1565,10 @@ public class ReturnsLockExample {
       v = 2;
     }
   }
-}
-        </programlisting>
+}</programlisting>
         
         <figure id="returns-lock-results">
-          <title>Assurance results for <varname>ReturnsLockExample</varname>.</title>
+          <title>Assurance results for <classname>ReturnsLockExample</classname>.</title>
           <mediaobject>
             <imageobject condition="isHTML">
               <imagedata fileref="images/lock-assurance-10.png"/>
@@ -1601,13 +1583,13 @@ public class ReturnsLockExample {
           <title>return statement(s) returning the correct lock</title>
           
           <para>All the positive assurance results for a single
-          <varname>@ReturnsLock</varname> annotation are grouped under
+          <classname>@ReturnsLock</classname> annotation are grouped under
           this subheading.  Each result is of the form
           <computeroutput>Return statement correctly returns lock
           "<replaceable>lock</replaceable>"</computeroutput>.</para>
 
-          <para>In our example, method <varname>goodGetLock()</varname>
-          always returns <varname>this</varname>, and thus is assured to
+          <para>In our example, method <function>goodGetLock()</function>
+          always returns <parameter>this</parameter>, and thus is assured to
           be correct.</para>
         </sect3>
         
@@ -1615,14 +1597,14 @@ public class ReturnsLockExample {
           <title>return statement(s) possibly returning the wrong lock</title>
 
           <para>All the negative assurance results for a single
-          <varname>@ReturnsLock</varname> annotation are grouped under
+          <classname>@ReturnsLock</classname> annotation are grouped under
           this subheading.  Each result is of the form
           <computeroutput>Return statement expected to returned lock
           "<replaceable>lock</replaceable>"</computeroutput>.</para>
 
-          <para>In our example, method <varname>badGetLock()</varname>
+          <para>In our example, method <function>badGetLock()</function>
           cannot be assured to always return the correct lock (the
-          object referenced by <varname>this</varname>)&mdash;in fact,
+          object referenced by <parameter>this</parameter>)&mdash;in fact,
           it never does&mdash;so it is marked as unassured.</para>
         </sect3>
       </sect2>
@@ -1632,6 +1614,179 @@ public class ReturnsLockExample {
         
         <para>Lock assurance can also yield several classes of reults under the
         top-level <guilabel>Suggestions and Warnings</guilabel> heading.</para>
+        
+        <sect3 id="shared-unprotected">
+          <title>protected reference(s) to a possibly shared unprotected object; possible race condition detected</title>
+          
+          <para>A lock on a region only protects the fields in that
+          region.  It does not protect <emphasis>the objects referenced
+          by those fields</emphasis>.  To remind the programmer of this
+          situation, JSure generates warnings when the state of objects
+          referenced by protected fields is accessed.  Two such warnings
+          are possible:
+          
+            <variablelist>
+              <varlistentry>
+                <term id="possibly-shared-field">Field reference
+                "<replaceable>field ref</replaceable>" may be to a
+                shared unprotected object</term>
+                <listitem>
+                  <para>The field expression accesses a field of
+                  an object referenced by a field that is protected by a
+                  named lock.  Specifically,
+                  
+                    <itemizedlist>
+                      <listitem>
+                        <para><replaceable>field ref</replaceable> is of
+                        the form
+                        <code><replaceable>expr</replaceable>.<replaceable>f</replaceable>.<replaceable>f&prime;</replaceable></code>
+                        or <code><replaceable>expr</replaceable>.<replaceable>f</replaceable>[&hellip;]</code>
+                        </para>
+                      </listitem>
+                      <listitem>
+                        <para>The field
+                        <structfield><replaceable>f&prime;</replaceable></structfield>
+                        is not <code>final</code> or
+                        <code>volatile</code>.</para>
+                      </listitem>                    
+                      <listitem>
+                        <para>The region
+                        <structfield><replaceable>f&prime;</replaceable></structfield> or
+                        <structfield>[]</structfield>, respectively, <emphasis>is
+                        not</emphasis> associated with a lock, either
+                        directly or by aggregation.</para>
+                      </listitem>
+                      <listitem>
+                        <para>Either,
+                          <itemizedlist>
+                            <listitem>
+                              <para>The region
+                              <structfield><replaceable>f</replaceable></structfield>
+                              <emphasis>is</emphasis> protected
+                              by a lock, either directly or via
+                              aggregation.</para>
+                            </listitem>
+                          </itemizedlist>
+                        or
+                          <itemizedlist>
+                            <listitem>
+                              <para>The field <structfield><replaceable>f</replaceable></structfield>
+                              is <code>final</code> or <code>volatile</code> and the class that
+                              it is declared in contains at least one <classname>@PolicyLock</classname>
+                              or <classname>@RegionLock</classname> annotation.</para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                      </listitem>
+                    </itemizedlist>
+                  </para>
+                </listitem>
+              </varlistentry>
+
+              <varlistentry>
+                <term id="possibly-shared-receiver">Receiver
+                "<replaceable>field ref</replaceable>" may be a shared
+                unprotected object</term>
+                <listitem>
+                  <para>The field expression references a field that is
+                  protected by a lock and is used as the receiver of a
+                  method call.  Specfically,
+                    <itemizedlist>
+                      <listitem>
+                        <para><replaceable>field ref</replaceable> is of the form 
+                        <code><replaceable>expr</replaceable>.<replaceable>f</replaceable></code>.</para>
+                      </listitem>
+                      <listitem>
+                        <para>The class/interface of the object referenced by
+                        <code><replaceable>expr</replaceable>.<replaceable>f</replaceable></code>
+                        <emphasis>is not</emphasis> annotated with <classname>@SelfProtected</classname>.</para>
+                      </listitem>
+                      <listitem>
+                        <para>The field <structfield><replaceable>f</replaceable></structfield>
+                        <emphasis>is not</emphasis>
+                        annotated with <classname>@Unique</classname>.</para>
+                      </listitem>
+                      <listitem>
+                        <para>Either,
+                          <itemizedlist>
+                            <listitem>
+                              <para>The region
+                              <structfield><replaceable>f</replaceable></structfield>
+                              <emphasis>is</emphasis> protected
+                              by a lock, either directly or via
+                              aggregation.</para>
+                            </listitem>
+                          </itemizedlist>
+                        or
+                          <itemizedlist>
+                            <listitem>
+                              <para>The field <structfield><replaceable>f</replaceable></structfield>
+                              is <code>final</code> or <code>volatile</code> and the class that
+                              it is declared in contains at least one <classname>@PolicyLock</classname>
+                              or <classname>@RegionLock</classname> annotation.</para>
+                            </listitem>
+                          </itemizedlist>
+                        </para>
+                      </listitem>
+                    </itemizedlist>
+                  </para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </para>
+          
+          <para>Class <classname>SharedUnprotectedStateExample</classname> demonstrates these
+          results, shown in <xref linkend="shared-unprotected-results"/>:</para>
+
+          <programlisting linenumbering="numbered" startinglinenumber="7"><emphasis>@RegionLock("Lock is this protects Instance")</emphasis>
+public class SharedUnprotectedStateExample {
+  private int[] array = new int[10];
+  private Object object = new Object();
+
+  @SingleThreaded
+  @Borrowed("this")
+  public SharedUnprotectedStateExample() {
+    // do nothing
+  }
+  
+  public <emphasis>synchronized</emphasis> String doStuff() {
+    int sum = 0;
+    for (int i = 0; i &lt; array.length; i++) {
+      sum += array[i];
+    }
+    
+    return object.toString() + " " + sum;
+  }
+}</programlisting>
+          
+          <figure id="shared-unprotected-results">
+            <title>Assurance results for <classname>SharedUnprotectedStateExample</classname>.</title>
+            <mediaobject>
+              <imageobject condition="isHTML">
+                <imagedata fileref="images/shared-unprotected-01.png"/>
+              </imageobject>
+              <imageobject condition="isFO">
+                <imagedata width="100%" scalefit="1" fileref="images/shared-unprotected-01.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>
+          
+          <para>The warning for line 21, <computeroutput>Field reference "this.array[i]" may be 
+          to a shared unprotected object</computeroutput> reminds us that although the field
+          <structfield>array</structfield> is protected by the lock (correctly acquired by
+          the <code>synchronized</code> method <function>doStuff()</function>), the elements of
+          the array object it points to are not.  It is entirely possible that a field of
+          another object holds a reference to the same array.  The synchronization on 
+          <function>doStuff()</function> prevents concurrent access to that array through 
+          the <structfield>array</structfield> field, but not through any other fields of other
+          objects that may reference the array.  Thus this situation is potentially unsafe.</para>
+          
+          <para>Similarly, the warning for line 24, <computeroutput>Receiver "this.object" may be a
+          shared unprotected object</computeroutput> remnds us that the object referenced by 
+          <structfield>object</structfield> may be accessible through the fields of other objects
+          as well.  Therefore, it is potentially unsafe to access the state of that object
+          by invoking a method on it.</para>          
+        </sect3>
         
         <sect3 id="redundant-locks">
           <title>redundant lock acquisition(s)</title>
@@ -1644,12 +1799,12 @@ public class ReturnsLockExample {
           "<replaceable>lock</replaceable>" may be
           redundant</computeroutput>.  Each results links to the expression or annotation
           that is a potentially redundant lock acquisition.
-          Class <varname>RedundantLockExample</varname> demonstrates these results, 
+          Class <classname>RedundantLockExample</classname> demonstrates these results, 
           shown in <xref linkend="redundant-lock-results"/>:</para>
           
-          <programlisting>
-<emphasis>@RegionLock("L is this protects Instance")</emphasis>
+          <programlisting linenumbering="numbered" startinglinenumber="6"><emphasis>@RegionLock("L is this protects Instance")</emphasis>
 public class RedundantLockExample {
+
   private int f;
   
   // not redundant
@@ -1683,11 +1838,10 @@ public class RedundantLockExample {
       f = 6;
     }
   }
-}
-          </programlisting>
+}</programlisting>
           
           <figure id="redundant-lock-results">
-            <title>Assurance results for <varname>RedundantLockExample</varname>.</title>
+            <title>Assurance results for <classname>RedundantLockExample</classname>.</title>
             <mediaobject>
               <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-11.png"/>
@@ -1699,15 +1853,15 @@ public class RedundantLockExample {
           </figure>
           
           <para>The lock acquisitions on lines 15 and 26 are seen as
-          redundant acquisitions of two locks, <varname>MUTEX</varname>
-          and <varname>L</varname>, because the expression
-          <varname>this</varname> could refer to either one of those
+          redundant acquisitions of two locks, <structfield>MUTEX</structfield>
+          and <structfield>L</structfield>, because the expression
+          <parameter>this</parameter> could refer to either one of those
           locks. The acquision on line 38 is only redundant for lock
-          <varname>L</varname> because the
-          <varname>@RequiresLock</varname> precondition on the method
+          <structfield>L</structfield> because the
+          <classname>@RequiresLock</classname> precondition on the method
           only requires that specific lock.  Thus, although, the
           expression on line 38 acquires both locks, the acquisition of
-          <varname>MUTEX</varname> is not redundant.</para>
+          <structfield>MUTEX</structfield> is not redundant.</para>
 
           <para>JSure warns about redundant lock acquisitions because
           they make it more difficult to understand the program's design
@@ -1726,8 +1880,8 @@ public class RedundantLockExample {
           <para>This class of warnings identifies those lock
           acquisitions where JSure is unable to determine that a named
           lock is being acquired. That is, there is no lock declared
-          with a <varname>@RegionLock</varname> or
-          <varname>@PolicyLock</varname> annotation that can be
+          with a <classname>@RegionLock</classname> or
+          <classname>@PolicyLock</classname> annotation that can be
           determined to be acquired at the identified locations. There are
           three messages that can appear under this heading:</para>
           
@@ -1739,10 +1893,10 @@ public class RedundantLockExample {
               protected by the referenced lock</term>
               
               <listitem><para>The given expression in the identified
-              <varname>synchronized</varname> statement is not
+              <code>synchronized</code> statement is not
               identifiable as a lock declared in a
-              <varname>@RegionLock</varname> or
-              <varname>@PolicyLock</varname> annotation.
+              <classname>@RegionLock</classname> or
+              <classname>@PolicyLock</classname> annotation.
               </para></listitem>
             </varlistentry>
 
@@ -1751,9 +1905,9 @@ public class RedundantLockExample {
               identifiable as a programmer-declared lock</term>
               
               <listitem><para>This identifies a
-              non-<varname>static</varname>
-              <varname>synchronized</varname> method for which the
-              receiver (<varname>this</varname>) is not identifiable as
+              non-<code>static</code>
+              <code>synchronized</code> method for which the
+              receiver (<parameter>this</parameter>) is not identifiable as
               a lock.</para></listitem>
             </varlistentry>
 
@@ -1764,18 +1918,17 @@ public class RedundantLockExample {
               identifiable as a programmer-declared lock</term>
 
               <listitem><para>This identifies a
-              <varname>static</varname>
-              <varname>synchronized</varname> method for which the
+              <code>static</code>
+              <code>synchronized</code> method for which the
               class reference is not identifiable as
               a lock.</para></listitem>
             </varlistentry>
           </variablelist>
           
-          <para>Class <varname>UnidentifiableLockExample</varname> demonstrates these
+          <para>Class <classname>UnidentifiableLockExample</classname> demonstrates these
           results, shown in <xref linkend="unidentifiable-lock-results"/>:</para>
           
-          <programlisting>
-public class UnidentifiableLockExample {
+          <programlisting linenumbering="numbered" startinglinenumber="3">public class UnidentifiableLockExample {
   private final Object lock = new Object();
   
   private static int s;
@@ -1820,11 +1973,10 @@ public class UnidentifiableLockExample {
       y = v;
     }
   }
-}
-          </programlisting>
+}</programlisting>
           
           <figure id="unidentifiable-lock-results">
-            <title>Assurance results for <varname>UnidentifiableLockExample</varname>.</title>
+            <title>Assurance results for <classname>UnidentifiableLockExample</classname>.</title>
             <mediaobject>
               <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-12.png"/>
@@ -1859,20 +2011,19 @@ public class UnidentifiableLockExample {
           which lock is being acquired</title>
 
           <para>JSure groups together all warnings about non-final
-          expressions in <varname>synchronized</varname> statements under this heading.
+          expressions in <code>synchronized</code> statements under this heading.
           Each warning has the form <computeroutput>Lock expression "<replaceable>lock</replaceable>" is not final</computeroutput>.
           A <emphasis>final expression</emphasis> is a reference-valued expression that JSure
           can determine refers to the same object no matter where it is
-          evaluated within the context of the <varname>synchronized</varname> statement.
-          JSure requires that the lock expression in a <varname>synchronized</varname>
+          evaluated within the context of the <code>synchronized</code> statement.
+          JSure requires that the lock expression in a <code>synchronized</code>
           statement be final to guarantee that the lock that is acquired
           is the same lock that is needed inside of the statement. The
-          <varname>test</varname> method of the class
-          <varname>NonFinalLockExample</varname> contains two examples
+          <function>test()</function> method of the class
+          <classname>NonFinalLockExample</classname> contains two examples
           of non-final lock expressions, see <xref linkend="non-final-lock-results"/>:</para>
           
-          <programlisting>
-<emphasis>@RegionLock("L is this protects Instance")</emphasis>
+          <programlisting linenumbering="numbered" startinglinenumber="6"><emphasis>@RegionLock("L is this protects Instance")</emphasis>
 public class NonFinalLockExample {
   private int val;
   
@@ -1905,11 +2056,10 @@ public class NonFinalLockExample {
       getNF().set(getNF().get()+1);
     }
   }
-}
-          </programlisting>
+}</programlisting>
 
           <figure id="non-final-lock-results">
-            <title>Assurance results for <varname>NonFinalLockExample</varname>.</title>
+            <title>Assurance results for <classname>NonFinalLockExample</classname>.</title>
             <mediaobject>
               <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-13.png"/>
@@ -1920,15 +2070,15 @@ public class NonFinalLockExample {
             </mediaobject>
           </figure>
           
-          <para>The expression <varname>nf</varname> on line 28 is
+          <para>The expression <code>nf</code> on line 28 is
           considered non-final because the variable
           <varname>nf</varname> is assigned to inside of the
-          <varname>synchronized</varname> statement. This means that the
-          object locked by the <varname>synchronized</varname> statement
+          <code>synchronized</code> statement. This means that the
+          object locked by the <code>synchronized</code> statement
           is not the object that needs to be locked to call the method
-          <varname>set</varname> in the expression
-          <varname>nf.set(&hellip;)</varname> on the following line. The
-          situation is worse on line 35: each call to <varname>getNF()</varname>
+          <function>set()</function> in the expression
+          <code>nf.set(&hellip;)</code> on the following line. The
+          situation is worse on line 35: each call to <function>getNF()</function>
           returns a <emphasis>new</emphasis> object.</para>
 
           <note>
@@ -1951,13 +2101,12 @@ public class NonFinalLockExample {
           This warning is an attempt to suggest areas where the lock
           model might be too narrow; that is a lock may protect more
           state than it has been declared to protect.  Class
-          <varname>UnusedLockExample</varname>, whose results are shown
+          <classname>UnusedLockExample</classname>, whose results are shown
           in <xref linkend="not-protecting-results"/>, only declares
-          that lock <varname>L</varname> protects region
-          <varname>R</varname>:</para>
+          that lock <structfield>L</structfield> protects region
+          <structfield>R</structfield>:</para>
 
-          <programlisting>
-<emphasis>@Regions({</emphasis>
+          <programlisting linenumbering="numbered" startinglinenumber="8"><emphasis>@Regions({</emphasis>
   <emphasis>@Region("R"),</emphasis>
   <emphasis>@Region("Q")})</emphasis>
 <emphasis>@RegionLock("L is this protects R")</emphasis>
@@ -1982,11 +2131,10 @@ public class UnusedLockExample {
       g = b;
     }
   }
-}
-          </programlisting>
+}</programlisting>
 
           <figure id="not-protecting-results">
-            <title>Assurance results for <varname>UnusedLockExample</varname>.</title>
+            <title>Assurance results for <classname>UnusedLockExample</classname>.</title>
             <mediaobject>
               <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-14.png"/>
@@ -1998,12 +2146,12 @@ public class UnusedLockExample {
           </figure>
 
           <para>The JSure results call our attention to method
-          <varname>getG()</varname> because it is
-          <varname>synchronized</varname> but based on the current
+          <function>getG()</function> because it is
+          <code>synchronized</code> but based on the current
           annotations its body does not require any locks.  In this
-          case, it is clear that the intent is that <varname>this</varname> is to be used
+          case, it is clear that the intent is that <parameter>this</parameter> is to be used
           to protect both fields of the class, so we should modify the
-          lock annotation to be <varname>@RegionLock("L is this protects Instance")</varname>.</para>
+          lock annotation to be <classname>@RegionLock("L is this protects Instance")</classname>.</para>
 
           <para>This situation often arrises when the class is being annotated
           incrementally: It is first discovered that a particular field
@@ -2018,12 +2166,11 @@ public class UnusedLockExample {
     <sect1 id="thread-effects">
       <title>Thread Effects</title>
       
-      <para>Each <varname>@SingleThreaded</varname> annotation creates a new chain of evidence
+      <para>Each <classname>@SingleThreaded</classname> annotation creates a new chain of evidence
       under the <guilabel>Thread effects</guilabel> heading in the <guilabel>Verification Status</guilabel>
-      view.  The class <varname>ThreadEffectsExample</varname> is used to explore these results:</para>
+      view.  The class <classname>ThreadEffectsExample</classname> is used to explore these results:</para>
       
-      <programlisting>
-public class ThreadEffectsExample {
+      <programlisting linenumbering="numbered" startinglinenumber="5">public class ThreadEffectsExample {
   private int field;
   
   <emphasis>@Starts("nothing")</emphasis>
@@ -2057,8 +2204,7 @@ public class ThreadEffectsExample {
   public void unannotated_method() {
     field = 20;
   }
-}
-      </programlisting>
+}</programlisting>
 
       <para>Two of these annotations assure, while three of them fail to assure:</para>
       
@@ -2072,21 +2218,21 @@ public class ThreadEffectsExample {
       </mediaobject>
       
       <para>The thread effects analysis checks that a method annotated
-      with <varname>@Starts("nothing")</varname></para>
+      with <classname>@Starts("nothing")</classname></para>
 
       <itemizedlist spacing="compact">
-        <listitem><para>Does not invoke the <varname>start()</varname>
+        <listitem><para>Does not invoke the <function>start()</function>
         on a thread object</para></listitem>
 
         <listitem><para>Only invokes methods/constructors annotated with
-        <varname>@Starts("nothing")</varname></para></listitem>
+        <classname>@Starts("nothing")</classname></para></listitem>
       </itemizedlist>
       
       <para>Thus, there are four result messages:</para>
       
       <variablelist>
         <varlistentry>
-          <term id="no-threads-started"><computeroutput>No threads started within <replaceable>method</replaceable></computeroutput></term>
+          <term id="no-threads-started">No threads started within <replaceable>method</replaceable></term>
           <listitem><para>The body of the annotated method does not
           directly start any threads.  This does
           <emphasis>not</emphasis> mean that the methods/constructors
@@ -2096,25 +2242,25 @@ public class ThreadEffectsExample {
         </varlistentry>
 
         <varlistentry>
-          <term id="thread-started"><computeroutput>Thread effect declaration prohibits: <replaceable>call to <varname>start()</varname></replaceable></computeroutput></term>
+          <term id="thread-started">Thread effect declaration prohibits: <replaceable>call to <function>start()</function></replaceable></term>
           <listitem><para>The body of the annotated method starts a
-          thread.  This result links to the <varname>start()</varname>
+          thread.  This result links to the <function>start()</function>
           method call.</para></listitem>
         </varlistentry>
 
         <varlistentry>
-          <term id="call-starts-nothing"><computeroutput>Call "<replaceable>method call</replaceable>" promises to start nothing</computeroutput></term>
+          <term id="call-starts-nothing">Call "<replaceable>method call</replaceable>" promises to start nothing</term>
           <listitem><para>The annotated method calls a method that is
-          annotated with <varname>@Starts("nothing")</varname>.  This
+          annotated with <classname>@Starts("nothing")</classname>.  This
           result starts a new chain of evidence indicating whether the
           called method is assured or not.  This results links to the
           method call in the method body.</para></listitem>
         </varlistentry>
 
         <varlistentry>
-          <term id="call-does-not-promise"><computeroutput>Call "<replaceable>method call</replaceable>" does not promise to start nothing</computeroutput></term>
+          <term id="call-does-not-promise">Call "<replaceable>method call</replaceable>" does not promise to start nothing</term>
           <listitem><para>The annotated emehtod invokes a method is not
-          annoated with <varname>@Starts("nothing")</varname>.  This is
+          annoated with <classname>@Starts("nothing")</classname>.  This is
           an assurance failure because the called method might start a
           thread.  The result links to the offending method
           call.</para></listitem>
@@ -2124,15 +2270,15 @@ public class ThreadEffectsExample {
       <sect2 id="thread-effects-good">
         <title>Positive Assurance</title>
 
-        <para>The simple method <varname>goodMethod_Simple()</varname>
+        <para>The simple method <function>goodMethod_Simple()</function>
         assures.  Its body consists of a single field assignment that
-        obviously does not invoke <varname>Thread.start()</varname>, or
+        obviously does not invoke <function>Thread.start()</function>, or
         any other method.  Thus, the chain of evidence for the method is
         a simple <computeroutput>No threads started within
         goodMethod_Simple()</computeroutput>.</para>
 
-        <para>The method <varname>goodMethod_Complex()</varname> calls
-        the method <varname>goodMethod_Simple()</varname>, which, as we
+        <para>The method <function>goodMethod_Complex()</function> calls
+        the method <function>goodMethod_Simple()</function>, which, as we
         discuss above, assures.  So the result <computeroutput>Call
         "this.goodMethod_Simple" promises to start
         nothing</computeroutput> is decorated with the icon
@@ -2144,32 +2290,32 @@ public class ThreadEffectsExample {
       <sect2 id="thread-effects-bad">
         <title>Negative Assurance</title>
 
-        <para>The method <varname>badMethod_Simple()</varname> does
+        <para>The method <function>badMethod_Simple()</function> does
         exactly what it is not supposed to do: invokes the
-        <varname>start()</varname> method of the
-        <varname>Thread</varname> object passed to it.  Its chain of
+        <function>start()</function> method of the
+        <classname>Thread</classname> object passed to it.  Its chain of
         evidence is thus the single negative result
         <computeroutput>Thread effect declaration prohibits:
         t.start()</computeroutput>.</para>
 
-        <para>Method <varname>badMethod_Indirect1()</varname> calls the
-        method <varname>badMethod_Simple()</varname>.  The method
+        <para>Method <function>badMethod_Indirect1()</function> calls the
+        method <function>badMethod_Simple()</function>.  The method
         <emphasis>does not</emphasis> start any threads itself, so it
         has a <computeroutput>No threads started within
         badMethod_Indirect1(java.lang.Thread)</computeroutput> result. 
-        Because the method <varname>badMethod_Simple()</varname> is
-        annotated with <varname>@Starts("nothing")</varname>, there is
+        Because the method <function>badMethod_Simple()</function> is
+        annotated with <classname>@Starts("nothing")</classname>, there is
         also a <computeroutput>Call "this.badMethod_Simple(t)" promises
         to start nothing</computeroutput> result.  But because, as we
         say above, this method does not assure, this result is decorated
         with the icon <guiicon><inlinegraphic
         fileref="images/plus-x.jpg"/></guiicon>. Overall, the annotation
-        on <varname>badMethod_Indirect1()</varname> fails to
+        on <function>badMethod_Indirect1()</function> fails to
         assure.</para>
 
-        <para>Method <varname>badMethod_Indirect2()</varname> calls the
-        method <varname>unannotated_method()</varname> that does not
-        have a <varname>@Starts("nothing")</varname> annotation.  This
+        <para>Method <function>badMethod_Indirect2()</function> calls the
+        method <function>unannotated_method()</function> that does not
+        have a <classname>@Starts("nothing")</classname> annotation.  This
         call prevents assurance of the method because the called method
         could start a thread.  Analysis produces the result
         <computeroutput>Call "this.unannotated_method" does not promise
@@ -2228,20 +2374,16 @@ public class ThreadEffectsExample {
         <listitem><para><link linkend="call-starts-nothing">Call "<replaceable>method call</replaceable>" promises to
         start nothing</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: calls to methods
-        masquerading as java.util.concurrent.Lock
-        methods</link></para></listitem>
-
         <listitem><para><link linkend="trivially-satisfy">Empty effects
         trivially satisfy declared effects</link></para></listitem>
 
         <listitem><para><link linkend="todo">TO DO: Field Declaration:
         {0}</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: Field reference "{0}" may
+        <listitem><para><link linkend="possibly-shared-field">Field reference "<replaceable>field ref</replaceable>" may
         be to a shared unprotected object</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: Intrinsic lock "{0}" is
+        <listitem><para><link linkend="intrinsic-lock-held">Intrinsic lock <replaceable>lock</replaceable> is
         held</link></para></listitem>
 
         <listitem><para><link linkend="todo">TO DO: java.util.concurrent lock
@@ -2290,19 +2432,9 @@ public class ThreadEffectsExample {
         <listitem><para><link linkend="non-final-locks">Lock expression
         "<replaceable>expr</replaceable>" is not final</link></para></listitem>
 
-        <listitem><para><link linkend="preconditions-unsatisfied">lock
-        precondition(s) not satisfied; possible race conditions
-        enabled</link></para></listitem>
-
-        <listitem><para><link linkend="preconditions-satisfied">lock
-        precondition(s) satisfied</link></para></listitem>
-
         <listitem><para><link linkend="todo">TO DO: Lock specification "{0}"
         cannot be resolved in the calling context for {1}; precondition
         unsatisfied</link></para></listitem>
-
-        <listitem><para><link linkend="todo">TO DO: lock()&ndash;unlock()
-        matches</link></para></listitem>
 
         <listitem><para><link linkend="not-protecting">Locks <replaceable>set of locks</replaceable> not
         needed by body of synchronized block</link></para></listitem>
@@ -2311,46 +2443,17 @@ public class ThreadEffectsExample {
         region {1} of {2} which is aggregated into region
         {3}</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: mixed
-        java.util.concurrent/intrinsic locking
-        usage(s)</link></para></listitem>
-
         <listitem><para><link linkend="no-threads-started">No threads started within
         <replaceable>method</replaceable></link></para></listitem>
 
-        <listitem><para><link linkend="non-final-locks">non-final lock
-        expression(s); analysis cannot determine which lock is being
-        acquired</link></para></listitem>
-
-        <listitem><para><link
-        linkend="protected-field-accesses">protected field
-        access(es)</link></para></listitem>
-
-        <listitem><para><link linkend="todo">TO DO: protected indirect field
-        access(es)</link></para></listitem>
-
-        <listitem><para><link linkend="todo">TO DO: protected reference(s) to a
-        possibly shared unprotected object; possible race condition
-        detected</link></para></listitem>
-
-        <listitem><para><link linkend="todo">TO DO: Receiver "{0}" may be a
+        <listitem><para><link linkend="possibly-shared-receiver">Receiver "<replaceable>field ref</replaceable>" may be a
         shared unprotected object</link></para></listitem>
-
-        <listitem><para><link linkend="redundant-locks">redundant lock
-        acquisition(s)</link></para></listitem>
 
         <listitem><para><link linkend="good-return">Return statement
         correctly returns lock "<replaceable>lock</replaceable>"</link></para></listitem>
 
         <listitem><para><link linkend="returns-lock-bad">Return
         statement expected to return lock "<replaceable>lock</replaceable>"</link></para></listitem>
-
-        <listitem><para><link linkend="returns-lock-bad">return
-        statement(s) possibly returning the wrong
-        lock</link></para></listitem>
-
-        <listitem><para><link linkend="good-return">return statement(s)
-        returning the correct lock</link></para></listitem>
 
         <listitem><para><link
         linkend="singleThreaded-escaping">single-threaded constructor has
@@ -2359,10 +2462,6 @@ public class ThreadEffectsExample {
         <listitem><para><link
         linkend="singledThreaded-supported">single-threaded constructor
         supported</link></para></listitem>
-
-        <listitem><para><link linkend="not-protecting">synchronized
-        block(s) not protecting any state; what state is being
-        protected?</link></para></listitem>
 
         <listitem><para><link
         linkend="does-not-name-static">Synchronized method <replaceable>method</replaceable>:
@@ -2385,11 +2484,6 @@ public class ThreadEffectsExample {
         <listitem><para><link linkend="thread-started">Thread effect declaration
         prohibits: <replaceable>call to start()</replaceable></link></para></listitem>
 
-        <listitem><para><link
-        linkend="unidentifiable-locks">unidentifiable lock(s); what is
-        the name of the lock? what state is being
-        protected?</link></para></listitem>
-
         <listitem><para><link linkend="todo">TO DO: unlock() call has a
         different number of matching lock() calls along different
         control paths</link></para></listitem>
@@ -2399,15 +2493,6 @@ public class ThreadEffectsExample {
 
         <listitem><para><link linkend="todo">TO DO: unlock() call has no
         matching lock() calls</link></para></listitem>
-
-        <listitem><para><link
-        linkend="unprotected-field-accesses">unprotected field
-        access(es); possible race condition
-        detected</link></para></listitem>
-
-        <listitem><para><link linkend="todo">TO DO: unprotected indirect field
-        access(es); possible race condition
-        detected</link></para></listitem>
 
         <listitem><para><link linkend="todo">TO DO: Using a
         java.util.concurrent.locks lock object "{0}" in a syncronized
