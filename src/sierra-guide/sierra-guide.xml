@@ -7,7 +7,7 @@
   <subtitle>How to use and configure the Sierra Eclipse client</subtitle>
   <bookinfo>
     <copyright>
-      <year>2008</year>
+      <year>2009</year>
       <holder>SureLogic Inc.</holder>
     </copyright>
     <legalnotice>
@@ -308,9 +308,88 @@
 	<title>Installing Sierra</title>
 
 	<para>Sierra installs as a feature in your Eclipse IDE.  It is
-	installed via the normal Eclipse mechanisms from an update site.
-	TODO, describe installation from the SureLogic website or from a
-	downloaded zip file.</para>
+	installed via the normal Eclipse mechanisms from an archived
+	update site that you obtain from SureLogic.</para>
+      <orderedlist>
+	<listitem>
+	  <para>Download the archived update site from <ulink
+	  url="http://www.surelogic.com">http://www.surelogic.com</ulink>. This
+	  archive contains the Sierra feature.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>In Eclipse 3.4:</emphasis> Select
+	  <guimenu>Help</guimenu> | <guimenuitem>Software
+	  Updates...</guimenuitem> to open the <guilabel>Software Updates
+	  and Add-ons</guilabel> dialog. Select the
+	  <guilabel>Available Software</guilabel> tab and click the
+	  <guibutton>Add Site...</guibutton> button. In the
+	  <guilabel>Add Site</guilabel> dialog that opens select the
+	  <guibutton>Archive...</guibutton> and point to the Sierra
+	  archive file and press <guibutton>Open</guibutton> and then
+	  <guibutton>OK</guibutton>. The <guilabel>Software Updates
+	  and Add-ons</guilabel> dialog should appear as shown in
+	  <xref linkend="fig-quick-start-eclipse-34-install" /></para>
+
+	  <figure id="fig-quick-start-eclipse-34-install">
+	    <title>Selecting Sierra features to install in Eclipse 3.4.</title>
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/quick-start-eclipse-34-install.png" />
+	      </imageobject>
+	    </mediaobject>
+	  </figure>
+
+	  <para>Select the <emphasis>Sierra Eclipse
+	  Client</emphasis>. You only need the <emphasis>Sierra
+	  Eclipse Client Java 5 Compatibility Libraries</emphasis>
+	  feature if you are not using a Java 6 (or higher) VM, i.e.,
+	  you are running on a Java 5 VM (Running on a Java 1.4 VM is
+	  not supported by Sierra). To try out the local team server
+	  (used in the tutorials) select the <emphasis>Sierra Local
+	  Team Server</emphasis> feature. Press
+	  <guibutton>Install...</guibutton> and step through the
+	  wizard. You may be prompted to restart Eclipse when the
+	  installation is completed.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>In Eclipse 3.2 and Eclipse 3.3:</emphasis>
+	  Select <guimenu>Help</guimenu> | <guimenuitem>Software
+	  Updates</guimenuitem> | <guimenuitem>Find and
+	  Install...</guimenuitem> to open the <guilabel>Software
+	  Updates and Add-ons</guilabel> dialog. Select
+	  <emphasis>Search for new features to install</emphasis> and
+	  press <guibutton>Next &gt;</guibutton>. Press the
+	  <guibutton>New Archived Site...</guibutton> and point to the
+	  Sierra archive file and press <guibutton>Open</guibutton>
+	  and then <guibutton>OK</guibutton>. Ensure the archive file
+	  is the only site checked and press
+	  <guibutton>Finish</guibutton>. The
+	  <guilabel>Updates</guilabel> dialog should appear as shown
+	  in <xref linkend="fig-quick-start-eclipse-33-install"
+	  /></para>
+
+	  <figure id="fig-quick-start-eclipse-33-install">
+	    <title>Selecting Sierra features to install in Eclipse 3.3.</title>
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/quick-start-eclipse-33-install.png" />
+	      </imageobject>
+	    </mediaobject>
+	  </figure>
+
+	  <para>Select the <emphasis>Sierra Eclipse
+	  Client</emphasis>. You only need the <emphasis>Sierra
+	  Eclipse Client Java 5 Compatibility Libraries</emphasis>
+	  feature if you are not using a Java 6 (or higher) VM, i.e.,
+	  you are running on a Java 5 VM (Running on a Java 1.4 VM is
+	  not supported by Sierra). To try out the local team server
+	  (used in the tutorials) select the <emphasis>Sierra Local
+	  Team Server</emphasis> feature. Press
+	  <guibutton>Install...</guibutton> and step through the
+	  wizard. You may be prompted to restart Eclipse when the
+	  installation is completed.</para>
+	</listitem>
+      </orderedlist>
       </section>
 
       <section>
@@ -533,20 +612,19 @@ public class ShowOff {
 	  </mediaobject>
 	</figure>
 
-	<para>The <guilabel>Findings Quick Search</guilabel> view at the
-	top of the perspective allows you to "drill-into" findings along
-	several dimensions. It is a powerful control but is
+	<para>The <guilabel>Findings Quick Search</guilabel> view at
+	the top of the perspective allows you to "drill-into" findings
+	along several dimensions. It is a powerful control but is
 	straightforward to use. For this tutorial, first click on
 	<guibutton>Importance</guibutton> then check
 	<guibutton>High</guibutton> and then click on
-	<guibutton>Show</guibutton>. Next, select the one finding shown in
-	the table. Selecting this finding will bring up information about
-	it in the <guilabel>Finding Details</guilabel> view. Your screen
-	should now look like <xref linkend="fig-tutorial-screenshot" /> If
-	you get more findings than four you probably have scanned other
-	projects. This can be checked by clicking on
-	<guibutton>Project</guibutton> in the far left menu. To delete the
-	data from these projects see <xref
+	<guibutton>Show</guibutton>. Next, select the one finding
+	shown in the table. Selecting this finding will bring up
+	information about it in the <guilabel>Finding
+	Details</guilabel> view. Your screen should now look like
+	<xref linkend="fig-tutorial-screenshot" /> If you get more
+	than four findings, you probably have scanned other projects.
+	To delete the data from these projects see <xref
 	linkend="sec-preferences-scan-data" /></para>
 
 	<para>This high importance finding is about a possible null
