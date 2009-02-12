@@ -72,7 +72,7 @@ public class C {
             annotations.</para></listitem>
 
             <listitem><para>Identifies that lock with instances of the
-            class (<varname>this</varname>).</para></listitem>
+            class (<parameter>this</parameter>).</para></listitem>
 
             <listitem><para>Protects all the fields in instances of the
             class (the <emphasis>region</emphasis>
@@ -116,7 +116,7 @@ public class C {
         the field <structfield>f</structfield> of the object referenced
         by <parameter>other</parameter>, it does not protect the write
         to the field <structfield>f</structfield> of the object
-        referenced by <varname>this</varname>:
+        referenced by <parameter>this</parameter>:
 
           <programlisting>
   public void copy(final C other) {
@@ -585,7 +585,7 @@ public class C {
 
             <variablelist>
               <varlistentry>
-                <term><varname>this</varname></term>
+                <term><parameter>this</parameter></term>
             
                 <listitem><para>The object itself is acquired to protect
                 the state.</para></listitem>
@@ -969,7 +969,7 @@ public class Var {
         used to assure much of Doug Lea's
         <application>util.concurrent</application> library (for which
         <code>@Borrowed("this")</code> could not be used because of
-        aliasing of <varname>this</varname> into a
+        aliasing of <parameter>this</parameter> into a
         <code>private</code> field):
         
           <programlisting>
@@ -2034,9 +2034,9 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
             <callout arearefs="reg.lock.field">
               <para>The <emphasis>lock field</emphasis>: the name of a
               field, <structfield>class</structfield>,
-              <varname>this</varname>, or a qualified
-              <varname>this</varname> expression
-              (<varname><replaceable>class_name</replaceable>.this</varname>).</para>
+              <parameter>this</parameter>, or a qualified
+              <parameter>this</parameter> expression
+              (<parameter><replaceable>class_name</replaceable>.this</parameter>).</para>
             </callout>
             <callout arearefs="reg.lock.region">
               <para>The name of a region.</para>
@@ -2086,7 +2086,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                 be changed and then JSure will not be able to guarantee
                 that all <code>synchronized</code> statements that use
                 that field are locking the same object.
-                <varname>this</varname> and
+                <parameter>this</parameter> and
                 <structfield>class</structfield> are implicitly
                 <code>final</code>.</para>
               </formalpara>
@@ -2142,8 +2142,8 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
               <formalpara>
                 <title>A non-<code>static</code> region must be
                 protected by a non-<code>static</code> lock field, or
-                <varname>this</varname> or a qualified
-                <varname>this</varname> expression</title>
+                <parameter>this</parameter> or a qualified
+                <parameter>this</parameter> expression</title>
               </formalpara>
             </listitem>
             <listitem>
@@ -2203,9 +2203,9 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
             <callout arearefs="policy.lock.field">
               <para>The <emphasis>lock field</emphasis>: the name of a
               field, <structfield>class</structfield>,
-              <varname>this</varname>, or a qualified
-              <varname>this</varname> expression
-              (<varname><replaceable>class_name</replaceable>.this</varname>).</para>
+              <parameter>this</parameter>, or a qualified
+              <parameter>this</parameter> expression
+              (<parameter><replaceable>class_name</replaceable>.this</parameter>).</para>
             </callout>
           </calloutlist>
         </para>
@@ -2240,7 +2240,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
         
         <para>Otherwise we have an <emphasis>instance lock</emphasis> whose
         lock name is the lock id qualified by the name of a local
-        variable (possibly <varname>this</varname>) that references the
+        variable (possibly <parameter>this</parameter>) that references the
         object that contains the lock.</para>
         
         <para>More specifically, lock names have the following forms and
@@ -2260,7 +2260,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                 <entry>
                   <synopsis>
 <co id="lockid1"/><replaceable>lock_id</replaceable><!--no break here--><footnote><para>This form is really a shorthand for either
-                  <varname>this</varname><code>:</code><replaceable>lock_id</replaceable> or
+                  <parameter>this</parameter><code>:</code><replaceable>lock_id</replaceable> or
                   <classname>fully.qualified.class.name</classname><code>:</code><replaceable>lock_id</replaceable> where
                   <classname>fully.qualified.class.name</classname> is
                   the name of the class containing the annotated method.
@@ -2309,7 +2309,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                   <calloutlist>
                     <callout arearefs="lock.name.param">
                       <para>The name of a method/constructor parameter,
-                      including <varname>this</varname>.</para>
+                      including <parameter>this</parameter>.</para>
                     </callout>
                     <callout arearefs="lockid2">
                       <para>A lock id.</para>
@@ -2330,7 +2330,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                         then the object referenced by the parameter can
                         change during execution of the method and the
                         named lock is not unique.  Note that
-                        <varname>this</varname> <emphasis>is
+                        <parameter>this</parameter> <emphasis>is
                         not</emphasis> a parameter of
                         <code>static</code> methods.</para>
                       </formalpara>
@@ -2492,7 +2492,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
               <formalpara>
                 <title>Constructors and <code>static</code> methods
                 cannot require callers to hold locks on the receiver
-                (<varname>this</varname>)</title>
+                (<parameter>this</parameter>)</title>
                 
                 <para><code>static</code> methods don't have a receiver
                 so this would be nonsense. For constructors, the
@@ -2577,7 +2577,7 @@ class C {
 }
           </programlisting>
         
-        The receiver (<varname>this</varname>) is a special case because it is not explicitly
+        The receiver (<parameter>this</parameter>) is a special case because it is not explicitly
         declared.  To annotate that the receiver must be unaliased, the method itself must be
         annotated instead:
         
