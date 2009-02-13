@@ -318,9 +318,12 @@
 
 	<orderedlist>
 	  <listitem>
-	    <para>Download the archived update site from <ulink
-	    url="http://www.surelogic.com">http://www.surelogic.com</ulink>. This
-	    archive contains the Sierra feature.</para>
+	    <para>Download an archived update site file that contains
+	    the Sierra feature. Contact SureLogic about how to obtain
+	    this file. You only follow one of the next two steps (skip
+	    the other one) depending upon what version of Eclipse you
+	    are using. If you are using Eclipse 3.2 do the next step,
+	    otherwise do the one after it.</para>
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>In Eclipse 3.4:</emphasis> Select
@@ -630,7 +633,7 @@ public class ShowOff {
 	information about it in the <guilabel>Finding
 	Details</guilabel> view. Your screen should now look like
 	<xref linkend="fig-tutorial-screenshot" /> If you get more
-	than four findings, you probably have scanned other projects.
+	than one finding, you probably have scanned other projects.
 	To delete the data from these projects see <xref
 	linkend="sec-preferences-scan-data" /></para>
 
@@ -725,18 +728,19 @@ if (o == null) {
 	focus of this tutorial so we will continue without connecting to a
 	Sierra team server.</para>
 
-	<para>We probably do not want to see findings that we have marked
-	as <guibutton>Irrelevant</guibutton> in our list of results. So in
-	the <guilabel>Findings Quick Search</guilabel> click the
-	underlined <guibutton>Importance</guibutton> "breadcrumb" (at the
-	top of the view) to scroll the view over to the importance
-	selections. The breadcrumbs allow easy scrolling of the view to
-	areas that might be off the screen. Uncheck
-	<guibutton>Irrelevant</guibutton> and then examine the state of
-	the view. If we click on the <guibutton>Show</guibutton>
-	breadcrumb to scroll the view back to the far right, we can see
-	that the one irrelevant finding is now filtered out of the set of
-	findings shown.</para>
+	<para>We probably do not want to see findings that we have
+	marked as <guibutton>Irrelevant</guibutton> in our list of
+	results. So in the <guilabel>Findings Quick Search</guilabel>
+	click the underlined <guibutton>Importance</guibutton>
+	"breadcrumb" (one of the underlined words at the top of the
+	view) to scroll the view over to the importance
+	selections. The breadcrumbs allow easy scrolling of the view
+	to areas that might be off the screen. Uncheck
+	<guibutton>Irrelevant</guibutton> and then examine the state
+	of the view. If we click on the <guibutton>Show</guibutton>
+	breadcrumb to scroll the view back to the far right, we can
+	see that the one irrelevant finding is now filtered out of the
+	set of findings shown.</para>
 
 	<para>Let's examine the two remaining findings. Double-click the
 	first one to bring it up in the <guilabel>Finding
@@ -765,15 +769,15 @@ if (o == null) {
 	the code." and then press the <emphasis>Add</emphasis> button to
 	add a second audit.</para>
 
-	<para>Before we leave this finding let's mark set it to a
-	<emphasis>Low</emphasis> importance. In this small program such a
-	minor performance improvement is likely not a big deal. We could
-	just change the radio button at the left, but let's use the drop
-	down in the upper-left of the view. Press the drop down and change
-	the importance. Notice that this changes the views to reflect the
-	new importance and adds a third audit entry to reflect that you
-	made this change. The state of this finding can be seen in <xref
-	linkend="fig-tutorial-audits" /></para>
+	<para>Before we leave this finding let's set its importance to
+	<emphasis>Low</emphasis>. In this small program such a minor
+	performance improvement is likely not a big deal. We could
+	just change the radio button at the left, but let's use the
+	drop down in the upper-left of the view. Press the drop down
+	and change the importance. Notice that this changes the views
+	to reflect the new importance and adds a third audit entry to
+	reflect that you made this change. The state of this finding
+	can be seen in <xref linkend="fig-tutorial-audits" /></para>
 
 	<para>Now let's examine the last finding by double-clicking on
 	this finding in the <guilabel>Findings Quick Search</guilabel>
@@ -1092,7 +1096,7 @@ if (o == null) {
 	    <tbody>
 	      <row>
 		<entry>User Name:</entry>
-		<entry>infocon</entry>
+		<entry>infocom</entry>
 	      </row>
 	      <row>
 		<entry>Password:</entry>
@@ -1149,9 +1153,9 @@ if (o == null) {
 	their password.</para>
 
 	<para>We want to change the name of the user
-	<userinput>infocon</userinput> to <userinput>zork</userinput>
+	<userinput>infocom</userinput> to <userinput>zork</userinput>
 	which is easier for us to remember. Click on
-	<userinput>infocon</userinput> in the table to enable an
+	<userinput>infocom</userinput> in the table to enable an
 	in-place edit of this user name. Change it to
 	<userinput>zork</userinput> and press the <keycap>Enter</keycap>
 	key.</para>
@@ -1214,14 +1218,15 @@ if (o == null) {
 	the view where connections from the Eclipse client to team
 	servers are defined. We will now define a connection to the
 	local team server we are running. To do this click on the
-	<guibutton>New team server location</guibutton> button on the
-	view or right-click in the left-hand list and choose
-	<emphasis>New...</emphasis> from the context menu.</para>
+	<guibutton>New team server location</guibutton> toolbar button
+	at the top of the view or right-click in the left-hand list
+	and choose <emphasis>New...</emphasis> from the context
+	menu.</para>
 
 	<para>The <emphasis>New Sierra Team Server Location</emphasis>
-	dialog which allows you to fill in the required information about
-	the connection. To connect to our local team server fill in the
-	following:</para>
+	dialog will appear. This dialog lets you provide information
+	about the team server that you want to connect with. To
+	connect to our local team server fill in the following:</para>
 
 	<informaltable>
 	  <tgroup cols='2' align='left'>
@@ -1330,7 +1335,7 @@ if (o == null) {
 	item from the context menu. A dialog appear prompting you for
 	a name to save the scan filter with on the server as shown in
 	<xref linkend="fig-tutorial-send-scan-filter" /> Enter
-	<userinput>tutorial</userinput> and press
+	<userinput>Tutorial</userinput> and press
 	<guibutton>Send</guibutton> to continue. The local server now
 	has a copy the same scan filter as your client. You should see
 	this copy of the scan filter in the <guilabel>Team
@@ -1630,7 +1635,7 @@ if (o == null) {
 	<para>If you refresh the welcome page in your web browser it
 	will look like <xref
 	linkend="fig-tutorial-portal-welcome-page-zork-audits" /> The
-	charts and graphs have been update to show the contributions
+	charts and graphs have been updated to show the contributions
 	made by the zork user. Also we can see that the SmallWorld
 	project now has 4 findings (1 critical, 1 low, and 2
 	irrelevant) and 4 audits on 3 findings.</para>
@@ -1646,13 +1651,13 @@ if (o == null) {
 	</figure>
 
 	<para>In the Eclipse client mark the three performance
-	findings as being examined by me (or make an ad hoc audit on
-	each finding). Notice that these new audits are attributed to
-	<emphasis>Local</emphasis> not to zork. This is because we
-	have not synchronized these audits with the server. To
-	illustrate this point let's attribute these audits to the
-	<emphasis>troll</emphasis> user not to the
-	<emphasis>zork</emphasis> user.</para>
+	findings as being examined by me (a command in the context
+	menu) or make an ad hoc audit on each finding. Notice that
+	these new audits are attributed to <emphasis>Local</emphasis>
+	not to zork. This is because we have not synchronized these
+	audits with the server. To illustrate this point let's
+	attribute these audits to the <emphasis>troll</emphasis> user
+	not to the <emphasis>zork</emphasis> user.</para>
 
 	<para>Go to the <guilabel>Team Servers</guilabel> view,
 	right-click on the local server and select the
