@@ -104,7 +104,7 @@
       describe how to use the Sierra on example Java projects.</para>
     </section>
 
-    <section>
+    <section id="sec-concepts">
       <title>Concepts</title>
 
       <para>This section introduces concepts and definitions that are
@@ -527,11 +527,15 @@
     <section>
       <title>Tutorials</title>
 
-      <para>This section contains a series of Sierra tutorials.  It is
-      recommended that you go through these tutorials in order.  It is
-      also recommended that these tutorials be performed "hands-on" at
-      your computer.  You may want to create a new Eclipse workspace
-      for these tutorials.</para>
+      <para>This section contains a series of Sierra tutorials, please
+      read through <xref linkend="sec-concepts" /> before you attempt
+      these tutorials.  It is recommended that you go through these
+      tutorials in order.  It is also recommended that these tutorials
+      be performed "hands-on" at your computer.  You may want to
+      create a new Eclipse workspace for these tutorials. In addition,
+      if you have trouble please consider sending us a tip for
+      improvement as described in <xref
+      linkend="sec-bugs-and-tips"/>.</para>
 
       <section id="sec-tutorial-client">
 	<title>Using the Sierra Eclipse client</title>
@@ -1020,9 +1024,9 @@ if (o == null) {
 	  </mediaobject>
 	</figure>
 
-	<para>Now, to stress the point that the local team server
-	keeps running, exit Eclipse and open your favorite web
-	browser.  Enter <ulink
+	<para>Now, rather than using the internal Eclipse browser,
+	open your favorite web browser (that supports JavaScript).
+	Enter <ulink
 	url="http://localhost:13376/sl/">http://localhost:13376/sl/</ulink>
 	to bring up the team server portal. Alternatively, you may
 	also copy and paste the URL shown in the view to the right of
@@ -1210,8 +1214,8 @@ if (o == null) {
 
 	<para>Log your browser out of the team server.</para>
 
-	<para>At this point start up Eclipse. Go to the <guilabel>Code
-	Review</guilabel> perspective. Select
+	<para>At this point let's go back to your Eclipse. Go to the
+	<guilabel>Code Review</guilabel> perspective. Select
 	<guimenuitem>Sierra</guimenuitem> | <guimenuitem>Configure
 	Team Servers</guimenuitem> from the Eclipse main menu. This
 	will open the <guilabel>Team Servers</guilabel> view. This is
@@ -1459,6 +1463,12 @@ if (o == null) {
 	    </tbody>
 	  </tgroup>
 	</informaltable>
+
+	<para>The importance set on the scan filter is used to set the
+	importance of findings only when they are first created.  The
+	scan filter priority will not change the priority of any
+	finding that previously existed and was matched with a finding
+	from a previous scan.</para>
 
 	<para>Finally, press the <emphasis>Save</emphasis> link to
 	finish setting up this scan filter.  The result should look
