@@ -767,7 +767,7 @@ if (o == null) {
 
 	<para>Now let's examine the last finding by double-clicking on
 	this finding in the <guilabel>Findings Quick Search</guilabel>
-	view. The finding should be at the bottom of the list list. This
+	view. The finding should be at the bottom of the list. This
 	finding is complaining about our use of <computeroutput>new
 	String("hello")</computeroutput> in the code. Explicit use of
 	string construction is considered bad practice in Java as it
@@ -978,15 +978,16 @@ if (o == null) {
 	</figure>
 
 	<para>So that this tutorial can start with a fresh team server
-	database, delete the
+	database, select <guimenuitem>Wipe Local Team Server
+	Database</guimenuitem> to delete the
 	<filename>~/.sierra-data/server</filename> directory on your
-	machine if it exists (If you already started a local team
-	server using the <guibutton>Start Server</guibutton>, stop it
-	before you delete this directory). Next, press the
-	<guibutton>Start Server</guibutton> button on the view. A
-	dialog will appear warning you that the life of the server
-	process you are starting is not tied to the life of your
-	Eclipse process. This dialog is shown in <xref
+	machine (If you already started a local team server using the
+	<guibutton>Start Server</guibutton>, stop it before you wipe
+	the database). Next, press the <guibutton>Start
+	Server</guibutton> button on the view. A dialog will appear
+	warning you that the life of the server process you are
+	starting is not tied to the life of your Eclipse process. This
+	dialog is shown in <xref
 	linkend="fig-tutorial-local-team-server-warning-dialog" />
 	Read it and press the <guibutton>OK</guibutton> button. The
 	traffic light will change to yellow during server start
@@ -1017,8 +1018,9 @@ if (o == null) {
 	  </mediaobject>
 	</figure>
 
-	<para>Now exit Eclipse and open your favorite web browser.
-	Enter <ulink
+	<para>Now, to stress the point that the local team server
+	keeps running, exit Eclipse and open your favorite web
+	browser.  Enter <ulink
 	url="http://localhost:13376/sl/">http://localhost:13376/sl/</ulink>
 	to bring up the team server portal. Alternatively, you may
 	also copy and paste the URL shown in the view to the right of
