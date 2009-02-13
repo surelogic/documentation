@@ -1826,52 +1826,15 @@ if (o == null) {
 	<listitem>
 	  <para><emphasis>Send Tip for Improvement</emphasis> &mdash;
 	  This command opens a dialog to allow entry of a suggestion
-	  by the user to improve the Sierra tool as seen in <xref
-	  linkend="fig-menu-service-send-tip" /> The dialog allows the
-	  user to control exactly what information is sent to
-	  SureLogic.  In addition, the user can preview the exact text
-	  that will be sent.
-	  </para>
-
-	  <figure id="fig-menu-service-send-tip">
-	    <title>Dialog allowing the user to enter a tip to improve Sierra.</title>
-	    <mediaobject>
-	      <imageobject><imagedata fileref="images/service-send-tip.png"/></imageobject>
-	    </mediaobject>
-	  </figure>
-
-	  <para>Messages sent from these dialogs go over HTTP to
-	  SureLogic.  If a proxy is used on your network then it is
-	  critical to configure Eclipse to use it.  To do this open
-	  the Eclipse <guilabel>Preferences</guilabel> and examine the
-	  <guilabel>Network Connections</guilabel> under the
-	  <guilabel>General</guilabel> preferences.
-	  </para>
+	  by the user to improve the Sierra tool. For more
+	  information please see <xref
+	  linkend="sec-bugs-and-tips"/>.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis>Send Problem Report</emphasis> &mdash; This
 	  command opens a dialog to allow entry of a problem report by
-	  the user about the Sierra tool as seen in <xref
-	  linkend="fig-menu-service-problem-report" /> The dialog
-	  allows the user to control exactly what information is sent
-	  to SureLogic.  In addition, the user can preview the exact
-	  text that will be sent.
-	  </para>
-
-	  <figure id="fig-menu-service-problem-report">
-	    <title>Dialog allowing the user to enter a problem report about Sierra.</title>
-	    <mediaobject>
-	      <imageobject><imagedata fileref="images/service-problem-report.png"/></imageobject>
-	    </mediaobject>
-	  </figure>
-
-	  <para>Messages sent from these dialogs go over HTTP to
-	  SureLogic.  If a proxy is used on your network then it is
-	  critical to configure Eclipse to use it.  To do this open
-	  the Eclipse <guilabel>Preferences</guilabel> and examine the
-	  <guilabel>Network Connections</guilabel> under the
-	  <guilabel>General</guilabel> preferences.
-	  </para>
+	  the user about the Sierra tool. For more information please
+	  see <xref linkend="sec-bugs-and-tips"/>.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis>Manage SureLogic Licenses</emphasis> &mdash;
@@ -2464,6 +2427,75 @@ if (o == null) {
       situation install a new license (it is not required to install a
       new version of Sierra).</para>
     </sect1>
+
+    <sect1 id="sec-bugs-and-tips">
+      <title>Bugs and tips</title>
+
+      <para>Sierra allows any user to send problem reports and
+      suggestions to SureLogic from the main menu. Selecting
+      <guimenuitem>Send Tip for Improvement</guimenuitem> or
+      <guimenuitem>Send Problem Report</guimenuitem> allows a tip or
+      problem report to be send to SureLogic directly within Eclipse
+      as shown in <xref linkend="fig-bugs-and-tips-main-menu-service"
+      /> These menu choices bring up dialogs that allow the user to
+      control exactly what information is sent to SureLogic.  In
+      addition, the user can preview the exact text that will be sent
+      over the internet.</para>
+
+      <figure id="fig-bugs-and-tips-main-menu-service">
+	<title>Menu items to send bugs and tips to SureLogic.</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/bugs-and-tips-main-menu-service.png"/></imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>The <guimenuitem>Send Tip for Improvement</guimenuitem>
+      command opens a dialog to allow entry of a suggestion by the
+      user to improve the Sierra tool as seen in <xref
+      linkend="fig-bugs-and-tips-menu-send-tip" /> The dialog allows the
+      user to control exactly what information is sent to SureLogic.
+      In addition, the user can preview the exact text that will be
+      sent.</para>
+
+      <figure id="fig-bugs-and-tips-menu-send-tip">
+	<title>Dialog allowing the user to enter a tip to improve Sierra.</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/bugs-and-tips-menu-send-tip.png"/></imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>The <guimenuitem>Send Problem Report</guimenuitem> command
+      opens a dialog to allow entry of a problem report by the user
+      about the Sierra tool as seen in <xref
+      linkend="fig-bugs-and-tips-menu-problem-report" /> The dialog
+      allows the user to control exactly what information is sent to
+      SureLogic.  In addition, the user can preview the exact text
+      that will be sent.</para>
+
+      <figure id="fig-bugs-and-tips-menu-problem-report">
+	<title>Dialog allowing the user to enter a problem report about Sierra.</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/bugs-and-tips-menu-problem-report.png"/></imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>Messages sent from these dialogs go over HTTP to
+      SureLogic. If a proxy is used on your network then it is
+      critical to configure Eclipse to use it.  To do this open the
+      Eclipse <guilabel>Preferences</guilabel> and examine the
+      <guilabel>Network Connections</guilabel> under the
+      <guilabel>General</guilabel> preferences.  This dialog allows
+      you to configure Eclipse for your network as shown in <xref
+      linkend="fig-bugs-and-tips-network-connections" /></para>
+
+      <figure id="fig-bugs-and-tips-network-connections">
+	<title>Eclipse preferences for network connections within the IDE.</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
+	</mediaobject>
+      </figure>
+    </sect1>
+
   </chapter>
 
   <chapter id="release-notes">
@@ -2575,9 +2607,55 @@ if (o == null) {
 	    that Eclipse be left running until all scans are
 	    completed.</para>
 	  </listitem>
+	  <listitem>
+	    <para><emphasis>Logging out of a team server sometimes
+	    does not clear page state</emphasis> &mdash; (Unchanged
+	    from 2.1) When logging in and logging out to the team
+	    server with a browser, especially with different
+	    usernames, sometimes page state is not cleared. To work
+	    around this problem simple reload the page or restart your
+	    browser when you log out.</para>
+
+	    <para>Most team server users will not encounter this
+	    issue. We believe it to be a rare problem.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Findings Quick Search view scrollbar
+	    freeze (Windows Eclipse 3.2 and Eclipse 3.3
+	    only)</emphasis> &mdash; (Updated from 2.1) Under Windows
+	    XP or Vista and Eclipse 3.2 or Eclipse 3.3, sometimes the
+	    horizontal scrollbars get frozen when a new selection
+	    scrolls into view. This is a bug in the Eclipse SWT
+	    library tracked as Eclipse <ulink
+	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885">
+	    bug 211885</ulink> on eclipse.org. The Eclipse.org
+	    programmer assigned to this bug reports that this bug has
+	    been fixed and the fix was released in Eclipse 3.4.</para>
+
+	    <para>If this problem occurs it is possible to get
+	    the scrollbar working again by either by (a) moving the
+	    horizontal scrollbar at the bottom of the view a little bit
+	    in any direction or (b) resizing the view.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Using the -Xshareclasses optimization flag
+	    on a IBM Java 5 VM causes Sierra to crash (Windows
+	    only)</emphasis> &mdash; (Unchanged from 2.1) Under Windows
+	    XP and Vista, Sierra fails to operate properly when the
+	    -Xshareclasses optimization flag is set on the IBM Java 5
+	    VM. A warning dialog is shown when Sierra loads into Eclipse
+	    if this problem is detected.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
+	      </imageobject>
+	    </mediaobject>
+	    The workaround for this problem is to remove this flag from
+	    your eclipse.ini file.</para>
+	  </listitem>
 	</orderedlist>
       </section>
-
     </section>
 
     <section id="sec-sierra-release-2-1">
