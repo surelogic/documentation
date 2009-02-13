@@ -308,88 +308,95 @@
 	<title>Installing Sierra</title>
 
 	<para>Sierra installs as a feature in your Eclipse IDE.  It is
-	installed via the normal Eclipse mechanisms from an archived
-	update site that you obtain from SureLogic.</para>
-      <orderedlist>
-	<listitem>
-	  <para>Download the archived update site from <ulink
-	  url="http://www.surelogic.com">http://www.surelogic.com</ulink>. This
-	  archive contains the Sierra feature.</para>
-	</listitem>
-	<listitem>
-	  <para><emphasis>In Eclipse 3.4:</emphasis> Select
-	  <guimenu>Help</guimenu> | <guimenuitem>Software
-	  Updates...</guimenuitem> to open the <guilabel>Software Updates
-	  and Add-ons</guilabel> dialog. Select the
-	  <guilabel>Available Software</guilabel> tab and click the
-	  <guibutton>Add Site...</guibutton> button. In the
-	  <guilabel>Add Site</guilabel> dialog that opens select the
-	  <guibutton>Archive...</guibutton> and point to the Sierra
-	  archive file and press <guibutton>Open</guibutton> and then
-	  <guibutton>OK</guibutton>. The <guilabel>Software Updates
-	  and Add-ons</guilabel> dialog should appear as shown in
-	  <xref linkend="fig-quick-start-eclipse-34-install" /></para>
+	installed (and uninstalled) via the normal Eclipse mechanisms
+	from an archived update site that you obtain from
+	SureLogic.</para>
 
-	  <figure id="fig-quick-start-eclipse-34-install">
-	    <title>Selecting Sierra features to install in Eclipse 3.4.</title>
-	    <mediaobject>
-	      <imageobject>
-		<imagedata fileref="images/quick-start-eclipse-34-install.png" />
-	      </imageobject>
-	    </mediaobject>
-	  </figure>
+	<para>Sierra may be installed and used in Eclipse 3.2, the
+	Eclipse 3.2-based RAD 7.0, Eclipse 3.3, and Eclipse
+	3.4.</para>
 
-	  <para>Select the <emphasis>Sierra Eclipse
-	  Client</emphasis>. You only need the <emphasis>Sierra
-	  Eclipse Client Java 5 Compatibility Libraries</emphasis>
-	  feature if you are not using a Java 6 (or higher) VM, i.e.,
-	  you are running on a Java 5 VM (Running on a Java 1.4 VM is
-	  not supported by Sierra). To try out the local team server
-	  (used in the tutorials) select the <emphasis>Sierra Local
-	  Team Server</emphasis> feature. Press
-	  <guibutton>Install...</guibutton> and step through the
-	  wizard. You may be prompted to restart Eclipse when the
-	  installation is completed.</para>
-	</listitem>
-	<listitem>
-	  <para><emphasis>In Eclipse 3.2 and Eclipse 3.3:</emphasis>
-	  Select <guimenu>Help</guimenu> | <guimenuitem>Software
-	  Updates</guimenuitem> | <guimenuitem>Find and
-	  Install...</guimenuitem> to open the <guilabel>Software
-	  Updates and Add-ons</guilabel> dialog. Select
-	  <emphasis>Search for new features to install</emphasis> and
-	  press <guibutton>Next &gt;</guibutton>. Press the
-	  <guibutton>New Archived Site...</guibutton> and point to the
-	  Sierra archive file and press <guibutton>Open</guibutton>
-	  and then <guibutton>OK</guibutton>. Ensure the archive file
-	  is the only site checked and press
-	  <guibutton>Finish</guibutton>. The
-	  <guilabel>Updates</guilabel> dialog should appear as shown
-	  in <xref linkend="fig-quick-start-eclipse-33-install"
-	  /></para>
+	<orderedlist>
+	  <listitem>
+	    <para>Download the archived update site from <ulink
+	    url="http://www.surelogic.com">http://www.surelogic.com</ulink>. This
+	    archive contains the Sierra feature.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>In Eclipse 3.4:</emphasis> Select
+	    <guimenu>Help</guimenu> | <guimenuitem>Software
+	    Updates...</guimenuitem> to open the <guilabel>Software
+	    Updates and Add-ons</guilabel> dialog. Select the
+	    <guilabel>Available Software</guilabel> tab and click the
+	    <guibutton>Add Site...</guibutton> button. In the
+	    <guilabel>Add Site</guilabel> dialog that opens select the
+	    <guibutton>Archive...</guibutton> button and point to the
+	    Sierra archive file and press <guibutton>Open</guibutton>
+	    and then <guibutton>OK</guibutton>. The <guilabel>Software
+	    Updates and Add-ons</guilabel> dialog should appear as shown
+	    in <xref linkend="fig-quick-start-eclipse-34-install"
+	    /></para>
 
-	  <figure id="fig-quick-start-eclipse-33-install">
-	    <title>Selecting Sierra features to install in Eclipse 3.3.</title>
-	    <mediaobject>
-	      <imageobject>
-		<imagedata fileref="images/quick-start-eclipse-33-install.png" />
-	      </imageobject>
-	    </mediaobject>
-	  </figure>
+	    <figure id="fig-quick-start-eclipse-34-install">
+	      <title>Selecting Sierra features to install in Eclipse 3.4.</title>
+	      <mediaobject>
+		<imageobject>
+		  <imagedata fileref="images/quick-start-eclipse-34-install.png" />
+		</imageobject>
+	      </mediaobject>
+	    </figure>
 
-	  <para>Select the <emphasis>Sierra Eclipse
-	  Client</emphasis>. You only need the <emphasis>Sierra
-	  Eclipse Client Java 5 Compatibility Libraries</emphasis>
-	  feature if you are not using a Java 6 (or higher) VM, i.e.,
-	  you are running on a Java 5 VM (Running on a Java 1.4 VM is
-	  not supported by Sierra). To try out the local team server
-	  (used in the tutorials) select the <emphasis>Sierra Local
-	  Team Server</emphasis> feature. Press
-	  <guibutton>Install...</guibutton> and step through the
-	  wizard. You may be prompted to restart Eclipse when the
-	  installation is completed.</para>
-	</listitem>
-      </orderedlist>
+	    <para>Select the <emphasis>Sierra Eclipse
+	    Client</emphasis>. You only need the <emphasis>Sierra
+	    Eclipse Client Java 5 Compatibility Libraries</emphasis>
+	    feature if you are not using a Java 6 (or higher) VM, i.e.,
+	    you are running on a Java 5 VM (Running on a Java 1.4 VM is
+	    not supported by Sierra). To try out the local team server
+	    (used in the tutorials) select the <emphasis>Sierra Local
+	    Team Server</emphasis> feature. Press
+	    <guibutton>Install...</guibutton> and step through the
+	    wizard. You may be prompted to restart Eclipse when the
+	    installation is completed.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>In Eclipse 3.2, RAD 7.0, and Eclipse
+	    3.3:</emphasis> Select <guimenu>Help</guimenu> |
+	    <guimenuitem>Software Updates</guimenuitem> |
+	    <guimenuitem>Find and Install...</guimenuitem> to open the
+	    <guilabel>Install/Update</guilabel> dialog. Select
+	    <emphasis>Search for new features to install</emphasis> and
+	    press <guibutton>Next &gt;</guibutton>. Press the
+	    <guibutton>New Archived Site...</guibutton> and point to the
+	    Sierra archive file and press <guibutton>Open</guibutton>
+	    and then <guibutton>OK</guibutton>. Ensure the archive file
+	    is the only site checked and press
+	    <guibutton>Finish</guibutton>. The
+	    <guilabel>Updates</guilabel> dialog should appear as shown
+	    in <xref linkend="fig-quick-start-eclipse-33-install"
+	    /></para>
+
+	    <figure id="fig-quick-start-eclipse-33-install">
+	      <title>Selecting Sierra features to install in Eclipse 3.3.</title>
+	      <mediaobject>
+		<imageobject>
+		  <imagedata fileref="images/quick-start-eclipse-33-install.png" />
+		</imageobject>
+	      </mediaobject>
+	    </figure>
+
+	    <para>Select the <emphasis>Sierra Eclipse
+	    Client</emphasis>. You only need the <emphasis>Sierra
+	    Eclipse Client Java 5 Compatibility Libraries</emphasis>
+	    feature if you are not using a Java 6 (or higher) VM, i.e.,
+	    you are running on a Java 5 VM (Running on a Java 1.4 VM is
+	    not supported by Sierra). To try out the local team server
+	    (used in the tutorials) select the <emphasis>Sierra Local
+	    Team Server</emphasis> feature. Press
+	    <guibutton>Install...</guibutton> and step through the
+	    wizard. You may be prompted to restart Eclipse when the
+	    installation is completed.</para>
+	  </listitem>
+	</orderedlist>
       </section>
 
       <section>
@@ -1704,7 +1711,7 @@ if (o == null) {
 
   <chapter id="reference">
     <title>Reference</title>
-    <sect1 id="sec-menu">
+    <section id="sec-menu">
       <title>The Sierra menu</title>
 
       <figure id="fig-menu-sierra">
@@ -1845,9 +1852,9 @@ if (o == null) {
 	  linkend="sec-license-management" />.</para>
 	</listitem>
       </orderedlist>
-    </sect1>
+    </section>
 
-    <sect1 id="sec-code-review-perspective">
+    <section id="sec-code-review-perspective">
       <title>The Code Review perspective</title>
 
       <para>The Code Review perspective organizes the Eclipse workbench
@@ -1860,15 +1867,15 @@ if (o == null) {
       capabilities of the tool. However, advanced users may want to
       reconfigure the screen layout and save a custom perspective or add
       one or more of the Sierra views to the Java perspective.</para>
-    </sect1>
+    </section>
 
-    <sect1>
+    <section>
       <title>Views</title>
 
       <para>This section describes the Eclipse views defined by the
       Sierra Eclipse client.</para>
 
-      <sect2 id="sec-findings-quick-search">
+      <section id="sec-findings-quick-search">
 	<title>Findings Quick Search</title>
 
 	<para>This view allows you to select a set of findings to
@@ -1949,9 +1956,9 @@ if (o == null) {
 
 	<para>Described further in <xref linkend="sec-tutorial-client"
 	/>.</para>
-      </sect2>
+      </section>
 
-      <sect2 id="sec-finding-details-view">
+      <section id="sec-finding-details-view">
 	<title>Finding Details</title>
 
 	<para>This view displays information about and allows you to
@@ -1960,9 +1967,9 @@ if (o == null) {
 
 	<para>Described further in <xref linkend="sec-tutorial-client"
 	/>.</para>
-      </sect2>
+      </section>
 
-      <sect2 id="sec-team-servers-view">
+      <section id="sec-team-servers-view">
 	<title>Team Servers</title>
 
 	<para>This view provides a tree that shows the Sierra Eclipse
@@ -1976,9 +1983,9 @@ if (o == null) {
 
 	<para>Described further in <xref
 	linkend="sec-tutorial-team-server" />.</para>
-      </sect2>
+      </section>
 
-      <sect2 id="sec-synchronize-history">
+      <section id="sec-synchronize-history">
 	<title>Synchronize History</title>
 	<para>This view provides a table that lists each synchronize
 	that has been done with a Sierra Team Server. The table lists
@@ -1987,9 +1994,9 @@ if (o == null) {
 	row in this table brings up the <guilabel>Synchronize History
 	Details</guilabel> view. This view is described in <xref
 	linkend="sec-synchronize-history-details" />.</para>
-      </sect2>
+      </section>
 
-      <sect2 id="sec-synchronize-history-details">
+      <section id="sec-synchronize-history-details">
 	<title>Synchronize History Details</title>
 	<para>This view provides details linking to particular audits
 	for a synchronize with a Sierra Team Server.  A synchronize
@@ -1998,9 +2005,9 @@ if (o == null) {
 	this view.  The <guilabel>Synchronize History</guilabel> view
 	is described in <xref linkend="sec-synchronize-history"
 	/>.</para>
-      </sect2>
+      </section>
 
-      <sect2>
+      <section>
 	<title>Query Sierra</title>
 	<para>This view allows direct queries on the embedded
 	relational database used to store Sierra data. It is typically
@@ -2008,10 +2015,10 @@ if (o == null) {
 	(using its ability to perform ad hoc queries on the Sierra
 	results for client reports).
 	</para>
-      </sect2>
-    </sect1>
+      </section>
+    </section>
 
-    <sect1>
+    <section>
       <title>Preferences</title>
 
       <para>The Sierra Eclipse client has many preferences. These
@@ -2027,7 +2034,7 @@ if (o == null) {
       the dialog then the outline will be filtered to only shown the
       Sierra preference pages.</para>
 
-      <sect2 id="sec-preferences-sierra">
+      <section id="sec-preferences-sierra">
 	<title>Sierra</title>
 
 	<figure id="fig-preferences-sierra">
@@ -2156,9 +2163,9 @@ if (o == null) {
 	    starting).</para>
 	  </listitem>
 	</orderedlist>
-      </sect2>
+      </section>
 
-      <sect2 id="sec-preferences-local-team-server">
+      <section id="sec-preferences-local-team-server">
 	<title>Local Team Server</title>
 
 	<figure id="fig-preferences-server">
@@ -2200,9 +2207,9 @@ if (o == null) {
 
 	<para>The default value for this setting is
 	<emphasis>INFO</emphasis>.</para>
-      </sect2>
+      </section>
 
-      <sect2 id="sec-preferences-scan-data">
+      <section id="sec-preferences-scan-data">
 	<title>Scan Data</title>
 
 	<figure id="fig-preferences-scan-data">
@@ -2237,9 +2244,9 @@ if (o == null) {
 	database for the Local Team Server. To do that select the
 	<guimenuitem>Wipe Local Team Server Database</guimenuitem> from
 	the <guilabel>Local Team Server</guilabel> view menu.</para>
-      </sect2>
+      </section>
 
-      <sect2 id="sec-preferences-scan-filter">
+      <section id="sec-preferences-scan-filter">
 	<title>Scan Filter</title>
 
 	<figure id="fig-preferences-scan-filter">
@@ -2272,9 +2279,9 @@ if (o == null) {
 	server and on its context menu select <emphasis>Copy to Local
 	Scan Filter</emphasis> to download that scan filter setting
 	from that server and overwrite your local settings.</para>
-      </sect2>
+      </section>
 
-      <sect2 id="sec-preferences-server-interaction">
+      <section id="sec-preferences-server-interaction">
 	<title>Server Interaction</title>
 	<figure id="fig-preferences-server-interaction">
 	  <title>The Server Interaction preference pane.</title>
@@ -2314,9 +2321,9 @@ if (o == null) {
 	of failed attempts to contact the server during one Eclipse
 	session exceeds this number then no further attempts are
 	made.</para>
-      </sect2>
+      </section>
 
-      <sect2 id="sec-preferences-tools">
+      <section id="sec-preferences-tools">
 	<title>Tools</title>
 	<figure id="fig-preferences-tools">
 	  <title>The Tools preference pane.</title>
@@ -2336,10 +2343,10 @@ if (o == null) {
 	to use this panel to ensure the tool is not invoked. If either
 	of these problems occur, them please file a bug with SureLogic
 	about them.</para>
-      </sect2>
-    </sect1>
+      </section>
+    </section>
 
-    <sect1 id="sec-license-management">
+    <section id="sec-license-management">
       <title>License management</title>
 
       <para>Sierra is commercial software and a license is required to
@@ -2426,9 +2433,9 @@ if (o == null) {
       The tool is considered unlicensed at that point. To fix this
       situation install a new license (it is not required to install a
       new version of Sierra).</para>
-    </sect1>
+    </section>
 
-    <sect1 id="sec-bugs-and-tips">
+    <section id="sec-bugs-and-tips">
       <title>Bugs and tips</title>
 
       <para>Sierra allows any user to send problem reports and
@@ -2494,7 +2501,7 @@ if (o == null) {
 	  <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
 	</mediaobject>
       </figure>
-    </sect1>
+    </section>
 
   </chapter>
 
