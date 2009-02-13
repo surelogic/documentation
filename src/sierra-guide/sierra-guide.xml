@@ -671,12 +671,15 @@ if (o == null) {
 	<para>In the <guilabel>Findings Quick Search</guilabel> clear
 	your current search again by pressing the
 	<guiicon><inlinegraphic fileref="images/asterisk-grey-x.png"
-	/></guiicon> icon in the upper-right of the view. Select
+	/></guiicon> icon in the upper-right of the view (or instead
+	of clearing the query just select
+	<guibutton>Importance</guibutton> in the far left pane of the
+	view which will change the current query). Select
 	<guibutton>Importance</guibutton> and then right click on the
-	bar chart and select <guibutton>Select All</guibutton> from the
-	context menu. This is a quick way to select all the items
-	listed. Select <guibutton>Audited</guibutton> and check the two
-	items listed (Yes and No) and then select
+	bar chart and select <guibutton>Select All</guibutton> from
+	the context menu. This is a quick way to select all the items
+	listed. Select <guibutton>Audited</guibutton> and check the
+	two items listed (Yes and No) and then select
 	<guibutton>Show</guibutton> to see all the findings from the
 	most recent scan.</para>
 
@@ -837,18 +840,6 @@ if (o == null) {
 	SureLogic update site). This tutorial introduces you to use of a
 	Sierra team server. The team server helps a group of programmers
 	work together with Sierra.</para>
-
-	<para>By providing you with a team server that you can quickly and
-	easily download and install on your desktop machine to support a
-	small development team, we hope to introduce you to the
-	collaboration capabilities offered by Sierra. If you are
-	interested in hosting large teams, SureLogic offers secure,
-	high-availability hosting of team servers in our data center. We
-	also sell enterprise software licenses so that you can deploy team
-	servers on enterprise hardware/infrastructure at your company.
-	Please contact us at <email>support@surelogic.com</email> for more
-	information about team server hosting and/or enterprise software
-	licenses.</para>
 
 	<para>First download the <application>SmallWorld</application>
 	project from www.surelogic.com at <ulink
