@@ -2108,6 +2108,27 @@ if (o == null) {
 	    (notifications are shown).</para>
 	  </listitem>
 	  <listitem>
+	    <para><emphasis>Prompt to change to the Code Review
+	    perspective on scan completion.</emphasis> This setting
+	    controls a dialog is opened to prompt the user to consider
+	    changing to the <guilabel>Code Review</guilabel>
+	    perspective when a scan has completed.</para>
+
+	    <para>The default value for this setting is checked (the
+	    user is prompted).</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>If no prompt, automatically change to the
+	    Code Review perspective.</emphasis> If the previous
+	    setting is false (no user prompt) then this setting
+	    controls if the perspective is automatically changed to
+	    the <guilabel>Code Review</guilabel> perspective when a
+	    scan has completed.</para>
+
+	    <para>The default value for this setting is checked (the
+	    perspective is changed).</para>
+	  </listitem>
+	  <listitem>
 	    <para><emphasis>Allow the user to select the set of
 	    projects to scan even when projects are selected in the
 	    Package Explorer.</emphasis> This setting controls if the
