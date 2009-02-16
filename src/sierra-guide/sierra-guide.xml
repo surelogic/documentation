@@ -602,7 +602,7 @@ public class ShowOff {
 	in the <guilabel>Package Explorer</guilabel> and from the
 	<guimenu>Sierra</guimenu> menu select the <guimenuitem>Scan
 	Project</guimenuitem> menu item. Alternatively, you can choose the
-	<guimenuitem>Scan Project</guimenuitem> menu item from the
+	<guimenuitem>Scan Project</guimenuitem> menu item frm the
 	<guimenu>Sierra</guimenu> menu item in the Eclipse main menu. When
 	the dialog appears check the <application>ShowOff</application>
 	project and press the <guibutton>OK</guibutton> button. If this is
@@ -610,11 +610,14 @@ public class ShowOff {
 	take a few seconds to a minute for it to initialize, please be
 	patient.</para>
 
-	<para>After the scan is completed change to the <guilabel>Code
-	Review</guilabel> perspective. To do this, select the
-	<guimenuitem>Open Code Review Perspective</guimenuitem> menu item
-	from the <guimenu>Sierra</guimenu> menu. The Eclipse layout will
-	change to show views which will help you examine the findings the
+	<para>After the scan is completed you will be prompted to
+	change to the <guilabel>Code Review</guilabel>
+	perspective. You want to do this so click
+	<guibutton>Yes</guibutton>. You can also open this perspective
+	by selecting the <guimenuitem>Open Code Review
+	Perspective</guimenuitem> menu item from the
+	<guimenu>Sierra</guimenu> menu. The Eclipse layout will change
+	to show views which will help you examine the findings the
 	scan reported.</para>
 
 	<figure id="fig-tutorial-screenshot">
