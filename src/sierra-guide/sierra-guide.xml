@@ -390,14 +390,14 @@
 	    <para>Select the <emphasis>Sierra Eclipse
 	    Client</emphasis>. You only need the <emphasis>Sierra
 	    Eclipse Client Java 5 Compatibility Libraries</emphasis>
-	    feature if you are not using a Java 6 (or higher) VM, i.e.,
-	    you are running on a Java 5 VM (Running on a Java 1.4 VM is
-	    not supported by Sierra). To try out the local team server
-	    (used in the tutorials) select the <emphasis>Sierra Local
-	    Team Server</emphasis> feature. Press
-	    <guibutton>Install...</guibutton> and step through the
-	    wizard. You may be prompted to restart Eclipse when the
-	    installation is completed.</para>
+	    feature if you are not using a Java 6 (or higher) VM,
+	    i.e., you are running on a Java 5 VM (Running on a Java
+	    1.4 VM is not supported by Sierra). To try out the local
+	    team server (used in the tutorials) select the
+	    <emphasis>Sierra Local Team Server</emphasis>
+	    feature. Press <guibutton>Next &gt;</guibutton> and step
+	    through the wizard. You may be prompted to restart Eclipse
+	    when the installation is completed.</para>
 	  </listitem>
 	</orderedlist>
       </section>
@@ -633,20 +633,27 @@ public class ShowOff {
 	<guibutton>Importance</guibutton> then check
 	<guibutton>High</guibutton> and then click on
 	<guibutton>Show</guibutton>. Next, select the one finding
-	shown in the table. Selecting this finding will bring up
-	information about it in the <guilabel>Finding
-	Details</guilabel> view. Your screen should now look like
-	<xref linkend="fig-tutorial-screenshot" /> If you get more
-	than one finding, you probably have scanned other projects.
-	To delete the data from these projects see <xref
-	linkend="sec-preferences-scan-data" /></para>
+	shown in the table. Selecting this finding, with one click,
+	will bring up information about it in the <guilabel>Finding
+	Details</guilabel> view. Selecting this finding with a
+	double-click will bring up the information about it and
+	highlight the offending line of code. Your screen should now
+	look like <xref linkend="fig-tutorial-screenshot" /> If you
+	get more than one finding, you probably have scanned other
+	projects. (To delete the data from these projects see <xref
+	linkend="sec-preferences-scan-data" />)</para>
 
-	<para>This high importance finding is about a possible null
-	dereference. It was noticed because the <function>box</function>
-	method checks if <varname>o</varname> is null but then later,
-	regardless of the outcome of this check, dereferences it. This is
-	clearly a problem, and if you run the code the second call from
-	the <function>main</function> method indeed causes a failure in
+	<para>Read the description in the <guilabel>Finding
+	Details</guilabel> view <guilabel>Synopsis</guilabel> tab. In
+	addition you can click the two line references in the
+	<guilabel>Location</guilabel> portion of the tab to examine
+	the two lines of code referenced by this finding. This high
+	importance finding is about a possible null dereference. It
+	was noticed because the <function>box</function> method checks
+	if <varname>o</varname> is null but then later, regardless of
+	the outcome of this check, dereferences it. This is clearly a
+	problem, and if you run the code the second call from the
+	<function>main</function> method indeed causes a failure in
 	the program: the call prints <literal>null</literal> and then
 	throws a <varname>NullPointerException</varname> to the
 	console.</para>
