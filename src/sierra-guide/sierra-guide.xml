@@ -851,6 +851,37 @@ if (o == null) {
 	client to audit Java code. You should now try Sierra on your own
 	code and we encourage you to explore and make Sierra work the way
 	you want it to.</para>
+
+	<para>Before we move on to the next tutorial we want to delete
+	the ShowOff project from the Sierra database. This is done via
+	the Sierra preferences. Select <guimenu>Window</guimenu> |
+	<guimenuitem>Preferences</guimenuitem> from the Eclipse main
+	menu. On the Mac select <guimenu>Eclipse</guimenu> |
+	<guimenuitem>Preferences</guimenuitem> from the Eclipse main
+	menu. Open the <emphasis>Sierra</emphasis> item on the
+	left-hand side of the view and select <emphasis>Scan
+	Data</emphasis>. Alternatively, you can also type the word
+	<userinput>data</userinput> in the text box at the upper
+	right.  Select the <emphasis>ShowOff</emphasis> project in the
+	<guilabel>Scanned Projects</guilabel> box and press
+	<guibutton>Delete Sierra Data</guibutton>.  A confirmation
+	dialog will appear as shown in <xref
+	linkend="fig-tutorial-delete-data" /> Press
+	<guibutton>OK</guibutton> to confirm that you want to delete
+	this project's data.</para>
+
+	<figure id="fig-tutorial-delete-data">
+	  <title>Removing the ShowOff project from the Sierra findings database.</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-delete-data.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Note that the <guibutton>Delete All Sierra Data For This
+	Workspace</guibutton> can be used to wipe the entire Sierra
+	database. There is one Sierra database per Eclipse workspace,
+	however, all scan documents are stored in your
+	<filename>~/.sierra-data</filename> directory.</para>
       </section>
 
       <section id="sec-tutorial-team-server">
@@ -1613,12 +1644,15 @@ if (o == null) {
 	(FindBugs)</emphasis> categories. Go back and show the three
 	<emphasis>Performance (FindBugs)</emphasis> findings.</para>
 
-	<para>The two findings about changing the anonymous inner
-	classes to named static classes we consider unimportant for
-	this program. Change the importance of these two findings to
-	Irrelevant.</para>
+	<para>Check all the categories and select
+	<guilabel>Show</guilabel> to see the four findings. The two
+	findings about changing the anonymous inner classes to named
+	static classes we consider unimportant for this
+	program. Change the importance of these two findings to
+	Irrelevant by selecting both and using the context
+	menu.</para>
 
-	<para>The third finding suggests that the
+	<para>One of the findings suggests that the
 	<varname>f_description</varname> field can be declared
 	static. Looking at the code of this class it is clear that
 	this field can be removed from the class, i.e., the string
