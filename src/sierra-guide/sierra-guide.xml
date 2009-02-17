@@ -13,8 +13,7 @@
     <legalnotice>
       <para>SureLogic's Sierra offering is Eclipse Ready&trade;
       (www.eclipse.org). This offering can be installed and used with
-      other Eclipse 3.2-, Eclipse 3.3-, and Eclipse 3.4-based
-      offerings.</para>
+      other Eclipse-based offerings.</para>
 
       <para>The authors and publishers have taken care in the
       preparation of this documentation, but make no expressed or
@@ -23,7 +22,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 2.2&mdash;January 2009</pubdate>
+    <pubdate>Version 2.2&mdash;February 2009</pubdate>
   </bookinfo>
 
   <preface id="preface">
