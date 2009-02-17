@@ -1622,55 +1622,59 @@ public class ReturnsLockExample {
       </sect2>
       
       <sect2 id="advanced-locks">
-        <title>Advanced Locking Issues</title>
-        
-        <sect3>
-          <title>Region Locks and Aggregated State</title>
+        <title>Region Locks and Aggregated State</title>
           
-          <para>Normally lock analysis assumes that a called method
-          takes responsibility for acquiring all the locks it needs,
-          either by acquiring the locks it needs in its implementation,
-          or by declaring needed locks via
-          <classname>@RequiresLock</classname> annotations.  This assumption
-          fails when references to objects whose state has been aggregated into
-          another object are passed as method paramters.  This is because only
-          the caller knows how the state is aggregated.  In these cases,
-          lock analysis must determine for each method call, based on the declared
-          effects of the called method and the region/aggregation model, what 
-          locks must be held.  There are two messages, one positive and one negative,
-          that can be reported in this situation:
+        <para>Normally lock analysis assumes that a called method takes
+        responsibility for acquiring all the locks it needs, either by
+        acquiring the locks it needs in its implementation, or by
+        declaring needed locks via <classname>@RequiresLock</classname>
+        annotations.  This assumption fails when references to objects
+        whose state has been aggregated into another object are passed
+        as method paramters.  This is because only the caller knows how
+        the state is aggregated.  In these cases, lock analysis must
+        determine for each method call, based on the declared effects of
+        the called method and the region/aggregation model, what locks
+        must be held.  There are two messages, one positive and one
+        negative, that can be reported in this situation:
           
-            <variablelist>
-              <varlistentry>
-                <term id="held-when-invoking">Lock "<replaceable>lock</replaceable>" held when invoking <replaceable>method</replaceable></term>
-                <listitem>
-                  <para>Analysis has determine that the lock <replaceable>lock</replaceable> must be held
-                  and can determine that it is always held when the method is called.</para>
-                </listitem>
-              </varlistentry>
-              <varlistentry>
-                <term id="not-held-when-invoking">Lock "<replaceable>lock</replaceable>" not held when invoking <replaceable>method</replaceable></term>
-                <listitem>
-                  <para>Analysis has determine that the lock <replaceable>lock</replaceable> must be held
-                  but that it is not always held when the method is called.</para>
-                </listitem>
-              </varlistentry>
-            </variablelist>
-          </para>
+          <variablelist>
+            <varlistentry>
+              <term id="held-when-invoking">Lock "<replaceable>lock</replaceable>" held when invoking <replaceable>method</replaceable></term>
+              <listitem>
+                <para>Analysis has determine that the lock
+                <replaceable>lock</replaceable> must be held and can
+                determine that it is always held when the method is
+                called.</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term id="not-held-when-invoking">Lock "<replaceable>lock</replaceable>" not held when invoking <replaceable>method</replaceable></term>
+              <listitem>
+                <para>Analysis has determine that the lock
+                <replaceable>lock</replaceable> must be held but that it
+                is not always held when the method is called.</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </para>
           
-          <para>Both the positive and negative assurance results have at least one
-          additonal message as <guilabel>supporting information</guilabel>.  This message
-          has the form <computeroutput id="indirect-evidence">Method effect
-          <replaceable>effect</replaceable> affects region <replaceable>region</replaceable>
-          of <replaceable>field ref</replaceable> which is aggregated into region
-          <replaceable>region&prime;</replaceable></computeroutput>.  Essentially, this
-          message indicates the method effect and aggregation information used 
-          to conclude that the given lock is necessary.</para>
+        <para>Both the positive and negative assurance results have at
+        least one additonal message as <guilabel>supporting
+        information</guilabel>.  This message has the form
+        <computeroutput id="indirect-evidence">Method effect
+        <replaceable>effect</replaceable> affects region
+        <replaceable>region</replaceable> of <replaceable>field
+        ref</replaceable> which is aggregated into region
+        <replaceable>region&prime;</replaceable></computeroutput>. 
+        Essentially, this message indicates the method effect and
+        aggregation information used to conclude that the given lock is
+        necessary.</para>
           
-          <para>Consider the class <classname>HeldWhenInvoking</classname> below, and its
-          results, shown in <xref linkend="held-when-invoking-results"/>:</para>
+        <para>Consider the class <classname>HeldWhenInvoking</classname>
+        below, and its results, shown in <xref
+        linkend="held-when-invoking-results"/>:</para>
           
-          <programlisting linenumbering="numbered" startinglinenumber="13">@Regions({
+        <programlisting linenumbering="numbered" startinglinenumber="13">@Regions({
   @Region("private Array1"),
   @Region("private Array2")
 })
@@ -1725,104 +1729,113 @@ public class HeldWhenInvoking {
   }
 }</programlisting>
 
-          <figure id="held-when-invoking-results">
-            <title>Assurance results for <classname>HeldWhenInvoking</classname></title>
-            <mediaobject>
-              <imageobject condition="isHTML">
-                <imagedata fileref="images/held-when-invoking-01.png"/>
-              </imageobject>
-              <imageobject condition="isFO">
-                <imagedata width="100%" scalefit="1" fileref="images/held-when-invoking-01.png"/>
-              </imageobject>
-            </mediaobject>
-          </figure>
+        <figure id="held-when-invoking-results">
+          <title>Assurance results for <classname>HeldWhenInvoking</classname></title>
+          <mediaobject>
+            <imageobject condition="isHTML">
+              <imagedata fileref="images/held-when-invoking-01.png"/>
+            </imageobject>
+            <imageobject condition="isFO">
+              <imagedata width="100%" scalefit="1" fileref="images/held-when-invoking-01.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
           
-          <para>The class <classname>HeldWhenInvoking</classname> has
-          two unique fields <structfield>data1</structfield> and
-          <structfield>data2</structfield> that reference integer
-          arrays.  The elements of each array are aggregated into the
-          regions <structfield>Array1</structfield> and
-          <structfield>Array2</structfield>, respectively, that are
-          protected by the locks <structfield>L1</structfield> and
-          <structfield>L2</structfield>, respectively.  The <code>static</code>
-          method <function>sum()</function> takes an integer array as 
-          a parameter and returns the sum of its elements.  This method
-          is not written to operate on any specific array, and is thus
-          ignorant of any synchronization requirements that might be necessary
-          to operate on any particular array.</para>
+        <para>The class <classname>HeldWhenInvoking</classname> has two
+        unique fields <structfield>data1</structfield> and
+        <structfield>data2</structfield> that reference integer arrays. 
+        The elements of each array are aggregated into the regions
+        <structfield>Array1</structfield> and
+        <structfield>Array2</structfield>, respectively, that are
+        protected by the locks <structfield>L1</structfield> and
+        <structfield>L2</structfield>, respectively.  The
+        <code>static</code> method <function>sum()</function> takes an
+        integer array as a parameter and returns the sum of its
+        elements.  This method is not written to operate on any specific
+        array, and is thus ignorant of any synchronization requirements
+        that might be necessary to operate on any particular
+        array.</para>
           
-          <para>The method <function>purelyLocal()</function> allocations a new
-          array referenced by a local variable, and passes it to <function>sum()</function>.
-          This call to <function>sum()</function> at line 48 does not require any
-          locks because the array is referenced by a local variable.</para>
+        <para>The method <function>purelyLocal()</function> allocations
+        a new array referenced by a local variable, and passes it to
+        <function>sum()</function>. This call to
+        <function>sum()</function> at line 48 does not require any locks
+        because the array is referenced by a local variable.</para>
           
-          <para>The method <function>touchesIndirectState_bad()</function> is 
-          a different situation: it passes the arrays referenced by <structfield>data1</structfield>
-          and <structfield>data2</structfield> to <function>sum()</function>.  There are three
-          negative results originating form this method:
-            <orderedlist>
-              <listitem>
-                <para><computeroutput>Lock "&lt;this&gt;:L1" not held when accessing this.data1 at HeldWhenInvoking.java line 55</computeroutput></para>
-              </listitem>
-              <listitem>
-                <para><computeroutput>Lock "&lt;this&gt;:L1" not held when invoking test.HeldWhenInvoking.sum(this.data1) at HeldWhenInvoking.java line 55</computeroutput></para>
-              </listitem>
-              <listitem>
-                <para><computeroutput>Lock "&lt;this&gt;:L2" not held when invoking test.HeldWhenInvoking.sum(this.data2) at HeldWhenInvoking.java line 56</computeroutput></para>
-              </listitem>
-            </orderedlist>
+        <para>The method <function>touchesIndirectState_bad()</function>
+        is a different situation: it passes the arrays referenced by
+        <structfield>data1</structfield> and
+        <structfield>data2</structfield> to <function>sum()</function>. 
+        There are three negative results originating form this method:
+          <orderedlist>
+            <listitem>
+              <para><computeroutput>Lock "&lt;this&gt;:L1" not held when accessing this.data1 at HeldWhenInvoking.java line 55</computeroutput></para>
+            </listitem>
+            <listitem>
+              <para><computeroutput>Lock "&lt;this&gt;:L1" not held when invoking test.HeldWhenInvoking.sum(this.data1) at HeldWhenInvoking.java line 55</computeroutput></para>
+            </listitem>
+            <listitem>
+              <para><computeroutput>Lock "&lt;this&gt;:L2" not held when invoking test.HeldWhenInvoking.sum(this.data2) at HeldWhenInvoking.java line 56</computeroutput></para>
+            </listitem>
+          </orderedlist>
             
-            The first is from the unprotected access to
-            <structfield>data1</structfield> on line 55.  The second is
-            because analysis determines that the call to
-            <function>sum()</function> on line 55 may read the state of
-            the array referenced by <structfield>data1</structfield>,
-            and thus, by aggregation, the state of the region
-            <structfield>Array1</structfield>.  Thus the lock
-            <structfield>L1</structfield> must be held.  The supporting
-            information indicates this: <computeroutput>Method effect
-            reads &lt;this.data1&gt;Instance affects region
-            java.lang.Object.Instance  of this.data1 which is aggregated
-            into region test.HeldWhenInvoking.Array1</computeroutput>.
-            The reader may wonder, is it not enough that the field
-            <structfield>data1</structfield> needs a lock anyway? 
-            Clearly we cannot pass its value to parameter without
-            holding the correct lock to being with.  But consider the
-            use of field <structfield>data2</structfield> on line 56. 
-            It is <code>final</code>, and thus no lock is requried to
-            access its value.  But because of aggregation, a lock
-            <emphasis>is required</emphasis> to access the elements of
-            the array it references.</para>
+          The first is from the unprotected access to
+          <structfield>data1</structfield> on line 55.  The second is
+          because analysis determines that the call to
+          <function>sum()</function> on line 55 may read the state of
+          the array referenced by <structfield>data1</structfield>, and
+          thus, by aggregation, the state of the region
+          <structfield>Array1</structfield>.  Thus the lock
+          <structfield>L1</structfield> must be held.  The supporting
+          information indicates this: <computeroutput>Method effect
+          reads &lt;this.data1&gt;Instance affects region
+          java.lang.Object.Instance  of this.data1 which is aggregated
+          into region test.HeldWhenInvoking.Array1</computeroutput>. The
+          reader may wonder, is it not enough that the field
+          <structfield>data1</structfield> needs a lock anyway? Clearly
+          we cannot pass its value to parameter without holding the
+          correct lock to being with.  But consider the use of field
+          <structfield>data2</structfield> on line 56. It is
+          <code>final</code>, and thus no lock is requried to access its
+          value.  But because of aggregation, a lock <emphasis>is
+          required</emphasis> to access the elements of the array it
+          references.</para>
 
-          <para>The method <function>touchesIndirectState_good()</function> is 
-          the same as <function>touchesIndirectState_bad()</function> except that
-          it is correctly synchronized.  It has three positive assurance results:
-            <orderedlist>
-              <listitem>
-                <para><computeroutput>Lock "&lt;this&gt;:L1" held when accessing this.data1 at HeldWhenInvoking.java line 62</computeroutput></para>
-              </listitem>
-              <listitem>
-                <para><computeroutput>Lock "&lt;this&gt;:L1" held when invoking test.HeldWhenInvoking.sum(this.data1) at HeldWhenInvoking.java line 62</computeroutput></para>
-              </listitem>
-              <listitem>
-                <para><computeroutput>Lock "&lt;this&gt;:L2" held when invoking test.HeldWhenInvoking.sum(this.data2) at HeldWhenInvoking.java line 63</computeroutput></para>
-              </listitem>
-            </orderedlist>
-          </para>            
-        </sect3>
+        <para>The method
+        <function>touchesIndirectState_good()</function> is the same as
+        <function>touchesIndirectState_bad()</function> except that it
+        is correctly synchronized.  It has three positive assurance
+        results:
+          <orderedlist>
+            <listitem>
+              <para><computeroutput>Lock "&lt;this&gt;:L1" held when accessing this.data1 at HeldWhenInvoking.java line 62</computeroutput></para>
+            </listitem>
+            <listitem>
+              <para><computeroutput>Lock "&lt;this&gt;:L1" held when invoking test.HeldWhenInvoking.sum(this.data1) at HeldWhenInvoking.java line 62</computeroutput></para>
+            </listitem>
+            <listitem>
+              <para><computeroutput>Lock "&lt;this&gt;:L2" held when invoking test.HeldWhenInvoking.sum(this.data2) at HeldWhenInvoking.java line 63</computeroutput></para>
+            </listitem>
+          </orderedlist>
+        </para>            
+      </sect2>
 
-        <sect3>
-          <title>Assuring <package>java.util.concurrent</package> Locks</title>
+      <sect2>
+        <title>Assuring <package>java.util.concurrent</package> Locks</title>
           
-          <para>JSure also supports the assurance of the correct use of <package>java.util.concurrent</package> locks.
-          These locks are explicitly acquired and released via the methods <function>Lock.lock()</function>
-          and <function>Lock.unlock()</function>.  Because of this, there is a wider variety of 
-          warning and other information messages that JSure can produce about their use.  We begin
-          with a simple example that demonstrates that the primary <emphasis>assurance</emphasis>
-          messages are unchanged.  Consider the class <classname>SimpleJUCLockExample</classname>
-          below, and its results shown in <xref linkend="juc-results"/>.</para>
+        <para>JSure also supports the assurance of the correct use of
+        <package>java.util.concurrent</package> locks. These locks are
+        explicitly acquired and released via the methods
+        <function>Lock.lock()</function> and
+        <function>Lock.unlock()</function>.  Because of this, there is a
+        wider variety of warning and other information messages that
+        JSure can produce about their use.  We begin with a simple
+        example that demonstrates that the primary
+        <emphasis>assurance</emphasis> messages are unchanged.  Consider
+        the class <classname>SimpleJUCLockExample</classname> below, and
+        its results shown in <xref linkend="juc-results"/>.</para>
           
-          <programlisting linenumbering="numbered" startinglinenumber="9"><emphasis>@RegionLock("L1 is lock protects Instance")</emphasis>
+        <programlisting linenumbering="numbered" startinglinenumber="9"><emphasis>@RegionLock("L1 is lock protects Instance")</emphasis>
 public class SimpleJUCLockExample {
   public final Lock lock = new ReentrantLock(); 
   private int f;
@@ -1863,59 +1876,59 @@ public class SimpleJUCLockExample {
   }
 }</programlisting>
           
-          <figure id="juc-results">
-            <title>Assurance results for <classname>SimpleJUCLockExample</classname></title>
-            <mediaobject>
-              <imageobject condition="isHTML">
-                <imagedata fileref="images/juc-assurance-01.png"/>
-              </imageobject>
-              <imageobject condition="isFO">
-                <imagedata width="100%" scalefit="1" fileref="images/juc-assurance-01.png"/>
-              </imageobject>
-            </mediaobject>
-          </figure>
+        <figure id="juc-results">
+          <title>Assurance results for <classname>SimpleJUCLockExample</classname></title>
+          <mediaobject>
+            <imageobject condition="isHTML">
+              <imagedata fileref="images/juc-assurance-01.png"/>
+            </imageobject>
+            <imageobject condition="isFO">
+              <imagedata width="100%" scalefit="1" fileref="images/juc-assurance-01.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
           
-          <para>Assurance recognizes that the lock object named in the
-          <classname>@RequiresLock</classname> annotation, the field
-          <structfield>lock</structfield>, is declared to be a
-          <classname>java.util.concurrent.locks.Lock</classname>, and
-          adjusts the analysis accordingly.  Observe that
-            <itemizedlist>
-              <listitem>
-                <para>The positive assurance results on lines 19, 28,
-                and 41, and the negative assurance result on line 46 use
-                the same message templates as when <link
-                linkend="assuring-region-lock">instrinsic locks</link>
-                are used.</para>
-              </listitem>
-              <listitem>
-                <para id="juc-lock-held">The supporting information
-                indicating which lock is held reads
-                <computeroutput>java.util.concurrent lock
-                "<replaceable>lock</replaceable>" is
-                held</computeroutput>, instead of
-                <computeroutput>Instrinsic lock
-                "<replaceable>lock</replaceable>" is
-                held</computeroutput>.</para>
-              </listitem>
-              <listitem>
-                <para>There is a new category of informative results
-                titled <guilabel>lock()&ndash;unlock()
-                matches</guilabel>.  The results under this heading are
-                described in their <link
-                linkend="lock-unlock-matches">own section</link>
-                below.</para>
-              </listitem>
-            </itemizedlist>
-          </para>
+        <para>Assurance recognizes that the lock object named in the
+        <classname>@RequiresLock</classname> annotation, the field
+        <structfield>lock</structfield>, is declared to be a
+        <classname>java.util.concurrent.locks.Lock</classname>, and
+        adjusts the analysis accordingly.  Observe that
+          <itemizedlist>
+            <listitem>
+              <para>The positive assurance results on lines 19, 28,
+              and 41, and the negative assurance result on line 46 use
+              the same message templates as when <link
+              linkend="assuring-region-lock">instrinsic locks</link>
+              are used.</para>
+            </listitem>
+            <listitem>
+              <para id="juc-lock-held">The supporting information
+              indicating which lock is held reads
+              <computeroutput>java.util.concurrent lock
+              "<replaceable>lock</replaceable>" is
+              held</computeroutput>, instead of
+              <computeroutput>Instrinsic lock
+              "<replaceable>lock</replaceable>" is
+              held</computeroutput>.</para>
+            </listitem>
+            <listitem>
+              <para>There is a new category of informative results
+              titled <guilabel>lock()&ndash;unlock()
+              matches</guilabel>.  The results under this heading are
+              described in their <link
+              linkend="lock-unlock-matches">own section</link>
+              below.</para>
+            </listitem>
+          </itemizedlist>
+        </para>
           
-          <para>Similarly, JSure understands the difference between a 
-          <classname>java.util.concurrent.locks.Lock</classname> and a 
-          <classname>java.util.concurrent.locks.ReadWriteLock</classname>.  
-          Consider the class <classname>SimpleRWLockExample</classname> below and
-          it its results in <xref linkend="rw-results"/>.</para>
+        <para>Similarly, JSure understands the difference between a
+        <classname>java.util.concurrent.locks.Lock</classname> and a
+        <classname>java.util.concurrent.locks.ReadWriteLock</classname>.
+        Consider the class <classname>SimpleRWLockExample</classname>
+        below and it its results in <xref linkend="rw-results"/>.</para>
           
-          <programlisting linenumbering="numbered" startinglinenumber="9"><emphasis>@RegionLock("L1 is lock protects Instance")</emphasis>
+        <programlisting linenumbering="numbered" startinglinenumber="9"><emphasis>@RegionLock("L1 is lock protects Instance")</emphasis>
 public class SimpleRWLockExample {
   public final ReadWriteLock lock = new ReentrantReadWriteLock(); 
   private int f;
@@ -1961,83 +1974,86 @@ public class SimpleRWLockExample {
   }
 }</programlisting>
           
-          <figure id="rw-results">
-            <title>Assurance results for <classname>SimpleRWLockExample</classname></title>
-            <mediaobject>
-              <imageobject condition="isHTML">
-                <imagedata fileref="images/juc-assurance-02.png"/>
-              </imageobject>
-              <imageobject condition="isFO">
-                <imagedata width="100%" scalefit="1" fileref="images/juc-assurance-02.png"/>
-              </imageobject>
-            </mediaobject>
-          </figure>
+        <figure id="rw-results">
+          <title>Assurance results for <classname>SimpleRWLockExample</classname></title>
+          <mediaobject>
+            <imageobject condition="isHTML">
+              <imagedata fileref="images/juc-assurance-02.png"/>
+            </imageobject>
+            <imageobject condition="isFO">
+              <imagedata width="100%" scalefit="1" fileref="images/juc-assurance-02.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
 
-         <para>Again, we see 
-            <itemizedlist>
-              <listitem>
-                <para>The positive assurance results on lines 19, 28,
-                and 41, and the negative assurance result on line 48 use
-                the same message templates as when <link
-                linkend="assuring-region-lock">instrinsic locks</link>
-                are used.</para>
-              </listitem>
-              <listitem>
-                <para>The supporting information
-                indicating which lock is held reads
-                <computeroutput>java.util.concurrent lock
-                "<replaceable>lock</replaceable>" is
-                held</computeroutput>.</para>
-              </listitem>
-              <listitem>
-                <para>There is a new category of informative results
-                titled <guilabel>lock()&ndash;unlock()
-                matches</guilabel>.</para>
-              </listitem>
-            </itemizedlist>
+       <para>Again, we see 
+          <itemizedlist>
+            <listitem>
+              <para>The positive assurance results on lines 19, 28,
+              and 41, and the negative assurance result on line 48 use
+              the same message templates as when <link
+              linkend="assuring-region-lock">instrinsic locks</link>
+              are used.</para>
+            </listitem>
+            <listitem>
+              <para>The supporting information
+              indicating which lock is held reads
+              <computeroutput>java.util.concurrent lock
+              "<replaceable>lock</replaceable>" is
+              held</computeroutput>.</para>
+            </listitem>
+            <listitem>
+              <para>There is a new category of informative results
+              titled <guilabel>lock()&ndash;unlock()
+              matches</guilabel>.</para>
+            </listitem>
+          </itemizedlist>
             
-          We also see that JSure understands the difference between a read lock and a 
-          write lock.  The assignment to field <structfield>g</structfield> on line 48 
-          fails to assure because assignment requires the write lock, but the method
-          only acquires the read lock on line 45.</para>
+        We also see that JSure understands the difference between a read
+        lock and a write lock.  The assignment to field
+        <structfield>g</structfield> on line 48 fails to assure because
+        assignment requires the write lock, but the method only acquires
+        the read lock on line 45.</para>
           
-          <sect4 id="lock-unlock-matches">
-            <title>Lock&ndash;unlock matches</title>
+        <sect3 id="lock-unlock-matches">
+          <title>Lock&ndash;unlock matches</title>
             
-            <para>JSure tracks calls to the lock acquisition methods
-            <function>lock()</function> and
-            <function>tryLock()</function> and to the lock release
-            method <function>unlock()</function>. It matches the calls
-            in both directions: forwards to match acquisitions to
-            releases, and backwards to match releases to acquistions.
-            This may seem redundant, but forwards matching catches
-            missing releases, and backwards matching catches missing
-            acquisitions.  We have already seen the most commong matching messages
-            in <xref linkend="juc-results"/> and <xref linkend="rw-results"/>:
+          <para>JSure tracks calls to the lock acquisition methods
+          <function>lock()</function> and <function>tryLock()</function>
+          and to the lock release method <function>unlock()</function>.
+          It matches the calls in both directions: forwards to match
+          acquisitions to releases, and backwards to match releases to
+          acquistions. This may seem redundant, but forwards matching
+          catches missing releases, and backwards matching catches
+          missing acquisitions.  We have already seen the most commong
+          matching messages in <xref linkend="juc-results"/> and <xref
+          linkend="rw-results"/>:
             
-              <orderedlist>
-                <listitem>
-                  <para><computeroutput><replaceable>acquires</replaceable>
-                  call has matching unlock() call at line
-                  <replaceable>line</replaceable></computeroutput>, where 
-                  <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>
-                  or <computeroutput>tryLock()</computeroutput>.</para>
-                </listitem>
-                <listitem>
-                  <para><computeroutput>unlock() call has matching <replaceable>acquires</replaceable> call at line
-                  <replaceable>line</replaceable></computeroutput>, where 
-                  <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>
-                  or <computeroutput>tryLock()</computeroutput>.</para>
-                </listitem>
-              </orderedlist>
+            <orderedlist>
+              <listitem>
+                <para><computeroutput><replaceable>acquires</replaceable>
+                call has matching unlock() call at line
+                <replaceable>line</replaceable></computeroutput>, where 
+                <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>
+                or <computeroutput>tryLock()</computeroutput>.</para>
+              </listitem>
+              <listitem>
+                <para><computeroutput>unlock() call has matching <replaceable>acquires</replaceable> call at line
+                <replaceable>line</replaceable></computeroutput>, where 
+                <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>
+                or <computeroutput>tryLock()</computeroutput>.</para>
+              </listitem>
+            </orderedlist>
             
-            The first message indicates that a matching <function>unlock()</function> call
-            has been found for the given <function>lock()</function> or <function>tryLock()</function>
-            call.  The second message, that a matching 
-            <function>lock()</function> or <function>tryLock()</function> call has been found
-            for the given <function>unlock()</function> call.  In most circumstances these
-            messages will appear in pairs, as they due in our examples above.</para>
-          </sect4>
+          The first message indicates that a matching
+          <function>unlock()</function> call has been found for the
+          given <function>lock()</function> or
+          <function>tryLock()</function> call.  The second message, that
+          a matching <function>lock()</function> or
+          <function>tryLock()</function> call has been found for the
+          given <function>unlock()</function> call.  In most
+          circumstances these messages will appear in pairs, as they due
+          in our examples above.</para>
         </sect3>
       </sect2>
       
