@@ -671,7 +671,7 @@ public BoundedFIFO(int size) {
       results.</para>
       
       <figure id="EffectsExample.java">
-        <title>The class <classname>EffectsExample</classname>.</title>
+        <title>The class <classname>EffectsExample</classname></title>
       
         <programlisting linenumbering="numbered" startinglinenumber="5">/**
  * This is a simple class that exists only to show off the 
@@ -1179,19 +1179,6 @@ public class SimpleLockExample {
         lock is held. As with field access, the good and bad call sites
         are grouped together; again, see <xref linkend="RequiresLockExample-results"/>.</para>
         
-        <figure id="RequiresLockExample-results">
-          <title>Chains of Evidence for <classname>RequiresLockExample</classname></title>.
-          
-          <mediaobject>
-            <imageobject condition="isHTML">
-              <imagedata fileref="images/lock-assurance-03.png"/>
-            </imageobject>
-            <imageobject condition="isFO">
-              <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-03.png"/>
-            </imageobject>
-          </mediaobject>
-        </figure>
-        
         <para>This section uses class
         <classname>RequiresLockExample</classname> to describe how
         <classname>@RequiresLock</classname> annotations are assured:</para>
@@ -1226,6 +1213,19 @@ public class RequiresLockExample {
   }
 }</programlisting>
         
+        <figure id="RequiresLockExample-results">
+          <title>Chains of Evidence for <classname>RequiresLockExample</classname></title>.
+          
+          <mediaobject>
+            <imageobject condition="isHTML">
+              <imagedata fileref="images/lock-assurance-03.png"/>
+            </imageobject>
+            <imageobject condition="isFO">
+              <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-03.png"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
+
         <sect3 id="preconditions-satisfied">
           <title>lock precondition(s) satisfied</title>
 
@@ -1258,6 +1258,18 @@ public class RequiresLockExample {
           <replaceable>method</replaceable>; precondition unsatisfied</computeroutput>.  The call
           to <function>get()</function> on line 32 is not assured in our
           example.</para>
+        </sect3>
+        
+        <sect3>
+          <title>Supporting Evidence</title>
+          
+          <para>Locks that are assumed to be held due to a
+          <classname>@RequiresLock</classname> annotation are reported
+          using the message <computeroutput>Assuming lock
+          "<replaceable>lock</replaceable>" is held</computeroutput>.
+          See, for example, the supporting information on lines 10 and
+          13 for the field accesses one lines 11 and 14,
+          respectively.</para>
         </sect3>
       </sect2>
       
@@ -1568,7 +1580,7 @@ public class ReturnsLockExample {
 }</programlisting>
         
         <figure id="returns-lock-results">
-          <title>Assurance results for <classname>ReturnsLockExample</classname>.</title>
+          <title>Assurance results for <classname>ReturnsLockExample</classname></title>
           <mediaobject>
             <imageobject condition="isHTML">
               <imagedata fileref="images/lock-assurance-10.png"/>
@@ -1714,7 +1726,7 @@ public class HeldWhenInvoking {
 }</programlisting>
 
           <figure id="held-when-invoking-results">
-            <title>Assurance results for <classname>HeldWhenInvoking</classname>.</title>
+            <title>Assurance results for <classname>HeldWhenInvoking</classname></title>
             <mediaobject>
               <imageobject condition="isHTML">
                 <imagedata fileref="images/held-when-invoking-01.png"/>
@@ -1797,6 +1809,235 @@ public class HeldWhenInvoking {
               </listitem>
             </orderedlist>
           </para>            
+        </sect3>
+
+        <sect3>
+          <title>Assuring <package>java.util.concurrent</package> Locks</title>
+          
+          <para>JSure also supports the assurance of the correct use of <package>java.util.concurrent</package> locks.
+          These locks are explicitly acquired and released via the methods <function>Lock.lock()</function>
+          and <function>Lock.unlock()</function>.  Because of this, there is a wider variety of 
+          warning and other information messages that JSure can produce about their use.  We begin
+          with a simple example that demonstrates that the primary <emphasis>assurance</emphasis>
+          messages are unchanged.  Consider the class <classname>SimpleJUCLockExample</classname>
+          below, and its results shown in <xref linkend="juc-results"/>.</para>
+          
+          <programlisting linenumbering="numbered" startinglinenumber="9"><emphasis>@RegionLock("L1 is lock protects Instance")</emphasis>
+public class SimpleJUCLockExample {
+  public final Lock lock = new ReentrantLock(); 
+  private int f;
+  private int g;
+  
+  public int getF() {
+    lock.lock();
+    try {
+      // Good
+      return f;
+    } finally {
+      lock.unlock();
+    }
+  }
+  
+  public boolean setF(final int v) {
+    if (lock.tryLock()) {
+      try {
+        f = v;
+      } finally {
+        lock.unlock();
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  <emphasis>@RequiresLock("L1")</emphasis>
+  public void doStuff() {
+    // Good
+    f = 0;
+  }
+  
+  public int getG() {
+    // Bad
+    return g;
+  }
+}</programlisting>
+          
+          <figure id="juc-results">
+            <title>Assurance results for <classname>SimpleJUCLockExample</classname></title>
+            <mediaobject>
+              <imageobject condition="isHTML">
+                <imagedata fileref="images/juc-assurance-01.png"/>
+              </imageobject>
+              <imageobject condition="isFO">
+                <imagedata width="100%" scalefit="1" fileref="images/juc-assurance-01.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>
+          
+          <para>Assurance recognizes that the lock object named in the
+          <classname>@RequiresLock</classname> annotation, the field
+          <structfield>lock</structfield>, is declared to be a
+          <classname>java.util.concurrent.locks.Lock</classname>, and
+          adjusts the analysis accordingly.  Observe that
+            <itemizedlist>
+              <listitem>
+                <para>The positive assurance results on lines 19, 28,
+                and 41, and the negative assurance result on line 46 use
+                the same message templates as when <link
+                linkend="assuring-region-lock">instrinsic locks</link>
+                are used.</para>
+              </listitem>
+              <listitem>
+                <para id="juc-lock-held">The supporting information
+                indicating which lock is held reads
+                <computeroutput>java.util.concurrent lock
+                "<replaceable>lock</replaceable>" is
+                held</computeroutput>, instead of
+                <computeroutput>Instrinsic lock
+                "<replaceable>lock</replaceable>" is
+                held</computeroutput>.</para>
+              </listitem>
+              <listitem>
+                <para>There is a new category of informative results
+                titled <guilabel>lock()&ndash;unlock()
+                matches</guilabel>.  The results under this heading are
+                described in their <link
+                linkend="lock-unlock-matches">own section</link>
+                below.</para>
+              </listitem>
+            </itemizedlist>
+          </para>
+          
+          <para>Similarly, JSure understands the difference between a 
+          <classname>java.util.concurrent.locks.Lock</classname> and a 
+          <classname>java.util.concurrent.locks.ReadWriteLock</classname>.  
+          Consider the class <classname>SimpleRWLockExample</classname> below and
+          it its results in <xref linkend="rw-results"/>.</para>
+          
+          <programlisting linenumbering="numbered" startinglinenumber="9"><emphasis>@RegionLock("L1 is lock protects Instance")</emphasis>
+public class SimpleRWLockExample {
+  public final ReadWriteLock lock = new ReentrantReadWriteLock(); 
+  private int f;
+  private int g;
+  
+  public int getF() {
+    lock.readLock().lock();
+    try {
+      // Good
+      return f;
+    } finally {
+      lock.readLock().unlock();
+    }
+  }
+  
+  public boolean setF(final int v) {
+    if (lock.writeLock().tryLock()) {
+      try {
+        f = v;
+      } finally {
+        lock.writeLock().unlock();
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  <emphasis>@RequiresLock("L1.writeLock()")</emphasis>
+  public void doStuff() {
+    // Good
+    f = 0;
+  }
+  
+  public void setG(final int v) {
+    lock.readLock().lock();
+    try {
+      // Bad
+      g = v;
+    } finally {
+      lock.readLock().unlock();
+    }
+  }
+}</programlisting>
+          
+          <figure id="rw-results">
+            <title>Assurance results for <classname>SimpleRWLockExample</classname></title>
+            <mediaobject>
+              <imageobject condition="isHTML">
+                <imagedata fileref="images/juc-assurance-02.png"/>
+              </imageobject>
+              <imageobject condition="isFO">
+                <imagedata width="100%" scalefit="1" fileref="images/juc-assurance-02.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+         <para>Again, we see 
+            <itemizedlist>
+              <listitem>
+                <para>The positive assurance results on lines 19, 28,
+                and 41, and the negative assurance result on line 48 use
+                the same message templates as when <link
+                linkend="assuring-region-lock">instrinsic locks</link>
+                are used.</para>
+              </listitem>
+              <listitem>
+                <para>The supporting information
+                indicating which lock is held reads
+                <computeroutput>java.util.concurrent lock
+                "<replaceable>lock</replaceable>" is
+                held</computeroutput>.</para>
+              </listitem>
+              <listitem>
+                <para>There is a new category of informative results
+                titled <guilabel>lock()&ndash;unlock()
+                matches</guilabel>.</para>
+              </listitem>
+            </itemizedlist>
+            
+          We also see that JSure understands the difference between a read lock and a 
+          write lock.  The assignment to field <structfield>g</structfield> on line 48 
+          fails to assure because assignment requires the write lock, but the method
+          only acquires the read lock on line 45.</para>
+          
+          <sect4 id="lock-unlock-matches">
+            <title>Lock&ndash;unlock matches</title>
+            
+            <para>JSure tracks calls to the lock acquisition methods
+            <function>lock()</function> and
+            <function>tryLock()</function> and to the lock release
+            method <function>unlock()</function>. It matches the calls
+            in both directions: forwards to match acquisitions to
+            releases, and backwards to match releases to acquistions.
+            This may seem redundant, but forwards matching catches
+            missing releases, and backwards matching catches missing
+            acquisitions.  We have already seen the most commong matching messages
+            in <xref linkend="juc-results"/> and <xref linkend="rw-results"/>:
+            
+              <orderedlist>
+                <listitem>
+                  <para><computeroutput><replaceable>acquires</replaceable>
+                  call has matching unlock() call at line
+                  <replaceable>line</replaceable></computeroutput>, where 
+                  <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>
+                  or <computeroutput>tryLock()</computeroutput>.</para>
+                </listitem>
+                <listitem>
+                  <para><computeroutput>unlock() call has matching <replaceable>acquires</replaceable> call at line
+                  <replaceable>line</replaceable></computeroutput>, where 
+                  <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>
+                  or <computeroutput>tryLock()</computeroutput>.</para>
+                </listitem>
+              </orderedlist>
+            
+            The first message indicates that a matching <function>unlock()</function> call
+            has been found for the given <function>lock()</function> or <function>tryLock()</function>
+            call.  The second message, that a matching 
+            <function>lock()</function> or <function>tryLock()</function> call has been found
+            for the given <function>unlock()</function> call.  In most circumstances these
+            messages will appear in pairs, as they due in our examples above.</para>
+          </sect4>
         </sect3>
       </sect2>
       
@@ -1951,7 +2192,7 @@ public class SharedUnprotectedStateExample {
 }</programlisting>
           
           <figure id="shared-unprotected-results">
-            <title>Assurance results for <classname>SharedUnprotectedStateExample</classname>.</title>
+            <title>Assurance results for <classname>SharedUnprotectedStateExample</classname></title>
             <mediaobject>
               <imageobject condition="isHTML">
                 <imagedata fileref="images/shared-unprotected-01.png"/>
@@ -2032,7 +2273,7 @@ public class RedundantLockExample {
 }</programlisting>
           
           <figure id="redundant-lock-results">
-            <title>Assurance results for <classname>RedundantLockExample</classname>.</title>
+            <title>Assurance results for <classname>RedundantLockExample</classname></title>
             <mediaobject>
               <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-11.png"/>
@@ -2167,7 +2408,7 @@ public class RedundantLockExample {
 }</programlisting>
           
           <figure id="unidentifiable-lock-results">
-            <title>Assurance results for <classname>UnidentifiableLockExample</classname>.</title>
+            <title>Assurance results for <classname>UnidentifiableLockExample</classname></title>
             <mediaobject>
               <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-12.png"/>
@@ -2250,7 +2491,7 @@ public class NonFinalLockExample {
 }</programlisting>
 
           <figure id="non-final-lock-results">
-            <title>Assurance results for <classname>NonFinalLockExample</classname>.</title>
+            <title>Assurance results for <classname>NonFinalLockExample</classname></title>
             <mediaobject>
               <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-13.png"/>
@@ -2325,7 +2566,7 @@ public class UnusedLockExample {
 }</programlisting>
 
           <figure id="not-protecting-results">
-            <title>Assurance results for <classname>UnusedLockExample</classname>.</title>
+            <title>Assurance results for <classname>UnusedLockExample</classname></title>
             <mediaobject>
               <imageobject condition="isHTML">
                 <imagedata fileref="images/lock-assurance-14.png"/>
@@ -2577,8 +2818,8 @@ public class UnusedLockExample {
         <listitem><para><link linkend="intrinsic-lock-held">Intrinsic lock <replaceable>lock</replaceable> is
         held</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: java.util.concurrent lock
-        "{0}" is held</link></para></listitem>
+        <listitem><para><link linkend="juc-lock-held">java.util.concurrent lock
+        "<replaceable>lock</replaceable>" is held</link></para></listitem>
 
         <listitem><para><link linkend="todo">TO DO: Lock "{0}" held as "{2}"
         when accessing {1}</link></para></listitem>
