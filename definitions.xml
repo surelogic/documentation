@@ -143,6 +143,7 @@
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-html-xsl}'" />
         <arg line="profile.condition='isHTML'"/>
+        <arg line="xref.with.number.and.title='0'"/>
         <arg line="use.extensions='1'"/>
         <arg line="graphicsize.extension='0'"/>
         <arg line="linenumbering.extension='1'"/>
@@ -173,6 +174,7 @@
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-eclipse-xsl}'" />
         <arg line="profile.condition='isHTML'"/>
+        <arg line="xref.with.number.and.title='0'"/>
         <arg line="use.extensions='1'"/>
         <arg line="graphicsize.extension='0'"/>
         <arg line="linenumbering.extension='1'"/>
@@ -207,6 +209,7 @@
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-fo-xsl}'" />
         <arg line="profile.condition='isFO'"/>
+        <arg line="xref.with.number.and.title='0'"/>
         <arg line="use.extensions='1'"/>
         <arg line="graphicsize.extension='0'"/>
         <arg line="linenumbering.extension='1'"/>
