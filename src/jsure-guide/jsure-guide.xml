@@ -2019,7 +2019,7 @@ public class SimpleRWLockExample {
           <title>Lock&ndash;unlock matches</title>
             
           <para>JSure tracks calls to the lock acquisition methods
-          <function>lock()</function> and <function>tryLock()</function>
+          <function>lock()</function>, <function>lockInterruptibly()</function>, and <function>tryLock()</function>
           and to the lock release method <function>unlock()</function>.
           It matches the calls in both directions: forwards to match
           acquisitions to releases, and backwards to match releases to
@@ -2031,29 +2031,70 @@ public class SimpleRWLockExample {
             
             <orderedlist>
               <listitem>
-                <para><computeroutput><replaceable>acquires</replaceable>
+                <para id="acquires-match"><computeroutput><replaceable>acquires</replaceable>
                 call has matching unlock() call at line
                 <replaceable>line</replaceable></computeroutput>, where 
-                <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>
+                <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>,
+                <computeroutput>lockInterruptibly()</computeroutput>,
                 or <computeroutput>tryLock()</computeroutput>.</para>
               </listitem>
               <listitem>
-                <para><computeroutput>unlock() call has matching <replaceable>acquires</replaceable> call at line
+                <para id="release-match"><computeroutput>unlock() call has matching <replaceable>acquires</replaceable> call at line
                 <replaceable>line</replaceable></computeroutput>, where 
-                <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>
+                <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>,
+                <computeroutput>lockInterruptibly()</computeroutput>,
                 or <computeroutput>tryLock()</computeroutput>.</para>
               </listitem>
             </orderedlist>
             
           The first message indicates that a matching
           <function>unlock()</function> call has been found for the
-          given <function>lock()</function> or
+          given <function>lock()</function>, <function>lockInterruptibly()</function>,
           <function>tryLock()</function> call.  The second message, that
-          a matching <function>lock()</function> or
+          a matching <function>lock()</function>, <function>lockInterruptibly</function>,
           <function>tryLock()</function> call has been found for the
           given <function>unlock()</function> call.  In most
-          circumstances these messages will appear in pairs, as they due
+          circumstances these messages will appear in pairs, as they do
           in our examples above.</para>
+          
+          <para>It's possible that a matching call cannot be found at all:
+          
+            <itemizedlist>
+              <listitem>
+                <para id="acquires-no-match"><computeroutput><replaceable>acquires</replaceable>
+                call has no matching unlock() calls</computeroutput>, where 
+                <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>,
+                <computeroutput>lockInterruptibly()</computeroutput>,
+                or <computeroutput>tryLock()</computeroutput>.</para>
+              </listitem>
+              <listitem>
+                <para id="release-no-match"><computeroutput>unlock() call
+                has no matching lock() calls</computeroutput>.</para>
+              </listitem>
+            </itemizedlist>
+
+          Or that a matching call can only be found on some, but not all, control flow paths:
+          
+            <itemizedlist>
+              <listitem>
+                <para id="acquires-different"><computeroutput><replaceable>acquires</replaceable>
+                call has a different number of matching unlock() calls along different control paths</computeroutput>, where 
+                <replaceable>acquires</replaceable> is either <computeroutput>lock()</computeroutput>,
+                <computeroutput>lockInterruptibly()</computeroutput>,
+                or <computeroutput>tryLock()</computeroutput>.</para>
+              </listitem>
+              <listitem>
+                <para id="release-different"><computeroutput>unlock()
+                call has a different number of matching lock() calls
+                along different control paths</computeroutput>.</para>
+              </listitem>
+            </itemizedlist>
+            
+          This usually occurs when there
+          <code>try</code>&ndash;<code>finally</code> code pattern is
+          not followed correctly.  See <ulink
+          url="http://java.sun.com/javase/6/docs/api/java/util/concurrent/locks/Lock.html">the
+          documentation for <classname>java.util.concurrent.locks.Lock</classname></ulink>.</para>          
         </sect3>
       </sect2>
       
@@ -2608,6 +2649,274 @@ public class UnusedLockExample {
           lock protects more state, and so on.</para>
 
         </sect3>
+        
+        <sect3>
+          <title>calls to methods masquerading as java.util.concurrent.Lock methods</title>
+          
+          <para>JSure issues warnings when classes similar to the the
+          <classname>Lock</classname> and
+          <classname>ReadWriteLock</classname> classes are used:</para>
+          
+          <variablelist>
+            <varlistentry>
+              <term id="not-juc"><computeroutput>"<replaceable>method</replaceable>" does not call a method from java.util.concurrent.locks.Lock</computeroutput></term>
+              <listitem>
+                <para>A method named <function>lock</function>,
+                <function>tryLock</function>,
+                <function>lockInterruptibly</function>, or
+                <function>unlock</function> from a class named
+                <classname>Lock</classname> that <emphasis>is
+                not</emphasis> from the package
+                <package>java.util.concurrent.locks</package> is
+                called.</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term id="not-rw"><computeroutput>"<replaceable>method</replaceable>" does not call a method from java.util.concurrent.locks.ReadWriteLock</computeroutput></term>
+              <listitem>
+                <para>A method named <function>readLock</function> or
+                <function>writeLock</function> from a class named
+                <classname>ReadWriteLock</classname> that <emphasis>is
+                not</emphasis> from the package
+                <package>java.util.concurrent.locks</package> is
+                called.</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+          
+          <para>Consider the class <classname>NotJustAnyLockExample</classname> below and its
+          results in <xref linkend="not-just-any-locks-results"/>.</para>
+
+          <programlisting linenumbering="numbered" startinglinenumber="3">public class NotJustAnyLockExample {
+  public class Lock {
+    public void lock() {}
+    public void unlock() {}
+  }
+
+  public class ReaderWriterLock {
+    public java.util.concurrent.locks.Lock readLock() { return null; }
+    public java.util.concurrent.locks.Lock writeLock() { return null; }
+  }
+
+  
+  
+  private final ReaderWriterLock rwLock = new ReaderWriterLock();
+  private final Lock lock = new Lock();
+
+  
+  
+  private void doStuff() {
+    // do stuff
+  }
+  
+  public void test() {
+    lock.lock();
+    try {
+      doStuff();
+    } finally {
+      lock.unlock();
+    }
+  }
+
+  public void testRead() {
+    rwLock.readLock().lock();
+    try {
+      doStuff();
+    } finally {
+      rwLock.readLock().unlock();
+    }
+  }
+  
+  public void testWrite() {
+    rwLock.writeLock().lock();
+    try {
+      doStuff();
+    } finally {
+      rwLock.writeLock().unlock();
+    }
+  }
+}</programlisting>
+
+          <figure id="not-just-any-locks-results">
+            <title>Assurance results for <classname>NotJustAnyLockExample</classname></title>
+            <mediaobject>
+              <imageobject condition="isHTML">
+                <imagedata fileref="images/masquerading-locks.png"/>
+              </imageobject>
+              <imageobject condition="isFO">
+                <imagedata width="100%" scalefit="1" fileref="images/masquerading-locks.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>         
+        </sect3>
+        
+        <sect3>
+          <title>mixed java.util.concurrent/intrinsic locking usage(s)</title>
+          
+          <para>JSure issues warnings when it detects scenarios that indicate 
+          that the programmer may be confused about the existence of 
+          <package>java.util.concurrent</package> locks in a class.  The class
+          <classname>SyncOnJUCLocksExample</classname> below uses 
+          <classname>Lock</classname> and <classname>ReadWriteLock</classname> objects
+          in <code>synchronized</code> statements.  The Java compiler does not complain
+          about this because <emphasis>all</emphasis> objects can be used as a lock.  But this
+          usage defeats the purpose of declaring special <package>java.util.concurrent</package>
+          locks, and is most likely a mistake.  JSure detects these usages and reports
+          warnings, as shown in <xref linkend="juc-sync-results"/>.</para>
+          
+          <programlisting linenumbering="numbered" startinglinenumber="8">public class SyncOnJUCLocksExample {
+  private final Lock lock = new ReentrantLock();
+  private final ReadWriteLock rwLock = new ReentrantReadWriteLock();
+  
+  private int v;
+  private int w;
+  
+  public void oops1(final int x) {
+    synchronized (lock) {
+      v = x;
+    }
+  }
+  
+  public void oops2(final int y) {
+    synchronized (rwLock) {
+      w = y;
+    }
+  }
+}</programlisting>
+          
+          <figure id="juc-sync-results">
+            <title>Assurance results for <classname>SyncOnJUCLocksExample</classname></title>
+            <mediaobject>
+              <imageobject condition="isHTML">
+                <imagedata fileref="images/sync-on-juc-lock.png"/>
+              </imageobject>
+              <imageobject condition="isFO">
+                <imagedata width="100%" scalefit="1" fileref="images/sync-on-juc-lock.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>         
+        
+          <para>JSure issues warnings of the form <computeroutput
+          id="juc-sync">Using a java.util.concurrent.locks lock object
+          "<replaceable>lock</replaceable>" in a synchronized
+          statement</computeroutput>.  Our example has two of these
+          messages:
+            <orderedlist>
+              <listitem>
+                <para>One for the misue of a <classname>Lock</classname>
+                object in <function>oops1</function> on line 16.</para>
+              </listitem>
+              <listitem>
+                <para>One for the misuse of a
+                <classname>ReadWriteLock</classname> object in
+                <function>oops2</function> on line 22.</para>
+              </listitem>
+            </orderedlist>
+          </para>
+          
+          <para>JSure also generates warnings when an object is used in
+          a <code>synchronized</code> statement, and the class of that
+          object does not declare (via a
+          <classname>@RegionLock</classname> annotation) that the
+          receiver is a lock, and the class contains fields with the
+          type <classname>java.util.concurrent.locks.Lock</classname> or
+          <classname>java.util.concurrent.locks.ReadWriteLocks</classname>.
+          JSure can generate two different messages in this case:
+            <variablelist>
+              <varlistentry>
+                <term id="not-a-known-lock-general">The object referenced by
+                "<replaceable>expr</replaceable>" is not a known lock,
+                but its fields <replaceable>list of fields</replaceable>
+                are java.util.concurrent locks</term>
+                <listitem>
+                  <para>This is a general warning, indicating that the
+                  the class of the object referenced by
+                  <replaceable>expr</replaceable> does not declare the
+                  receiver to be a lock, but that the named fields of
+                  the class have the type
+                  <classname>java.util.concurrent.locks.Lock</classname>
+                  or
+                  <classname>java.util.concurrent.locks.ReadWriteLocks</classname>.</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term id="not-a-known-lock-specific">The object referenced by
+                "<replaceable>expr</replaceable>" is not a known lock,
+                but its field "<replaceable>field</replaceable>" is
+                declared to be java.util.concurrent lock "<replaceable>lock</replaceable>"</term>
+                <listitem>
+                  <para>This is a more specific warning, indicating that the
+                  the class of the object referenced by
+                  <replaceable>expr</replaceable> does not declare the
+                  receiver to be a lock, but that the named field of
+                  the class has the type
+                  <classname>java.util.concurrent.locks.Lock</classname>
+                  or
+                  <classname>java.util.concurrent.locks.ReadWriteLocks</classname>
+                  <emphasis>and</emphasis> the field is declared (in a <classname>@RegionLock</classname> annotation) to be
+                  the named lock <replaceable>lock</replaceable>.  This warning appears
+                  under the result heading for the lock <replaceable>lock</replaceable>
+                  as well as under the general warnings heading.</para>             
+                </listitem>
+              </varlistentry>
+            </variablelist>
+            
+            The class <classname>NotAKnownLockExample</classname> demonstrates these warnings, shown
+            in <xref linkend="not-a-known-lock-result1"/> and
+            <xref linkend="not-a-known-lock-result2"/>.  It
+            has one general warning, and one specific warning.  The general warning
+            for line 21 refers to both fields <structfield>lock1</structfield>
+            and <structfield>lock2</structfield> because both have the type 
+            <classname>Lock</classname>.  There is a specific warning for
+            field <structfield>lock1</structfield>, but not <structfield>lock2</structfield>,
+            because there is a <classname>@RegionLock</classname> for <structfield>lock1</structfield> only.
+            This specific warning can be seen under the heading for lock <structfield>lock1</structfield>
+            as well as under the heading <guilabel>Suggestions and Warnings</guilabel>.
+          </para>
+
+          <programlisting linenumbering="numbered" startinglinenumber="8">public class NotAKnownLockExample {
+  <emphasis>@RegionLock("L1 is lock1 protects field1")</emphasis>
+  private static class C {
+    public final Lock lock1 = new ReentrantLock();
+    public final Lock lock2 = new ReentrantLock();
+    
+    public int field1;
+    public int field2;
+  }
+  
+  
+  
+  public void doStuff(final C c) {
+    synchronized (c) {
+      c.field1 = 1;
+    }
+  }
+}</programlisting>
+
+          <figure id="not-a-known-lock-result1">
+            <title>Assurance results for <classname>NotAKnownLockExample</classname></title>
+            <mediaobject>
+              <imageobject condition="isHTML">
+                <imagedata fileref="images/not-a-known-lock-01.png"/>
+              </imageobject>
+              <imageobject condition="isFO">
+                <imagedata width="100%" scalefit="1" fileref="images/not-a-known-lock-01.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>         
+
+          <figure id="not-a-known-lock-result2">
+            <title>Assurance results for <classname>NotAKnownLockExample</classname> 2</title>
+            <mediaobject>
+              <imageobject condition="isHTML">
+                <imagedata fileref="images/not-a-known-lock-02.png"/>
+              </imageobject>
+              <imageobject condition="isFO">
+                <imagedata width="100%" scalefit="1" fileref="images/not-a-known-lock-02.png"/>
+              </imageobject>
+            </mediaobject>
+          </figure>         
+        </sect3>
       </sect2>
     </sect1>
       
@@ -2776,14 +3085,15 @@ public class UnusedLockExample {
       <title>Index of JSure Results</title>
         
       <itemizedlist>
-        <listitem><para><link linkend="todo">TO DO: {0}() call has a different
-        number of matching unlock() calls along different control
-        paths</link></para></listitem>
+        <listitem><para><link
+        linkend="acquires-different"><replaceable>acquires</replaceable>
+        call has a different number of matching unlock() calls along
+        different control paths</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: {0}() call has matching
-        unlock() call at line {1}</link></para></listitem>
+        <listitem><para><link linkend="acquires-match"><replaceable>acquires</replaceable> call has matching
+        unlock() call at line <replaceable>line</replaceable></link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: {0}() call has no matching
+        <listitem><para><link linkend="acquires-no-match"><replaceable>acquires</replaceable> call has no matching
         unlock() calls</link></para></listitem>
 
         <listitem><para><link
@@ -2797,12 +3107,12 @@ public class UnusedLockExample {
         checked by constructor rule: writes to a newly created object
         are invisible</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: "{0}" does not call a
-        method from java.util.concurrent.Lock</link></para></listitem>
+        <listitem><para><link linkend="not-juc">"<replaceable>method</replaceable>" does not call a
+        method from java.util.concurrent.locks.Lock</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: "{0}" does not call a
+        <listitem><para><link linkend="not-rw">"<replaceable>method</replaceable>" does not call a
         method from
-        java.util.concurrent.ReadWriteLock</link></para></listitem>
+        java.util.concurrent.locks.ReadWriteLock</link></para></listitem>
 
         <listitem><para><link
         linkend="not-accounted-for"><replaceable>effect</replaceable>
@@ -2921,29 +3231,33 @@ public class UnusedLockExample {
         is not identifiable as a programmer-declared
         lock</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: The object referenced by
-        "{0}" is not a known lock, but its xxx {2} xx
-        java.util.concurrent xxx.</link></para></listitem>
+        <listitem><para><link linkend="not-a-known-lock-general">The
+        object referenced by "<replaceable>expr</replaceable>" is not a
+        known lock, but its fields <replaceable>list of
+        fields</replaceable> are java.util.concurrent
+        locks</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: The object referenced by
-        "{0}" is not a known lock, but its field "{1}" is declared to be
-        java.util.concurrent lock "{2}".</link></para></listitem>
+        <listitem><para><link linkend="not-a-known-lock-specific">The
+        object referenced by "<replaceable>expr</replaceable>" is not a
+        known lock, but its field "<replaceable>field</replaceable>" is
+        declared to be java.util.concurrent lock
+        "<replaceable>lock</replaceable>"</link></para></listitem>
 
         <listitem><para><link linkend="thread-started">Thread effect declaration
         prohibits: <replaceable>call to start()</replaceable></link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: unlock() call has a
+        <listitem><para><link linkend="release-different">unlock() call has a
         different number of matching lock() calls along different
         control paths</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: unlock() call has matching
-        {0}() call at line {1}</link></para></listitem>
+        <listitem><para><link linkend="release-match">unlock() call has matching
+        <replaceable>acquires</replaceable> call at line <replaceable>line</replaceable></link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: unlock() call has no
+        <listitem><para><link linkend="release-no-match">unlock() call has no
         matching lock() calls</link></para></listitem>
 
-        <listitem><para><link linkend="todo">TO DO: Using a
-        java.util.concurrent.locks lock object "{0}" in a syncronized
+        <listitem><para><link linkend="juc-sync">Using a
+        java.util.concurrent.locks lock object "<replaceable>lock</replaceable>" in a syncronized
         statement</link></para></listitem>
       </itemizedlist>
         
