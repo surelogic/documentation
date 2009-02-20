@@ -714,17 +714,17 @@ public class EffectsExample {
    */
   <emphasis>@RegionEffects("reads Instance")</emphasis>
   public int indirectlyBad() {
-    return bad();
+    return bad(new EffectsExample(1, 2, 3));
   }
 
   /**
    * Missing effects!
    */
   <emphasis>@RegionEffects("reads Instance")</emphasis>
-  public int bad() {
-    return getSum() + doesAnything();
+  public int bad(final EffectsExample other) {
+    return getSum() + other.doesAnything();
   }
-}</programlisting>
+</programlisting>
       </figure>
       
       <para>The results of effects assurance are displayed under the
@@ -947,6 +947,20 @@ public class EffectsExample {
         assured in the context of the method <function>update()</function>, while the small
         plus indicates that the <emphasis>source</emphasis> of that effect has also been
         assured.</para>
+        
+        <para>The results for method <function>update</function> also
+        show the supporting information <computeroutput>Parameter "this"
+        bound to "this"</computeroutput>, detailing that the parameter
+        <parameter>this</parameter> of the called method
+        <function>getSum()</function> is bound to the receiver
+        <parameter>this</parameter> of the calling method
+        <function>update</function>.  The general form of this message
+        is <computeroutput id="parameter">Paremeter
+        "<replaceable>formal</replaceable> is bound to
+        "<replaceable>actual</replaceable>"</computeroutput>.  This
+        information can be useful in understanding how the effects of
+        the method call are derived from the declared effects of the
+        called method.</para>        
       </sect2>
       
       <sect2 id="effects-failures">
@@ -973,8 +987,8 @@ public class EffectsExample {
           (<code>"reads Instance"</code>).</para>
 
           <programlisting linenumbering="numbered" startinglinenumber="52">  <emphasis>@RegionEffects("reads Instance")</emphasis>
-  public int bad() {
-    return getSum() + doesAnything();
+  public int bad(final EffectsExample other) {
+    return getSum() + other.doesAnything();
   }</programlisting>
 
           <para>In particular, there are two results:</para>
@@ -1009,7 +1023,7 @@ public class EffectsExample {
 
           <programlisting linenumbering="numbered" startinglinenumber="44">  <emphasis>@RegionEffects("reads Instance")</emphasis>
   public int indirectlyBad() {
-    return bad();
+    return bad(new EffectsExample(1, 2, 3));
   }</programlisting>
 
           <para>The method has a single result <computeroutput>"reads
@@ -1020,6 +1034,19 @@ public class EffectsExample {
       fileref="images/plus-x.jpg"/></guiicon>.  This means that the effects assure, but that
           the basis for the implementation effects, namely the effects declaration of
           the method <function>bad</function>, fails to assure.</para>
+          
+          <para>We also see a more interesting example of the parameter binding
+          supporting evidence in the chain of evidence for <function>indirectlyBad</function>.
+          The effect on line 46 has the supporting evidence
+            <itemizedlist>
+              <listitem>
+                <para><computeroutput>Parameter "other" bound to "new EffectsExample(1, 2, 3)" at EffectsExample.java line 46</computeroutput></para>
+              </listitem>
+              <listitem>
+                <para><computeroutput>Parameter "this" bound to "this" at EffectsExample.java line 46</computeroutput></para>
+              </listitem>
+            </itemizedlist>
+          </para>
         </sect3>
       </sect2>
     </sect1>
@@ -3203,6 +3230,10 @@ public class UnusedLockExample {
 
         <listitem><para><link linkend="no-threads-started">No threads started within
         <replaceable>method</replaceable></link></para></listitem>
+
+        <listitem><para><link linkend="parameter">Parameter
+        "<replaceable>formal</replaceable>" bound to
+        "<replaceable>actual</replaceable>"</link></para></listitem>
 
         <listitem><para><link linkend="possibly-shared-receiver">Receiver "<replaceable>field ref</replaceable>" may be a
         shared unprotected object</link></para></listitem>
