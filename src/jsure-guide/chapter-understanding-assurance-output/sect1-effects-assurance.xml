@@ -131,7 +131,7 @@ public class EffectsExample {
       implemenation is accounted for by a special rule. Constructors do
       not need to report any effects they have on the object being
       constructed because these effects are invisible to the caller of
-      the constructor (the object doesn't exist before the constructor
+      the constructor (the object does not exist before the constructor
       was called).</para> </listitem>
     </varlistentry>
   </variablelist>
@@ -170,8 +170,8 @@ public class EffectsExample {
   }</programlisting>
       
       <para>Thus, the method assures and the result
-      <computeroutput>"Empty effects trivially satisfy declared
-      effects"</computeroutput> appears as evidence for the assurance of
+      <computeroutput>Empty effects trivially satisfy declared
+      effects</computeroutput> appears as evidence for the assurance of
       the declared effects.</para>
     </sect3>
 
@@ -192,7 +192,7 @@ public class EffectsExample {
       <structfield>f2</structfield>, and <structfield>f3</structfield>.
       Thus, there are three effects that need to be accounted for in
       order for the declared effects to be assured. We see this in the
-      three result drops that appear as evidence for the method's
+      three result drops that appear as evidence for the method&rsquo;s
       declared effects:</para>
       
       <itemizedlist>
@@ -281,8 +281,8 @@ public class EffectsExample {
       </imageobject>
     </mediaobject>
     
-    <para>In particular, we see that the effect "reads
-    &lt;this&gt;:Instance" is due to the declared effects of method
+    <para>In particular, we see that the effect <code>reads
+    &lt;this&gt;:Instance</code> is due to the declared effects of method
     <function>getSum()</function>.  Because of this, the results become
     a graph: the results go on to show that the declared effects of
     <function>getSum()</function> are assured. These are exactly the
@@ -304,8 +304,8 @@ public class EffectsExample {
     <function>getSum()</function> is bound to the receiver
     <parameter>this</parameter> of the calling method
     <function>update</function>.  The general form of this message is
-    <computeroutput id="parameter">Paremeter
-    "<replaceable>formal</replaceable> is bound to
+    <computeroutput id="parameter">Parameter
+    "<replaceable>formal</replaceable>" is bound to
     "<replaceable>actual</replaceable>"</computeroutput>.  This
     information can be useful in understanding how the effects of the
     method call are derived from the declared effects of the called

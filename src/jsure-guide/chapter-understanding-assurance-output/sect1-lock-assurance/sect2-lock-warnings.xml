@@ -264,11 +264,11 @@ public class RedundantLockExample {
     <structfield>MUTEX</structfield> is not redundant.</para>
 
     <para>JSure warns about redundant lock acquisitions because they
-    make it more difficult to understand the program's design intent.
+    make it more difficult to understand the program&rsquo;s design intent.
     Ideally, redundant lock acquisitions should be removed from the
     program.  We are careful to say that these acquisitions
-    <emphasis>may be</emphasis> redundant because a program's design
-    intent can be more complicated than is expressable using JSure's
+    <emphasis>may be</emphasis> redundant because a program&rsquo;s design
+    intent can be more complicated than is expressable using JSure&rsquo;s
     annotations, and thus the lock acquision may satisfy an intent that
     has not been expressed.</para>
   </sect3>

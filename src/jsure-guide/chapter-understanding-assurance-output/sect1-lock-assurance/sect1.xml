@@ -46,7 +46,7 @@
   <xi:include href="sect2-assuring-returns-lock.xml" />
   <xi:include href="sect2-locks-and-aggregation.xml" />
   <xi:include href="sect2-juc-locks.xml" />
-  <xi:include href="sect2-nested-types.xml" />
+  <!--xi:include href="sect2-nested-types.xml" /-->
   <xi:include href="sect2-lock-warnings.xml" />
 </sect1>
     

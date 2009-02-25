@@ -241,7 +241,7 @@ public class SimpleRWLockExample {
     messages will appear in pairs, as they do in our examples
     above.</para>
 
-    <para>It's possible that a matching call cannot be found at all:
+    <para>It is possible that a matching call cannot be found at all:
     
       <itemizedlist>
         <listitem>

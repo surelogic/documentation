@@ -66,21 +66,21 @@
         <listitem><para><link linkend="juc-lock-held">java.util.concurrent lock
         "<replaceable>lock</replaceable>" is held</link></para></listitem>
 
-        <listitem><para><link linkend="held-as-1">Lock
+        <!--listitem><para><link linkend="held-as-1">Lock
         "<replaceable>lock</replaceable>" held as
         "<replaceable>lock&prime;</replaceable>" when accessing
-        <replaceable>field</replaceable></link></para></listitem>
+        <replaceable>field</replaceable></link></para></listitem-->
 
-        <listitem><para><link linkend="held-as-2">Lock
+        <!--listitem><para><link linkend="held-as-2">Lock
         "<replaceable>lock</replaceable>" held as
         "<replaceable>lock&prime;</replaceable>" when invoking
         <replaceable>method</replaceable>; precondition
-        satisfied</link></para></listitem>
+        satisfied</link></para></listitem-->
 
-        <listitem><para><link linkend="held-as-3">Lock
+        <!--listitem><para><link linkend="held-as-3">Lock
         "<replaceable>lock</replaceable>" held as
         "<replaceable>lock&prime;</replaceable>" when invoking
-        <replaceable>method</replaceable></link></para></listitem>
+        <replaceable>method</replaceable></link></para></listitem-->
 
         <listitem><para><link linkend="protected-field-accesses">Lock
         "<replaceable>lock</replaceable>" held when accessing <replaceable>field</replaceable></link></para></listitem>
@@ -102,12 +102,12 @@
         <listitem><para><link linkend="not-held-when-invoking">Lock "<replaceable>lock</replaceable>" not held when
         invoking <replaceable>method</replaceable></link></para></listitem>
 
-        <listitem><para><link linkend="not-held-within">Lock
+        <!--listitem><para><link linkend="not-held-within">Lock
         "<replaceable>lock</replaceable>", needed for accessing
         <replaceable>field</replaceable>, is not held within the
         anonymous class and cannot be resolved in the calling context;
         lock must be held within the anonymous
-        class</link></para></listitem>
+        class</link></para></listitem-->
 
         <listitem><para><link linkend="does-not-name">Lock expression
         "<replaceable>expr</replaceable>" does not name a programmer-declared lock; consider
@@ -117,9 +117,9 @@
         <listitem><para><link linkend="non-final-locks">Lock expression
         "<replaceable>expr</replaceable>" is not final</link></para></listitem>
 
-        <listitem><para><link linkend="cannot-be-resolved">Lock specification "<replaceable>lock spec</replaceable>"
+        <!--listitem><para><link linkend="cannot-be-resolved">Lock specification "<replaceable>lock spec</replaceable>"
         cannot be resolved in the calling context for <replaceable>method</replaceable>; precondition
-        unsatisfied</link></para></listitem>
+        unsatisfied</link></para></listitem-->
 
         <listitem><para><link linkend="not-protecting">Locks <replaceable>set of locks</replaceable> not
         needed by body of synchronized block</link></para></listitem>

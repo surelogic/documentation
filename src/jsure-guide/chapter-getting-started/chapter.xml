@@ -33,7 +33,7 @@
     <variablelist>
       <varlistentry>
         <term><classname>BoundedFIFO</classname></term>
-        <listitem><para>The "thread safe" class.  See <xref
+        <listitem><para>The &ldquo;thread safe&rdquo; class.  See <xref
         linkend="BoundedFIFO.java"/></para></listitem>
       </varlistentry>
       
@@ -110,7 +110,7 @@ public class BoundedFIFO {
 
   /**
    * Place a {@link LoggingEvent} in the buffer. If the buffer is full  then
-   * the event is &lt;b&gt;silently dropped&lt;/b&gt;. It is the caller's  responsibility
+   * the event is &lt;b&gt;silently dropped&lt;/b&gt;. It is the caller&rsquo;s  responsibility
    * to make sure that the buffer has free space.
    * 
    * @param o The logging event added into the buffer.
@@ -282,7 +282,7 @@ public class BoundedFIFO {
       class reveals that it does not acquire the lock anywhere.  So we
       look at its clients by viewing the call chain, in this case by
       viewing the call hierarchy of method <function>get()</function>
-      (Select the method <function>get()</function> in the "Outline"
+      (Select the method <function>get()</function> in the &ldquo;Outline&rdquo;
       view and then choose <menuchoice><guimenuitem>Open Call
       Hierarchy</guimenuitem></menuchoice> in the context menu).  We see
       that the client, <classname>BlockingFIFO</classname> acquires the
@@ -314,7 +314,7 @@ public class BoundedFIFO {
     <sect2 id="wrong-lock">
       <title>Wrong Lock</title>
       
-      <para>There is now a "scoped promises" heading, and we can see all
+      <para>There is now a &ldquo;scoped promises&rdquo; heading, and we can see all
       the places where our <classname>@Promise</classname> annotation
       added <classname>@RequiresLock</classname> annotations. Only 4 out
       of the 7 are currently satisfied:</para>
@@ -331,7 +331,7 @@ public class BoundedFIFO {
       <para>Looking at the chain of evidence for the call to
       <function>isFull()</function>, we see that the caller is
       confused and is synchronized on <parameter>this</parameter> (as
-      evidenced by the caller holding the lock "this.MUTEX"):</para>
+      evidenced by the caller holding the lock <code>this.MUTEX</code>):</para>
       
       <mediaobject>
         <imageobject condition="isHTML">
@@ -379,7 +379,7 @@ public class BoundedFIFO {
       object is not held during construction, we need to make sure that
       during construction a reference to the object cannot be leaked to
       another thread. Note that we cannot require the caller of the
-      constructor to hold the lock because the object doesn't exist yet!
+      constructor to hold the lock because the object does not exist yet!
        In general, we cannot use <code>synchronized</code> blocks in the
       constructor to protect the state during construction because we
       cannot create a single atomic block: there would have to be
@@ -388,7 +388,7 @@ public class BoundedFIFO {
       can guarantee that the thread that invokes the constructor is the
       only thread that can access the newly created object during the
       life of the invoked constructor, we can also be assured there will
-      be no race conditions involving the object's fields during
+      be no race conditions involving the object&rsquo;s fields during
       construction. We use a pair of annotations on the constructor to
       declare this intent:</para>
 
@@ -540,7 +540,7 @@ public BoundedFIFO(int size) {
     <sect2 id="aggregated-state">
       <title>Aggregated State</title>
       
-      <para>We now have no red X's, but we still have 2 warnings about
+      <para>We now have no red Xs, but we still have 2 warnings about
       references to possibly shared objects:</para>
 
       <mediaobject>
@@ -582,7 +582,7 @@ public BoundedFIFO(int size) {
       the lock that protects that state of the buffer.</para>
 
       <para>Aftering saving (and reanalyzing) we can see the effects of
-      this annotation: there are now "29 protected field accesses", up
+      this annotation: there are now 29 protected field accesses, up
       from 27. This is because the two array dereferences are now
       counted as protected accesses (lines 71 and 89):</para>
       

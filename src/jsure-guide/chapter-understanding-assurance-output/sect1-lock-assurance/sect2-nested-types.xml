@@ -7,7 +7,7 @@
   <title>Nested Types and Locking</title>
 
   <para>Nested types present a challenge to lock assurance because it
-  isn't always possible to determine which object's lock should be held
+  is not always possible to determine which object&rsquo;s lock should be held
   when the lock is declared to be a qualified receiver. The crux of the
   problem is how to identify <emphasis>lexically enclosing
   instances</emphasis>.<footnote>
@@ -139,10 +139,10 @@ public class CannotBeResolvedExample {
   }
 }</programlisting>
   
-    <para>The example consists of three "layers" of classes,
+    <para>The example consists of three &ldquo;layers&rdquo; of classes,
     <classname>CannotBeResolvedExample</classname>, its direct inner
     class <classname>Inner1</classname>, and its
-    (<classname>Inner1</classname>'s) direct inner class
+    (<classname>Inner1</classname>&rsquo;s) direct inner class
     <classname>Inner2</classname>.  The three classes each declare the
     locks <structfield>oLock</structfield>,
     <structfield>in1Lock</structfield>, and
@@ -184,13 +184,13 @@ public class CannotBeResolvedExample {
     method <function>cannotResolve</function> in inner class
     <classname>Inner1</classname> is another story.  This method creates
     a new instance of <classname>Inner2</classname> whose immediately
-    enclosing lexical instance is the method's receiver
-    (<parameter>this</parameter>). This makes the new object's second
+    enclosing lexical instance is the method&rsquo;s receiver
+    (<parameter>this</parameter>). This makes the new object&rsquo;s second
     enclosing lexical instance the object referenced by
     <parameter>CannotBeResolvedExample.this</parameter>.
     <emphasis>However</emphasis>, at the use of <varname>in2</varname>
     on line 39, JSure does not retain this information about the
-    referenced object's lexically enclosing instances; we discuss this
+    referenced object&rsquo;s lexically enclosing instances; we discuss this
     more in the <link linkend="next-p">next paragraph</link>.  Because
     this information is missing, JSure cannot determine how two of three
     needed locks should be referenced.  Thus, the results show two
@@ -271,7 +271,7 @@ public class CannotBeResolvedExample {
     take advantage of locks held by the calling context.  The qualified
     receivers that identify the lexically enclosing instances of the
     anonymous class instance can sometimes be mapped to expressions in
-    the calling context.  In this case, JSure has a series of "held as"
+    the calling context.  In this case, JSure has a series of &ldquo;held as&rdquo;
     lock assurance messages:
       <itemizedlist>
         <listitem id="held-as-1">
@@ -291,7 +291,7 @@ public class CannotBeResolvedExample {
           <replaceable>method</replaceable></para>
         </listitem>
       </itemizedlist>
-    This messages are the same as the non-"held as" versions, except
+    This messages are the same as the non-&ldquo;held as&rdquo; versions, except
     that they indicate that the needed lock
     <replaceable>lock</replaceable> is actually held in the calling
     context as the lock <replaceable>lock&prime;</replaceable>.  If the
@@ -443,7 +443,7 @@ public class HeldAsExample { <co id="heldas.class" linkends="heldas.class.ref"/>
               <varname>i</varname>, known as the <emphasis>immediately
               enclosing instance of <varname>i</varname> with respect to
               <classname>S</classname></emphasis>. The immediately
-              enclosing instance of an object with respect to its class'
+              enclosing instance of an object with respect to its class&rsquo;
               direct superclass, if any, is determined when the
               superclass constructor is invoked via an explicit
               constructor invocation statement (JLS3
