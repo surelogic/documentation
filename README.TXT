@@ -9,6 +9,10 @@ documents are XSLT 1.0 documents.  Saxon 6.5.5 is the most recent stable release
 of the XSLT 1.0 processor.  When the DocBook transformations are updated, we
 should update the Saxon version that we are using.
 
+We use the Xerces XML parser <http://xerces.apache.org/> instead of the built-in
+AElfred parser so that we can get XInclude support.  Currently we use version
+2.9.1.
+
 We use the Apache commons XML resolver <http://www.apache.org/dist/xml/commons/>
 with Saxon to handle XML catalog files.  This library is found in
 "lib/xml-commons-resolver-<version>".  (I'm not sure what the catalog files are

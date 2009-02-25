@@ -19,7 +19,8 @@
   <property name="resolver.dir" location="${lib}/xml-commons-resolver-1.2" />
   <property name="fop.dir" location="${lib}/fop-0.95" />
   <property name="offo.dir" location="${lib}/offo-1.2" />
-
+  <property name="xerces.dir" location="${lib}/xerces-2.9.1"/>
+    
   <property name="docbook-to-html-xsl" value="${docbook.dir}/html/profile-docbook.xsl" />
   <property name="docbook-to-eclipse-xsl" value="${docbook.dir}/eclipse/profile-eclipse.xsl" />
   <property name="docbook-to-fo-xsl" value="${docbook.dir}/fo/profile-docbook.xsl" />
@@ -89,7 +90,8 @@
   <!-- path for xslt processor -->
   <path id="xslt.processor.classpath">
     <pathelement path="${saxon.dir}/saxon.jar" />  <!-- Saxon itself -->
-    <pathelement path="${resolver.dir}/resolver.jar" />
+    <pathelement path="${resolver.dir}/resolver.jar" /> <!-- Catalog resolver -->
+    <pathelement path="${xerces.dir}/xercesImpl.jar" /> <!-- Xerces XML parser -->
     <pathelement path="${docbook.dir}/extensions/saxon65.jar" /> <!-- DocBook extensions for XSLT -->
     <!-- Add lib directory to pick up CatalogManager.properties -->
     <pathelement path="${lib}" />
@@ -134,23 +136,51 @@
     <sequential>
       <mkdir dir="@{destdir}" />
       <java classname="${xslt.processor.class}" fork="yes" dir="@{destdir}" failonerror="true">
+        <!-- Our classpath -->          
         <classpath refid="xslt.processor.classpath" />
+          
+        <!-- Set up to use Xerces -->
+        <jvmarg line="-Djavax.xml.parsers.DocumentBuilderFactory=org.apache.xerces.jaxp.DocumentBuilderFactoryImpl"/>
+        <jvmarg line="-Djavax.xml.parsers.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl"/>
+        <jvmarg line="-Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration"/>
+        
+        <!-- Output file -->
         <arg line="-o '@{destfile}'" />
+          
+        <!-- Turn on line numbering -->
         <arg line="-l" />
+        
+        <!-- Setup the catalog name resolver -->
         <arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
         <arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
         <arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
+          
+        <!-- The input file -->
         <arg line="'@{srcfile}'" />
+          
+        <!-- The input style-stheet -->
         <arg line="'${docbook-to-html-xsl}'" />
+          
+        <!-- Set the profiling condition -->
         <arg line="profile.condition='isHTML'"/>
+          
+        <!-- Don't output the title when generating cross-references; only use the number -->
         <arg line="xref.with.number.and.title='0'"/>
+          
+        <!-- Use Saxon extensions, but not the graphicsize one becuase it is buggy -->
         <arg line="use.extensions='1'"/>
         <arg line="graphicsize.extension='0'"/>
+          
+        <!-- Use line numbering, number every line, and insert ": " after the number -->
         <arg line="linenumbering.extension='1'"/>
         <arg line="linenumbering.everyNth='1'"/>
         <arg line="linenumbering.separator=': '"/>
+          
+        <!-- Use Unicode characters for the callout numbering -->
         <arg line="callout.unicode='1'"/>
         <arg line="callout.graphics='0'"/>
+          
+        <!-- Use PNG graphic files for the admonition sections -->
         <arg line="admon.graphics='1'"/>
         <arg line="admon.graphics.extension='.png'"/>
       </java>
@@ -167,6 +197,9 @@
       <mkdir dir="@{destdir}" />
       <java classname="${xslt.processor.class}" fork="yes" dir="@{destdir}" failonerror="true">
         <classpath refid="xslt.processor.classpath" />
+        <jvmarg line="-Djavax.xml.parsers.DocumentBuilderFactory=org.apache.xerces.jaxp.DocumentBuilderFactoryImpl"/>
+        <jvmarg line="-Djavax.xml.parsers.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl"/>
+        <jvmarg line="-Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration"/>
         <arg line="-l" />
         <arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
         <arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
@@ -201,6 +234,9 @@
       <mkdir dir="@{destdir}" />
       <java classname="${xslt.processor.class}" fork="yes" failonerror="true">
         <classpath refid="xslt.processor.classpath" />
+        <jvmarg line="-Djavax.xml.parsers.DocumentBuilderFactory=org.apache.xerces.jaxp.DocumentBuilderFactoryImpl"/>
+        <jvmarg line="-Djavax.xml.parsers.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl"/>
+        <jvmarg line="-Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration"/>
         <arg line="-o '@{srcfile}.fo'" />
         <arg line="-l" />
         <arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
@@ -220,7 +256,8 @@
         <arg line="admon.graphics='1'"/>
         <arg line="admon.graphics.path='${docbook.dir}/images/'"/>
         <arg line="admon.graphics.extension='.svg'"/>
-      </java>
+        <arg line="keep.relative.image.uris='1'"/>
+        </java>
       <java classname="${fop.class}" fork="yes" failonerror="true">
         <classpath refid="fop.classpath" />
         <arg line="-fo '@{srcfile}.fo'" />

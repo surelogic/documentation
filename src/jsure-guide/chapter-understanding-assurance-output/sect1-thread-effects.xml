@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="thread-effects">
+  <title>Thread Effects</title>
+
+  <para>Each <classname>@SingleThreaded</classname> annotation creates a
+  new chain of evidence under the <guilabel>Thread effects</guilabel>
+  heading in the <guilabel>Verification Status</guilabel> view.  The
+  class <classname>ThreadEffectsExample</classname> is used to explore
+  these results:</para>
+  
+  <programlisting linenumbering="numbered" startinglinenumber="5">public class ThreadEffectsExample {
+  private int field;
+  
+  <emphasis>@Starts("nothing")</emphasis>
+  public void goodMethod_Simple() {
+    field = 10;
+  }
+  
+  <emphasis>@Starts("nothing")</emphasis>
+  public int goodMethod_Complex() {
+    goodMethod_Simple();
+    return field + 5;
+  }
+  
+  <emphasis>@Starts("nothing")</emphasis>
+  public void badMethod_Simple(final Thread t) {
+    // BAD: we start a thread
+    t.start();
+  }
+  
+  <emphasis>@Starts("nothing")</emphasis>
+  public void badMethod_Indirect1(final Thread t) {
+    badMethod_Simple(t);
+  }
+  
+  <emphasis>@Starts("nothing")</emphasis>
+  public void badMethod_Indirect2() {
+    unannotated_method();
+  }
+  
+  // good, but not declared to start nothing
+  public void unannotated_method() {
+    field = 20;
+  }
+}</programlisting>
+
+  <para>Two of these annotations assure, while three of them fail to assure:</para>
+  
+  <mediaobject>
+    <imageobject condition="isHTML">
+      <imagedata fileref="images/thread-effects-01.png"/>
+    </imageobject>
+    <imageobject condition="isFO">
+      <imagedata width="100%" scalefit="1" fileref="images/thread-effects-01.png"/>
+    </imageobject>
+  </mediaobject>
+  
+  <para>The thread effects analysis checks that a method annotated
+  with <classname>@Starts("nothing")</classname></para>
+
+  <itemizedlist spacing="compact">
+    <listitem><para>Does not invoke the <function>start()</function>
+    on a thread object</para></listitem>
+
+    <listitem><para>Only invokes methods/constructors annotated with
+    <classname>@Starts("nothing")</classname></para></listitem>
+  </itemizedlist>
+  
+  <para>Thus, there are four result messages:</para>
+  
+  <variablelist>
+    <varlistentry>
+      <term id="no-threads-started">No threads started within
+      <replaceable>method</replaceable></term>
+
+      <listitem><para>The body of the annotated method does not directly
+      start any threads.  This does <emphasis>not</emphasis> mean that
+      the methods/constructors invoked by the method do not start any
+      threads; each method/constructor call is handled
+      individually.</para></listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term id="thread-started">Thread effect declaration prohibits:
+      <replaceable>call to
+      <function>start()</function></replaceable></term>
+
+      <listitem><para>The body of the annotated method starts a thread. 
+      This result links to the <function>start()</function> method
+      call.</para></listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term id="call-starts-nothing">Call "<replaceable>method
+      call</replaceable>" promises to start nothing</term>
+
+      <listitem><para>The annotated method calls a method that is
+      annotated with <classname>@Starts("nothing")</classname>.  This
+      result starts a new chain of evidence indicating whether the
+      called method is assured or not.  This results links to the method
+      call in the method body.</para></listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term id="call-does-not-promise">Call "<replaceable>method
+      call</replaceable>" does not promise to start nothing</term>
+
+      <listitem><para>The annotated emehtod invokes a method is not
+      annoated with <classname>@Starts("nothing")</classname>.  This is
+      an assurance failure because the called method might start a
+      thread.  The result links to the offending method
+      call.</para></listitem>
+    </varlistentry>
+  </variablelist>
+  
+  <sect2 id="thread-effects-good">
+    <title>Positive Assurance</title>
+
+    <para>The simple method <function>goodMethod_Simple()</function>
+    assures.  Its body consists of a single field assignment that
+    obviously does not invoke <function>Thread.start()</function>, or
+    any other method.  Thus, the chain of evidence for the method is a
+    simple <computeroutput>No threads started within
+    goodMethod_Simple()</computeroutput>.</para>
+
+    <para>The method <function>goodMethod_Complex()</function> calls the
+    method <function>goodMethod_Simple()</function>, which, as we
+    discuss above, assures.  So the result <computeroutput>Call
+    "this.goodMethod_Simple" promises to start nothing</computeroutput>
+    is decorated with the icon <guiicon><inlinegraphic
+    fileref="images/plus-plus.jpg"/></guiicon> indicating deep
+    assurance.</para>
+  </sect2>
+  
+  <sect2 id="thread-effects-bad">
+    <title>Negative Assurance</title>
+
+    <para>The method <function>badMethod_Simple()</function> does
+    exactly what it is not supposed to do: invokes the
+    <function>start()</function> method of the
+    <classname>Thread</classname> object passed to it.  Its chain of
+    evidence is thus the single negative result <computeroutput>Thread
+    effect declaration prohibits: t.start()</computeroutput>.</para>
+
+    <para>Method <function>badMethod_Indirect1()</function> calls the
+    method <function>badMethod_Simple()</function>.  The method
+    <emphasis>does not</emphasis> start any threads itself, so it has a
+    <computeroutput>No threads started within
+    badMethod_Indirect1(java.lang.Thread)</computeroutput> result.
+    Because the method <function>badMethod_Simple()</function> is
+    annotated with <classname>@Starts("nothing")</classname>, there is
+    also a <computeroutput>Call "this.badMethod_Simple(t)" promises to
+    start nothing</computeroutput> result.  But because, as we say
+    above, this method does not assure, this result is decorated with
+    the icon <guiicon><inlinegraphic
+    fileref="images/plus-x.jpg"/></guiicon>. Overall, the annotation on
+    <function>badMethod_Indirect1()</function> fails to assure.</para>
+
+    <para>Method <function>badMethod_Indirect2()</function> calls the
+    method <function>unannotated_method()</function> that does not have
+    a <classname>@Starts("nothing")</classname> annotation.  This call
+    prevents assurance of the method because the called method could
+    start a thread.  Analysis produces the result <computeroutput>Call
+    "this.unannotated_method" does not promise to start
+    nothing</computeroutput>.</para>
+  </sect2>      
+</sect1>

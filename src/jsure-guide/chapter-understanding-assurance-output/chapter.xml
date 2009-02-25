@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="understanding-assurance-output"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Understanding JSure Assurance Output</title>
+    
+  <para>This chapter descibes using examples the wide variety of
+  messages that appear in the JSure assurance output.</para>
+  
+  <xi:include href="sect1-effects-assurance.xml"/>
+  <xi:include href="sect1-lock-assurance/sect1.xml"/>
+  <xi:include href="sect1-thread-effects.xml"/>
+  <xi:include href="sect1-result-index.xml"/>
+</chapter>

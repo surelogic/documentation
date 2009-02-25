@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect2 id="assuring-field-init">
+  <title>Assuring Constructors: Field Initialization</title>
+
+  <para>Assurance of constructors is also complicated by field
+  initializers. Non-static fields with initializers need to be assured
+  separately for each constructor in the class because the
+  single-threadedness (or not) of the constructor can affect their
+  assurance.</para>
+
+  <para>In the case of the example class
+  <classname>ConstructorExample</classname> above, the fields
+  <structfield>f</structfield> and <structfield>g</structfield> have
+  initializers and thus the use of the fields and their initialization
+  expressions need to be incorporated into the assurance of the
+  constructors. Because there are three constructors, these uses are
+  analyzed three times.</para>
+
+  <sect3 id="constructor-1">
+    <title>Constructor
+    <function>ConstructorExample(int)</function></title>
+
+    <para>The first constructor is not annotated with
+    <classname>@SingleThread</classname> and thus all the field accesses
+    it makes are unprotected. The JSure results reflect this:</para>
+    
+    <mediaobject>
+      <imageobject condition="isHTML">
+        <imagedata fileref="images/lock-assurance-05.png"/>
+      </imageobject>
+      <imageobject condition="isFO">
+        <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-05.png"/>
+      </imageobject>
+    </mediaobject>
+
+    <para id="on-behalf-of">The uses of field
+    <structfield>f</structfield> on line 10, the fields
+    <structfield>f</structfield> and <structfield>g</structfield> on
+    line 12, and the use of field <structfield>h</structfield> on line
+    22 are all marked as unprotected. The uses on lines 10 and 12 occur
+    due to field declarations and thus are marked with
+    <guilabel>supporting information</guilabel> indicating which
+    constructor the access is considered to be a part of:
+    <computeroutput>Analyzed on behalf of constructor
+    "test.ConstructorExample.ConstructorExample(int)"</computeroutput>.
+    </para>
+  </sect3>
+  
+  <sect3 id="constructor-2">
+    <title>Constructor <function>ConstructorExample(int,
+    int)</function></title>
+
+    <para>This constructor is declared to be
+    <classname>@SingleThreaded</classname>, and JSure is able to assure
+    that its implementation is in fact so.  Thus all its field accesses
+    are protected:</para>
+    
+    <mediaobject>
+      <imageobject condition="isHTML">
+        <imagedata fileref="images/lock-assurance-06.png"/>
+      </imageobject>
+      <imageobject condition="isFO">
+        <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-06.png"/>
+      </imageobject>
+    </mediaobject>
+    
+    <para>Observe in particular that the uses of the field
+    <structfield>f</structfield> on line 10, and the fields
+    <structfield>f</structfield> and <structfield>g</structfield> on
+    line 12 are assured, and the supporting information indicates that
+    they are <computeroutput>Analyzed on behalf of constructor
+    "test.ConstructorExample.ConstructorExample(int,
+    int)"</computeroutput>. Also note that all the field access
+    assuranced depend on the <classname>@SingleThreaded</classname>
+    annotation on the constructor itself, which we previously observed
+    is assured.</para>
+  </sect3>
+  
+  <sect3 id="constructor-03">
+    <title>Constructor <function>ConstructorExample()</function></title>
+
+    <para>This constructor is annotated with
+    <classname>@SingleThreaded</classname>, but JSure is not able to
+    assure that this is the case.  Thus all its field accesses are found
+    to be protected, but with unsatisfied preconditions and are marked
+    with <guiicon><inlinegraphic
+    fileref="images/plus-x.jpg"/></guiicon>:</para>
+
+    <mediaobject>
+      <imageobject condition="isHTML">
+        <imagedata fileref="images/lock-assurance-07.png"/>
+      </imageobject>
+      <imageobject condition="isFO">
+        <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-07.png"/>
+      </imageobject>
+    </mediaobject>
+    
+    <para>Again, observe that the uses of the field
+    <structfield>f</structfield> on line 10, and the fields
+    <structfield>f</structfield> and <structfield>g</structfield> on
+    line 12 are assured. In this case, the supporting information marks
+    that they are <computeroutput>Analyzed on behalf of constructor
+    "test.ConstructorExample.ConstructorExample()"</computeroutput>.
+    </para>
+  </sect3>
+  
+  <sect3 id="aux.doStuff">
+    <title>Assuring Calls to <function>Aux.doStuff()</function></title>
+
+    <para>Finally, there is the case of the call to
+    <function>Aux.doStuff()</function> in the initializer for field
+    <structfield>bad</structfield>. This method has a lock precondition
+    that must be satisfied each time the method is called. This is
+    interesting in the context of assuring constructors because this
+    method has three call sites: one for each constructor. Indeed, this
+    is reflected in the assurance results:</para>
+    
+    <mediaobject>
+      <imageobject condition="isHTML">
+        <imagedata fileref="images/lock-assurance-08.png"/>
+      </imageobject>
+      <imageobject condition="isFO">
+        <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-08.png"/>
+      </imageobject>
+    </mediaobject>
+    
+    <para>This call cannot be assured for any of the constructors
+    because <emphasis>it is not possible for the necessary lock to be
+    acquired in the field declaration</emphasis>. This can be remedied
+    by initializing <structfield>bad</structfield> in each constructor,
+    or by moving the initialization to a single instance initializer
+    block:</para>
+
+    <programlisting>@RegionLock("L2 is this protects Instance")
+public class ConstructorExample {
+  &hellip;
+  private final Aux aux = new Aux();
+  private final int bad;
+  
+  {
+    synchronized (aux) { <lineannotation>(Line 21)</lineannotation>
+      bad = aux.doStuff();
+    }
+  }
+  &hellip;
+} </programlisting>
+    
+    <para>This changes the assurance results for
+    <classname>AuxLock</classname> to be</para>
+    
+    <mediaobject>
+      <imageobject condition="isHTML">
+        <imagedata fileref="images/lock-assurance-09.png"/>
+      </imageobject>
+      <imageobject condition="isFO">
+        <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-09.png"/>
+      </imageobject>
+    </mediaobject>
+    
+    <para>Again, observe how the initializer block is analyzed once for
+    each constructor.</para>
+  </sect3>
+</sect2>

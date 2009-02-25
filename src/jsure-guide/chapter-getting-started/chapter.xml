@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="getting-started">
+  <title>Getting started</title>
+  <sect1>
+    <title>Introduction</title>
+
+    <para><emphasis>What is JSure?</emphasis> TODO</para>
+  </sect1>
+
+  <sect1>
+    <title>Quick start: How to scan your code and start adding design
+    intent</title>
+
+    <para>This section assumes that you have installed JSure. If you see
+    a <guimenu>JSure</guimenu> menu item on your Eclipse main menu then
+    you can assume JSure has been properly installed.</para>
+  </sect1>
+
+  <sect1>
+    <title>Tutorial: Verifying BoundedFIFO</title>
+    
+    <para>This example walks through the complete assurance of a simple
+    class and its usage. That is, it demonstrates that is not always
+    enough to assure the implementation of a class: <emphasis>sometimes
+    the clients of a class must conform to a specific behavior as
+    well</emphasis>. This example focuses on two classes (plus one
+    auxillary class):</para>
+    
+    <variablelist>
+      <varlistentry>
+        <term><classname>BoundedFIFO</classname></term>
+        <listitem><para>The "thread safe" class.  See <xref
+        linkend="BoundedFIFO.java"/></para></listitem>
+      </varlistentry>
+      
+      <varlistentry>
+        <term><classname>BlockingFIFO</classname></term>
+        <listitem><para>The client code.  See <xref
+        linkend="BlockingFIFO.java"/></para></listitem>
+      </varlistentry>
+      
+      <varlistentry>
+        <term><classname>LoggingEvent</classname></term>
+        <listitem><para>The class of objects stored in the queue.  See
+        <xref
+        linkend="LoggingEvent.java"/></para></listitem>
+      </varlistentry>
+    </variablelist>
+    
+    <para>The class <classname>BoundedFIFO</classname> is taken from the
+    <application>Apache Log4J</application> project. The class
+    <classname>BlockingFIFO</classname> we wrote based on actual client
+    code in <application>Log4J</application>.</para>
+
+    <para>This example shows off basic features of assuring Java lock
+    models using Java intrinsic lock objects:</para>
+    
+    <itemizedlist>
+      <listitem><para><classname>@RegionLock</classname></para></listitem>
+      <listitem><para><classname>@RequiresLock</classname></para></listitem>
+      <listitem><para><classname>@SingleThreaded</classname></para></listitem>
+      <listitem><para><classname>@Borrowed</classname></para></listitem>
+      <listitem><para><classname>@Unique</classname></para></listitem>
+      <listitem><para><classname>@Aggregate</classname></para></listitem>
+      <listitem><para><classname>@Promise</classname></para></listitem>
+    </itemizedlist>
+    
+    <figure id="BoundedFIFO.java">
+      <title>Initial Source Code for class <classname>BoundedFIFO</classname></title>
+      
+      <programlisting>
+<emphasis>@RegionLock("BufLock is this protects Instance")</emphasis>
+public class BoundedFIFO {
+  LoggingEvent[] buf;
+  
+  int numElts = 0;
+  int first = 0;
+  int next = 0;
+  int size;
+
+  /**
+   * Instantiate a new BoundedFIFO with a maximum size passed as argument.
+   *
+   * @param size Maximum size of the BoundedFIFO created.
+   */
+  public BoundedFIFO(int size) {
+    if (size &lt; 1)
+      throw new IllegalArgumentException();
+    this.size = size;
+    buf = new LoggingEvent[size];
+  }
+
+  /**
+   * Get the first element in the buffer. Returns &lt;code&gt;null&lt;/code&gt; if
+   * there are no elements in the buffer.
+   */
+  public LoggingEvent get() {
+    if (numElts == 0)
+      return null;
+    LoggingEvent r = buf[next];
+    if (++first == size)
+      first = 0;
+    numElts--;
+    return r;
+  }
+
+  /**
+   * Place a {@link LoggingEvent} in the buffer. If the buffer is full  then
+   * the event is &lt;b&gt;silently dropped&lt;/b&gt;. It is the caller's  responsibility
+   * to make sure that the buffer has free space.
+   * 
+   * @param o The logging event added into the buffer.
+   */
+  public void put(LoggingEvent o) {
+    if (numElts != size) {
+      buf[next] = o;
+      if (++next == size)
+        next = 0;
+      numElts++;
+    }
+  }
+
+  /** 
+   * Get the maximum size of the buffer.
+   */
+  public int getMaxSize() {
+    return size;
+  }
+
+  /**
+   * Get the number of elements in the buffer. This number is guaranteed to be
+   * in the range 0 to &lt;code&gt;maxSize&lt;/code&gt; (inclusive).
+   */
+  public int length() {
+    return numElts;
+  }
+
+  /**
+   * Returns &lt;code&gt;true&lt;/code&gt; if there is just one element in the buffer. In
+   * other words, if there were no elements before the last {@link #put}
+   * operation completed.
+   */
+  public boolean wasEmpty() {
+    return numElts == 1;
+  }
+
+  /**
+   * Returns &lt;code&gt;true&lt;/code&gt; if the number of elements in the buffer plus 1
+   * equals the maximum buffer size, returns &lt;code&gt;false&lt;/code&gt; otherwise.
+   */
+  public boolean wasFull() {
+    return numElts + 1 == size;
+  }
+
+  /**
+   * Returns &lt;code&gt;true&lt;/code&gt; if the number of elements in the buffer equals
+   * the maximum buffer size, returns &lt;code&gt;false&lt;/code&gt; otherwise.
+   */
+  public boolean isFull() {
+    return numElts == size;
+  }
+}
+      </programlisting>
+    </figure>
+
+    <figure id="BlockingFIFO.java">
+      <title>Initial Source Code for class
+      <filename>BlockingFIFO</filename></title>
+      
+      <programlisting>
+          <![CDATA[
+public class BlockingFIFO {
+  private final BoundedFIFO fifo;;
+
+  public BlockingFIFO(int size) {
+    fifo = new BoundedFIFO(size);
+  }
+
+  public void put(LoggingEvent e) {
+    synchronized (this) {
+      while (fifo.isFull()) {
+        try {
+          fifo.wait();
+        } catch (InterruptedException ie) {
+          // ignore
+        }
+      }
+      fifo.put(e);
+      if (fifo.wasEmpty()) {
+        fifo.notify();
+      }
+      fifo.put(e);
+      fifo.put(e);
+    }
+  }
+
+  public LoggingEvent get() {
+    synchronized (fifo) {
+      LoggingEvent e;
+      while (fifo.length() == 0) {
+        try {
+          fifo.wait();
+        } catch (InterruptedException ie) {
+          // ignore
+        }
+      }
+      e = fifo.get();
+      if (fifo.wasFull()) {
+        fifo.notify();
+      }
+      return e;
+    }
+  }
+
+  public int length() {
+    synchronized (fifo) {
+      return fifo.length();
+    }
+  }
+}
+        ]]>
+      </programlisting>
+    </figure>
+
+    <figure id="LoggingEvent.java">
+      <title>Initial Source Code for class <classname>BlockingFIFO</classname></title>
+      
+      <programlisting>
+        <![CDATA[
+public class LoggingEvent { 
+  /* Empty: The contents of this class are not interesting 
+   * for our example.
+   */
+}
+        ]]>
+      </programlisting>
+    </figure>
+    
+    <sect2 id="declaring-protected-state">
+      <title>Declaring Protected State</title>
+      
+      <para>The <classname>BoundedFIFO</classname> class is a buffer
+      meant to be shared between two threads. It obviously must be made
+      thread-safe. The usual assumption is that an object protects its
+      own state.  In <xref linkend="BoundedFIFO.java"/> the class is
+      already annotated with this assumption:</para>
+      
+      <programlisting>
+<emphasis>@RegionLock("BufLock is this protects Instance")</emphasis>
+public class BoundedFIFO {
+  &hellip;
+}
+      </programlisting>
+
+      <para>With this single annotation, analysis by JSure produces two
+      main concurrency results, mostly indicating that the annotation is
+      not assured, and a few warnings.  There are 27 unprotected field
+      accesses for <structfield>BufLock</structfield>, and no protected
+      field accesses:</para>
+      
+      <mediaobject>
+        <imageobject condition="isHTML">
+          <imagedata fileref="images/BoundedFIFO1.png"/>
+        </imageobject>
+        <imageobject condition="isFO">
+          <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO1.png"/>
+        </imageobject>
+      </mediaobject>
+    </sect2>
+
+    <sect2 id="declaring-lock-preconditions">
+      <title>Declaring Lock Preconditions</title>
+    
+      <para>Either this class is horribly broken or something else is
+      going on.  By double clicking on any of the errors in the view, we
+      can focus on the source line in
+      <classname>BoundedFIFO</classname>. A quick inspectiion of the
+      class reveals that it does not acquire the lock anywhere.  So we
+      look at its clients by viewing the call chain, in this case by
+      viewing the call hierarchy of method <function>get()</function>
+      (Select the method <function>get()</function> in the "Outline"
+      view and then choose <menuchoice><guimenuitem>Open Call
+      Hierarchy</guimenuitem></menuchoice> in the context menu).  We see
+      that the client, <classname>BlockingFIFO</classname> acquires the
+      lock on the <classname>BoundedFIFO</classname> object before
+      invoking any of the methods on the
+      <classname>BoundedFIFO</classname> object, so we decide that the
+      intent is that the caller should acquire the lock before calling
+      any of the methods of <classname>BoundedFIFO</classname>.</para>
+
+      <para>To add this intent to <classname>BoundedFIFO</classname>, we
+      need to add the lock precondition
+      <classname>@RequiresLock("BufLock")</classname> to all the methods
+      of the class.  We can do this in a single annotation on the class
+      itself by using a <emphasis>scoped promise</emphasis> to add the
+      annotation to all the methods of the class:</para>
+    
+      <programlisting>
+ @RegionLock("BufLock is this protects Instance")
+ <emphasis>@Promise("'@RequiresLock BufLock' for *(**)")</emphasis>
+ public class BoundedFIFO {
+   &hellip;
+ }
+      </programlisting>  
+
+      <para>After adding the annotation we save (and thus reanalyze the
+      project).</para>
+    </sect2>  
+    
+    <sect2 id="wrong-lock">
+      <title>Wrong Lock</title>
+      
+      <para>There is now a "scoped promises" heading, and we can see all
+      the places where our <classname>@Promise</classname> annotation
+      added <classname>@RequiresLock</classname> annotations. Only 4 out
+      of the 7 are currently satisfied:</para>
+      
+      <mediaobject>
+        <imageobject condition="isHTML">
+          <imagedata fileref="images/BoundedFIFO2.png"/>
+        </imageobject>
+        <imageobject condition="isFO">
+          <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO2.png"/>
+        </imageobject>
+      </mediaobject>
+      
+      <para>Looking at the chain of evidence for the call to
+      <function>isFull()</function>, we see that the caller is
+      confused and is synchronized on <parameter>this</parameter> (as
+      evidenced by the caller holding the lock "this.MUTEX"):</para>
+      
+      <mediaobject>
+        <imageobject condition="isHTML">
+          <imagedata fileref="images/BoundedFIFO3.png"/>
+        </imageobject>
+        <imageobject condition="isFO">
+          <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO3.png"/>
+        </imageobject>
+      </mediaobject>
+
+      <para>But in the context of the caller,
+      <classname>BlockingFIFO</classname>, <parameter>this</parameter>
+      refers to the <classname>BlockingFIFO</classname> object, not the
+      <classname>BoundedFIFO</classname> object that is correctly
+      refered to by <structfield>fifo</structfield>. The
+      <code>synchronized</code> statement in method
+      <function>isFull()</function> needs to be changed:</para>
+
+      <programlisting>
+ public void put(LoggingEvent e) {
+   synchronized (<emphasis>fifo</emphasis>) {
+     &hellip;
+   }
+ }
+      </programlisting>
+    </sect2>
+    
+    <sect2 id="single-threaded-constructor">
+      <title>Single Threaded Constructor</title>
+
+      <para>There are still five unprotected field accesses. These all
+      point to either field initializers in field declarations or in the
+      constructor: </para>
+      
+      <mediaobject>
+        <imageobject condition="isHTML">
+          <imagedata fileref="images/BoundedFIFO4.png"/>
+        </imageobject>
+        <imageobject condition="isFO">
+          <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4.png"/>
+        </imageobject>
+      </mediaobject>
+    
+      <para>Because the lock on the <classname>BoundedFIFO</classname>
+      object is not held during construction, we need to make sure that
+      during construction a reference to the object cannot be leaked to
+      another thread. Note that we cannot require the caller of the
+      constructor to hold the lock because the object doesn't exist yet!
+       In general, we cannot use <code>synchronized</code> blocks in the
+      constructor to protect the state during construction because we
+      cannot create a single atomic block: there would have to be
+      multiple distinct <code>synchronized</code> blocks in the
+      constructor and in the constructors of any subclasses. But if we
+      can guarantee that the thread that invokes the constructor is the
+      only thread that can access the newly created object during the
+      life of the invoked constructor, we can also be assured there will
+      be no race conditions involving the object's fields during
+      construction. We use a pair of annotations on the constructor to
+      declare this intent:</para>
+
+      <programlisting>
+ <emphasis>@SingleThreaded</emphasis>
+ <emphasis>@Borrowed("this")</emphasis>
+ public BoundedFIFO(int size) {
+   &hellip;
+ }
+      </programlisting>
+      
+      <para>The first declares that no new threads are starting during
+      the execution of the constructor.  The second that no aliases to
+      the newly constructed object will be created during the execution
+      of the constructor.  The assurance of the
+      <classname>@SingleThreaded</classname> annotation actually depends
+      in part on the assurance of the <classname>@Borrowed</classname>
+      annotation.</para>
+
+      <para>Save and reanalyze. The model now assures:</para>
+
+      <mediaobject>
+        <imageobject condition="isHTML">
+          <imagedata fileref="images/BoundedFIFO4-1.png"/>
+        </imageobject>
+        <imageobject condition="isFO">
+          <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-1.png"/>
+        </imageobject>
+      </mediaobject>
+      
+      <sect3 id="deep-analysis">
+        <title>Deep Analysis</title>
+        
+        <para>As stated above, the assurance of
+        <classname>@SingleThreaded</classname> depends on the assurance
+        of <classname>@Borrowed("this")</classname> on the constructor.
+        We can see this by</para>
+        
+        <itemizedlist>
+          <listitem><para>Removing the <classname>@Borrowed</classname>
+          annotation.</para></listitem>
+          <listitem><para>Changing the code to be inconsistent with the
+          annotation.</para></listitem>
+        </itemizedlist>
+
+        <para>If we remove the <classname>@Borrowed</classname>
+        annotation, the assurance now fails:</para>
+        
+        <mediaobject>
+          <imageobject condition="isHTML">
+            <imagedata fileref="images/BoundedFIFO4-2.png"/>
+          </imageobject>
+          <imageobject condition="isFO">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-2.png"/>
+          </imageobject>
+        </mediaobject>
+
+        <para>Here we see that the 27 protected field accesses heading
+        has a red X because assurance of some of the accesses depends on
+        the constructor being single threaded, and the
+        <classname>@SingleThreaded</classname> annotation is not
+        assured.</para>
+
+        <para>We can reinstate the <classname>@Borrowed</classname>
+        annotation and instead make the code inconsistent by changing
+        the constructor to alias the receiver (in this case by storing a
+        reference to it in a <code>static</code> field):</para>
+       
+        <programlisting>
+@RegionLock("BufLock is this protects Instance")
+@Promise("'@RequiresLock BufLock' for *(**)")
+public class BoundedFIFO {
+  &hellip;
+  static BoundedFIFO foo;
+
+  @SingleThreaded
+  @Borrowed("this")
+  public BoundedFIFO(int size) {
+    if (size &lt; 1)
+      throw new IllegalArgumentException();
+    this.size = size;
+    buf = new LoggingEvent[size];
+    
+    foo = this; <lineannotation>(Line 59)</lineannotation>
+  }
+  &hellip;
+}
+        </programlisting>
+        
+        <para>Again, we see that assurance fails:</para>
+
+        <mediaobject>
+          <imageobject condition="isHTML">
+            <imagedata fileref="images/BoundedFIFO4-3.png"/>
+          </imageobject>
+          <imageobject condition="isFO">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-3.png"/>
+          </imageobject>
+        </mediaobject>
+        
+        <para>In this case, we can see that the assurance of
+        <classname>@SingleThreaded</classname> fails because the
+        <classname>@Borrowed</classname> annotation is violated by the
+        code at line 59.</para>
+      </sect3>
+      
+      <sect3 id="deeper-analysis">
+        <title>Deeper Analysis</title>
+        
+        <para>The analysis used to assure
+        <classname>@Borrowed</classname> is sophisticated, and it does
+        allow temporary local aliases to the receiver.  If the
+        constructor were instead</para>
+        
+        <programlisting>
+@SingleThreaded
+@Borrowed("this")
+public BoundedFIFO(int size) {
+  if (size &lt; 1)
+    throw new IllegalArgumentException();
+  this.size = size;
+  buf = new LoggingEvent[size];
+    
+  <emphasis>BoundedFIFO local = this;</emphasis>
+}
+        </programlisting>
+        
+        <para>then the class would still assure because</para>
+        
+        <itemizedlist>
+          <listitem><para>The alias to <parameter>this</parameter> in
+          <varname>local</varname> is never itself aliased to a global
+          location.</para></listitem>
+          <listitem><para>The alias disappears when the constructor finishes
+          executing.</para></listitem>
+        </itemizedlist>
+        
+        <mediaobject>
+          <imageobject condition="isHTML">
+            <imagedata fileref="images/BoundedFIFO4-4.png"/>
+          </imageobject>
+          <imageobject condition="isFO">
+            <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO4-4.png"/>
+          </imageobject>
+        </mediaobject>
+      </sect3>
+    </sect2>
+    
+    <sect2 id="aggregated-state">
+      <title>Aggregated State</title>
+      
+      <para>We now have no red X's, but we still have 2 warnings about
+      references to possibly shared objects:</para>
+
+      <mediaobject>
+        <imageobject condition="isHTML">
+          <imagedata fileref="images/BoundedFIFO5.png"/>
+        </imageobject>
+        <imageobject condition="isFO">
+          <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO5.png"/>
+        </imageobject>
+      </mediaobject>
+
+      <para>These 2 warnings refer to access to the contents of the
+      array referenced by the field <structfield>buf</structfield>. This
+      array is an object separate from the
+      <classname>BoundedFIFO</classname> object and is not protected by
+      the lock protecting the fields of the
+      <classname>BoundedFIFO</classname> object. We can extend
+      protection to the contents of the array by declaring the array
+      reference to be <classname>@Unique</classname>&mdash;no object but
+      the <classname>BoundedFIFO</classname> object can hold a reference
+      to it&mdash;and then by declaring that the state of the array is
+      part of the state of the <classname>BoundedFIFO</classname>
+      object:</para>
+      
+      <programlisting>
+ @RegionLock("BufLock is this protects Instance")
+ @Promise("'@RequiresLock BufLock' for *(**)")
+ public class BoundedFIFO {
+   <emphasis>@Unique</emphasis>
+   <emphasis>@Aggregate("Instance into Instance")</emphasis>
+   LoggingEvent[] buf;
+   &hellip;
+ }
+      </programlisting>
+      
+      <para>Now, as part of the state of the
+      <classname>BoundedFIFO</classname> object, the array object
+      referenced by <structfield>buf</structfield> is also protected by
+      the lock that protects that state of the buffer.</para>
+
+      <para>Aftering saving (and reanalyzing) we can see the effects of
+      this annotation: there are now "29 protected field accesses", up
+      from 27. This is because the two array dereferences are now
+      counted as protected accesses (lines 71 and 89):</para>
+      
+      <mediaobject>
+        <imageobject condition="isHTML">
+          <imagedata fileref="images/BoundedFIFO5b.png"/>
+        </imageobject>
+        <imageobject condition="isFO">
+          <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO5b.png"/>
+        </imageobject>
+      </mediaobject>      
+    </sect2>
+    
+    <sect2 id="assured">
+      <title>Assurance Acheived</title>
+    
+      <para>The project is now fully assured:</para>
+
+      <mediaobject>
+        <imageobject condition="isHTML">
+          <imagedata fileref="images/BoundedFIFO6.png"/>
+        </imageobject>
+        <imageobject condition="isFO">
+          <imagedata width="100%" scalefit="1" fileref="images/BoundedFIFO6.png"/>
+        </imageobject>
+      </mediaobject>      
+    </sect2>
+  </sect1>
+</chapter>

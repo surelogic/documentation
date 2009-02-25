@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect2 id="locks-and-aggregation">
+  <title>Region Locks and Aggregated State</title>
+
+  <para>Normally lock analysis assumes that a called method takes
+  responsibility for acquiring all the locks it needs, either by
+  acquiring the locks it needs in its implementation, or by declaring
+  needed locks via <classname>@RequiresLock</classname> annotations. 
+  This assumption fails when references to objects whose state has been
+  aggregated into another object are passed as method paramters.  This
+  is because only the caller knows how the state is aggregated.  In
+  these cases, lock analysis must determine for each method call, based
+  on the declared effects of the called method and the
+  region/aggregation model, what locks must be held.  There are two
+  messages, one positive and one negative, that can be reported in this
+  situation:
+    
+    <variablelist>
+      <varlistentry>
+        <term id="held-when-invoking">Lock
+        "<replaceable>lock</replaceable>" held when invoking
+        <replaceable>method</replaceable></term>
+
+        <listitem>
+          <para>Analysis has determine that the lock
+          <replaceable>lock</replaceable> must be held and can determine
+          that it is always held when the method is called.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term id="not-held-when-invoking">Lock
+        "<replaceable>lock</replaceable>" not held when invoking
+        <replaceable>method</replaceable></term>
+
+        <listitem>
+          <para>Analysis has determine that the lock
+          <replaceable>lock</replaceable> must be held but that it is
+          not always held when the method is called.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </para>
+    
+  <para>Both the positive and negative assurance results have at least
+  one additonal message as <guilabel>supporting information</guilabel>. 
+  This message has the form <computeroutput
+  id="indirect-evidence">Method effect <replaceable>effect</replaceable>
+  affects region <replaceable>region</replaceable> of <replaceable>field
+  ref</replaceable> which is aggregated into region
+  <replaceable>region&prime;</replaceable></computeroutput>.
+  Essentially, this message indicates the method effect and aggregation
+  information used to conclude that the given lock is necessary.</para>
+
+  <para>Consider the class <classname>HeldWhenInvoking</classname>
+  below, and its results, shown in <xref
+  linkend="held-when-invoking-results"/>:</para>
+    
+  <programlisting linenumbering="numbered" startinglinenumber="13">@Regions({
+  @Region("private Array1"),
+  @Region("private Array2")
+})
+@RegionLocks({
+  @RegionLock("L1 is this protects Array1"),
+  @RegionLock("L2 is lock protects Array2")
+})
+public class HeldWhenInvoking {
+  private final Object lock = new Object();
+  
+  <emphasis>@InRegion("Array1")</emphasis>
+  <emphasis>@Unique</emphasis>
+  <emphasis>@Aggregate("Instance into Array1")</emphasis>
+  private int[] data1;
+    
+  <emphasis>@Unique</emphasis>
+  <emphasis>@Aggregate("Instance into Array2")</emphasis>
+  private final int[] data2 = new int[] { 10, 9, 8, 7, 6 };
+  
+  
+  
+  <emphasis>@RegionEffects("reads a:Instance")</emphasis>
+  private static int sum(final @Borrowed int[] a) {
+    int sum = 0;
+    for (int v : a) {
+      sum += v;
+    }
+    return sum;
+  }
+  
+  
+  
+  public int purelyLocal() {
+    int[] localArray = new int[] { 1, 2, 3, 4, 5 };
+    return sum(localArray);
+  }
+  
+  public int touchesIndirectState_bad() {
+    synchronized (this) {
+      data1 = new int[] { 1, 2, 3, 4, 5 };
+    }
+    return sum(data1) +
+      sum(data2);
+  }
+  
+  public synchronized int touchesIndirectState_good() {
+    data1 = new int[] { 1, 2, 3, 4, 5 };
+    synchronized (lock) {
+      return sum(data1) +
+        sum(data2);
+    }
+  }
+}</programlisting>
+
+  <figure id="held-when-invoking-results">
+    <title>Assurance results for <classname>HeldWhenInvoking</classname></title>
+    <mediaobject>
+      <imageobject condition="isHTML">
+        <imagedata fileref="images/held-when-invoking-01.png"/>
+      </imageobject>
+      <imageobject condition="isFO">
+        <imagedata width="100%" scalefit="1" fileref="images/held-when-invoking-01.png"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+    
+  <para>The class <classname>HeldWhenInvoking</classname> has two unique
+  fields <structfield>data1</structfield> and
+  <structfield>data2</structfield> that reference integer arrays. The
+  elements of each array are aggregated into the regions
+  <structfield>Array1</structfield> and
+  <structfield>Array2</structfield>, respectively, that are protected by
+  the locks <structfield>L1</structfield> and
+  <structfield>L2</structfield>, respectively.  The <code>static</code>
+  method <function>sum()</function> takes an integer array as a
+  parameter and returns the sum of its elements.  This method is not
+  written to operate on any specific array, and is thus ignorant of any
+  synchronization requirements that might be necessary to operate on any
+  particular array.</para>
+
+  <para>The method <function>purelyLocal()</function> allocations a new
+  array referenced by a local variable, and passes it to
+  <function>sum()</function>. This call to <function>sum()</function> at
+  line 48 does not require any locks because the array is referenced by
+  a local variable.</para>
+
+  <para>The method <function>touchesIndirectState_bad()</function> is a
+  different situation: it passes the arrays referenced by
+  <structfield>data1</structfield> and <structfield>data2</structfield>
+  to <function>sum()</function>. There are three negative results
+  originating form this method:
+
+    <orderedlist>
+      <listitem>
+        <para><computeroutput>Lock "&lt;this&gt;:L1" not held when
+        accessing this.data1 at HeldWhenInvoking.java line
+        55</computeroutput></para>
+      </listitem>
+      <listitem>
+        <para><computeroutput>Lock "&lt;this&gt;:L1" not held when
+        invoking test.HeldWhenInvoking.sum(this.data1) at
+        HeldWhenInvoking.java line 55</computeroutput></para>
+      </listitem>
+      <listitem>
+        <para><computeroutput>Lock "&lt;this&gt;:L2" not held when
+        invoking test.HeldWhenInvoking.sum(this.data2) at
+        HeldWhenInvoking.java line 56</computeroutput></para>
+      </listitem>
+    </orderedlist>
+      
+  The first is from the unprotected access to
+  <structfield>data1</structfield> on line 55.  The second is because
+  analysis determines that the call to <function>sum()</function> on
+  line 55 may read the state of the array referenced by
+  <structfield>data1</structfield>, and thus, by aggregation, the state
+  of the region <structfield>Array1</structfield>.  Thus the lock
+  <structfield>L1</structfield> must be held.  The supporting
+  information indicates this: <computeroutput>Method effect reads
+  &lt;this.data1&gt;Instance affects region java.lang.Object.Instance 
+  of this.data1 which is aggregated into region
+  test.HeldWhenInvoking.Array1</computeroutput>. The reader may wonder,
+  is it not enough that the field <structfield>data1</structfield> needs
+  a lock anyway? Clearly we cannot pass its value to parameter without
+  holding the correct lock to being with.  But consider the use of field
+  <structfield>data2</structfield> on line 56. It is <code>final</code>,
+  and thus no lock is requried to access its value.  But because of
+  aggregation, a lock <emphasis>is required</emphasis> to access the
+  elements of the array it references.</para>
+
+  <para>The method <function>touchesIndirectState_good()</function> is
+  the same as <function>touchesIndirectState_bad()</function> except
+  that it is correctly synchronized.  It has three positive assurance
+  results:
+
+    <orderedlist>
+      <listitem>
+        <para><computeroutput>Lock "&lt;this&gt;:L1" held when accessing
+        this.data1 at HeldWhenInvoking.java line
+        62</computeroutput></para>
+      </listitem>
+      <listitem>
+        <para><computeroutput>Lock "&lt;this&gt;:L1" held when invoking
+        test.HeldWhenInvoking.sum(this.data1) at HeldWhenInvoking.java
+        line 62</computeroutput></para>
+      </listitem>
+      <listitem>
+        <para><computeroutput>Lock "&lt;this&gt;:L2" held when invoking
+        test.HeldWhenInvoking.sum(this.data2) at HeldWhenInvoking.java
+        line 63</computeroutput></para>
+      </listitem>
+    </orderedlist>
+  </para>            
+</sect2>

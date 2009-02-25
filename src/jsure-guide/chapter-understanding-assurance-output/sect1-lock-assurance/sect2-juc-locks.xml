@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect2 id="juc-locks">
+  <title>Assuring <package>java.util.concurrent</package> Locks</title>
+
+  <para>JSure also supports the assurance of the correct use of
+  <package>java.util.concurrent</package> locks. These locks are
+  explicitly acquired and released via the methods
+  <function>Lock.lock()</function> and
+  <function>Lock.unlock()</function>.  Because of this, there is a wider
+  variety of warning and other information messages that JSure can
+  produce about their use.  We begin with a simple example that
+  demonstrates that the primary <emphasis>assurance</emphasis> messages
+  are unchanged.  Consider the class
+  <classname>SimpleJUCLockExample</classname> below, and its results
+  shown in <xref linkend="juc-results"/>.</para>
+    
+  <programlisting linenumbering="numbered" startinglinenumber="9"><emphasis>@RegionLock("L1 is lock protects Instance")</emphasis>
+public class SimpleJUCLockExample {
+  public final Lock lock = new ReentrantLock(); 
+  private int f;
+  private int g;
+  
+  public int getF() {
+    lock.lock();
+    try {
+      // Good
+      return f;
+    } finally {
+      lock.unlock();
+    }
+  }
+  
+  public boolean setF(final int v) {
+    if (lock.tryLock()) {
+      try {
+        f = v;
+      } finally {
+        lock.unlock();
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  <emphasis>@RequiresLock("L1")</emphasis>
+  public void doStuff() {
+    // Good
+    f = 0;
+  }
+  
+  public int getG() {
+    // Bad
+    return g;
+  }
+}</programlisting>
+    
+  <figure id="juc-results">
+    <title>Assurance results for <classname>SimpleJUCLockExample</classname></title>
+    <mediaobject>
+      <imageobject condition="isHTML">
+        <imagedata fileref="images/juc-assurance-01.png"/>
+      </imageobject>
+      <imageobject condition="isFO">
+        <imagedata width="100%" scalefit="1" fileref="images/juc-assurance-01.png"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+    
+  <para>Assurance recognizes that the lock object named in the
+  <classname>@RequiresLock</classname> annotation, the field
+  <structfield>lock</structfield>, is declared to be a
+  <classname>java.util.concurrent.locks.Lock</classname>, and adjusts
+  the analysis accordingly.  Observe that
+    <itemizedlist>
+      <listitem>
+        <para>The positive assurance results on lines 19, 28, and 41,
+        and the negative assurance result on line 46 use the same
+        message templates as when <link
+        linkend="assuring-region-lock">instrinsic locks</link> are
+        used.</para>
+      </listitem>
+      <listitem>
+        <para id="juc-lock-held">The supporting information indicating
+        which lock is held reads <computeroutput>java.util.concurrent
+        lock "<replaceable>lock</replaceable>" is held</computeroutput>,
+        instead of <computeroutput>Instrinsic lock
+        "<replaceable>lock</replaceable>" is
+        held</computeroutput>.</para>
+      </listitem>
+      <listitem>
+        <para>There is a new category of informative results titled
+        <guilabel>lock()&ndash;unlock() matches</guilabel>.  The results
+        under this heading are described in their <link
+        linkend="lock-unlock-matches">own section</link> below.</para>
+      </listitem>
+    </itemizedlist>
+  </para>
+    
+  <para>Similarly, JSure understands the difference between a
+  <classname>java.util.concurrent.locks.Lock</classname> and a
+  <classname>java.util.concurrent.locks.ReadWriteLock</classname>.
+  Consider the class <classname>SimpleRWLockExample</classname> below
+  and it its results in <xref linkend="rw-results"/>.</para>
+    
+  <programlisting linenumbering="numbered" startinglinenumber="9"><emphasis>@RegionLock("L1 is lock protects Instance")</emphasis>
+public class SimpleRWLockExample {
+  public final ReadWriteLock lock = new ReentrantReadWriteLock(); 
+  private int f;
+  private int g;
+  
+  public int getF() {
+    lock.readLock().lock();
+    try {
+      // Good
+      return f;
+    } finally {
+      lock.readLock().unlock();
+    }
+  }
+  
+  public boolean setF(final int v) {
+    if (lock.writeLock().tryLock()) {
+      try {
+        f = v;
+      } finally {
+        lock.writeLock().unlock();
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  <emphasis>@RequiresLock("L1.writeLock()")</emphasis>
+  public void doStuff() {
+    // Good
+    f = 0;
+  }
+  
+  public void setG(final int v) {
+    lock.readLock().lock();
+    try {
+      // Bad
+      g = v;
+    } finally {
+      lock.readLock().unlock();
+    }
+  }
+}</programlisting>
+    
+  <figure id="rw-results">
+    <title>Assurance results for <classname>SimpleRWLockExample</classname></title>
+    <mediaobject>
+      <imageobject condition="isHTML">
+        <imagedata fileref="images/juc-assurance-02.png"/>
+      </imageobject>
+      <imageobject condition="isFO">
+        <imagedata width="100%" scalefit="1" fileref="images/juc-assurance-02.png"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+ <para>Again, we see 
+    <itemizedlist>
+      <listitem>
+        <para>The positive assurance results on lines 19, 28, and 41,
+        and the negative assurance result on line 48 use the same
+        message templates as when <link
+        linkend="assuring-region-lock">instrinsic locks</link> are
+        used.</para>
+      </listitem>
+      <listitem>
+        <para>The supporting information indicating which lock is held
+        reads <computeroutput>java.util.concurrent lock
+        "<replaceable>lock</replaceable>" is
+        held</computeroutput>.</para>
+      </listitem>
+      <listitem>
+        <para>There is a new category of informative results titled
+        <guilabel>lock()&ndash;unlock() matches</guilabel>.</para>
+      </listitem>
+    </itemizedlist>
+      
+  We also see that JSure understands the difference between a read lock
+  and a write lock.  The assignment to field
+  <structfield>g</structfield> on line 48 fails to assure because
+  assignment requires the write lock, but the method only acquires the
+  read lock on line 45.</para>
+    
+  <sect3 id="lock-unlock-matches">
+    <title>Lock&ndash;unlock matches</title>
+      
+    <para>JSure tracks calls to the lock acquisition methods
+    <function>lock()</function>,
+    <function>lockInterruptibly()</function>, and
+    <function>tryLock()</function> and to the lock release method
+    <function>unlock()</function>. It matches the calls in both
+    directions: forwards to match acquisitions to releases, and
+    backwards to match releases to acquistions. This may seem redundant,
+    but forwards matching catches missing releases, and backwards
+    matching catches missing acquisitions.  We have already seen the
+    most commong matching messages in <xref linkend="juc-results"/> and
+    <xref linkend="rw-results"/>:
+      
+      <orderedlist>
+        <listitem>
+          <para
+          id="acquires-match"><computeroutput><replaceable>acquires</replaceable>
+          call has matching unlock() call at line
+          <replaceable>line</replaceable></computeroutput>, where
+          <replaceable>acquires</replaceable> is either
+          <computeroutput>lock()</computeroutput>,
+          <computeroutput>lockInterruptibly()</computeroutput>, or
+          <computeroutput>tryLock()</computeroutput>.</para>
+        </listitem>
+        <listitem>
+          <para id="release-match"><computeroutput>unlock() call has
+          matching <replaceable>acquires</replaceable> call at line
+          <replaceable>line</replaceable></computeroutput>, where
+          <replaceable>acquires</replaceable> is either
+          <computeroutput>lock()</computeroutput>,
+          <computeroutput>lockInterruptibly()</computeroutput>, or
+          <computeroutput>tryLock()</computeroutput>.</para>
+        </listitem>
+      </orderedlist>
+      
+    The first message indicates that a matching
+    <function>unlock()</function> call has been found for the given
+    <function>lock()</function>,
+    <function>lockInterruptibly()</function>,
+    <function>tryLock()</function> call.  The second message, that a
+    matching <function>lock()</function>,
+    <function>lockInterruptibly</function>,
+    <function>tryLock()</function> call has been found for the given
+    <function>unlock()</function> call.  In most circumstances these
+    messages will appear in pairs, as they do in our examples
+    above.</para>
+
+    <para>It's possible that a matching call cannot be found at all:
+    
+      <itemizedlist>
+        <listitem>
+          <para
+          id="acquires-no-match"><computeroutput><replaceable>acquires</replaceable>
+          call has no matching unlock()
+          calls</computeroutput>, where
+          <replaceable>acquires</replaceable> is either
+          <computeroutput>lock()</computeroutput>,
+          <computeroutput>lockInterruptibly()</computeroutput>, or
+          <computeroutput>tryLock()</computeroutput>.</para>
+        </listitem>
+        <listitem>
+          <para id="release-no-match"><computeroutput>unlock() call has
+          no matching lock() calls</computeroutput>.</para>
+        </listitem>
+      </itemizedlist>
+
+    Or that a matching call can only be found on some, but not all,
+    control flow paths:
+    
+      <itemizedlist>
+        <listitem>
+          <para
+          id="acquires-different"><computeroutput><replaceable>acquires</replaceable>
+          call has a different number of matching unlock()
+          calls along different control paths</computeroutput>, where
+          <replaceable>acquires</replaceable> is either
+          <computeroutput>lock()</computeroutput>,
+          <computeroutput>lockInterruptibly()</computeroutput>, or
+          <computeroutput>tryLock()</computeroutput>.</para>
+        </listitem>
+        <listitem>
+          <para id="release-different"><computeroutput>unlock() call has
+          a different number of matching lock() calls along different
+          control paths</computeroutput>.</para>
+        </listitem>
+      </itemizedlist>
+      
+    This usually occurs when there
+    <code>try</code>&ndash;<code>finally</code> code pattern is not
+    followed correctly.  See <ulink
+    url="http://java.sun.com/javase/6/docs/api/java/util/concurrent/
+    locks/Lock.html">the documentation for
+    <classname>java.util.concurrent.locks.Lock</classname></ulink>.
+    </para>
+  </sect3>
+</sect2>

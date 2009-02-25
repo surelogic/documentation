@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect2 id="assuring-requires-lock">
+  <title>Assuring Method Preconditions:
+  <classname>@RequiresLock</classname></title>
+
+  <para>The result heading for each <classname>@RegionLock</classname>
+  annotation collects all the <classname>@RequiresLock</classname>
+  annotations that name its lock under the heading <guilabel>lock
+  preconditions</guilabel>; see <xref
+  linkend="RequiresLockExample-results"/>. Each
+  <classname>@RequiresLock</classname> annotation is assured by checking
+  each call site of the annotated method to see if the correct lock is
+  held. As with field access, the good and bad call sites are grouped
+  together; again, see <xref
+  linkend="RequiresLockExample-results"/>.</para>
+
+  <para>This section uses class
+  <classname>RequiresLockExample</classname> to describe how
+  <classname>@RequiresLock</classname> annotations are assured:</para>
+  
+  <programlisting linenumbering="numbered" startinglinenumber="6"><emphasis>@RegionLock("RL is this protects Instance")</emphasis>
+public class RequiresLockExample {
+  private int f;
+  
+  <emphasis>@RequiresLock("RL")</emphasis>
+  public int get() { return f; }
+  
+  <emphasis>@RequiresLock("RL")</emphasis>
+  public void set(final int v) { f = v; }
+  
+  public synchronized void doStuff() {
+    //good
+    set(
+        // good
+        get() + 10);
+  }
+  
+  public void doMoreStuff(final int v) {
+    synchronized (this) {
+      // good
+      set(v + 100);
+    }
+  }
+  
+  public int bad() {
+    // bad
+    return get();
+  }
+}</programlisting>
+  
+  <figure id="RequiresLockExample-results">
+    <title>Chains of Evidence for
+    <classname>RequiresLockExample</classname></title>.
+    
+    <mediaobject>
+      <imageobject condition="isHTML">
+        <imagedata fileref="images/lock-assurance-03.png"/>
+      </imageobject>
+      <imageobject condition="isFO">
+        <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-03.png"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <sect3 id="preconditions-satisfied">
+    <title>lock precondition(s) satisfied</title>
+
+    <para>Each call site for which JSure can determine that the required
+    lock is held results in an entry under this heading. The individual
+    results read <computeroutput>Lock "<replaceable>lock</replaceable>"
+    held when invoking <replaceable>method</replaceable>; precondition
+    satisfied</computeroutput>.  As with the field assurances, these
+    results have supporting information indicating which statements
+    acquire the locks. In our example, both uses of
+    <function>set()</function>, on lines 18 and 26, are correct, and one
+    use of <function>get()</function>, on line 20, is correct. For
+    <function>set()</function>, the supporting information refers to the
+    <code>synchronized</code> method on line 16 and the
+    <code>synchronized</code> block on line 24, respectively. For
+    <function>get()</function>, the supporting information refers to the
+    <code>synchronized</code> method on line 16.</para>
+  </sect3>
+
+  <sect3 id="preconditions-unsatisfied">
+    <title>lock precondition(s) not satisfied; possible race conditions
+    enabled</title>
+
+    <para>Each call site for which JSure is unable to asure the required
+    lock is always held is grouped under this subheading. The individual
+    results read <computeroutput>Lock "<replaceable>lock</replaceable>"
+    not held when invoking <replaceable>method</replaceable>;
+    precondition unsatisfied</computeroutput>.  The call to
+    <function>get()</function> on line 32 is not assured in our
+    example.</para>
+  </sect3>
+  
+  <sect3>
+    <title>Supporting Evidence</title>
+
+    <para>Locks that are assumed to be held due to a
+    <classname>@RequiresLock</classname> annotation are reported using
+    the message <computeroutput>Assuming lock
+    "<replaceable>lock</replaceable>" is held</computeroutput>. See, for
+    example, the supporting information on lines 10 and 13 for the field
+    accesses one lines 11 and 14, respectively.</para>
+  </sect3>
+</sect2>
