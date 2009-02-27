@@ -160,7 +160,13 @@
           
         <!-- The input style-stheet -->
         <arg line="'${docbook-to-html-xsl}'" />
-          
+        
+        <!-- Restart chapter numbering for each "part" of a book -->
+        <arg line="label.from.part='1'"/>
+        
+        <!-- Prepend the section number to its label (a la LaTeX) -->
+        <arg line="section.autolabel='1'"/>
+        
         <!-- Set the profiling condition -->
         <arg line="profile.condition='isHTML'"/>
           
@@ -206,6 +212,8 @@
         <arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-eclipse-xsl}'" />
+        <arg line="label.from.part='1'"/>
+        <arg line="section.autolabel='1'"/>
         <arg line="profile.condition='isHTML'"/>
         <arg line="xref.with.number.and.title='0'"/>
         <arg line="use.extensions='1'"/>
@@ -244,6 +252,8 @@
         <arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
         <arg line="'@{srcfile}'" />
         <arg line="'${docbook-to-fo-xsl}'" />
+        <arg line="label.from.part='1'"/>
+        <arg line="section.autolabel='1'"/>
         <arg line="profile.condition='isFO'"/>
         <arg line="xref.with.number.and.title='0'"/>
         <arg line="use.extensions='1'"/>
