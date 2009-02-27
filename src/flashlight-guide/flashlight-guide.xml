@@ -22,7 +22,7 @@
   <pubdate>Version 1.0&mdash;November 2008</pubdate>
 </bookinfo>
 
-<chapter id="preface">
+<preface id="preface">
   <title>Preface</title>
   <section>
     <title>Audience</title>
@@ -38,7 +38,7 @@
     <para><email>support@surelogic.com</email></para>
     <para>5808 Forbes Avenue, Pittsburgh, PA 15217-1602</para>
   </section>
-</chapter>
+</preface>
 
 <chapter id="getting-started">
   <title>Getting started</title>

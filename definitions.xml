@@ -112,6 +112,7 @@
         <fileset dir="@{srcdir}">
           <include name="**/*.png" />
           <include name="**/*.jpg" />
+          <include name="**/*.gif" />
         </fileset>
       </copy>
       <mkdir dir="@{destdir}/images"/>
@@ -166,6 +167,7 @@
         
         <!-- Prepend the section number to its label (a la LaTeX) -->
         <arg line="section.autolabel='1'"/>
+        <arg line="section.label.includes.component.label='1'"/>
         
         <!-- Set the profiling condition -->
         <arg line="profile.condition='isHTML'"/>

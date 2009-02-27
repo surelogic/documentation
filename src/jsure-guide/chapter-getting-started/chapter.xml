@@ -9,15 +9,195 @@
     <title>Introduction</title>
 
     <para><emphasis>What is JSure?</emphasis> TODO</para>
+    
+    <para><emphasis>Why should you use JSure?</emphasis> TODO</para>
+    
+    <para>[Find text from white papers or journal papers to stick here.]</para>
   </sect1>
 
   <sect1>
-    <title>Quick start: How to scan your code and start adding design
-    intent</title>
+    <title>Quick start</title>
 
-    <para>This section assumes that you have installed JSure. If you see
-    a <guimenu>JSure</guimenu> menu item on your Eclipse main menu then
-    you can assume JSure has been properly installed.</para>
+    <para>This section will quickly get you started with JSure. It
+    describes how to install JSure into your Eclipse, how to install a
+    license file that allows you to use JSure.  It also describes how to 
+    enable JSure assurane of a Java project, and how to examine the
+    assurance results.</para>
+    
+    <sect2>
+      <title>Installing JSure</title>
+
+      <para>JSure installs as a feature in your Eclipse IDE.  It is
+      installed (and uninstalled) via the normal Eclipse mechanisms from
+      an archived update site that you obtain from SureLogic.</para>
+
+      <para>JSure may be installed and used in&hellip;</para>
+ 
+      <para>[Copy from Sierra docs once the JSure distribution is
+      finalized.]</para>
+    </sect2>
+
+    <sect2>
+      <title>Installing Your License</title>
+
+      <para>This section assumes that you have installed JSure. If you
+      see a <guimenu>JSure</guimenu> menu item on your Eclipse main menu
+      then you can assume JSure has been installed properly.</para>
+
+      <para>You need to install a license to use JSure.  If you do not
+      have a license file that was sent to you by SureLogic visit <ulink
+      url="http://www.surelogic.com">http://www.surelogic.com</ulink> to
+      obtain one.  To install the license select <guimenuitem>Manage
+      SureLogic Licenses</guimenuitem> from the <guimenu>JSure</guimenu>
+      menu as shown in <xref linkend="fig-quick-start-license-menu"/>
+      </para>
+
+      <figure id="fig-quick-start-license-menu">
+        <title>The menu option to install a license for JSure</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/quick-start-license-menu.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+	  <para>This will cause the <guilabel>Manage SureLogic
+	  Licenses</guilabel> window to appear as shown in <xref
+	  linkend="fig-quick-start-license-dialog-empty" />.  Highlight the
+	  JSure row and select the <guibutton>Install License</guibutton>
+	  button to install your license file.</para>
+
+      <figure id="fig-quick-start-license-dialog-empty">
+        <title>The SureLogic license management dialog</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/quick-start-license-dialog-empty.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>JSure will not disrupt your Eclipse installation if a
+      license for it is not installed, however, it will not allow you to
+      use JSure functionality.  We will assume from this point on that
+      you have installed your license.  For more information, see <xref
+      linkend="sec-license-management" /></para>
+    </sect2>
+    
+    <sect2>
+      <title>Annotating and Assuring Your Code</title>
+      
+      <para>For the impatient, this section provides a &ldquo;bare-bones&rdquo;
+      description of how to annotate and assure code with JSure and examine the
+      results that it reports.</para>
+      
+      <sect3>
+        <title>Installing the SureLogic Annotation Types</title>
+        
+        <para>JSure assurance compares java code against programmer
+        design intent as expressed using a set of Java 5 annotation
+        types.  To use JSure with your code, your projects must be able
+        to reference the SureLogic annotation types declared in
+        <filename>promises.jar</filename>.  [This file is available
+        from&hellip;]  There are many ways this can be done in Eclipse,
+        but the simplest way is to copy
+        <filename>promises.jar</filename> into the project to be
+        assured, and then add the file to the project's build path.  You
+        put the file wherever you want within the project: it is most
+        common to put these kinds of files either at the root of the
+        project with within a <filename>libs</filename> directory.</para>
+        
+        <para>To add <filename>promises.jar</filename> to the build path, 
+        select it and choose <menuchoice><guisubmenu>Build Path</guisubmenu>
+        <guimenuitem>Add to Build Path</guimenuitem></menuchoice> from the
+        context menu; see <xref linkend="fig-add-to-build-path"/>.  Once added
+        to the build path, the file appears under the <guilabel>Referenced
+        Libraries</guilabel> element in the project listing; see 
+        <xref linkend="fig-post-build-path"/>.</para>
+        
+        <figure id="fig-add-to-build-path">
+          <title>Adding <filename>promises.jar</filename> to the build path</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/add-to-build-path.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+        
+        <figure id="fig-post-build-path">
+          <title>After adding <filename>promises.jar</filename> to the build path</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/post-build-path.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </sect3>   
+      
+      <sect3>
+        <title>Enabling JSure Analysis</title>
+        
+        <para>JSure can only assure the contents of one project at a
+        time. The icon of the project being assured is marked with a
+        small <wordasword>S</wordasword> (for SureLogic) in the lower
+        right corner: <guiicon><inlinegraphic
+        fileref="images/jsure-nature.png"/></guiicon>.  The easiest way
+        to select the project to assure is to
+          <orderedlist>
+            <listitem><para>Select the project in the <guilabel>Package
+            Explorer</guilabel>.</para></listitem>
+
+            <listitem><para>Press the icon <guiicon><inlinegraphic
+            fileref="images/jsure_verify.gif"/></guiicon> in the view&rsquo;s
+            toolbar.  This same action is also available as
+            <menuchoice><guimenuitem>Focus Verificaton on this
+            Project</guimenuitem></menuchoice> in the view&rsquo;s menu.</para></listitem>
+          </orderedlist>
+        If any other project is currently selected for assurance, this action first
+        disables assurance on that project before enabling the newly selected
+        project.</para>
+      </sect3>
+      
+      <sect3>
+        <title>Viewing Assurance Results</title>
+        
+        <para>JSure reassures the chosen project whenever a file in that project
+        is changed.  The guarantees that the assurance results are always up to
+        date.  The assurance results are displayed in the <guilabel>Verification
+        Status</guilabel> view.  The easiest way to open this view is to switch
+        to the code verification perspective: select <menuchoice><guimenu>JSure</guimenu>
+        <guimenuitem>Open Code Verification Perspective</guimenuitem></menuchoice>.  
+        See <xref linkend="fig-open-code-verification"/>.</para>
+        
+        <figure id="fig-open-code-verification">
+          <title>Opening the Code Verification Perspective</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/open-code-verification.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>The code verification perspective defaults to showing the
+        <guilabel>Package Explorer</guilabel> and <guilabel>Verification
+        Status</guilabel> views; see <xref
+        linkend="fig-code-verification-perspective"/>. The
+        <guilabel>Verification Status</guilabel> view is divided into
+        sections to show the results of assuring different classes
+        of design intent, such as effects, and concurrency, as well as
+        showing less specific suggestions and warnings. The various
+        result messages are explained in detail in <xref
+        linkend="understanding-assurance-output"/>.</para>
+
+        <figure id="fig-code-verification-perspective">
+          <title>The Code Verification Perspective</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/code-verification-perspective.png" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+      </sect3>
+    </sect2> 
   </sect1>
 
   <sect1>
