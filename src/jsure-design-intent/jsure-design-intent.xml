@@ -1673,7 +1673,7 @@ protected PersonRecord record;
         
         <calloutlist>
           <callout arearefs="protected.special.case">
-            <para>The region may be use <emphasis>unless</emphasis> the
+            <para>The region may be used <emphasis>unless</emphasis> the
             region is declared in a superclass <classname>S</classname>
             of the class <classname>C</classname> that contains the
             method being annotated and <classname>S</classname> is not
@@ -2264,7 +2264,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                   <classname>fully.qualified.class.name</classname><code>:</code><replaceable>lock_id</replaceable> where
                   <classname>fully.qualified.class.name</classname> is
                   the name of the class containing the annotated method.
-                   The ambiquity is resolved by checking whether
+                   The ambiguity is resolved by checking whether
                   <replaceable>lock_id</replaceable> names a instance or
                   <code>static</code> lock, respectively.</para></footnote></synopsis>
                   
