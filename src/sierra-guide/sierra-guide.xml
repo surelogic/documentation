@@ -22,7 +22,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 2.2&mdash;February 2009</pubdate>
+    <pubdate>Version 2.2.1&mdash;March 2009</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -1763,6 +1763,73 @@ if (o == null) {
 	Eclipse client with a Sierra team server. You should now try using
 	the Sierra team server on your own code and we encourage you to
 	explore and make Sierra work the way you want it to.</para>
+      </section>
+
+      <section id="sec-tutorial-ant">
+	<title>Scanning code using Ant</title>
+
+	<para>This tutorial will demonstrate how to use the Sierra Ant
+	tasks to scan the SmallWorld project and publish the resulting
+	scan document to your local team server. This tutorial assumes
+	you have run the previous tutorial (See <xref
+	linkend="sec-tutorial-team-server" />). The Sierra Ant tasks
+	are used to automate scans as part of a QA or nightly build
+	process.</para>
+
+	<para>For this tutorial you will need your local team server
+	running. Open the <guilabel>Local Team Server</guilabel>
+	view. If the local team server is stopped press the
+	<guibutton>Start Server</guibutton> to get it running
+	again.</para>
+
+	<para>The Sierra Ant tasks may be downloaded from <ulink
+	url="http://www.surelogic.com/static/sierra/sierra-ant.zip">
+	http://www.surelogic.com/static/sierra/sierra-ant.zip</ulink>. Unzip
+	them to any location on your disk. The archive will create a
+	<filename>sierra-ant</filename> directory.</para>
+
+	<para>In the SmallWorld project create a file at the root of
+	the project called <userinput>sierra-scan.xml</userinput> with
+	the below contents.</para>
+
+	<programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="SmallWorld" default="scan" basedir="."&gt;
+  &lt;property name="sl.home" value="C:/Users/Tim/Documents/sierra-ant" /&gt;
+  &lt;property name="sl.lib"  value="${sl.home}/lib" /&gt;
+  &lt;property name="project" value="SmallWorld" /&gt;
+  &lt;path id="sl.classpath"&gt;&lt;fileset dir="${sl.lib}" includes="**/*.jar" /&gt;&lt;/path&gt;
+  &lt;taskdef name="sierra-scan"
+           classname="com.surelogic.ant.sierra.SierraScan"
+           classpathref="sl.classpath" /&gt;
+  &lt;taskdef name="sierra-publish"
+           classname="com.surelogic.ant.sierra.SierraPublish"
+           classpathref="sl.classpath" /&gt;
+  &lt;tstamp /&gt;
+  
+  &lt;target name="scan"&gt;	  	  	
+    &lt;property name="document" value="${project}-${DSTAMP}${TSTAMP}" /&gt;
+
+    &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
+                 classpath="${basedir}/jdom-1.0.jar" source="1.5"
+                 home="${sl.home}" document="${document}"
+                 projectname="${project}" /&gt;
+
+    &lt;sierra-publish user="zork" password="zork" host="localhost"
+                    secure="false" port="13376" contextPath="/sl/"
+                    document="${document}" /&gt;
+  &lt;/target&gt;
+&lt;/project&gt;
+	</programlisting>
+
+	<para>You will have to modify the setting for
+	<userinput>sl.home</userinput> to reference where you located
+	the <filename>sierra-ant</filename> directory on your
+	machine.</para>
+
+	<para>Within Eclipse run this as an Ant task by selecting the
+	XML file and selecting <guimenuitem>Run As</guimenuitem> |
+	<guimenuitem>Ant Build</guimenuitem>.</para>
       </section>
     </section>
   </chapter>
