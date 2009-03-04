@@ -20,7 +20,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 1.0&mdash;January 2009</pubdate>
+    <pubdate>Version 1.0&mdash;March 2009</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -45,20 +45,7 @@
 
   <xi:include href="chapter-understanding-assurance-output/chapter.xml"/>
 
-  <chapter id="reference">
-    <title>Reference</title>
-    <sect1>
-      <title>The JSure menu</title>
-      <para>The JSure menu appears as an item on the Eclipse workspace
-      main menu.</para>
-    </sect1>
-    <sect1>
-      <title>The Code Verification perspective</title>
-      <para>The Code Verification perspective organizes the Eclipse
-      workbench to show views which will help you to interact with
-      tool findings.</para>
-    </sect1>
-  </chapter>
+  <xi:include href="chapter-reference/chapter.xml"/>
 
   <chapter>
     <title>Release notes</title>

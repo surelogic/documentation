@@ -122,7 +122,7 @@
     </sect3>   
     
     <sect3>
-      <title>Enabling JSure Analysis</title>
+      <title>Enabling and Disabling JSure Analysis</title>
       
       <para>JSure can only assure the contents of one project at a
       time. The icon of the project being assured is marked with a
@@ -143,6 +143,20 @@
       If any other project is currently selected for assurance, this action first
       disables assurance on that project before enabling the newly selected
       project.</para>
+      
+      <para>To deselect a project without selecting another project to assure
+        <orderedlist>
+          <listitem><para>Select the project in the <guilabel>Package
+          Explorer</guilabel>.</para></listitem>
+
+          <listitem><para>Press the icon <guiicon><inlinegraphic
+          fileref="images/jsure_no_verify.gif"/></guiicon> in the
+          view&rsquo;s toolbar.  This same action is also available as
+          <menuchoice><guimenuitem>Disable
+          Verificaton</guimenuitem></menuchoice> in the view&rsquo;s
+          menu.</para></listitem>
+        </orderedlist>
+      </para>
     </sect3>
     
     <sect3>

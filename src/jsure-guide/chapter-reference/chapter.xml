@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="reference"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Reference</title>
+  <sect1>
+    <title>The JSure menu</title>
+
+    <figure id="fig-jsure-menu">
+      <title>The JSure menu</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/jsure-menu.png"/></imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para>The JSure menu, see <xref linkend="fig-jsure-menu"/>, appears
+    as an item on the Eclipse workspace main menu. This menu provides
+    direct access to common JSure commands.  The commands on the JSure
+    main menu are</para>
+    
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>Focus Verification&hellip;</title>
+          <para>This command allows the user to choose which project
+          should be assured by JSure.  A dialog is opened to allow the
+          user to select which project to assure, as seen in <xref
+          linkend="fig-focus-verification-window"/>. Assurance will be
+          enabled for the selected project and disabled for all other
+          projects in the workspace. </para>
+        </formalpara>
+        
+        <figure id="fig-focus-verification-window">
+          <title>The JSure menu</title>
+          <mediaobject>
+            <imageobject><imagedata fileref="images/focus-verification-window.png"/></imageobject>
+          </mediaobject>
+        </figure>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>Disable Verification of All Projects</title>
+          <para>This command ensures that no project is selected for assurance.</para>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>Open Code Verification Perspective</title>
+          <para>This menu choice opens the <guilabel>Code
+          Verification</guilabel> perspective. This perspective is
+          useful for examining the JSure assurance results;
+          see <xref linkend="sec-code-verification-perspective"/>. This
+          perspective may also be opened via the normal Eclipse menus
+          and toolbars for perspectives.</para>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>Garbage Collect IR</title>
+          <para>This command&hellip; TODO</para>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>Send Tip for Improvement</title>
+          <para>This command opens a dialog to allow entry of a
+          suggestion by the user to improve the JSure tool. For more
+          information please see <xref
+          linkend="sec-bugs-and-tips"/>.</para>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>Send Problem Report</title>
+          <para>This command opens a dialog to allow entry of a problem
+          report by the user about the JSure tool. For more information
+          please see <xref linkend="sec-bugs-and-tips"/>.</para>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>Manage SureLogic Licenses</title>
+          <para>This command opens the SureLogic license management
+          dialog. This dialog allows the user to install, view, and
+          uninstall licenses for JSure and other SureLogic tools. For
+          more information see <xref linkend="sec-license-management"
+          />.</para>
+        </formalpara>
+      </listitem>          
+    </itemizedlist>
+  </sect1>
+  
+  <sect1 id="sec-code-verification-perspective">
+    <title>The Code Verification perspective</title>
+    
+    <para>The Code Verification perspective organizes the Eclipse
+    workbench to show views which will help you to interact with
+    tool findings.</para>
+  </sect1>
+
+  <sect1 id="sec-license-management">
+    <title>License management</title>
+
+    <para>JSure is commercial software and a license is required to
+    use it. Licenses are obtained from SureLogic and expire after some
+    period of time. Lack of a license will prohibit you from running
+    assuing code.  Selecting <guimenuitem>Manage SureLogic
+    Licenses</guimenuitem> from the <guimenu>JSure</guimenu> menu
+    brings up the license management form as seen in <xref
+    linkend="fig-license-management" />. For JSure to operate properly
+    either a <emphasis>JSure</emphasis> or <emphasis>All
+    Tools</emphasis> license must be installed.</para>
+
+    <figure id="fig-license-management">
+      <title>The SureLogic license management dialog</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/quick-start-license-dialog-empty.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>By default license installation requires internet access.
+    SureLogic can, in special cases, provide licenses that do not
+    require internet access. Further use of the product does not
+    require internet access. If a manual uninstall is done, before
+    license expiration, internet access is also required.  SureLogic
+    tracks the number of times a particular license is installed and
+    uninstalled. We stress that JSure does not, unlike other
+    plug-ins such as MyEclipse, &ldquo;talk-back&rdquo; to SureLogic each time
+    Eclipse is started.</para>
+
+    <para>The installed license expires after a period of time
+    (clearly visible to the user) and a new license has to
+    be installed to continue to use JSure.</para>
+
+    <para>Licenses can be installed more than once.  Thus, one
+    license can be used for all of an organization or SureLogic can
+    issue one per location or one per organizational entity.</para>
+
+    <para>If the JSure Eclipse plug-in does not have a valid
+    license it will not affect the Eclipse installation that JSure
+    is installed into. The IDE will load and function normally, but
+    when JSure functions are executed they will fail noting the
+    lack of a license. Serviceability functions of the tool (e.g.,
+    sending problem reports to SureLogic, installing and
+    uninstalling licenses) function properly without a license.  The
+    unlicensed JSure plug-in can be uninstalled or disabled within
+    Eclipse.</para>
+
+    <para>When you receive a license file from SureLogic it is
+    installed via this dialog.  To install the license select the
+    row in the license table that matches the type of license.  For
+    example, if you have been sent a JSure license select the
+    JSure row in the license table.  Next press the
+    <guibutton>Install License</guibutton> button.  You will be
+    prompted for the location of your license file.  The tool checks
+    with SureLogic and reports that your license has been installed
+    and returns showing information about the installed license. The
+    license file is not examined by the tool after the installation
+    is completed unless you install the file again (after an
+    uninstall).</para>
+
+    <para>To uninstall a license, select the row in the license
+    table and press the <guibutton>Uninstall
+    License</guibutton>. You will be asked if you are sure you want
+    to uninstall the license.  If you confirm the uninstall then the
+    license is removed.  This may take a minute as SureLogic is
+    informed that your license has been uninstalled.</para>
+
+    <para>When a license is nearing expiration the tool warns the
+    user with the dialog shown in <xref
+    linkend="fig-license-management-expiration-warning" /></para>
+
+    <figure id="fig-license-management-expiration-warning">
+      <title>Dialog warning that the installed JSure license is about to expire</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/license-management-expiration-warning.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>When a license does expire it disappears from the dialog.
+    The tool is considered unlicensed at that point. To fix this
+    situation install a new license (it is not required to install a
+    new version of JSure).</para>
+  </sect1>
+
+  <sect1 id="sec-bugs-and-tips">
+    <title>Bugs and tips</title>
+
+    <para>JSure allows any user to send problem reports and suggestions
+    to SureLogic from the main menu. Selecting
+    <menuchoice><guimenu>JSure</guimenu> <guimenuitem>Send Tip for
+    Improvement</guimenuitem></menuchoice> or
+    <menuchoice><guimenu>JSure</guimenu> <guimenuitem>Send Problem
+    Report</guimenuitem></menuchoice> allows a tip or problem report to
+    be send to SureLogic directly within Eclipse as shown in <xref
+    linkend="fig-bugs-and-tips-main-menu-service"/>. These menu choices
+    bring up dialogs that allow the user to control exactly what
+    information is sent to SureLogic.  In addition, the user can preview
+    the exact text that will be sent over the internet.</para>
+
+    <figure id="fig-bugs-and-tips-main-menu-service">
+      <title>Menu items to send bugs and tips to SureLogic</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/bugs-and-tips-main-menu-service.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>The <guimenuitem>Send Tip for Improvement</guimenuitem>
+    command opens a dialog to allow entry of a suggestion by the
+    user to improve the JSure tool as seen in <xref
+    linkend="fig-bugs-and-tips-menu-send-tip" />. The dialog allows the
+    user to control exactly what information is sent to SureLogic.
+    In addition, the user can preview the exact text that will be
+    sent.</para>
+
+    <figure id="fig-bugs-and-tips-menu-send-tip">
+      <title>Dialog allowing the user to enter a tip to improve JSure</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/bugs-and-tips-menu-send-tip.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>The <guimenuitem>Send Problem Report</guimenuitem> command
+    opens a dialog to allow entry of a problem report by the user
+    about the JSure tool as seen in <xref
+    linkend="fig-bugs-and-tips-menu-problem-report" /> The dialog
+    allows the user to control exactly what information is sent to
+    SureLogic.  In addition, the user can preview the exact text
+    that will be sent.</para>
+
+    <figure id="fig-bugs-and-tips-menu-problem-report">
+      <title>Dialog allowing the user to enter a problem report about JSure</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/bugs-and-tips-menu-problem-report.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Messages sent from these dialogs go over HTTP to
+    SureLogic. If a proxy is used on your network then it is
+    critical to configure Eclipse to use it.  To do this open the
+    Eclipse <guilabel>Preferences</guilabel> and examine the
+    <guilabel>Network Connections</guilabel> under the
+    <guilabel>General</guilabel> preferences.  This dialog allows
+    you to configure Eclipse for your network as shown in <xref
+    linkend="fig-bugs-and-tips-network-connections" /></para>
+
+    <figure id="fig-bugs-and-tips-network-connections">
+      <title>Eclipse preferences for network connections within the IDE.</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
+      </mediaobject>
+    </figure>
+  </sect1>
+</chapter>
