@@ -1841,6 +1841,12 @@ if (o == null) {
 	projects (to the left). Note that the Ant scan will appear at
 	the top of the Scans table (at the bottom-right). You can
 	click on time of the scan to list its findings.</para>
+
+	<para>This tutorial has introduced the use of the Sierra Ant
+	tasks a Sierra team server. You now know how to use the Ant
+	tasks to add Sierra to your QA process or nightly
+	build. Reference documentation for the Sierra Ant tasks is
+	found in <xref linkend="sec-ant-tasks" />.</para>
       </section>
     </section>
   </chapter>
@@ -2658,6 +2664,204 @@ if (o == null) {
 	  <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
 	</mediaobject>
       </figure>
+    </section>
+
+    <section id="sec-ant-tasks">
+      <title>Ant tasks</title>
+
+      <para>Sierra provides two tasks that can be used to extend
+      <ulink url="http://ant.apache.org">Apache Ant</ulink>. The
+      Sierra Ant tasks may be downloaded from <ulink
+      url="http://www.surelogic.com/static/sierra/sierra-ant.zip">
+      http://www.surelogic.com/static/sierra/sierra-ant.zip</ulink>. Unzip
+      them to any location on your disk. The archive will create a
+      <filename>sierra-ant</filename> directory.</para>
+
+
+      <para>The below code shows and example of adding the Sierra
+      tasks into Ant.</para>
+
+	<programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="SmallWorld" default="scan" basedir="."&gt;
+  &lt;property name="sl.home" value="C:/Users/Tim/Documents/sierra-ant" /&gt;
+  &lt;property name="sl.lib"  value="${sl.home}/lib" /&gt;
+  &lt;path id="sl.classpath"&gt;&lt;fileset dir="${sl.lib}" includes="**/*.jar" /&gt;&lt;/path&gt;
+  &lt;taskdef name="sierra-scan"
+           classname="com.surelogic.ant.sierra.SierraScan"
+           classpathref="sl.classpath" /&gt;
+  &lt;taskdef name="sierra-publish"
+           classname="com.surelogic.ant.sierra.SierraPublish"
+           classpathref="sl.classpath" /&gt;
+  ...
+
+&lt;/project&gt;
+	</programlisting>
+
+	<para>You will have to modify the setting for
+	<userinput>sl.home</userinput> to reference where you located
+	the <filename>sierra-ant</filename> directory on your
+	machine.</para>
+
+      <section>
+	<title>sierra-scan</title>
+
+	<para>This task scans code and produces a scan document file
+	on the disk. This task is, for convenience, very similar to
+	the <ulink
+	url="http://ant.apache.org/manual/CoreTasks/javac.html">javac</ulink>
+	task. The new attributes are:</para>
+
+	<informaltable>
+	  <tgroup cols='3' align='left'>
+	    <thead>
+	      <row>
+		<entry>Attribute</entry>
+		<entry>Description</entry>
+		<entry>Required</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>home</entry>
+		<entry>The path to the <filename>sierra-ant</filename>
+		directory, e.g., where
+		<filename>sierra-ant.zip</filename> was
+		unzipped.</entry>
+		<entry>Yes</entry>
+	      </row>
+	      <row>
+		<entry>projectname</entry>
+		<entry>The name of the project being scanned.</entry>
+		<entry>Yes</entry>
+	      </row>
+	      <row>
+		<entry>document</entry>
+		<entry>The name of the scan document to be
+		created. Includes the path to the file, but excludes
+		the extension <filename>.sierra.gz</filename>.</entry>
+		<entry>Yes</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>Below is a partial example, described in further detail
+	in <xref linkend="sec-tutorial-ant" />, of this task.</para>
+
+	<programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="SmallWorld" default="scan" basedir="."&gt;
+  ...
+  &lt;property name="project" value="SmallWorld" /&gt;
+  &lt;tstamp /&gt;
+  
+  &lt;target name="scan"&gt;	  	  	
+    &lt;property name="document" value="${project}-${DSTAMP}${TSTAMP}" /&gt;
+
+    &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
+                 classpath="${basedir}/jdom-1.0.jar" source="1.5"
+                 home="${sl.home}" document="${document}"
+                 projectname="${project}" /&gt;
+
+    &lt;sierra-publish user="zork" password="zork" host="localhost"
+                    secure="false" port="13376" contextPath="/sl/"
+                    document="${document}" /&gt;
+  &lt;/target&gt;
+&lt;/project&gt;
+	</programlisting>
+      </section>
+
+      <section>
+	<title>sierra-publish</title>
+
+	<para>This task publishes a scan document file on the disk to
+	a Sierra team server.</para>
+
+	<informaltable>
+	  <tgroup cols='3' align='left'>
+	    <thead>
+	      <row>
+		<entry>Attribute</entry>
+		<entry>Description</entry>
+		<entry>Required</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>contextPath</entry>
+		<entry></entry>
+		<entry>Yes</entry>
+	      </row>
+	      <row>
+		<entry>document</entry>
+		<entry>The name of the scan document to be
+		published. Includes the path to the file, but excludes
+		the extension <filename>.sierra.gz</filename>.</entry>
+		<entry>Yes</entry>
+	      </row>
+	      <row>
+		<entry>host</entry>
+		<entry>The name or IP address of the computer hosting
+		the Sierra team server.</entry>
+		<entry>No, defaults to
+		<filename>localhost</filename>.</entry>
+	      </row>
+	      <row>
+		<entry>password</entry>
+		<entry>The corresponding password for the given Sierra
+		team server user name.</entry>
+		<entry>Yes</entry>
+	      </row>
+	      <row>
+		<entry>port</entry>
+		<entry>The port that the Sierra team server is
+		listening on.</entry>
+		<entry>No, defaults to 13376.</entry>
+	      </row>
+	      <row>
+		<entry>secure</entry>
+		<entry>Set this attribute to
+		<userinput>true</userinput> if the server requires
+		using SSL encryption, e.g., https.</entry>
+		<entry>No, defaults to <userinput>false</userinput>,
+		e.g., using http.</entry>
+	      </row>
+	      <row>
+		<entry>user</entry>
+		<entry>The user name used to login to the Sierra team
+		server.</entry>
+		<entry>Yes</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>Below is a partial example, described in further detail
+	in <xref linkend="sec-tutorial-ant" />, of this task.</para>
+
+	<programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="SmallWorld" default="scan" basedir="."&gt;
+  ...
+  &lt;property name="project" value="SmallWorld" /&gt;
+  &lt;tstamp /&gt;
+  
+  &lt;target name="scan"&gt;	  	  	
+    &lt;property name="document" value="${project}-${DSTAMP}${TSTAMP}" /&gt;
+
+    &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
+                 classpath="${basedir}/jdom-1.0.jar" source="1.5"
+                 home="${sl.home}" document="${document}"
+                 projectname="${project}" /&gt;
+
+    &lt;sierra-publish user="zork" password="zork" host="localhost"
+                    secure="false" port="13376" contextPath="/sl/"
+                    document="${document}" /&gt;
+  &lt;/target&gt;
+&lt;/project&gt;
+	</programlisting>
+      </section>
     </section>
 
   </chapter>
