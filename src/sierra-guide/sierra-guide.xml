@@ -2790,7 +2790,10 @@ if (o == null) {
 	    <tbody>
 	      <row>
 		<entry>contextPath</entry>
-		<entry></entry>
+		<entry>The path on the web server that the Sierra team
+		server is assigned to. This attribute defaults to
+		<userinput>/sl/</userinput> and only rarely needs to
+		be changed.</entry>
 		<entry>Yes</entry>
 	      </row>
 	      <row>
