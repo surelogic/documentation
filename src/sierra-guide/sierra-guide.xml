@@ -335,12 +335,12 @@
 	    <guibutton>Archive...</guibutton> button and point to the
 	    Sierra archive file and press <guibutton>Open</guibutton>
 	    and then <guibutton>OK</guibutton>. The <guilabel>Software
-	    Updates and Add-ons</guilabel> dialog should appear as shown
-	    in <xref linkend="fig-quick-start-eclipse-34-install"
-	    /></para>
+	    Updates and Add-ons</guilabel> dialog should appear as
+	    shown in <xref
+	    linkend="fig-quick-start-eclipse-34-install" />.</para>
 
 	    <figure id="fig-quick-start-eclipse-34-install">
-	      <title>Selecting Sierra features to install in Eclipse 3.4.</title>
+	      <title>Selecting Sierra features to install in Eclipse 3.4</title>
 	      <mediaobject>
 		<imageobject>
 		  <imagedata fileref="images/quick-start-eclipse-34-install.png" />
@@ -375,10 +375,10 @@
 	    <guibutton>Finish</guibutton>. The
 	    <guilabel>Updates</guilabel> dialog should appear as shown
 	    in <xref linkend="fig-quick-start-eclipse-33-install"
-	    /></para>
+	    />.</para>
 
 	    <figure id="fig-quick-start-eclipse-33-install">
-	      <title>Selecting Sierra features to install in Eclipse 3.3.</title>
+	      <title>Selecting Sierra features to install in Eclipse 3.3</title>
 	      <mediaobject>
 		<imageobject>
 		  <imagedata fileref="images/quick-start-eclipse-33-install.png" />
@@ -416,10 +416,10 @@
 	to obtain one.  To install the license select
 	<guimenuitem>Manage SureLogic Licenses</guimenuitem> from the
 	<guimenu>Sierra</guimenu> menu as shown in <xref
-	linkend="fig-quick-start-license-menu" /></para>
+	linkend="fig-quick-start-license-menu" />.</para>
 
 	<figure id="fig-quick-start-license-menu">
-	  <title>The menu option to install a license for Sierra.</title>
+	  <title>The menu option to install a license for Sierra</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="images/quick-start-license-menu.png" />
@@ -429,12 +429,12 @@
 
 	<para> This will cause the <guilabel>Manage SureLogic
 	Licenses</guilabel> to appear as shown in <xref
-	linkend="fig-quick-start-license-dialog-empty" /> Highlight the
+	linkend="fig-quick-start-license-dialog-empty" />. Highlight the
 	Sierra row and select the <guibutton>Install License</guibutton>
 	button to install your license file.</para>
 
 	<figure id="fig-quick-start-license-dialog-empty">
-	  <title>The SureLogic license management dialog.</title>
+	  <title>The SureLogic license management dialog</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="images/quick-start-license-dialog-empty.png" />
@@ -447,7 +447,7 @@
 	you to use Sierra functionality (e.g., performing project
 	scans).  We will assume from this point on that you have
 	installed your license.  For more information see <xref
-	linkend="sec-license-management" /></para>
+	linkend="sec-license-management" />.</para>
       </section>
 
       <section>
@@ -459,13 +459,13 @@
 
 	<para>From the Sierra main menu select the <guimenuitem>Scan
 	Project</guimenuitem> command as shown in <xref
-	linkend="fig-quick-start-menu" /> (If this is the first time
+	linkend="fig-quick-start-menu" />. (If this is the first time
 	Sierra has been loaded into your Eclipse it might take a few
 	seconds to a minute for it to initialize, please be
 	patient.)</para>
 
 	<figure id="fig-quick-start-menu">
-	  <title>The menu option to scan your projects.</title>
+	  <title>The menu option to scan your projects</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="images/quick-start-menu.png" />
@@ -620,7 +620,7 @@ public class ShowOff {
 	scan reported.</para>
 
 	<figure id="fig-tutorial-screenshot">
-	  <title>The Sierra code review perspective examines findings about the ShowOff project.</title>
+	  <title>The Sierra code review perspective examines findings about the ShowOff project</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="images/tutorial-screenshot.png" />
@@ -640,10 +640,10 @@ public class ShowOff {
 	Details</guilabel> view. Selecting this finding with a
 	double-click will bring up the information about it and
 	highlight the offending line of code. Your screen should now
-	look like <xref linkend="fig-tutorial-screenshot" /> If you
+	look like <xref linkend="fig-tutorial-screenshot" />. If you
 	get more than one finding, you probably have scanned other
 	projects. (To delete the data from these projects see <xref
-	linkend="sec-preferences-scan-data" />)</para>
+	linkend="sec-preferences-scan-data" />.)</para>
 
 	<para>Read the description in the <guilabel>Finding
 	Details</guilabel> view <guilabel>Synopsis</guilabel> tab. In
@@ -768,7 +768,7 @@ if (o == null) {
 	indicate our work in the audit trail for this finding.</para>
 
 	<figure id="fig-tutorial-audits">
-	  <title>Three audits have been performed on this finding.</title>
+	  <title>Three audits have been performed on this finding</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-audits.png"/></imageobject>
 	  </mediaobject>
@@ -790,7 +790,7 @@ if (o == null) {
 	and change the importance. Notice that this changes the views
 	to reflect the new importance and adds a third audit entry to
 	reflect that you made this change. The state of this finding
-	can be seen in <xref linkend="fig-tutorial-audits" /></para>
+	can be seen in <xref linkend="fig-tutorial-audits" />.</para>
 
 	<para>Now let's examine the last finding by double-clicking on
 	this finding in the <guilabel>Findings Quick Search</guilabel>
@@ -802,7 +802,7 @@ if (o == null) {
 	strings.</para>
 
 	<figure id="fig-tutorial-artifacts">
-	  <title>Two tool artifacts have been combined to create this finding.</title>
+	  <title>Two tool artifacts have been combined to create this finding</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-artifacts.png"/></imageobject>
 	  </mediaobject>
@@ -813,7 +813,7 @@ if (o == null) {
 	has two artifacts. This finding is made up of two tool reports:
 	one from FindBugs and one from PMD. The two artifacts that
 	establish this finding can be seen in <xref
-	linkend="fig-tutorial-artifacts" /></para>
+	linkend="fig-tutorial-artifacts" />.</para>
 
 	<para>In Sierra, reports from analysis tools are called
 	artifacts. Sierra works to merge artifacts that are really about
@@ -837,10 +837,10 @@ if (o == null) {
 	fileref="images/asterisk-grey-x.png" /></guiicon>
 	icon and press <guibutton>Status</guibutton> to see that two
 	findings have been fixed and one finding is unchanged as seen in
-	<xref linkend="fig-tutorial-status-fixed" /></para>
+	<xref linkend="fig-tutorial-status-fixed" />.</para>
 
 	<figure id="fig-tutorial-status-fixed">
-	  <title>Status bar graph after fixing two findings in the code.</title>
+	  <title>Status bar graph after fixing two findings in the code</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-status-fixed.png"/></imageobject>
 	  </mediaobject>
@@ -865,12 +865,12 @@ if (o == null) {
 	<guilabel>Scanned Projects</guilabel> box and press
 	<guibutton>Delete Sierra Data</guibutton>.  A confirmation
 	dialog will appear as shown in <xref
-	linkend="fig-tutorial-delete-data" /> Press
+	linkend="fig-tutorial-delete-data" />. Press
 	<guibutton>OK</guibutton> to confirm that you want to delete
 	this project's data.</para>
 
 	<figure id="fig-tutorial-delete-data">
-	  <title>Removing the ShowOff project from the Sierra findings database.</title>
+	  <title>Removing the ShowOff project from the Sierra findings database</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-delete-data.png"/></imageobject>
 	  </mediaobject>
@@ -887,7 +887,7 @@ if (o == null) {
 	<title>Interacting with a Sierra team server</title>
 
 	<para>This tutorial assumes that you have installed Sierra and
-	have run through <xref linkend="sec-tutorial-client" /> (For
+	have run through <xref linkend="sec-tutorial-client" />. (For
 	understanding only, this tutorial does not use the
 	<application>ShowOff</application> project.) It also assumes
 	that you have the <emphasis>Sierra Local Team Server
@@ -926,10 +926,10 @@ if (o == null) {
 	<varname>SmallWorld</varname> class in the
 	<varname>smallworld.textui.graphical</varname> package. The
 	graphical window version of the game is shown in <xref
-	linkend="fig-running-smallworld" /></para>
+	linkend="fig-running-smallworld" />.</para>
 
 	<figure id="fig-running-smallworld">
-	  <title>Running the SmallWorld game.</title>
+	  <title>Running the SmallWorld game</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-running-smallworld.png"/></imageobject>
 	  </mediaobject>
@@ -965,13 +965,13 @@ if (o == null) {
 	<guilabel>Local Team Server</guilabel> view under the Sierra
 	category and press the <guibutton>OK</guibutton> button. The
 	view appears as shown in <xref
-	linkend="fig-tutorial-local-team-server" /> (If you cannot
+	linkend="fig-tutorial-local-team-server" />. (If you cannot
 	find this view in Eclipse then it is likely that this feature
 	is not installed. Go back to the Eclipse update site you used
 	to install Sierra and install it.)</para>
 
 	<figure id="fig-tutorial-local-team-server">
-	  <title>The Local Team Server view.</title>
+	  <title>The Local Team Server view</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-local-team-server.png"/></imageobject>
 	  </mediaobject>
@@ -993,11 +993,10 @@ if (o == null) {
 	to execute the team server. If the logs panel is not visible
 	in your view, select <guimenuitem>Show Server
 	Logs</guimenuitem> from the view menu as shown in <xref
-	linkend="fig-tutorial-local-team-server-logs" /></para>
+	linkend="fig-tutorial-local-team-server-logs" />.</para>
 
 	<figure id="fig-tutorial-local-team-server-logs">
-	  <title>The Local Team Server view showing the server
-	  logs.</title>
+	  <title>The Local Team Server view showing the server logs</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-local-team-server-logs.png"/></imageobject>
 	  </mediaobject>
@@ -1007,7 +1006,7 @@ if (o == null) {
 	access the local team server preferences. Select the
 	<guimenuitem>Preferences...</guimenuitem> menu item. You will
 	see <xref linkend="fig-tutorial-local-team-server-preferences"
-	/> This panel lets you adjust the memory used by the local team
+	/>. This panel lets you adjust the memory used by the local team
 	server and set the level of logging output. The default value is
 	fine for this tutorial so press the
 	<guibutton>Cancel</guibutton> button to exit the panel. (If your
@@ -1016,8 +1015,7 @@ if (o == null) {
 	lower the memory to try again.)</para>
 
 	<figure id="fig-tutorial-local-team-server-preferences">
-	  <title>Preference panel for controlling the memory used by the
-	  local team server.</title>
+	  <title>Preference panel for controlling the memory used by the local team server</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-local-team-server-preferences.png"/></imageobject>
 	  </mediaobject>
@@ -1034,15 +1032,14 @@ if (o == null) {
 	warning you that the life of the server process you are
 	starting is not tied to the life of your Eclipse process. This
 	dialog is shown in <xref
-	linkend="fig-tutorial-local-team-server-warning-dialog" />
+	linkend="fig-tutorial-local-team-server-warning-dialog" />.
 	Read it and press the <guibutton>OK</guibutton> button. The
 	traffic light will change to yellow during server start
 	up. The first time a local team server is started may take
 	several minutes because its database has to be created.</para>
 
 	<figure id="fig-tutorial-local-team-server-warning-dialog">
-	  <title>Warning you that the local team server does not exit when
-	  Eclipse exits.</title>
+	  <title>Warning you that the local team server does not exit when Eclipse exits</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-local-team-server-warning-dialog.png"/></imageobject>
 	  </mediaobject>
@@ -1054,11 +1051,10 @@ if (o == null) {
 	<emphasis>A team server is running. Click here to open a
 	browser.</emphasis> to open a web browser within Eclipse on the
 	team server portal login page. The views appear as shown in
-	<xref linkend="fig-tutorial-local-team-server-running" /></para>
+	<xref linkend="fig-tutorial-local-team-server-running" />.</para>
 
 	<figure id="fig-tutorial-local-team-server-running">
-	  <title>The team server web portal and the Local Team Server view
-	  indicating that the team server is running.</title>
+	  <title>The team server web portal and the Local Team Server view indicating that the team server is running</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-local-team-server-running.png"/></imageobject>
 	  </mediaobject>
@@ -1092,10 +1088,10 @@ if (o == null) {
 	<emphasis>QA</emphasis>.  For this tutorial, enter
 	<userinput>local desktop</userinput> and then press
 	<guibutton>Set Server Name</guibutton> as shown in <xref
-	linkend="fig-tutorial-portal-name-page" /></para>
+	linkend="fig-tutorial-portal-name-page" />.</para>
 
 	<figure id="fig-tutorial-portal-name-page">
-	  <title>Naming the team server upon first portal login.</title>
+	  <title>Naming the team server upon first portal login</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-portal-name-page.png"/></imageobject>
 	  </mediaobject>
@@ -1103,10 +1099,10 @@ if (o == null) {
 
 	<para>At this point the welcome page for the team server
 	portal should appear as shown in <xref
-	linkend="fig-tutorial-portal-welcome-page-empty" /></para>
+	linkend="fig-tutorial-portal-welcome-page-empty" />.</para>
 
 	<figure id="fig-tutorial-portal-welcome-page-empty">
-	  <title>The welcome page on the team server portal.</title>
+	  <title>The welcome page on the team server portal</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-portal-welcome-page-empty.png"/></imageobject>
 	  </mediaobject>
@@ -1221,10 +1217,10 @@ if (o == null) {
 	the drop-down menu. If the list of disabled users gets long you
 	can uncheck the <emphasis>Show disabled users</emphasis> setting
 	on the table. Uncheck this setting now and your browser should
-	match <xref linkend="fig-tutorial-portal-users-page" /></para>
+	match <xref linkend="fig-tutorial-portal-users-page" />.</para>
 
 	<figure id="fig-tutorial-portal-users-page">
-	  <title>The users page on the team server portal showing two enabled users.</title>
+	  <title>The users page on the team server portal showing two enabled users</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-portal-users-page.png"/></imageobject>
 	  </mediaobject>
@@ -1234,7 +1230,7 @@ if (o == null) {
 	the settings panel. This panel allows you to see the version
 	of the software and the current and available versions of the
 	database schema as shown in <xref
-	linkend="fig-tutorial-portal-settings-page" /> The current and
+	linkend="fig-tutorial-portal-settings-page" />. The current and
 	available versions of the database schema should always be the
 	same number unless a schema upgrade failed for some reason. If
 	this should occur it is a software bug and should be reported
@@ -1246,7 +1242,7 @@ if (o == null) {
 	server.)</para>
 
 	<figure id="fig-tutorial-portal-settings-page">
-	  <title>The settings page on the team server portal sending a test notification email.</title>
+	  <title>The settings page on the team server portal sending a test notification email</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-portal-settings-page.png"/></imageobject>
 	  </mediaobject>
@@ -1318,7 +1314,7 @@ if (o == null) {
 	</informaltable>
 
 	<para>The panel should look like <xref
-	linkend="fig-tutorial-localhost-connection" /> If it does you can
+	linkend="fig-tutorial-localhost-connection" />. If it does you can
 	press the <emphasis>OK</emphasis> button. If someone else on
 	another computer wants to connect to your local team server then
 	they cannot use <emphasis>localhost</emphasis> as the host. They
@@ -1328,8 +1324,7 @@ if (o == null) {
 	we will connect the SmallWorld project to this server.</para>
 
 	<figure id="fig-tutorial-localhost-connection">
-	  <title>Defining the connection to the local team server within
-	  the Eclipse client.</title>
+	  <title>Defining the connection to the local team server within the Eclipse client</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-localhost-connection.png"/></imageobject>
 	  </mediaobject>
@@ -1359,10 +1354,10 @@ if (o == null) {
 	Projects...</guimenuitem> from the context menu. Check the
 	SmallWorld project and press the <guibutton>OK</guibutton>
 	button. Your view will look like <xref
-	linkend="fig-tutorial-smallworld-connected" /></para>
+	linkend="fig-tutorial-smallworld-connected" />.</para>
 
 	<figure id="fig-tutorial-smallworld-connected">
-	  <title>The Team Servers view showing that the SmallWorld project is connected to local server.</title>
+	  <title>The Team Servers view showing that the SmallWorld project is connected to local server</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-smallworld-connected.png"/></imageobject>
 	  </mediaobject>
@@ -1373,12 +1368,12 @@ if (o == null) {
 	types of results your team has deemed completely without
 	merit. These results are filtered out of the scan. For more
 	information about setting up a scan filter see <xref
-	linkend="sec-preferences-scan-filter" /> To send your scan
+	linkend="sec-preferences-scan-filter" />. To send your scan
 	filter to the server right-click on the server name and select
 	the <emphasis>Send Local Scan Filter As...</emphasis> menu
 	item from the context menu. A dialog appear prompting you for
 	a name to save the scan filter with on the server as shown in
-	<xref linkend="fig-tutorial-send-scan-filter" /> Enter
+	<xref linkend="fig-tutorial-send-scan-filter" />. Enter
 	<userinput>Tutorial</userinput> and press
 	<guibutton>Send</guibutton> to continue. The local server now
 	has a copy the same scan filter as your client. You should see
@@ -1388,7 +1383,7 @@ if (o == null) {
 	<emphasis>Tutorial</emphasis>.</para>
 
 	<figure id="fig-tutorial-send-scan-filter">
-	  <title>Sending a copy of the client scan filter to local server.</title>
+	  <title>Sending a copy of the client scan filter to local server</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-send-scan-filter.png"/></imageobject>
 	  </mediaobject>
@@ -1401,12 +1396,12 @@ if (o == null) {
 	you right-click on the scan filter name and select
 	<emphasis>Copy to Local Scan Filter</emphasis> from the
 	context menu as shown in <xref
-	linkend="fig-tutorial-copy-scan-filter" /> A dialog will warn
+	linkend="fig-tutorial-copy-scan-filter" />. A dialog will warn
 	that this will replace the scan filter currently on your
 	client. Press <emphasis>OK</emphasis> to continue.</para>
 
 	<figure id="fig-tutorial-copy-scan-filter">
-	  <title>Downloading a copy of the Tutorial scan filter to the client from local server.</title>
+	  <title>Downloading a copy of the Tutorial scan filter to the client from local server</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1472,7 +1467,7 @@ if (o == null) {
 	/> and press <guibutton>OK</guibutton>.</para>
 
 	<figure id="fig-tutorial-portal-scan-filter-add-categories">
-	  <title>Adding Correctness and Performance to the Tutorial scan filter.</title>
+	  <title>Adding Correctness and Performance to the Tutorial scan filter</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1513,10 +1508,10 @@ if (o == null) {
 	<para>Finally, press the <emphasis>Save</emphasis> link to
 	finish setting up this scan filter.  The result should look
 	like the screen shown in <xref
-	linkend="fig-tutorial-portal-scan-filter-done" /></para>
+	linkend="fig-tutorial-portal-scan-filter-done" />.</para>
 
 	<figure id="fig-tutorial-portal-scan-filter-done">
-	  <title>The completed Tutorial scan filter.</title>
+	  <title>The completed Tutorial scan filter</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1535,10 +1530,10 @@ if (o == null) {
 	press <guibutton>OK</guibutton>. The result should look like
 	the screen shown in <xref
 	linkend="fig-tutorial-portal-scan-filter-assigned-to-smallworld"
-	/></para>
+	/>.</para>
 
 	<figure id="fig-tutorial-portal-scan-filter-assigned-to-smallworld">
-	  <title>The Tutorial scan filter is assigned to the SmallWorld project.</title>
+	  <title>The Tutorial scan filter is assigned to the SmallWorld project</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1557,12 +1552,10 @@ if (o == null) {
 	should see the scan filter for SmallWorld change as shown in
 	<xref
 	linkend="fig-tutorial-scan-filter-assigned-to-smallworld"
-	/></para>
+	/>.</para>
 
 	<figure id="fig-tutorial-scan-filter-assigned-to-smallworld">
-	  <title>After a Synchronize All the client knows that the
-	  Tutorial scan filter is assigned to the SmallWorld
-	  project.</title>
+	  <title>After a Synchronize All the client knows that the Tutorial scan filter is assigned to the SmallWorld project</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1583,13 +1576,13 @@ if (o == null) {
 	<para>After the publish has completed, select the
 	<guilabel>Welcome</guilabel> tab in your web browser. The
 	welcome pages should now look like <xref
-	linkend="fig-tutorial-portal-welcome-smallworld-publish" /> It
+	linkend="fig-tutorial-portal-welcome-smallworld-publish" />. It
 	is possible that you might need to refresh your browser to get
 	the page to reflect the changes caused by the scan
 	publish.</para>
 
 	<figure id="fig-tutorial-portal-welcome-smallworld-publish">
-	  <title>The welcome page after the scan of SmallWorld has been published.</title>
+	  <title>The welcome page after the scan of SmallWorld has been published</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1611,10 +1604,10 @@ if (o == null) {
 	select all the findings from SmallWorld that are within the
 	<emphasis>Performance (FindBugs)</emphasis> finding
 	category. There should be three findings as shown in <xref
-	linkend="fig-tutorial-smallworld-category-counts" /></para>
+	linkend="fig-tutorial-smallworld-category-counts" />.</para>
 
 	<figure id="fig-tutorial-smallworld-category-counts">
-	  <title>The findings by category for the SmallWorld scan.</title>
+	  <title>The findings by category for the SmallWorld scan</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1673,10 +1666,10 @@ if (o == null) {
 	<emphasis>Local</emphasis> to <emphasis>zork</emphasis>
 	because we synchronized under the user zork to the local
 	server. This can be seen in <xref
-	linkend="fig-tutorial-smallworld-zork-audits" /></para>
+	linkend="fig-tutorial-smallworld-zork-audits" />.</para>
 
 	<figure id="fig-tutorial-smallworld-zork-audits">
-	  <title>After a sync local audits are attributed to the zork user.</title>
+	  <title>After a sync local audits are attributed to the zork user</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1687,14 +1680,14 @@ if (o == null) {
 
 	<para>If you refresh the welcome page in your web browser it
 	will look like <xref
-	linkend="fig-tutorial-portal-welcome-page-zork-audits" /> The
+	linkend="fig-tutorial-portal-welcome-page-zork-audits" />. The
 	charts and graphs have been updated to show the contributions
 	made by the zork user. Also we can see that the SmallWorld
 	project now has 4 findings (1 critical, 1 low, and 2
 	irrelevant) and 4 audits on 3 findings.</para>
 
 	<figure id="fig-tutorial-portal-welcome-page-zork-audits">
-	  <title>The portal shows the audits attributed to the zork user.</title>
+	  <title>The portal shows the audits attributed to the zork user</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1723,10 +1716,10 @@ if (o == null) {
 	selecting <guimenu>Sierra</guimenu> | <guimenuitem>Synchronize
 	All</guimenuitem> from the Eclipse main menu). The new audits
 	will change to the <emphasis>troll</emphasis> user as shown in
-	<xref linkend="fig-tutorial-smallworld-troll-audits" /></para>
+	<xref linkend="fig-tutorial-smallworld-troll-audits" />.</para>
 
 	<figure id="fig-tutorial-smallworld-troll-audits">
-	  <title>After a sync local audits are attributed to the troll user.</title>
+	  <title>After a sync local audits are attributed to the troll user</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1737,14 +1730,13 @@ if (o == null) {
 
 	<para>If you refresh the welcome page in your web browser it
 	will look like <xref
-	linkend="fig-tutorial-portal-welcome-page-troll-audits" /> The
+	linkend="fig-tutorial-portal-welcome-page-troll-audits" />. The
 	charts and graphs have been updated to show the contributions
 	made by the troll user. There are seven audits by two users
 	about three SmallWorld project findings.</para>
 
 	<figure id="fig-tutorial-portal-welcome-page-troll-audits">
-	  <title>The portal shows the audits attributed to the zork and
-	  troll users.</title>
+	  <title>The portal shows the audits attributed to the zork and troll users</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -1770,11 +1762,13 @@ if (o == null) {
 
 	<para>This tutorial will demonstrate how to use the Sierra Ant
 	tasks to scan the SmallWorld project and publish the resulting
-	scan document to your local team server. This tutorial assumes
-	you have run the previous tutorial (See <xref
-	linkend="sec-tutorial-team-server" />). The Sierra Ant tasks
+	scan document to your local team server.  The Sierra Ant tasks
 	are used to automate scans as part of a QA or nightly build
-	process.</para>
+	process. This tutorial assumes you have run the previous
+	tutorial (See <xref linkend="sec-tutorial-team-server" />; You
+	can skip the previous tutorial if you create a new local team
+	server and add a <userinput>zork</userinput> user with
+	password <userinput>zork</userinput>).</para>
 
 	<para>For this tutorial you will need your local team server
 	running. Open the <guilabel>Local Team Server</guilabel>
@@ -1789,8 +1783,8 @@ if (o == null) {
 	<filename>sierra-ant</filename> directory.</para>
 
 	<para>In the SmallWorld project create a file at the root of
-	the project called <userinput>sierra-scan.xml</userinput> with
-	the below contents.</para>
+	the project called <userinput>sierra-ant-scan.xml</userinput>
+	with the below contents.</para>
 
 	<programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -1829,7 +1823,24 @@ if (o == null) {
 
 	<para>Within Eclipse run this as an Ant task by selecting the
 	XML file and selecting <guimenuitem>Run As</guimenuitem> |
-	<guimenuitem>Ant Build</guimenuitem>.</para>
+	<guimenuitem>Ant Build</guimenuitem>. Output from the running
+	task will appear in the console as seen in <xref
+	linkend="fig-tutorial-ant-console" />.</para>
+
+	<figure id="fig-tutorial-ant-console">
+	  <title>Console output from scanning SmallWorld with Ant</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-ant-console.png" /></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Let's see that the scan was uploaded to the local team
+	server. First, log into the local team server with your web
+	browser and click on the <guilabel>Projects</guilabel>
+	tab. Select <guilabel>SmallWorld</guilabel> in the list of
+	projects (to the left). Note that the Ant scan will appear at
+	the top of the Scans table (at the bottom-right). You can
+	click on time of the scan to list its findings.</para>
       </section>
     </section>
   </chapter>
@@ -1840,7 +1851,7 @@ if (o == null) {
       <title>The Sierra menu</title>
 
       <figure id="fig-menu-sierra">
-	<title>The Sierra menu.</title>
+	<title>The Sierra menu</title>
 	<mediaobject>
 	  <imageobject><imagedata fileref="images/menu-sierra.png"/></imageobject>
 	</mediaobject>
@@ -1866,10 +1877,10 @@ if (o == null) {
 	  the Eclipse <guilabel>Progress</guilabel> view and (by
 	  default) via balloon notifications.  A dialog is opened to
 	  allow the user to select which Java projects to scan as seen
-	  in <xref linkend="fig-menu-sierra-dialog" /></para>
+	  in <xref linkend="fig-menu-sierra-dialog" />.</para>
 
 	  <figure id="fig-menu-sierra-dialog">
-	    <title>Dialog allowing the user to select which Java projects to scan.</title>
+	    <title>Dialog allowing the user to select which Java projects to scan</title>
 	    <mediaobject>
 	      <imageobject><imagedata fileref="images/menu-sierra-dialog.png"/></imageobject>
 	    </mediaobject>
@@ -2163,7 +2174,7 @@ if (o == null) {
 	<title>Sierra</title>
 
 	<figure id="fig-preferences-sierra">
-	  <title>The Sierra preference pane.</title>
+	  <title>The Sierra preference pane</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/preferences-sierra.png"/></imageobject>
 	  </mediaobject>
@@ -2315,7 +2326,7 @@ if (o == null) {
 	<title>Local Team Server</title>
 
 	<figure id="fig-preferences-server">
-	  <title>The Local Team Server preference pane.</title>
+	  <title>The Local Team Server preference pane</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/preferences-local-team-server.png"/></imageobject>
 	  </mediaobject>
@@ -2359,7 +2370,7 @@ if (o == null) {
 	<title>Scan Data</title>
 
 	<figure id="fig-preferences-scan-data">
-	  <title>The Scan Data preference pane.</title>
+	  <title>The Scan Data preference pane</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/preferences-scan-data.png"/></imageobject>
 	  </mediaobject>
@@ -2396,7 +2407,7 @@ if (o == null) {
 	<title>Scan Filter</title>
 
 	<figure id="fig-preferences-scan-filter">
-	  <title>The Scan Filter preference pane.</title>
+	  <title>The Scan Filter preference pane</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/preferences-scan-filter.png"/></imageobject>
 	  </mediaobject>
@@ -2430,7 +2441,7 @@ if (o == null) {
       <section id="sec-preferences-server-interaction">
 	<title>Server Interaction</title>
 	<figure id="fig-preferences-server-interaction">
-	  <title>The Server Interaction preference pane.</title>
+	  <title>The Server Interaction preference pane</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/preferences-server-interaction.png"/></imageobject>
 	  </mediaobject>
@@ -2472,7 +2483,7 @@ if (o == null) {
       <section id="sec-preferences-tools">
 	<title>Tools</title>
 	<figure id="fig-preferences-tools">
-	  <title>The Tools preference pane.</title>
+	  <title>The Tools preference pane</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/preferences-tools.png"/></imageobject>
 	  </mediaobject>
@@ -2502,7 +2513,7 @@ if (o == null) {
       scans (which can be useful if your license expires). Selecting
       <guimenuitem>Manage SureLogic Licenses</guimenuitem> from the
       Sierra menu brings up the license management form as seen in
-      <xref linkend="fig-license-management" /> (It is also possible
+      <xref linkend="fig-license-management" />. (It is also possible
       to bring this dialog up from the main Sierra preferences pane by
       pressing the <guibutton>Manage SureLogic Licenses</guibutton>
       button.) For Sierra to operate properly either a
@@ -2510,7 +2521,7 @@ if (o == null) {
       license must be installed.</para>
 
       <figure id="fig-license-management">
-	<title>The SureLogic license management dialog.</title>
+	<title>The SureLogic license management dialog</title>
 	<mediaobject>
 	  <imageobject><imagedata fileref="images/license-management.png"/></imageobject>
 	</mediaobject>
@@ -2566,10 +2577,10 @@ if (o == null) {
 
       <para>When a license is nearing expiration the tool warns the
       user with the dialog shown in <xref
-      linkend="fig-license-management-expiration-warning" /></para>
+      linkend="fig-license-management-expiration-warning" />.</para>
 
       <figure id="fig-license-management-expiration-warning">
-	<title>Dialog warning that the installed Sierra license is about to expire.</title>
+	<title>Dialog warning that the installed Sierra license is about to expire</title>
 	<mediaobject>
 	  <imageobject><imagedata fileref="images/license-management-expiration-warning.png"/></imageobject>
 	</mediaobject>
@@ -2590,13 +2601,13 @@ if (o == null) {
       <guimenuitem>Send Problem Report</guimenuitem> allows a tip or
       problem report to be send to SureLogic directly within Eclipse
       as shown in <xref linkend="fig-bugs-and-tips-main-menu-service"
-      /> These menu choices bring up dialogs that allow the user to
+      />. These menu choices bring up dialogs that allow the user to
       control exactly what information is sent to SureLogic.  In
       addition, the user can preview the exact text that will be sent
       over the internet.</para>
 
       <figure id="fig-bugs-and-tips-main-menu-service">
-	<title>Menu items to send bugs and tips to SureLogic.</title>
+	<title>Menu items to send bugs and tips to SureLogic</title>
 	<mediaobject>
 	  <imageobject><imagedata fileref="images/bugs-and-tips-main-menu-service.png"/></imageobject>
 	</mediaobject>
@@ -2605,13 +2616,13 @@ if (o == null) {
       <para>The <guimenuitem>Send Tip for Improvement</guimenuitem>
       command opens a dialog to allow entry of a suggestion by the
       user to improve the Sierra tool as seen in <xref
-      linkend="fig-bugs-and-tips-menu-send-tip" /> The dialog allows the
+      linkend="fig-bugs-and-tips-menu-send-tip" />. The dialog allows the
       user to control exactly what information is sent to SureLogic.
       In addition, the user can preview the exact text that will be
       sent.</para>
 
       <figure id="fig-bugs-and-tips-menu-send-tip">
-	<title>Dialog allowing the user to enter a tip to improve Sierra.</title>
+	<title>Dialog allowing the user to enter a tip to improve Sierra</title>
 	<mediaobject>
 	  <imageobject><imagedata fileref="images/bugs-and-tips-menu-send-tip.png"/></imageobject>
 	</mediaobject>
@@ -2620,13 +2631,13 @@ if (o == null) {
       <para>The <guimenuitem>Send Problem Report</guimenuitem> command
       opens a dialog to allow entry of a problem report by the user
       about the Sierra tool as seen in <xref
-      linkend="fig-bugs-and-tips-menu-problem-report" /> The dialog
+      linkend="fig-bugs-and-tips-menu-problem-report" />. The dialog
       allows the user to control exactly what information is sent to
       SureLogic.  In addition, the user can preview the exact text
       that will be sent.</para>
 
       <figure id="fig-bugs-and-tips-menu-problem-report">
-	<title>Dialog allowing the user to enter a problem report about Sierra.</title>
+	<title>Dialog allowing the user to enter a problem report about Sierra</title>
 	<mediaobject>
 	  <imageobject><imagedata fileref="images/bugs-and-tips-menu-problem-report.png"/></imageobject>
 	</mediaobject>
@@ -2639,10 +2650,10 @@ if (o == null) {
       <guilabel>Network Connections</guilabel> under the
       <guilabel>General</guilabel> preferences.  This dialog allows
       you to configure Eclipse for your network as shown in <xref
-      linkend="fig-bugs-and-tips-network-connections" /></para>
+      linkend="fig-bugs-and-tips-network-connections" />.</para>
 
       <figure id="fig-bugs-and-tips-network-connections">
-	<title>Eclipse preferences for network connections within the IDE.</title>
+	<title>Eclipse preferences for network connections within the IDE</title>
 	<mediaobject>
 	  <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
 	</mediaobject>
@@ -3029,7 +3040,7 @@ if (o == null) {
 	    </mediaobject>
 	    If this occurs please contact SureLogic. To workaround the
 	    problem turn off PMD in the tool preferences. See <xref
-	    linkend="fig-preferences-tools" /></para>
+	    linkend="fig-preferences-tools" />.</para>
 
 	    <para>SureLogic is working with the PMD team to fix this
 	    problem in the near future.</para>
