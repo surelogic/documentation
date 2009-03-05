@@ -289,6 +289,7 @@
           <include name="**/*.html" />
           <include name="**/*.png" />
           <include name="**/*.jpg" />
+          <include name="**/*.gif" />
         </fileset>
       </copy>
     </sequential>
@@ -303,6 +304,7 @@
           <include name="**/*.html" />
           <include name="**/*.png" />
           <include name="**/*.jpg" />
+          <include name="**/*.gif" />
           <exclude name="**/about.html" />
         </fileset>
       </delete>
