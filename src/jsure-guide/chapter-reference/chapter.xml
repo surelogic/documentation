@@ -7,7 +7,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Reference</title>
   <sect1>
-    <title>The JSure menu</title>
+    <title>The JSure Menu</title>
 
     <figure id="fig-jsure-menu">
       <title>The JSure menu</title>
@@ -34,7 +34,7 @@
         </formalpara>
         
         <figure id="fig-focus-verification-window">
-          <title>The JSure menu</title>
+          <title>The Focus Verification dialog box</title>
           <mediaobject>
             <imageobject><imagedata fileref="images/focus-verification-window.png"/></imageobject>
           </mediaobject>
@@ -57,13 +57,6 @@
           see <xref linkend="sec-code-verification-perspective"/>. This
           perspective may also be opened via the normal Eclipse menus
           and toolbars for perspectives.</para>
-        </formalpara>
-      </listitem>
-
-      <listitem>
-        <formalpara>
-          <title>Garbage Collect IR</title>
-          <para>This command&hellip; TODO</para>
         </formalpara>
       </listitem>
 
@@ -98,13 +91,77 @@
       </listitem>          
     </itemizedlist>
   </sect1>
+
+  <sect1 id="sec-package-explorer">
+    <title>Additions to the Package Explorer</title>
+
+    <figure id="fig-license-management">
+      <title>JSure additions to the <guilabel>Package Explorer</guilabel> toolbar and menu</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/toolbar-menu.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <figure id="fig-license-management">
+      <title>JSure additions to the <guilabel>Package Explorer</guilabel> context menu</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/context-menu.png"/></imageobject>
+      </mediaobject>
+    </figure>
+  </sect1>
   
   <sect1 id="sec-code-verification-perspective">
     <title>The Code Verification perspective</title>
     
-    <para>The Code Verification perspective organizes the Eclipse
+    <para>The <guilabel>Code Verification</guilabel> perspective organizes the Eclipse
     workbench to show views which will help you to interact with
     tool findings.</para>
+    
+    <sect2>
+      <title>Switching to the Perspective</title>
+      
+      <para>The <guilabel>Code Verification</guilabel> perspective can be enabled
+      in several ways:
+        <itemizedlist>
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>JSure</guimenu>
+            <guimenuitem>Open Code Verification
+            Perspective</guimenuitem></menuchoice>.</para>
+          </listitem>
+          
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>Window</guimenu>
+            <guisubmenu>Open Perspective</guisubmenu>
+            <guimenuitem>Other&hellip;</guimenuitem></menuchoice>, and
+            then choosing <guilabel>Code Verification</guilabel> from
+            the <guilabel>Open Perspective</guilabel> dialog box.</para>
+          </listitem>          
+          
+          <listitem>
+            <para>By choosing to switch to the perspective when focusing
+            verification on a project:
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/perspective-switch.png" />
+                </imageobject>
+              </mediaobject>
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+      
+      <para>The only view unique to the perspective is the
+      <guilabel>Verification Status</guilabel> view.  You can add this
+      view to any other Eclipse perspective by choosing
+      <menuchoice><guimenu>Window</guimenu> <guisubmenu>Show
+      View</guisubmenu>
+      <guimenuitem>Other&hellip;</guimenuitem></menuchoice> command, and
+      then choosing <guilabel>Verification Status</guilabel> under the
+      <guilabel>JSure</guilabel> category.</para>
+
+      <para><emphasis>What's in the view...</emphasis></para>
+          
+    </sect2>
   </sect1>
 
   <sect1 id="sec-license-management">

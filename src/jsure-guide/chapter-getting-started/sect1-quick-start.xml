@@ -74,55 +74,22 @@
   <sect2>
     <title>Annotating and Assuring Your Code</title>
     
-    <para>For the impatient, this section provides a &ldquo;bare-bones&rdquo;
-    description of how to annotate and assure code with JSure and examine the
-    results that it reports.</para>
+    <para>For the impatient, this section provides a
+    &ldquo;bare-bones&rdquo; description of how to prepare a Java
+    project for assurance by JSure.</para>
+    
+    <para>JSure assurance compares Java code
+    against programmer design intent as expressed using a set of Java 5
+    annotation types.  To use JSure with your code, your project must be
+    able to reference the SureLogic annotation types.  The SureLogic
+    annotation types are bundled together in
+    <filename>promises.jar</filename>. This file must be on the build
+    path of your project for the annotations be to used.  As described
+    below, the simplest way to add this JAR file to the project and its
+    build path is to allow JSure to do it for you. </para>
     
     <sect3>
-      <title>Installing the SureLogic Annotation Types</title>
-      
-      <para>JSure assurance compares java code against programmer
-      design intent as expressed using a set of Java 5 annotation
-      types.  To use JSure with your code, your projects must be able
-      to reference the SureLogic annotation types declared in
-      <filename>promises.jar</filename>.  [This file is available
-      from&hellip;]  There are many ways this can be done in Eclipse,
-      but the simplest way is to copy
-      <filename>promises.jar</filename> into the project to be
-      assured, and then add the file to the project's build path.  You
-      put the file wherever you want within the project: it is most
-      common to put these kinds of files either at the root of the
-      project with within a <filename>libs</filename> directory.</para>
-      
-      <para>To add <filename>promises.jar</filename> to the build path, 
-      select it and choose <menuchoice><guisubmenu>Build Path</guisubmenu>
-      <guimenuitem>Add to Build Path</guimenuitem></menuchoice> from the
-      context menu; see <xref linkend="fig-add-to-build-path"/>.  Once added
-      to the build path, the file appears under the <guilabel>Referenced
-      Libraries</guilabel> element in the project listing; see 
-      <xref linkend="fig-post-build-path"/>.</para>
-      
-      <figure id="fig-add-to-build-path">
-        <title>Adding <filename>promises.jar</filename> to the build path</title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="images/add-to-build-path.png" />
-          </imageobject>
-        </mediaobject>
-      </figure>
-      
-      <figure id="fig-post-build-path">
-        <title>After adding <filename>promises.jar</filename> to the build path</title>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="images/post-build-path.png" />
-          </imageobject>
-        </mediaobject>
-      </figure>
-    </sect3>   
-    
-    <sect3>
-      <title>Enabling and Disabling JSure Analysis</title>
+      <title>Enabling JSure Analysis</title>
       
       <para>JSure can only assure the contents of one project at a
       time. The icon of the project being assured is marked with a
@@ -144,6 +111,27 @@
       disables assurance on that project before enabling the newly selected
       project.</para>
       
+      <para>When a project is selected for analysis, JSure checks to see if
+      <filename>promises.jar</filename> is on the project&rsquo;s build path.
+      If it is not, it offers to add the file to the project and the build path:
+      
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/add-promises-jar.png" />
+          </imageobject>
+        </mediaobject>
+
+      The easiest thing to do is to choose the default option
+      <guibutton>Add to Project Root</guibutton>: JSure copies
+      <filename>promises.jar</filename> to the root of project and
+      adds it to the build path.  See <xref linkend="sec-installing-promises-jar"/>
+      for more details.</para>
+      
+    </sect3>
+    
+    <sect3>
+      <title>Disabling JSure Analysis</title>
+      
       <para>To deselect a project without selecting another project to assure
         <orderedlist>
           <listitem><para>Select the project in the <guilabel>Package
@@ -157,8 +145,12 @@
           menu.</para></listitem>
         </orderedlist>
       </para>
+      
+      <para>Disabling analysis of a project does not affect the
+      <filename>promises.jar</filename> or the project&rsquo;s build
+      path.</para>
     </sect3>
-    
+        
     <sect3>
       <title>Viewing Assurance Results</title>
       
@@ -166,7 +158,26 @@
       is changed.  The guarantees that the assurance results are always up to
       date.  The assurance results are displayed in the <guilabel>Verification
       Status</guilabel> view.  The easiest way to open this view is to switch
-      to the code verification perspective: select <menuchoice><guimenu>JSure</guimenu>
+      to the <guilabel>Code Verification</guilabel> perspective.  The first time you enable
+      JSure analysis on any project in the workspace JSure prompts you
+      about switching to the <guilabel>Code Verification</guilabel>
+      perspective:
+      
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/perspective-switch.png" />
+          </imageobject>
+        </mediaobject>
+
+      Choosing <guibutton>Yes</guibutton> will immediatly switch Eclipse to 
+      the perspective.  Choosing <guibutton>No</guibutton> will leave
+      Eclipse in whatever perspective it is currently in.  If you check
+      <guibutton>Remember my decision</guibutton> and press <guibutton>Yes</guibutton>
+      then whenever you focus verificaton on a project, Eclipse will switch
+      to the perspective without asking you first.</para>
+
+      <para>You can also switch to the <guilabel>Code Verification</guilabel>
+      perspective by selecting <menuchoice><guimenu>JSure</guimenu>
       <guimenuitem>Open Code Verification Perspective</guimenuitem></menuchoice>.  
       See <xref linkend="fig-open-code-verification"/>.</para>
       

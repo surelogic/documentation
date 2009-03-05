@@ -269,21 +269,48 @@ public class LoggingEvent {
     </sect3>
     
     <sect3>
-      <title>Add the SureLogic Annotation Types</title>
+      <title>Enable Assurance and Add the SureLogic Annotation Types</title>
       
       <para>Before we can add annotations to the project, we need to add the
-      SureLogic annotation types to the class path:
+      SureLogic annotation types to the class path.  This is most easily done
+      by allowing JSure to do it for us when we focus verification on the
+      project:
+      
         <orderedlist>
           <listitem>
-            <para>Copy <filename>promises.jar</filename> to the project.  [TODO: 
-            Where to get this file from!]</para>
+            <para>Select the project in the <guilabel>Package Explorer</guilabel>.</para>
           </listitem>
           <listitem>
-            <para>Select <filename>promises.jar</filename> in the
-            project and choose <menuchoice><guisubmenu>Build
-            Path</guisubmenu> <guimenuitem>Add to Build
-            Path</guimenuitem></menuchoice> from the context menu to add
-            it to the project&rsquo;s build path.</para>
+            <para>Press the icon <guiicon><inlinegraphic
+            fileref="images/jsure_verify.gif"/></guiicon> in the
+            <guilabel>Package Explorer</guilabel> toolbar.</para>
+          </listitem>
+          <listitem>
+            <para>Choose <guilabel>Add to Project Root</guilabel> when prompted 
+            by JSure whether to add <filename>promises.jar</filename> to the
+            project and its build path:
+            
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/add-promises-jar.png" />
+                </imageobject>
+              </mediaobject>
+              
+            JSure now copies the <filename>promises.jar</filename> to the root 
+            directory of the project and adds it to the build path.</para>
+          </listitem>
+          <listitem>
+            <para>If you are working with a fresh workspace, JSure may also ask
+            if you would like to switch to the <guilabel>Code Verification</guilabel>
+            perspective:
+
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/perspective-switch.png" />
+                </imageobject>
+              </mediaobject>
+              
+            If asked, choose <guilabel>Yes</guilabel>.</para>
           </listitem>
         </orderedlist>
       </para>
@@ -309,21 +336,12 @@ public class BoundedFIFO {
 
     <para>Adding the annotation is not enough to get assurance.  We must enable
     assurance for the BoundedFIFO project:
-      <orderedlist>
-        <listitem>
-          <para>Select the project in the <guilabel>Package Explorer</guilabel>.</para>
-        </listitem>
-        <listitem>
-          <para>Press the icon <guiicon><inlinegraphic
-          fileref="images/jsure_verify.gif"/></guiicon> in the
-          <guilabel>Package Explorer</guilabel> toolbar.</para>
-        </listitem>
-      </orderedlist>
     </para>
 
     <para>Enabling assurance causes JSure to initialize and to assure
-    the project. Unless you have previously opened the
-    <guilabel>Verification Status</guilabel> view, you still will not
+    the project. Unless you have previously explitly added the
+    <guilabel>Verification Status</guilabel> view to your Eclipse perspective,
+    or switched to the <guilabel>Code Verification</guilabel> perspective, you still will not
     see any assurance results.  You can open the view by using the
     standard Eclipse <menuchoice><guimenu>Window</guimenu>
     <guisubmenu>Show View</guisubmenu>
@@ -332,10 +350,8 @@ public class BoundedFIFO {
     <guilabel>JSure</guilabel> category. However, JSure provides a
     <guilabel>Code Verification</guilabel> perspective that includes
     this view, as well as a view layout more conducive to interacting
-    with the assurance results.  This perspective can be opened using
-    the standard Eclipse <menuchoice><guimenu>Window</guimenu>
-    <guisubmenu>Open Perspective</guisubmenu></menuchoice> menu.  It can
-    most easily be opened, however, by choosing
+    with the assurance results.  If you are not already in this perspecive,
+    switch to it by choosing
     <menuchoice><guimenu>JSure</guimenu> <guimenuitem>Open Code
     Verification Perspective</guimenuitem></menuchoice>:
       <mediaobject>
