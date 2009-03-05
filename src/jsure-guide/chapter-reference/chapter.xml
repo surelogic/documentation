@@ -8,6 +8,10 @@
   <title>Reference</title>
   <sect1>
     <title>The JSure Menu</title>
+    
+    <para>The JSure menu, see <xref linkend="fig-jsure-menu"/>, appears
+    as an item on the Eclipse workspace main menu. This menu provides
+    direct access to common JSure commands.</para>
 
     <figure id="fig-jsure-menu">
       <title>The JSure menu</title>
@@ -16,93 +20,140 @@
       </mediaobject>
     </figure>
     
-    <para>The JSure menu, see <xref linkend="fig-jsure-menu"/>, appears
-    as an item on the Eclipse workspace main menu. This menu provides
-    direct access to common JSure commands.  The commands on the JSure
-    main menu are</para>
+    <para>The commands on the JSure main menu are
     
-    <itemizedlist>
-      <listitem>
-        <formalpara>
-          <title>Focus Verification&hellip;</title>
-          <para>This command allows the user to choose which project
-          should be assured by JSure.  A dialog is opened to allow the
-          user to select which project to assure, as seen in <xref
-          linkend="fig-focus-verification-window"/>. Assurance will be
-          enabled for the selected project and disabled for all other
-          projects in the workspace. </para>
-        </formalpara>
-        
-        <figure id="fig-focus-verification-window">
-          <title>The Focus Verification dialog box</title>
-          <mediaobject>
-            <imageobject><imagedata fileref="images/focus-verification-window.png"/></imageobject>
-          </mediaobject>
-        </figure>
-      </listitem>
-
-      <listitem>
-        <formalpara>
-          <title>Disable Verification of All Projects</title>
-          <para>This command ensures that no project is selected for assurance.</para>
-        </formalpara>
-      </listitem>
-
-      <listitem>
-        <formalpara>
-          <title>Open Code Verification Perspective</title>
-          <para>This menu choice opens the <guilabel>Code
-          Verification</guilabel> perspective. This perspective is
-          useful for examining the JSure assurance results;
-          see <xref linkend="sec-code-verification-perspective"/>. This
-          perspective may also be opened via the normal Eclipse menus
-          and toolbars for perspectives.</para>
-        </formalpara>
-      </listitem>
-
-      <listitem>
-        <formalpara>
-          <title>Send Tip for Improvement</title>
-          <para>This command opens a dialog to allow entry of a
-          suggestion by the user to improve the JSure tool. For more
-          information please see <xref
-          linkend="sec-bugs-and-tips"/>.</para>
-        </formalpara>
-      </listitem>
-
-      <listitem>
-        <formalpara>
-          <title>Send Problem Report</title>
-          <para>This command opens a dialog to allow entry of a problem
-          report by the user about the JSure tool. For more information
-          please see <xref linkend="sec-bugs-and-tips"/>.</para>
-        </formalpara>
-      </listitem>
-
-      <listitem>
-        <formalpara>
-          <title>Manage SureLogic Licenses</title>
-          <para>This command opens the SureLogic license management
-          dialog. This dialog allows the user to install, view, and
-          uninstall licenses for JSure and other SureLogic tools. For
-          more information see <xref linkend="sec-license-management"
-          />.</para>
-        </formalpara>
-      </listitem>          
-    </itemizedlist>
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title>Focus Verification&hellip;</title>
+            <para>This command allows the user to choose which project
+            should be assured by JSure.  A dialog is opened to allow the
+            user to select which project to assure, as seen in <xref
+            linkend="fig-focus-verification-window"/>. Assurance will be
+            enabled for the selected project and disabled for all other
+            projects in the workspace.  JSure may additionally prompt the 
+            user whether to add the SureLogic annotation types JAR file
+            to the project; see <xref linkend="sec-adding-promises-jar"/>.</para>
+          </formalpara>
+          
+          <figure id="fig-focus-verification-window">
+            <title>The Focus Verification dialog box</title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/focus-verification-window.png"/></imageobject>
+            </mediaobject>
+          </figure>
+        </listitem>
+  
+        <listitem>
+          <formalpara>
+            <title>Disable Verification of All Projects</title>
+            <para>This command ensures that no project is selected for assurance.</para>
+          </formalpara>
+        </listitem>
+  
+        <listitem>
+          <formalpara>
+            <title>Open Code Verification Perspective</title>
+            <para>This menu choice opens the <guilabel>Code
+            Verification</guilabel> perspective. This perspective is
+            useful for examining the JSure assurance results;
+            see <xref linkend="sec-code-verification-perspective"/>. This
+            perspective may also be opened via the normal Eclipse menus
+            and toolbars for perspectives.</para>
+          </formalpara>
+        </listitem>
+  
+        <listitem>
+          <formalpara>
+            <title>Send Tip for Improvement</title>
+            <para>This command opens a dialog to allow entry of a
+            suggestion by the user to improve the JSure tool. For more
+            information please see <xref
+            linkend="sec-bugs-and-tips"/>.</para>
+          </formalpara>
+        </listitem>
+  
+        <listitem>
+          <formalpara>
+            <title>Send Problem Report</title>
+            <para>This command opens a dialog to allow entry of a problem
+            report by the user about the JSure tool. For more information
+            please see <xref linkend="sec-bugs-and-tips"/>.</para>
+          </formalpara>
+        </listitem>
+  
+        <listitem>
+          <formalpara>
+            <title>Manage SureLogic Licenses</title>
+            <para>This command opens the SureLogic license management
+            dialog. This dialog allows the user to install, view, and
+            uninstall licenses for JSure and other SureLogic tools. For
+            more information see <xref linkend="sec-license-management"
+            />.</para>
+          </formalpara>
+        </listitem>          
+      </itemizedlist>
+    </para>
   </sect1>
 
   <sect1 id="sec-package-explorer">
     <title>Additions to the Package Explorer</title>
 
-    <figure id="fig-license-management">
+    <para>JSures makes several additions to the toolbars and menus of the Eclipse
+    <guilabel>Package Explorer</guilabel> view.  Basically, it adds the same two 
+    commands to three different places.  The commands are 
+    
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title><guiicon><inlinegraphic
+            fileref="images/jsure_verify.gif"/> Focus Verification on
+            this Project</guiicon></title>
+            
+            <para>This command enables verification for the currently selected project
+            and disables it for all other projects.  JSure may additionally prompt the 
+            user whether to add the SureLogic annotation types JAR file
+            to the project; see <xref linkend="sec-adding-promises-jar"/>.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title><guiicon><inlinegraphic
+            fileref="images/jsure_no_verify.gif"/> Disable Verification</guiicon></title>
+            
+            <para>This command disables verification for the currently selected project.</para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    
+    They are added to
+    
+      <itemizedlist>
+        <listitem>
+          <para>The view&rsquo;s toolbar; see <xref
+          linkend="fig-toolbar-menu"/>.</para>
+        </listitem>
+        <listitem>
+          <para>The view&rsquo;s menu; see <xref
+          linkend="fig-toolbar-menu"/>.</para>
+        </listitem>
+        <listitem>
+          <para>The view&rsquo;s context menu under the
+          <guisubmenu>JSure</guisubmenu> menu; see <xref
+          linkend="fig-context-menu"/>.</para>
+        </listitem>
+      </itemizedlist>
+    </para>
+
+    <figure id="fig-toolbar-menu">
       <title>JSure additions to the <guilabel>Package Explorer</guilabel> toolbar and menu</title>
       <mediaobject>
         <imageobject><imagedata fileref="images/toolbar-menu.png"/></imageobject>
       </mediaobject>
     </figure>
 
-    <figure id="fig-license-management">
+    <figure id="fig-context-menu">
       <title>JSure additions to the <guilabel>Package Explorer</guilabel> context menu</title>
       <mediaobject>
         <imageobject><imagedata fileref="images/context-menu.png"/></imageobject>
@@ -130,14 +181,6 @@
           </listitem>
           
           <listitem>
-            <para>By selecting <menuchoice><guimenu>Window</guimenu>
-            <guisubmenu>Open Perspective</guisubmenu>
-            <guimenuitem>Other&hellip;</guimenuitem></menuchoice>, and
-            then choosing <guilabel>Code Verification</guilabel> from
-            the <guilabel>Open Perspective</guilabel> dialog box.</para>
-          </listitem>          
-          
-          <listitem>
             <para>By choosing to switch to the perspective when focusing
             verification on a project:
               <mediaobject>
@@ -147,8 +190,25 @@
               </mediaobject>
             </para>
           </listitem>
+          
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>Window</guimenu>
+            <guisubmenu>Open Perspective</guisubmenu>
+            <guimenuitem>Other&hellip;</guimenuitem></menuchoice>, and
+            then choosing <guilabel>Code Verification</guilabel> from
+            the <guilabel>Open Perspective</guilabel> dialog box.  Or by
+            using any other standard Ecilpse mechanism to switch
+            perspectives, such as clicking the the perspective&rsquo;s
+            icon (<guiicon><inlinegraphic
+            fileref="images/jsure_logo.gif"/></guiicon>) in the shortcut
+            bar.</para>
+          </listitem>          
         </itemizedlist>
       </para>
+    </sect2>
+    
+    <sect2>
+      <title>The Verification Status View</title>
       
       <para>The only view unique to the perspective is the
       <guilabel>Verification Status</guilabel> view.  You can add this
@@ -161,6 +221,103 @@
 
       <para><emphasis>What's in the view...</emphasis></para>
           
+    </sect2>
+  </sect1>
+
+  <sect1 id="sec-adding-promises-jar">
+    <title>The SureLogic Annotation Types JAR File</title>
+    
+    <para>As mentioned <link
+    linkend="sec-quick-start-annotations">previously</link>, JSure
+    design intent is expressed using a set of Java 5 annotation types. 
+    To use JSure with your code, your project must be able to reference
+    the SureLogic annotation types.  The SureLogic annotation types are
+    bundled together in <filename>promises.jar</filename>. This file
+    must be on the build path of your project for the annotations be to
+    used.</para>
+      
+    <para>When verification is focused on a project, JSure checks to see if
+      <orderedlist>
+        <listitem>
+          <para>That project contains <filename>promises.jar</filename>.</para>
+        </listitem>
+        <listitem>
+          <para>And if so, whether <filename>promises.jar</filename> is on the build path.</para>
+        </listitem>
+      </orderedlist>
+    If the JAR file is missing, or not on the build path, JSure offers to correct the 
+    situation.</para>  
+
+    <para>Specifically, if the JAR file is not in the project at all, the user is presented
+    with the dialog box
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/add-promises-jar.png" />
+        </imageobject>
+      </mediaobject>
+
+    The default option <guibutton>Add to Project Root</guibutton>
+    creates <filename>promises.jar</filename> in the root of the project
+    and adds it to the build path.  The option
+    <guibutton>Browse&hellip;</guibutton> allows you to choose where in
+    the project to put <filename>promises.jar</filename>.  The option
+    <guibutton>No</guibutton> does nothing; that is, JSure will focus
+    verification on the project without adding the JAR file to the
+    project or its build path.</para>
+    
+    <para>If the JAR file is present in the project, but not on the build path, the
+    user is presented with the dialog box that displays the present location of the 
+    JAR file and asks the user if it should be added to the build path:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/add-to-build-path.png" />
+        </imageobject>
+      </mediaobject>
+    
+    The default option <guibutton>Yes</guibutton> adds the existing
+    <filename>promises.jar</filename> to the project&rsquo;s build path.
+     The option <guibutton>Copy new JAR file to&hellip;</guibutton>
+    allows you to choose a new location in the project to create a new
+    copy of <filename>promises.jar</filename>. The option
+    <guibutton>No</guibutton> does nothing;  that is, JSure will focus
+    verification on the project without adding the JAR file the
+    project&rsquo;s build path. </para>
+    
+    <sect2>
+      <title>Choosing a Location for the Promies JAR</title>
+      
+      <para>If you select to choose a location for <filename>promises.jar</filename>,
+      JSure presents you with a dialog box showing the project and its directories.  JSure
+      filters out all the hidden directores (those that begin with a period), all the 
+      source directories, and all the output directories.  See <xref linkend="fig-choose-a-location"/>
+      for an example.</para>
+      
+      <para>If you select the project itself, the JAR file will be placed in the 
+      root of the project.</para>
+
+      <figure id="fig-choose-a-location">
+        <title>JSure additions to the <guilabel>Package Explorer</guilabel> context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/choose-a-location.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>If you cancel the selection, then JSure proceeds to focus verification
+      on the project without adding the SureLogic annotation types to the project (if they were
+      missing) and without adding the JAR file to the project&rsquo;s build path.</para>
+      
+      <para>If you select
+      a location where the JAR is already located, then you are asked if it should be 
+      overwritten; see <xref linkend="fig-overwrite-promises"/>.</para>
+
+      <figure id="fig-overwrite-promises">
+        <title>JSure additions to the <guilabel>Package Explorer</guilabel> context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/overwrite-promises.png"/></imageobject>
+        </mediaobject>
+      </figure>
     </sect2>
   </sect1>
 
