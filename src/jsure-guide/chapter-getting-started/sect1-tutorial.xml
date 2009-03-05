@@ -340,7 +340,7 @@ public class BoundedFIFO {
 
     <para>Enabling assurance causes JSure to initialize and to assure
     the project. Unless you have previously explitly added the
-    <guilabel>Verification Status</guilabel> view to your Eclipse perspective,
+    <guilabel>Verification Status</guilabel> view to the currently active perspective,
     or switched to the <guilabel>Code Verification</guilabel> perspective, you still will not
     see any assurance results.  You can open the view by using the
     standard Eclipse <menuchoice><guimenu>Window</guimenu>

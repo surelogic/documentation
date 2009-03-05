@@ -71,7 +71,7 @@
     linkend="sec-license-management" /></para>
   </sect2>
   
-  <sect2>
+  <sect2 id="sec-quick-start-annotations">
     <title>Annotating and Assuring Your Code</title>
     
     <para>For the impatient, this section provides a
@@ -124,7 +124,7 @@
       The easiest thing to do is to choose the default option
       <guibutton>Add to Project Root</guibutton>: JSure copies
       <filename>promises.jar</filename> to the root of project and
-      adds it to the build path.  See <xref linkend="sec-installing-promises-jar"/>
+      adds it to the build path.  See <xref linkend="sec-adding-promises-jar"/>
       for more details.</para>
       
     </sect3>
@@ -169,9 +169,9 @@
           </imageobject>
         </mediaobject>
 
-      Choosing <guibutton>Yes</guibutton> will immediatly switch Eclipse to 
+      Choosing <guibutton>Yes</guibutton> will immediately switch Eclipse to 
       the perspective.  Choosing <guibutton>No</guibutton> will leave
-      Eclipse in whatever perspective it is currently in.  If you check
+      the current Eclipse window in whatever perspective it is currently in.  If you check
       <guibutton>Remember my decision</guibutton> and press <guibutton>Yes</guibutton>
       then whenever you focus verificaton on a project, Eclipse will switch
       to the perspective without asking you first.</para>
