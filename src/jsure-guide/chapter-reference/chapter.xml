@@ -210,17 +210,91 @@
     <sect2>
       <title>The Verification Status View</title>
       
-      <para>The only view unique to the perspective is the
-      <guilabel>Verification Status</guilabel> view.  You can add this
-      view to any other Eclipse perspective by choosing
+      <para>The only view unique to the <guilabel>Code
+      Verification</guilabel> perspective is the <guilabel>Verification
+      Status</guilabel> view.  You can add this view to any other
+      Eclipse perspective by choosing
       <menuchoice><guimenu>Window</guimenu> <guisubmenu>Show
       View</guisubmenu>
       <guimenuitem>Other&hellip;</guimenuitem></menuchoice> command, and
       then choosing <guilabel>Verification Status</guilabel> under the
       <guilabel>JSure</guilabel> category.</para>
 
-      <para><emphasis>What's in the view...</emphasis></para>
-          
+      <figure id="fig-status-view">
+        <title>JSure additions to the <guilabel>Package Explorer</guilabel> context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/status-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>The <guilabel>Verification Status</guilabel> view displays
+      the JSure assurance results in a tree form; see <xref linkend="fig-status-view"/>.  The results are
+      grouped by category: <guilabel>Effects</guilabel>,
+      <guilabel>Concurrency</guilabel>, <guilabel>Uniqueness</guilabel>,
+      and <guilabel>Thread effects</guilabel>. There is also a special
+      category for warnings and informational results
+      <guilabel>Suggestions and warnings</guilabel>, as well as a
+      category for error reports about the annotations themselves:
+      <guilabel>Modeling problems</guilabel>. The specific results are
+      described in detail in <xref
+      linkend="understanding-assurance-output"/>.</para>
+      
+      <para>The view&rsquo;s toolbar has three command icons:
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/info.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not the warning results are 
+              displayed in the view.</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/expandall.gif"/></guiicon></title>
+              <para>This button expands all the nodes in the result trees.  Generally speaking,
+              this an expensive operation because the result trees can be very large.  It is
+              not recommended that you do this.</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
+              <para>This button collapses all the nodes in the result trees.</para>
+            </formalpara>            
+          </listitem>
+        </itemizedlist>
+      </para>
+
+      <figure id="fig-status-view-menu">
+        <title>JSure additions to the <guilabel>Package Explorer</guilabel> context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/status-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has three commands; see <xref linkend="fig-status-view-menu"/>:
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/info.gif"/> Hide/Show Information &amp; Warning Results</guiicon></title>
+              <para>Toggling this menu item controls whether or not the warning results are 
+              displayed in the view.</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/export.gif"/> Export Results &amp; Source (for Stand-Alone Results Viewer)</guiicon></title>
+              <para>???</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/export.gif"/> Export Results (XML for Sierra Viewer)</guiicon></title>
+              <para>???</para>
+            </formalpara>            
+          </listitem>
+        </itemizedlist>
+      </para>      
     </sect2>
   </sect1>
 
@@ -319,6 +393,103 @@
         </mediaobject>
       </figure>
     </sect2>
+  </sect1>
+
+  <sect1 id="sec-project-properties">
+    <title>JSure Project Properties</title>
+    
+    <para>JSure adds a <guilabel>JSure</guilabel> pane to the project
+    properties dialog, see <xref linkend="fig-jsure-properties"/>.  This
+    pane cotains one setting: <guibutton>Focus assurance on this Java project</guibutton>.
+    Selecting this setting focuses assurance on the current project, and removes
+    assurance from the other projects in the workspace.  Deselecting this setting 
+    removes assurance from the current project.</para>
+    
+    <figure id="fig-jsure-properties">
+      <title>The SureLogic license management dialog</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/jsure-properties.png"/></imageobject>
+      </mediaobject>
+    </figure>    
+  </sect1>
+
+  <sect1 id="sec-preferences">
+    <title>JSure Preferences</title>
+    
+    <para>JSure adds two panes to the Eclipse Preferences window:
+      <itemizedlist>
+        <listitem>
+          <para><menuchoice><guisubmenu>JSure</guisubmenu></menuchoice></para>
+        </listitem>
+        <listitem>
+          <para><menuchoice><guisubmenu>JSure</guisubmenu> 
+          <guimenuitem>Analyses</guimenuitem></menuchoice></para>
+        </listitem>
+      </itemizedlist>
+    </para>
+    
+    <para>The <guilabel>JSure</guilabel> pane, see <xref linkend="fig-jsure-prefs-1"/>,
+    allows you to reset settings for switching to the <guilabel>Code Verification</guilabel>
+    perspective.  It has two options under the <guilabel>Appearance</guilabel> heading:
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title><guibutton>Prompt to change to the Code Verification
+            perspective on project focus</guibutton></title>
+
+            <para>If selected, whenever a project is selected to receive
+            the JSure focus, you will be prompted to change to the
+            <guilabel>Code Verification</guilabel> perspective if it is not
+            already the active perspective.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title><guibutton>If no prompt, automatically change to the
+            Code Verification perspective</guibutton></title>
+
+            <para>If selected, and JSure is not set to prompt for a perspective
+            change, JSure automatically changes to the <guilabel>Code
+            Verification</guilabel> perspective when a project receives
+            the JSure focus.</para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    
+    The pane also has a <guibutton>Manage SureLogic Licenses</guibutton> button 
+    that brings up the dialog box for installing and removing licenes; see
+    <xref linkend="sec-license-management"/>.</para>
+    
+    <figure id="fig-jsure-prefs-1">
+      <title>The SureLogic license management dialog</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/jsure-prefs-1.png"/></imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para>The <guilabel>Analyses</guilabel> pane allows you to choose which assurance
+    analyses are actually executed by JSure.  Most of the time you do not need to
+    change these settings.  Each analysis knows which other analyses it depends on:
+    you can see this by opening the tree rooted at each analysis.  Selecting an 
+    analysis also transitively selects any analyses that it depends on.  Deselecting
+    an analysis transitively deselects any analyses that depend on it.  If you change
+    the settings, JSure warns you that it is a good idea to exit and restart
+    Eclipse/JSure: see <xref linkend="fig-analysis-change-warning"/>.</para>
+    
+    <figure id="fig-jsure-prefs-2">
+      <title>The SureLogic license management dialog</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/jsure-prefs-2.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <figure id="fig-analysis-change-warning">
+      <title>The SureLogic license management dialog</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/analysis-change-warning.png"/></imageobject>
+      </mediaobject>
+    </figure>
   </sect1>
 
   <sect1 id="sec-license-management">
