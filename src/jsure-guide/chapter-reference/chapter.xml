@@ -221,7 +221,7 @@
       <guilabel>JSure</guilabel> category.</para>
 
       <figure id="fig-status-view">
-        <title>JSure additions to the <guilabel>Package Explorer</guilabel> context menu</title>
+        <title>The <guilabel>Verification Status</guilabel> view</title>
         <mediaobject>
           <imageobject><imagedata fileref="images/status-view.png"/></imageobject>
         </mediaobject>
@@ -266,7 +266,7 @@
       </para>
 
       <figure id="fig-status-view-menu">
-        <title>JSure additions to the <guilabel>Package Explorer</guilabel> context menu</title>
+        <title>The <guilabel>Verification Status</guilabel> view menu</title>
         <mediaobject>
           <imageobject><imagedata fileref="images/status-view-menu.png"/></imageobject>
         </mediaobject>
@@ -372,7 +372,7 @@
       root of the project.</para>
 
       <figure id="fig-choose-a-location">
-        <title>JSure additions to the <guilabel>Package Explorer</guilabel> context menu</title>
+        <title>Dialog box for choosing a location for the SureLogic annotations JAR file</title>
         <mediaobject>
           <imageobject><imagedata fileref="images/choose-a-location.png"/></imageobject>
         </mediaobject>
@@ -387,7 +387,7 @@
       overwritten; see <xref linkend="fig-overwrite-promises"/>.</para>
 
       <figure id="fig-overwrite-promises">
-        <title>JSure additions to the <guilabel>Package Explorer</guilabel> context menu</title>
+        <title>Dialog box querying if the existing SureLogic annotations JAR file should be overwritten</title>
         <mediaobject>
           <imageobject><imagedata fileref="images/overwrite-promises.png"/></imageobject>
         </mediaobject>
@@ -406,7 +406,7 @@
     removes assurance from the current project.</para>
     
     <figure id="fig-jsure-properties">
-      <title>The SureLogic license management dialog</title>
+      <title>The JSure project properties pane</title>
       <mediaobject>
         <imageobject><imagedata fileref="images/jsure-properties.png"/></imageobject>
       </mediaobject>
@@ -462,7 +462,7 @@
     <xref linkend="sec-license-management"/>.</para>
     
     <figure id="fig-jsure-prefs-1">
-      <title>The SureLogic license management dialog</title>
+      <title>The JSure Eclipse preferences pane</title>
       <mediaobject>
         <imageobject><imagedata fileref="images/jsure-prefs-1.png"/></imageobject>
       </mediaobject>
@@ -478,14 +478,14 @@
     Eclipse/JSure: see <xref linkend="fig-analysis-change-warning"/>.</para>
     
     <figure id="fig-jsure-prefs-2">
-      <title>The SureLogic license management dialog</title>
+      <title>The JSure analyses preferences pane</title>
       <mediaobject>
         <imageobject><imagedata fileref="images/jsure-prefs-2.png"/></imageobject>
       </mediaobject>
     </figure>
 
     <figure id="fig-analysis-change-warning">
-      <title>The SureLogic license management dialog</title>
+      <title>Dialog box advising a restart after changing the analysis settings</title>
       <mediaobject>
         <imageobject><imagedata fileref="images/analysis-change-warning.png"/></imageobject>
       </mediaobject>
