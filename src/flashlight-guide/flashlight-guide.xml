@@ -352,17 +352,17 @@
       will appear under the <guilabel>Prep</guilabel> of the
       <guilabel>Flashlight Runs</guilabel> view table for this
       run. Second, several queries are now able to be run on the
-      data. These queries are listed in the <guilabel>Runnable
-      Queries</guilabel> portion of the <guilabel>Query
-      Flashlight</guilabel> view.</para>
+      data. These queries are listed in the <guilabel>Query
+      Menu</guilabel> view directly below the <guilabel>Flashlight
+      Runs</guilabel> view.</para>
 
       <para>At this point we can run a query on the data. Double-click
-      on the <emphasis>What non-static fields are shared?</emphasis>
-      query. The results will appear in the <guilabel>Flashlight Query
+      on the <emphasis>What fields (non-static) are shared?</emphasis>
+      query. The results will appear in the <guilabel>Query
       Results</guilabel> view. Select the
-      <emphasis>f_connectDisconnectButton</emphasis> and open the tree
-      to display the two threads that shared this object. Your screen
-      should appear as shown in <xref
+      <emphasis>f_connectDisconnectButton</emphasis> field name and
+      open the tree to display the two threads that shared this
+      object. Your screen should appear as shown in <xref
       linkend="fig-tutorial-planetbaron-perspective-ctc1" />.</para>
 
       <figure id="fig-tutorial-planetbaron-perspective-ctc1">
