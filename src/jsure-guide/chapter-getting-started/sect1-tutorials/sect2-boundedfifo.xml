@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect2 id="boundedfifo"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Verifying BoundedFIFO</title>
+  
+  <para>In this turorial we walk through the creation of a project and 
+  its complete assurance using JSure.  Specifically, we assure both
+  the implementation and <emphasis>usage</emphasis> of a simple class.
+  That is, we demonstrate that is not always
+  enough to assure the implementation of a class: <emphasis>sometimes
+  the clients of a class must conform to a specific behavior as
+  well</emphasis>. This example focuses on two classes (plus one
+  auxillary class):
+    <variablelist>
+      <varlistentry>
+        <term><classname>BoundedFIFO</classname></term>
+        <listitem><para>The &ldquo;thread safe&rdquo; class.  This class
+        is taken from the Apache Log4J project.</para></listitem>
+      </varlistentry>
+    
+      <varlistentry>
+        <term><classname>BlockingFIFO</classname></term>
+        <listitem><para>The client code.  We wrote this class based on
+        actual client code in Log4J.</para></listitem>
+      </varlistentry>
+    
+      <varlistentry>
+        <term><classname>LoggingEvent</classname></term>
+        <listitem><para>The class of objects stored in the queue.  This
+        class is not interesting, and is merely a placeholder for queue
+        objects.</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </para>
+
+  <para>In addition to showing the basic usage of JSure with Eclipse,
+  this example shows off the JSure annotations
+  <classname>@RegionLock</classname>,
+  <classname>@RequiresLock</classname>,
+  <classname>@SingleThreaded</classname>,
+  <classname>@Borrowed</classname>, <classname>@Unique</classname>,
+  <classname>@Aggregate</classname>, and
+  <classname>@Promise</classname>. </para>
+
+  <sect3>
+    <title>Creating the BoundedFIFO Project</title>
+    
+    <orderedlist>
+      <listitem>
+        <para>Create a new Java project called &ldquo;BoundedFIFO&rdquo;. 
+        Make sure the project is configured to use Java 5 or greater so that
+        you can use Java annotation types; see <xref
+        linkend="fig-create-java-project"/>.</para>
+      </listitem>
+      <listitem>
+        <para>Create a new package <package>test</package> in the project.</para>
+      </listitem>
+    </orderedlist>
+    
+    <figure id="fig-create-java-project">
+      <title>Creating the Project BoundedFIFO</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/create-java-project.png"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <sect4>
+      <title>Create <classname>BoundedFIFO</classname></title>
+            
+      <para>Create a new class <classname>test.BoundedFIFO</classname>, and replace its
+      contents with the following</para>
+    
+      <programlisting><![CDATA[
+package test;
+
+/*
+ * Copyright (C) The Apache Software Foundation. All rights reserved.
+ *
+ * This software is published under the terms of the Apache Software License
+ * version 1.1, a copy of which has been included  with this distribution in
+ * the LICENSE.txt file.
+ * 
+ * Contributors:     Mathias Bogaert
+ *                   joelr@viair.com
+ * 
+ * Annotations by Aaron Greenhouse - Carnegie Mellon University
+ */
+
+/**
+ * <code>BoundedFIFO</code> serves as the bounded first-in-first-out buffer
+ * heavily used by the {@link org.apache.log4j.AsyncAppender}.
+ * 
+ * @author Ceki G&uuml;lc&uuml;
+ * @since version 0.9.1
+ */
+
+public class BoundedFIFO {
+  LoggingEvent[] buf;
+  
+  int numElts = 0;
+  int first = 0;
+  int next = 0;
+  int size;
+
+  /**
+   * Instantiate a new BoundedFIFO with a maximum size passed as argument.
+   *
+   * @param size Maximum size of the BoundedFIFO created.
+   */
+  public BoundedFIFO(int size) {
+    if (size < 1)
+      throw new IllegalArgumentException();
+    this.size = size;
+    buf = new LoggingEvent[size];
+  }
+
+  /**
+   * Get the first element in the buffer. Returns <code>null</code> if
+   * there are no elements in the buffer.
+   */
+  public LoggingEvent get() {
+    if (numElts == 0)
+      return null;
+    LoggingEvent r = buf[next];
+    if (++first == size)
+      first = 0;
+    numElts--;
+    return r;
+  }
+
+  /**
+   * Place a {@link LoggingEvent} in the buffer. If the buffer is full  then
+   * the event is <b>silently dropped</b>. It is the caller's  responsibility
+   * to make sure that the buffer has free space.
+   * 
+   * @param o The logging event added into the buffer.
+   */
+  public void put(LoggingEvent o) {
+    if (numElts != size) {
+      buf[next] = o;
+      if (++next == size)
+        next = 0;
+      numElts++;
+    }
+  }
+
+  /** 
+   * Get the maximum size of the buffer.
+   */
+  public int getMaxSize() {
+    return size;
+  }
+
+  /**
+   * Get the number of elements in the buffer. This number is guaranteed to be
+   * in the range 0 to <code>maxSize</code> (inclusive).
+   */
+  public int length() {
+    return numElts;
+  }
+
+  /**
+   * Returns <code>true</code> if there is just one element in the buffer. In
+   * other words, if there were no elements before the last {@link #put}
+   * operation completed.
+   */
+  public boolean wasEmpty() {
+    return numElts == 1;
+  }
+
+  /**
+   * Returns <code>true</code> if the number of elements in the buffer plus 1
+   * equals the maximum buffer size, returns <code>false</code> otherwise.
+   */
+  public boolean wasFull() {
+    return numElts + 1 == size;
+  }
+
+  /**
+   * Returns <code>true</code> if the number of elements in the buffer equals
+   * the maximum buffer size, returns <code>false</code> otherwise.
+   */
+  public boolean isFull() {
+    return numElts == size;
+  }
+}
+]]></programlisting>
+    </sect4>
+    
+    <sect4>
+      <title>Create <classname>BlockingFIFO</classname></title>
+
+      <para>Create a new class <classname>test.BlockingFIFO</classname>, and replace its
+      contents with the following</para>
+
+      <programlisting><![CDATA[
+package test;
+
+public class BlockingFIFO {
+  private final BoundedFIFO fifo;;
+
+  public BlockingFIFO(int size) {
+    fifo = new BoundedFIFO(size);
+  }
+
+  public void put(LoggingEvent e) {
+    synchronized (this) {
+      while (fifo.isFull()) {
+        try {
+          fifo.wait();
+        } catch (InterruptedException ie) {
+          // ignore
+        }
+      }
+      fifo.put(e);
+      if (fifo.wasEmpty()) {
+        fifo.notify();
+      }
+      fifo.put(e);
+      fifo.put(e);
+    }
+  }
+
+  public LoggingEvent get() {
+    synchronized (fifo) {
+      LoggingEvent e;
+      while (fifo.length() == 0) {
+        try {
+          fifo.wait();
+        } catch (InterruptedException ie) {
+          // ignore
+        }
+      }
+      e = fifo.get();
+      if (fifo.wasFull()) {
+        fifo.notify();
+      }
+      return e;
+    }
+  }
+
+  public int length() {
+    synchronized (fifo) {
+      return fifo.length();
+    }
+  }
+}
+]]></programlisting>
+    </sect4>
+    
+    <sect4>
+      <title>Create <classname>LoggingEvent</classname></title>
+
+      <para>Create a new class <classname>test.LoggingEvent</classname>, and replaced its
+      contents with the following</para>
+
+      <programlisting><![CDATA[
+package test;
+
+public class LoggingEvent { 
+  // This class is not interesting
+}
+]]></programlisting>
+    </sect4>
+    
+    <sect4>
+      <title>Enable Assurance and Add the SureLogic Annotation Types</title>
+      
+      <para>Before we can add annotations to the project, we need to add the
+      SureLogic annotation types to the class path.  This is most easily done
+      by allowing JSure to do it for us when we focus verification on the
+      project:
+      
+        <orderedlist>
+          <listitem>
+            <para>Select the project in the <guilabel>Package Explorer</guilabel>.</para>
+          </listitem>
+          <listitem>
+            <para>Press the icon <guiicon><inlinegraphic
+            fileref="images/jsure_verify.gif"/></guiicon> in the
+            <guilabel>Package Explorer</guilabel> toolbar.</para>
+          </listitem>
+          <listitem>
+            <para>Choose <guilabel>Add to Project Root</guilabel> when prompted 
+            by JSure whether to add <filename>promises.jar</filename> to the
+            project and its build path:
+            
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/add-promises-jar.png" />
+                </imageobject>
+              </mediaobject>
+              
+            JSure now copies the <filename>promises.jar</filename> to the root 
+            directory of the project and adds it to the build path.</para>
+          </listitem>
+          <listitem>
+            <para>If you are working with a fresh workspace, JSure may also ask
+            if you would like to switch to the <guilabel>Code Verification</guilabel>
+            perspective:
+
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/perspective-switch.png" />
+                </imageobject>
+              </mediaobject>
+              
+            If asked, choose <guilabel>Yes</guilabel>.</para>
+          </listitem>
+        </orderedlist>
+      </para>
+    </sect4>
+  </sect3>
+  
+  <sect3 id="declaring-protected-state">
+    <title>Declaring Protected State</title>
+    
+    <para>The <classname>BoundedFIFO</classname> class is a buffer
+    meant to be shared between two threads. It obviously must be made
+    thread-safe. The usual assumption is that an object protects its
+    own state, and we intend for that to be the case here.  Declare this 
+    design intent by adding a <classname>@RegionLock</classname> annotation
+    to the class <classname>BoundedFIFO</classname>:</para>
+    
+    <programlisting>
+<emphasis>@RegionLock("BufLock is this protects Instance")</emphasis>
+public class BoundedFIFO {
+  &hellip;
+}
+    </programlisting>
+
+    <para>Adding the annotation is not enough to get assurance.  We must enable
+    assurance for the BoundedFIFO project:
+    </para>
+
+    <para>Enabling assurance causes JSure to initialize and to assure
+    the project. Unless you have previously explitly added the
+    <guilabel>Verification Status</guilabel> view to the currently active perspective,
+    or switched to the <guilabel>Code Verification</guilabel> perspective, you still will not
+    see any assurance results.  You can open the view by using the
+    standard Eclipse <menuchoice><guimenu>Window</guimenu>
+    <guisubmenu>Show View</guisubmenu>
+    <guimenuitem>Other&hellip;</guimenuitem></menuchoice> command, and
+    then choosing <guilabel>Verification Status</guilabel> under the
+    <guilabel>JSure</guilabel> category. However, JSure provides a
+    <guilabel>Code Verification</guilabel> perspective that includes
+    this view, as well as a view layout more conducive to interacting
+    with the assurance results.  If you are not already in this perspecive,
+    switch to it by choosing
+    <menuchoice><guimenu>JSure</guimenu> <guimenuitem>Open Code
+    Verification Perspective</guimenuitem></menuchoice>:
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/open-code-verification.png" />
+        </imageobject>
+      </mediaobject>    
+    </para>
+
+    <para>Switching to the <guilabel>Code Verification</guilabel> perspective
+    at this point should look something like this:
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/switched-to-code-verification.png" />
+        </imageobject>
+      </mediaobject>
+    By digging into the <guilabel>Concurrency</guilabel> results, we find that
+    with this single annotation, assurance by JSure produces two
+    main concurrency results, mostly indicating that the annotation is
+    <emphasis>not</emphasis> assured, and a few warnings.  There are 27 unprotected field
+    accesses for <structfield>BufLock</structfield>, and no protected
+    field accesses:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/BoundedFIFO1.png"/>
+        </imageobject>
+      </mediaobject>
+    </para>
+  
+    <para>Opening up the results tree further we see that JSure identifies
+    each location in the code where state is accessed without holding the 
+    correct lock:
+    
+      <mediaobject>
+        <imageobject>
+         <imagedata fileref="images/boundedfifo2.png" />
+        </imageobject>
+      </mediaobject>    
+
+    Double-clicking on any of the results in the <guilabel>Verification
+    Status</guilabel> view focuses an Eclipse editor on the offending
+    line of code.  Let us view the first line of code from the first
+    assurance failure by double-clicking on <computeroutput>Lock
+    "&lt;this&gt;.BufLock" not held when accessing (this.first) at
+    BoundedFIFO.java line 55</computeroutput>.   Eclipse opens an editor
+    window for <classname>BoundedFIFO</classname> and highlights the
+    field expression <code>first</code> on line 55:<footnote>
+        <para>You can enable line numbering in the Java editors by going
+        to <menuchoice><guimenu>General</guimenu>
+        <guisubmenu>Editors</guisubmenu> <guisubmenu>Text
+        Editors</guisubmenu></menuchoice> in the Eclipse
+        <guilabel>Preferences</guilabel> dialog box, and selecting
+        <guilabel>Show line numbers</guilabel> in the preference
+        pane.</para>
+      </footnote>
+
+      <mediaobject>
+        <imageobject>
+         <imagedata fileref="images/boundedfifo3.png" />
+        </imageobject>
+      </mediaobject>    
+      
+    This state access is one of many in the <function>get()</function>
+    method.  A quick inspection of the method shows that it does not
+    acquire any locks.  In fact, if you scroll through the rest of the
+    <classname>BoundedFIFO</classname> you will see that no locks are
+    acquired anywhere.  There are several explanations for this
+    situation, including
+      <orderedlist>
+        <listitem id="li1">
+          <para>The class is broken and needs to have
+          <code>synchronization</code> statements added to it.</para>
+        </listitem>
+        <listitem id="li2">
+          <para>The class expects the locks to acquired by users of
+          instances of the class.</para>
+        </listitem>
+        <listitem id="li3">
+          <para>The class uses some other technique to prevent data
+          races.</para>
+        </listitem>
+      </orderedlist>
+    It is very possible that <xref linkend="li1"/> is the case.  Another
+    quick inspection of the code suggests that <xref linkend="li3"/> is
+    probably not the case.  We need to inspect the clients of
+    <classname>BoundedFIFO</classname> to consider <xref
+    linkend="li2"/>. </para>
+
+    <para>We can investigate the clients of
+    <classname>BoundedFIFO</classname> by seeing where the methods of
+    the class are invoked.  Of course, we know already that the class is
+    used by <classname>BlockingFIFO</classname>, but suppose we did not
+    already know that.  We can find this out by using Eclipse to display
+    the call hierarchy for a method.  Open the context menu within the
+    <function>get()</function> method and select
+    <menuchoice><guimenuitem>Open Call
+    Hierarchy</guimenuitem></menuchoice>.  The <guilabel>Call Hierarchy</guilabel>
+    view appears, and shows
+    
+      <mediaobject>
+        <imageobject>
+         <imagedata fileref="images/boundedfifo4.png" />
+        </imageobject>
+      </mediaobject>    
+    
+    This tells us that <function>BoundedFIFO.get()</function> is called by
+    <function>BlockingFIFO.get</function>.  Double-clicking on <guilabel>get() - test.BlockingFIFO</guilabel>
+    opens <classname>BlockingFIFO</classname> in a Java editor and selects the call expression:
+    
+      <mediaobject>
+        <imageobject>
+         <imagedata fileref="images/boundedfifo5.png" />
+        </imageobject>
+      </mediaobject>    
+    </para>
+    
+    <para>Here we can see that the
+    <function>BlockingFIFO.get()</function> calls
+    <code>fifo.get()</code> on line 38. The method acquires the lock on
+    the object referenced by <structfield>fifo</structfield> on line 29.
+    This suggests that it is the case the clients of
+    <classname>BoundedFIFO</classname> are expected to acquire the
+    lock.</para>
+
+  </sect3>
+
+  <sect3 id="declaring-lock-preconditions">
+    <title>Declaring Lock Preconditions</title>
+    
+    <para>We can test this hypothesis by annoting all the methods of
+    <classname>BoundedFIFO</classname> with the lock precondition
+    <classname>@RequiresLock("BufLock")</classname>.   There are seven
+    methods in the class, so we could quickly add the annotations
+    without too much work.  There is a way, however, to accomplish the
+    same thing with only single annotation: we can use a
+    <emphasis>scoped annotation</emphasis> to add the annotation to all
+    the methods in the class.
+
+      <programlisting>
+@RegionLock("BufLock is this protects Instance")
+<emphasis>@Promise("'@RequiresLock BufLock' for *(**)")</emphasis>
+public class BoundedFIFO {
+  &hellip;
+}
+      </programlisting>  
+
+    Here we use the <classname>@Promise</classname> annotation to add
+    <code>"@RequiresLock BufLock"</code> to the class members that match
+    the pattern <code>*(**)</code>.  This pattern matches method with any
+    name, <code>*</code>, that have any parameter list, <code>(**)</code>.
+    Using a scoped promise has the additional advantage of
+    better capturing the design intent: all methods in the class are
+    expected to have the same lock precondition.  Were we to add a new
+    method to the class, and if we did not use the scoped annotation, 
+    we would have to remember to add the
+    <classname>@RequiresLock</classname> annotation to the new method. 
+    The scoped annotation would automatically apply the lock precondition
+    to a new method.</para>
+
+    <para>Add the <classname>@Promise</classname> annotation to <classname>BoundedFIFO</classname>
+    and save the source file (and thus reanalyze the project).</para>
+        
+    <para>After assurance, there is <guilabel>Scoped promises</guilabel> heading, and we can see all
+    the places where the <classname>@Promise</classname> annotation
+    added <classname>@RequiresLock</classname> annotations. Only 4 out
+    of the 7 are currently satisfied:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo6.png"/>
+        </imageobject>
+      </mediaobject>
+    </para>
+    
+    <para>Let us look at the chain of evidence for the first unassured
+    <code>@RequiresLock</code> on the method <function>BoundedFIFO.isFull()</function>:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo7.png"/>
+        </imageobject>
+      </mediaobject>
+    
+    We see that the caller is
+    confused and is synchronized on <parameter>this</parameter> (as
+    evidenced by the caller holding the lock <code>this.MUTEX</code>),
+    although the analysis tells use that the lock on <code>this.fifo</code> is
+    the lock that is needed.  Double-clicking on the supporting information result
+    opens a Java editor and selects the expression that acquires the lock:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo8.png"/>
+        </imageobject>
+      </mediaobject>
+
+    Here we see that the method <function>BlockingFIFO.put()</function> acquires the 
+    lock on <parameter>this</parameter>.  But in the context of 
+    <classname>BlockingFIFO</classname>, <parameter>this</parameter>
+    refers to the <classname>BlockingFIFO</classname> object, not the
+    <classname>BoundedFIFO</classname> object that is correctly
+    refered to by <structfield>fifo</structfield>. The
+    <code>synchronized</code> statement in method
+    <function>isFull()</function> needs to be changed:
+
+      <programlisting>
+public void put(LoggingEvent e) {
+  synchronized (<emphasis>fifo</emphasis>) {
+    &hellip;
+  }
+}
+      </programlisting>
+    </para>
+    
+    <para>Make this change and save <filename>BlockingFIFO.java</filename>.</para>
+  </sect3>
+  
+  <sect3 id="single-threaded-constructor">
+    <title>Declaring a Single-Threaded Constructor</title>
+
+    <para>After reassurance, all the lock preconditions are assured, but there 
+    still five unprotected field accesses:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo9.png"/>
+        </imageobject>
+      </mediaobject>
+    
+    If you double-click on the five assurance failures, you will see
+    that they point to the field initializers for the fields
+    <structfield>first</structfield>, <structfield>next</structfield>,
+    and <structfield>numElts</structfield>, and to the use of the fields
+    <structfield>buf</structfield> and <structfield>size</structfield>
+    in the class&rsquo;s constructor.  Constructors are interesing because
+    we cannot require the caller to hold the lock: the object,
+    and hence the lock, does not exist before the constructor is called.
+    Furthermore, it is bad practice to use <code>synchronized</code>
+    blocks in the constructor to protect the state of the object under
+    construction because we cannot create a single atomic block.  There
+    would have to be multiple distinct <code>synchronized</code> blocks:
+    one in the constructor for the class and one in each constructor of
+    any subclasses, etc.</para>
+    
+    <para>The solution is to take advantage of the fact the constructor
+    is operating on a newly created object.  Specifically, we would like
+    to assure that the constructor does not do anything that gives any
+    thread other than the one that invoked the constructor access to the
+    newly created object.  If we can assure this, we know that the
+    object can only be accessed by a single thread&mdash;the one that
+    invoked the constructor&mdash;during the execution of the
+    constructor.  Specifcally, we want to declare the intent that the
+    constructor is single threaded.  We most commonly do this use the
+    pair of annotations on the constructor
+    
+      <programlisting>
+  <emphasis>@SingleThreaded</emphasis>
+  <emphasis>@Borrowed("this")</emphasis>
+  public BoundedFIFO(int size) {
+    &hellip;
+  }
+      </programlisting>
+    </para>
+        
+    <para>The first annotation declares the intent that the object is
+    accessed by a single thread while under construction.  The second
+    annotation declares that no aliases to the newly constructed object
+    will be created during the execution of the constructor.  The
+    assurance of the <classname>@SingleThreaded</classname> annotation
+    actually depends in part on the assurance of the
+    <classname>@Borrowed</classname> annotation.<footnote>
+        <para>Usually <classname>@SingleThreaded</classname> is
+        supported by the <classname>@Borrowed</classname> annotation.  It
+        can also be supported using effect annotations: see the JSure
+        Annotation Guide.</para>
+      </footnote>
+    </para>  
+
+    <para>Add the annotations to the constructor
+    <function>BoundedFIFO(int)</function>, save and reanalyze. The model
+    now assures:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo10.png"/>
+        </imageobject>
+      </mediaobject>
+    </para>
+  </sect3>    
+  
+  <sect3 id="aggregating-state">
+    <title>Aggregating State</title>
+    
+    <para>Although the results show no outright assurance failures, there are still 
+    two warnings about references to possibly shared objects:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo11.png"/>
+        </imageobject>
+      </mediaobject>
+
+    These warnings refer to access to the contents of the array
+    referenced by the field <structfield>buf</structfield>. This array
+    is an object separate from the <classname>BoundedFIFO</classname>
+    object and is not protected by the lock protecting the fields of the
+    <classname>BoundedFIFO</classname> object. We can extend protection
+    to the contents of the array by declaring the array reference to be
+    <classname>@Unique</classname>&mdash;no object but the
+    <classname>BoundedFIFO</classname> object can hold a reference to
+    it&mdash;and then by declaring that the state of the array is part
+    of the state of the <classname>BoundedFIFO</classname>
+    object:
+    
+      <programlisting>
+@RegionLock("BufLock is this protects Instance")
+@Promise("'@RequiresLock BufLock' for *(**)")
+public class BoundedFIFO {
+  <emphasis>@Unique</emphasis>
+  <emphasis>@Aggregate("Instance into Instance")</emphasis>
+  LoggingEvent[] buf;
+  &hellip;
+}
+      </programlisting>
+    
+    Now, as part of the state of the <classname>BoundedFIFO</classname>
+    object, the array object referenced by
+    <structfield>buf</structfield> is also protected by the lock that
+    protects that state of the buffer.</para>
+
+    <para>After adding the annotations to the field <structfield>buf</structfield>,
+    saving (and reanalyzing) we can see the effects of
+    this annotation: there are now 29 protected field accesses, up
+    from 27. This is because the two array dereferences are now
+    counted as protected accesses (lines 64 and 80):
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo12.png"/>
+        </imageobject>
+      </mediaobject>      
+      
+      The project is now fully assured and has no warnings.
+    </para>
+  </sect3>
+</sect2>

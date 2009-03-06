@@ -3,11 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
-<sect1 id="tutorials"
+<sect2 id="planetbaron"
     xmlns:xi="http://www.w3.org/2001/XInclude">
-  <title>Tutorials</title>
-  
-  <xi:include href="sect2-boundedfifo.xml"/>
-  
-  <xi:include href="sect2-planetbaron.xml"/>
-</sect1>
+  <title>Verifying Planet Baron</title>
+</sect2>

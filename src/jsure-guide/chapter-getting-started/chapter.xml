@@ -18,5 +18,5 @@
 
   <xi:include href="sect1-quick-start.xml"/>
 
-  <xi:include href="sect1-tutorial.xml"/>  
+  <xi:include href="sect1-tutorials/sect1.xml"/>  
 </chapter>
