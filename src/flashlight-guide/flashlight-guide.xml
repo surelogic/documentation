@@ -8,7 +8,7 @@
 <subtitle>How to use and configure the Flashlight Eclipse client</subtitle>
 <bookinfo>
   <copyright>
-    <year>2008</year>
+    <year>2009</year>
     <holder>SureLogic Inc.</holder>
   </copyright>
   <legalnotice>
@@ -19,7 +19,7 @@
     consequential damages in connection with or arising out of the use
     of the information or programs herein.</para>
   </legalnotice>
-  <pubdate>Version 1.0&mdash;November 2008</pubdate>
+  <pubdate>Version 2.1.1&mdash;March 2009</pubdate>
 </bookinfo>
 
 <preface id="preface">
@@ -74,7 +74,7 @@
     normally runs.  A dual- or quad-core CPU is recommend to speed the
     instrumented program.  Flashlight uses a large amount of disk
     space to store the data it collects, thus 50 to 100 Gigabytes of
-    free disk space are recommended.</para>
+    free disk space is recommended.</para>
 
     <para>The tool also has a highly effective query capability,
     wherein the database is queried using a hierarchy of queries that
@@ -98,10 +98,10 @@
     obtain one.  To install the license select <guimenuitem>Manage
     SureLogic Licenses</guimenuitem> from the
     <guimenu>Flashlight</guimenu> menu as shown in <xref
-    linkend="fig-quick-start-license-menu" /></para>
+    linkend="fig-quick-start-license-menu" />.</para>
 
     <figure id="fig-quick-start-license-menu">
-      <title>The menu option to install a license for Flashlight.</title>
+      <title>The menu option to install a license for Flashlight</title>
       <mediaobject>
 	<imageobject>
 	  <imagedata fileref="images/quick-start-license-menu.png" />
@@ -111,12 +111,12 @@
 
     <para> This will cause the <guilabel>Manage SureLogic
     Licenses</guilabel> to appear as shown in <xref
-    linkend="fig-quick-start-license-dialog-empty" /> Highlight the
+    linkend="fig-quick-start-license-dialog-empty" />. Highlight the
     Flashlight row and select the <guibutton>Install
     License</guibutton> button to install your license file.</para>
 
     <figure id="fig-quick-start-license-dialog-empty">
-      <title>The SureLogic license management dialog.</title>
+      <title>The SureLogic license management dialog</title>
       <mediaobject>
 	<imageobject>
 	  <imagedata fileref="images/quick-start-license-dialog-empty.png" />
@@ -229,10 +229,10 @@
       PlayerUI.  Moving back and forth between the two PlayerUIs move
       the ships to play the game.  Note that the idea of the game is
       to own as many planets as you can. A game screenshot is shown in
-      <xref linkend="fig-tutorial-planetbaron-playerui" /></para>
+      <xref linkend="fig-tutorial-planetbaron-playerui" />.</para>
 
       <figure id="fig-tutorial-planetbaron-playerui">
-	<title>The PlanetBaron PlayerUI for Laurel.</title>
+	<title>The PlanetBaron PlayerUI for Laurel</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-playerui.png" />
@@ -257,10 +257,10 @@
       connect to the game server and enter
       <userinput>shutdown</userinput> as the command. You're screen
       should now look like the one shown in <xref
-      linkend="fig-tutorial-planetbaron-chattestclient" /></para>
+      linkend="fig-tutorial-planetbaron-chattestclient" />.</para>
 
       <figure id="fig-tutorial-planetbaron-chattestclient">
-	<title>Using the ChatTestClient to shutdown the game server.</title>
+	<title>Using the ChatTestClient to shutdown the game server</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-chattestclient.png" />
@@ -284,11 +284,10 @@
       ChatTestClient. To run the ChatTestClient with Flashlight
       instrumentation we select it from the Flashlight launch tab in
       the Eclipse toolbar as shown in <xref
-      linkend="fig-tutorial-planetbaron-running-chattestclient" /></para>
+      linkend="fig-tutorial-planetbaron-running-chattestclient" />.</para>
 
       <figure id="fig-tutorial-planetbaron-running-chattestclient">
-	<title>Running ChatTestClient with Flashlight
-	instrumentation.</title>
+	<title>Running ChatTestClient with Flashlight instrumentation</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-running-chattestclient.png" />
@@ -308,11 +307,10 @@
       prompt you to switch to the Flashlight perspective as shown in
       <xref
       linkend="fig-tutorial-planetbaron-perspective-switch-dialog"
-      /></para>
+      />.</para>
 
       <figure id="fig-tutorial-planetbaron-perspective-switch-dialog">
-	<title>Prompting the user to switch to the Flashlight
-	perspective.</title>
+	<title>Prompting the user to switch to the Flashlight perspective</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-switch-dialog.png" />
@@ -322,10 +320,10 @@
 
       <para>Press <guibutton>Yes</guibutton> and the Flashlight
       perspective will appear as shown in <xref
-      linkend="fig-tutorial-planetbaron-perspective-empty" /></para>
+      linkend="fig-tutorial-planetbaron-perspective-empty" />.</para>
 
       <figure id="fig-tutorial-planetbaron-perspective-empty">
-	<title>The Flashlight perspective.</title>
+	<title>The Flashlight perspective</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-empty.png" />
@@ -365,11 +363,10 @@
       <emphasis>f_connectDisconnectButton</emphasis> and open the tree
       to display the two threads that shared this object. Your screen
       should appear as shown in <xref
-      linkend="fig-tutorial-planetbaron-perspective-ctc1" /></para>
+      linkend="fig-tutorial-planetbaron-perspective-ctc1" />.</para>
 
       <figure id="fig-tutorial-planetbaron-perspective-ctc1">
-	<title>Non-static fields that were observed to be shared in a
-	ChatTestClient run.</title>
+	<title>Non-static fields that were observed to be shared in a ChatTestClient run</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc1.png" />
@@ -402,10 +399,10 @@
       brings up a menu of queries that can be run on this
       result. Select <emphasis>Show me all accesses of this non-static
       field?</emphasis> as shown in <xref
-      linkend="fig-tutorial-planetbaron-perspective-ctc2" /></para>
+      linkend="fig-tutorial-planetbaron-perspective-ctc2" />.</para>
 
       <figure id="fig-tutorial-planetbaron-perspective-ctc2">
-	<title>Drilling in to all accesses of the f_connectDisconnectButton.</title>
+	<title>Drilling in to all accesses of the f_connectDisconnectButton</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc2.png" />
@@ -420,10 +417,10 @@
       the main thread and right-click. Drill-in again by selecting
       <emphasis>Show stack trace for a field access</emphasis> as
       shown in <xref
-      linkend="fig-tutorial-planetbaron-perspective-ctc3" /></para>
+      linkend="fig-tutorial-planetbaron-perspective-ctc3" />.</para>
 
       <figure id="fig-tutorial-planetbaron-perspective-ctc3">
-	<title>Drilling in to see the stack trace for this field access.</title>
+	<title>Drilling in to see the stack trace for this field access</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc3.png" />
@@ -435,10 +432,10 @@
      access. Selecting each row of the result will show that line of
      code in the program.  The bottom row is, in fact, a bug in the
      program.  This line is shown in <xref
-     linkend="fig-tutorial-planetbaron-perspective-ctc3" /></para>
+     linkend="fig-tutorial-planetbaron-perspective-ctc3" />.</para>
 
       <figure id="fig-tutorial-planetbaron-perspective-ctc4">
-	<title>The broken line of code in ChatTestClient.</title>
+	<title>The broken line of code in ChatTestClient</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc4.png" />
@@ -517,11 +514,10 @@ public static void main(String[] args) {
       (because we changed it), the <guilabel>Historical Source
       Snapshot</guilabel> view remembers what the code looked like in
       this previous run.  This difference is shown in <xref
-      linkend="fig-tutorial-planetbaron-perspective-ctc5" /></para>
+      linkend="fig-tutorial-planetbaron-perspective-ctc5" />.</para>
 
       <figure id="fig-tutorial-planetbaron-perspective-ctc5">
-	<title>The broken line of code in ChatTestClient is remembered
-	by the Historical Source Snapshot view.</title>
+	<title>The broken line of code in ChatTestClient is remembered by the Historical Source Snapshot view</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc5.png" />
@@ -535,10 +531,10 @@ public static void main(String[] args) {
       /></guiicon> icon. In the <guilabel>Flashlight Runs</guilabel>
       view select both runs and right-click. Select
       <guimenuitem>Delete</guimenuitem> as shown in <xref
-      linkend="fig-tutorial-planetbaron-perspective-ctc6" /></para>
+      linkend="fig-tutorial-planetbaron-perspective-ctc6" />.</para>
 
       <figure id="fig-tutorial-planetbaron-perspective-ctc6">
-	<title>Deleting two Flashlight runs.</title>
+	<title>Deleting two Flashlight runs</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-perspective-ctc6.png" />
@@ -569,10 +565,10 @@ public static void main(String[] args) {
       <para>Start a server using the Flashlight launch tab the Eclipse
       toolbar as shown in <xref
       linkend="fig-tutorial-planetbaron-running-server"
-      /></para>
+      />.</para>
 
       <figure id="fig-tutorial-planetbaron-running-server">
-	<title>Running Server with Flashlight instrumentation.</title>
+	<title>Running Server with Flashlight instrumentation</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-running-server.png" />
@@ -583,11 +579,10 @@ public static void main(String[] args) {
       <para>Next start three PlayerUI instances. We don't want to
       instrument these programs, so use the normal launch tab as shown
       in <xref linkend="fig-tutorial-planetbaron-running-playerui"
-      /></para>
+      />.</para>
 
       <figure id="fig-tutorial-planetbaron-running-playerui">
-	<title>Running a PlayerUI without Flashlight
-	instrumentation.</title>
+	<title>Running a PlayerUI without Flashlight instrumentation</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-running-playerui.png" />
@@ -600,10 +595,10 @@ public static void main(String[] args) {
       planets. Have one planet be owned by each player at one time. To
       do this click on the same planet in all three PlayerUI
       instances. This is shown in <xref
-      linkend="fig-tutorial-planetbaron-running-game" /></para>
+      linkend="fig-tutorial-planetbaron-running-game" />.</para>
 
       <figure id="fig-tutorial-planetbaron-running-game">
-	<title>Running three players at once on an instrumented server.</title>
+	<title>Running three players at once on an instrumented server</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-planetbaron-running-game.png" />
@@ -668,11 +663,10 @@ public static void main(String[] args) {
       Show View | Flashlight Query Editor</guimenuitem> from the
       Eclipse main menu to open the <guilabel>Flashlight Query
       Editor</guilabel> view. This view is shown in <xref
-      linkend="fig-tutorial-query-editor" /></para>
+      linkend="fig-tutorial-query-editor" />.</para>
 
       <figure id="fig-tutorial-query-editor">
-	<title>The query to show where a thread is holding a lock and
-	acquires another.</title>
+	<title>The query to show where a thread is holding a lock and acquires another</title>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="images/tutorial-query-editor.png" />
@@ -697,6 +691,163 @@ public static void main(String[] args) {
     to show views which will help you to interact with tool
     findings.</para>
   </section>
+
+
+  <section id="sec-license-management">
+    <title>License management</title>
+
+    <para>Sierra is commercial software and a license is required to
+    use it. Licenses are obtained from SureLogic and expire after some
+    period of time. Lack of a license will prohibit you from running
+    queries or creating new Flashlight runs. Selecting
+    <guimenuitem>Manage SureLogic Licenses</guimenuitem> from the
+    Flashlight menu brings up the license management form as seen in
+    <xref linkend="fig-license-management" />. (It is also possible to
+    bring this dialog up from the main Flashlight preferences pane by
+    pressing the <guibutton>Manage SureLogic Licenses</guibutton>
+    button.) For Flashlight to operate properly either a
+    <emphasis>Flashlight</emphasis> or <emphasis>All Tools</emphasis>
+    license must be installed.</para>
+
+    <figure id="fig-license-management">
+      <title>The SureLogic license management dialog</title>
+      <mediaobject>
+	<imageobject><imagedata fileref="images/license-management.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>By default license installation requires internet access.
+    SureLogic can, in special cases, provide licenses that do not
+    require internet access. Further use of the product does not
+    require internet access. If a manual uninstall is done, before
+    license expiration, internet access is also required.  SureLogic
+    tracks the number of times a particular license is installed and
+    uninstalled. We stress that Flashlight does not, unlike other
+    plug-ins such as MyEclipse, "talk-back" to SureLogic each time
+    Eclipse is started.</para>
+
+    <para>The installed license expires after a period of time
+    (clearly visible to the user) and a new license has to be
+    installed to continue to use Flashlight.</para>
+
+    <para>Licenses can be installed more than once.  Thus, one
+    license can be used for all of an organization or SureLogic can
+    issue one per location or one per organizational entity.</para>
+
+    <para>If the Flashlight Eclipse plug-in does not have a valid
+    license it will not effect the Eclipse installation that
+    Flashlight is installed into. The IDE will load and function
+    normally, but when Flashlight functions are executed they will
+    fail noting the lack of a license. Serviceability functions of the
+    tool (e.g., sending problem reports to SureLogic, installing and
+    uninstalling licenses) function properly without a license.  The
+    unlicensed Flashlight plug-in can be uninstalled or disabled
+    within Eclipse.</para>
+
+    <para>When you receive a license file from SureLogic it is
+    installed via this dialog.  To install the license select the row
+    in the license table that matches the type of license.  For
+    example, if you have been sent a Flashlight license select the
+    Flashlight row in the license table.  Next press the
+    <guibutton>Install License</guibutton> button.  You will be
+    prompted for the location of your license file.  The tool checks
+    with SureLogic and reports that your license has been installed
+    and returns showing information about the installed license. The
+    license file is not examined by the tool after the installation is
+    completed unless you install the file again (after an
+    uninstall).</para>
+
+    <para>To uninstall a license, select the row in the license
+    table and press the <guibutton>Uninstall
+    License</guibutton>. You will be asked if you are sure you want
+    to uninstall the license.  If you confirm the uninstall then the
+    license is removed.  This may take a minute as SureLogic is
+    informed that your license has been uninstalled.</para>
+
+    <para>When a license is nearing expiration the tool warns the
+    user with the dialog shown in <xref
+    linkend="fig-license-management-expiration-warning" />.</para>
+
+    <figure id="fig-license-management-expiration-warning">
+      <title>Dialog warning that the installed Flashlight license is about to expire</title>
+      <mediaobject>
+	<imageobject><imagedata fileref="images/license-management-expiration-warning.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>When a license does expire it disappears from the dialog.
+    The tool is considered unlicensed at that point. To fix this
+    situation install a new license (it is not required to install a
+    new version of Flashlight).</para>
+  </section>
+
+  <section id="sec-bugs-and-tips">
+    <title>Bugs and tips</title>
+
+    <para>Flashlight allows any user to send problem reports and
+    suggestions to SureLogic from the main menu. Selecting
+    <guimenuitem>Send Tip for Improvement</guimenuitem> or
+    <guimenuitem>Send Problem Report</guimenuitem> allows a tip or
+    problem report to be send to SureLogic directly within Eclipse
+    as shown in <xref linkend="fig-bugs-and-tips-main-menu-service"
+    />. These menu choices bring up dialogs that allow the user to
+    control exactly what information is sent to SureLogic.  In
+    addition, the user can preview the exact text that will be sent
+    over the internet.</para>
+
+    <figure id="fig-bugs-and-tips-main-menu-service">
+      <title>Menu items to send bugs and tips to SureLogic</title>
+      <mediaobject>
+	<imageobject><imagedata fileref="images/bugs-and-tips-main-menu-service.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>The <guimenuitem>Send Tip for Improvement</guimenuitem>
+    command opens a dialog to allow entry of a suggestion by the
+    user to improve the Flashlight tool as seen in <xref
+    linkend="fig-bugs-and-tips-menu-send-tip" />. The dialog allows the
+    user to control exactly what information is sent to SureLogic.
+    In addition, the user can preview the exact text that will be
+    sent.</para>
+
+    <figure id="fig-bugs-and-tips-menu-send-tip">
+      <title>Dialog allowing the user to enter a tip to improve Flashlight</title>
+      <mediaobject>
+	<imageobject><imagedata fileref="images/bugs-and-tips-menu-send-tip.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>The <guimenuitem>Send Problem Report</guimenuitem> command
+    opens a dialog to allow entry of a problem report by the user
+    about the Flashlight tool as seen in <xref
+    linkend="fig-bugs-and-tips-menu-problem-report" />. The dialog
+    allows the user to control exactly what information is sent to
+    SureLogic.  In addition, the user can preview the exact text
+    that will be sent.</para>
+
+    <figure id="fig-bugs-and-tips-menu-problem-report">
+      <title>Dialog allowing the user to enter a problem report about Flashlight</title>
+      <mediaobject>
+	<imageobject><imagedata fileref="images/bugs-and-tips-menu-problem-report.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Messages sent from these dialogs go over HTTP to
+    SureLogic. If a proxy is used on your network then it is
+    critical to configure Eclipse to use it.  To do this open the
+    Eclipse <guilabel>Preferences</guilabel> and examine the
+    <guilabel>Network Connections</guilabel> under the
+    <guilabel>General</guilabel> preferences.  This dialog allows
+    you to configure Eclipse for your network as shown in <xref
+    linkend="fig-bugs-and-tips-network-connections" />.</para>
+
+    <figure id="fig-bugs-and-tips-network-connections">
+      <title>Eclipse preferences for network connections within the IDE</title>
+      <mediaobject>
+	<imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
+      </mediaobject>
+    </figure>
+  </section>
 </chapter>
 
 <chapter>
@@ -706,8 +857,8 @@ public static void main(String[] args) {
     workaround. These are presented in the sections below for each
     released version of Flashlight.</para>
   <section>
-    <title>Flashlight version 1.0</title>
-    <para>This section describes the 1.0 release of Flashlight.</para>
+    <title>Flashlight version 2.1.1</title>
+    <para>This section describes the 2.1.1 release of Flashlight.</para>
     <section>
       <title>New and Noteworthy</title>
       <para>This section describes new and noteworthy features in this
