@@ -171,7 +171,7 @@ public class C {
       
         <para>The method implementation of
         <function>Other.bad()</function> is, however, erroneous because
-        it does acquire the lock on the object referenced by
+        it does not acquire the lock on the object referenced by
         <parameter>cObject</parameter>:
       
           <programlisting>
@@ -414,7 +414,7 @@ public class C {
         attempts to assure that the appropriate lock for
         <structfield>g</structfield> is held.)  There are situations
         where invoking a method via <code>e.f.m()</code> will also
-        produce a the above warning.</para>
+        produce the above warning.</para>
       
         <para>Region aggregation and lock declaration (as described
         above) can be used to suppress these warnings.  In general, we
