@@ -382,9 +382,13 @@
       on the project without adding the SureLogic annotation types to the project (if they were
       missing) and without adding the JAR file to the project&rsquo;s build path.</para>
       
-      <para>If you select
-      a location where the JAR is already located, then you are asked if it should be 
-      overwritten; see <xref linkend="fig-overwrite-promises"/>.</para>
+      <para>If you select a location where the JAR is already located,
+      then you are asked if it should be overwritten; see <xref
+      linkend="fig-overwrite-promises"/>.  Choosing
+      <guibutton>Yes</guibutton> overwrites the file with a new copy of
+      <filename>promises.jar</filename> and adds it to the build path. 
+      Choosing <guibutton>No</guibutton> leaves the existing JAR file
+      alone and adds it to the build path.</para>
 
       <figure id="fig-overwrite-promises">
         <title>Dialog box querying if the existing SureLogic annotations JAR file should be overwritten</title>

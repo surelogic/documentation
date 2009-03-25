@@ -146,7 +146,7 @@
         </orderedlist>
       </para>
       
-      <para>Disabling analysis of a project does not affect the
+      <para>Disabling analysis of a project does not affect
       <filename>promises.jar</filename> or the project&rsquo;s build
       path.</para>
     </sect3>
@@ -155,7 +155,7 @@
       <title>Viewing Assurance Results</title>
       
       <para>JSure reassures the chosen project whenever a file in that project
-      is changed.  The guarantees that the assurance results are always up to
+      is changed.  This guarantees that the assurance results are always up to
       date.  The assurance results are displayed in the <guilabel>Verification
       Status</guilabel> view.  The easiest way to open this view is to switch
       to the <guilabel>Code Verification</guilabel> perspective.  The first time you enable
