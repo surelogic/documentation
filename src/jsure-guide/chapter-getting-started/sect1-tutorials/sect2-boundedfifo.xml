@@ -335,12 +335,8 @@ public class BoundedFIFO {
 }
     </programlisting>
 
-    <para>Adding the annotation is not enough to get assurance.  We must enable
-    assurance for the BoundedFIFO project:
-    </para>
-
-    <para>Enabling assurance causes JSure to initialize and to assure
-    the project. Unless you have previously explitly added the
+    <para>Enabling assurance and adding annotations is not enough to see the
+    assurance results.  Unless you have previously explitly added the
     <guilabel>Verification Status</guilabel> view to the currently active perspective,
     or switched to the <guilabel>Code Verification</guilabel> perspective, you still will not
     see any assurance results.  You can open the view by using the
