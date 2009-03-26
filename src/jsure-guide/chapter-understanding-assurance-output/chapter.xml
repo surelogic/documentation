@@ -8,9 +8,13 @@
   <title>Understanding JSure Assurance Output</title>
     
   <para>This chapter descibes using examples the wide variety of
-  messages that appear in the JSure assurance output.  The examples used in this chapter 
-  can be found in the Eclipse projects contained in <filename>Results Examples.zip</filename>
-  available from the SureLogic web site.  These projects can be added to your workspace
+  messages that appear in the JSure assurance output.  The examples used
+  in this chapter can be found in the Eclipse projects contained in
+  <filename>ResultsExamples.zip</filename> available from the SureLogic
+  web site at <ulink
+  url="http://www.surelogic.com/static/jsure/ResultsExamples.zip">
+  http://www.surelogic.com/static/jsure/ResultsExamples.zip</ulink>. 
+  These projects can be added to your workspace
   
     <orderedlist>
       <listitem>
