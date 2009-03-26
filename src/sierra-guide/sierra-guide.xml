@@ -1869,9 +1869,9 @@ if (o == null) {
       section contains commands that are useful in a stand-alone
       client. The second section (from the top) contains commands that
       communicate with one or more Sierra team servers. The third
-      section contains commands to report problems or suggest
-      improvements about Sierra to Surelogic.  The bottom section
-      allows access to the license management dialog.</para>
+      section contains commands to report problems about or suggest
+      improvements to Sierra directly to Surelogic.  The bottom
+      section allows access to the license management dialog.</para>
 
       <para>The commands on the Sierra main menu are:</para>
 

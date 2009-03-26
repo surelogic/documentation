@@ -682,16 +682,63 @@ public static void main(String[] args) {
   <title>Reference</title>
   <section>
     <title>The Flashlight menu</title>
+
+    <figure id="fig-menu-flashlight">
+      <title>The Flashlight menu</title>
+      <mediaobject>
+	<imageobject><imagedata fileref="images/menu-flashlight.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
     <para>The Flashlight menu appears as an item on the Eclipse
-    workspace main menu.</para>
+    workspace main menu. This menu provides direct access to common
+    commands. The menu is divided into three sections. The top section
+    contains a shortcut to the <guilabel>Flashlight</guilabel>
+    perspective. The middle section contains commands to report
+    problems about or suggest improvements to Flashlight directly to
+    SureLogic. The bottom section allows access to the license
+    management dialog.</para>
+
+    <para>The commands on the Flashlight menu are:</para>
+
+    <orderedlist>
+      <listitem>
+	<para><emphasis>Open Flashlight Perspective</emphasis> &mdash;
+	This menu choice opens the <guilabel>Flashlight</guilabel>
+	perspective. This perspective is useful for examining and
+	querying collected run data. This perspective may also be
+	opened via the normal Eclipse menus and toolbars for
+	perspectives.</para>
+      </listitem>
+      <listitem>
+	<para><emphasis>Send Tip for Improvement</emphasis> &mdash;
+	This command opens a dialog to allow entry of a suggestion by
+	the user to improve the Sierra tool. For more information
+	please see <xref linkend="sec-bugs-and-tips"/>.</para>
+      </listitem>
+      <listitem>
+	<para><emphasis>Send Problem Report</emphasis> &mdash; This
+	command opens a dialog to allow entry of a problem report by
+	the user about the Sierra tool. For more information please
+	see <xref linkend="sec-bugs-and-tips"/>.</para>
+      </listitem>
+      <listitem>
+	<para><emphasis>Manage SureLogic Licenses</emphasis> &mdash;
+	This command opens the SureLogic license management
+	dialog. This dialog allows the user to install, view, and
+	uninstall licenses for Sierra and other SureLogic tools.  For
+	more information see <xref linkend="sec-license-management"
+	/>.</para>
+      </listitem>
+    </orderedlist>
   </section>
+
   <section>
     <title>The Flashlight perspective</title>
     <para>The Flashlight perspective organizes the Eclipse workbench
     to show views which will help you to interact with tool
     findings.</para>
   </section>
-
 
   <section id="sec-license-management">
     <title>License management</title>
