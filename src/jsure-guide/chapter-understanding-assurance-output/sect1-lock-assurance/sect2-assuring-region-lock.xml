@@ -6,7 +6,8 @@
 <sect2 id="assuring-region-lock">
   <title>Assuring <classname>@RegionLock</classname></title>
   
-  <para>The example class <classname>SimpleLockExample</classname>
+  <para>The example class <classname>SimpleLockExample</classname> in project 
+  <filename>Lock Output</filename>
   demonstrates the basics of lock assurance:</para>
 
   <programlisting linenumbering="numbered" startinglinenumber="6"><emphasis>@RegionLock("L1 is this protects Instance")</emphasis>

@@ -55,7 +55,8 @@
   Essentially, this message indicates the method effect and aggregation
   information used to conclude that the given lock is necessary.</para>
 
-  <para>Consider the class <classname>HeldWhenInvoking</classname>
+  <para>Consider the class <classname>HeldWhenInvoking</classname> from project 
+  <filename>Lock Output</filename>
   below, and its results, shown in <xref
   linkend="held-when-invoking-results"/>:</para>
     

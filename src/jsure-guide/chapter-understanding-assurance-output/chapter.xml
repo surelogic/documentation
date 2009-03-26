@@ -8,7 +8,37 @@
   <title>Understanding JSure Assurance Output</title>
     
   <para>This chapter descibes using examples the wide variety of
-  messages that appear in the JSure assurance output.</para>
+  messages that appear in the JSure assurance output.  The examples used in this chapter 
+  can be found in the Eclipse projects contained in <filename>Results Examples.zip</filename>
+  available from the SureLogic web site.  These projects can be added to your workspace
+  
+    <orderedlist>
+      <listitem>
+        <para>Select
+        <menuchoice><guimenu>File</guimenu>
+        <guimenuitem>Import&hellip;</guimenuitem></menuchoice> from the
+        Eclipse main menu and then choose
+        <menuchoice><guisubmenu>General</guisubmenu>
+        <guimenuitem>Existing Projects into
+        Workspace</guimenuitem></menuchoice> for the import
+        wizard.</para>
+      </listitem>
+      
+      <listitem>
+        <para>In the next pane, choose <guibutton>Select archive
+        file:</guibutton>, and then press
+        <guibutton>Browse&hellip;</guibutton> to select the
+        <filename>Results Examples.zip</filename> archive you
+        downloaded.</para>
+      </listitem>
+      
+      <listitem>
+        <para>Select the projects you want to import in the
+        <guilabel>Projects</guilabel> section of the next pane.  Press
+        <guibutton>Finish</guibutton> to import and build the projects.</para>
+      </listitem>
+    </orderedlist>
+  </para>
   
   <xi:include href="sect1-effects-assurance.xml"/>
   <xi:include href="sect1-lock-assurance/sect1.xml"/>

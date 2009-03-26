@@ -7,7 +7,8 @@
   <title>Assuring Constructors:
   <classname>@SingleThreaded</classname></title>
 
-  <para>The class <classname>ConstructorExample</classname> below
+  <para>The class <classname>ConstructorExample</classname> below from project 
+  <filename>Lock Output</filename>
   demonstrates assurance issues with object constructors. Specifically,
   each <classname>@SingleThreaded</classname> annotation appears
   directly under the <guilabel>Concurrency</guilabel> top-level heading,

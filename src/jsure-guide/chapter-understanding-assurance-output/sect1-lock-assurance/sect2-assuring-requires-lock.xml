@@ -19,7 +19,8 @@
   linkend="RequiresLockExample-results"/>.</para>
 
   <para>This section uses class
-  <classname>RequiresLockExample</classname> to describe how
+  <classname>RequiresLockExample</classname> in project 
+  <filename>Lock Output</filename> to describe how
   <classname>@RequiresLock</classname> annotations are assured:</para>
   
   <programlisting linenumbering="numbered" startinglinenumber="6"><emphasis>@RegionLock("RL is this protects Instance")</emphasis>

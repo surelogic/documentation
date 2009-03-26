@@ -9,11 +9,28 @@
   <sect1>
     <title>Introduction</title>
 
-    <para><emphasis>What is JSure?</emphasis> TODO</para>
+    <para><emphasis>What is JSure?</emphasis>  JSure is a model-based
+    static analysis tool that helps developers answer the question
+    &ldquo;Are my threads accessing shared state in a safe way?&rdquo;
+    JSure provides positive assurance (sound analysis, not rule-based)
+    that correct locks are held when shared state is accessed. This
+    enables programmers to develop confidence that their code is
+    &ldquo;thread safe,&rdquo; that is, that it satisfies state
+    consistency requirements.</para>
+
+    <para>More specifically, JSure assures that Java class
+    implementations are consistent with programmer design intent as
+    expressed using Java 5 annotations. Annotations make JSure scalable:
+    Unannotated classes have no design intent to assure. Annotations may
+    be inserted incrementally in critical classes.  Later, additional
+    annotations may be added as required to assure additional classes. 
+    Assurance is, however, whole program: some annotations place
+    requirements on class clients, and thus, the behavior of a client
+    class is assured even if that class has no annotations of its own.</para>
     
-    <para><emphasis>Why should you use JSure?</emphasis> TODO</para>
-    
-    <para>[Find text from white papers or journal papers to stick here.]</para>
+    <para>The JSure analysis engine is integrated into the Eclipse build 
+    process.  This enables the assurance results to be always up to date
+    as assurance is rerun whenever a file is recompiled.</para>
   </sect1>
 
   <xi:include href="sect1-quick-start.xml"/>

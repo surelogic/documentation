@@ -51,271 +51,83 @@
     
     <orderedlist>
       <listitem>
-        <para>Create a new Java project called &ldquo;BoundedFIFO&rdquo;. 
-        Make sure the project is configured to use Java 5 or greater so that
-        you can use Java annotation types; see <xref
-        linkend="fig-create-java-project"/>.</para>
+        <para>Download the BoundedFIFO project archive from SureLogic at
+        XXX to your disk.</para>
       </listitem>
+      
       <listitem>
-        <para>Create a new package <package>test</package> in the project.</para>
+        <para>Import this project into your Eclipse workspace using
+        <menuchoice><guimenu>File</guimenu>
+        <guimenuitem>Import&hellip;</guimenuitem></menuchoice> from the
+        Eclipse main menu and then choosing
+        <menuchoice><guisubmenu>General</guisubmenu>
+        <guimenuitem>Existing Projects into
+        Workspace</guimenuitem></menuchoice> for the import
+        wizard.</para>
+      </listitem>
+      
+      <listitem>
+        <para>In the next pane, choose <guibutton>Select archive
+        file:</guibutton>, and then press
+        <guibutton>Browse&hellip;</guibutton> to select the
+        <filename>BoundedFIFO.zip</filename> archive you
+        downloaded.</para>
+      </listitem>
+      
+      <listitem>
+        <para>Press <guibutton>Finish</guibutton> to import and build
+        the project. The project does not initially have the assurance
+        focus from JSure.</para>
       </listitem>
     </orderedlist>
+  </sect3>
     
-    <figure id="fig-create-java-project">
-      <title>Creating the Project BoundedFIFO</title>
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/create-java-project.png"/>
-        </imageobject>
-      </mediaobject>
-    </figure>
-
-    <sect4>
-      <title>Create <classname>BoundedFIFO</classname></title>
-            
-      <para>Create a new class <classname>test.BoundedFIFO</classname>, and replace its
-      contents with the following</para>
-    
-      <programlisting><![CDATA[
-package test;
-
-/*
- * Copyright (C) The Apache Software Foundation. All rights reserved.
- *
- * This software is published under the terms of the Apache Software License
- * version 1.1, a copy of which has been included  with this distribution in
- * the LICENSE.txt file.
- * 
- * Contributors:     Mathias Bogaert
- *                   joelr@viair.com
- * 
- * Annotations by Aaron Greenhouse - Carnegie Mellon University
- */
-
-/**
- * <code>BoundedFIFO</code> serves as the bounded first-in-first-out buffer
- * heavily used by the {@link org.apache.log4j.AsyncAppender}.
- * 
- * @author Ceki G&uuml;lc&uuml;
- * @since version 0.9.1
- */
-
-public class BoundedFIFO {
-  LoggingEvent[] buf;
-  
-  int numElts = 0;
-  int first = 0;
-  int next = 0;
-  int size;
-
-  /**
-   * Instantiate a new BoundedFIFO with a maximum size passed as argument.
-   *
-   * @param size Maximum size of the BoundedFIFO created.
-   */
-  public BoundedFIFO(int size) {
-    if (size < 1)
-      throw new IllegalArgumentException();
-    this.size = size;
-    buf = new LoggingEvent[size];
-  }
-
-  /**
-   * Get the first element in the buffer. Returns <code>null</code> if
-   * there are no elements in the buffer.
-   */
-  public LoggingEvent get() {
-    if (numElts == 0)
-      return null;
-    LoggingEvent r = buf[next];
-    if (++first == size)
-      first = 0;
-    numElts--;
-    return r;
-  }
-
-  /**
-   * Place a {@link LoggingEvent} in the buffer. If the buffer is full  then
-   * the event is <b>silently dropped</b>. It is the caller's  responsibility
-   * to make sure that the buffer has free space.
-   * 
-   * @param o The logging event added into the buffer.
-   */
-  public void put(LoggingEvent o) {
-    if (numElts != size) {
-      buf[next] = o;
-      if (++next == size)
-        next = 0;
-      numElts++;
-    }
-  }
-
-  /** 
-   * Get the maximum size of the buffer.
-   */
-  public int getMaxSize() {
-    return size;
-  }
-
-  /**
-   * Get the number of elements in the buffer. This number is guaranteed to be
-   * in the range 0 to <code>maxSize</code> (inclusive).
-   */
-  public int length() {
-    return numElts;
-  }
-
-  /**
-   * Returns <code>true</code> if there is just one element in the buffer. In
-   * other words, if there were no elements before the last {@link #put}
-   * operation completed.
-   */
-  public boolean wasEmpty() {
-    return numElts == 1;
-  }
-
-  /**
-   * Returns <code>true</code> if the number of elements in the buffer plus 1
-   * equals the maximum buffer size, returns <code>false</code> otherwise.
-   */
-  public boolean wasFull() {
-    return numElts + 1 == size;
-  }
-
-  /**
-   * Returns <code>true</code> if the number of elements in the buffer equals
-   * the maximum buffer size, returns <code>false</code> otherwise.
-   */
-  public boolean isFull() {
-    return numElts == size;
-  }
-}
-]]></programlisting>
-    </sect4>
-    
-    <sect4>
-      <title>Create <classname>BlockingFIFO</classname></title>
-
-      <para>Create a new class <classname>test.BlockingFIFO</classname>, and replace its
-      contents with the following</para>
-
-      <programlisting><![CDATA[
-package test;
-
-public class BlockingFIFO {
-  private final BoundedFIFO fifo;;
-
-  public BlockingFIFO(int size) {
-    fifo = new BoundedFIFO(size);
-  }
-
-  public void put(LoggingEvent e) {
-    synchronized (this) {
-      while (fifo.isFull()) {
-        try {
-          fifo.wait();
-        } catch (InterruptedException ie) {
-          // ignore
-        }
-      }
-      fifo.put(e);
-      if (fifo.wasEmpty()) {
-        fifo.notify();
-      }
-      fifo.put(e);
-      fifo.put(e);
-    }
-  }
-
-  public LoggingEvent get() {
-    synchronized (fifo) {
-      LoggingEvent e;
-      while (fifo.length() == 0) {
-        try {
-          fifo.wait();
-        } catch (InterruptedException ie) {
-          // ignore
-        }
-      }
-      e = fifo.get();
-      if (fifo.wasFull()) {
-        fifo.notify();
-      }
-      return e;
-    }
-  }
-
-  public int length() {
-    synchronized (fifo) {
-      return fifo.length();
-    }
-  }
-}
-]]></programlisting>
-    </sect4>
-    
-    <sect4>
-      <title>Create <classname>LoggingEvent</classname></title>
-
-      <para>Create a new class <classname>test.LoggingEvent</classname>, and replaced its
-      contents with the following</para>
-
-      <programlisting><![CDATA[
-package test;
-
-public class LoggingEvent { 
-  // This class is not interesting
-}
-]]></programlisting>
-    </sect4>
-    
-    <sect4>
-      <title>Enable Assurance and Add the SureLogic Annotation Types</title>
+  <sect3>
+    <title>Enabling Assurance and Adding the SureLogic Annotation Types</title>
       
-      <para>Before we can add annotations to the project, we need to add the
-      SureLogic annotation types to the class path.  This is most easily done
-      by allowing JSure to do it for us when we focus verification on the
-      project:
+    <para>Before we can add annotations to the project, we need to add the
+    SureLogic annotation types to the class path.  This is most easily done
+    by allowing JSure to do it for us when we focus verification on the
+    project:
       
-        <orderedlist>
-          <listitem>
-            <para>Select the project in the <guilabel>Package Explorer</guilabel>.</para>
-          </listitem>
-          <listitem>
-            <para>Press the icon <guiicon><inlinegraphic
-            fileref="images/jsure_verify.gif"/></guiicon> in the
-            <guilabel>Package Explorer</guilabel> toolbar.</para>
-          </listitem>
-          <listitem>
-            <para>Choose <guilabel>Add to Project Root</guilabel> when prompted 
-            by JSure whether to add <filename>promises.jar</filename> to the
-            project and its build path:
+      <orderedlist>
+        <listitem>
+          <para>Select the project in the <guilabel>Package Explorer</guilabel>.</para>
+        </listitem>
+        <listitem>
+          <para>Press the icon <guiicon><inlinegraphic
+          fileref="images/jsure_verify.gif"/></guiicon> in the
+          <guilabel>Package Explorer</guilabel> toolbar.</para>
+        </listitem>
+        <listitem>
+          <para>Choose <guilabel>Add to Project Root</guilabel> when prompted 
+          by JSure whether to add <filename>promises.jar</filename> to the
+          project and its build path:
             
-              <mediaobject>
-                <imageobject>
-                  <imagedata fileref="images/add-promises-jar.png" />
-                </imageobject>
-              </mediaobject>
-              
-            JSure now copies the <filename>promises.jar</filename> to the root 
-            directory of the project and adds it to the build path.</para>
-          </listitem>
-          <listitem>
-            <para>If you are working with a fresh workspace, JSure may also ask
-            if you would like to switch to the <guilabel>Code Verification</guilabel>
-            perspective:
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/add-promises-jar.png" />
+              </imageobject>
+            </mediaobject>
+            
+          JSure now copies the <filename>promises.jar</filename> to the root 
+          directory of the project and adds it to the build path.</para>
+        </listitem>
+        <listitem>
+          <para>If you are working with a fresh workspace, JSure may also ask
+          if you would like to switch to the <guilabel>Code Verification</guilabel>
+          perspective:
 
-              <mediaobject>
-                <imageobject>
-                  <imagedata fileref="images/perspective-switch.png" />
-                </imageobject>
-              </mediaobject>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/perspective-switch.png" />
+              </imageobject>
+            </mediaobject>
               
-            If asked, choose <guilabel>Yes</guilabel>.</para>
-          </listitem>
-        </orderedlist>
-      </para>
-    </sect4>
+          If asked, choose <guilabel>Yes</guilabel>.</para>
+        </listitem>
+      </orderedlist>
+    </para>
   </sect3>
   
   <sect3 id="declaring-protected-state">

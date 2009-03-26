@@ -14,7 +14,8 @@
   the method&mdash;is checked to assure that it actually returns the
   named lock.</para>
 
-  <para>The class <classname>ReturnsLockExample</classname>, below,
+  <para>The class <classname>ReturnsLockExample</classname>, below, from project 
+  <filename>Lock Output</filename>
   demonstrates the two kinds of results (see <xref
   linkend="returns-lock-results"/>):</para>
 

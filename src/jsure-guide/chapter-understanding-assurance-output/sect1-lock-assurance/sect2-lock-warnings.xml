@@ -130,7 +130,7 @@
       </variablelist>
     </para>
     
-    <para>Class <classname>SharedUnprotectedStateExample</classname>
+    <para>Class <classname>SharedUnprotectedStateExample</classname> from project <filename>Lock Output</filename>
     demonstrates these results, shown in <xref
     linkend="shared-unprotected-results"/>:</para>
 
@@ -199,7 +199,7 @@ public class SharedUnprotectedStateExample {
     "<replaceable>lock</replaceable>" may be redundant</computeroutput>.
      Each results links to the expression or annotation that is a
     potentially redundant lock acquisition. Class
-    <classname>RedundantLockExample</classname> demonstrates these
+    <classname>RedundantLockExample</classname> from project <filename>Lock Output</filename> demonstrates these
     results, shown in <xref linkend="redundant-lock-results"/>:</para>
     
     <programlisting linenumbering="numbered" startinglinenumber="6"><emphasis>@RegionLock("L is this protects Instance")</emphasis>
@@ -322,7 +322,7 @@ public class RedundantLockExample {
       </varlistentry>
     </variablelist>
     
-    <para>Class <classname>UnidentifiableLockExample</classname> demonstrates these
+    <para>Class <classname>UnidentifiableLockExample</classname> from project <filename>Lock Output</filename> demonstrates these
     results, shown in <xref linkend="unidentifiable-lock-results"/>:</para>
     
     <programlisting linenumbering="numbered" startinglinenumber="3">public class UnidentifiableLockExample {
@@ -418,7 +418,7 @@ public class RedundantLockExample {
     expression in a <code>synchronized</code> statement be final to
     guarantee that the lock that is acquired is the same lock that is
     needed inside of the statement. The <function>test()</function>
-    method of the class <classname>NonFinalLockExample</classname>
+    method of the class <classname>NonFinalLockExample</classname> from project <filename>Lock Output</filename>
     contains two examples of non-final lock expressions, see <xref
     linkend="non-final-lock-results"/>:</para>
     
@@ -499,7 +499,7 @@ public class NonFinalLockExample {
     synchronized block</computeroutput>. This warning is an attempt to
     suggest areas where the lock model might be too narrow; that is a
     lock may protect more state than it has been declared to protect. 
-    Class <classname>UnusedLockExample</classname>, whose results are
+    Class <classname>UnusedLockExample</classname> from project <filename>Lock Output</filename>, whose results are
     shown in <xref linkend="not-protecting-results"/>, only declares
     that lock <structfield>L</structfield> protects region
     <structfield>R</structfield>:</para>
@@ -600,7 +600,7 @@ public class UnusedLockExample {
     </variablelist>
     
     <para>Consider the class
-    <classname>NotJustAnyLockExample</classname> below and its results
+    <classname>NotJustAnyLockExample</classname> from project <filename>JUC Lock Output</filename> below and its results
     in <xref linkend="not-just-any-locks-results"/>.</para>
 
     <programlisting linenumbering="numbered" startinglinenumber="3">public class NotJustAnyLockExample {
@@ -672,7 +672,7 @@ public class UnusedLockExample {
     <para>JSure issues warnings when it detects scenarios that indicate
     that the programmer may be confused about the existence of
     <package>java.util.concurrent</package> locks in a class.  The class
-    <classname>SyncOnJUCLocksExample</classname> below uses
+    <classname>SyncOnJUCLocksExample</classname> from project <filename>Lock Output</filename> below uses
     <classname>Lock</classname> and <classname>ReadWriteLock</classname>
     objects in <code>synchronized</code> statements.  The Java compiler
     does not complain about this because <emphasis>all</emphasis>
@@ -780,7 +780,7 @@ public class UnusedLockExample {
         </varlistentry>
       </variablelist>
       
-      The class <classname>NotAKnownLockExample</classname> demonstrates
+      The class <classname>NotAKnownLockExample</classname> from project <filename>Lock Output</filename> demonstrates
       these warnings, shown in <xref
       linkend="not-a-known-lock-result1"/> and <xref
       linkend="not-a-known-lock-result2"/>.  It has one general warning,

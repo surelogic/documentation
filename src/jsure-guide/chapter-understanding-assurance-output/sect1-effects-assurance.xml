@@ -9,7 +9,8 @@
   <para>This discussion of effects assurance results is based on
   assuring the class <classname>EffectsExample</classname>. This class
   does absolutely nothing useful except to demonstrate the various
-  effects assurance results.</para>
+  effects assurance results.  This class is found in the <filename>Effects Output</filename>
+  project.</para>
   
   <figure id="EffectsExample.java">
     <title>The class <classname>EffectsExample</classname></title>

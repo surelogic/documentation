@@ -15,7 +15,7 @@
   produce about their use.  We begin with a simple example that
   demonstrates that the primary <emphasis>assurance</emphasis> messages
   are unchanged.  Consider the class
-  <classname>SimpleJUCLockExample</classname> below, and its results
+  <classname>SimpleJUCLockExample</classname> from project <filename>JUC Lock Output</filename>, and its results
   shown in <xref linkend="juc-results"/>.</para>
     
   <programlisting linenumbering="numbered" startinglinenumber="9"><emphasis>@RegionLock("L1 is lock protects Instance")</emphasis>
@@ -104,7 +104,7 @@ public class SimpleJUCLockExample {
   <para>Similarly, JSure understands the difference between a
   <classname>java.util.concurrent.locks.Lock</classname> and a
   <classname>java.util.concurrent.locks.ReadWriteLock</classname>.
-  Consider the class <classname>SimpleRWLockExample</classname> below
+  Consider the class <classname>SimpleRWLockExample</classname> from project <filename>JUC Lock Output</filename> below
   and it its results in <xref linkend="rw-results"/>.</para>
     
   <programlisting linenumbering="numbered" startinglinenumber="9"><emphasis>@RegionLock("L1 is lock protects Instance")</emphasis>

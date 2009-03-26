@@ -11,19 +11,6 @@
   license file that allows you to use JSure.  It also describes how to 
   enable JSure assurane of a Java project, and how to examine the
   assurance results.</para>
-  
-  <sect2>
-    <title>Installing JSure</title>
-
-    <para>JSure installs as a feature in your Eclipse IDE.  It is
-    installed (and uninstalled) via the normal Eclipse mechanisms from
-    an archived update site that you obtain from SureLogic.</para>
-
-    <para>JSure may be installed and used in&hellip;</para>
- 
-    <para>[Copy from Sierra docs once the JSure distribution is
-    finalized.]</para>
-  </sect2>
 
   <sect2>
     <title>Installing Your License</title>

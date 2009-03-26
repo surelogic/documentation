@@ -9,7 +9,8 @@
   <para>Each <classname>@SingleThreaded</classname> annotation creates a
   new chain of evidence under the <guilabel>Thread effects</guilabel>
   heading in the <guilabel>Verification Status</guilabel> view.  The
-  class <classname>ThreadEffectsExample</classname> is used to explore
+  class <classname>ThreadEffectsExample</classname> in the project
+  <filename>Thread Effects Output</filename> is used to explore
   these results:</para>
   
   <programlisting linenumbering="numbered" startinglinenumber="5">public class ThreadEffectsExample {
