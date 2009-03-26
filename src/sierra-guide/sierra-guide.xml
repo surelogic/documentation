@@ -2005,10 +2005,11 @@ if (o == null) {
       with one or more Sierra team servers.</para>
 
       <para>This perspective is useful for beginning use of the Sierra
-      Eclipse client. Its "canned" organization can help understand the
-      capabilities of the tool. However, advanced users may want to
-      reconfigure the screen layout and save a custom perspective or add
-      one or more of the Sierra views to the Java perspective.</para>
+      Eclipse client. Its "canned" organization can help you to
+      understand the capabilities of the tool. Advanced users may want
+      to reconfigure the screen layout and save a custom perspective
+      or add one or more of the Sierra views to the Java
+      perspective.</para>
     </section>
 
     <section>

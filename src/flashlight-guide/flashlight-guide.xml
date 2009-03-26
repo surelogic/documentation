@@ -735,9 +735,16 @@ public static void main(String[] args) {
 
   <section>
     <title>The Flashlight perspective</title>
+
     <para>The Flashlight perspective organizes the Eclipse workbench
-    to show views which will help you to interact with tool
-    findings.</para>
+    to show views which will help you to interact with data from
+    program runs.</para>
+
+    <para>This perspective is useful for beginning use of the
+    Flashlight tool. Its "canned" organization can help you to
+    understand the capabilities of the tool.  Advanced users may want
+    to reconfigure the screen layout and save a custom
+    perspective.</para>
   </section>
 
   <section id="sec-license-management">
