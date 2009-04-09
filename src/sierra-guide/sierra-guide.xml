@@ -1940,6 +1940,45 @@ if (o == null) {
 
       <section id="sec-tutorial-sierra-plugin">
 	<title>Extending Sierra with New Tools</title>
+
+        <para> This tutorial will demonstrate how to add new tools to 
+        Sierra by adding the well-known tool 
+        <ulink url="http://checkstyle.sourceforge.net">CheckStyle</ulink>.
+	To begin with, the general data flow for a given tool is as follows:
+        <orderedlist>
+ 	  <listitem>At startup, Sierra scans for available tools, and
+	  instantiates an IToolFactory for each one.
+          </listitem>
+ 	  <listitem>For a given scan of a set of projects, Sierra
+ 	  specifies the files to be scanned, as well as other
+ 	  parameters, as a Config object. 
+          </listitem>
+ 	  <listitem>For each IToolFactory, Sierra then calls
+	  IToolFactory.create(Config) to create an ITool specific to
+	  that Config, and later creates an IToolInstance to actually
+	  do the scan.
+          </listitem>
+ 	  <listitem>For each IToolInstance, Sierra will call run()
+	  with an ArtifactGenerator to create a scan document???
+          </listitem>
+        </orderedlist>
+        </para>
+
+        <para>There are two approaches to doing this:
+        <orderedlist>
+ 	  <listitem>Loose integration, where we run the tool normally
+ 	  and convert the results into the appropriate format.
+          </listitem>
+ 	  <listitem>Tight integration, where we write a custom
+ 	  application that effectively uses the tool as a library, and
+ 	  feed the results directly into the ArtifactGenerator.
+          </listitem>
+        </orderedlist>
+        The difference is that the former can use existing
+        configuration files and thus requires less development time,
+        but usually takes more run time to convert the results.  The
+        latter requires more 
+        </para>
 	<!--
 	<para>This tutorial will demonstrate how to use the Sierra Ant
 	tasks to scan the SmallWorld project and publish the resulting
