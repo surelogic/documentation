@@ -56,8 +56,8 @@
     larger universe of runs, and thus enable developers to address
     potential issues earlier. The tool is also designed to afford
     developers and evaluators a visibility that enables them to
-    develop models to support "more complete" analyses such as sound
-    static analysis (e.g., SureLogic's JSure tool).</para>
+    develop models to support a "more complete" analysis by a sound
+    static analysis tool like SureLogic's JSure.</para>
 
     <para>At a more technical level, Flashlight is designed to scale
     to very large amounts of collected instrumentation data. It
@@ -67,14 +67,16 @@
     cleanly with garbage collection and object finalization.</para>
 
     <para>Flashlight use imposes an overhead cost, in terms of time
-    and memory, on your program.  Flashlight is a much more invasive
-    analysis than a typical Java profiler.  Roughly, an instrumented
+    and memory, on your program. Flashlight is a much more invasive
+    analysis than a typical Java profiler. Roughly, an instrumented
     program will require two to three times the memory it normally
     uses and will run from 20 times to 80 times slower than it
-    normally runs.  A dual- or quad-core CPU is recommend to speed the
-    instrumented program.  Flashlight uses a large amount of disk
-    space to store the data it collects, thus 50 to 100 Gigabytes of
-    free disk space is recommended.</para>
+    normally runs.  A dual- or quad-core CPU is recommend to reduce
+    the overhead Flashlight imposes on the instrumented program
+    because Flashlight is able to take advantage of the available
+    hardware. Flashlight uses a large amount of disk space to store
+    the data it collects, thus 50 to 100 Gigabytes of free disk space
+    is recommended.</para>
 
     <para>Flashlight has a highly effective query capability, wherein
     the database of program run data is queried using a hierarchy of
@@ -132,19 +134,22 @@
     <para>Flashlight is a dynamic analysis tool which means that you
     have to run your program to use it.  Flashlight instruments your
     program when it starts up and uses that instrumentation to collect
-    data about your program.  Data is collected to a file located in
-    <filename>~/.flashlight-data</filename>.</para>
+    data about your program.  By default, data is collected into the
+    directory <filename>~/.flashlight-data</filename>.</para>
 
   </section>
 
   <section>
     <title>Tutorials</title>
 
-    <para>This section contains a series of Flashlight tutorials.  It is
-    recommended that you go through these tutorials in order.  It is
-    also recommended that these tutorials be performed "hands-on" at
-    your computer.  You may want to create a new Eclipse workspace
-    for these tutorials.</para>
+    <para>This section contains a series of Flashlight tutorials.  It
+    is recommended that you go through these tutorials in order.  It
+    is also recommended that these tutorials be performed "hands-on"
+    at your computer. You might want to create a new Eclipse workspace
+    to use for these tutorials. In addition, if you run into any
+    difficulties as you step through the tutorials please consider
+    sending us a tip for improvement as described in <xref
+    linkend="sec-bugs-and-tips"/>.</para>
 
     <section id="sec-tutorial-client">
       <title>Using the Flashlight Eclipse client on PlanetBaron</title>
@@ -165,23 +170,23 @@
       <guimenuitem>Import...</guimenuitem> from the Eclipse main menu
       and then choosing <emphasis>Existing Projects into
       Workspace</emphasis> for the import wizard. Follow the import
-      steps of wizard until the <application>SmallWorld</application>
+      steps of wizard until the <application>PlanetBaron</application>
       project is imported and built.</para>
 
       <para>PlanetBaron is a network-based real-time strategy game.
-      It contains three programs. First, there is a server program
-      that manages game state. Second, there is a client user
-      interface program that allows players to interact with the
-      game. Finally, there is a program, called the chat-test client,
-      that allows direct interaction with the server. The chat-test
-      client is used to shutdown a running server.</para>
+      It contains three programs that we will run during this
+      tutorial. The first is a server program that manages the
+      distributed game state. The second is a graphical program that
+      allows a player to interact with the game. The third program,
+      called the chat-test client, allows direct interaction with the
+      server for the purpose of debugging and management. For example,
+      the chat-test client is used to shutdown a server.</para>
 
       <para>Flashlight is a dynamic analysis tool. To get any useful
       results from Flashlight we have to collect data while a program
-      is running. For this tutorial we will collect data about running
-      PlanetBaron programs. Therefore we now describe how to run and
+      is running. We will start below by describing how to run and
       play a PlanetBaron game. After we understand a bit about how to
-      run this game we will return to using Flashlight on it.</para>
+      run the game we will return to using Flashlight on it.</para>
 
       <para>Let's run a PlanetBaron game. Select
       <filename>Server.java</filename> in the
@@ -201,8 +206,9 @@
       <varname>edu.afit.planetbaron.client</varname> package.
       Right-click and select <guimenuitem>Run As</guimenuitem> and
       then <guimenuitem>Java Application</guimenuitem>. You will see a
-      Swing application start that has a blank grid. In the lower
-      right-hand-corner enter a player name, 
+      Window appear has a blank grid and the title
+      <application>PlanetBaron</application>. In the lower
+      right-hand-corner enter a player name,
       <userinput>Laurel</userinput>, and press
       <guibutton>Connect</guibutton>.</para>
 
@@ -212,10 +218,24 @@
       and left-click. This action will cause your ship to move slowly
       to that planet. When your ship arrives you will become the owner
       of that planet. This is called "taking ownership" of a planet.
-      Go ahead an take ownership of a planet. Note that while your
-      ship is moving you are not allowed to change its destination.
-      Once it arrives at the destination you selected you can then
-      select a subsequent destination.</para>
+      Go ahead an take ownership of a few planets. Note that while
+      your ship is moving you are not allowed to change its
+      destination.  Once it arrives at the destination you selected
+      you can then select a subsequent destination.</para>
+
+      <para>If you look at the console for the server you will see the
+      commands that have come in from the Laurel PlayerUI. For
+      example, your server console might look similar to the
+      below:</para>
+
+      <programlisting>
+	[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map [edu.afit.planetbaron.server.Server.startListening()]
+	[INFO "server-ch10"] client handler thread started [edu.afit.planetbaron.server.ClientHandler.run()]
+	[INFO "server-ch10 (Laurel)"] "play "Laurel"" processed GameStateUpdate from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+	[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (12,11)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+	[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (9,13)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+	[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (8,10)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+      </programlisting>
 
       <para>Now, go back to Eclipse and start a second instance of
       <filename>PlayerUI.java</filename>. In the lower
@@ -224,7 +244,7 @@
       <guibutton>Connect</guibutton>.</para>
 
       <para>The game supports as many players as you choose to connect
-      to the server.  Notice that the planets that Laurel owns are red
+      to the server. Notice that the planets that Laurel owns are red
       in the Hardy PlayerUI while they are white in the Laurel
       PlayerUI.  Moving back and forth between the two PlayerUIs move
       the ships to play the game.  Note that the idea of the game is
@@ -245,18 +265,17 @@
       using the windowing system <guibutton>X</guibutton>. This action
       ends both player user interfaces but the server is still
       running.  To terminate the server we need to use the chat-test
-      client program.</para>
-
-      <para>Select <filename>ChatTestClient.java</filename> in the
-      <varname>edu.afit.planetbaron.client</varname> package.
+      client program. Select <filename>ChatTestClient.java</filename>
+      in the <varname>edu.afit.planetbaron.client</varname> package.
       Right-click and select <guimenuitem>Run As</guimenuitem> and
       then <guimenuitem>Java Application</guimenuitem>. You will see a
-      Swing application start. This program allows you to directly
-      control the game server. We want to use it to shutdown the game
-      server. To do this press <guibutton>Connect</guibutton> to
-      connect to the game server and enter
-      <userinput>shutdown</userinput> as the command. You're screen
-      should now look like the one shown in <xref
+      window appear with the title <application>ChatTest -
+      PlanetBaron</application>. This program allows you to directly
+      control the game server via text commands. We want to use it to
+      shutdown the game server. To do this press
+      <guibutton>Connect</guibutton> to connect to the game server and
+      enter <userinput>shutdown</userinput> as the command. You're
+      screen should now look like the one shown in <xref
       linkend="fig-tutorial-planetbaron-chattestclient" />.</para>
 
       <figure id="fig-tutorial-planetbaron-chattestclient">
@@ -273,7 +292,8 @@
       disconnected from the ChatTestClient that you may dismiss. You
       can now terminate the ChatTestClient using the windowing system
       <guibutton>X</guibutton>. Back in the Eclipse console for the
-      server you should see the following message:</para>
+      server you should see the following message at the
+      bottom:</para>
 
       <programlisting>
 	[INFO "server-main"] PlanetBaron game server shutdown complete
@@ -343,9 +363,10 @@
       <guimenuitem>Prepare</guimenuitem>.</para>
 
       <para>A dialog will appear showing the progress of prepping the
-      data for querying. For large runs prepping can take a significant
-      amount of time. This run, which only collected roughly 5KB of
-      data, should prep quickly.</para>
+      data for querying. For large runs prepping can take a
+      significant amount of time. This run, which only collected
+      roughly 5 KB of data, should prep quickly taking up a total of
+      roughly 5 MB of disk space.</para>
 
       <para>When the prep is complete two changes will occur. First, a
       <guiicon><inlinegraphic fileref="images/drum.png" /></guiicon>
