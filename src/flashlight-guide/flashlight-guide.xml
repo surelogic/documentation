@@ -366,7 +366,7 @@
       data for querying. For large runs prepping can take a
       significant amount of time. This run, which only collected
       roughly 5 KB of data, should prep quickly taking up a total of
-      roughly 5 MB of disk space.</para>
+      roughly 4 MB of disk space.</para>
 
       <para>When the prep is complete two changes will occur. First, a
       <guiicon><inlinegraphic fileref="images/drum.png" /></guiicon>
