@@ -1951,12 +1951,14 @@ if (o == null) {
           </listitem>
  	  <listitem>For a given scan of a set of projects, Sierra
  	  specifies the files to be scanned, as well as other
- 	  parameters, as a Config object. 
+ 	  parameters, in a Config object. 
           </listitem>
- 	  <listitem>For each IToolFactory, Sierra then calls
-	  IToolFactory.create(Config) to create an ITool specific to
-	  that Config, and later creates an IToolInstance to actually
-	  do the scan.
+ 	  <listitem>Sierra uses this to create an ILazyArtifactGenerator, 
+          which encapsulates the creation of the resulting scan document.
+          </listitem>
+          <listitem>Sierra then uses both the Config and
+          ILazyArtifactGenerator to call create() on each IToolFactory
+	  to create an IToolInstance specific to that Config
           </listitem>
  	  <listitem>For each IToolInstance, Sierra will call run()
 	  with an ArtifactGenerator to create a scan document???
@@ -1979,6 +1981,23 @@ if (o == null) {
         but usually takes more run time to convert the results.  The
         latter requires more 
         </para>
+
+        <para> Either way, we can begin by using the Sierra Tool
+        Plugin Project wizard to create the basic structure for our
+        new tool plugin.
+        <orderedlist>
+ 	  <listitem>New project
+          </listitem>
+ 	  <listitem>Fill in name of the project
+          </listitem>
+ 	  <listitem>Fill in ...
+          </listitem>
+        </orderedlist>
+        </para>
+
+java -jar checkstyle-all-5.0-beta2.jar -c sun_checks.xml -r /home/edwin/workspace-3.4.1/sierra-checkstyle/src -f xml
+
+
 	<!--
 	<para>This tutorial will demonstrate how to use the Sierra Ant
 	tasks to scan the SmallWorld project and publish the resulting
