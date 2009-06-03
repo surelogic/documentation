@@ -171,10 +171,10 @@
         to your disk. Unzip this archive into your workspace and
         it will create a <filename>PlanetBaron</filename> directory.
         Next import this project into your Eclipse workspace using
-        <guimenuitem>File</guimenuitem> |
-        <guimenuitem>Import...</guimenuitem> from the Eclipse main menu
-        and then choosing <emphasis>Existing Projects into
-        Workspace</emphasis> for the import wizard. Follow the import
+        <menuchoice><guimenu>File</guimenu> <guimenuitem>Import&hellip;</guimenuitem></menuchoice>
+        from the Eclipse main menu
+        and then choosing <guilabel>Existing Projects into
+        Workspace</guilabel> for the import wizard. Follow the import
         steps of wizard until the <application>PlanetBaron</application>
         project is imported and built.</para>
 
@@ -195,9 +195,9 @@
 
         <para>Let's run a PlanetBaron game. Select
         <filename>Server.java</filename> in the
-        <varname>edu.afit.planetbaron.server</varname> package.
-        Right-click and select <guimenuitem>Run As</guimenuitem> and
-        then <guimenuitem>Java Application</guimenuitem>. You should see
+        <package>edu.afit.planetbaron.server</package> package.
+        Right-click and select <menuchoice><guisubmenu>Run As</guisubmenu> 
+        <guimenuitem>Java Application</guimenuitem></menuchoice>. You should see
         following output in the console which indicates that the server
         has started successfully:</para>
 
@@ -207,9 +207,9 @@
 
         <para>Now we need to add some players. Select
         <filename>PlayerUI.java</filename> in the
-        <varname>edu.afit.planetbaron.client</varname> package.
-        Right-click and select <guimenuitem>Run As</guimenuitem> and
-        then <guimenuitem>Java Application</guimenuitem>. You will see a
+        <package>edu.afit.planetbaron.client</package> package.
+        Right-click and select <menuchoice><guisubmenu>Run As</guisubmenu> 
+        <guimenuitem>Java Application</guimenuitem></menuchoice>. You will see a
         Window appear has a blank grid and the title
         <application>PlanetBaron</application>. In the lower
         right-hand-corner enter a player name,
@@ -266,13 +266,13 @@
 
         <para>To finish the game press <guibutton>Disconnect</guibutton>
         in both PlayerUI instances and then terminate the programs by
-        using the windowing system <guibutton>X</guibutton>. This action
+        closing the application windows as usual. This action
         ends both player user interfaces but the server is still
         running.  To terminate the server we need to use the chat-test
         client program. Select <filename>ChatTestClient.java</filename>
-        in the <varname>edu.afit.planetbaron.client</varname> package.
-        Right-click and select <guimenuitem>Run As</guimenuitem> and
-        then <guimenuitem>Java Application</guimenuitem>. You will see a
+        in the <package>edu.afit.planetbaron.client</package> package.
+        Right-click and select <menuchoice><guisubmenu>Run As</guisubmenu> 
+        <guimenuitem>Java Application</guimenuitem></menuchoice>. You will see a
         window appear with the title <application>ChatTest -
         PlanetBaron</application>. This program allows you to directly
         control the game server via text commands. We want to use it to
@@ -294,8 +294,8 @@
         <para>Press <guibutton>Send</guibutton> to shutdown the server.
         A dialog will appear stating that the server has disconnected
         from the ChatTestClient that you may dismiss. You can now
-        terminate the ChatTestClient using the windowing system
-        <guibutton>X</guibutton>. Back in the Eclipse console for the
+        terminate the ChatTestClient by closing the application window.
+        Back in the Eclipse console for the
         server you should see the following message at the
         bottom:</para>
 
@@ -326,7 +326,7 @@
         dialog to you which you may dismiss. The reason it fails is that
         we did not start a game server. At this point we have exercised
         the ChatTestClient enough to see some Flashlight results. Go
-        ahead and use the windowing system <guibutton>X</guibutton> to
+        ahead and close the application window to
         terminate the program. At this point Eclipse, which knows that
         this launch was instrumented, will prompt you to switch to the
         Flashlight perspective as shown in <xref
@@ -364,7 +364,7 @@
         <emphasis>prep</emphasis>, the ChatTestClient run. To do this
         double-click the row in the table.  Alternatively you can select
         the run, right-click, and select
-        <guimenuitem>Prepare</guimenuitem>.</para>
+        <guimenuitem>Prepare</guimenuitem> from the context menu.</para>
 
         <para>A dialog will appear showing the progress of prepping the
         data for querying. For large runs prepping can take a
@@ -374,7 +374,7 @@
 
         <para>When the prep is complete two changes will occur. First, a
         <guiicon><inlinegraphic fileref="images/drum.png" /></guiicon>
-        will appear under the <guilabel>Prep</guilabel> of the
+        will appear in the <guilabel>Prep</guilabel> column of the
         <guilabel>Flashlight Runs</guilabel> view table for this run.
         Second, several queries are now able to be run on the data.
         These queries are listed in the <guilabel>Query Menu</guilabel>
@@ -385,7 +385,7 @@
         on the <emphasis>What fields (non-static) are shared?</emphasis>
         query. The results will appear in the <guilabel>Query
         Results</guilabel> view. Select the
-        <emphasis>f_connectDisconnectButton</emphasis> field name and
+        <structfield>f_connectDisconnectButton</structfield> field name and
         open the tree to display the two threads that shared this
         object. Your screen should appear as shown in <xref
         linkend="fig-tutorial-planetbaron-perspective-ctc1" />.</para>
@@ -469,19 +469,20 @@
         </figure>
 
         <para>What is wrong? To understand this problem we quote from
-        Haase and Guy's <emphasis>Filthy Rich Clients</emphasis>:</para>
+        Haase and Guy's <citetitle pubwork="book">Filthy Rich
+        Clients</citetitle><biblioref linkend="HaaseGuy07"/>:</para>
 
         <blockquote><para>Swing's threading model is based on a single
         rule: The EDT is responsible for executing any method that
         modifies a component's state. This includes any component's
         constructor. According to this rule, and despite what you can
         read in many books and tutorials about Swing. the
-        <varname>main()</varname> method in the previous code example is
+        <function>main()</function> method in the previous code example is
         invalid and can cause deadlock.</para></blockquote>
 
         <para>To fix this problem we need to call the ChatTestClient
         constructor on the EDT. We can do this by changing the
-        <varname>main()</varname> method to look like the code
+        <function>main()</function> method to look like the code
         below.</para>
 
         <programlisting>
@@ -555,7 +556,7 @@ public static void main(String[] args) {
         the <guiicon><inlinegraphic fileref="images/gray_x_double.png"
         /></guiicon> icon. In the <guilabel>Flashlight Runs</guilabel>
         view select both runs and right-click. Select
-        <guimenuitem>Delete</guimenuitem> as shown in <xref
+        <guimenuitem>Delete</guimenuitem> from the context menu as shown in <xref
         linkend="fig-tutorial-planetbaron-perspective-ctc6" />.</para>
 
         <figure id="fig-tutorial-planetbaron-perspective-ctc6">
@@ -631,8 +632,8 @@ public static void main(String[] args) {
         </figure>
 
         <para>When you have exercised the three players, terminate the
-        thee PlayerUI instances by pressing the windowing system
-        <guibutton>X</guibutton>. Run a ChatTestClient (without
+        thee PlayerUI instances by closing the application windows.
+        Run a ChatTestClient (without
         instrumentation) and use it to shutdown the server.</para>
 
         <para>In the Flashlight perspective go ahead and prep the server
@@ -683,11 +684,13 @@ public static void main(String[] args) {
         potential deadlock.</para>
 
         <para>TODO: Show the query editor. None of these queries are
-        special and they can be edited. Select <guimenuitem>Window |
-        Show View | Flashlight Query Editor</guimenuitem> from the
-        Eclipse main menu to open the <guilabel>Flashlight Query
-        Editor</guilabel> view. This view is shown in <xref
-        linkend="fig-tutorial-query-editor" />.</para>
+        special and they can be edited. Select
+        <menuchoice><guimenu>Window</guimenu> <guisubmenu>Show
+        View</guisubmenu> <guimenuitem>Flashlight Query
+        Editor</guimenuitem></menuchoice> from the Eclipse main menu to
+        open the <guilabel>Flashlight Query Editor</guilabel> view. This
+        view is shown in <xref linkend="fig-tutorial-query-editor"
+        />.</para>
 
         <figure id="fig-tutorial-query-editor">
           <title>The query to show where a thread is holding a lock and acquires another</title>
@@ -779,7 +782,7 @@ public static void main(String[] args) {
       period of time. Lack of a license will prohibit you from running
       queries or creating new Flashlight runs. Selecting
       <guimenuitem>Manage SureLogic Licenses</guimenuitem> from the
-      Flashlight menu brings up the license management form as seen in
+      <guimenu>Flashlight</guimenu> menu brings up the license management form as seen in
       <xref linkend="fig-license-management" />. (It is also possible to
       bring this dialog up from the main Flashlight preferences pane by
       pressing the <guibutton>Manage SureLogic Licenses</guibutton>
@@ -957,4 +960,22 @@ public static void main(String[] args) {
       </sect2>
     </sect1>
   </chapter>
+  
+  <bibliography>
+    <biblioentry id="HaaseGuy07">
+      <authorgroup>
+        <author><firstname>Chet</firstname> <surname>Haase</surname></author>
+        <author><firstname>Romain</firstname> <surname>Guy</surname></author>
+      </authorgroup>
+      
+      <title>Filthy Rich Clients</title>      
+      <subtitle>Developing Animated and Graphical Effects for Desktop Java Applications</subtitle>
+      
+      <publisher>
+        <publishername>Prentice Hall PTR</publishername>      
+      </publisher>
+      
+      <pubdate>2007</pubdate>
+    </biblioentry>
+  </bibliography>
 </book>

@@ -191,6 +191,9 @@
         <!-- Use PNG graphic files for the admonition sections -->
         <arg line="admon.graphics='1'"/>
         <arg line="admon.graphics.extension='.png'"/>
+        
+        <!-- Number bibliography entries -->
+        <arg line="bibliography.numbered='1'"/>
       </java>
       <copy-images-for-html srcdir="@{srcdir}" destdir="@{destdir}"/>
     </sequential>
@@ -230,6 +233,9 @@
         <arg line="callout.graphics='0'"/>
         <arg line="admon.graphics='1'"/>
         <arg line="admon.graphics.extension='.png'"/>
+        
+        <!-- Number bibliography entries -->
+        <arg line="bibliography.numbered='1'"/>
       </java>
       <copy-images-for-html srcdir="@{srcdir}" destdir="@{destdir}"/>
     </sequential>
@@ -269,6 +275,9 @@
         <arg line="admon.graphics.path='${docbook.dir}/images/'"/>
         <arg line="admon.graphics.extension='.svg'"/>
         <arg line="keep.relative.image.uris='1'"/>
+          
+          <!-- Number bibliography entries -->
+          <arg line="bibliography.numbered='1'"/>
         </java>
       <java classname="${fop.class}" fork="yes" failonerror="true">
         <classpath refid="fop.classpath" />
