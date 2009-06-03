@@ -886,28 +886,28 @@ public static void main(String[] args) {
 	improve performance or convenience:
 	<variablelist>
 	  <varlistentry>
-	    <term><guimenu>Data directory</guimenu></term>
+	    <term><guilabel>Data directory</guilabel></term>
 	    <listitem><para>The directory where flashlight places all recorded and prepared data.  All data for a run is placed under a folder in this directory.</para></listitem>
 	  </varlistentry>
 	  <varlistentry>
-	    <term><guimenu>Action on instrumented launch</guimenu></term>
+	    <term><guilabel>Action on instrumented launch</guilabel></term>
 	    <listitem><para>These options affect what happens when you actually launch an instrumented application using the <guiicon><inlinegraphic fileref="images/fl_logo.png" /></guiicon> menu.</para></listitem>
 	  </varlistentry>
 	  <varlistentry>
-	    <term><guimenu>Instrumentation</guimenu></term>
+	    <term><guilabel>Instrumentation</guilabel></term>
 	    <listitem><para>These options control how the instrumentation
 	    collects and logs events from the running program.
-	    <guimenuitem>Output type</guimenuitem> determines whether the
+	    <emphasis><guilabel>Output type</guilabel></emphasis> determines whether the
 	    recorded information should be stored as an XML file, or as binary
-	    data, and <guimenuitem>Compress output</guimenuitem> will gzip the
+	    data, and <emphasis><guilabel>Compress output</guilabel></emphasis> will gzip the
 	    file when checked.  Flashlight has a 'refinery' that attempts to
 	    cull data known to be local to a single thread, such as an object
 	    that is created and garbage collected within a single method
-	    invocation.  <guimenuitem>Use refinery to remove thread-local
-	    fields</guimenuitem> will turn the refinery off and on, and you can
+	    invocation.  <emphasis><guilabel>Use refinery to remove thread-local
+	    fields</guilabel></emphasis> will turn the refinery off and on, and you can
 	    also adjust the queue sizes that it uses to hold onto
-	    events. <guimenuitem>Use a spy thread to detect program
-	    termination</guimenuitem> will have Flashlight spawn a thread on
+	    events. <emphasis><guilabel>Use a spy thread to detect program
+	    termination</guilabel></emphasis> will have Flashlight spawn a thread on
 	    program start-up that periodically checks to see if any non-daemon
 	    threads are running and terminates the program when none are.  It is
 	    not always necessary to run the spy thread, as Flashlight also has
@@ -915,9 +915,9 @@ public static void main(String[] args) {
 	    explicitly terminate may need it, though.</para></listitem>
 	  </varlistentry>
 	  <varlistentry>
-	    <term><guimenu>Preparing run data</guimenu></term>
+	    <term><guilabel>Preparing run data</guilabel></term>
 	    <listitem><para>A sufficiently large Flashlight run may contain
-	    millions of objects.  <guimenuitem>Scan window size</guimenuitem> determines
+	    millions of objects.  <emphasis><guilabel>Scan window size</guilabel></emphasis> determines
 	    how many of these objects we look at in one pass of the data file.
 	    Decreasing this number may allow you to prep a run with lower memory
 	    utilization at the cost of a slightly longer prep time.  You may also
@@ -925,8 +925,8 @@ public static void main(String[] args) {
 	    running program has terminated.</para></listitem>
 	  </varlistentry>
 	  <varlistentry>
-	    <term><guimenu>Result querying</guimenu></term>
-	    <listitem><para><guimenuitem>Maximum rows returned</guimenuitem>
+	    <term><guilabel>Result querying</guilabel></term>
+	    <listitem><para><emphasis><guilabel>Maximum rows returned</guilabel></emphasis>
 	    lets you specify how many results you want to see returned by a
 	    single query.  You may also change whether you are prompted once you
 	    have run enough queries to use up a significant amount of
