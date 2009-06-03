@@ -667,8 +667,8 @@ public static void main(String[] args) {
 
         <para>TODO: Run the <emphasis>What non-static fields have an
         empty lockset?</emphasis> query. The
-        <emphasis>f_location</emphasis> field of the
-        <filename>Ship</filename> class will likely show up. This is an
+        <structfield>f_location</structfield> field of the
+        <classname>Ship</classname> class will likely show up. This is an
         actual problem in the program. Drill in on an instance and run
         the <emphasis>* What locks are held for each access of this
         non-static field *</emphasis> which will take a long time.
@@ -728,36 +728,46 @@ public static void main(String[] args) {
 
       <para>The commands on the Flashlight menu are:</para>
 
-      <orderedlist>
+      <itemizedlist>
         <listitem>
-          <para><emphasis>Open Flashlight Perspective</emphasis> &mdash;
-          This menu choice opens the <guilabel>Flashlight</guilabel>
-          perspective. This perspective is useful for examining and
-          querying collected run data. This perspective may also be
-          opened via the normal Eclipse menus and toolbars for
-          perspectives.</para>
+          <formalpara>
+            <title>Open Flashlight Perspective</title>
+            <para>This menu choice opens the
+            <guilabel>Flashlight</guilabel> perspective. This
+            perspective is useful for examining and querying collected
+            run data. This perspective may also be opened via the normal
+            Eclipse menus and toolbars for perspectives.</para>
+          </formalpara>
         </listitem>
         <listitem>
-          <para><emphasis>Send Tip for Improvement</emphasis> &mdash;
-          This command opens a dialog to allow entry of a suggestion by
-          the user to improve the Sierra tool. For more information
-          please see <xref linkend="sec-bugs-and-tips"/>.</para>
+          <formalpara>
+            <title>Send Tip for Improvement</title>
+            <para>This command opens a dialog to allow entry of a
+            suggestion by the user to improve the Sierra tool. For more
+            information please see <xref
+            linkend="sec-bugs-and-tips"/>.</para>
+          </formalpara>
         </listitem>
         <listitem>
-          <para><emphasis>Send Problem Report</emphasis> &mdash; This
-          command opens a dialog to allow entry of a problem report by
-          the user about the Sierra tool. For more information please
-          see <xref linkend="sec-bugs-and-tips"/>.</para>
+          <formalpara>
+            <title>Send Problem Report</title>
+            <para>This command opens a dialog to allow entry of a
+            problem report by the user about the Sierra tool. For more
+            information please see <xref
+            linkend="sec-bugs-and-tips"/>.</para>
+          </formalpara>
         </listitem>
         <listitem>
-          <para><emphasis>Manage SureLogic Licenses</emphasis> &mdash;
-          This command opens the SureLogic license management dialog.
-          This dialog allows the user to install, view, and uninstall
-          licenses for Sierra and other SureLogic tools.  For more
-          information see <xref linkend="sec-license-management"
-          />.</para>
+          <formalpara>
+            <title>Manage SureLogic Licenses</title>
+            <para>This command opens the SureLogic license management
+            dialog. This dialog allows the user to install, view, and
+            uninstall licenses for Sierra and other SureLogic tools. 
+            For more information see <xref
+            linkend="sec-license-management" />.</para>
+          </formalpara>
         </listitem>
-      </orderedlist>
+      </itemizedlist>
     </sect1>
 
     <sect1>
