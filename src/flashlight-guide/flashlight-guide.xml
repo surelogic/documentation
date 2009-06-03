@@ -446,13 +446,13 @@
           </mediaobject>
         </figure>
 
-       <para>Which will result in a stack trace for the selected access.
-       Selecting each row of the result will show that line of code in
-       the program.  The bottom row is, in fact, a bug in the program. 
-       This line is shown in <xref
-       linkend="fig-tutorial-planetbaron-perspective-ctc3" />.</para>
+        <para>Which will result in a stack trace for the selected
+        access. Selecting each row of the result will show that line of
+        code in the program.  The bottom row is, in fact, a bug in the
+        program. This line is shown in <xref
+        linkend="fig-tutorial-planetbaron-perspective-ctc3" />.</para>
 
-       <figure id="fig-tutorial-planetbaron-perspective-ctc4">
+        <figure id="fig-tutorial-planetbaron-perspective-ctc4">
           <title>The broken line of code in ChatTestClient</title>
           <mediaobject>
             <imageobject>
