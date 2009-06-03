@@ -24,25 +24,32 @@
 
   <preface id="preface">
     <title>Preface</title>
-    <section>
+    
+    <sect1>
       <title>Audience</title>
+      
       <para>This document is intended for Java developers who want to
       use the Flashlight tool within the Eclipse Java IDE. We assume
       that the reader understands both the Java programming language and
       the use of Eclipse for Java development.</para>
-    </section>
-    <section>
+    </sect1>
+    
+    <sect1>
       <title>Contact information</title>
+      
       <para>For technical support or other questions, please
       contact:</para>
+      
       <para><email>support@surelogic.com</email></para>
+      
       <para>5808 Forbes Avenue, Pittsburgh, PA 15217-1602</para>
-    </section>
+    </sect1>
   </preface>
 
   <chapter id="getting-started">
     <title>Getting started</title>
-    <section>
+    
+    <sect1>
       <title>Introduction</title>
 
       <para><emphasis>What is Flashlight?</emphasis> Flashlight is a
@@ -82,9 +89,9 @@
       the database of program run data is queried using a hierarchy of
       queries that enable the results of one query to be used as a basis
       for "drill in" using sub-queries.</para>
-    </section>
+    </sect1>
 
-    <section>
+    <sect1>
       <title>Quick start: How to instrument your code and query
       Flashlight</title>
 
@@ -135,9 +142,9 @@
       program when it starts up and uses that instrumentation to collect
       data about your program.  By default, data is collected into the
       directory <filename>~/.flashlight-data</filename>.</para>
-    </section>
+    </sect1>
 
-    <section>
+    <sect1>
       <title>Tutorials</title>
 
       <para>This section contains a series of Flashlight tutorials.  It
@@ -149,7 +156,7 @@
       sending us a tip for improvement as described in <xref
       linkend="sec-bugs-and-tips"/>.</para>
 
-      <section id="sec-tutorial-client">
+      <sect2 id="sec-tutorial-client">
         <title>Using the Flashlight Eclipse client on PlanetBaron</title>
 
         <para>This tutorial assumes that you have installed Flashlight.
@@ -194,9 +201,9 @@
         following output in the console which indicates that the server
         has started successfully:</para>
 
-        <programlisting>
-	[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map
-        </programlisting>
+        <screen>
+[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map
+        </screen>
 
         <para>Now we need to add some players. Select
         <filename>PlayerUI.java</filename> in the
@@ -225,14 +232,14 @@
         example, your server console might look similar to the
         below:</para>
 
-        <programlisting>
-	[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map [edu.afit.planetbaron.server.Server.startListening()]
-	[INFO "server-ch10"] client handler thread started [edu.afit.planetbaron.server.ClientHandler.run()]
-	[INFO "server-ch10 (Laurel)"] "play "Laurel"" processed GameStateUpdate from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
-	[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (12,11)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
-	[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (9,13)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
-	[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (8,10)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
-        </programlisting>
+        <screen>
+[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map [edu.afit.planetbaron.server.Server.startListening()]
+[INFO "server-ch10"] client handler thread started [edu.afit.planetbaron.server.ClientHandler.run()]
+[INFO "server-ch10 (Laurel)"] "play "Laurel"" processed GameStateUpdate from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (12,11)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (9,13)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (8,10)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+        </screen>
 
         <para>Now, go back to Eclipse and start a second instance of
         <filename>PlayerUI.java</filename>. In the lower
@@ -292,9 +299,9 @@
         server you should see the following message at the
         bottom:</para>
 
-        <programlisting>
-	[INFO "server-main"] PlanetBaron game server shutdown complete
-        </programlisting>
+        <screen>
+[INFO "server-main"] PlanetBaron game server shutdown complete
+        </screen>
 
         <para>We are now ready to use Flashlight to help us understand
         the concurrency in the PlanetBaron game. Let's start with the
@@ -690,14 +697,14 @@ public static void main(String[] args) {
             </imageobject>
           </mediaobject>
         </figure>
-      </section>
-    </section>
+      </sect2>
+    </sect1>
   </chapter>
 
   <chapter id="reference">
     <title>Reference</title>
     
-    <section>
+    <sect1>
       <title>The Flashlight menu</title>
 
       <figure id="fig-menu-flashlight">
@@ -748,9 +755,9 @@ public static void main(String[] args) {
           />.</para>
         </listitem>
       </orderedlist>
-    </section>
+    </sect1>
 
-    <section>
+    <sect1>
       <title>The Flashlight perspective</title>
 
       <para>The Flashlight perspective organizes the Eclipse workbench
@@ -762,9 +769,9 @@ public static void main(String[] args) {
       understand the capabilities of the tool.  Advanced users may want
       to reconfigure the screen layout and save a custom
       perspective.</para>
-    </section>
+    </sect1>
 
-    <section id="sec-license-management">
+    <sect1 id="sec-license-management">
       <title>License management</title>
 
       <para>Sierra is commercial software and a license is required to
@@ -850,9 +857,9 @@ public static void main(String[] args) {
       The tool is considered unlicensed at that point. To fix this
       situation install a new license (it is not required to install a
       new version of Flashlight).</para>
-    </section>
+    </sect1>
 
-    <section id="sec-bugs-and-tips">
+    <sect1 id="sec-bugs-and-tips">
       <title>Bugs and tips</title>
 
       <para>Flashlight allows any user to send problem reports and
@@ -918,7 +925,7 @@ public static void main(String[] args) {
           <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
         </mediaobject>
       </figure>
-    </section>
+    </sect1>
   </chapter>
 
   <chapter>
@@ -929,25 +936,25 @@ public static void main(String[] args) {
     These are presented in the sections below for each released version
     of Flashlight.</para>
 
-    <section>
+    <sect1>
       <title>Flashlight version 2.1.1</title>
       
       <para>This section describes the 2.1.1 release of
       Flashlight.</para>
       
-      <section>
+      <sect2>
         <title>New and Noteworthy</title>
         
         <para>This section describes new and noteworthy features in this
         version of Flashlight.</para>
-      </section>
+      </sect2>
       
-      <section>
+      <sect2>
         <title>Known Problems</title>
         
         <para>This section describes known bugs and limitations in this
         version of Flashlight.</para>
-      </section>
-    </section>
+      </sect2>
+    </sect1>
   </chapter>
 </book>
