@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="quick-start">
+  <title>Quick start: How to instrument your code and query
+  Flashlight</title>
+
+  <para>This section assumes that you have installed Flashlight. If you
+  see a <guimenu>Flashlight</guimenu> menu item on your Eclipse main
+  menu then you can assume Flashlight has been properly
+  installed.</para>
+
+  <para>You need to install a license to use Flashlight.  If you do not
+  have a license file visit <ulink
+  url="http://www.surelogic.com">http://www.surelogic.com</ulink> to
+  obtain one.  To install the license select <guimenuitem>Manage
+  SureLogic Licenses</guimenuitem> from the
+  <guimenu>Flashlight</guimenu> menu as shown in <xref
+  linkend="fig-quick-start-license-menu" />.</para>
+
+  <figure id="fig-quick-start-license-menu">
+    <title>The menu option to install a license for Flashlight</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/quick-start-license-menu.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para> This will cause the <guilabel>Manage SureLogic
+  Licenses</guilabel> to appear as shown in <xref
+  linkend="fig-quick-start-license-dialog-empty" />. Highlight the
+  Flashlight row and select the <guibutton>Install License</guibutton>
+  button to install your license file.</para>
+
+  <figure id="fig-quick-start-license-dialog-empty">
+    <title>The SureLogic license management dialog</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/quick-start-license-dialog-empty.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>Flashlight will not disrupt your Eclipse installation if a
+  license for it is not installed, however, it will not allow you to use
+  Flashlight functionality.  We will assume from this point on that you
+  have installed your license.</para>
+
+  <para>Flashlight is a dynamic analysis tool which means that you have
+  to run your program to use it.  Flashlight instruments your program
+  when it starts up and uses that instrumentation to collect data about
+  your program.  By default, data is collected into the directory
+  <filename>~/.flashlight-data</filename>.</para>
+</sect1>

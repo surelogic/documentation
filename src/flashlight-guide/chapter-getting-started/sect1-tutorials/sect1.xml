@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Tutorials</title>
+
+  <para>This section contains a series of Flashlight tutorials.  It is
+  recommended that you go through these tutorials in order.  It is also
+  recommended that these tutorials be performed "hands-on" at your
+  computer. You might want to create a new Eclipse workspace to use for
+  these tutorials. In addition, if you run into any difficulties as you
+  step through the tutorials please consider sending us a tip for
+  improvement as described in <xref
+  linkend="sec-bugs-and-tips"/>.</para>
+
+  <xi:include href="sect2-sec-tutorial-client.xml"/>
+</sect1>

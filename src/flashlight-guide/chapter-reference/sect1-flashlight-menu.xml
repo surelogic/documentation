@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="flashlight-menu">
+  <title>The Flashlight menu</title>
+
+  <figure id="fig-menu-flashlight">
+    <title>The Flashlight menu</title>
+    <mediaobject>
+      <imageobject><imagedata fileref="images/menu-flashlight.png"/></imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>The Flashlight menu appears as an item on the Eclipse workspace
+  main menu. This menu provides direct access to common commands. The
+  menu is divided into three sections. The top section contains a
+  shortcut to the <guilabel>Flashlight</guilabel> perspective. The
+  middle section contains commands to report problems about or suggest
+  improvements to Flashlight directly to SureLogic. The bottom section
+  allows access to the license management dialog.</para>
+
+  <para>The commands on the Flashlight menu are:</para>
+
+  <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title>Open Flashlight Perspective</title>
+        <para>This menu choice opens the <guilabel>Flashlight</guilabel>
+        perspective. This perspective is useful for examining and
+        querying collected run data. This perspective may also be opened
+        via the normal Eclipse menus and toolbars for
+        perspectives.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Send Tip for Improvement</title>
+        <para>This command opens a dialog to allow entry of a suggestion
+        by the user to improve the Sierra tool. For more information
+        please see <xref linkend="sec-bugs-and-tips"/>.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Send Problem Report</title>
+        <para>This command opens a dialog to allow entry of a problem
+        report by the user about the Sierra tool. For more information
+        please see <xref linkend="sec-bugs-and-tips"/>.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title>Manage SureLogic Licenses</title>
+        <para>This command opens the SureLogic license management
+        dialog. This dialog allows the user to install, view, and
+        uninstall licenses for Sierra and other SureLogic tools. For
+        more information see <xref linkend="sec-license-management"
+        />.</para>
+      </formalpara>
+    </listitem>
+  </itemizedlist>
+</sect1>

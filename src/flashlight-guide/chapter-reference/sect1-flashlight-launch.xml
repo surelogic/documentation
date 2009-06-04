@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="flashlight-launch">
+  <title>Flashlight Launch Configuration</title>
+  
+  <para>Flashlight presents a customized launch configuration dialog
+  when the <guimenuitem>Open Flashlight Dialog&hellip;</guimenuitem>
+  command is selected from the <guisubmenu>Flashligh As</guisubmenu>
+  submenu of the context menu in the <guilabel>Package
+  Explorer</guilabel> view, or from the Flashlight &ldquo;run&rdquo;
+  menu (<guiicon><inlinegraphic fileref="images/fl_logo.png"
+  /></guiicon>) in the toolbar.  The Flashlight launch configuration
+  dialog is based on the standard Java launch dialog, but with four
+  additional configuration panes between the standard
+  <guilabel>Arguments</guilabel> and <guilabel>JRE</guilabel> panes:
+
+    <orderedlist>
+      <listitem><guilabel>Instrumentation</guilabel></listitem>
+      <listitem><guilabel>Data Collection</guilabel></listitem>
+      <listitem><guilabel>Methods</guilabel></listitem>
+      <listitem><guilabel>Fields</guilabel></listitem>
+    </orderedlist>
+  </para>
+  
+  <sect2 id="instrumentation-pane">
+    <title>Instrumentation</title>
+  </sect2>
+  
+  <sect2 id="data-collection-pane">
+    <title>Data Collection</title>
+  </sect2>
+  
+  <sect2 id="methods-pane">
+    <title>Methods</title>
+  </sect2>
+  
+  <sect2 id="fields-pane">
+    <title>Fields</title>
+  </sect2>
+</sect1>

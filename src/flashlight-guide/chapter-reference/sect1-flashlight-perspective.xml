@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="flashlight-perspective">
+  <title>The Flashlight perspective</title>
+
+  <para>The Flashlight perspective organizes the Eclipse workbench to
+  show views which will help you to interact with data from program
+  runs.</para>
+
+  <para>This perspective is useful for beginning use of the Flashlight
+  tool. Its "canned" organization can help you to understand the
+  capabilities of the tool.  Advanced users may want to reconfigure the
+  screen layout and save a custom perspective.</para>
+</sect1>

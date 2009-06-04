@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="release-notes">
+  <title>Release notes</title>
+  
+  <para>For each release of Flashlight there are new and noteworthy
+  features to try out, and known limitations to avoid or workaround.
+  These are presented in the sections below for each released version of
+  Flashlight.</para>
+
+  <sect1>
+    <title>Flashlight version 2.1.1</title>
+    
+    <para>This section describes the 2.1.1 release of Flashlight.</para>
+    
+    <sect2>
+      <title>New and Noteworthy</title>
+
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+    </sect2>
+    
+    <sect2>
+      <title>Known Problems</title>
+
+      <para>This section describes known bugs and limitations in this
+      version of Flashlight.</para>
+    </sect2>
+  </sect1>
+</chapter>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect1 id="flashlight-preferences">
+  <title>Preferences</title>
+
+  <figure id="preference-page">
+    <title>The Flashlight preference page</title>
+    <mediaobject><imageobject><imagedata fileref="images/preference-page.png" /></imageobject></mediaobject>
+  </figure>
+
+  <para>
+    Flashlight lets you adjust the way it instruments, records, and
+    prepares data.  You should not have to change any preferences in
+    order for Flashlight to work correctly, but changing some of these
+    parameters may improve performance or convenience:
+    
+    <variablelist>
+      <varlistentry>
+        <term><guilabel>Data directory</guilabel></term>
+        <listitem><para>The directory where flashlight places all
+        recorded and prepared data.  All data for a run is placed under
+        a folder in this directory.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><guilabel>Action on instrumented launch</guilabel></term>
+        <listitem><para>These options affect what happens when you
+        actually launch an instrumented application using the
+        <guiicon><inlinegraphic fileref="images/fl_logo.png"
+        /></guiicon> menu.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><guilabel>Instrumentation</guilabel></term>
+        <listitem><para>These options control how the instrumentation
+        collects and logs events from the running program.
+        <emphasis><guilabel>Output type</guilabel></emphasis> determines
+        whether the recorded information should be stored as an XML
+        file, or as binary data, and <emphasis><guilabel>Compress
+        output</guilabel></emphasis> will gzip the file when checked. 
+        Flashlight has a 'refinery' that attempts to cull data known to
+        be local to a single thread, such as an object that is created
+        and garbage collected within a single method invocation. 
+        <emphasis><guilabel>Use refinery to remove thread-local
+        fields</guilabel></emphasis> will turn the refinery off and on,
+        and you can also adjust the queue sizes that it uses to hold
+        onto events. <emphasis><guilabel>Use a spy thread to detect
+        program termination</guilabel></emphasis> will have Flashlight
+        spawn a thread on program start-up that periodically checks to
+        see if any non-daemon threads are running and terminates the
+        program when none are.  It is not always necessary to run the
+        spy thread, as Flashlight also has listens to the run time
+        shutdown event.  Some programs that do not explicitly terminate
+        may need it, though.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><guilabel>Preparing run data</guilabel></term>
+        <listitem><para>A sufficiently large Flashlight run may contain
+        millions of objects.  <emphasis><guilabel>Scan window
+        size</guilabel></emphasis> determines how many of these objects
+        we look at in one pass of the data file. Decreasing this number
+        may allow you to prep a run with lower memory utilization at the
+        cost of a slightly longer prep time.  You may also specify
+        whether or not you want to automatically prepare data once a
+        running program has terminated.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><guilabel>Result querying</guilabel></term>
+        <listitem><para><emphasis><guilabel>Maximum rows
+        returned</guilabel></emphasis> lets you specify how many results
+        you want to see returned by a single query.  You may also change
+        whether you are prompted once you have run enough queries to use
+        up a significant amount of memory.</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </para>
+</sect1>
