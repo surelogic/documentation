@@ -27,6 +27,95 @@
   
   <sect2 id="instrumentation-pane">
     <title>Instrumentation</title>
+    
+    <para>The settings in the <guilabel>Instrumentation</guilabel> pane
+    control which classes are actually rewritten by Flashlight to
+    contain instrumentation. The pane is divided into three sections,
+    see <xref linkend="fig-instrumentation-pane"/>:
+      <orderedlist>
+        <listitem><guilabel>Classpath entries to instrument</guilabel></listitem>
+        <listitem><guilabel>Bootpath entries to instrument</guilabel></listitem>
+        <listitem><guilabel>Classes not to be instrumented</guilabel></listitem>
+      </orderedlist>
+    </para>
+
+    <figure id="fig-instrumentation-pane">
+      <title>The Flashlight launch configuration
+      <guilabel>Instrumentation</guilabel> pane.</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/instrumentation-pane.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <sect3 id="entries-to-instrument">
+      <title>Classpath and Boothpath Entries to Instrument</title>
+    
+      <para>The first section lists the entries on the application's
+      classpath.  The second sections lists the entries on the
+      application's boot classpath.  These entries are taken directly
+      from the settings in the standard Java
+      <guilabel>Classpath</guilabel> configuration pane.  When a new
+      launch configuration is created, all the classpath entries are
+      selected for instrumentation, while all the boot classpath
+      entries, if any, are <emphasis>not</emphasis> selected for
+      instrumentation.  You can change these settings by checking or
+      unchecking the items in the two lists.  You might want to alter
+      this settings, for example, if you do not want to instrument any
+      library JAR files used by your application.</para>
+    </sect3>
+    
+    <sect3 id="classes-not-to-instrument">
+      <title>Classes Not to Be Instrumented</title>
+
+      <para>The third section lists those classes that should not be
+      instrumented, even if they are located in a classpath/boot
+      classpath entry whose contents are otherwise selected for
+      instrumentation. Generally, you should not have to add any classes
+      to this list.  We have only found one case so far where adding a
+      class to this was necessary: When the system class loader is
+      changed by setting the system property
+      <varname>java.system.class.loader</varname> as a JVM argument. For
+      example, if
+      <parameter>-Djava.system.class.loader=com.aelitis.azureus.launcher.classloading.PrimaryClassloader</parameter>
+      is passed to the JVM, then you would have to add the class
+      <classname>com.aelitis.azureus.launcher.classloading.PrimaryClassloader</classname>
+      to the list of classes not to be instrumented.</para>
+      
+      <para>To add a class to the list, click on the
+      <guibutton>Add&hellip;</guibutton> button to bring up a class
+      selection dialog.  To remove one or more classes from the list,
+      select the classes and click on the <guibutton>Remove</guibutton>
+      button.</para>
+      
+      <para>The class selection dialog is shown in <xref
+      linkend="fig-type-selection-dialog"/>. To select a type, first
+      enter a search pattern into the search field.  By default the all
+      the packages in the application will be searched, unless you
+      include part of the package name as part of the pattern.  The
+      character <literal>*</literal> may be used a wildcard to represent
+      zero or more elided characters.  Press return to begin the search.
+      The matching type names appear in the list below the <guilabel>Search status</guilabel>
+      section.  A long-running search can
+      be cancelled by pressing the <guibutton>Cancel</guibutton> next to
+      the status bar; on Mac OS X press the cancel icon on the search
+      field instead.  To choose a type, select a type from the list and
+      press the <guibutton>OK</guibutton> button.  Pressing
+      <guibutton>Cancel</guibutton> closes the dialog without choosing a
+      type.</para>
+
+      <figure id="fig-type-selection-dialog">
+        <title>The Class Selection Dialog</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/type-selection-dialog.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </sect3>    
   </sect2>
   
   <sect2 id="data-collection-pane">
