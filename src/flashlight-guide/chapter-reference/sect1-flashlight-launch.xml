@@ -120,13 +120,202 @@
   
   <sect2 id="data-collection-pane">
     <title>Data Collection</title>
+    
+    <para>The settings in the <guilabel>Data Collection</guilabel> pane,
+    see <xref linkend="fig-data-collection-pane"/>, control how the
+    collected data is saved to disk and how the collected data is
+    processed before it is written to disk. The two sections of the
+    pane, <guilabel>Data file options</guilabel> and <guilabel>Data
+    collection options</guilabel>, contain settings identical to those
+    in the <guilabel>Instrumentatino</guilabel> section of the <link
+    linkend="flashlight-preferences">Flashlight preferences pane</link>.
+    In fact, when a new Flashlight launch configuration is created, the
+    initial values for these settings are taken from the corresponding
+    settings in the preferences.</para>
+    
+    <figure id="fig-data-collection-pane">
+      <title>The <guilabel>Data Collection</guilabel> Pane</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/data-collection-pane.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
   </sect2>
   
   <sect2 id="methods-pane">
     <title>Methods</title>
+
+    <para>The settings in this pane specify the methods that Flashlight
+    considers to be <emphasis>indirect access methods</emphasis>:
+    methods that alter complex arrangements of state that should be
+    considered to be part of an object passed as one of their
+    parameters.  The classic examples are the
+    <package>java.util</package> collections classes.  For example, the
+    <function>add()</function> method of a <classname>Set</classname>
+    object is usually implemented by adding the element to an
+    underlying array, hash table or tree structure.  But we are interesting in
+    capturing the <emphasis>abstract</emphasis> effects of the
+    operation, in particular that the state of the <classname>Set</classname> object
+    used as the method receiver is accessed.</para>
+    
+    <para>Flashlight uses a list of methods to identify those methods
+    that indirectly access state of their object parameters.  This list
+    is maintained in two parts:
+
+      <orderedlist>
+        <listitem>A default list containing methods from the
+        <package>java.util</package> collections classes, and several
+        other standard library classes.</listitem>
+
+        <listitem>User-specified lists of methods that identify
+        additional indirect access methods that may be part of
+        user-written code or library code.</listitem>
+      </orderedlist>
+      
+    The <guilabel>Methods</guilabel> pane, see <xref linkend="fig-methods-pane"/>,
+    accordingly has two parts:
+      <orderedlist>
+        <listitem>A checkbox indicating whether the default list of
+        methods should be used.</listitem>
+
+        <listitem>A list of files that declare additional indirect
+        access methods.  The format of these files is decribed in
+        <xref linkend="flashlight-method-files"/></listitem>
+      </orderedlist>
+    </para>
+    
+    <para>A new file is added to the list by clicking on the
+    <guibutton>Add&hellip;</guibutton> button and selecting the file
+    using the file browser.  One or more files can be removed from the
+    list by selecting the files in the list and clicking on the
+    <guibutton>Remove</guibutton> button.</para>    
+
+    <figure id="fig-methods-pane">
+      <title>The <guilabel>Methods</guilabel> Pane</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/methods-pane.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
   </sect2>
   
   <sect2 id="fields-pane">
     <title>Fields</title>
+    
+    <para>The settings in this pane control which field accesses in
+    classes instrumented by Flashlight are actually instrumented to
+    collect data.  By changing these settings you can enable a more
+    focused data collection by only collecting a subset of the field
+    access information. This allows you to focus on the part of the
+    application that is of interest at the moment without cluttering up
+    the data file with information you are not interested in.  This
+    yields a smaller data file which, in turn, yields a faster data
+    preparation time.</para>
+    
+    <para>This pane has two sections, although the visibility of the second
+    section depends on the setting in the first section.  The first section,
+    <guilabel>Instrument fields</guilabel>, see <xref linkend="fig-fields-pane-1"/>,
+    controls whether or not all field accesses are instrumented.  There are three
+    possible settings:
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title>Instrument all field accesses</title>
+            
+            <para>Flashlight instruments all the field accesses in
+            classes that have instrumentation.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>Instrument accesses to fields declared in the
+            selected packages only</title>
+
+            <para>Flashlight instruments only those field accesses that
+            <emphasis>refer to</emphasis> a field declared in a class
+            declared in one of the selected packages.  When selected,
+            the second section of the pane that allows you to select
+            packages is visible. </para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>Instrument accesses to fields used in the
+            selected packages only</title>
+
+            <para>Flashlight instruments only those field accesses that
+            <emphasis>occur in</emphasis> a class declared in one of the
+            selected packages.  When selected, the second section of the
+            pane that allows you to select packages is visible. </para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    </para>
+    
+    <figure id="fig-fields-pane-1">
+      <title>The <guilabel>Fields</guilabel> Pane when
+      <guilabel>Instrument all field accesses</guilabel> is
+      selected</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/fields-pane-1.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>The second section, <guilabel>Select packages</guilabel>, see
+    <xref linkend="fig-fields-pane-2"/>, is visible only if a choice
+    other than <guilabel>Instrument all field accesses</guilabel> is
+    selected.  This section contains a list of the packages in the
+    application.  Select a package by clicking on its checkbox.  The row
+    of buttons above the list provide shortcuts for manipulating the
+    selection:
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title><guibutton>Select All</guibutton></title>
+            
+            <para>Causes all of the packages to be selected.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title><guibutton>Select None</guibutton></title>
+
+            <para>Causes none of the packages to be selected.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title><guibutton>Invert Selection</guibutton></title>
+
+            <para>Causes the selection to be inverted: those packages that 
+            were not selected become selected, and those that were selected 
+            become deselected.</para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    </para>
+    
+    <figure id="fig-fields-pane-2">
+      <title>The <guilabel>Fields</guilabel> Pane when
+      <guilabel>Instrument all field accesses</guilabel> is not
+      selected</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/fields-pane-2.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
   </sect2>
 </sect1>
