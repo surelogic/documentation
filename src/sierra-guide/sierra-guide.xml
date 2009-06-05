@@ -119,7 +119,7 @@
       The scan document is unfiltered and may contain hundreds of
       thousands of tool-reported issues.  Scan documents are stored in
       your Sierra data directory.  This directory, by default, is
-      <filename>~/.sierra-data</filename>.</para>
+      in your workspace under <filename>.sierra-data</filename>.</para>
 
       <para>The results reported by analysis tools during a scan are
       called <emphasis>artifacts</emphasis> by Sierra.  Sierra
@@ -880,7 +880,7 @@ if (o == null) {
 	Workspace</guibutton> can be used to wipe the entire Sierra
 	database. There is one Sierra database per Eclipse workspace,
 	however, all scan documents are stored in your
-	<filename>~/.sierra-data</filename> directory.</para>
+	<filename>.sierra-data</filename> directory.</para>
       </section>
 
       <section id="sec-tutorial-team-server">
@@ -982,8 +982,8 @@ if (o == null) {
 	network using the IP address of your machine (depending, of
 	course, upon the routing and firewall configuration on your
 	network). The database and logs for this local team server
-	appear in the <filename>~/.sierra-data/server</filename>
-	directory on your machine. Two logs are available for you to
+	appear in the <filename>.sierra-data/server</filename>
+	subdirectory in your workspace.  Two logs are available for you to
 	examine. The first is the Jetty console output which shows
 	logging output from the local server. The second is the Jetty
 	request log which shows information about requests made from
@@ -1024,8 +1024,8 @@ if (o == null) {
 	<para>So that this tutorial can start with a fresh team server
 	database, select <guimenuitem>Wipe Local Team Server
 	Database</guimenuitem> to delete the
-	<filename>~/.sierra-data/server</filename> directory on your
-	machine (If you already started a local team server using the
+	<filename>.sierra-data/server</filename> directory from your
+	workspace (If you already started a local team server using the
 	<guibutton>Start Server</guibutton>, stop it before you wipe
 	the database). Next, press the <guibutton>Start
 	Server</guibutton> button on the view. A dialog will appear
@@ -1421,7 +1421,7 @@ if (o == null) {
 
 	<para>A project scan (via Eclipse or via Ant) creates a scan
 	document file. You can see these files in your
-	<filename>~/.sierra-data</filename> directory. For the
+	<filename>.sierra-data</filename> directory. For the
 	SmallWorld project you will see the
 	<filename>SmallWorld.sierra.gz</filename> scan document
 	file. This file contains the tool reports about the SmallWorld
@@ -3296,8 +3296,8 @@ java -jar checkstyle-all-5.0-beta2.jar -c sun_checks.xml -r /home/edwin/workspac
 	    connected to by other computers on your network using the IP
 	    address of your machine. The database and logs for this
 	    local team server appear in the
-	    <emphasis>~/.sierra-data/server</emphasis> directory on your
-	    machine. Three logs are available for you to examine. The
+	    <emphasis>.sierra-data/server</emphasis> subdirectory in your
+	    workspace. Three logs are available for you to examine. The
 	    first log is the Jetty web server request log which shows
 	    traffic to the local server. The second log is the Sierra
 	    portal log which shows information from the Sierra portal
@@ -3353,19 +3353,19 @@ java -jar checkstyle-all-5.0-beta2.jar -c sun_checks.xml -r /home/edwin/workspac
 	  <listitem>
 	    <para><emphasis>The Sierra Eclipse client creates fewer log
 	    files</emphasis> &mdash; A new log file was created in your
-	    <emphasis>~/.sierra-data</emphasis> directory each time
+	    <emphasis>.sierra-data</emphasis> directory each time
 	    Eclipse was run. This creates a lot of like
 	    <emphasis>log-eclipse-2008.03.03-at-15.07.03.143.txt</emphasis>
-	    in your <emphasis>~/.sierra-data</emphasis> directory. The
+	    in your <emphasis>.sierra-data</emphasis> directory. The
 	    old scheme has been replaced with one that creates only one
 	    log file per month and appends entries to the end of that
 	    file. These new log files look like
 	    <emphasis>log-eclipse-client-2008_03.txt</emphasis> in your
-	    <emphasis>~/.sierra-data</emphasis> directory.</para>
+	    <emphasis>.sierra-data</emphasis> directory.</para>
 
 	    <para>Once you upgrade to Sierra version 2.1 you can safely
 	    delete the old log files in your
-	    <emphasis>~/.sierra-data</emphasis> directory. You can also
+	    <emphasis>.sierra-data</emphasis> directory. You can also
 	    opt to keep them.</para>
 	  </listitem>
 	</orderedlist>
@@ -3395,14 +3395,14 @@ java -jar checkstyle-all-5.0-beta2.jar -c sun_checks.xml -r /home/edwin/workspac
 
 	    <para>The easiest action you can take to ensure this problem
 	    will not occur is to delete your
-	    <emphasis>~/.sierra-data</emphasis> directory when you
+	    <emphasis>.sierra-data</emphasis> directory when you
 	    install 2.1. This will clear out any old scan documents in
 	    this directory (these files look like
 	    <emphasis>project.sierra.gz</emphasis> where project is the
 	    name of your project).  If you elect to keep your old log
 	    files (the only other contents of this directory) you can
 	    simply delete all the files in your
-	    <emphasis>~/.sierra-data</emphasis> directory with the
+	    <emphasis>.sierra-data</emphasis> directory with the
 	    <emphasis>.sierra.gz</emphasis> extension.</para>
 	  </listitem>
 	  <listitem>
@@ -3730,8 +3730,8 @@ java -jar checkstyle-all-5.0-beta2.jar -c sun_checks.xml -r /home/edwin/workspac
 	    problems to system administrators</emphasis> &mdash; In this
 	    release the Sierra team server cannot be configured to email
 	    any internal errors to system administrators.
-	    Administrators need to check the logs in the directory
-	    <emphasis>~/.sierra-data/server</emphasis></para>
+	    Administrators need to check the logs in the 
+	    <emphasis>.sierra-data/server</emphasis> directory.</para>
 	  </listitem>
 	</orderedlist>
       </section>
