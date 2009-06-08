@@ -5,4 +5,155 @@
 
 <sect1 id="flashlight-method-files">
   <title>Indirect Access Methods</title>
+  
+  <para>Flashlight generates special access events when a method call
+  has the capability of accessing state that is aggregated into one of
+  its object parameters. This mostly comes into play with the methods of
+  collection-style classes.  Consider classes that implement
+  <classname>Set</classname>.  The <classname>Set</classname> methods
+  read and write the contents of the abstract set represented by the
+  object, but the semantics of these activities are generally lost on
+  the analysis:
+  
+    <itemizedlist>
+      <listitem>It is not usually desirable to instrument the classes
+      from the standard Java library.</listitem>
+      
+      <listitem>Even if you did, Flashlight would record events
+      describing the manipulation of the arrays
+      <emphasis>internal</emphasis> to the implementation of the
+      set.</listitem>
+    </itemizedlist>
+    
+    What you really want to know is that the method calls are causing
+    accesses to the <emphasis>abstract</emphasis> contents of the set,
+    so that you can determine if multiple threads are touching the set
+    contents in a safe way.</para>
+
+  <para>Flashlight deals with this by generating one or more <emphasis>indirect
+  access</emphasis> events when a method is called that utilizes a
+  collection-like object.  Flashlight knows which methods do this my
+  consulting a list of what we call <emphasis>indirect access methods</emphasis>.  The
+  Flashlight distribution comes with a standard list the includes
+  methods from the collection classes from <package>java.util</package> and a
+  few other JDK classes.  Flashlight can also read in additional
+  user-defined lists of methods, see <xref linkend="methods-pane"/>.</para>
+
+  <sect2 id="file-format">
+    <title>File Format</title>
+    
+    <para>A list of indirect access methods is maintained as an XML file
+    defined by the following DTD:</para>
+    
+    <programlisting><![CDATA[<!ELEMENT classes (class+)> 
+
+<!ELEMENT class (method+)>
+<!ATTLIST class name CDATA #REQUIRED>
+
+<!ELEMENT method (arg+)>
+<!ATTLIST method 
+  isStatic (true|false) "false"
+  signature CDATA #REQUIRED> 
+
+<!ELEMENT arg (#PCDATA)>]]></programlisting>
+    
+    <para>The root element of each file is the <sgmltag class="element">classes</sgmltag>
+    element.  This element has no attributes.  It has one or more nested
+    <sgmltag class="element">class</sgmltag> elements.</para>
+
+    <para>Each <sgmltag class="element">class</sgmltag> element represents a class that
+    contains at least one indirect access method.  The element has a
+    required attribute <sgmltag class="attribute">name</sgmltag> whose value is the fully
+    qualified name of the class.  The element has one or more nested <sgmltag class="element">method</sgmltag>
+    elements.  A class names methods that it declares only.  There is no
+    need to name a method that is inherited or overridden.  Those
+    methods are declared in a <sgmltag class="element">class</sgmltag> element for the
+    ancestor class.</para>
+
+    <para>Each <sgmltag class="element">method</sgmltag> element identifies a method
+    that makes indirect access to state encapsulated in at least one of
+    its parameters.  The element has an optional Boolean-valued
+    <sgmltag class="attribute">isStatic</sgmltag> attribute, whose default value is
+    <literal>false</literal>, that indicates whether the method is
+    <code>static</code> or not.  The element has a mandatory
+    <sgmltag class="attribute">signature</sgmltag> attribute, whose value is the name and
+    signature of the method.  The format of the signature is
+    
+      <literallayout><replaceable>Type<subscript>Return</subscript></replaceable> <replaceable>name</replaceable>(<replaceable>Type<subscript>1</subscript></replaceable>, &hellip;, <replaceable>Type<subscript>n</subscript></replaceable>)</literallayout>
+
+    Where
+      
+      <itemizedlist>
+        <listitem>Each <replaceable>Type</replaceable> must be a Java
+        primitive type (<code>boolean</code>, <code>byte</code>,
+        <code>char</code>, <code>short</code>, <code>int</code>,
+        <code>long</code>, <code>float</code>, or <code>double</code>)
+        or the fully qualified name of a Java
+        class/interface.</listitem>
+
+        <listitem><replaceable>name</replaceable> is the name of the
+        method.  Constructors are named "&lt;init&gt;", written
+        "&amp;lt;init&amp;gt;".</listitem>
+      </itemizedlist>
+
+      The element has one or more nested <sgmltag class="element">arg</sgmltag> elements.
+    </para>
+    
+    <para>Each <sgmltag class="element">arg</sgmltag> element contains a single a integer
+    value representing the index of an argument to the method whose
+    aggregated state may be accessed indirectly by the method.  The
+    index is zero based:
+    
+      <itemizedlist>
+         <listitem>If the method is not <code>static</code> then <literal>0</literal>
+         refers to the method's receiver and <literal>1</literal> refers to the first
+         explicit argument.</listitem>
+
+         <listitem>If the method is <code>static</code> then <literal>0</literal> refers to
+         the method's first explicit argument.</listitem>
+      </itemizedlist>
+    </para>
+    
+    <sect3 id="xml-example">
+      <title>Example</title>
+      
+      <para>The following is a fragment of the default list of methods
+      showing methods from the <classname>ArrayList</classname> class and the
+      <classname>System</classname> class:
+
+        <programlisting><![CDATA[
+<classes>
+  ...
+  <class name="java.util.ArrayList">
+    <method signature="void &lt;init&gt;(java.util.Collection)">
+      <arg>1</arg>
+    </method>
+
+    <method signature="void trimToSize()">
+      <arg>0</arg>
+    </method>
+
+    <method signature="void ensureCapacity(int)">
+      <arg>0</arg>
+    </method>
+
+    <method signature="java.lang.Object clone()">
+      <arg>0</arg>
+    </method>
+  </class>
+  ...
+  <class name="java.lang.System">
+    <method signature="void arraycopy(java.lang.Object, int, java.lang.Object, int, int)" isStatic="true">
+      <arg>0</arg>
+      <arg>2</arg>
+    </method>
+
+    <method signature="void setProperties(java.util.Properties)" isStatic="true">
+      <arg>0</arg>
+    </method>
+  </class>
+</classes>]]></programlisting>
+      </para>
+    </sect3>
+  </sect2>
 </sect1>

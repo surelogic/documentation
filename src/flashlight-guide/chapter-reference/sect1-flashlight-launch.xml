@@ -182,7 +182,7 @@
 
         <listitem>A list of files that declare additional indirect
         access methods.  The format of these files is decribed in
-        <xref linkend="flashlight-method-files"/></listitem>
+        <xref linkend="flashlight-method-files"/>.</listitem>
       </orderedlist>
     </para>
     
