@@ -1376,9 +1376,9 @@ if (o == null) {
 	<xref linkend="fig-tutorial-send-scan-filter" />. Enter
 	<userinput>Tutorial</userinput> and press
 	<guibutton>Send</guibutton> to continue. The local server now
-	has a copy the same scan filter as your client. You should see
+	has a copy, the same scan filter as your client. You should see
 	this copy of the scan filter in the <guilabel>Team
-	Servers</guilabel> under the Scan Filters portion of local
+	Server</guilabel> under the Scan Filters portion of your local
 	server, it will be called
 	<emphasis>Tutorial</emphasis>.</para>
 
