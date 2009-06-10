@@ -1227,18 +1227,26 @@ if (o == null) {
 	</figure>
 
 	<para>Click on the <guilabel>Settings</guilabel> tab to open
-	the settings panel. This panel allows you to see the version
-	of the software and the current and available versions of the
-	database schema as shown in <xref
+	the settings panel. This panel allows you to see the name of
+        the server, the version of the software, and the current and
+	available versions of the database schema as shown in <xref
 	linkend="fig-tutorial-portal-settings-page" />. The current and
 	available versions of the database schema should always be the
 	same number unless a schema upgrade failed for some reason. If
 	this should occur it is a software bug and should be reported
-	to SureLogic. This page also allows you to configure the
-	server to email any errors it encounters to an
-	administrator. You can fill in the information required and
-	send a test email to try out your configuration. (This is
-	optional for this tutorial but recommended for a production
+	to SureLogic. 
+        </para>
+
+        <para>
+        This page also allows you to change the name of the server, as
+        well as to configure it to email any errors it encounters to
+        an administrator.  You can fill in the new server name (e.g. 
+	<userinput>local desktop</userinput>), and click on 
+	<guibutton>Update Site Settings</guibutton>.	
+
+	Likewise, you can fill in the information required and
+        send a test email to try out your configuration. (This is
+        optional for this tutorial but recommended for a production
 	server.)</para>
 
 	<figure id="fig-tutorial-portal-settings-page">
