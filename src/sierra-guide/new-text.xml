@@ -1,0 +1,84 @@
+      <section id="sec-tutorial-sierra-plugin">
+	<title>Extending Sierra with New Tools</title>
+
+        <para> This tutorial will demonstrate how to add new tools to 
+        Sierra by adding the well-known tool 
+        <ulink url="http://checkstyle.sourceforge.net">CheckStyle</ulink>.
+	To begin with, the general data flow for a given tool is as follows:
+        <orderedlist>
+ 	  <listitem>At startup, Sierra scans for available tools, and
+	  instantiates an IToolFactory for each one.
+          </listitem>
+ 	  <listitem>For a given scan of a set of projects, Sierra
+ 	  specifies the files to be scanned, as well as other
+ 	  parameters, in a Config object. 
+          </listitem>
+ 	  <listitem>Sierra uses this to create an ILazyArtifactGenerator, 
+          which encapsulates the creation of the resulting scan document.
+          </listitem>
+          <listitem>Sierra then uses both the Config and
+          ILazyArtifactGenerator to call create() on each IToolFactory
+	  to create an IToolInstance specific to that Config
+          </listitem>
+ 	  <listitem>For each IToolInstance, Sierra will call run()
+	  with an ArtifactGenerator to create a scan document???
+          </listitem>
+        </orderedlist>
+        </para>
+
+        <para>There are two approaches to doing this:
+        <orderedlist>
+ 	  <listitem>Loose integration, where we run the tool normally
+ 	  and convert the results into the appropriate format.
+          </listitem>
+ 	  <listitem>Tight integration, where we write a custom
+ 	  application that effectively uses the tool as a library, and
+ 	  feed the results directly into the ArtifactGenerator.
+          </listitem>
+        </orderedlist>
+        The difference is that the former can use existing
+        configuration files and thus requires less development time,
+        but usually takes more run time to convert the results.  The
+        latter requires more 
+        </para>
+
+        <para> Either way, we can begin by using the Sierra Tool
+        Plugin Project wizard to create the basic structure for our
+        new tool plugin.
+        <orderedlist>
+ 	  <listitem>New project
+          </listitem>
+ 	  <listitem>Fill in name of the project
+          </listitem>
+ 	  <listitem>Fill in ...
+          </listitem>
+        </orderedlist>
+        </para>
+
+java -jar checkstyle-all-5.0-beta2.jar -c sun_checks.xml -r /home/edwin/workspace-3.4.1/sierra-checkstyle/src -f xml
+
+
+	<!--
+	<para>This tutorial will demonstrate how to use the Sierra Ant
+	tasks to scan the SmallWorld project and publish the resulting
+	scan document to your local team server.  The Sierra Ant tasks
+	are used to automate scans as part of a QA or nightly build
+	process. This tutorial assumes you have run the previous
+	tutorial (See <xref linkend="sec-tutorial-team-server" />; You
+	can skip the previous tutorial if you create a new local team
+	server and add a <userinput>zork</userinput> user with
+	password <userinput>zork</userinput>).</para>
+
+	<para>For this tutorial you will need your local team server
+	running. Open the <guilabel>Local Team Server</guilabel>
+	view. If the local team server is stopped press the
+	<guibutton>Start Server</guibutton> to get it running
+	again.</para>
+
+	<para>The Sierra Ant tasks may be downloaded from <ulink
+	url="http://www.surelogic.com/static/sierra/sierra-ant.zip">
+	http://www.surelogic.com/static/sierra/sierra-ant.zip</ulink>. Unzip
+	them to any location on your disk. The archive will create a
+	<filename>sierra-ant</filename> directory.</para>
+        -->
+      </section>
