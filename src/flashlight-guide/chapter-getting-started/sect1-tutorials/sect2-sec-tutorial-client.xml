@@ -10,27 +10,25 @@
   see a <guimenu>Flashlight</guimenu> menu item on your Eclipse main
   menu than you can assume it has been installed properly.</para>
 
-  <para>First download the <application>PlanetBaron</application>
-  project from www.surelogic.com at <ulink
+  <para>First download the <application>PlanetBaron</application> project from
+  www.surelogic.com at <ulink
   url="http://www.surelogic.com/static/flashlight/PlanetBaron.zip">
-  http://www.surelogic.com/static/flashlight/PlanetBaron.zip</ulink> to
-  your disk. Unzip this archive into your workspace and it will create a
-  <filename>PlanetBaron</filename> directory. Next import this project
-  into your Eclipse workspace using <menuchoice><guimenu>File</guimenu>
-  <guimenuitem>Import&hellip;</guimenuitem></menuchoice> from the
-  Eclipse main menu and then choosing <guilabel>Existing Projects into
-  Workspace</guilabel> for the import wizard. Follow the import steps of
-  wizard until the <application>PlanetBaron</application> project is
-  imported and built.</para>
+  http://www.surelogic.com/static/flashlight/PlanetBaron.zip</ulink> to your
+  disk. Unzip this archive into your workspace and it will create a
+  <filename>PlanetBaron</filename> directory. Next import this project into your
+  Eclipse workspace using <menuchoice><guimenu>File</guimenu>
+  <guimenuitem>Import&hellip;</guimenuitem></menuchoice> from the Eclipse main
+  menu and then choosing <guilabel>Existing Projects into Workspace</guilabel>
+  for the import wizard. Follow the import steps of wizard until the
+  <application>PlanetBaron</application> project is imported and built.</para>
 
-  <para>PlanetBaron is a network-based real-time strategy game. It
-  contains three programs that we will run during this tutorial. The
-  first is a server program that manages the distributed game state. The
-  second is a graphical program that allows a player to interact with
-  the game. The third program, called the chat-test client, allows
-  direct interaction with the server for the purpose of debugging and
-  management. For example, the chat-test client is used to shutdown a
-  server.</para>
+  <para>PlanetBaron is a network-based real-time strategy game. It contains
+  three programs that we will run during this tutorial. The first is a server
+  program that manages the distributed game state. The second is a graphical
+  program that allows a player to interact with the game. The third program,
+  called the chat-test client, allows direct interaction with the server for the
+  purpose of debugging and management. For example, the chat-test client is used
+  to shutdown a server.</para>
 
   <para>Flashlight is a dynamic analysis tool. To get any useful results
   from Flashlight we have to collect data while a program is running. We
@@ -38,62 +36,58 @@
   After we understand a bit about how to run the game we will return to
   using Flashlight on it.</para>
 
-  <para>Let's run a PlanetBaron game. Select
-  <filename>Server.java</filename> in the
-  <package>edu.afit.planetbaron.server</package> package. Right-click
-  and select <menuchoice><guisubmenu>Run As</guisubmenu>
-  <guimenuitem>Java Application</guimenuitem></menuchoice>. You should
-  see following output in the console which indicates that the server
-  has started successfully:</para>
+  <para>Let's run a PlanetBaron game. Select <filename>Server.java</filename> in
+  the <package>edu.afit.planetbaron.server</package> package. Right-click and
+  select <menuchoice><guisubmenu>Run As</guisubmenu> <guimenuitem>Java
+  Application</guimenuitem></menuchoice>. You should see following output in the
+  console which indicates that the server has started successfully:</para>
 
   <screen>
-[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map
+    [INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map
   </screen>
 
   <para>Now we need to add some players. Select
   <filename>PlayerUI.java</filename> in the
-  <package>edu.afit.planetbaron.client</package> package. Right-click
-  and select <menuchoice><guisubmenu>Run As</guisubmenu>
-  <guimenuitem>Java Application</guimenuitem></menuchoice>. You will see
-  a Window appear has a blank grid and the title
-  <application>PlanetBaron</application>. In the lower right-hand-corner
-  enter a player name, <userinput>Laurel</userinput>, and press
-  <guibutton>Connect</guibutton>.</para>
+  <package>edu.afit.planetbaron.client</package> package. Right-click and select
+  <menuchoice><guisubmenu>Run As</guisubmenu> <guimenuitem>Java
+  Application</guimenuitem></menuchoice>. You will see a Window appear has a
+  blank grid and the title <application>PlanetBaron</application>. In the lower
+  right-hand-corner enter a player name, <userinput>Laurel</userinput>, and
+  press <guibutton>Connect</guibutton>.</para>
 
-  <para>The screen will change to contain several planets and one ship
-  with "Laurel" as its label. By moving your mouse around the grid you
-  can direct your ship. Place your mouse over a planet and left-click.
-  This action will cause your ship to move slowly to that planet. When
-  your ship arrives you will become the owner of that planet. This is
-  called "taking ownership" of a planet. Go ahead an take ownership of a
-  few planets. Note that while your ship is moving you are not allowed
-  to change its destination.  Once it arrives at the destination you
-  selected you can then select a subsequent destination.</para>
+  <para>The screen will change to contain several planets and one ship with
+  "Laurel" as its label. By moving your mouse around the grid you can direct
+  your ship. Place your mouse over a planet and left-click.  This action will
+  cause your ship to move slowly to that planet. When your ship arrives you will
+  become the owner of that planet. This is called "taking ownership" of a
+  planet. Go ahead an take ownership of a few planets. Note that while your ship
+  is moving you are not allowed to change its destination.  Once it arrives at
+  the destination you selected you can then select a subsequent
+  destination.</para>
 
-  <para>If you look at the console for the server you will see the
-  commands that have come in from the Laurel PlayerUI. For example, your
-  server console might look similar to the below:</para>
+  <para>If you look at the console for the server you will see the commands that
+  have come in from the Laurel PlayerUI. For example, your server console might
+  look similar to the below:</para>
 
   <screen>
-[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map [edu.afit.planetbaron.server.Server.startListening()]
-[INFO "server-ch10"] client handler thread started [edu.afit.planetbaron.server.ClientHandler.run()]
-[INFO "server-ch10 (Laurel)"] "play "Laurel"" processed GameStateUpdate from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
-[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (12,11)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
-[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (9,13)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
-[INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (8,10)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+    [INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map [edu.afit.planetbaron.server.Server.startListening()]
+    [INFO "server-ch10"] client handler thread started [edu.afit.planetbaron.server.ClientHandler.run()]
+    [INFO "server-ch10 (Laurel)"] "play "Laurel"" processed GameStateUpdate from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+    [INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (12,11)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+    [INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (9,13)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+    [INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (8,10)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
   </screen>
 
   <para>Now, go back to Eclipse and start a second instance of
-  <filename>PlayerUI.java</filename>. In the lower right-hand-corner
-  enter a player name, <userinput>Hardy</userinput>, and press
+  <filename>PlayerUI.java</filename>. In the lower right-hand-corner enter a
+  player name, <userinput>Hardy</userinput>, and press
   <guibutton>Connect</guibutton>.</para>
 
-  <para>The game supports as many players as you choose to connect to
-  the server. Notice that the planets that Laurel owns are red in the
-  Hardy PlayerUI while they are white in the Laurel PlayerUI.  Moving
-  back and forth between the two PlayerUIs move the ships to play the
-  game.  Note that the idea of the game is to own as many planets as you
-  can. A game screenshot is shown in <xref
+  <para>The game supports as many players as you choose to connect to the
+  server. Notice that the planets that Laurel owns are red in the Hardy PlayerUI
+  while they are white in the Laurel PlayerUI.  Moving back and forth between
+  the two PlayerUIs move the ships to play the game.  Note that the idea of the
+  game is to own as many planets as you can. A game screenshot is shown in <xref
   linkend="fig-tutorial-planetbaron-playerui" />.</para>
 
   <figure id="fig-tutorial-planetbaron-playerui">
@@ -105,22 +99,20 @@
     </mediaobject>
   </figure>
 
-  <para>To finish the game press <guibutton>Disconnect</guibutton> in
-  both PlayerUI instances and then terminate the programs by closing the
-  application windows as usual. This action ends both player user
-  interfaces but the server is still running.  To terminate the server
-  we need to use the chat-test client program. Select
-  <filename>ChatTestClient.java</filename> in the
-  <package>edu.afit.planetbaron.client</package> package. Right-click
-  and select <menuchoice><guisubmenu>Run As</guisubmenu>
-  <guimenuitem>Java Application</guimenuitem></menuchoice>. You will see
-  a window appear with the title <application>ChatTest -
-  PlanetBaron</application>. This program allows you to directly control
-  the game server via text commands. We want to use it to shutdown the
-  game server. To do this press <guibutton>Connect</guibutton> to
-  connect to the game server and enter <userinput>shutdown</userinput>
-  as the command. You're screen should now look like the one shown in
-  <xref linkend="fig-tutorial-planetbaron-chattestclient" />.</para>
+  <para>To finish the game press <guibutton>Disconnect</guibutton> in both
+  PlayerUI instances and then terminate the programs by closing the application
+  windows as usual. This action ends both player user interfaces but the server
+  is still running.  To terminate the server we need to use the chat-test client
+  program. Select <filename>ChatTestClient.java</filename> in the
+  <package>edu.afit.planetbaron.client</package> package. Right-click and select
+  <menuchoice><guisubmenu>Run As</guisubmenu> <guimenuitem>Java
+  Application</guimenuitem></menuchoice>. You will see a window appear with the
+  title <application>ChatTest - PlanetBaron</application>. This program allows
+  you to directly control the game server via text commands. We want to use it
+  to shutdown the game server. To do this press <guibutton>Connect</guibutton>
+  to connect to the game server and enter <userinput>shutdown</userinput> as the
+  command. Your screen should now look like the one shown in <xref
+  linkend="fig-tutorial-planetbaron-chattestclient" />.</para>
 
   <figure id="fig-tutorial-planetbaron-chattestclient">
     <title>Using the ChatTestClient to shutdown the game server</title>
@@ -139,7 +131,7 @@
   bottom:</para>
 
   <screen>
-[INFO "server-main"] PlanetBaron game server shutdown complete
+    [INFO "server-main"] PlanetBaron game server shutdown complete
   </screen>
 
   <para>We are now ready to use Flashlight to help us understand the
@@ -192,20 +184,36 @@
     </mediaobject>
   </figure>
 
-  <para>The Flashlight perspective is used to manage and query data
-  collected from instrumented programs. The <guilabel>Flashlight
-  Runs</guilabel> view in the upper-left manages the instrumented runs
-  of programs. This view allows you to prepare data to be queried,
-  select a prepared run for querying, and delete runs from the disk.  We
-  need to prepare, or <emphasis>prep</emphasis>, the ChatTestClient run.
-  To do this double-click the row in the table.  Alternatively you can
-  select the run, right-click, and select
-  <guimenuitem>Prepare</guimenuitem> from the context menu.</para>
+  <para>The Flashlight perspective is used to manage and query data collected
+  from instrumented programs. The <guilabel>Flashlight Runs</guilabel> view in
+  the upper-left manages the instrumented runs of programs. This view allows you
+  to prepare data to be queried, select a prepared run for querying, and delete
+  runs from the disk.  We need to prepare, or <emphasis>prep</emphasis>, the
+  ChatTestClient run.  When you switch to the Flashlight perspective, you should
+  be prompted to prepare your run data as shown in <xref
+  linkend="fig-tutorial-planetbaron-perspective-run-dialog" />.</para>
 
-  <para>A dialog will appear showing the progress of prepping the data
-  for querying. For large runs prepping can take a significant amount of
-  time. This run, which only collected roughly 5 KB of data, should prep
-  quickly taking up a total of roughly 4 MB of disk space.</para>
+
+  <figure id="fig-tutorial-planetbaron-perspective-run-dialog">
+    <title>Prompting the user to prepare a completed run</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-perspective-run-dialog.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>Press <guibutton>Yes</guibutton> and Flashlight will start preparing the
+  run.  If you have changed your workspace preferences so that the above dialog
+  does not show up, double-click the row in the <guilabel>Flashlight
+  Runs</guilabel> table to prepare your run.  Alternatively you can select the
+  run, right-click, and select <guimenuitem>Prepare</guimenuitem> from the
+  context menu.</para>
+
+  <para>A dialog will appear showing the progress of prepping the data for
+  querying. For large runs prepping can take a significant amount of time. This
+  run, which only collected roughly 5 KB of data, should prep quickly taking up
+  a total of roughly 10 MB of disk space.</para>
 
   <para>When the prep is complete two changes will occur. First, a
   <guiicon><inlinegraphic fileref="images/drum.png" /></guiicon> will
@@ -215,13 +223,13 @@
   listed in the <guilabel>Query Menu</guilabel> view directly below the
   <guilabel>Flashlight Runs</guilabel> view.</para>
 
-  <para>At this point we can run a query on the data. Double-click on
-  the <emphasis>What fields (non-static) are shared?</emphasis> query.
-  The results will appear in the <guilabel>Query Results</guilabel>
-  view. Select the <structfield>f_connectDisconnectButton</structfield>
-  field name and open the tree to display the two threads that shared
-  this object. Your screen should appear as shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-ctc1" />.</para>
+  <para>At this point we can run a query on the data. Double-click on the
+  <emphasis>What fields (non-static) are shared?</emphasis> query.  The results
+  will appear in the <guilabel>Query Results</guilabel> view.  Your screen
+  should appear as shown in <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc1" />.  Query results are
+  presented as a table, tree, or tree-table.  This result is a tree-table. The
+  result reports the shared non-static fields noted in the run.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc1">
     <title>Non-static fields that were observed to be shared in a ChatTestClient run</title>
@@ -232,63 +240,84 @@
     </mediaobject>
   </figure>
 
-  <para>Query results are presented as a table, tree, or tree-table.
-  This result is a tree-table. The result reports the shared non-static
-  fields noted in the run. In the case of f_connectDisconnectButton the
-  AWT-EventQueue-0, known as the event dispatch thread (EDT), and the
-  main thread shared this field. Note that all the accesses by the main
-  thread where during construction of the ChatTestClient. If you examine
-  the other results you will note that all the shared objects are Swing
-  components and that they are shared, but similar to
-  f_connectDisconnectButton they are only accessed by the main thread
-  during construction.</para>
-
   <para>Selecting fields in the query result causes these fields to be
-  highlighted in two views at the bottom of the Flashlight perspective.
-  The view to the left is the normal Java editor and represents the
-  current state of the source code. The view to the left is an
-  <guilabel>Historical Source Snapshot</guilabel> view that shows you
-  the code as it existed when the program was executed.  This view helps
-  you to understand if the code has evolved since the run you are
-  querying was made.</para>
+  highlighted in two views at the bottom of the Flashlight perspective.  The
+  view to the left is the normal Java editor and represents the current state of
+  the source code. The view to the right is an <guilabel>Historical Source
+  Snapshot</guilabel> view that shows you the code as it existed when the
+  program was executed.  This view helps you to understand if the code has
+  evolved since the run you are querying was made.</para>
 
-  <para>Select the f_connectDisconnectButton and right-click. This
-  brings up a menu of queries that can be run on this result. Select
-  <emphasis>Show me all accesses of this non-static field?</emphasis> as
-  shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc2"
-  />.</para>
+  <para>Select the <structfield>f_connectDisconnectButton</structfield> and
+  right-click. This brings up a menu of queries that can be run on this
+  result. Select <emphasis>What are the individual instances of this non-static
+  field?</emphasis> You should see a table with a single entry, as in <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc7" />.  If any other
+  ChatTestClient objects had been created and shared their
+  <structfield>f_connectDisconnectButton</structfield> with more than one
+  thread, we would see entries for them here as well.
+  </para>
+
+  <figure id="fig-tutorial-planetbaron-perspective-ctc7">
+    <title>A ChatTestClient object containing the <structfield>f_connectDisconnectButton</structfield> field.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc7.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Right click on the single row and select <emphasis>What threads read and
+  write this field?</emphasis> The results should look something like <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc2" />.  In the case of
+  f_connectDisconnectButton we see that the AWT-EventQueue-0, known as the event
+  dispatch thread (EDT), and the main thread shared this field. Note that all
+  the accesses by the main thread were during construction of the
+  ChatTestClient.
+</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc2">
-    <title>Drilling in to all accesses of the f_connectDisconnectButton</title>
+    <title>What threads read and write this field?</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-perspective-ctc2.png" />
       </imageobject>
     </mediaobject>
   </figure>
-
-  <para>The result of this query will show you each read and write of
-  the field that was observed by the instrumentation as the program
-  executed. It shows the time at which the event occurred and the thread
-  it happened within. Select the second access by the main thread and
-  right-click. Drill-in again by selecting <emphasis>Show stack trace
-  for a field access</emphasis> as shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-ctc3" />.</para>
+  
+  <para>We will zoom in a little more and look at the actual accesses of this
+  field.  Right click on the table, and run <emphasis>When and by what threads
+  was this field accessed?</emphasis> The result of this query should look like
+  <xref linkend="fig-tutorial-planetbaron-perspective-ctc3" /> and will show you
+  each read and write of the field that was observed by the instrumentation as
+  the program executed. It shows the time at which the event occurred and the
+  thread it happened within. Select the second access by the main thread and
+  right-click. Drill-in again by selecting <emphasis>What is the stack trace for
+  this access?</emphasis> as shown in <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc8" />.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc3">
-    <title>Drilling in to see the stack trace for this field access</title>
+    <title>Looking at the accesses made to a field</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-perspective-ctc3.png" />
       </imageobject>
     </mediaobject>
   </figure>
+  
+  <figure id="fig-tutorial-planetbaron-perspective-ctc8">
+    <title>Drilling in to see the stack trace for this field access</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc8.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
-  <para>Which will result in a stack trace for the selected access.
-  Selecting each row of the result will show that line of code in the
-  program.  The bottom row is, in fact, a bug in the program. This line
-  is shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc3"
-  />.</para>
+  <para>This will result in a stack trace for the selected access.  Selecting
+  each row of the result will show that line of code in the program.  The bottom
+  row is, in fact, a bug in the program. This line is shown in <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc4" />.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc4">
     <title>The broken line of code in ChatTestClient</title>
@@ -353,21 +382,20 @@ new ChatTestClient();
   shared fields were observed. This run provides some evidence that we
   have fixed the bug discovered in ChatTestClient.</para>
 
-  <para>Before we move on let's examine the old run one final time.
-  Clear out the previous query results by again clicking the
-  <guiicon><inlinegraphic fileref="images/gray_x_double.png"
-  /></guiicon> icon. Select the first ChatTestClient run and
-  double-click the <emphasis>What non-static fields are
-  shared?</emphasis> query. Select the f_connectDisconnectButton and
-  right-click to select the <emphasis>Show me all accesses of this
-  non-static field?</emphasis> query. Select the second access by the
-  main thread and right-click to select the <emphasis>Show stack trace
-  for a field access</emphasis> query. By selecting the bottom row of
-  the stack trace you can see that, while the Java editor code might
-  prove confusing (because we changed it), the <guilabel>Historical
-  Source Snapshot</guilabel> view remembers what the code looked like in
-  this previous run. This difference is shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-ctc5" />.</para>
+  <para>Before we move on let's examine the old run one final time.  Clear out
+  the previous query results by again clicking the <guiicon><inlinegraphic
+  fileref="images/gray_x_double.png" /></guiicon> icon. Select the first
+  ChatTestClient run and double-click the <emphasis>What non-static fields are
+  shared?</emphasis> query. Select the f_connectDisconnectButton and right-click
+  to select the <emphasis>What are the invidual instances of this non-static
+  field?</emphasis> query, then the <emphasis>When and by what threads was this
+  field accessed?</emphasis> query. Select the second access by the main thread
+  and right-click to select the <emphasis>Show stack trace for a field
+  access</emphasis> query. By selecting the bottom row of the stack trace you
+  can see that, while the Java editor code might prove confusing (because we
+  changed it), the <guilabel>Historical Source Snapshot</guilabel> view
+  remembers what the code looked like in this previous run. This difference is
+  shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc5" />.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc5">
     <title>The broken line of code in ChatTestClient is remembered by the Historical Source Snapshot view</title>
