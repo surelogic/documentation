@@ -499,32 +499,89 @@ new ChatTestClient();
   should, however, see similar results to what we present and you are
   encouraged to see what you can find in your run results.</para>
 
-  <para>TODO: Run the <emphasis>What non-static fields have a
-  lockset?</emphasis> query. A lockset analysis examines each access of
-  an object that was observed in the program and intersects the set of
-  locks held. If shared state has a lockset it is a good
-  thing&mdash;this state was observed to be protected consistently by at
-  least one lock. Note that this state may not always be protected in
-  all possible runs of the program (to make this determination a sound
-  verification tool like SureLogic JSure is required), but it was for
-  the particular run of the program observed.  If shared state has no
-  lockset then this may be a bad thing&mdash;it might mean that your
-  program contains a race condition.</para>
+  <para>We'll use a couple of analyses performed by Flashlight during the prep
+  phase to investigate the PlanetBaron server.  The first of these is a lockset
+  analysis.  A lockset analysis examines each access of a field in the program
+  and insersects the set of locks held.  If shared state has a lockset it is a
+  good thing&mdash;this state was observed to be protected consistently by at
+  least one lock.  This isn't a guarantee that this field will always be
+  protected in every run of the program (to make this determination a sound
+  verification tool like SureLogic JSure is required), but it was for the
+  particular run of the program observed.  If shared state has no lockset then
+  this may be a bad thing&mdash;it might mean that your program contains a race
+  condition.  To take a look at the results of Flashlight's lock analysis, run
+  the query <emphasis>What fields (non-static) have an empty lock
+  set?</emphasis> The results should indicate that a few instances of
+  <classname>edu.afit.planetbaron.game.Ship</classname> have no lock set for the
+  field <structfield>f_location</structfield>, as seen in <xref
+  linkend="fig-tutorial-planetbaron-lockset1" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-lockset1">
+    <title>An empty lock set in PlanetBaron</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset1.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
-  <para>Drill into <emphasis>Show me all accesses of this non-static
-  field</emphasis> and introduce the idea of a "lock trace".</para>
+  <para>As we did before when we were looking at shared fields in the test
+  client, we can look at the individual objects holding this field in by running
+  <emphasis>What are the individual instances of this non-static
+  field?</emphasis>As seen in <xref linkend="fig-tutorial-planetbaron-lockset2"
+  />, there is one Ship object for each ship in the PlanetBaron game, and none
+  of them have a lock set.  We'll investigate this further by looking to see
+  what locks <emphasis>are</emphasis> held when this field is accessed.  Choose
+  one of the Ship objects, and run the query <emphasis>How often is a lock held
+  when this field is accessed after object construction?</emphasis> You should
+  see something that looks like <xref
+  linkend="fig-tutorial-planetbaron-lockset3" />.</para>
 
-  <para>TODO: Run the <emphasis>What non-static fields have an empty
-  lockset?</emphasis> query. The <structfield>f_location</structfield>
-  field of the <classname>Ship</classname> class will likely show up.
-  This is an actual problem in the program. Drill in on an instance and
-  run the <emphasis>* What locks are held for each access of this
-  non-static field *</emphasis> which will take a long time. Examine the
-  lock trace of the first access to see that it is a ReadWriteLock being
-  used to protect this field. Now look for a result that is holding only
-  one lock (on the ClientHandler object). The stack trace will lead you
-  to an unprotected access. This is locking on the wrong lock (This same
-  problem was also discovered with the JSure tool).</para>
+  <figure id="fig-tutorial-planetbaron-lockset2">
+    <title>Three objects with no lock set on <structfield>f_location</structfield></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset2.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-tutorial-planetbaron-lockset3">
+    <title>Locks held while <structfield>f_location</structfield> is
+    accessed</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset3.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>
+    The query shows that several locks are held when this field is accessed,
+    although - as we already know - none of them are held for every access.  One
+    of the locks seems to be held almost all of the time, however. In the
+    example shown in <xref linkend="fig-tutorial-planetbaron-lockset3" />, it
+    appears that one of the locks is held for all but 5 of the accesses.  Select
+    the most commonly held lock, and run the query <emphasis>Where is this field
+    accessed while this lock is not held?</emphasis> Click on all three of the
+    lines of code that are displayed.  Two of them are in the constructor, and
+    don't appear to be a problem.  The final line, on the other hand, is an
+    unprotected access that we have found.  <xref
+    linkend="fig-tutorial-planetbaron-lockset4" /> shows the incorrectly
+    synchronized line of code.
+
+  <figure id="fig-tutorial-planetbaron-lockset4">
+    <title>The offending line of code</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset4.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+    <!-- TODO fix this and show that the field now has a lockset -->
+  </para>
+  <!--      -->
 
   <para>TODO: run the <emphasis>Where does a thread hold a lock and
   acquire another?</emphasis> and examine the results to show potential
@@ -536,7 +593,7 @@ new ChatTestClient();
   Editor</guimenuitem></menuchoice> from the Eclipse main menu to open
   the <guilabel>Flashlight Query Editor</guilabel> view. This view is
   shown in <xref linkend="fig-tutorial-query-editor" />.</para>
-
+  <!--      -->
   <figure id="fig-tutorial-query-editor">
     <title>The query to show where a thread is holding a lock and acquires another</title>
     <mediaobject>

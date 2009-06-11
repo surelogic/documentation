@@ -482,7 +482,49 @@
       <qandaentry>
 	<question>
 	  <para>
-	    Where is this lock acquired in the code?
+	    Where is this field accessed by the program?
+	  </para>
+	</question>
+	<answer>
+	  <para>
+	    Lists all of the places in the program that access this field at
+	    some point in time.  Clicking on a line will open up the field
+	    access in the code view.
+	  </para>
+	</answer>
+      </qandaentry>
+      <qandaentry>
+	<question>
+	  <para>
+	    Where is this field accessed while this lock is held?
+	  </para>
+	</question>
+	<answer>
+	  <para>
+	    Lists all of the places in the program that access this field while
+	    the given lock is being held.  Clicking on a line will open up the
+	    field access in the code view.
+	  </para>
+	</answer>
+      </qandaentry>
+      <qandaentry>
+	<question>
+	  <para>
+	    Where is this field accessed while this lock is not held?
+	  </para>
+	</question>
+	<answer>
+	  <para>
+	    Lists all of the places in the program that access this field while
+	    a given lock is not held.  Clicking on a line will open up the field
+	    access in the code view.
+	  </para>
+	</answer>
+      </qandaentry>
+      <qandaentry>
+	<question>
+	  <para>
+	    Where is this lock acquired by the program?
 	  </para>
 	</question>
 	<answer>
