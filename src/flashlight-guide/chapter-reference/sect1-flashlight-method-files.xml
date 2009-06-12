@@ -39,6 +39,1531 @@
   few other JDK classes.  Flashlight can also read in additional
   user-defined lists of methods, see <xref linkend="methods-pane"/>.</para>
 
+  <para>An indirect access method is identified based on the class in
+  which it is declared.  This class is compared against the class in the
+  method call operation based on the "is assignable to" relationship: if
+  the class in the method call operation is considered to be assignable
+  to the class containing the indirect access method, then the classes
+  match.</para>
+
+  <sect2 id="default-list">
+    <title>Default List of Indirect Access Methods</title>
+    
+    <informaltable>
+      <tgroup cols="3">
+        <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+        <colspec colnum="2" colname="c2" colwidth="2*" align="left"/>
+        <colspec colnum="3" colname="c3" colwidth="1*" align="center"/>
+        
+        <thead>
+          <row>
+            <entry align="center">Class</entry>
+            <entry align="center">Method</entry>
+            <entry align="center">Indirectly accesses the object(s) referenced by</entry>
+          </row>
+        </thead>
+        
+        <tbody>
+          <row>
+            <entry><classname>java.lang.Iterable</classname></entry>
+            <entry><code>iterator()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="1"><classname>java.lang.System</classname></entry>
+            <entry><code>arraycopy(java.lang.Object src, int srcPos, java.lang.Object dest, destPos, int len)</code></entry>
+            <entry><parameter>src</parameter>, <parameter>dest</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>setProperties(java.util.Properties p)</code></entry>
+            <entry><parameter>p</parameter></entry>
+          </row>          
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="0"><classname>java.util.AbstractList</classname></entry>
+            <entry><code>removeRange(int from, int to)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="3"><classname>java.util.ArrayList</classname></entry>
+            <entry><code>ArrayList(java.util.Collection c)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>clone()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>ensureCapacity(int c)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>trimToSize()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+
+          <row>
+            <entry morerows="75"><classname>java.util.Arrays</classname></entry>
+            <entry><code>asList(java.lang.Object[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>binarySearch(byte[] a, byte k)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>binarySearch(char[] a, char k)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>binarySearch(double[] a, double k)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>binarySearch(float[] a, float k)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>binarySearch(int[] a, int k)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>binarySearch(java.lang.Object[] a, java.lang.Object k)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>binarySearch(java.lang.Object[] a, java.lang.Object, java.util.Comparator c)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>binarySearch(long[] a, long k)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>binarySearch(short[] a, short k)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>deepEquals(java.lang.Object[] a, java.lang.Object[] a2)</code></entry>
+            <entry><parameter>a</parameter>, <parameter>a2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>deepHashCode(java.lang.Object[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>deepToString(java.lang.Object[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(boolean[] a, boolean[] a2)</code></entry>
+            <entry><parameter>a</parameter>, <parameter>a2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(byte[] a, byte[] a2)</code></entry>
+            <entry><parameter>a</parameter>, <parameter>a2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(char[] a, char[] a2)</code></entry>
+            <entry><parameter>a</parameter>, <parameter>a2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(double[] a, double[] a2)</code></entry>
+            <entry><parameter>a</parameter>, <parameter>a2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(float[] a, float[] a2)</code></entry>
+            <entry><parameter>a</parameter>, <parameter>a2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(int[] a, int[] a2)</code></entry>
+            <entry><parameter>a</parameter>, <parameter>a2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(java.lang.Object[] a, java.lang.Object[] a2)</code></entry>
+            <entry><parameter>a</parameter>, <parameter>a2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(long[] a, long[] a2)</code></entry>
+            <entry><parameter>a</parameter>, <parameter>a2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(short[] a, short[] a2)</code></entry>
+            <entry><parameter>a</parameter>, <parameter>a2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(boolean[] a, boolean v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(boolean[] a, int from, int to, boolean v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(byte[] a, byte v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(byte[] a, int from, int to, byte v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(char[] a, char v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(char[] a, int from, int to, char v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(double[] a, double v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(double[] a, int from, int to, double v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(float[] a, float v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(float[] a, int from, int to, float v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(int[] a, int v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(int[] a, int from, int to, int v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(java.lang.Object[] a, java.lang.Object v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(java.lang.Object[] a, int from, int to, java.lang.Object v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(long[] a, long v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(long[] a, int from, int to, long v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(short[] a, short v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(short[] a, int from, int to, short v)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode(boolean[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode(byte[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode(char[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode(float[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode(double[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode(int[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode(java.lang.Object[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode(long[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode(short[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(byte[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(byte[] a, int from, int to)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>sort(char[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(char[] a, int from, int to)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(double[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(double[] a, int from, int to)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(float[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(float[] a, int from, int to)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(int[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(int[] a, int from, int to)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(java.lang.Object[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(java.lang.Object[] a, int from, int to)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(java.lang.Object[] a, java.util.Comparator c)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(java.lang.Object[] a, int from, int to, java.util.Comparator c)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(long[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(long[] a, int from, int to)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(short[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(short[] a, int from, int to)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>toString(boolean[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>toString(byte[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>toString(char[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>toString(float[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>toString(double[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>toString(int[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>toString(java.lang.Object[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>toString(long[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>toString(short[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <!-- next class -->
+
+          <row>
+            <entry morerows="25"><classname>java.util.BitSet</classname></entry>
+            <entry><code>and(java.util.BitSet s)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>s</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>andNot(java.util.BitSet s)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>s</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>cardinality()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>clear()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>clear(int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>clear(int from, int to)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>clone()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>o</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>flip(int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>flip(int from, int to)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>get(int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>get(int from, int to)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>intersects(java.util.BitSet s)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>s</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>isEmpty()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>length()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>nextClearBit(int from)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>nextSetBit(int from)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>or(java.util.BitSet s)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>s</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>set(int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>set(int i, boolean v)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>set(int from, int to)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>set(int from, int to, boolean v)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>size()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>toString()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>xor(java.util.BitSet s)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>s</parameter></entry>
+          </row>
+
+          <!-- next class -->          
+    
+          <row>
+            <entry morerows="14"><classname>java.util.Collection</classname></entry>
+            <entry><code>add(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+    
+          <row>
+            <entry><code>addAll(java.util.Collection c)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>c</parameter></entry>
+          </row>
+    
+          <row>
+            <entry><code>clear()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>contains(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+    
+          <row>
+            <entry><code>containsAll(java.util.Collection c)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>c</parameter></entry>
+          </row>
+    
+          <row>
+            <entry><code>equals(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>o</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>hashCode()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>isEmpty()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+    
+          <row>
+            <entry><code>remove(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+    
+          <row>
+            <entry><code>removeAll(java.util.Collection c)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>c</parameter></entry>
+          </row>
+    
+          <row>
+            <entry><code>retainAll(java.util.Collection c)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>c</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>size()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+    
+          <row>
+            <entry><code>toArray()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+    
+          <row>
+            <entry><code>toArray(java.lang.Object[] a)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>a</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>toString()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->          
+    
+          <row>
+            <entry morerows="22"><classname>java.util.Collections</classname></entry>
+            <entry><code>addAll(java.util.Collection c, java.lang.Object[] a)</code></entry>
+            <entry><parameter>c</parameter>, <parameter>a</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>binarySearch(java.util.List l, java.lang.Object o)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>binarySearch(java.util.List l, java.lang.Object o, java.util.Comparator c)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>copy(java.util.List l, java.util.List l2)</code></entry>
+            <entry><parameter>l</parameter>, <parameter>l2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>disjoint(java.util.Collection c1, java.util.Collection c2)</code></entry>
+            <entry><parameter>c1</parameter>, <parameter>c2</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>enumeration(java.util.Collection c)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>fill(java.util.List l, java.lang.Object v)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>frequency(java.util.Collection c, java.lang.Object o)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>indexOfSubList(java.util.List l, java.util.List target)</code></entry>
+            <entry><parameter>l</parameter>, <parameter>target</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>lastIndexOfSubList(java.util.List l, java.util.List target)</code></entry>
+            <entry><parameter>l</parameter>, <parameter>target</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>list(java.util.Enumeration e)</code></entry>
+            <entry><parameter>e</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>max(java.util.Collection c)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>max(java.util.Collection c, java.util.Comparator cmp)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>min(java.util.Collection c)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>min(java.util.Collection c, java.util.Comparator cmp)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>replaceAll(java.util.List l, java.lang.Object oldVal, java.lang.Object newVal)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>reverse(java.util.List l)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>rotate(java.util.List l, int d)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>shuffle(java.util.List l)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>shuffle(java.util.List l, java.util.Random r)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(java.util.List l)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>sort(java.util.List l, java.util.Comparator c)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>swap(java.util.List l, int i, int j)</code></entry>
+            <entry><parameter>l</parameter></entry>
+          </row>
+
+          <!-- next class -->
+
+          <row>
+            <entry morerows="6"><classname>java.util.Dictionary</classname></entry>
+            <entry><code>elements()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>get(java.lang.Object k)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>isEmpty()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>keys()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>put(java.lang.Object k, java.lang.Object v)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>remove(java.lang.Object k)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>size()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->          
+
+          <row>
+            <entry morerows="1"><classname>java.util.Enumeration</classname></entry>
+            <entry><code>hasMoreElements()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- Enumeration -->
+            <entry><code>nextElement()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="2"><classname>java.util.EnumMap</classname></entry>
+            <entry><code>EnumMap(java.util.EnumMap m)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>EnumMap(java.util.Map m)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>put(java.lang.Enum e, java.lang.Object v)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="4"><classname>java.util.EnumSet</classname></entry>
+            <entry><code>clone()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>complementOf(java.util.EnumSet s)</code></entry>
+            <entry><parameter>s</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>copyOf(java.util.Collection c)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>copyOf(java.util.EnumSet s)</code></entry>
+            <entry><parameter>s</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>of(java.lang.Enum e, java.lang.Enum[] a)</code></entry>
+            <entry><parameter>a</parameter></entry>
+          </row>
+
+          <!-- next class -->
+
+          <row>
+            <entry morerows="0"><classname>java.util.HashMap</classname></entry>
+            <entry><code>HashMap(java.util.Map m)</code></entry>
+            <entry><parameter>m</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="0"><classname>java.util.HashSet</classname></entry>
+            <entry><code>HashSet(java.util.Collection c)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="3"><classname>java.util.Hashtable</classname></entry>
+            <entry><code>Hashtable(java.util.Map m)</code></entry>
+            <entry><parameter>m</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>clone()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>contains(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>rehash()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="0"><classname>java.util.IdentityHashMap</classname></entry>
+            <entry><code>IdentityHashMap(java.util.Map m)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+
+          <row>
+            <entry morerows="2"><classname>java.util.Iterator</classname></entry>
+            <entry><code>hasNext()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- Iterator -->
+            <entry><code>next()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- Iterator -->
+            <entry><code>remove()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="1"><classname>java.util.LinkedHashMap</classname></entry>
+            <entry><code>LinkedHashMap(java.util.Map m)</code></entry>
+            <entry><parameter>m</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>removeEldestEntry(java.util.Map$Entry e)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="7"><classname>java.util.LinkedList</classname></entry>
+            <entry><code>LinkedList(java.util.Collection c)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>addFirst(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>addLast(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>clone()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>getFirst()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>getLast()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>removeFirst()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>removeLast()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+
+          <row>
+            <entry morerows="9"><classname>java.util.List</classname></entry>
+            <entry><code>add(int i, java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- List -->
+            <entry><code>addAll(int i, java.util.Collection c)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <!-- List -->
+            <entry><code>get(int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- List -->
+            <entry><code>indexOf(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- List -->
+            <entry><code>lastIndexOf(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- List -->
+            <entry><code>listIterator()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- List -->
+            <entry><code>listIterator(int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- List -->
+            <entry><code>remove(int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- List -->
+            <entry><code>set(int i, java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <!-- List -->
+            <entry><code>subList(int begin, int end)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+
+          <row>
+            <entry morerows="5"><classname>java.util.ListIterator</classname></entry>
+            <entry><code>add(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>hasPrevious()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>nextIndex()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>previous()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>previousIndex()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>set(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="13"><classname>java.util.Map</classname></entry>
+            <entry><code>clear()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>containsKey(java.lang.Object k)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>containsValue(java.lang.Object v)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>entrySet()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>equals(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>o</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>get(java.lang.Object k)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>isEmpty()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>keySet()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>put(java.lang.Object k, java.lang.Object v)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>putAll(java.util.Map m)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>m</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>remove(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>size()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>toString()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>values()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+
+          <row>
+            <entry morerows="4"><classname>java.util.Map$Entry</classname></entry>
+            <entry><code>equals(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>o</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>getKey()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>getValue()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>hashCode()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>setValue(java.lang.Object v)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="12"><classname>java.util.Properties</classname></entry>
+            <entry><code>Properties(java.util.Properties p)</code></entry>
+            <entry><parameter>p</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>getProperty(java.lang.String k)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>getProperty(java.lang.String k, java.lang.String d)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>list(java.io.PrintStream ps)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>list(java.io.PrintWriter pw)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>load(java.io.InputStream is)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>loadFromXML(java.io.InputStream is)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>propertyNames()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>save(java.io.OutputStream os, java.lang.String c)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>setProperty(java.lang.String k, java.lang.String v)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>store(java.io.OutputStream os, java.lang.String c)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>storeToXML(java.io.OutputStream os, java.lang.String c)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>storeToXML(java.io.OutputStream os, java.lang.String c, java.lang.String e)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+
+          <row>
+            <entry morerows="4"><classname>java.util.Queue</classname></entry>
+            <entry><code>element()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+          
+          <row>
+            <entry><code>offer(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>peek()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>poll()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>remove()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="4"><classname>java.util.SortedMap</classname></entry>
+            <entry><code>firstKey()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>headMap(java.lang.Object to)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>lastKey()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>subMap(java.lang.Object from, java.lang.Object to)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>tailMap(java.lang.Object from)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="4"><classname>java.util.SortedSet</classname></entry>
+            <entry><code>first()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>headSet(java.lang.Object to)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>last()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>subSet(java.lang.Object from, java.lang.Object to)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>tailSet(java.lang.Object from)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="4"><classname>java.util.Stack</classname></entry>
+            <entry><code>empty()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>peek()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>pop()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>push(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>search(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="1"><classname>java.util.TreeMap</classname></entry>
+            <entry><code>TreeMap(java.util.Map m)</code></entry>
+            <entry><parameter>m</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>TreeMap(java.util.SortedMap m)</code></entry>
+            <entry><parameter>s</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="2"><classname>java.util.TreeSet</classname></entry>
+            <entry><code>TreeSet(java.util.Collection c)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>TreeSet(java.util.SortedSet s)</code></entry>
+            <entry><parameter>s</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>clone()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="18"><classname>java.util.Vector</classname></entry>
+            <entry><code>Vector(java.util.Collection c)</code></entry>
+            <entry><parameter>c</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>addElement(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>capacity()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>clone()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>copyInto(java.lang.Object[] a)</code></entry>
+            <entry><parameter>this</parameter>, <parameter>a</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>elementAt(int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>elements()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>ensureCapacity(int c)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>firstElement()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>indexOf(java.lang.Object o, int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>insertElementAt(java.lang.Object o, int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>lastElement()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>lastIndexOf(java.lang.Object o, int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>removeAllElements()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>removeElement(java.lang.Object o)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>removeElementAt(int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>setElementAt(java.lang.Object o, int i)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>setSize(int s)</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <row>
+            <entry><code>trimToSize()</code></entry>
+            <entry><parameter>this</parameter></entry>
+          </row>
+
+          <!-- next class -->
+          
+          <row>
+            <entry morerows="0"><classname>java.util.WeakHashMap</classname></entry>
+            <entry><code>WeakHashMap(java.util.Map m)</code></entry>
+            <entry><parameter>m</parameter></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>    
+  </sect2>
+
   <sect2 id="file-format">
     <title>File Format</title>
     
