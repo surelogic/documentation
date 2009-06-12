@@ -566,9 +566,11 @@ new ChatTestClient();
     accessed while this lock is not held?</emphasis> Click on all three of the
     lines of code that are displayed.  Two of them are in the constructor, and
     don't appear to be a problem.  The final line, on the other hand, is an
-    unprotected access that we have found.  <xref
-    linkend="fig-tutorial-planetbaron-lockset4" /> shows the incorrectly
-    synchronized line of code.
+    unprotected access of <structfield>f_location</structfield>, and the source
+    of our problem.  <xref linkend="fig-tutorial-planetbaron-lockset4" /> shows
+    the incorrectly synchronized line of code.
+  </para>
+
 
   <figure id="fig-tutorial-planetbaron-lockset4">
     <title>The offending line of code</title>
@@ -579,8 +581,34 @@ new ChatTestClient();
     </mediaobject>
   </figure>
 
-    <!-- TODO fix this and show that the field now has a lockset -->
+  <para>
+    Fortunately, the fix is straightforward - we simply acquire the write lock
+    before the access of <structfield>f_location</structfield>.
+
+  <programlisting>
+<![CDATA[
+	public void moveTo(Location destination) {
+		if (isMoving())
+			throw new IllegalStateException(
+					"a moving ship can't change its destination");
+		f_lock.writeLock().lock();
+		if (f_location.equals(destination)) { // <<<=== now protected by our write lock
+			LOG.log(Level.WARNING,
+					"ignored attempt to move ship to its current location");
+		} else {
+			try {
+				f_isMoving = true;
+		...
+]]>
+  </programlisting>
+
+    Change the method to appear like the one above, and run Flashlight on the
+    PlanetBaron server again.  Once you have prepped the new run, you can run
+    <emphasis>What fields (non-static) have an empty lock set</emphasis> to see
+    that all instances of <structfield>f_location</structfield> now have a lock
+    set.
   </para>
+
   <!--      -->
 
   <para>TODO: run the <emphasis>Where does a thread hold a lock and
