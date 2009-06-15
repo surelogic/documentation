@@ -270,7 +270,7 @@
   <para>Right click on the single row and select <emphasis>What threads read and
   write this field?</emphasis> The results should look something like <xref
   linkend="fig-tutorial-planetbaron-perspective-ctc2" />.  In the case of
-  f_connectDisconnectButton we see that the AWT-EventQueue-0, known as the event
+  <structfield>f_connectDisconnectButton</structfield> we see that the AWT-EventQueue-0, known as the event
   dispatch thread (EDT), and the main thread shared this field. Note that all
   the accesses by the main thread were during construction of the
   ChatTestClient.
@@ -336,7 +336,7 @@
   The EDT is responsible for executing any method that modifies a
   component's state. This includes any component's constructor.
   According to this rule, and despite what you can read in many books
-  and tutorials about Swing. the <function>main()</function> method in
+  and tutorials about Swing, the <function>main()</function> method in
   the previous code example is invalid and can cause
   deadlock.</para></blockquote>
 
@@ -344,27 +344,28 @@
   constructor on the EDT. We can do this by changing the
   <function>main()</function> method to look like the code below.</para>
 
-  <programlisting>
-<![CDATA[
-public static void main(String[] args) {
-  // run the application
-  SwingUtilities.invokeLater(new Runnable() {
-    @Override
-    public void run() {
-new ChatTestClient();
-    }
-  });
-}
-]]>
-  </programlisting>
+  <programlisting><![CDATA[  public static void main(String[] args) {
+    // run the application
+    SwingUtilities.invokeLater(new Runnable() {
+      public void run() {
+        new ChatTestClient();
+      }
+    });
+  }]]></programlisting>
 
   <para>Save this change and launch ChatTestClient using the Flashlight
   launch shortcut again. Perform the same actions that you did during
-  the first run (i.e., try to connect, dismiss the dialog, and
-  exit).</para>
+  the first run:
+    <orderedlist>
+      <listitem>Try to connect.</listitem>
+      <listitem>Dismiss the dialog.</listitem>
+      <listitem>Exit.</listitem>
+    </orderedlist>
+  </para>
 
   <para>A new run will appear in the <guilabel>Flashlight
-  Runs</guilabel> view. Double-click this run to prep it.</para>
+  Runs</guilabel> view. Double-click this run to prep it if Flashlight does
+  not automatically ask to prepare the data.</para>
 
   <para>Clear out the previous query results by clicking the
   <guiicon><inlinegraphic fileref="images/gray_x_double.png"
@@ -377,7 +378,7 @@ new ChatTestClient();
 
   <para>Check that you have the new run selected in the
   <guilabel>Flashlight Runs</guilabel> view and then double-click on the
-  <emphasis>What non-static fields are shared?</emphasis> query. The
+  <emphasis>What fields (non-static) are shared?</emphasis> query. The
   query is successful but no rows are returned. This indicates that no
   shared fields were observed. This run provides some evidence that we
   have fixed the bug discovered in ChatTestClient.</para>
@@ -385,8 +386,8 @@ new ChatTestClient();
   <para>Before we move on let's examine the old run one final time.  Clear out
   the previous query results by again clicking the <guiicon><inlinegraphic
   fileref="images/gray_x_double.png" /></guiicon> icon. Select the first
-  ChatTestClient run and double-click the <emphasis>What non-static fields are
-  shared?</emphasis> query. Select the f_connectDisconnectButton and right-click
+  ChatTestClient run and double-click the <emphasis>What fields (non-static) are
+  shared?</emphasis> query. Select <structfield>f_connectDisconnectButton</structfield> and right-click
   to select the <emphasis>What are the invidual instances of this non-static
   field?</emphasis> query, then the <emphasis>When and by what threads was this
   field accessed?</emphasis> query. Select the second access by the main thread
@@ -437,14 +438,23 @@ new ChatTestClient();
   Even this simple query uncovered a bug that could easily be overlooked
   in a code inspection. We now turn our attention to a more complex
   multi-threaded program, the PlanetBaron server, to illustrate several
-  more complex queries Flashlight is capable of. The basic user
-  interaction with the Flashlight tool will remain the same: run a
-  instrumented program, prep the data, query the data, drill into query
-  results, and act (e.g., change/fix code).</para>
+  more complex queries that Flashlight is capable of. The basic user
+  interaction with the Flashlight tool remains the same:
+    <orderedlist>
+      <listitem>Run an instrumented program.</listitem>
+      <listitem>Prep the data.</listitem>
+      <listitem>Query the data.</listitem>
+      <listitem>Drill into query results.</listitem>
+      <listitem>Change/fix code.</listitem>
+    </orderedlist>
+  </para>
 
   <para>Start a server using the Flashlight launch tab the Eclipse
   toolbar as shown in <xref
-  linkend="fig-tutorial-planetbaron-running-server" />.</para>
+  linkend="fig-tutorial-planetbaron-running-server" />.  We are assuming
+  you ran the server and player applications earlier in the tutorial so
+  that the Server and PlayerUI launch configuratons will still be
+  present in the Eclipse launch menus.</para>
 
   <figure id="fig-tutorial-planetbaron-running-server">
     <title>Running Server with Flashlight instrumentation</title>
@@ -493,21 +503,21 @@ new ChatTestClient();
   complete.</para>
 
   <para>The queries we do on the server results may or may not be
-  similar to what you see at your computer. The program we are examining
+  identical to what you see at your computer. The program we are examining
   is a multi-threaded network-based game server. Therefore, it is
   impossible to duplicate a run&mdash;even for tutorial purposes. You
-  should, however, see similar results to what we present and you are
+  should, however, see results similar to what we present and you are
   encouraged to see what you can find in your run results.</para>
 
   <para>We'll use a couple of analyses performed by Flashlight during the prep
   phase to investigate the PlanetBaron server.  The first of these is a lockset
   analysis.  A lockset analysis examines each access of a field in the program
-  and insersects the set of locks held.  If shared state has a lockset it is a
+  and intersects the set of locks held.  If shared state has a lockset it is a
   good thing&mdash;this state was observed to be protected consistently by at
   least one lock.  This isn't a guarantee that this field will always be
   protected in every run of the program (to make this determination a sound
-  verification tool like SureLogic JSure is required), but it was for the
-  particular run of the program observed.  If shared state has no lockset then
+  verification tool like SureLogic JSure is required), but it was observed to be true for the
+  particular run of the program.  If shared state has no lockset then
   this may be a bad thing&mdash;it might mean that your program contains a race
   condition.  To take a look at the results of Flashlight's lock analysis, run
   the query <emphasis>What fields (non-static) have an empty lock
@@ -582,25 +592,33 @@ new ChatTestClient();
   </figure>
 
   <para>
-    Fortunately, the fix is straightforward - we simply acquire the write lock
-    before the access of <structfield>f_location</structfield>.
+    Fortunately, the fix is straightforward: we acquire the write lock
+    <emphasis>before</emphasis> the access of <structfield>f_location</structfield> in the 
+    condition of the <code>if</code> statement.  This requires changing the scope
+    of the <code>try</code>&ndash;<code>finally</code> block as well.
 
-  <programlisting>
-<![CDATA[
-	public void moveTo(Location destination) {
-		if (isMoving())
-			throw new IllegalStateException(
-					"a moving ship can't change its destination");
-		f_lock.writeLock().lock();
-		if (f_location.equals(destination)) { // <<<=== now protected by our write lock
-			LOG.log(Level.WARNING,
-					"ignored attempt to move ship to its current location");
-		} else {
-			try {
-				f_isMoving = true;
-		...
-]]>
-  </programlisting>
+  <programlisting><![CDATA[  public void moveTo(Location destination) {
+    if (isMoving())
+      throw new IllegalStateException(
+          "a moving ship can't change its destination");
+
+    f_lock.writeLock().lock();
+    try {
+      if (f_location.equals(destination)) { // <<<=== unprotected access
+        LOG.log(Level.WARNING,
+            "ignored attempt to move ship to its current location");
+      } else {
+        f_isMoving = true;
+        f_turnsMoving = 0;
+        f_destination = destination;
+        f_moveDistance = f_location.distanceTo(f_destination);
+        f_percentageMoved = 0.0;
+        sendReport(); // OK to invoked holding a write lock
+      }
+    } finally {
+      f_lock.writeLock().unlock();
+    }
+  }]]></programlisting>
 
     Change the method to appear like the one above, and run Flashlight on the
     PlanetBaron server again.  Once you have prepped the new run, you can run
