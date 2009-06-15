@@ -16,4 +16,6 @@
   linkend="sec-bugs-and-tips"/>.</para>
 
   <xi:include href="sect2-sec-tutorial-client.xml"/>
+  <xi:include href="sect2-sec-tutorial-server.xml"/>
+  <xi:include href="sect2-sec-tutorial-playerui.xml"/>
 </sect1>

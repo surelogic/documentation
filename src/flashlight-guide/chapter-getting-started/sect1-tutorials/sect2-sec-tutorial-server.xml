@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<sect2 id="sec-tutorial-server">
+  <title>Finding a race condition with the lockset analysis</title>
+
+  <para>ChatTestClient was a simple Swing application that we tried out
+  one query on. This query let us understand shared state that was
+  observed by Flashlight during a run of the ChatTestClient program.
+  Even this simple query uncovered a bug that could easily be overlooked
+  in a code inspection. We now turn our attention to a more complex
+  multi-threaded program, the PlanetBaron server, to illustrate several
+  more complex queries that Flashlight is capable of. The basic user
+  interaction with the Flashlight tool remains the same:
+    <orderedlist>
+      <listitem>Run an instrumented program.</listitem>
+      <listitem>Prep the data.</listitem>
+      <listitem>Query the data.</listitem>
+      <listitem>Drill into query results.</listitem>
+      <listitem>Change/fix code.</listitem>
+    </orderedlist>
+  </para>
+
+  <para>Start a server using the Flashlight launch tab the Eclipse
+  toolbar as shown in <xref
+  linkend="fig-tutorial-planetbaron-running-server" />.  We are assuming
+  you ran the server and player applications earlier in the tutorial so
+  that the Server and PlayerUI launch configuratons will still be
+  present in the Eclipse launch menus.</para>
+
+  <figure id="fig-tutorial-planetbaron-running-server">
+    <title>Running Server with Flashlight instrumentation</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-running-server.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>Next start three PlayerUI instances. We don't want to instrument
+  these programs, so use the normal launch tab as shown in <xref
+  linkend="fig-tutorial-planetbaron-running-playerui" />.</para>
+
+  <figure id="fig-tutorial-planetbaron-running-playerui">
+    <title>Running a PlayerUI without Flashlight instrumentation</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-running-playerui.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>Go ahead and connect into the game as Laurel, Hardy, and
+  Groucho. Exercise the game by having each player take several planets.
+  Have one planet be owned by each player at one time. To do this click
+  on the same planet in all three PlayerUI instances. This is shown in
+  <xref linkend="fig-tutorial-planetbaron-running-game" />.</para>
+
+  <figure id="fig-tutorial-planetbaron-running-game">
+    <title>Running three players at once on an instrumented server</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-running-game.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>When you have exercised the three players, terminate the thee
+  PlayerUI instances by closing the application windows. Run a
+  ChatTestClient (without instrumentation) and use it to shutdown the
+  server.</para>
+
+  <para>In the Flashlight perspective go ahead and prep the server run
+  so that it can be queried. This will take a few minutes to
+  complete.</para>
+
+  <para>The queries we do on the server results may or may not be
+  identical to what you see at your computer. The program we are examining
+  is a multi-threaded network-based game server. Therefore, it is
+  impossible to duplicate a run&mdash;even for tutorial purposes. You
+  should, however, see results similar to what we present and you are
+  encouraged to see what you can find in your run results.</para>
+
+  <!-- Start of lockset tutorial -->
+
+  <para>We'll use a couple of analyses performed by Flashlight during the prep
+  phase to investigate the PlanetBaron server.  The first of these is a lockset
+  analysis.  A lockset analysis examines each access of a field in the program
+  and intersects the set of locks held.  If shared state has a lockset it is a
+  good thing&mdash;this state was observed to be protected consistently by at
+  least one lock.  This isn't a guarantee that this field will always be
+  protected in every run of the program (to make this determination a sound
+  verification tool like SureLogic JSure is required), but it was observed to be true for the
+  particular run of the program.  If shared state has no lockset then
+  this may be a bad thing&mdash;it might mean that your program contains a race
+  condition.  To take a look at the results of Flashlight's lock analysis, run
+  the query <emphasis>What fields (non-static) have an empty lock
+  set?</emphasis> The results should indicate that a few instances of
+  <classname>edu.afit.planetbaron.game.Ship</classname> have no lock set for the
+  field <structfield>f_location</structfield>, as seen in <xref
+  linkend="fig-tutorial-planetbaron-lockset1" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-lockset1">
+    <title>An empty lock set in PlanetBaron</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset1.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>As we did before when we were looking at shared fields in the test
+  client, we can look at the individual objects holding this field in by running
+  <emphasis>What are the individual instances of this non-static
+  field?</emphasis>As seen in <xref linkend="fig-tutorial-planetbaron-lockset2"
+  />, there is one Ship object for each ship in the PlanetBaron game, and none
+  of them have a lock set.  We'll investigate this further by looking to see
+  what locks <emphasis>are</emphasis> held when this field is accessed.  Choose
+  one of the Ship objects, and run the query <emphasis>How often is a lock held
+  when this field is accessed after object construction?</emphasis> You should
+  see something that looks like <xref
+  linkend="fig-tutorial-planetbaron-lockset3" />.</para>
+
+  <figure id="fig-tutorial-planetbaron-lockset2">
+    <title>Three objects with no lock set on <structfield>f_location</structfield></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset2.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-tutorial-planetbaron-lockset3">
+    <title>Locks held while <structfield>f_location</structfield> is
+    accessed</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset3.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>
+    The query shows that several locks are held when this field is accessed,
+    although - as we already know - none of them are held for every access.  One
+    of the locks seems to be held almost all of the time, however. In the
+    example shown in <xref linkend="fig-tutorial-planetbaron-lockset3" />, it
+    appears that one of the locks is held for all but 5 of the accesses.  Select
+    the most commonly held lock, and run the query <emphasis>Where is this field
+    accessed while this lock is not held?</emphasis> Click on all three of the
+    lines of code that are displayed.  Two of them are in the constructor, and
+    don't appear to be a problem.  The final line, on the other hand, is an
+    unprotected access of <structfield>f_location</structfield>, and the source
+    of our problem.  <xref linkend="fig-tutorial-planetbaron-lockset4" /> shows
+    the incorrectly synchronized line of code.
+  </para>
+
+
+  <figure id="fig-tutorial-planetbaron-lockset4">
+    <title>The offending line of code</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset4.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    Fortunately, the fix is straightforward: we acquire the write lock
+    <emphasis>before</emphasis> the access of <structfield>f_location</structfield> in the 
+    condition of the <code>if</code> statement.  This requires changing the scope
+    of the <code>try</code>&ndash;<code>finally</code> block as well.
+
+  <programlisting><![CDATA[  public void moveTo(Location destination) {
+    if (isMoving())
+      throw new IllegalStateException(
+          "a moving ship can't change its destination");
+
+    f_lock.writeLock().lock();
+    try {
+      if (f_location.equals(destination)) { // <<<=== unprotected access
+        LOG.log(Level.WARNING,
+            "ignored attempt to move ship to its current location");
+      } else {
+        f_isMoving = true;
+        f_turnsMoving = 0;
+        f_destination = destination;
+        f_moveDistance = f_location.distanceTo(f_destination);
+        f_percentageMoved = 0.0;
+        sendReport(); // OK to invoked holding a write lock
+      }
+    } finally {
+      f_lock.writeLock().unlock();
+    }
+  }]]></programlisting>
+
+    Change the method to appear like the one above, and run Flashlight on the
+    PlanetBaron server again.  Once you have prepped the new run, you can run
+    <emphasis>What fields (non-static) have an empty lock set</emphasis> to see
+    that all instances of <structfield>f_location</structfield> now have a lock
+    set.
+  </para>
+
+</sect2>
