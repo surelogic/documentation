@@ -376,9 +376,11 @@
 	  </para>
 	</question>
 	<answer>
+	  <para>
 	  Generates a stack trace of the method calls leading up to this lock
 	  acquisition, from most to least recent.  Clicking on each line will
 	  open the method call in the code view.
+	  </para>
 	</answer>
       </qandaentry>
       <qandaentry>

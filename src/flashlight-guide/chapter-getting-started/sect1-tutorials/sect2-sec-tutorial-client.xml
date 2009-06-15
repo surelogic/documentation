@@ -509,6 +509,8 @@
   should, however, see results similar to what we present and you are
   encouraged to see what you can find in your run results.</para>
 
+  <!-- Start of lockset tutorial -->
+
   <para>We'll use a couple of analyses performed by Flashlight during the prep
   phase to investigate the PlanetBaron server.  The first of these is a lockset
   analysis.  A lockset analysis examines each access of a field in the program
@@ -627,12 +629,164 @@
     set.
   </para>
 
+  <!-- Start of deadlock tutorial -->
+  <para>
+    The second analysis Flashlight provides detects potential deadlock
+    scenarios.  It does this by constructing a directed graph of all lock
+    acquisitions in the program.  Each edge in the graph points from a lock that
+    is already held to a lock being acquired.  Cycles in the graph indicate that
+    the program sometimes acquires a set of locks in more than one order, a
+    behavior that commonly leads to deadlock.  To investigate this further, we
+    will instrument the Planetbaron client this time around.
+  </para>
+
+  <para>
+    TODO INSTRUCTIONS TO SET IT ALL UP    
+  </para>
+
+  <para>
+    Now that we have an instrumented run of <classname>PlayerUI</classname>, run
+    the query <emphasis>What locks could potentially deadlock?</emphasis> If you
+    connected the client to the server, the result of your query should be a
+    two-lock cycle similar to <xref linkend="fig-tutorial-planetbaron-deadlock1"
+    />.  In our example the locks involved are <varname>16</varname> and
+    <varname>523</varname>, and each appears to be acquired at some point while
+    the other is already held.  If you are following along, your lock numbers
+    may be different, but they should correspond to the 'same' locks.
+  </para>
+
+  <figure id="fig-tutorial-planetbaron-deadlock1">
+    <title>A potential deadlock in <classname>edu.afit.planetbaron.client.PlayerUI</classname></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock1.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    To figure out where the trouble lies, we'll have to look at some of the lock
+    events in the cycle.  Select the first entry and run the query
+    <emphasis>What are the lock events for this lock edge?</emphasis> You should
+    see that the edge in the cycle is caused by lock acquisitions at lines 301
+    and 465 of <classname>edu.afit.planetbaron.game.GameMap</classname>.  Expand
+    line 301, and select the first event as shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock2" />.  Notice that the code view
+    has moved to line 301, which shows <classname>GameMap</classname>'s read
+    lock being acquired.  The query results also indicate that this locking
+    event occurred in a thread called AWT-EventQueue-0.  To get an idea of how
+    this lock acquisition came about, we will run the query <emphasis>What is
+    the stack trace for this lock event?</emphasis> The stack trace is ordered
+    from most recent method to earliest, and we can see from <xref
+    linkend="fig-tutorial-planetbaron-deadlock6" /> that the originating method
+    is <function>mouseMoved</function> in
+    <classname>edu.afit.planetbaron.client.MapView</classname>.  The
+    <classname>MapView</classname> class extends
+    <classname>java.awt.event.MouseMotionListener</classname>, from which we can
+    deduce that <function>mouseMoved</function> is called as the result of an
+    event triggered in the AWT event thread.  Now we'll take a look at the locks
+    that are held at this point.  Remove this query result by clicking
+    <guiicon><inlinemediaobject><imageobject><imagedata
+    fileref="images/gray_x.png" /></imageobject></inlinemediaobject></guiicon>
+    in the <guilabel>QueryResults</guilabel> view.  Now run the <emphasis>What
+    is the lock trace for this lock event?</emphasis> query.  <xref
+    linkend="fig-tutorial-planetbaron-deadlock3" /> shows the result of running
+    this query, which lists when and where the locks held here are acquired,
+    from most to least recent.  Clicking on each line will bring up the line of
+    code where the lock was acquired.  Here we can see that we already hold
+    <structfield>m_cursorLocationLock</structfield> before we acquire a read
+    lock on the <structfield>f_lock</structfield> field in
+    <classname>GameMap</classname>.
+  </para>
+  <figure id="fig-tutorial-planetbaron-deadlock2">
+    <title>Acquisitions of <structfield>f_lock</structfield> in <classname>edu.afit.planetbaron.game.GameMap</classname></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock2.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock6">
+    <title>Stack trace of a lock acquisition from <xref linkend="fig-tutorial-planetbaron-deadlock2" /></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock6.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock3">
+    <title>A lock trace from <xref linkend="fig-tutorial-planetbaron-deadlock2" /></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock3.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <para>
+    Now let's look at the other edge in our potential deadlock cycle, and see if
+    there really is a problem.  Run the <emphasis>What are the lock events for
+    this lock graph edge?</emphasis> on the second entry from our potential
+    deadlock results.  We see in <xref linkend="fig-tutorial-planetbaron-deadlock4"
+    /> that this edge is concerned with the acquisition of
+    <structfield>m_cursorLocationLock</structfield> in
+    <classname>edu.afit.planetbaron.client.MapView</classname> from a thread
+    named Thread-3.  Running <emphasis>What is the stack trace for this lock
+    event?</emphasis> on one of the lock events shows that this lock acquisition
+    originates from the <function>run</function> method in
+    <classname>edu.afit.planetbaron.client.communication.ServerProxy</classname>.
+    The <classname>ServerProxy</classname> class extends
+    <classname>java.lang.Thread</classname>, and an instance of it is created
+    and started when we connect to a server.  If we run the <emphasis>What is
+    the lock trace for this lock event?</emphasis> query on one of the lock
+    events, we see that the thread first acquires a write lock on
+    <structfield>f_lock</structfield> in
+    <classname>edu.afit.planetbaron.game.GameMap</classname>, followed by a lock
+    on <structfield>m_cursorLocationLock</structfield> in
+    <classname>edu.afit.planetbaron.client.MapView</classname>.
+  </para>
+  <figure id="fig-tutorial-planetbaron-deadlock4">
+    <title>Acquisitions of <structfield>m_cursorLocationLock</structfield> in <classname>edu.afit.planetbaron.client.MapView</classname></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock4.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock7">
+    <title>Stack trace of a lock acquisition from <xref linkend="fig-tutorial-planetbaron-deadlock4" /></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock7.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock5">
+    <title>A lock trace from <xref linkend="fig-tutorial-planetbaron-deadlock4" /></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock5.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    To summarize, our investigation has shown us that our lock cycle is composed
+    of two separate and repeated events in our program.  Every time the AWT
+    Event Thread proccesses a mouseMoved event, we acquire
+    <structfield>m_cursorLocationLock</structfield>, then a read lock on
+    <structfield>f_lock</structfield>.  Every time we get a response back from
+    the server, we acquire a write lock on <structfield>f_lock</structfield>,
+    then <structfield>m_cursorLocationLock</structfield>.  Unfortunately for the
+    program, both of these events can happen at any time.  If they trigger
+    near-simultaneously, we can end up in a scenario where the server thread
+    holds onto <structfield>f_lock</structfield> and waits on
+    <structfield>m_cursorLocationLock</structfield>, while the AWT event thread
+    holds onto <structfield>m_cursorLocationLock</structfield> and waits for the
+    server thread to give up its write lock on
+    <structfield>f_lock</structfield>.  When this happens, the program will
+    deadlock.
+  </para>
   <!--      -->
-
-  <para>TODO: run the <emphasis>Where does a thread hold a lock and
-  acquire another?</emphasis> and examine the results to show potential
-  deadlock.</para>
-
   <para>TODO: Show the query editor. None of these queries are special
   and they can be edited. Select <menuchoice><guimenu>Window</guimenu>
   <guisubmenu>Show View</guisubmenu> <guimenuitem>Flashlight Query
