@@ -144,7 +144,7 @@
   
   <para>
     The query shows that several locks are held when this field is accessed,
-    although - as we already know - none of them are held for every access.  One
+    although&mdash;as we already know&mdash;none of them are held for every access.  One
     of the locks seems to be held almost all of the time, however. In the
     example shown in <xref linkend="fig-tutorial-planetbaron-lockset3" />, it
     appears that one of the locks is held for all but 5 of the accesses.  Select

@@ -6,13 +6,41 @@
 <sect1 id="flashlight-launch">
   <title>Flashlight Launch Configuration</title>
   
+  <para>Applications are executed with Flashlight instrumentation by
+  using a special Eclipse "flashlight" run mode.  Like executing your 
+  application using the Eclipse debugger, a special parallel set of
+  "run" menus is used for this purpose.  These menus are in three places 
+  in the Eclipse UI:
+    <itemizedlist>
+      <listitem><menuchoice><guimenu>Run</guimenu> <guisubmenu>Flashlight</guisubmenu></menuchoice>
+      in the Eclipe main menu.</listitem>
+      
+      <listitem>The <guiicon><inlinegraphic
+      fileref="images/fl_logo.png"/></guiicon> icon in the Eclipse
+      toolbar.</listitem>
+      
+      <listitem><menuchoice><guisubmenu>Flashlight As</guisubmenu></menuchoice>
+      in the <guilabel>Package Explorer</guilabel> context menu.</listitem>      
+    </itemizedlist>
+    
+  The <guisubmenu>Flashlight</guisubmenu> menu and the toolbar menu are identical.  
+  They show the last several application launches, which serve as shortcuts for
+  rerunning those applications using Flashlight.  They also provide menu items for
+  expliciting editing Flashlight launch configurations.</para>
+  
+  <para>The <guisubmenu>Flashlight As</guisubmenu> in the
+  <guilabel>Package Explorer</guilabel> context menu is the same as the
+  <guisubmenu>Flashlight As</guisubmenu> sub menu that appears under the
+  <guisubmenu>Flashlight</guisubmenu> menu and the toolbar menu.  When a
+  class is selected in the <guilabel>Package Explorere</guilabel> that
+  contains a <code>public static void main(String[])</code> method, the
+  menu item <guimenuitem>Java Application</guimenuitem> appears below
+  <guisubmenu>Flashlight As</guisubmenu>. This executes the application
+  defined by the class using Flashlight. </para>
+  
   <para>Flashlight presents a customized launch configuration dialog
   when the <guimenuitem>Open Flashlight Dialog&hellip;</guimenuitem>
-  command is selected from the <guisubmenu>Flashligh As</guisubmenu>
-  submenu of the context menu in the <guilabel>Package
-  Explorer</guilabel> view, or from the Flashlight &ldquo;run&rdquo;
-  menu (<guiicon><inlinegraphic fileref="images/fl_logo.png"
-  /></guiicon>) in the toolbar.  The Flashlight launch configuration
+  command is selected from any one of the Flashlight menus.  The Flashlight launch configuration
   dialog is based on the standard Java launch dialog, but with four
   additional configuration panes between the standard
   <guilabel>Arguments</guilabel> and <guilabel>JRE</guilabel> panes:
