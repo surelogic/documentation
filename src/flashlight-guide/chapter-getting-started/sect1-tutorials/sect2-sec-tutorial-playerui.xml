@@ -19,18 +19,31 @@
   </para>
 
   <para>
-    TODO INSTRUCTIONS TO SET IT ALL UP    
+    In the previous section we started up a server through the Flashlight launch
+    tab and three instances of PlayerUI through the normal launch tab.  For this
+    experiment, we only need one instance of PlayerUI, and we will instrument it
+    instead of the server.  Go ahead and run
+    <classname>edu.afit.planetbaron.server.Server</classname> as a normal Java
+    application, and then launch one instance of
+    <classname>edu.afit.planetbaron.client.PlayerUI</classname> through the
+    Flashlight launch tab.  As in the previous tutorial, go ahead and connect
+    into the game, and move your ship to a planet or two.  Then terminate your
+    instance of PlayerUI by closing the application window, and stop the server
+    from the Flashlight console.
   </para>
 
   <para>
-    Now that we have an instrumented run of <classname>PlayerUI</classname>, run
-    the query <emphasis>What locks could potentially deadlock?</emphasis> If you
-    connected the client to the server, the result of your query should be a
-    two-lock cycle similar to <xref linkend="fig-tutorial-planetbaron-deadlock1"
-    />.  In our example the locks involved are <varname>16</varname> and
-    <varname>523</varname>, and each appears to be acquired at some point while
-    the other is already held.  If you are following along, your lock numbers
-    may be different, but they should correspond to the 'same' locks.
+    Now that we have an instrumented run of <classname>PlayerUI</classname>,
+    select it from the <guilabel>Flashlight Runs</guilabel> view in the
+    Flashlight perspective and run the query <emphasis>What locks could
+    potentially deadlock?</emphasis> by double-clicking on it in the
+    <guilabel>Query Menu</guilabel>.  If you connected the client to the server,
+    the result of your query should be a two-lock cycle similar to <xref
+    linkend="fig-tutorial-planetbaron-deadlock1" />.  In our example the locks
+    involved are <varname>16</varname> and <varname>523</varname>, and each
+    appears to be acquired at some point while the other is already held.  If
+    you are following along, your lock numbers may be different, but they should
+    correspond to the 'same' locks.
   </para>
 
   <figure id="fig-tutorial-planetbaron-deadlock1">
