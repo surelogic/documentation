@@ -1,0 +1,17 @@
+/* Fix so that <package> elements are rendered like other code elements */
+span.package { font-family: monospace }
+
+
+/* Fix so that GUI elements are rendered in sans serif */
+span.guimenu { font-family: sans-serif; font-size: 85% }
+
+span.guimenuitem { font-family: sans-serif; font-size: 85% }
+
+span.guisubmenu { font-family: sans-serif; font-size: 85% }
+
+span.guilabel { font-family: sans-serif; font-size: 85% }
+
+span.guibutton { font-family: sans-serif; font-size: 85% }
+
+span.guiicon { font-family: sans-serif; font-size: 85% }
+

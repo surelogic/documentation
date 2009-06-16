@@ -12,6 +12,7 @@
   <xi:include href="sect1-flashlight-preferences.xml"/>
   <xi:include href="sect1-flashlight-launch.xml"/>
   <xi:include href="sect1-flashlight-method-files.xml"/>
+  <xi:include href="sect1-flashlight-data-directory.xml"/>
   <xi:include href="sect1-queries.xml"/>
   <xi:include href="sect1-sec-bugs-and-tips.xml"/>    
 </chapter>

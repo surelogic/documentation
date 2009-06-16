@@ -32,7 +32,7 @@
   <guilabel>Package Explorer</guilabel> context menu is the same as the
   <guisubmenu>Flashlight As</guisubmenu> sub menu that appears under the
   <guisubmenu>Flashlight</guisubmenu> menu and the toolbar menu.  When a
-  class is selected in the <guilabel>Package Explorere</guilabel> that
+  class is selected in the <guilabel>Package Explorer</guilabel> that
   contains a <code>public static void main(String[])</code> method, the
   menu item <guimenuitem>Java Application</guimenuitem> appears below
   <guisubmenu>Flashlight As</guisubmenu>. This executes the application
