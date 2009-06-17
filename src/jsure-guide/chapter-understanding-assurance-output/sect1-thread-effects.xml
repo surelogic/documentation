@@ -73,50 +73,58 @@
   
   <para>Thus, there are four result messages:</para>
   
-  <variablelist>
-    <varlistentry>
-      <term id="no-threads-started">No threads started within
-      <replaceable>method</replaceable></term>
+  <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title id="no-threads-started">No threads started within
+        <replaceable>method</replaceable></title>
 
-      <listitem><para>The body of the annotated method does not directly
-      start any threads.  This does <emphasis>not</emphasis> mean that
-      the methods/constructors invoked by the method do not start any
-      threads; each method/constructor call is handled
-      individually.</para></listitem>
-    </varlistentry>
+        <para>The body of the annotated method does not directly start
+        any threads.  This does <emphasis>not</emphasis> mean that the
+        methods/constructors invoked by the method do not start any
+        threads; each method/constructor call is handled
+        individually.</para>
+      </formalpara>
+    </listitem>
 
-    <varlistentry>
-      <term id="thread-started">Thread effect declaration prohibits:
-      <replaceable>call to
-      <function>start()</function></replaceable></term>
+    <listitem>
+      <formalpara>
+        <title id="thread-started">Thread effect declaration prohibits:
+        <replaceable>call to
+        <function>start()</function></replaceable></title>
 
-      <listitem><para>The body of the annotated method starts a thread. 
-      This result links to the <function>start()</function> method
-      call.</para></listitem>
-    </varlistentry>
+        <para>The body of the annotated method starts a thread. 
+        This result links to the <function>start()</function> method
+        call.</para>
+      </formalpara>
+    </listitem>
 
-    <varlistentry>
-      <term id="call-starts-nothing">Call "<replaceable>method
-      call</replaceable>" promises to start nothing</term>
+    <listitem>
+      <formalpara>
+        <title id="call-starts-nothing">Call "<replaceable>method
+        call</replaceable>" promises to start nothing</title>
 
-      <listitem><para>The annotated method calls a method that is
-      annotated with <classname>@Starts("nothing")</classname>.  This
-      result starts a new chain of evidence indicating whether the
-      called method is assured or not.  This results links to the method
-      call in the method body.</para></listitem>
-    </varlistentry>
+        <para>The annotated method calls a method that is
+        annotated with <classname>@Starts("nothing")</classname>.  This
+        result starts a new chain of evidence indicating whether the
+        called method is assured or not.  This results links to the method
+        call in the method body.</para>
+      </formalpara>
+    </listitem>
 
-    <varlistentry>
-      <term id="call-does-not-promise">Call "<replaceable>method
-      call</replaceable>" does not promise to start nothing</term>
+    <listitem>
+      <formalpara>
+        <title id="call-does-not-promise">Call "<replaceable>method
+        call</replaceable>" does not promise to start nothing</title>
 
-      <listitem><para>The annotated emehtod invokes a method is not
-      annoated with <classname>@Starts("nothing")</classname>.  This is
-      an assurance failure because the called method might start a
-      thread.  The result links to the offending method
-      call.</para></listitem>
-    </varlistentry>
-  </variablelist>
+        <para>The annotated emehtod invokes a method is not
+        annoated with <classname>@Starts("nothing")</classname>.  This is
+        an assurance failure because the called method might start a
+        thread.  The result links to the offending method
+        call.</para>
+      </formalpara>
+    </listitem>
+  </itemizedlist>
   
   <sect2 id="thread-effects-good">
     <title>Positive Assurance</title>

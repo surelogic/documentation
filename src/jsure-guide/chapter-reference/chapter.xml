@@ -9,7 +9,7 @@
   <sect1>
     <title>The JSure Menu</title>
     
-    <para>The JSure menu, see <xref linkend="fig-jsure-menu"/>, appears
+    <para>The <guimenu>JSure</guimenu> menu, see <xref linkend="fig-jsure-menu"/>, appears
     as an item on the Eclipse workspace main menu. This menu provides
     direct access to common JSure commands.</para>
 
@@ -20,12 +20,12 @@
       </mediaobject>
     </figure>
     
-    <para>The commands on the JSure main menu are
+    <para>The commands on the <guimenu>JSure</guimenu> main menu are
     
       <itemizedlist>
         <listitem>
           <formalpara>
-            <title>Focus Verification&hellip;</title>
+            <title><guimenuitem>Focus Verification&hellip;</guimenuitem></title>
             <para>This command allows the user to choose which project
             should be assured by JSure.  A dialog is opened to allow the
             user to select which project to assure, as seen in <xref
@@ -37,7 +37,7 @@
           </formalpara>
           
           <figure id="fig-focus-verification-window">
-            <title>The Focus Verification dialog box</title>
+            <title><guimenuitem>The Focus Verification dialog box</guimenuitem></title>
             <mediaobject>
               <imageobject><imagedata fileref="images/focus-verification-window.png"/></imageobject>
             </mediaobject>
@@ -46,14 +46,14 @@
   
         <listitem>
           <formalpara>
-            <title>Disable Verification of All Projects</title>
+            <title><guimenuitem>Disable Verification of All Projects</guimenuitem></title>
             <para>This command ensures that no project is selected for assurance.</para>
           </formalpara>
         </listitem>
   
         <listitem>
           <formalpara>
-            <title>Open Code Verification Perspective</title>
+            <title><guimenuitem>Open Code Verification Perspective</guimenuitem></title>
             <para>This menu choice opens the <guilabel>Code
             Verification</guilabel> perspective. This perspective is
             useful for examining the JSure assurance results;
@@ -65,7 +65,7 @@
   
         <listitem>
           <formalpara>
-            <title>Send Tip for Improvement</title>
+            <title><guimenuitem>Send Tip for Improvement</guimenuitem></title>
             <para>This command opens a dialog to allow entry of a
             suggestion by the user to improve the JSure tool. For more
             information please see <xref
@@ -75,7 +75,7 @@
   
         <listitem>
           <formalpara>
-            <title>Send Problem Report</title>
+            <title><guimenuitem>Send Problem Report</guimenuitem></title>
             <para>This command opens a dialog to allow entry of a problem
             report by the user about the JSure tool. For more information
             please see <xref linkend="sec-bugs-and-tips"/>.</para>
@@ -84,7 +84,7 @@
   
         <listitem>
           <formalpara>
-            <title>Manage SureLogic Licenses</title>
+            <title><guimenuitem>Manage SureLogic Licenses</guimenuitem></title>
             <para>This command opens the SureLogic license management
             dialog. This dialog allows the user to install, view, and
             uninstall licenses for JSure and other SureLogic tools. For
@@ -332,7 +332,7 @@
     project or its build path.</para>
     
     <para>If the JAR file is present in the project, but not on the build path, the
-    user is presented with the dialog box that displays the present location of the 
+    user is presented with a dialog box that displays the present location of the 
     JAR file and asks the user if it should be added to the build path:
     
       <mediaobject>

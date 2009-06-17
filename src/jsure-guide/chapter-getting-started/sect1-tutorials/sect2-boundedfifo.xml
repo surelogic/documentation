@@ -15,26 +15,36 @@
   the clients of a class must conform to a specific behavior as
   well</emphasis>. This example focuses on two classes (plus one
   auxillary class):
-    <variablelist>
-      <varlistentry>
-        <term><classname>BoundedFIFO</classname></term>
-        <listitem><para>The &ldquo;thread safe&rdquo; class.  This class
-        is taken from the Apache Log4J project.</para></listitem>
-      </varlistentry>
+  
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title><classname>BoundedFIFO</classname></title>
+          
+          <para>The &ldquo;thread safe&rdquo; class.  This class
+          is taken from the Apache Log4J project.</para>
+        </formalpara>
+      </listitem>
     
-      <varlistentry>
-        <term><classname>BlockingFIFO</classname></term>
-        <listitem><para>The client code.  We wrote this class based on
-        actual client code in Log4J.</para></listitem>
-      </varlistentry>
+      <listitem>
+        <formalpara>
+          <title><classname>BlockingFIFO</classname></title>
+        
+          <para>The client code.  We wrote this class based on
+          actual client code in Log4J.</para>
+        </formalpara>
+      </listitem>
     
-      <varlistentry>
-        <term><classname>LoggingEvent</classname></term>
-        <listitem><para>The class of objects stored in the queue.  This
-        class is not interesting, and is merely a placeholder for queue
-        objects.</para></listitem>
-      </varlistentry>
-    </variablelist>
+      <listitem>
+        <formalpara>
+          <title><classname>LoggingEvent</classname></title>
+        
+          <para>The class of objects stored in the queue.  This
+          class is not interesting, and is merely a placeholder for queue
+          objects.</para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
   </para>
 
   <para>In addition to showing the basic usage of JSure with Eclipse,

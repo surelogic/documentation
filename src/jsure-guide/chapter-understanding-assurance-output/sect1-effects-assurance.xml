@@ -98,44 +98,55 @@ public class EffectsExample {
   <para>There are four kinds of results that can appear as 
   evidence for and children of the promise results:</para>
   
-  <variablelist>
-    <varlistentry id="not-accounted-for">
-      <term><replaceable>effect</replaceable> not accounted for by
-      declared effect(s)</term>
-      <listitem><para>The given effect of the method/constructor
-      implementation is not accounted for by any of the declared effects
-      of the method/constructor. That is, the method/constructor
-      implementation affects more state than it declares it does.</para>
-      </listitem>
-    </varlistentry>
-    <varlistentry id="trivially-satisfy">
-      <term>Empty effects trivially satisfy declared effects</term>
-      <listitem><para>The method/constructor has no effects at all and
-      thus trivially satisfies its declared effects.</para> </listitem>
-    </varlistentry>
-    <varlistentry>
-      <term id="checked-by"><replaceable>effect<subscript>1</subscript></replaceable> checked by
-      <replaceable>effect<subscript>2</subscript></replaceable></term>
-      <listitem><para>The particular effect of the method/constructor
-      implemenation,
-      <replaceable>effect<subscript>1</subscript></replaceable>, is
-      accounted for by the particular declared effect
-      <replaceable>effect<subscript>2</subscript></replaceable>. Often,
-      the implementation effect is more specific than the declared
-      effect, i.e., it affects a region that is included in the region
-      of the declared effect.</para> </listitem>
-    </varlistentry>
-    <varlistentry>
-      <term id="constructor-rule"><replaceable>effect</replaceable> checked by constructor rule: writes to a newly
-      created object are invisible</term>
-      <listitem><para>The particular effect of the constructor
-      implemenation is accounted for by a special rule. Constructors do
-      not need to report any effects they have on the object being
-      constructed because these effects are invisible to the caller of
-      the constructor (the object does not exist before the constructor
-      was called).</para> </listitem>
-    </varlistentry>
-  </variablelist>
+  <itemizedlist>
+    <listitem id="not-accounted-for">
+      <formalpara>
+        <title><replaceable>effect</replaceable> not accounted for by
+        declared effect(s)</title>
+      
+        <para>The given effect of the method/constructor
+        implementation is not accounted for by any of the declared effects
+        of the method/constructor. That is, the method/constructor
+        implementation affects more state than it declares it does.</para>
+      </formalpara>
+    </listitem>
+    <listitem id="trivially-satisfy">
+      <formalpara>
+        <title>Empty effects trivially satisfy declared effects</title>
+      
+        <para>The method/constructor has no effects at all and
+        thus trivially satisfies its declared effects.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title id="checked-by"><replaceable>effect<subscript>1</subscript></replaceable> checked by
+        <replaceable>effect<subscript>2</subscript></replaceable></title>
+      
+        <para>The particular effect of the method/constructor
+        implemenation,
+        <replaceable>effect<subscript>1</subscript></replaceable>, is
+        accounted for by the particular declared effect
+        <replaceable>effect<subscript>2</subscript></replaceable>.
+        Often, the implementation effect is more specific than the
+        declared effect, i.e., it affects a region that is included in
+        the region of the declared effect.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title id="constructor-rule"><replaceable>effect</replaceable> checked by constructor rule: writes to a newly
+        created object are invisible</title>
+      
+        <para>The particular effect of the constructor implemenation is
+        accounted for by a special rule. Constructors do not need to
+        report any effects they have on the object being constructed
+        because these effects are invisible to the caller of the
+        constructor (the object does not exist before the constructor
+        was called).</para>
+      </formalpara>
+    </listitem>
+  </itemizedlist>
 
   <para>The meanings of these results are further elaborated in the
   discussion below.</para>

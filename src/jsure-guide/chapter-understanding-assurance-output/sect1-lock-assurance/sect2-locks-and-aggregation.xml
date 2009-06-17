@@ -19,30 +19,31 @@
   messages, one positive and one negative, that can be reported in this
   situation:
     
-    <variablelist>
-      <varlistentry>
-        <term id="held-when-invoking">Lock
-        "<replaceable>lock</replaceable>" held when invoking
-        <replaceable>method</replaceable></term>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title id="held-when-invoking">Lock
+          "<replaceable>lock</replaceable>" held when invoking
+          <replaceable>method</replaceable></title>
 
-        <listitem>
           <para>Analysis has determine that the lock
           <replaceable>lock</replaceable> must be held and can determine
           that it is always held when the method is called.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term id="not-held-when-invoking">Lock
-        "<replaceable>lock</replaceable>" not held when invoking
-        <replaceable>method</replaceable></term>
+        </formalpara>
+      </listitem>
+      
+      <listitem>
+        <formalpara>
+          <title id="not-held-when-invoking">Lock
+          "<replaceable>lock</replaceable>" not held when invoking
+          <replaceable>method</replaceable></title>
 
-        <listitem>
           <para>Analysis has determine that the lock
           <replaceable>lock</replaceable> must be held but that it is
           not always held when the method is called.</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
   </para>
     
   <para>Both the positive and negative assurance results have at least

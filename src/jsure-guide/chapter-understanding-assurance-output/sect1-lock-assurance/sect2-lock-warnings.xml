@@ -20,12 +20,13 @@
     JSure generates warnings when the state of objects referenced by
     protected fields is accessed.  Two such warnings are possible:
     
-      <variablelist>
-        <varlistentry>
-          <term id="possibly-shared-field">Field reference
-          "<replaceable>field ref</replaceable>" may be to a shared
-          unprotected object</term>
-          <listitem>
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title id="possibly-shared-field">Field reference
+            "<replaceable>field ref</replaceable>" may be to a shared
+            unprotected object</title>
+          
             <para>The field expression accesses a field of an object
             referenced by a field that is protected by a named lock. 
             Specifically,
@@ -75,17 +76,19 @@
                 </listitem>
               </itemizedlist>
             </para>
-          </listitem>
-        </varlistentry>
+          </formalpara>
+        </listitem>
 
-        <varlistentry>
-          <term id="possibly-shared-receiver">Receiver
-          "<replaceable>field ref</replaceable>" may be a shared
-          unprotected object</term>
-          <listitem>
+        <listitem>
+          <formalpara>
+            <title id="possibly-shared-receiver">Receiver
+            "<replaceable>field ref</replaceable>" may be a shared
+            unprotected object</title>
+
             <para>The field expression references a field that is
             protected by a lock and is used as the receiver of a
             method call.  Specfically,
+          
               <itemizedlist>
                 <listitem>
                   <para><replaceable>field ref</replaceable> is of the form 
@@ -125,9 +128,9 @@
                 </listitem>
               </itemizedlist>
             </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
     </para>
     
     <para>Class <classname>SharedUnprotectedStateExample</classname> from project <filename>Lock Output</filename>
@@ -285,42 +288,48 @@ public class RedundantLockExample {
     to be acquired at the identified locations. There are three messages
     that can appear under this heading:</para>
     
-    <variablelist>
-      <varlistentry>
-        <term id="does-not-name">Lock expression
-        "<replaceable>expr</replaceable>" does not name a
-        programmer-declared lock; consider declaring the state protected
-        by the referenced lock</term>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title id="does-not-name">Lock expression
+          "<replaceable>expr</replaceable>" does not name a
+          programmer-declared lock; consider declaring the state protected
+          by the referenced lock</title>
 
-        <listitem><para>The given expression in the identified
-        <code>synchronized</code> statement is not identifiable as a
-        lock declared in a <classname>@RegionLock</classname> or
-        <classname>@PolicyLock</classname> annotation.
-        </para></listitem>
-      </varlistentry>
+          <para>The given expression in the identified
+          <code>synchronized</code> statement is not identifiable as a
+          lock declared in a <classname>@RegionLock</classname> or
+          <classname>@PolicyLock</classname> annotation.
+          </para>
+        </formalpara>
+      </listitem>
 
-      <varlistentry>
-        <term id="does-not-name-instance">Synchronized method
-        <replaceable>method</replaceable>: "this" is not identifiable as
-        a programmer-declared lock</term>
+      <listitem>
+        <formalpara>
+          <title id="does-not-name-instance">Synchronized method
+          <replaceable>method</replaceable>: "this" is not identifiable as
+          a programmer-declared lock</title>
 
-        <listitem><para>This identifies a non-<code>static</code>
-        <code>synchronized</code> method for which the receiver
-        (<parameter>this</parameter>) is not identifiable as a
-        lock.</para></listitem>
-      </varlistentry>
+          <para>This identifies a non-<code>static</code>
+          <code>synchronized</code> method for which the receiver
+          (<parameter>this</parameter>) is not identifiable as a
+          lock.</para>
+        </formalpara>
+      </listitem>
 
-      <varlistentry>
-        <term id="does-not-name-static">Synchronized method
-        <replaceable>method</replaceable>:
-        "<replaceable>Class</replaceable>.class" is not identifiable as
-        a programmer-declared lock</term>
+      <listitem>
+        <formalpara>
+          <title id="does-not-name-static">Synchronized method
+          <replaceable>method</replaceable>:
+          "<replaceable>Class</replaceable>.class" is not identifiable as
+          a programmer-declared lock</title>
 
-        <listitem><para>This identifies a <code>static</code>
-        <code>synchronized</code> method for which the class reference
-        is not identifiable as a lock.</para></listitem>
-      </varlistentry>
-    </variablelist>
+          <para>This identifies a <code>static</code>
+          <code>synchronized</code> method for which the class reference
+          is not identifiable as a lock.</para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
     
     <para>Class <classname>UnidentifiableLockExample</classname> from project <filename>Lock Output</filename> demonstrates these
     results, shown in <xref linkend="unidentifiable-lock-results"/>:</para>
@@ -567,13 +576,14 @@ public class UnusedLockExample {
     <classname>Lock</classname> and <classname>ReadWriteLock</classname>
     classes are used:</para>
     
-    <variablelist>
-      <varlistentry>
-        <term
-        id="not-juc"><computeroutput>"<replaceable>method</replaceable>"
-        does not call a method from
-        java.util.concurrent.locks.Lock</computeroutput></term>
-        <listitem>
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title
+          id="not-juc"><computeroutput>"<replaceable>method</replaceable>"
+          does not call a method from
+          java.util.concurrent.locks.Lock</computeroutput></title>
+          
           <para>A method named <function>lock</function>,
           <function>tryLock</function>,
           <function>lockInterruptibly</function>, or
@@ -581,23 +591,25 @@ public class UnusedLockExample {
           <classname>Lock</classname> that <emphasis>is not</emphasis>
           from the package <package>java.util.concurrent.locks</package>
           is called.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term
-        id="not-rw"><computeroutput>"<replaceable>method</replaceable>"
-        does not call a method from
-        java.util.concurrent.locks.ReadWriteLock</computeroutput></term>
-        <listitem>
+        </formalpara>
+      </listitem>
+      
+      <listitem>
+        <formalpara>
+          <title
+          id="not-rw"><computeroutput>"<replaceable>method</replaceable>"
+          does not call a method from
+          java.util.concurrent.locks.ReadWriteLock</computeroutput></title>
+
           <para>A method named <function>readLock</function> or
           <function>writeLock</function> from a class named
           <classname>ReadWriteLock</classname> that <emphasis>is
           not</emphasis> from the package
           <package>java.util.concurrent.locks</package> is
           called.</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
     
     <para>Consider the class
     <classname>NotJustAnyLockExample</classname> from project <filename>JUC Lock Output</filename> below and its results
@@ -739,13 +751,15 @@ public class UnusedLockExample {
     <classname>java.util.concurrent.locks.Lock</classname> or
     <classname>java.util.concurrent.locks.ReadWriteLocks</classname>.
     JSure can generate two different messages in this case:
-      <variablelist>
-        <varlistentry>
-          <term id="not-a-known-lock-general">The object referenced by
-          "<replaceable>expr</replaceable>" is not a known lock, but its
-          fields <replaceable>list of fields</replaceable> are
-          java.util.concurrent locks</term>
-          <listitem>
+    
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title id="not-a-known-lock-general">The object referenced by
+            "<replaceable>expr</replaceable>" is not a known lock, but its
+            fields <replaceable>list of fields</replaceable> are
+            java.util.concurrent locks</title>
+            
             <para>This is a general warning, indicating that the the
             class of the object referenced by
             <replaceable>expr</replaceable> does not declare the
@@ -754,15 +768,17 @@ public class UnusedLockExample {
             <classname>java.util.concurrent.locks.Lock</classname> or
             <classname>java.util.concurrent.locks.ReadWriteLocks</classname>.
             </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term id="not-a-known-lock-specific">The object referenced by
-          "<replaceable>expr</replaceable>" is not a known lock, but its
-          field "<replaceable>field</replaceable>" is declared to be
-          java.util.concurrent lock
-          "<replaceable>lock</replaceable>"</term>
-          <listitem>
+          </formalpara>
+        </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title id="not-a-known-lock-specific">The object referenced by
+            "<replaceable>expr</replaceable>" is not a known lock, but its
+            field "<replaceable>field</replaceable>" is declared to be
+            java.util.concurrent lock
+            "<replaceable>lock</replaceable>"</title>
+            
             <para>This is a more specific warning, indicating that the
             the class of the object referenced by
             <replaceable>expr</replaceable> does not declare the
@@ -776,9 +792,9 @@ public class UnusedLockExample {
             warning appears under the result heading for the lock
             <replaceable>lock</replaceable> as well as under the general
             warnings heading.</para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
       
       The class <classname>NotAKnownLockExample</classname> from project <filename>Lock Output</filename> demonstrates
       these warnings, shown in <xref
