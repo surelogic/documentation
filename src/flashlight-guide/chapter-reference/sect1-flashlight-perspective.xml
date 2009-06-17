@@ -14,4 +14,178 @@
   tool. Its "canned" organization can help you to understand the
   capabilities of the tool.  Advanced users may want to reconfigure the
   screen layout and save a custom perspective.</para>
+
+  <figure id="fig-flashlight-perspective">
+    <title>The Flashlight Perspective</title>
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/flashlight-perspective.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <sect2>
+    <title>Views</title>
+    <para>This section describes the Flashlight view defined by the Flaslight
+    Eclipse client.</para>
+
+    <sect3>
+      <title>Flashlight Runs</title>
+      <para>
+	The Flashlight runs view lists all of the completed runs of programs
+	launched from the Flashlight launch tab.
+	<variablelist>
+	  <varlistentry>
+	    <term>Raw</term>
+	    <listitem>
+	      <para>The size of the data produced from the program run.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Prep</term>
+	    <listitem>
+	      <para>The size of the data produced by prepping the run.  If the
+	      data has not been prepared yet, this column will be blank.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Run</term>
+	    <listitem>
+	      <para>The name of the program run.  This will be the same name that
+	      you see when launching a program from the Flashlight launch
+	      tab.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Time</term>
+	    <listitem>
+	      <para>The time the program was launched.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>By</term>
+	    <listitem>
+	      <para>The user the program ran under.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Java</term>
+	    <listitem>
+	      <para>The version of the JVM that ran the program.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Vendor</term>
+	    <listitem>
+	      <para>The JVM vendor.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>OS</term>
+	    <listitem>
+	      <para>The operating system the program ran under.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Max Memory (MB)</term>
+	    <listitem>
+	      <para>The maximum amount of memory allotted to the program.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>Processors</term>
+	    <listitem>
+	      <para>The number of CPU's that the JVM ran on when this program
+	      was executed.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </para>
+      <figure id="fig-flashlight-runs-view">
+	<title>The Flashlight Runs View</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/flashlight-runs-view.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+    </sect3>
+    <sect3>
+      <title>Query Menu</title>
+      <para>
+	The <guilabel>Query Menu</guilabel> view displays the queries that can
+	be run from the current query results displayed in the <guilabel>Query
+	Results</guilabel> view.  If no results are displayed, then it displays
+	the queries that can be run from the currently selected run in the
+	<guilabel>Flashlight Runs</guilabel> view.  Queries that can be run by
+	double-clicking are black, queries that need you to select a more
+	specific row from the <guilabel>Query Results</guilabel> view are grayed
+	out.
+      </para>
+      <figure id="fig-flashlight-query-menu-view">
+	<title>The Query Menu View</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/flashlight-query-menu-view.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+    </sect3>
+    <sect3>
+      <title>Query Results</title>
+      <para>
+	This view displays the results from performing a query on a Flashlight
+	run.  You can change the results displayed by clicking on a different
+	result in the <guilabel>Query Results Explorer</guilabel> view.
+      </para>
+      <figure id="fig-flashlight-query-results-view">
+	<title>The Query Results View</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/flashlight-query-results-view.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+    </sect3>
+    <sect3>
+      <title>Query Results Explorer</title>
+	<para>
+	  This view allows you to select any of the queries that you have run
+	  during the session and display it in the <guilabel>Query
+	  Results</guilabel> view.  You can also delete any or all of the
+	  results from here.
+	</para>
+      <figure id="fig-flashlight-query-results-explorer-view">
+	<title>The Query Results Explorer View</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/flashlight-query-results-explorer-view.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+    </sect3>
+
+    <sect3>
+      <title>Historical Source Snapshot</title>
+      <para>
+	When a Flashlight run is performed, a snapshot of the project source
+	code is collected.  This view shows the source code as it appeared when
+	the run was actually performed.
+      </para>
+      <figure id="fig-flashlight-historical-source-view">
+	<title>The Historical Source Snapshot View</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/flashlight-historical-source-view.png" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+    </sect3>
+  </sect2>
 </sect1>
+
+
+
