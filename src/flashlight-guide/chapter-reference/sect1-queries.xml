@@ -21,6 +21,19 @@
 	    we have an assurance that no race condition was observed for this
 	    field during this run of the program.
 	  </para>
+	  <para>
+	    <emphasis>Contents</emphasis>
+	    <itemizedlist>
+	      <listitem>Lock -  A lock identifier</listitem>
+	      <listitem>Times Acquired - The number of times this lock was
+	      acquired and held while this field was accessed</listitem>
+	      <listitem>Field Access Count - The number of times this field
+	      was accessed during the run of the program</listitem>
+	      <listitem>Percentage Held - The proportion of times a lock was
+	      held when this field was accessed to the total number of
+	      accesses, expressed as a percentage</listitem>
+	    </itemizedlist>
+	  </para>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -113,6 +126,32 @@
 	    writes of each field, as well as how many shared objects are created
 	    that contain this field.  Clicking on a field will open its
 	    declaration in the code view.
+	  </para>
+	  <para>
+	    <emphasis>Contents</emphasis>
+	    <itemizedlist><listitem>
+	      Package - The package the field is declared in
+	      <itemizedlist><listitem>
+		Class - The class the field is declared in
+		<itemizedlist>
+		  <listitem>Field - The name of the field</listitem>
+		  <listitem>Reads - The read count of all shared instances of
+		  this field</listitem>
+		  <listitem>Writes - The write count of all shared instances
+		  of this field</listitem>
+		  <listitem>Reads During Construction - The read count of all
+		  shared instances of this field made while the owning object
+		  was under construction</listitem>
+		  <listitem>Writes During Construction - The write count of
+		  all shared instances of this field made while the owning
+		  object was under construction</listitem>
+		  <listitem>Instances - The number of shared objects that
+		  contain this field</listitem>
+		  <listitem>Threads Involved - The number of threads involved
+		  in accessing all shared instances of this field</listitem>
+		</itemizedlist>
+	      </listitem></itemizedlist>
+	    </listitem></itemizedlist>
 	  </para>
 	</answer>
       </qandaentry>
