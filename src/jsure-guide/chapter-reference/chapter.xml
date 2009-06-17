@@ -294,7 +294,8 @@
     
     <para>As mentioned <link
     linkend="sec-quick-start-annotations">previously</link>, JSure
-    design intent is expressed using a set of Java 5 annotation types. 
+    design intent is expressed using a set of Java 5 annotation types
+    in the package <package>com.surelogic</package>. 
     To use JSure with your code, your project must be able to reference
     the SureLogic annotation types.  The SureLogic annotation types are
     bundled together in <filename>promises.jar</filename>. This file

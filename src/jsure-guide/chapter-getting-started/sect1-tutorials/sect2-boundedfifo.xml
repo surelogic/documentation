@@ -96,7 +96,8 @@
     <title>Enabling Assurance and Adding the SureLogic Annotation Types</title>
       
     <para>Before we can add annotations to the project, we need to add the
-    SureLogic annotation types to the class path.  This is most easily done
+    SureLogic annotation types in the package <package>com.surelogic</package>
+    to the class path.  This is most easily done
     by allowing JSure to do it for us when we focus verification on the
     project:
       
@@ -148,14 +149,49 @@
     thread-safe. The usual assumption is that an object protects its
     own state, and we intend for that to be the case here.  Declare this 
     design intent by adding a <classname>@RegionLock</classname> annotation
-    to the class <classname>BoundedFIFO</classname>:</para>
+    to the class <classname>BoundedFIFO</classname>:
     
     <programlisting>
 <emphasis>@RegionLock("BufLock is this protects Instance")</emphasis>
 public class BoundedFIFO {
   &hellip;
-}
-    </programlisting>
+}</programlisting>    
+    </para>
+
+    <note>
+      <title>Don't forget to <code>import</code> the annotation type</title>
+      
+      <para>The annotation type <classname>RegionLock</classname> (and any other
+      JSure annotation used in these examples) must be imported by the sourcefile
+      before the class name can be resolved by the compiler.  There are a number of ways
+      you can do this:
+      
+        <itemizedlist>
+          <listitem>
+            <para>You can manually add <code>import
+            com.surelogic.RegionLock</code>, or more generally,
+            <code>import com.surelogic.*</code> to the list of imports
+            at the top of <filename>BoundedFIFO.java</filename>.</para>
+          </listitem>
+
+          <listitem>
+            <para>If you are typing the annotation into the editor you can
+            use the Eclipse &ldquo;content assist&rdquo; feature as you are typing
+            the name <classname>RegionLock</classname>.  The Java editor will 
+            automatically add the correct <code>import</code> clauses or
+            enter the fully qualified name of the class, depending on your
+            Eclipse preferences.</para>
+          </listitem>
+
+          <listitem>
+            <para>If you used copy-and-paste to copy the annotation from this tutorial and paste
+            it into the Eclipse editor you can use the Eclipse &ldquo;quick fix&rdquo; feature
+            to insert the <code>import</code> clause.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </note>
 
     <para>Enabling assurance and adding annotations is not enough to see the
     assurance results.  Unless you have previously explitly added the

@@ -67,7 +67,8 @@
     
     <para>JSure assurance compares Java code
     against programmer design intent as expressed using a set of Java 5
-    annotation types.  To use JSure with your code, your project must be
+    annotation types declared in package <package>com.surelogic</package>.
+    To use JSure with your code, your project must be
     able to reference the SureLogic annotation types.  The SureLogic
     annotation types are bundled together in
     <filename>promises.jar</filename>. This file must be on the build
