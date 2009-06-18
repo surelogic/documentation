@@ -21,6 +21,95 @@
 	    we have an assurance that no race condition was observed for this
 	    field during this run of the program.
 	  </para>
+	  
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Table</entry>
+                </row>
+                
+                <row>
+                  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Lock</entry>
+                  <entry>A lock identifier</entry>
+                </row>
+
+                <row>
+                  <entry>Times Acquired</entry>
+                  <entry>The number of times this lock was acquired and
+                  held while this field was accessed</entry>
+                </row>
+
+                <row>
+                  <entry>Field Access Count</entry>
+                  <entry>The number of times this field was accessed
+                  during the run of the program</entry>
+                </row>
+
+                <row>
+                  <entry>Percentage Held</entry>
+                  <entry>The proportion of times a lock was held when
+                  this field was accessed to the total number of
+                  accesses, expressed as a percentage</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
+                  
+<!--	  
+	  <para>
+	    The results are displayed as a table with the following columns:
+	    
+	    <informaltable>
+	      <tgroup cols="2">
+	        <colspec colnum="1" colwidth="1*"/>
+	        <colspec colnum="2" colwidth="3*"/>
+	        
+	        <thead>
+	          <row>
+	            <entry>Column Heading</entry>
+	            <entry>Description</entry>
+	          </row>
+	        </thead>
+	        
+	        <tbody>
+	          <row>
+	            <entry>Lock</entry>
+	            <entry>A lock identifier</entry>
+	          </row>
+
+	          <row>
+	            <entry>Times Acquired</entry>
+	            <entry>The number of times this lock was acquired
+	            and held while this field was accessed</entry>
+	          </row>
+
+	          <row>
+	            <entry>Field Access Count</entry>
+	            <entry>The number of times this field was accessed
+	            during the run of the program</entry>
+	          </row>
+
+	          <row>
+	            <entry>Percentage Held</entry>
+	            <entry>The proportion of times a lock was held when
+	            this field was accessed to the total number of
+	            accesses, expressed as a percentage</entry> </row>
+	        </tbody>
+	      </tgroup>
+	    </informaltable>
+	  </para>
+-->
+	  
+<!--
 	  <para>
 	    <emphasis>Contents</emphasis>
 	    <itemizedlist>
@@ -34,6 +123,7 @@
 	      accesses, expressed as a percentage</listitem>
 	    </itemizedlist>
 	  </para>
+-->
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -121,12 +211,75 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all the non-static fields accessed by more than one thread.
+	    Lists all the non-<code>static</code> fields accessed by more than one thread.
 	    Provides some summary information about the number of reads and
 	    writes of each field, as well as how many shared objects are created
-	    that contain this field.  Clicking on a field will open its
+	    that contain this field.  Clicking on a field opens its
 	    declaration in the code view.
 	  </para>
+
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Reads</entry>
+                  <entry>The read count of all shared instances of this
+                  field</entry>
+                </row>
+
+                <row>
+                  <entry>Writes</entry>
+                  <entry>The write count of all shared instances of this
+                  field</entry>
+                </row>
+
+                <row>
+                  <entry>Reads During Construction</entry>
+                  <entry>The read count of all shared instances of this
+                  field made while the owning object was under
+                  construction</entry>
+                </row>
+
+                <row>
+                  <entry>Writes During Construction</entry>
+                  <entry>The write count of all shared instances of this
+                  field made while the owning object was under
+                  construction</entry>
+                </row>
+
+                <row>
+                  <entry>Instances</entry>
+                  <entry>The number of shared objects that contain this
+                  field</entry>
+                </row>
+
+                <row>
+                  <entry>Threads Involved</entry>
+                  <entry>The number of threads involved in accessing all
+                  shared instances of this field</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
+	  
+<!--	  
 	  <para>
 	    <emphasis>Contents</emphasis>
 	    <itemizedlist><listitem>
@@ -153,6 +306,7 @@
 	      </listitem></itemizedlist>
 	    </listitem></itemizedlist>
 	  </para>
+-->
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -163,7 +317,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all the non-static fields accessed by more than one thread in
+	    Lists all the non-<code>static</code> fields accessed by more than one thread in
 	    the program that have a lock set.  A lock set guarantees that the
 	    field's data can not be invalidated by a race condition.  Provides
 	    some summary information about the number of reads and writes of
@@ -181,7 +335,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all the non-static fields accessed by more than one thread in
+	    Lists all the non-<code>static</code> fields accessed by more than one thread in
 	    the program with an empty lock set.  An empty lock set means that
 	    Flashlight's lock set analysis could not find a common lock held
 	    each time this field is accessed.  Provides some summary information
@@ -199,7 +353,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all the non-static, non-final fields accessed by more than one
+	    Lists all the non-<code>static</code>, non-<code>final</code> fields accessed by more than one
 	    thread.  Provides some summary information about the number of reads
 	    and writes of each field, as well as how many shared objects are
 	    created that contain this field.  Clicking on a field will open its
@@ -215,7 +369,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all of the static fields in the program accessed by more than
+	    Lists all of the <code>static</code> fields in the program accessed by more than
 	    one thread, and the number of reads and writes made by each thread.
 	    Clicking on a field will open its declaration in the code view.
 	  </para>
@@ -229,7 +383,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all of the static fields in the program accessed by more than
+	    Lists all of the <code>static</code> fields in the program accessed by more than
 	    one thread that have a lock set, and the number of reads and writes
 	    made by each thread.  A lock set guarantees that the field's data
 	    cannot be invalidated by a race condition.  Clicking on a field will
@@ -245,7 +399,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all of the static fields in the program accessed by more than
+	    Lists all of the <code>static</code> fields in the program accessed by more than
 	    one thread that have an empty lock set, and the number of reads and
 	    writes made by each thread.  An empty lock set means that
 	    Flashlight's lock set analysis could not find a common lock held
@@ -262,7 +416,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all of the static, non-final fields in the program accessed by
+	    Lists all of the <code>static</code>, non-<code>final</code> fields in the program accessed by
 	    more than one thread, and the number of reads and writes made by
 	    each thread.  Clicking on a field will open its declarations in the
 	    code view.

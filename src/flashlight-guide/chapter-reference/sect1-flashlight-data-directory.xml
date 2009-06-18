@@ -4,7 +4,7 @@
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
 <sect1 id="flashlight-data-directory">
-  <title>The Flashlgiht Data Directory</title>
+  <title>The Flashlight Data Directory</title>
 
   <para>The Flashlight Eclipse plug-in writes the flashlight profile data
   files and other information in a location known as the "Flashlight
