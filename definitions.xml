@@ -16,7 +16,7 @@
   <property name="javadoc.src" location="${promises-project}/src"/>
   <property name="javadoc.dest" location="${promises-project}/javadoc"/>
     
-  <property name="docbook.package.name" value="docbook-xsl-1.74.0" />
+  <property name="docbook.package.name" value="docbook-xsl-1.75.1" />
   <property name="docbook.dir" location="${lib}/${docbook.package.name}" />
   <property name="saxon.dir" location="${lib}/saxon-6-5-5" />
   <property name="resolver.dir" location="${lib}/xml-commons-resolver-1.2" />
