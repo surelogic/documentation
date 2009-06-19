@@ -43,86 +43,25 @@
 
                 <row>
                   <entry>Times Acquired</entry>
-                  <entry>The number of times this lock was acquired and
-                  held while this field was accessed</entry>
+                  <entry>The number of times this lock was acquired and held
+                  while this field was accessed</entry>
                 </row>
 
                 <row>
                   <entry>Field Access Count</entry>
-                  <entry>The number of times this field was accessed
-                  during the run of the program</entry>
+                  <entry>The number of times this field was accessed</entry>
                 </row>
 
                 <row>
                   <entry>Percentage Held</entry>
-                  <entry>The proportion of times a lock was held when
-                  this field was accessed to the total number of
-                  accesses, expressed as a percentage</entry>
+                  <entry>The proportion of times a lock was held when this field
+                  was accessed to the total number of accesses, expressed as a
+                  percentage</entry>
                 </row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
                   
-<!--	  
-	  <para>
-	    The results are displayed as a table with the following columns:
-	    
-	    <informaltable>
-	      <tgroup cols="2">
-	        <colspec colnum="1" colwidth="1*"/>
-	        <colspec colnum="2" colwidth="3*"/>
-	        
-	        <thead>
-	          <row>
-	            <entry>Column Heading</entry>
-	            <entry>Description</entry>
-	          </row>
-	        </thead>
-	        
-	        <tbody>
-	          <row>
-	            <entry>Lock</entry>
-	            <entry>A lock identifier</entry>
-	          </row>
-
-	          <row>
-	            <entry>Times Acquired</entry>
-	            <entry>The number of times this lock was acquired
-	            and held while this field was accessed</entry>
-	          </row>
-
-	          <row>
-	            <entry>Field Access Count</entry>
-	            <entry>The number of times this field was accessed
-	            during the run of the program</entry>
-	          </row>
-
-	          <row>
-	            <entry>Percentage Held</entry>
-	            <entry>The proportion of times a lock was held when
-	            this field was accessed to the total number of
-	            accesses, expressed as a percentage</entry> </row>
-	        </tbody>
-	      </tgroup>
-	    </informaltable>
-	  </para>
--->
-	  
-<!--
-	  <para>
-	    <emphasis>Contents</emphasis>
-	    <itemizedlist>
-	      <listitem>Lock -  A lock identifier</listitem>
-	      <listitem>Times Acquired - The number of times this lock was
-	      acquired and held while this field was accessed</listitem>
-	      <listitem>Field Access Count - The number of times this field
-	      was accessed during the run of the program</listitem>
-	      <listitem>Percentage Held - The proportion of times a lock was
-	      held when this field was accessed to the total number of
-	      accesses, expressed as a percentage</listitem>
-	    </itemizedlist>
-	  </para>
--->
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -140,7 +79,47 @@
 	    of this query, as a safely published field usually doesn't need to
 	    have the same lock held during object construction as is held when
 	    it is accessed.
-	  </para>
+	  </para>	 
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Table</entry>
+                </row>
+                
+                <row>
+                  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Lock</entry>
+                  <entry>A lock identifier</entry>
+                </row>
+
+                <row>
+                  <entry>Times Acquired</entry>
+                  <entry>The number of times this lock was acquired and held
+                  while this field was accessed</entry>
+                </row>
+
+                <row>
+                  <entry>Field Access Count</entry>
+                  <entry>The number of times this field was accessed</entry>
+                </row>
+
+                <row>
+                  <entry>Percentage Held</entry>
+                  <entry>The proportion of times a lock was held when this field
+                  was accessed to the total number of accesses, expressed as a
+                  percentage</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -154,7 +133,48 @@
 	    Lists how often each lock was held when a particular object was
 	    indirectly accessed, as well as what proportion of the total number
 	    of accesses that represents.
-	  </para>
+	  </para>	  
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Table</entry>
+                </row>
+                
+                <row>
+                  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Lock</entry>
+                  <entry>A lock identifier</entry>
+                </row>
+
+                <row>
+                  <entry>Times Acquired</entry>
+                  <entry>The number of times this lock was acquired and held
+                  while this object was indirectly accessed</entry>
+                </row>
+
+                <row>
+                  <entry>Access Count</entry>
+                  <entry>The number of times this object was indirectly
+                  accessed</entry>
+                </row>
+
+                <row>
+                  <entry>Percentage Held</entry>
+                  <entry>The proportion of times a lock was held when this
+                  object was indirectly accessed to the total number of
+                  accesses, expressed as a percentage</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -173,6 +193,56 @@
 	    construction.  The number of reads/writes and the size of the lock
 	    set is also shown.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Table</entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Field Object</entry>
+                  <entry>An object identifier</entry>
+                </row>
+
+                <row>
+                  <entry>Reads</entry>
+                  <entry>The read count of the field on this object</entry>
+                </row>
+
+                <row>
+                  <entry>Writes</entry>
+                  <entry>The write count of the field on this object</entry>
+                </row>
+
+                <row>
+                  <entry>Reads Under Construction</entry>
+                  <entry>The read count of the field on this object while it was
+                  being initialized</entry>
+                </row>
+		
+		<row>
+                  <entry>Writes Under Construction</entry>
+                  <entry>The write count of the field on this object while it was
+                  being initialized</entry>
+                </row>
+
+		<row>
+                  <entry>Lock Set Size</entry>
+                  <entry>The number of locks commonly held when each access is
+                  made to the field on this object</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -186,6 +256,56 @@
 	    Lists the shared objects containing a given field.  The number of
 	    reads/writes and the size of the lock set is also shown.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Table</entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Field Object</entry>
+                  <entry>An object identifier</entry>
+                </row>
+
+                <row>
+                  <entry>Reads</entry>
+                  <entry>The read count of the field on this object</entry>
+                </row>
+
+                <row>
+                  <entry>Writes</entry>
+                  <entry>The write count of the field on this object</entry>
+                </row>
+
+                <row>
+                  <entry>Reads Under Construction</entry>
+                  <entry>The read count of the field on this object while it was
+                  being initialized</entry>
+                </row>
+		
+		<row>
+                  <entry>Writes Under Construction</entry>
+                  <entry>The write count of the field on this object while it was
+                  being initialized</entry>
+                </row>
+
+		<row>
+                  <entry>Lock Set Size</entry>
+                  <entry>The number of locks commonly held when each access is
+                  made to the field on this object</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -200,6 +320,33 @@
 	    the lock cycle, and where they occur in the program.  Clicking on a
 	    lock event will open the line that acquired it in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>LockEvent</entry>
+                  <entry>A lock event identifier</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -277,35 +424,6 @@
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
-	  
-<!--	  
-	  <para>
-	    <emphasis>Contents</emphasis>
-	    <itemizedlist><listitem>
-	      Package - The package the field is declared in
-	      <itemizedlist><listitem>
-		Class - The class the field is declared in
-		<itemizedlist>
-		  <listitem>Field - The name of the field</listitem>
-		  <listitem>Reads - The read count of all shared instances of
-		  this field</listitem>
-		  <listitem>Writes - The write count of all shared instances
-		  of this field</listitem>
-		  <listitem>Reads During Construction - The read count of all
-		  shared instances of this field made while the owning object
-		  was under construction</listitem>
-		  <listitem>Writes During Construction - The write count of
-		  all shared instances of this field made while the owning
-		  object was under construction</listitem>
-		  <listitem>Instances - The number of shared objects that
-		  contain this field</listitem>
-		  <listitem>Threads Involved - The number of threads involved
-		  in accessing all shared instances of this field</listitem>
-		</itemizedlist>
-	      </listitem></itemizedlist>
-	    </listitem></itemizedlist>
-	  </para>
--->
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -324,6 +442,33 @@
 	    contain this field.  Clicking on a field will open its declaration
 	    in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Instances</entry>
+                  <entry>The number of objects with a lock set on this field</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -342,6 +487,33 @@
 	    many shared objects are created that contain this field.  Clicking
 	    on a field will open its declaration in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Instances</entry>
+                  <entry>The number of objects with a lock set on this field</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -358,6 +530,66 @@
 	    created that contain this field.  Clicking on a field will open its
 	    declaration in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Reads</entry>
+                  <entry>The read count of all shared instances of this
+                  field</entry>
+                </row>
+
+                <row>
+                  <entry>Writes</entry>
+                  <entry>The write count of all shared instances of this
+                  field</entry>
+                </row>
+
+                <row>
+                  <entry>Reads During Construction</entry>
+                  <entry>The read count of all shared instances of this
+                  field made while the owning object was under
+                  construction</entry>
+                </row>
+
+                <row>
+                  <entry>Writes During Construction</entry>
+                  <entry>The write count of all shared instances of this
+                  field made while the owning object was under
+                  construction</entry>
+                </row>
+
+                <row>
+                  <entry>Instances</entry>
+                  <entry>The number of shared objects that contain this
+                  field</entry>
+                </row>
+
+                <row>
+                  <entry>Threads Involved</entry>
+                  <entry>The number of threads involved in accessing all
+                  shared instances of this field</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -372,6 +604,44 @@
 	    one thread, and the number of reads and writes made by each thread.
 	    Clicking on a field will open its declaration in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Read Count</entry>
+                  <entry>The number of times this field was read in this thread</entry>
+                </row>
+
+                <row>
+                  <entry>Write Count</entry>
+                  <entry>The number of times this field was written in this thread </entry>
+                </row>
+
+                <row>
+                  <entry>Threads Involved</entry>
+                  <entry>The number of threads involved in accessing this resource </entry>
+                </row>
+
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -388,6 +658,34 @@
 	    cannot be invalidated by a race condition.  Clicking on a field will
 	    open its declaration in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Lock</entry>
+                  <entry>The identifier of a lock in this field's lock set</entry>
+                </row>
+
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -405,6 +703,28 @@
 	    each time this field is accessed.  Clicking on a field will open its
 	    declaration in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+                </row>
+                
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -415,11 +735,49 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all of the <code>static</code>, non-<code>final</code> fields in the program accessed by
-	    more than one thread, and the number of reads and writes made by
-	    each thread.  Clicking on a field will open its declarations in the
-	    code view.
+	    Lists all of the <code>static</code>, non-<code>final</code> fields
+	    in the program accessed by more than one thread, and the number of
+	    reads and writes made by each thread.  Clicking on a field will open
+	    its declarations in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Read Count</entry>
+                  <entry>The number of times this field was read in this thread</entry>
+                </row>
+
+                <row>
+                  <entry>Write Count</entry>
+                  <entry>The number of times this field was written in this thread </entry>
+                </row>
+
+                <row>
+                  <entry>Threads Involved</entry>
+                  <entry>The number of threads involved in accessing this resource </entry>
+                </row>
+
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -437,6 +795,67 @@
 	    ended.  Clicking on a field will open its declaration in the code
 	    view.
 	  </para>
+
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Reads</entry>
+                  <entry>The read count of all shared instances of this
+                  field</entry>
+                </row>
+
+                <row>
+                  <entry>Writes</entry>
+                  <entry>The write count of all shared instances of this
+                  field</entry>
+                </row>
+
+                <row>
+                  <entry>Reads During Construction</entry>
+                  <entry>The read count of all shared instances of this
+                  field made while the owning object was under
+                  construction</entry>
+                </row>
+
+                <row>
+                  <entry>Writes During Construction</entry>
+                  <entry>The write count of all shared instances of this
+                  field made while the owning object was under
+                  construction</entry>
+                </row>
+
+                <row>
+                  <entry>Instances</entry>
+                  <entry>The number of shared objects that contain this
+                  field</entry>
+                </row>
+
+                <row>
+                  <entry>Threads Involved</entry>
+                  <entry>The number of threads involved in accessing all
+                  shared instances of this field</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -451,6 +870,45 @@
 	    and how often each was accessed with or without the lock being held.
 	    Clicking on a field will open its declaration in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Times Held</entry>
+                  <entry>The number of times the lock was held while this field
+                  was accessed</entry>
+                </row>
+
+                <row>
+                  <entry>Total Accesses</entry>
+                  <entry>The total number of accesses made to this field</entry>
+                </row>
+
+		<row>
+		  <entry>%</entry>
+		  <entry>The proportion of times the lock was held to the total
+		  number of field accesses, expressed as a percentage</entry>
+		</row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -471,6 +929,38 @@
 	    <classname>java.lang.System</classname>. For more information about
 	    indirect accesses, see <xref linkend="flashlight-method-files" />.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Threads</entry>
+                  <entry>The number of threads that indirectly access objects of this class</entry>
+                </row>
+
+                <row>
+                  <entry>Accesses</entry>
+                  <entry>The number of indirect accesses made to objects of this class</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -487,6 +977,46 @@
 	    high contention in part of your program, and may be a source of
 	    slowdown.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Table</entry>
+                </row>
+                
+                <row>
+                  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Lock</entry>
+                  <entry>A lock identifier</entry>
+                </row>
+
+                <row>
+                  <entry>Times Acquired</entry>
+                  <entry>The number of times this lock was acquired</entry>
+                </row>
+
+                <row>
+                  <entry>Total Block Time</entry>
+                  <entry>The total amount of time that threads spent waiting for
+                  this lock</entry>
+                </row>
+
+                <row>
+                  <entry>Average Block Time</entry>
+                  <entry>The average amount of time a thread waits before the
+                  lock was acquired</entry>
+                </row>
+		
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -517,6 +1047,53 @@
 	    <title>Example of a potential deadlock</title>
 	    <mediaobject><imageobject><imagedata fileref="images/query-deadlock-example.png" /></imageobject></mediaobject>
 	  </figure>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Component</emphasis> &#8594; <emphasis>LockHeld</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Lock Acquired</entry>
+                  <entry>The lock acquired while the given lock is already held
+                  in this component's cycle</entry>
+                </row>
+
+                <row>
+                  <entry>Count</entry>
+                  <entry>The number of times this lock was acquired while the
+                  other was held</entry>
+                </row>
+
+                <row>
+                  <entry>FirstTime</entry>
+                  <entry>The first time this lock was acquired while the other
+                  was held</entry>
+                </row>
+
+                <row>
+                  <entry>LastTime</entry>
+                  <entry>The last time this lock was acquired while the other
+                  was held</entry>
+                </row>
+
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -530,6 +1107,34 @@
 	    Lists the objects in this class called by more than one thread, and
 	    gives a breakdown of the accesses made by each thread.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Object</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+                </row>
+                
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Accesses</entry>
+                  <entry>The number of times this object was indirectly accessed
+                  in this thread</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -586,6 +1191,51 @@
 	    Shows the number of reads and writes each thread that accesses this
 	    field makes.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+                </row>
+
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Reads</entry>
+                  <entry>The read count of this field</entry>
+                </row>
+
+                <row>
+                  <entry>Writes</entry>
+                  <entry>The write count of this field</entry>
+                </row>
+
+                <row>
+                  <entry>Reads During Construction</entry>
+                  <entry>The read count of this field made while the owning
+                  object was under construction</entry>
+                </row>
+
+                <row>
+                  <entry>Writes During Construction</entry>
+                  <entry>The write count of this field made while the owning
+                  object was under construction</entry>
+                </row>
+
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -601,6 +1251,39 @@
 	    happened while the object was being initialized.  Clicking on an
 	    access will open the relevant line in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+                </row>
+
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Time</entry>
+                  <entry>The time this field access occurred</entry>
+                </row>
+
+                <row>
+                  <entry>Access</entry>
+                  <entry>The type of field access, either a Read or a Write</entry>
+                </row>
+
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -615,6 +1298,33 @@
 	    ordered by the time it occurred.  Clicking on an access will open
 	    the relevant line in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Table</entry>
+                </row>
+
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Thread</entry>
+                  <entry>The thread this object was indirectly accessed in</entry>
+                </row>
+
+                <row>
+                  <entry>Time</entry>
+                  <entry>The time this object was indirectly accessed</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -628,6 +1338,40 @@
 	    Lists each time and by what thread the program acquires a lock at
 	    this line in the code.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis> &#8594; <emphasis>Time</emphasis></entry>
+                </row>
+
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Locks Already Held</entry>
+                  <entry>The number of locks already held when we acquire the
+                  lock at this time</entry>
+                </row>
+
+                <row>
+                  <entry>ThreadName</entry>
+                  <entry>The name of the thread we acquire the lock in</entry>
+                </row>
+
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -642,6 +1386,28 @@
 	    this and only this time the lock is acquired.  Clicking on a line
 	    will open it in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+                </row>
+                
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -656,6 +1422,28 @@
 	    while this lock is held.  Clicking on a line will open it in the
 	    code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+                </row>
+                
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -671,6 +1459,35 @@
 	    holding at least one lock.  Next to each line is listed the most
 	    locks the program ever holds at this point.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+                </row>
+
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Most Locks Already Held</entry>
+                  <entry>The maximum number of locks already held when we
+                  acquire the lock at this point</entry>
+                </row>
+
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -685,6 +1502,28 @@
 	    some point in time.  Clicking on a line will open up the field
 	    access in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+                </row>
+                
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -699,6 +1538,28 @@
 	    the given lock is being held.  Clicking on a line will open up the
 	    field access in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+                </row>
+                
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -713,6 +1574,28 @@
 	    a given lock is not held.  Clicking on a line will open up the field
 	    access in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+                </row>
+                
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -731,6 +1614,42 @@
 	    <classname>Lock</classname>). Clicking on a line will open it in the
 	    code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+                </row>
+
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Type</entry>
+                  <entry>The type of lock access, either Intrinsic,
+                  java.util.concurrent Lock, java.util.concurrent
+                  ReadWriteLock.readLock(), or java.util.concurrent
+                  ReadWriteLock.writeLock()</entry>
+                </row>
+
+                <row>
+                  <entry>ThreadName</entry>
+                  <entry>The name of the thread we acquire the lock in</entry>
+                </row>
+
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -748,6 +1667,52 @@
 	    thread blocks and the number of times the lock is acquired is
 	    listed.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Tree-Table</entry>
+                </row>
+                
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+                </row>
+
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>BlockTime</entry>
+                  <entry>The amount of time the thread spends blocking while
+                  acquiring this lock</entry>
+                </row>
+
+                <row>
+                  <entry>Times Acquired</entry>
+                  <entry>The number of times the lock is acquired in this thread</entry>
+                </row>
+
+                <row>
+                  <entry>Total Block Time</entry>
+                  <entry>The total amount of time spent blocking while the
+                  resource waits to acquire this lock</entry>
+                </row>
+
+                <row>
+                  <entry>Average Block Time</entry>
+                  <entry>The average amount of time this thread spends waiting
+                  for this lock</entry>
+                </row>
+
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
     </qandaset>
