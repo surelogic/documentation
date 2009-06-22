@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 
-<sect1 xmlns:xi="http://www.w3.org/2001/XInclude">
+<sect1 id="sec-tutorial" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Tutorials</title>
 
   <para>This section contains a series of Flashlight tutorials.  It is

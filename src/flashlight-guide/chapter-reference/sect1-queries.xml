@@ -5,6 +5,69 @@
 
 <sect1 id="query-reference">
   <title>Queries</title>
+  <para>
+    Flashlight ships with a large number of queries accessible through the
+    Flashlight perspective.  This section documents the content and format of
+    each query.  For more information about how to use the Flashlight
+    perspective, see <xref linkend="flashlight-perspective" />.  For an tutorial
+    on how to use the provided queries effectively, see <xref
+    linkend="sec-tutorial" />.
+  </para>
+  <sect2 id="query-reference-identifiers">
+    <title>Identifiers</title>
+    <para>
+      The Flashlight queries use a few conventions when referring to Java
+      identifiers and objects from a flashlight run.  The following list
+      clarifies what these conventions are:
+    </para>
+    <variablelist>
+      <varlistentry>
+	<term>Package</term>
+	<listitem>Packages are referred to exactly as they are declared in a
+	Java source file.  The default package is displayed as
+	<package>(default)</package>.</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>Class</term>
+	<listitem>Classes are treated in much the same fashion as when they are
+	compiled to .class files.  Top-level Java classes are referred to just
+	as they appear in the class declaration.  Inner classes, both static and
+	non-static, are prefixed by their parent class name and the
+	<code>$</code> character.  Anonymous classes are numbered in the order
+	they appear in the declaring file.  As an example, in the following
+	program listing three classes are declared: <classname>Foo</classname>,
+	<classname>Foo$Bar</classname>, and <classname>Foo$1</classname>, all of
+	them in <package>(default)</package>.</listitem>
+<programlisting><![CDATA[import java.util.Comparator;
+
+public class Foo {
+	static class Bar {
+	}
+	Comparator<String> baz = new Comparator<String>() {
+		@Override
+		public int compare(String o1, String o2) {
+			return o1.compareTo(o2);
+		}
+	};
+}]]></programlisting>
+      </varlistentry>
+      <varlistentry>
+	<term>Object and Lock</term> <listitem>Every object created in the java
+	program is given a numeric identifier which is used to refer to it for
+	the duration of the program.  We display objects as their numeric
+	identifier prefixed by their class name.  For example, if the Comparator
+	in the above listing of code was assigned the number 5, then the object
+	would appear as <varname>Foo$1-5</varname>.</listitem> When Flashlight
+	refers to a lock, it refers to it by its object identifier.
+      </varlistentry>
+      <varlistentry>
+	<term>Thread</term>
+	<listitem>Threads are referred to by their name, as returned by
+	<function>Thread.getName()</function>.</listitem>
+      </varlistentry>
+    </variablelist>
+  </sect2>
+  <sect2>
     <qandaset defaultlabel="none" >
       <qandaentry>
 	<question>
@@ -18,7 +81,7 @@
 	    accessed, as well as what proportion of the total number of field
 	    accesses that represents.  If the same lock is held on every access,
 	    we have an assurance that no race condition was observed for this
-	    field during this run of the program.
+	    field.
 	  </para>
 	  
 	  <informaltable>
@@ -27,41 +90,41 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Table</entry>
-                </row>
-                
-                <row>
-                  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Lock</entry>
-                  <entry>A lock identifier</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Table</entry>
+		</row>
+		
+		<row>
+		  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Lock</entry>
+		  <entry>A lock identifier</entry>
+		</row>
 
-                <row>
-                  <entry>Times Acquired</entry>
-                  <entry>The number of times this lock was acquired and held
-                  while this field was accessed</entry>
-                </row>
+		<row>
+		  <entry>Times Acquired</entry>
+		  <entry>The number of times this lock was acquired and held
+		  while this field was accessed</entry>
+		</row>
 
-                <row>
-                  <entry>Field Access Count</entry>
-                  <entry>The number of times this field was accessed</entry>
-                </row>
+		<row>
+		  <entry>Field Access Count</entry>
+		  <entry>The number of times this field was accessed</entry>
+		</row>
 
-                <row>
-                  <entry>Percentage Held</entry>
-                  <entry>The proportion of times a lock was held when this field
-                  was accessed to the total number of accesses, expressed as a
-                  percentage</entry>
-                </row>
+		<row>
+		  <entry>Percentage Held</entry>
+		  <entry>The proportion of times a lock was held when this field
+		  was accessed to the total number of accesses, expressed as a
+		  percentage</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
-                  
+	  
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -86,37 +149,37 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Table</entry>
-                </row>
-                
-                <row>
-                  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Lock</entry>
-                  <entry>A lock identifier</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Table</entry>
+		</row>
+		
+		<row>
+		  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Lock</entry>
+		  <entry>A lock identifier</entry>
+		</row>
 
-                <row>
-                  <entry>Times Acquired</entry>
-                  <entry>The number of times this lock was acquired and held
-                  while this field was accessed</entry>
-                </row>
+		<row>
+		  <entry>Times Acquired</entry>
+		  <entry>The number of times this lock was acquired and held
+		  while this field was accessed</entry>
+		</row>
 
-                <row>
-                  <entry>Field Access Count</entry>
-                  <entry>The number of times this field was accessed</entry>
-                </row>
+		<row>
+		  <entry>Field Access Count</entry>
+		  <entry>The number of times this field was accessed</entry>
+		</row>
 
-                <row>
-                  <entry>Percentage Held</entry>
-                  <entry>The proportion of times a lock was held when this field
-                  was accessed to the total number of accesses, expressed as a
-                  percentage</entry>
-                </row>
+		<row>
+		  <entry>Percentage Held</entry>
+		  <entry>The proportion of times a lock was held when this field
+		  was accessed to the total number of accesses, expressed as a
+		  percentage</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -140,38 +203,38 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Table</entry>
-                </row>
-                
-                <row>
-                  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Lock</entry>
-                  <entry>A lock identifier</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Table</entry>
+		</row>
+		
+		<row>
+		  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Lock</entry>
+		  <entry>A lock identifier</entry>
+		</row>
 
-                <row>
-                  <entry>Times Acquired</entry>
-                  <entry>The number of times this lock was acquired and held
-                  while this object was indirectly accessed</entry>
-                </row>
+		<row>
+		  <entry>Times Acquired</entry>
+		  <entry>The number of times this lock was acquired and held
+		  while this object was indirectly accessed</entry>
+		</row>
 
-                <row>
-                  <entry>Access Count</entry>
-                  <entry>The number of times this object was indirectly
-                  accessed</entry>
-                </row>
+		<row>
+		  <entry>Access Count</entry>
+		  <entry>The number of times this object was indirectly
+		  accessed</entry>
+		</row>
 
-                <row>
-                  <entry>Percentage Held</entry>
-                  <entry>The proportion of times a lock was held when this
-                  object was indirectly accessed to the total number of
-                  accesses, expressed as a percentage</entry>
-                </row>
+		<row>
+		  <entry>Percentage Held</entry>
+		  <entry>The proportion of times a lock was held when this
+		  object was indirectly accessed to the total number of
+		  accesses, expressed as a percentage</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -199,47 +262,47 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Table</entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Field Object</entry>
-                  <entry>An object identifier</entry>
-                </row>
-
-                <row>
-                  <entry>Reads</entry>
-                  <entry>The read count of the field on this object</entry>
-                </row>
-
-                <row>
-                  <entry>Writes</entry>
-                  <entry>The write count of the field on this object</entry>
-                </row>
-
-                <row>
-                  <entry>Reads Under Construction</entry>
-                  <entry>The read count of the field on this object while it was
-                  being initialized</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Table</entry>
+		</row>
 		
 		<row>
-                  <entry>Writes Under Construction</entry>
-                  <entry>The write count of the field on this object while it was
-                  being initialized</entry>
-                </row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Field Object</entry>
+		  <entry>An object identifier</entry>
+		</row>
 
 		<row>
-                  <entry>Lock Set Size</entry>
-                  <entry>The number of locks commonly held when each access is
-                  made to the field on this object</entry>
-                </row>
+		  <entry>Reads</entry>
+		  <entry>The read count of the field on this object</entry>
+		</row>
+
+		<row>
+		  <entry>Writes</entry>
+		  <entry>The write count of the field on this object</entry>
+		</row>
+
+		<row>
+		  <entry>Reads Under Construction</entry>
+		  <entry>The read count of the field on this object while it was
+		  being initialized</entry>
+		</row>
+		
+		<row>
+		  <entry>Writes Under Construction</entry>
+		  <entry>The write count of the field on this object while it was
+		  being initialized</entry>
+		</row>
+
+		<row>
+		  <entry>Lock Set Size</entry>
+		  <entry>The number of locks commonly held when each access is
+		  made to the field on this object</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -262,47 +325,47 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Table</entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Field Object</entry>
-                  <entry>An object identifier</entry>
-                </row>
-
-                <row>
-                  <entry>Reads</entry>
-                  <entry>The read count of the field on this object</entry>
-                </row>
-
-                <row>
-                  <entry>Writes</entry>
-                  <entry>The write count of the field on this object</entry>
-                </row>
-
-                <row>
-                  <entry>Reads Under Construction</entry>
-                  <entry>The read count of the field on this object while it was
-                  being initialized</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Table</entry>
+		</row>
 		
 		<row>
-                  <entry>Writes Under Construction</entry>
-                  <entry>The write count of the field on this object while it was
-                  being initialized</entry>
-                </row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Field Object</entry>
+		  <entry>An object identifier</entry>
+		</row>
 
 		<row>
-                  <entry>Lock Set Size</entry>
-                  <entry>The number of locks commonly held when each access is
-                  made to the field on this object</entry>
-                </row>
+		  <entry>Reads</entry>
+		  <entry>The read count of the field on this object</entry>
+		</row>
+
+		<row>
+		  <entry>Writes</entry>
+		  <entry>The write count of the field on this object</entry>
+		</row>
+
+		<row>
+		  <entry>Reads Under Construction</entry>
+		  <entry>The read count of the field on this object while it was
+		  being initialized</entry>
+		</row>
+		
+		<row>
+		  <entry>Writes Under Construction</entry>
+		  <entry>The write count of the field on this object while it was
+		  being initialized</entry>
+		</row>
+
+		<row>
+		  <entry>Lock Set Size</entry>
+		  <entry>The number of locks commonly held when each access is
+		  made to the field on this object</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -326,24 +389,24 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>LockEvent</entry>
-                  <entry>A lock event identifier</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>LockEvent</entry>
+		  <entry>A lock event identifier</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -357,7 +420,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all the non-<code>static</code> fields accessed by more than one thread.
+	    Lists all the non-static fields accessed by more than one thread.
 	    Provides some summary information about the number of reads and
 	    writes of each field, as well as how many shared objects are created
 	    that contain this field.  Clicking on a field opens its
@@ -370,57 +433,57 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Reads</entry>
-                  <entry>The read count of all shared instances of this
-                  field</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Reads</entry>
+		  <entry>The read count of all shared instances of this
+		  field</entry>
+		</row>
 
-                <row>
-                  <entry>Writes</entry>
-                  <entry>The write count of all shared instances of this
-                  field</entry>
-                </row>
+		<row>
+		  <entry>Writes</entry>
+		  <entry>The write count of all shared instances of this
+		  field</entry>
+		</row>
 
-                <row>
-                  <entry>Reads During Construction</entry>
-                  <entry>The read count of all shared instances of this
-                  field made while the owning object was under
-                  construction</entry>
-                </row>
+		<row>
+		  <entry>Reads During Construction</entry>
+		  <entry>The read count of all shared instances of this
+		  field made while the owning object was under
+		  construction</entry>
+		</row>
 
-                <row>
-                  <entry>Writes During Construction</entry>
-                  <entry>The write count of all shared instances of this
-                  field made while the owning object was under
-                  construction</entry>
-                </row>
+		<row>
+		  <entry>Writes During Construction</entry>
+		  <entry>The write count of all shared instances of this
+		  field made while the owning object was under
+		  construction</entry>
+		</row>
 
-                <row>
-                  <entry>Instances</entry>
-                  <entry>The number of shared objects that contain this
-                  field</entry>
-                </row>
+		<row>
+		  <entry>Instances</entry>
+		  <entry>The number of shared objects that contain this
+		  field</entry>
+		</row>
 
-                <row>
-                  <entry>Threads Involved</entry>
-                  <entry>The number of threads involved in accessing all
-                  shared instances of this field</entry>
-                </row>
+		<row>
+		  <entry>Threads Involved</entry>
+		  <entry>The number of threads involved in accessing all
+		  shared instances of this field</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -434,7 +497,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all the non-<code>static</code> fields accessed by more than one thread in
+	    Lists all the non-static fields accessed by more than one thread in
 	    the program that have a lock set.  A lock set guarantees that the
 	    field's data can not be invalidated by a race condition.  Provides
 	    some summary information about the number of reads and writes of
@@ -448,24 +511,24 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Instances</entry>
-                  <entry>The number of objects with a lock set on this field</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Instances</entry>
+		  <entry>The number of objects with a lock set on this field</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -479,7 +542,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all the non-<code>static</code> fields accessed by more than one thread in
+	    Lists all the non-static fields accessed by more than one thread in
 	    the program with an empty lock set.  An empty lock set means that
 	    Flashlight's lock set analysis could not find a common lock held
 	    each time this field is accessed.  Provides some summary information
@@ -493,24 +556,24 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Instances</entry>
-                  <entry>The number of objects with a lock set on this field</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Instances</entry>
+		  <entry>The number of objects with a lock set on this field</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -524,7 +587,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all the non-<code>static</code>, non-<code>final</code> fields accessed by more than one
+	    Lists all the non-static, non-final fields accessed by more than one
 	    thread.  Provides some summary information about the number of reads
 	    and writes of each field, as well as how many shared objects are
 	    created that contain this field.  Clicking on a field will open its
@@ -536,57 +599,57 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Reads</entry>
-                  <entry>The read count of all shared instances of this
-                  field</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Reads</entry>
+		  <entry>The read count of all shared instances of this
+		  field</entry>
+		</row>
 
-                <row>
-                  <entry>Writes</entry>
-                  <entry>The write count of all shared instances of this
-                  field</entry>
-                </row>
+		<row>
+		  <entry>Writes</entry>
+		  <entry>The write count of all shared instances of this
+		  field</entry>
+		</row>
 
-                <row>
-                  <entry>Reads During Construction</entry>
-                  <entry>The read count of all shared instances of this
-                  field made while the owning object was under
-                  construction</entry>
-                </row>
+		<row>
+		  <entry>Reads During Construction</entry>
+		  <entry>The read count of all shared instances of this
+		  field made while the owning object was under
+		  construction</entry>
+		</row>
 
-                <row>
-                  <entry>Writes During Construction</entry>
-                  <entry>The write count of all shared instances of this
-                  field made while the owning object was under
-                  construction</entry>
-                </row>
+		<row>
+		  <entry>Writes During Construction</entry>
+		  <entry>The write count of all shared instances of this
+		  field made while the owning object was under
+		  construction</entry>
+		</row>
 
-                <row>
-                  <entry>Instances</entry>
-                  <entry>The number of shared objects that contain this
-                  field</entry>
-                </row>
+		<row>
+		  <entry>Instances</entry>
+		  <entry>The number of shared objects that contain this
+		  field</entry>
+		</row>
 
-                <row>
-                  <entry>Threads Involved</entry>
-                  <entry>The number of threads involved in accessing all
-                  shared instances of this field</entry>
-                </row>
+		<row>
+		  <entry>Threads Involved</entry>
+		  <entry>The number of threads involved in accessing all
+		  shared instances of this field</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -600,7 +663,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all of the <code>static</code> fields in the program accessed by more than
+	    Lists all of the static fields in the program accessed by more than
 	    one thread, and the number of reads and writes made by each thread.
 	    Clicking on a field will open its declaration in the code view.
 	  </para>
@@ -610,34 +673,34 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Read Count</entry>
-                  <entry>The number of times this field was read in this thread</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Read Count</entry>
+		  <entry>The number of times this field was read in this thread</entry>
+		</row>
 
-                <row>
-                  <entry>Write Count</entry>
-                  <entry>The number of times this field was written in this thread </entry>
-                </row>
+		<row>
+		  <entry>Write Count</entry>
+		  <entry>The number of times this field was written in this thread </entry>
+		</row>
 
-                <row>
-                  <entry>Threads Involved</entry>
-                  <entry>The number of threads involved in accessing this resource </entry>
-                </row>
+		<row>
+		  <entry>Threads Involved</entry>
+		  <entry>The number of threads involved in accessing this resource </entry>
+		</row>
 
 	      </tbody>
 	    </tgroup>
@@ -652,7 +715,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all of the <code>static</code> fields in the program accessed by more than
+	    Lists all of the static fields in the program accessed by more than
 	    one thread that have a lock set, and the number of reads and writes
 	    made by each thread.  A lock set guarantees that the field's data
 	    cannot be invalidated by a race condition.  Clicking on a field will
@@ -664,24 +727,24 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Lock</entry>
-                  <entry>The identifier of a lock in this field's lock set</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Lock</entry>
+		  <entry>The identifier of a lock in this field's lock set</entry>
+		</row>
 
 	      </tbody>
 	    </tgroup>
@@ -696,7 +759,7 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all of the <code>static</code> fields in the program accessed by more than
+	    Lists all of the static fields in the program accessed by more than
 	    one thread that have an empty lock set, and the number of reads and
 	    writes made by each thread.  An empty lock set means that
 	    Flashlight's lock set analysis could not find a common lock held
@@ -709,19 +772,19 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
-                </row>
-                
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+		</row>
+		
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -735,10 +798,10 @@
 	</question>
 	<answer>
 	  <para>
-	    Lists all of the <code>static</code>, non-<code>final</code> fields
-	    in the program accessed by more than one thread, and the number of
-	    reads and writes made by each thread.  Clicking on a field will open
-	    its declarations in the code view.
+	    Lists all of the static, non-final fields in the program accessed by
+	    more than one thread, and the number of reads and writes made by
+	    each thread.  Clicking on a field will open its declarations in the
+	    code view.
 	  </para>
 	  <informaltable>
 	    <tgroup cols="3">
@@ -746,34 +809,34 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Read Count</entry>
-                  <entry>The number of times this field was read in this thread</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Read Count</entry>
+		  <entry>The number of times this field was read in this thread</entry>
+		</row>
 
-                <row>
-                  <entry>Write Count</entry>
-                  <entry>The number of times this field was written in this thread </entry>
-                </row>
+		<row>
+		  <entry>Write Count</entry>
+		  <entry>The number of times this field was written in this thread </entry>
+		</row>
 
-                <row>
-                  <entry>Threads Involved</entry>
-                  <entry>The number of threads involved in accessing this resource </entry>
-                </row>
+		<row>
+		  <entry>Threads Involved</entry>
+		  <entry>The number of threads involved in accessing this resource </entry>
+		</row>
 
 	      </tbody>
 	    </tgroup>
@@ -802,57 +865,57 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Reads</entry>
-                  <entry>The read count of all shared instances of this
-                  field</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Reads</entry>
+		  <entry>The read count of all shared instances of this
+		  field</entry>
+		</row>
 
-                <row>
-                  <entry>Writes</entry>
-                  <entry>The write count of all shared instances of this
-                  field</entry>
-                </row>
+		<row>
+		  <entry>Writes</entry>
+		  <entry>The write count of all shared instances of this
+		  field</entry>
+		</row>
 
-                <row>
-                  <entry>Reads During Construction</entry>
-                  <entry>The read count of all shared instances of this
-                  field made while the owning object was under
-                  construction</entry>
-                </row>
+		<row>
+		  <entry>Reads During Construction</entry>
+		  <entry>The read count of all shared instances of this
+		  field made while the owning object was under
+		  construction</entry>
+		</row>
 
-                <row>
-                  <entry>Writes During Construction</entry>
-                  <entry>The write count of all shared instances of this
-                  field made while the owning object was under
-                  construction</entry>
-                </row>
+		<row>
+		  <entry>Writes During Construction</entry>
+		  <entry>The write count of all shared instances of this
+		  field made while the owning object was under
+		  construction</entry>
+		</row>
 
-                <row>
-                  <entry>Instances</entry>
-                  <entry>The number of shared objects that contain this
-                  field</entry>
-                </row>
+		<row>
+		  <entry>Instances</entry>
+		  <entry>The number of shared objects that contain this
+		  field</entry>
+		</row>
 
-                <row>
-                  <entry>Threads Involved</entry>
-                  <entry>The number of threads involved in accessing all
-                  shared instances of this field</entry>
-                </row>
+		<row>
+		  <entry>Threads Involved</entry>
+		  <entry>The number of threads involved in accessing all
+		  shared instances of this field</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -876,30 +939,30 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Times Held</entry>
-                  <entry>The number of times the lock was held while this field
-                  was accessed</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Times Held</entry>
+		  <entry>The number of times the lock was held while this field
+		  was accessed</entry>
+		</row>
 
-                <row>
-                  <entry>Total Accesses</entry>
-                  <entry>The total number of accesses made to this field</entry>
-                </row>
+		<row>
+		  <entry>Total Accesses</entry>
+		  <entry>The total number of accesses made to this field</entry>
+		</row>
 
 		<row>
 		  <entry>%</entry>
@@ -935,29 +998,29 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Threads</entry>
-                  <entry>The number of threads that indirectly access objects of this class</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Threads</entry>
+		  <entry>The number of threads that indirectly access objects of this class</entry>
+		</row>
 
-                <row>
-                  <entry>Accesses</entry>
-                  <entry>The number of indirect accesses made to objects of this class</entry>
-                </row>
+		<row>
+		  <entry>Accesses</entry>
+		  <entry>The number of indirect accesses made to objects of this class</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -983,36 +1046,36 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Table</entry>
-                </row>
-                
-                <row>
-                  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Lock</entry>
-                  <entry>A lock identifier</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Table</entry>
+		</row>
+		
+		<row>
+		  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Lock</entry>
+		  <entry>A lock identifier</entry>
+		</row>
 
-                <row>
-                  <entry>Times Acquired</entry>
-                  <entry>The number of times this lock was acquired</entry>
-                </row>
+		<row>
+		  <entry>Times Acquired</entry>
+		  <entry>The number of times this lock was acquired</entry>
+		</row>
 
-                <row>
-                  <entry>Total Block Time</entry>
-                  <entry>The total amount of time that threads spent waiting for
-                  this lock</entry>
-                </row>
+		<row>
+		  <entry>Total Block Time</entry>
+		  <entry>The total amount of time that threads spent waiting for
+		  this lock</entry>
+		</row>
 
-                <row>
-                  <entry>Average Block Time</entry>
-                  <entry>The average amount of time a thread waits before the
-                  lock was acquired</entry>
-                </row>
+		<row>
+		  <entry>Average Block Time</entry>
+		  <entry>The average amount of time a thread waits before the
+		  lock was acquired</entry>
+		</row>
 		
 	      </tbody>
 	    </tgroup>
@@ -1027,11 +1090,11 @@
 	</question>
 	<answer>
 	  <para>
-      	    Deadlocks can occur when two different threads in a program acquire
-      	    a set of locks in different order.  Flashlight tries to detect
-      	    potential deadlocks by constructing a directed graph where each edge
-      	    points to an acquired lock from a lock already held.  This query
-      	    shows all of the potential cycles in that graph.	    
+	    Deadlocks can occur when two different threads in a program acquire
+	    a set of locks in different order.  Flashlight tries to detect
+	    potential deadlocks by constructing a directed graph where each edge
+	    points to an acquired lock from a lock already held.  This query
+	    shows all of the potential cycles in that graph.
 	  </para>
 	  <para>
 	    For example, imagine that a program has locks 1, 2, and 3.  In
@@ -1053,43 +1116,43 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Component</emphasis> &#8594; <emphasis>LockHeld</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Lock Acquired</entry>
-                  <entry>The lock acquired while the given lock is already held
-                  in this component's cycle</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Component</emphasis> &#8594; <emphasis>LockHeld</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Lock Acquired</entry>
+		  <entry>The lock acquired while the given lock is already held
+		  in this component's cycle</entry>
+		</row>
 
-                <row>
-                  <entry>Count</entry>
-                  <entry>The number of times this lock was acquired while the
-                  other was held</entry>
-                </row>
+		<row>
+		  <entry>Count</entry>
+		  <entry>The number of times this lock was acquired while the
+		  other was held</entry>
+		</row>
 
-                <row>
-                  <entry>FirstTime</entry>
-                  <entry>The first time this lock was acquired while the other
-                  was held</entry>
-                </row>
+		<row>
+		  <entry>FirstTime</entry>
+		  <entry>The first time this lock was acquired while the other
+		  was held</entry>
+		</row>
 
-                <row>
-                  <entry>LastTime</entry>
-                  <entry>The last time this lock was acquired while the other
-                  was held</entry>
-                </row>
+		<row>
+		  <entry>LastTime</entry>
+		  <entry>The last time this lock was acquired while the other
+		  was held</entry>
+		</row>
 
 	      </tbody>
 	    </tgroup>
@@ -1113,25 +1176,25 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Object</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
-                </row>
-                
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Accesses</entry>
-                  <entry>The number of times this object was indirectly accessed
-                  in this thread</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Object</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Accesses</entry>
+		  <entry>The number of times this object was indirectly accessed
+		  in this thread</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -1174,9 +1237,9 @@
 	</question>
 	<answer>
 	  <para>
-	  Generates a stack trace of the method calls leading up to this lock
-	  acquisition, from most to least recent.  Clicking on each line will
-	  open the method call in the code view.
+	    Generates a stack trace of the method calls leading up to this lock
+	    acquisition, from most to least recent.  Clicking on each line will
+	    open the method call in the code view.
 	  </para>
 	</answer>
       </qandaentry>
@@ -1197,41 +1260,41 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+		</row>
 
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Reads</entry>
-                  <entry>The read count of this field</entry>
-                </row>
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Reads</entry>
+		  <entry>The read count of this field</entry>
+		</row>
 
-                <row>
-                  <entry>Writes</entry>
-                  <entry>The write count of this field</entry>
-                </row>
+		<row>
+		  <entry>Writes</entry>
+		  <entry>The write count of this field</entry>
+		</row>
 
-                <row>
-                  <entry>Reads During Construction</entry>
-                  <entry>The read count of this field made while the owning
-                  object was under construction</entry>
-                </row>
+		<row>
+		  <entry>Reads During Construction</entry>
+		  <entry>The read count of this field made while the owning
+		  object was under construction</entry>
+		</row>
 
-                <row>
-                  <entry>Writes During Construction</entry>
-                  <entry>The write count of this field made while the owning
-                  object was under construction</entry>
-                </row>
+		<row>
+		  <entry>Writes During Construction</entry>
+		  <entry>The write count of this field made while the owning
+		  object was under construction</entry>
+		</row>
 
 	      </tbody>
 	    </tgroup>
@@ -1257,29 +1320,29 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Field</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+		</row>
 
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Time</entry>
-                  <entry>The time this field access occurred</entry>
-                </row>
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Time</entry>
+		  <entry>The time this field access occurred</entry>
+		</row>
 
-                <row>
-                  <entry>Access</entry>
-                  <entry>The type of field access, either a Read or a Write</entry>
-                </row>
+		<row>
+		  <entry>Access</entry>
+		  <entry>The type of field access, either a Read or a Write</entry>
+		</row>
 
 	      </tbody>
 	    </tgroup>
@@ -1304,24 +1367,24 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Table</entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Table</entry>
+		</row>
 
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Thread</entry>
-                  <entry>The thread this object was indirectly accessed in</entry>
-                </row>
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Thread</entry>
+		  <entry>The thread this object was indirectly accessed in</entry>
+		</row>
 
-                <row>
-                  <entry>Time</entry>
-                  <entry>The time this object was indirectly accessed</entry>
-                </row>
+		<row>
+		  <entry>Time</entry>
+		  <entry>The time this object was indirectly accessed</entry>
+		</row>
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -1344,30 +1407,30 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis> &#8594; <emphasis>Time</emphasis></entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis> &#8594; <emphasis>Time</emphasis></entry>
+		</row>
 
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Locks Already Held</entry>
-                  <entry>The number of locks already held when we acquire the
-                  lock at this time</entry>
-                </row>
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Locks Already Held</entry>
+		  <entry>The number of locks already held when we acquire the
+		  lock at this time</entry>
+		</row>
 
-                <row>
-                  <entry>ThreadName</entry>
-                  <entry>The name of the thread we acquire the lock in</entry>
-                </row>
+		<row>
+		  <entry>ThreadName</entry>
+		  <entry>The name of the thread we acquire the lock in</entry>
+		</row>
 
 	      </tbody>
 	    </tgroup>
@@ -1392,19 +1455,19 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
-                </row>
-                
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+		</row>
+		
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -1428,19 +1491,19 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
-                </row>
-                
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+		</row>
+		
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -1465,25 +1528,25 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+		</row>
 
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Most Locks Already Held</entry>
-                  <entry>The maximum number of locks already held when we
-                  acquire the lock at this point</entry>
-                </row>
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Most Locks Already Held</entry>
+		  <entry>The maximum number of locks already held when we
+		  acquire the lock at this point</entry>
+		</row>
 
 	      </tbody>
 	    </tgroup>
@@ -1508,19 +1571,19 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
-                </row>
-                
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+		</row>
+		
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -1544,19 +1607,19 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
-                </row>
-                
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+		</row>
+		
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -1580,19 +1643,19 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
-                </row>
-                
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+		</row>
+		
 	      </tbody>
 	    </tgroup>
 	  </informaltable>
@@ -1620,32 +1683,32 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis></entry>
+		</row>
 
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>Type</entry>
-                  <entry>The type of lock access, either Intrinsic,
-                  java.util.concurrent Lock, java.util.concurrent
-                  ReadWriteLock.readLock(), or java.util.concurrent
-                  ReadWriteLock.writeLock()</entry>
-                </row>
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Type</entry>
+		  <entry>The type of lock access, either Intrinsic,
+		  java.util.concurrent Lock, java.util.concurrent
+		  ReadWriteLock.readLock(), or java.util.concurrent
+		  ReadWriteLock.writeLock()</entry>
+		</row>
 
-                <row>
-                  <entry>ThreadName</entry>
-                  <entry>The name of the thread we acquire the lock in</entry>
-                </row>
+		<row>
+		  <entry>ThreadName</entry>
+		  <entry>The name of the thread we acquire the lock in</entry>
+		</row>
 
 	      </tbody>
 	    </tgroup>
@@ -1673,42 +1736,42 @@
 	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
 	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
 
-              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
 
-              <tbody>
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
-                  <entry>Tree-Table</entry>
-                </row>
-                
-                <row>
-                  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-                  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
-                </row>
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Tree-Table</entry>
+		</row>
+		
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
+		  <entry><emphasis>Package</emphasis> &#8594; <emphasis>Class</emphasis> &#8594; <emphasis>Line</emphasis> &#8594; <emphasis>Thread</emphasis></entry>
+		</row>
 
-                <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
-	          <entry>BlockTime</entry>
-                  <entry>The amount of time the thread spends blocking while
-                  acquiring this lock</entry>
-                </row>
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>BlockTime</entry>
+		  <entry>The amount of time the thread spends blocking while
+		  acquiring this lock</entry>
+		</row>
 
-                <row>
-                  <entry>Times Acquired</entry>
-                  <entry>The number of times the lock is acquired in this thread</entry>
-                </row>
+		<row>
+		  <entry>Times Acquired</entry>
+		  <entry>The number of times the lock is acquired in this thread</entry>
+		</row>
 
-                <row>
-                  <entry>Total Block Time</entry>
-                  <entry>The total amount of time spent blocking while the
-                  resource waits to acquire this lock</entry>
-                </row>
+		<row>
+		  <entry>Total Block Time</entry>
+		  <entry>The total amount of time spent blocking while the
+		  resource waits to acquire this lock</entry>
+		</row>
 
-                <row>
-                  <entry>Average Block Time</entry>
-                  <entry>The average amount of time this thread spends waiting
-                  for this lock</entry>
-                </row>
+		<row>
+		  <entry>Average Block Time</entry>
+		  <entry>The average amount of time this thread spends waiting
+		  for this lock</entry>
+		</row>
 
 	      </tbody>
 	    </tgroup>
@@ -1716,4 +1779,5 @@
 	</answer>
       </qandaentry>
     </qandaset>
+  </sect2>
 </sect1>
