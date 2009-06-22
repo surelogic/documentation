@@ -6,7 +6,7 @@
 <sect1 id="sec-license-management">
   <title>License management</title>
 
-  <para>Sierra is commercial software and a license is required to use
+  <para>Flashlight is commercial software and a license is required to use
   it. Licenses are obtained from SureLogic and expire after some period
   of time. Lack of a license will prohibit you from running queries or
   creating new Flashlight runs. Selecting <guimenuitem>Manage SureLogic
@@ -26,7 +26,7 @@
     </mediaobject>
   </figure>
 
-  <para>By default license installation requires internet access.
+  <para>By default, license installation requires internet access.
   SureLogic can, in special cases, provide licenses that do not require
   internet access. Further use of the product does not require internet
   access. If a manual uninstall is done, before license expiration,
@@ -44,7 +44,7 @@
   location or one per organizational entity.</para>
 
   <para>If the Flashlight Eclipse plug-in does not have a valid license
-  it will not effect the Eclipse installation that Flashlight is
+  it will not affect the Eclipse installation that Flashlight is
   installed into. The IDE will load and function normally, but when
   Flashlight functions are executed they will fail noting the lack of a
   license. Serviceability functions of the tool (e.g., sending problem

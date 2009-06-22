@@ -70,25 +70,25 @@
       events from the running program:
       
         <itemizedlist>
-          <listitem><emphasis><guilabel>Output
-          type</guilabel></emphasis> determines whether the recorded
+          <listitem><guilabel>Output
+          type</guilabel> determines whether the recorded
           information should be stored as an XML file, or as binary
           data.</listitem>
 
-          <listitem><emphasis><guilabel>Compress
-          output</guilabel></emphasis> controls whether the data file is
+          <listitem><guilabel>Compress
+          output</guilabel> controls whether the data file is
           compressed with gzip.</listitem>
 
           <listitem>Flashlight has a 'refinery' component that attempts
           to remove data known to be local to a single thread, such as
           an object that is created and garbage collected within a
-          single method invocation. <emphasis><guilabel>Use refinery to
-          remove thread-local fields</guilabel></emphasis> turns the
+          single method invocation. <guilabel>Use refinery to
+          remove thread-local fields</guilabel> turns the
           refinery off and on, and you can also adjust the queue sizes
           that it uses to hold onto events.</listitem>
 
-          <listitem><emphasis><guilabel>Use a spy thread to detect
-          program termination</guilabel></emphasis> causes Flashlight to
+          <listitem><guilabel>Use a spy thread to detect
+          program termination</guilabel> causes Flashlight to
           spawn a thread on program start-up that periodically checks to
           see if any non-daemon threads are running and terminates the
           program when none are.  It is not always necessary to run the
@@ -105,8 +105,8 @@
     
     <para>
       A sufficiently large Flashlight run may contain millions of
-      objects.  <emphasis><guilabel>Scan window
-      size</guilabel></emphasis> determines how many of these objects we
+      objects.  <guilabel>Scan window
+      size</guilabel> determines how many of these objects we
       look at in one pass of the data file. Decreasing this number may
       allow you to prep a run with lower memory utilization at the cost
       of a slightly longer prep time.  You can also specify whether or
@@ -119,7 +119,7 @@
     <title><guilabel>Result querying</guilabel></title>
     
     <para>
-      <emphasis><guilabel>Maximum rows returned</guilabel></emphasis>
+      <guilabel>Maximum rows returned</guilabel>
       lets you specify how many results you want to see returned by a
       single query.  You may also change whether you are prompted once
       you have run enough queries to use up a significant amount of

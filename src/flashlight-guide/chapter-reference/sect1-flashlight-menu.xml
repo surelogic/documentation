@@ -13,7 +13,7 @@
     </mediaobject>
   </figure>
 
-  <para>The Flashlight menu appears as an item on the Eclipse workspace
+  <para>The <guimenu>Flashlight</guimenu> menu appears as an item on the Eclipse workspace
   main menu. This menu provides direct access to common commands. The
   menu is divided into three sections. The top section contains a
   shortcut to the <guilabel>Flashlight</guilabel> perspective. The
@@ -26,7 +26,7 @@
   <itemizedlist>
     <listitem>
       <formalpara>
-        <title>Open Flashlight Perspective</title>
+        <title><guimenuitem>Open Flashlight Perspective</guimenuitem></title>
         <para>This menu choice opens the <guilabel>Flashlight</guilabel>
         perspective. This perspective is useful for examining and
         querying collected run data. This perspective may also be opened
@@ -36,26 +36,26 @@
     </listitem>
     <listitem>
       <formalpara>
-        <title>Send Tip for Improvement</title>
+        <title><guimenuitem>Send Tip for Improvement</guimenuitem></title>
         <para>This command opens a dialog to allow entry of a suggestion
-        by the user to improve the Sierra tool. For more information
+        by the user to improve Flashlight. For more information
         please see <xref linkend="sec-bugs-and-tips"/>.</para>
       </formalpara>
     </listitem>
     <listitem>
       <formalpara>
-        <title>Send Problem Report</title>
+        <title><guimenuitem>Send Problem Report</guimenuitem></title>
         <para>This command opens a dialog to allow entry of a problem
-        report by the user about the Sierra tool. For more information
+        report by the user about Flashlight. For more information
         please see <xref linkend="sec-bugs-and-tips"/>.</para>
       </formalpara>
     </listitem>
     <listitem>
       <formalpara>
-        <title>Manage SureLogic Licenses</title>
+        <title><guimenuitem>Manage SureLogic Licenses</guimenuitem></title>
         <para>This command opens the SureLogic license management
         dialog. This dialog allows the user to install, view, and
-        uninstall licenses for Sierra and other SureLogic tools. For
+        uninstall licenses for Flashlight and other SureLogic tools. For
         more information see <xref linkend="sec-license-management"
         />.</para>
       </formalpara>

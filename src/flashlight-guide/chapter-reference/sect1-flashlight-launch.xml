@@ -252,7 +252,7 @@
       <itemizedlist>
         <listitem>
           <formalpara>
-            <title>Instrument all field accesses</title>
+            <title><guilabel>Instrument all field accesses</guilabel></title>
             
             <para>Flashlight instruments all the field accesses in
             classes that have instrumentation.</para>
@@ -261,8 +261,8 @@
 
         <listitem>
           <formalpara>
-            <title>Instrument accesses to fields declared in the
-            selected packages only</title>
+            <title><guilabel>Instrument accesses to fields declared in the
+            selected packages only</guilabel></title>
 
             <para>Flashlight instruments only those field accesses that
             <emphasis>refer to</emphasis> a field declared in a class
@@ -274,8 +274,8 @@
 
         <listitem>
           <formalpara>
-            <title>Instrument accesses to fields used in the
-            selected packages only</title>
+            <title><guilabel>Instrument accesses to fields used in the
+            selected packages only</guilabel></title>
 
             <para>Flashlight instruments only those field accesses that
             <emphasis>occur in</emphasis> a class declared in one of the
