@@ -1369,8 +1369,8 @@ public class Foo {
 
 		<row>
 		  <entry>Location</entry>
-		  <entry>The location of this method invocation, or access.
-		  This is generally the enclosing method.</entry>
+		  <entry>The location of this method invocation, or lock
+		  acquisition.  This is generally the enclosing method.</entry>
 		</row>
 
 		<row>
