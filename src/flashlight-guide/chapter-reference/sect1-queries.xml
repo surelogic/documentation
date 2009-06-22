@@ -37,7 +37,8 @@
 	they appear in the declaring file.  As an example, in the following
 	program listing three classes are declared: <classname>Foo</classname>,
 	<classname>Foo$Bar</classname>, and <classname>Foo$1</classname>, all of
-	them in <package>(default)</package>.</listitem>
+	them in <package>(default)</package>.
+	
 <programlisting><![CDATA[import java.util.Comparator;
 
 public class Foo {
@@ -50,6 +51,7 @@ public class Foo {
 		}
 	};
 }]]></programlisting>
+	</listitem>
       </varlistentry>
       <varlistentry>
 	<term>Object and Lock</term> <listitem>Every object created in the java
@@ -1127,7 +1129,7 @@ public class Foo {
 		
 		<row>
 		  <entry spanname="full-header"><emphasis role="strong">Tree Structure</emphasis></entry>
-		  <entry><emphasis>Component</emphasis> &#8594; <emphasis>LockHeld</emphasis></entry>
+		  <entry><emphasis>Cycle</emphasis> &#8594; <emphasis>LockHeld</emphasis></entry>
 		</row>
 		
 		<row>
