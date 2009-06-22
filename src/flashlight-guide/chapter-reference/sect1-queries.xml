@@ -1300,6 +1300,12 @@ public class Foo {
 		</row>
 
 		<row>
+		  <entry>Location</entry>
+		  <entry>The location of this method invocation, or access.
+		  This is generally the enclosing method.</entry>
+		</row>
+
+		<row>
 		  <entry>File</entry>
 		  <entry>The name of the source file this method invocation or
 		  access occurred in</entry>
@@ -1361,6 +1367,11 @@ public class Foo {
 		  lock acquisition occurred in</entry>
 		</row>
 
+		<row>
+		  <entry>Location</entry>
+		  <entry>The location of this method invocation, or access.
+		  This is generally the enclosing method.</entry>
+		</row>
 
 		<row>
 		  <entry>Line</entry>
