@@ -1216,6 +1216,48 @@ public class Foo {
 	    entry will open up the line that acquired that lock in the code
 	    view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Table</entry>
+                </row>
+
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+	          <entry>Lock</entry>
+                  <entry>The lock acquired in this line of the trace</entry>
+                </row>
+
+                <row>
+                  <entry>Package</entry>
+                  <entry>The package this lock was acquired in</entry>
+                </row>
+
+		<row>
+		  <entry>Class</entry>
+		  <entry>The class this lock was acquired in</entry>
+		</row>
+
+		<row>
+		  <entry>Line</entry>
+		  <entry>The line number this lock was acquired at</entry>
+		</row>
+		
+                <row>
+                  <entry>Time</entry>
+                  <entry>The time this lock was acquired</entry>
+                </row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -1230,6 +1272,48 @@ public class Foo {
 	    access or method call, from most to least recent.  Clicking on each
 	    line will open the method call in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Table</entry>
+                </row>
+
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+                  <entry>Package</entry>
+                  <entry>The package this method invocation or access occurred
+                  in</entry>
+                </row>
+
+		<row>
+		  <entry>Class</entry>
+		  <entry>The class this method invocation or access occurred
+		  in</entry>
+		</row>
+
+		<row>
+		  <entry>File</entry>
+		  <entry>The name of the source file this method invocation or
+		  access occurred in</entry>
+		</row>
+
+
+		<row>
+		  <entry>Line</entry>
+		  <entry>The line number this method invocation or access occurred at</entry>
+		</row>
+		
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
@@ -1244,6 +1328,49 @@ public class Foo {
 	    acquisition, from most to least recent.  Clicking on each line will
 	    open the method call in the code view.
 	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+              <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+              <tbody>
+                <row>
+                  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+                  <entry>Table</entry>
+                </row>
+
+                <row>
+                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+                  <entry>Package</entry>
+                  <entry>The package this method invocation or lock acquisition occurred
+                  in</entry>
+                </row>
+
+		<row>
+		  <entry>Class</entry>
+		  <entry>The class this method invocation or lock acquisition
+		  occurred in</entry>
+		</row>
+
+		<row>
+		  <entry>File</entry>
+		  <entry>The name of the source file this method invocation or
+		  lock acquisition occurred in</entry>
+		</row>
+
+
+		<row>
+		  <entry>Line</entry>
+		  <entry>The line number this method invocation or lock
+		  acquisition occurred at</entry>
+		</row>
+		
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
 	</answer>
       </qandaentry>
       <qandaentry>
