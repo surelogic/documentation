@@ -54,18 +54,27 @@ public class Foo {
 	</listitem>
       </varlistentry>
       <varlistentry>
-	<term>Object and Lock</term> <listitem>Every object created in the java
-	program is given a numeric identifier which is used to refer to it for
-	the duration of the program.  We display objects as their numeric
-	identifier prefixed by their class name.  For example, if the Comparator
-	in the above listing of code was assigned the number 5, then the object
-	would appear as <varname>Foo$1-5</varname>.</listitem> When Flashlight
-	refers to a lock, it refers to it by its object identifier.
+	<term>Object and Lock</term>
+	<listitem>Every object created in the java program is given a numeric
+	identifier which is used to refer to it for the duration of the program.
+	We display objects as their numeric identifier prefixed by their class
+	name.  For example, if the Comparator in the above listing of code was
+	assigned the number 5, then the object would appear as
+	<varname>Foo$1-5</varname>. When Flashlight refers to a lock, it refers
+	to it by its object identifier.</listitem>
       </varlistentry>
       <varlistentry>
 	<term>Thread</term>
 	<listitem>Threads are referred to by their name, as returned by
 	<function>Thread.getName()</function>.</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>Method</term>
+	<listitem>Methods are generally referred to by their name.  Flashlight
+	also displays object and class initializers as methods in stack traces
+	and the like.  A constructor is displayed as
+	<function>&lt;init&gt;</function>, and a class initializer is displayed
+	as <function>&lt;clinit&gt;</function>.</listitem>
       </varlistentry>
     </variablelist>
   </sect2>
