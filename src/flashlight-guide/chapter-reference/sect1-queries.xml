@@ -9,7 +9,7 @@
     Flashlight ships with a large number of queries accessible through the
     Flashlight perspective.  This section documents the content and format of
     each query.  For more information about how to use the Flashlight
-    perspective, see <xref linkend="flashlight-perspective" />.  For an tutorial
+    perspective, see <xref linkend="flashlight-perspective" />.  For a tutorial
     on how to use the provided queries effectively, see <xref
     linkend="sec-tutorial" />.
   </para>
@@ -68,6 +68,7 @@ public class Foo {
     </variablelist>
   </sect2>
   <sect2>
+    <title>Reference</title>
     <qandaset defaultlabel="none" >
       <qandaentry>
 	<question>
@@ -1094,7 +1095,7 @@ public class Foo {
 	    a set of locks in different order.  Flashlight tries to detect
 	    potential deadlocks by constructing a directed graph where each edge
 	    points to an acquired lock from a lock already held.  This query
-	    shows all of the potential cycles in that graph.
+	    shows all of the potential cycles in that graph.tem
 	  </para>
 	  <para>
 	    For example, imagine that a program has locks 1, 2, and 3.  In
