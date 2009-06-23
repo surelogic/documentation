@@ -177,20 +177,5 @@
     <structfield>f_lock</structfield>.  When this happens, the program will
     deadlock.
   </para>
-  <!--      -->
-  <para>TODO: Show the query editor. None of these queries are special
-  and they can be edited. Select <menuchoice><guimenu>Window</guimenu>
-  <guisubmenu>Show View</guisubmenu> <guimenuitem>Flashlight Query
-  Editor</guimenuitem></menuchoice> from the Eclipse main menu to open
-  the <guilabel>Flashlight Query Editor</guilabel> view. This view is
-  shown in <xref linkend="fig-tutorial-query-editor" />.</para>
-  <!--      -->
-  <figure id="fig-tutorial-query-editor">
-    <title>The query to show where a thread is holding a lock and acquires another</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-query-editor.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
+
 </sect2>
