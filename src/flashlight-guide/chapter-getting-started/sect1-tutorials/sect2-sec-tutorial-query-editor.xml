@@ -46,7 +46,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-query-editor-query-results">
-    <title>Result of running 'What fields (non-static) are shared?'</title>
+    <title>Result of running <emphasis>What fields (non-static) are shared?</emphasis></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-query-editor-query-results.png" />
@@ -125,8 +125,8 @@
     will then export this list to a document.  In the <guilabel>Query
     Editor</guilabel> view, click the <guiicon><inlinegraphic
     fileref="images/plus.png" /></guiicon> button to create a new query.  Edit
-    the <guilabel>Description</guilabel> We'll call this query 'What methods
-    directly access this field?'  Leave the identifier as it is.  Flashlight
+    the <guilabel>Description</guilabel>: We'll call this query <userinput>What methods
+    directly access this field?</userinput>  Leave the identifier as it is.  Flashlight
     generates a new one every time you create a new query, and there isn't
     generally a need to change it.  Go ahead and check the box to indicate that
     we want to be able to see this in the query menu, but don't check the box to
@@ -157,18 +157,18 @@ ORDER BY 1,2,3
     view and get a pop-up asking us to fill in a FieldId as seen in <xref
     linkend="fig-tutorial-query-editor-choose-sub-query" />.  Manually typing in
     a field id isn't very useful, though.  What we really want is to call this
-    from another query that can fill it in for us.  Go ahead and select 'What
-    fields (non-static) are shared?' again and click on its
-    <guilabel>Sub-Queries</guilabel> tab.  You should see a list of the two
+    from another query that can fill it in for us.  Go ahead and select <emphasis>What
+    fields (non-static) are shared?</emphasis> again and click on its
+    <guilabel>Sub-Queries</guilabel> tab.  You should see a list of two
     queries here.  We are going to add another.  Click on the
     <guiicon><inlinegraphic fileref="images/plus.png" /></guiicon> button in
-    this tab and check our new query, 'What methods directly access this field?'
+    this tab and check our new query, <emphasis>What methods directly access this field?</emphasis>
     The <guilabel>Sub-Queries</guilabel> tab should now look like <xref
     linkend="fig-tutorial-query-editor-sub-queries" />
   </para>
     <figure id="fig-tutorial-query-editor-choose-sub-query">
-    <title>Adding a new sub-query to 'What fields (non-static) are
-    shared?'</title>
+    <title>Adding a new sub-query to <emphasis>What fields (non-static) are
+    shared?</emphasis></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-query-editor-choose-sub-query.png" />
@@ -176,7 +176,7 @@ ORDER BY 1,2,3
     </mediaobject>
   </figure>
     <figure id="fig-tutorial-query-editor-sub-queries">
-    <title>The sub-queries of 'What fields (non-static) are shared?'</title>
+    <title>The sub-queries of <emphasis>What fields (non-static) are shared?</emphasis></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-query-editor-sub-queries.png" />
@@ -186,9 +186,9 @@ ORDER BY 1,2,3
   <para>
     To wrap up, let's try out our new query.  Choose the run we prepared from
     the PlayerUI tutorial in the <guilabel>Run View</guilabel> again, and run
-    the query 'What fields (non-static) are shared?'  Now pick a field from the
-    query results, and run 'What methods directly access this field?'  We'll go
-    ahead and export these results to a file we could import into a spreadsheet.
+    the query <emphasis>What fields (non-static) are shared?</emphasis>  Now pick a field from the
+    query results, and run <emphasis>What methods directly access this field?</emphasis>  We'll go
+    ahead and export these results to a file we can later import into a spreadsheet.
     Choose <guimenuitem>Export&hellip;</guimenuitem> in the <guilabel>Query
     Results</guilabel> view menu, and export a CSV file to a location of your
     choice.  Shown in <xref
@@ -199,7 +199,7 @@ ORDER BY 1,2,3
     editor.
   </para>
   <figure id="fig-tutorial-query-editor-new-query-results">
-    <title>Exporting the results of 'What methods directly access this field?'</title>
+    <title>Exporting the results of <emphasis>What methods directly access this field?</emphasis></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-query-editor-new-query-results.png" />
@@ -207,8 +207,8 @@ ORDER BY 1,2,3
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-query-editor-imported-results">
-    <title>Importing the results of 'What methods directly access this
-    field?'</title>
+    <title>Importing the results of <emphasis>What methods directly access this
+    field?</emphasis></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-query-editor-imported-results.png" />
