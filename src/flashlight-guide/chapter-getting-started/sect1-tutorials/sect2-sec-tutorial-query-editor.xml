@@ -9,8 +9,9 @@
   <para>
     The set of queries that ship with Flashlight are intended to be sufficient
     for the task of inspecting the results.  If you have suggestions for queries
-    that you think would be useful, please submit them using <xref
-    linkend="sec-bugs-and-tips" /> or by emailing
+    that you think would be useful, please submit them using the <guimenuitem>Send
+    Tip for Improvement</guimenuitem> command (see <xref
+    linkend="sec-bugs-and-tips" />) or by emailing
     <email>support@surelogic.com</email>.  You may nevertheless encounter a
     situation where you wish to create a custom query or modify an existing one,
     perhaps with the intention of exporting the data to a spreadsheet.  You can
@@ -21,8 +22,8 @@
 
   <para>
     From the Flashlight perspective, add the <guilabel>Query Editor</guilabel>
-    view using <menuchoice><guimenu>Window</guimenu><guimenu>Show
-    View</guimenu><guimenuitem>Other&hellip;</guimenuitem></menuchoice> and
+    view using <menuchoice><guimenu>Window</guimenu><guisubmenu>Show
+    View</guisubmenu><guimenuitem>Other&hellip;</guimenuitem></menuchoice> and
     selecting <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Query
     Editor</guimenuitem></menuchoice>.  You should see a view that contains a
     list of queries on the left.  Click on <guilabel>What fields (non-static)
@@ -55,47 +56,66 @@
 
   <para>
     The above figure displays a standard SQL query that displays some summary
-    information about shared fields in a flashlight program.  It does this by
+    information about shared fields in a Flashlight-instrumented program.  It does this by
     selecting information from the embedded database created when a Flashlight
-    run is prepared.  For a complete reference as to what Derby&mdash; the
-    database Flashlight uses&mdash; accepts as valid SQL, see the <ulink
+    run is prepared.  For a complete reference as to what Derby&mdash;the
+    database Flashlight uses&mdash;accepts as valid SQL, see the <ulink
     url="http://db.apache.org/derby/docs/dev/ref/ref-single.html" >Derby
     Reference Manual</ulink>.  You may have noticed that the column labels in
     this query are a little odd, and that they don't quite match up with what
     the labels look like in the query results.  Flashlight allows you to provide
     formatting clues to the <guilabel>Query Results</guilabel> view by adding
-    suffixes to your column labels.  These suffixes begin with __ followed by
-    any number of special tokens, some of which are:
+    suffixes to your column labels.  These suffixes begin with <literal>__</literal>
+    (two underscore characters) followed by
+    any number of special tokens, including
   </para>
+  
   <itemizedlist>
     <listitem>
-      Add (l),(r),(c) in order to left, right, or center-justify the column.
+      <literal>(l)</literal> to left justify the text in the column.
     </listitem>
+
     <listitem>
-      Add the | symbol in order to make a tree-table.  Everything preceding the
-      | is considered to be part of the tree portion.  In the above example the
+      <literal>(r)</literal> to right justify the text in the column.
+    </listitem>
+
+    <listitem>
+      <literal>(c)</literal> to center justify the text in the column.
+    </listitem>
+
+    <listitem>
+      <literal>|</literal> to make a tree-table.  Everything preceding the
+      <literal>|</literal> is considered to be part of the tree portion.  In the above example, the
       package, class, and field names are considered part of the tree. You may
-      also place a ] on any of the columns comprising the tree in order to tell
+      also place a <literal>]</literal> on any of the columns comprising the tree to tell
       the <guilabel>Query Results</guilabel> view to keep part of the tree
       collapsed by default when it displays the results.
     </listitem>
+    
     <listitem>
-      In a tree-table, you can display the sum, count, or max of the table
-      underneath any node of the tree using the syntax (op on colnum,
-      colnum...).  For example, (count on 2,3) would display the number of rows
-      underneath each node in the second and third column of the tree.
+      <literal>(<replaceable>op</replaceable> on <replaceable>column<subscript>1</subscript></replaceable>, &hellip;, <replaceable>column<subscript>n</subscript></replaceable>)</literal>,
+      where <replaceable>op</replaceable> is one of <literal>sum</literal>,
+      <literal>count</literal>, or <literal>max</literal>, to display
+      the sum, count, or maximum of the collapsed values in each specified column
+      in a tree-table.  For example, <literal>(count on 2,3)</literal> would display the number of rows
+      underneath each node in the second and third columns of the tree-table.
     </listitem>
+    
     <listitem>
-      Sometimes the children of a query need an identifier that can't be
-      displayed prettily.  For example, 'What are the individual instances of
-      this non-static field?' is a sub-query of 'What fields (non-static) are
-      shared?', and it needs the numeric id of the field in order to run.  The
+      <literal>(hide)</literal> to prevent the selected database field from being
+      displayed in the results.  
+      Sometimes the children of a query need an identifier that cannot be
+      displayed prettily.  For example, <emphasis>What are the individual instances of
+      this non-static field?</emphasis> is a sub-query of <emphasis>What fields (non-static) are
+      shared?</emphasis>, and it needs the numeric id of the field to run.  The
       latter query displays the field name, and hides the field id using the
-      (hide) token.
+      <literal>(hide)</literal> token.
     </listitem>
+    
     <listitem>
-      Add ('image name') in order to show a picture next to the row's text.
-      Flashlight uses 'package.gif' and 'class.gif' extensively.
+      <literal>('<replaceable>image name</replaceable>')</literal> to display
+      an image next to the row's text.
+      Flashlight uses <literal>('package.gif')</literal> and <literal>('class.gif')</literal> extensively.
     </listitem>
   </itemizedlist>
 
