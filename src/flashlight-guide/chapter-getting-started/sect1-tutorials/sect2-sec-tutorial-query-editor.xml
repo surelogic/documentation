@@ -124,7 +124,7 @@
     produces a list of all of the methods that directly access the field.  We
     will then export this list to a document.  In the <guilabel>Query
     Editor</guilabel> view, click the <guiicon><inlinegraphic
-    fileref="images/plus.gif" /></guiicon> button to create a new query.  Edit
+    fileref="images/plus.png" /></guiicon> button to create a new query.  Edit
     the <guilabel>Description</guilabel> We'll call this query 'What methods
     directly access this field?'  Leave the identifier as it is.  Flashlight
     generates a new one every time you create a new query, and there isn't
@@ -152,18 +152,18 @@ ORDER BY 1,2,3
   </figure>
 
   <para>
-    We now have a fully working query.  We could even double-click the entry in
-    the <guilabel>Queries</guilabel> tab of the <guilabel>Query
-    Editor</guilabel> view, and we will get a pop-up asking us to fill in a
-    FieldId as seen in <xref linkend="fig-tutorial-query-editor-new-query" />.
-    Manually typing in a field id isn't very useful, though.  What we really
-    want is to call this from another query that can fill it in for us.  Go
-    ahead and select 'What fields (non-static) are shared?' again, and click on
-    the <guilabel>Sub-Queries</guilabel> tab.  You should see a list of the two
+    We now have a fully working query.  We can now double-click the entry in the
+    <guilabel>Queries</guilabel> tab of the <guilabel>Query Editor</guilabel>
+    view and get a pop-up asking us to fill in a FieldId as seen in <xref
+    linkend="fig-tutorial-query-editor-choose-sub-query" />.  Manually typing in
+    a field id isn't very useful, though.  What we really want is to call this
+    from another query that can fill it in for us.  Go ahead and select 'What
+    fields (non-static) are shared?' again and click on its
+    <guilabel>Sub-Queries</guilabel> tab.  You should see a list of the two
     queries here.  We are going to add another.  Click on the
-    <guiicon><inlinegraphic fileref="images/plus.gif" /></guiicon> button in
-    this tab, and check our new query, 'What methods directly access this
-    field?'  The <guilabel>Sub-Queries</guilabel> tab should now look like <xref
+    <guiicon><inlinegraphic fileref="images/plus.png" /></guiicon> button in
+    this tab and check our new query, 'What methods directly access this field?'
+    The <guilabel>Sub-Queries</guilabel> tab should now look like <xref
     linkend="fig-tutorial-query-editor-sub-queries" />
   </para>
     <figure id="fig-tutorial-query-editor-choose-sub-query">
@@ -195,8 +195,8 @@ ORDER BY 1,2,3
     linkend="fig-tutorial-query-editor-new-query-results" /> is a picture of the
     list of methods that access <structfield>m_cursorLocationLock</structfield>
     in <classname>edu.afit.planetbaron.client.MapView</classname> being
-    exported.  You can then import this into the spreadsheet editor of your
-    choice.
+    exported.  You can then import the file into your favorite spreadsheet
+    editor.
   </para>
   <figure id="fig-tutorial-query-editor-new-query-results">
     <title>Exporting the results of 'What methods directly access this field?'</title>
