@@ -2886,6 +2886,94 @@ if (o == null) {
     workaround. These are presented in the sections below for each
     released version of Sierra.</para>
 
+    <section id="sec-sierra-release-2-2-1">
+      <title>Sierra version 2.2.1</title>
+      <para>This section describes the 2.2.1 version of the Sierra Eclipse
+      client and the Sierra team server.</para>
+
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Default location of the Sierra data directory has
+	    changed.</emphasis> &mdash; The location of the .sierra-data
+	    directory has moved from your user's home directory to the workspace
+	    directory.  It is safe to delete the old .sierra-data directory if
+	    you so choose.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Updated analysis tools</emphasis> &mdash; FindBugs
+	    has been updated to version 1.3.8 and PMD has been updated to
+	    version 4.2.5.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+          <section>
+	<title>Known Problems</title>
+
+	<para>This section describes known bugs and limitations in this version
+	of Sierra.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Shutdown of Eclipse while a scan is running can
+	    cause scan failure.</emphasis> %mdash; (Unchanged from 2.2) In some
+	    cases shutting down Eclipse when a scan is running in the background
+	    can cause the scan to fail.  It is recommended that Eclipse be left
+	    running until all scans are completed.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Logging out of a team server sometimes does not
+	    clear page state</emphasis> &mdash; (Unchanged from 2.2) When
+	    logging in and logging out to the team server with a browser,
+	    especially with different usernames, sometimes page state is not
+	    cleared. To work around this problem simple reload the page or
+	    restart your browser when you log out.</para>
+
+	    <para>Most team server users will not encounter this issue. We
+	    believe it to be a rare problem.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Findings Quick Search view scrollbar freeze (Windows
+	    Eclipse 3.2 and Eclipse 3.3 only)</emphasis> &mdash; (Unchanged from
+	    2.2) Under Windows XP or Vista and Eclipse 3.2 or Eclipse 3.3,
+	    sometimes the horizontal scrollbars get frozen when a new selection
+	    scrolls into view. This is a bug in the Eclipse SWT library tracked
+	    as Eclipse <ulink
+	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885"> bug
+	    211885</ulink> on eclipse.org. The Eclipse.org programmer assigned
+	    to this bug reports that this bug has been fixed and the fix was
+	    released in Eclipse 3.4.</para>
+
+	    <para>If this problem occurs it is possible to get the scrollbar
+	    working again by either by (a) moving the horizontal scrollbar at
+	    the bottom of the view a little bit in any direction or (b) resizing
+	    the view.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Using the -Xshareclasses optimization flag on a IBM
+	    Java 5 VM causes Sierra to crash (Windows only)</emphasis> &mdash;
+	    (Unchanged from 2.2) Under Windows XP and Vista, Sierra fails to
+	    operate properly when the -Xshareclasses optimization flag is set on
+	    the IBM Java 5 VM. A warning dialog is shown when Sierra loads into
+	    Eclipse if this problem is detected.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
+	      </imageobject>
+	    </mediaobject>
+	    The workaround for this problem is to remove this flag from
+	    your eclipse.ini file.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+
+
     <section id="sec-sierra-release-2-2">
       <title>Sierra version 2.2</title>
       <para>This section describes the 2.2 version of the Sierra Eclipse

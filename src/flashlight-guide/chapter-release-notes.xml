@@ -32,7 +32,8 @@
       <itemizedlist>
 	<listitem>
 	  <para>
-	    Due to a limitation in Flashlight's embedded database
+	    <emphasis>Preparing very large files will sometimes fail.</emphasis>
+	    &mdash; Due to a limitation in Flashlight's embedded database
 	    implementation, Flashlight is unable to prepare very large files.
 	    The maximum size file that can be prepared depends on
 	    characteristics of the instrumented program, but as a general rule
