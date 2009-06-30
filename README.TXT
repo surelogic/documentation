@@ -1,3 +1,27 @@
+LOCAL REFS TO THE DOCTYPE
+-------------------------
+VERY IMPORTANT!
+VERY IMPORTANT!
+VERY IMPORTANT!
+
+The DocBook files in this project make local references to the DocBook DTD
+that is stored in the "lib/docbook-xml-4.5" directory.  These references must
+be made using relative URLs.  In particular this means, that you must be careful
+to update the relative URL when adding additional subdirectories to a document
+directory.
+
+The normal DOCTYPE declaration that is used with DocBook 4.5 is 
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+The DOCTYPE declaration that we use in files in the top-level document directories
+(for example, the declaration in "src/sierra-guide/sierra-guide.xml") is
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../lib/docbook-xml-4.5/docbookx.dtd">
+
+
 DOCBOOK to HTML Conversion
 --------------------------
 We use the Saxon XSLT processor <http://saxon.sourceforge.net/> to apply the
