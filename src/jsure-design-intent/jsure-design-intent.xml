@@ -582,69 +582,57 @@ public class C {
           object, and <replaceable>Region</replaceable> is the name of a
           region.  More specifically, <replaceable>Lock</replaceable>
           must be one of the following:
-
-            <variablelist>
-              <varlistentry>
-                <term><parameter>this</parameter></term>
-            
-                <listitem><para>The object itself is acquired to protect
-                the state.</para></listitem>
-              </varlistentry>
           
-              <varlistentry>
-              <term>A field declared in the class being annotated or an
-                ancestor of the class being annotated that is visible
-                within the class, for example, a protected field from an
-                ancestor.</term>
-        
-                <listitem><para>The field must refer to an object.  The
-                field must be <code>final</code>: otherwise the lock
-                object referenced by the field could change.  The field
-                may be <code>static</code> or instance.</para></listitem>
-              </varlistentry>
-            
-              <varlistentry>
-                <term><structfield>class</structfield></term>
-              
-                <listitem><para>The unique <classname>Class</classname>
-                object referenced by the <code>static</code> pseudo-field
-                <structfield>class</structfield>.  (This is the object
-                that is locked by <code>static synchronized</code>
-                methods.)</para></listitem>
-              </varlistentry>
-              
-              <varlistentry>
-                <term>A field of an outer class.</term>
-              
-                <listitem><para>If a class is declared inside class
-                <classname>Outer</classname>, and wants to declare that
-                the field <structfield>f</structfield> of the
-                <classname>Outer</classname> instance that is the
-                container for the inner class's instance protects a region
-                of the inner class, then the lock reference is given by
-                <code>Outer.this.f</code>.</para>
-        
-                <para>Although the tool supports declaring locks that are
-                the fields of outer classes, it is not presently possible
-                to assure their correct use.  This is because of
-                deficiencies in both our internal representation and with
-                Java syntax. Given a variable <varname>v</varname> that
-                refers to an instance of a non-<code>static</code> inner
-                class, there is no syntactic expression that evaluates to
-                the “outer” object of that instance, that is, the object
-                referenced by <varname>o</varname> in the expression
-                <code>o.new Inner()</code>.</para>
-            
-                <para>We allow the declaration of such locks, even though
-                they cannot be assured, because we have encountered them
-                in real code and it is nice to be able to document the
-                design intent.</para></listitem>
-              </varlistentry>
-            </variablelist>
+            <itemizedlist>
+              <listitem><parameter>this</parameter></listitem>
+
+              <listitem>A field declared in the class being annotated or
+              an ancestor of the class being annotated that is visible
+              within the class, for example, a protected field from an
+              ancestor.</listitem>
+
+              <listitem><structfield>class</structfield></listitem>
+
+              <listitem>A field of an outer class.</listitem>              
+            </itemizedlist>
           </para>
+           
+          <para>When <replaceable>Lock</replaceable> is
+          <parameter>this</parameter>, the object itself is acquired to
+          protect the state.  When <replaceable>Lock</replaceable> is a
+          field, the field must refer to an object.  The field must be
+          <code>final</code>: otherwise the lock object referenced by
+          the field could change.  The field may be <code>static</code>
+          or instance.  When <replaceable>Lock</replaceable> is
+          <structfield>class</structfield>, the unique
+          <classname>Class</classname> object referenced by the
+          <code>static</code> pseudo-field
+          <structfield>class</structfield> must be acquired.  (This is
+          the object that is locked by <code>static synchronized</code>
+          methods.)</para>
+
+          <para>If a class is declared inside class
+          <classname>Outer</classname>, and wants to declare that the
+          field <structfield>f</structfield> of the
+          <classname>Outer</classname> instance that is the container
+          for the inner class's instance protects a region of the inner
+          class, then the lock reference is given by
+          <code>Outer.this.f</code>.  Although the tool supports
+          declaring locks that are the fields of outer classes, it is
+          not presently possible to assure their correct use.  This is
+          because of deficiencies in both our internal representation
+          and with Java syntax. Given a variable <varname>v</varname>
+          that refers to an instance of a non-<code>static</code> inner
+          class, there is no syntactic expression that evaluates to the
+          “outer” object of that instance, that is, the object
+          referenced by <varname>o</varname> in the expression
+          <code>o.new Inner()</code>.  We allow the declaration of such
+          locks, even though they cannot be assured, because we have
+          encountered them in real code and it is nice to be able to
+          document the design intent.</para>
           
           <para>A region may only be associated with a lock declared in a
-          class <classname>C</classname> if the region doesn't contain any
+          class <classname>C</classname> if the region does not contain any
           fields from superclasses of <classname>C</classname>.  This is
           trivially true if the region is declared in
           <classname>C</classname>.  The region may have abstract sub-regions,
@@ -680,6 +668,131 @@ public class C {
           <para>A region may be associated with a lock only if none of its
           ancestors are associated with a lock.  This prevents a region
           from being protected by multiple locks.</para>
+          
+          <sect3 id="intrinsic-vs-juc">
+            <title>Intrinsic or <package>java.util.concurrent</package> Locks</title>
+            
+            <para>JSure understands the semantics of both instrinsic
+            Java locks acquired using the <code>synchronized</code>
+            block and <package>java.util.concurrent</package> locks,
+            including <classname>ReadWriteLock</classname>.  JSure
+            determines which semantics to enforce based on the object
+            referenced by the <replaceable>Lock</replaceable> portion of
+            each <classname>@RegionLock</classname> annotation.  There are 
+            three cases: 
+            
+              <orderedlist>
+                <listitem>The class of the referenced lock descends from
+                <classname>java.util.concurrent.locks.Lock</classname>.</listitem>
+
+                <listitem>The class of the referenced lock descends from
+                <classname>java.util.concurrent.locks.ReadWriteLock</classname>.</listitem>
+
+                <listitem>The class of the referenced lock is any other
+                class.</listitem>
+              </orderedlist>
+            </para>
+            
+            <para>If the class of the lock is not
+            <classname>Lock</classname> or
+            <classname>ReadWriteLock</classname>, then JSure considers
+            the lock to be an instrinsic lock.  JSure considers the lock
+            to be acquired when it is referenced in a
+            <code>sychronized</code> block, and to be released at the
+            end of the block.</para>
+            
+            <para>If the class of the lock object descends from
+            <classname>Lock</classname>, then JSure understands that the
+            lock is acquired by calling one of
+            <function>lock</function>,
+            <function>lockInterruptibly</function>, or
+            <function>tryLock</function>, and released by calling
+            <function>unlock</function>.  JSure checks that each lock acquisition
+            must have a subsequent lock release, and that each lock release has a prior
+            lock acquistion.  JSure does not specifically enforce the pattern
+            
+              <programlisting>  myLock.lock();
+  try {
+    // do stuff
+  } finally {
+    myLock.unlock();
+  }</programlisting>
+            
+            but, in practice, this pattern must be used to satisfy
+            the analysis due to the bidirectional matching of lock
+            acquisitions and releases.</para>
+
+            <para>If the class of the lock object descends from
+            <classname>ReadWriteLock</classname> then JSure understands
+            that writes to the protected region require the write lock
+            to be held, and that reads from the protected region require
+            either the read or the write lock to be held.  The write
+            lock is retrieved using the method
+            <function>writeLock</function> and the read lock is
+            retrieved using the method <function>readLock</function>.  For example, JSure 
+            finds that the following class is consistent with its annotations:
+            
+              <programlisting>@RegionLock("L is lock protects f")
+public class C {
+  private final ReadWriteLock lock = new ReentrantReadWriteLock();
+  private int f;
+  
+  public void set(final int v) {
+    lock.writeLock().lock();
+    try {
+      f = v;
+    } finally {
+      lock.writeLock().unlock();
+    }
+  }
+  
+  public int get() {
+    lock.readLock().lock();
+    try {
+      return f;
+    } finally {
+      lock.readLock().unlock();
+    }
+  }
+}</programlisting>
+            </para>
+
+            <para>JSure recognizes a common shorthand used with
+            <classname>ReadWriteLocks</classname>: the caching of the
+            individual read and write locks in additional
+            <code>final</code> fields of the class that declares the 
+            <code>ReadWriteLock</code>.  For example
+            
+              <programlisting>@RegionLock("L is lock protects f")
+public class CC {
+  private final ReadWriteLock lock = new ReentrantReadWriteLock();
+  private final Lock read = lock.readLock();
+  private final Lock write = lock.writeLock();
+  private int f;
+  
+  public void set(final int v) {
+    write.lock();
+    try {
+      f = v;
+    } finally {
+      write.unlock();
+    }
+  }
+  
+  public int get() {
+    read.lock();
+    try {
+      return f;
+    } finally {
+      read.unlock();
+    }
+  }
+}</programlisting>
+
+            This works with both <code>static</code> and instance locks.  If the original lock
+            field is <code>static</code>, the cache fields must also be <code>static</code>. 
+            </para>
+          </sect3>
         </sect2>
         
         <sect2 id="multiple-locks">
@@ -844,58 +957,73 @@ public class Logger {
         <para>A target is an extrinsic syntactic mechanism to name
         references to regions, and can be one of
   
-          <variablelist>
-            <varlistentry>
-	      <term><replaceable>Region</replaceable></term>
-              <term><code>this:<replaceable>Region</replaceable></code></term>
-              <listitem><para><replaceable>Region</replaceable> is a
-              region of the class containing the method.  The method
-              affects the named region of the receiver
-              object.</para></listitem>
-            </varlistentry>
+          <itemizedlist>
+            <listitem>
+              <formalpara>
+                <title><replaceable>Region</replaceable> or
+                <code>this:<replaceable>Region</replaceable></code></title>
+
+                <para><replaceable>Region</replaceable> is a region of
+                the class containing the method.  The method affects the
+                named region of the receiver
+                object.</para>
+              </formalpara>
+            </listitem>
           
-            <varlistentry>
-              <term><code><replaceable>param</replaceable>:<replaceable>Region</replaceable></code></term>
-              <listitem><para><replaceable>param</replaceable> is a
-              parameter of the method that references an object.
-              <replaceable>Region</replaceable> is a region of the class
-              of <replaceable>param</replaceable>'s type.  The method
-              affects the named region of the object referenced by
-              <replaceable>param</replaceable> <emphasis>at the start of
-              the method's execution</emphasis>.</para></listitem>
-            </varlistentry>
+            <listitem>
+              <formalpara>
+                <title><code><replaceable>param</replaceable>:<replaceable>Region</replaceable></code></title>
+                
+                <para><replaceable>param</replaceable> is a parameter of
+                the method that references an object.
+                <replaceable>Region</replaceable> is a region of the
+                class of <replaceable>param</replaceable>'s type.  The
+                method affects the named region of the object referenced
+                by <replaceable>param</replaceable> <emphasis>at the
+                start of the method's execution</emphasis>.</para>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title><code><replaceable>pkg.C</replaceable>.this:<replaceable>Region</replaceable></code></title>
+                
+                <para><replaceable>pkg.C</replaceable> is an “outer
+                class” of the class that contains the annotated method. 
+                That is, the method being annotated is in class
+                <replaceable>D</replaceable>, and
+                <replaceable>D</replaceable> is an inner class of
+                <replaceable>C</replaceable>.
+                <replaceable>Region</replaceable> is a region of class
+                <replaceable>pkg.C</replaceable>.  The method affects
+                the named region of the given outer class
+                receiver.</para>
+              </formalpara>
+            </listitem>
+            
+            <listitem>
+              <formalpara>
+                <title><code>any(<replaceable>pkg.C</replaceable>):<replaceable>Region</replaceable></code></title>
+                
+                <para><replaceable>pkg.C</replaceable> is a class name
+                and <replaceable>Region</replaceable> is a region of
+                <replaceable>pkg.C</replaceable>.  This target indicates
+                that the method affects the given region of any object
+                of class <replaceable>pkg.C</replaceable>.</para>
+              </formalpara>
+            </listitem>
           
-            <varlistentry>
-              <term><code><replaceable>pkg.C</replaceable>.this:<replaceable>Region</replaceable></code></term>
-              <listitem><para><replaceable>pkg.C</replaceable> is an
-              “outer class” of the class that contains the annotated
-              method.  That is, the method being annotated is in class
-              <replaceable>D</replaceable>, and
-              <replaceable>D</replaceable> is an inner class of
-              <replaceable>C</replaceable>.
-              <replaceable>Region</replaceable> is a region of class
-              <replaceable>pkg.C</replaceable>.  The method affects the
-              named region of the given outer class
-              receiver.</para></listitem>
-            </varlistentry>
-          
-            <varlistentry>
-              <term><code>any(<replaceable>pkg.C</replaceable>):<replaceable>Region</replaceable></code></term>
-              <listitem><para><replaceable>pkg.C</replaceable> is a class
-              name and <replaceable>Region</replaceable> is a region of
-              <replaceable>pkg.C</replaceable>.  This target indicates
-              that the method affects the given region of any object of
-              class <replaceable>pkg.C</replaceable>.</para></listitem>
-            </varlistentry>
-          
-            <varlistentry>
-              <term><code><replaceable>pkg.C</replaceable>:<replaceable>Region</replaceable></code></term>
-              <listitem><para><replaceable>Region</replaceable> is a
-              <code>static</code> region of class
-              <replaceable>pkg.C</replaceable>.  The method affects the
-              given <code>static</code> region.</para></listitem>
-            </varlistentry>
-          </variablelist>
+            <listitem>
+              <formalpara>
+                <title><code><replaceable>pkg.C</replaceable>:<replaceable>Region</replaceable></code></title>
+                
+                <para><replaceable>Region</replaceable> is a
+                <code>static</code> region of class
+                <replaceable>pkg.C</replaceable>.  The method affects
+                the given <code>static</code> region.</para>
+              </formalpara>
+            </listitem>
+          </itemizedlist>
         </para>
         
         <para>Assurance checks that the actual effects of the method
