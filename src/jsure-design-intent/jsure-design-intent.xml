@@ -1318,9 +1318,7 @@ class Var {
 
             <listitem>
               <formalpara>
-                <title>The region's parent must be an abstract region</title>
-
-                <para>A region cannot extend a field.</para>
+                <title>The region's parent cannot be <code>final</code> or <code>volatile</code></title>
               </formalpara>
             </listitem>
 
@@ -1341,10 +1339,8 @@ class Var {
               <formalpara>
                 <title>Regions must form a tree</title>
 
-                <para>There cannot be a cycle in the region parents
-                relationship.  This is enforced by requiring that the
-                declaration of the parent region appear lexically before
-                the region declaration that references it.</para>
+                <para>There cannot be a cycle in the region ancestor
+                relationship.</para>
               </formalpara>
             </listitem>
           </itemizedlist>
@@ -1479,9 +1475,7 @@ public class Blooper extends Duper {
 
             <listitem>
               <formalpara>
-                <title>The region's parent must be an abstract region</title>
-
-                <para>A region cannot extend a field.</para>
+                <title>The region's parent cannot be <code>final</code> or <code>volatile</code></title>
               </formalpara>
             </listitem>
 
@@ -1495,6 +1489,15 @@ public class Blooper extends Duper {
               <formalpara>
                 <title>A <code>static</code> region cannot extend a
                 non-<code>static</code> region</title>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>Regions must form a tree</title>
+
+                <para>There cannot be a cycle in the region ancestor
+                relationship.</para>
               </formalpara>
             </listitem>
           </itemizedlist>
@@ -1611,6 +1614,12 @@ protected PersonRecord record;
                   <structfield>field</structfield> must be a subregion
                   of or equal to each
                   <replaceable>Q<subscript>i</subscript></replaceable></title>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title><replaceable>Q<subscript>i</subscript></replaceable> cannot be <code>final</code> or <code>volatile</code></title>
                 </formalpara>
               </listitem>
               
