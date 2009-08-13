@@ -87,15 +87,22 @@
           refinery off and on, and you can also adjust the queue sizes
           that it uses to hold onto events.</listitem>
 
-          <listitem><guilabel>Use a spy thread to detect
-          program termination</guilabel> causes Flashlight to
-          spawn a thread on program start-up that periodically checks to
-          see if any non-daemon threads are running and terminates the
-          program when none are.  It is not always necessary to run the
-          spy thread, as Flashlight also has listens to the run time
-          shutdown event.  Programs that do not explicitly terminate,
-          for example by calling <code>System.exit()</code> may need it,
+          <listitem><guilabel>Use a spy thread to detect program
+          termination</guilabel> causes Flashlight to spawn a thread on program
+          start-up that periodically checks to see if any non-daemon threads are
+          running and terminates the program when none are.  It is not always
+          necessary to run the spy thread, as Flashlight also listens to the run
+          time shutdown event.  Programs that do not explicitly terminate, for
+          example by calling <code>System.exit()</code> may need it,
           though.</listitem>
+
+	  <listitem><guilabel>Console port (counts up if this port is in
+	  use)</guilabel> specifies the port that the instrumentation will
+	  listen on.  You can telnet to this port and issue a 'stop' command if
+	  you want to shut down the instrumentation and leave your program up
+	  and running.  Alternatively, a 'quit' or 'exit' command will terminate
+	  the program as well.</listitem>
+	  
         </itemizedlist>
     </para>
   </formalpara>
