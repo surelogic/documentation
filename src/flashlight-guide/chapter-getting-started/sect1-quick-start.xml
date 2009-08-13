@@ -49,9 +49,9 @@
   Flashlight functionality.  We will assume from this point on that you
   have installed your license.</para>
 
-  <para>Flashlight is a dynamic analysis tool which means that you have
-  to run your program to use it.  Flashlight instruments your program
-  when it starts up and uses that instrumentation to collect data about
-  your program.  By default, data is collected into the directory
-  <filename>~/.flashlight-data</filename>.</para>
+  <para>Flashlight is a dynamic analysis tool which means that you have to run
+  your program to use it.  Flashlight instruments your program when it starts up
+  and uses that instrumentation to collect data about your program.  By default,
+  data resides in your workspace under a directory named
+  <filename>.flashlight-data</filename>.</para>
 </sect1>
