@@ -2380,22 +2380,27 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
         variable (possibly <parameter>this</parameter>) that references the
         object that contains the lock.</para>
         
-        <para>Furthermore, a lock whose lock field is a
-        <classname>ReadWriteLock</classname> cannot be used directly:
-        the component read or write lock must be identified as
-        well.</para>
-        
-        <sect2 id="naming.instrinsic.locks">
-          <title>Intrinsic and <classname>java.util.concurrent.Lock</classname> Locks</title>
+        <para>We differentiate between a <emphasis>raw</emphasis> lock name and a 
+        <emphasis>decorated</emphasis> lock name.  This distinction is necessary
+        because of the nature of read&ndash;write locks as implemented by
+        <classname>ReadWriteLock</classname> in <package>java.util.concurrent</package>.
+        A raw lock name refers to a declared lock, identified with an object referenced
+        as a Java instrinsic lock, a <classname>java.util.concurrent.Lock</classname> object,
+        or a <classname>java.util.concurrent.ReadWriteLock</classname> object.  In most cases
+        a <classname>ReadWriteLock</classname> identified by a raw lock name is not useful
+        because it cannot be acquried directly: the read or write lock must be identified.  
+        This is the role of the decorated lock name, which is a raw lock name enhanced to 
+        further identify either the read or write lock.</para>
+                
+        <sect2 id="naming.raw.locks">
+          <title>Raw Lock Names</title>
           
-          <para>A lock name that refers to a lock whose lock field is an
-          instrinsic lock or a <classname>Lock</classname> object must conform
+          <para>A raw lock name must conform
           to the syntax and constraints shown in <xref linkend="lock.name.constraints"/>.
           </para>
           
           <table id="lock.name.constraints">
-            <title>Syntax and Constraints for Naming Intrinsic Locks and
-            <classname>Lock</classname> Objects</title>
+            <title>Syntax and Constraints for Naming Raw Locks</title>
             
             <tgroup align="left" cols="2">
               <thead>
@@ -2432,14 +2437,6 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                           <title><replaceable>lock_id</replaceable> must
                           exist in the class containing the annotated
                           method</title>
-                        </formalpara>
-                      </listitem>
-
-                      <listitem>
-                        <formalpara>
-                          <title><replaceable>lock_id</replaceable> <emphasis>cannot</emphasis> refer
-                          to a lock whose lock field refers to an object of
-                          type <classname>java.util.concurrent.locks.ReadWriteLock</classname>.</title>
                         </formalpara>
                       </listitem>
                       
@@ -2504,14 +2501,6 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                           only leads to confusion.</para>
                         </formalpara>
                       </listitem>
-
-                      <listitem>
-                        <formalpara>
-                          <title><replaceable>lock_id</replaceable> <emphasis>cannot</emphasis> refer
-                          to a lock whose lock field refers to an object of
-                          type <classname>java.util.concurrent.locks.ReadWriteLock</classname>.</title>
-                        </formalpara>
-                      </listitem>
                     </itemizedlist>
                   </entry>
                 </row>
@@ -2546,14 +2535,6 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                         <formalpara>
                           <title>The lock id <replaceable>lock_id</replaceable> must
                           name a <code>static</code> lock in the type <replaceable>fully.qualified.class.name</replaceable></title>
-                        </formalpara>
-                      </listitem>
-
-                      <listitem>
-                        <formalpara>
-                          <title><replaceable>lock_id</replaceable> <emphasis>cannot</emphasis> refer
-                          to a lock whose lock field refers to an object of
-                          type <classname>java.util.concurrent.locks.ReadWriteLock</classname>.</title>
                         </formalpara>
                       </listitem>
                     </itemizedlist>
@@ -2592,14 +2573,6 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                           name an instance lock in the type <replaceable>fully.qualified.class.name</replaceable></title>
                         </formalpara>
                       </listitem>
-
-                      <listitem>
-                        <formalpara>
-                          <title><replaceable>lock_id</replaceable> <emphasis>cannot</emphasis> refer
-                          to a lock whose lock field refers to an object of
-                          type <classname>java.util.concurrent.locks.ReadWriteLock</classname>.</title>
-                        </formalpara>
-                      </listitem>
                     </itemizedlist>
                   </entry>
                 </row>
@@ -2608,53 +2581,37 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
           </table>
         </sect2>
         
-        <sect2 id="naming.read.write.locks">
-          <title><classname>java.util.concurrent.ReadWriteLock</classname> Locks</title>
+        <sect2 id="naming.decorated.locks">
+          <title>Decorated Lock Names</title>
           
-          <para>A reader writer lock cannot be named directly because it is merely a vessel
-          through which the coordination of reading and writing activies is performed.
-          The read or write lock component must instead be named.  The syntax and constraints for this are similar
-          to that shown in <xref linkend="lock.name.constraints"/> with the following
+          <para>The syntax and constraints for a decorated lock name are similar
+          to those shown in <xref linkend="lock.name.constraints"/> with the following
           exceptions:
           
             <itemizedlist>
               <listitem>
-                <para><replaceable>lock_id</replaceable>
-                <emphasis>must</emphasis> refer to a lock whose lock
-                field refers to an object of type
-                <classname>java.util.concurrent.locks.ReadWriteLock</classname>.</para>
+                <formalpara>
+                  <title><replaceable>lock_id</replaceable>
+                    <emphasis>must</emphasis> refer to a lock whose lock
+                    field refers to an object of type
+                    <classname>java.util.concurrent.locks.ReadWriteLock</classname>
+                  </title>
+                
+                  <para>Intrinsic locks and
+                  <classname>java.util.concurrent.locks.Lock</classname>
+                  objects do not have any sub components.</para>
+                </formalpara>
               </listitem>
               
               <listitem>
-                <para>The <replaceable>lock_id</replaceable> must be followed
-                by either "<code>.readLock()</code>" or "<code>.writeLock()</code>"
-                to refer to the read lock or write lock component, respectively.</para>
+                <formalpara>
+                  <title><replaceable>lock_id</replaceable> must be followed
+                    by either "<code>.readLock()</code>" or "<code>.writeLock()</code>"
+                  </title>
+                  
+                  <para>This refers to the read lock or write lock component, respectively.</para>
+                </formalpara>
               </listitem>
-            </itemizedlist>
-          </para>
-          
-          <para>Thus given a class 
-          
-            <programlisting>@RegionLock("RWLock is rwLock protects Instance")
-public class MyClass {
-  protected final ReadWriteLock rwLock = new ReentrantReadWriteLock();
-  &hellip;
-  protected void doStuff(final MyClass other) {
-    &hellip;
-  }
-  &hellip;
-}</programlisting>
-
-          the following would be legal lock names to use in annotations on 
-          method <function>doStuff()</function>:
-          
-            <itemizedlist>
-              <listitem><code>RWLock.readLock()</code></listitem>
-              <listitem><code>RWLock.writeLock()</code></listitem>
-              <listitem><code>this:RWLock.readLock()</code></listitem>
-              <listitem><code>this:RWLock.writeLock()</code></listitem>
-              <listitem><code>other:RWLock.readLock()</code></listitem>
-              <listitem><code>other:RWLock.writeLock()</code></listitem>
             </itemizedlist>
           </para>
         </sect2>
@@ -2666,12 +2623,12 @@ public class MyClass {
         <para>A declaration that a method returns a particular lock has the form
 
           <synopsis>
-@ReturnsLock("<co id="ret.lock.name"/><replaceable>lock_name</replaceable>")
+@ReturnsLock("<co id="ret.lock.name"/><replaceable>raw_lock_name</replaceable>")
           </synopsis>
           
           <calloutlist>
             <callout arearefs="ret.lock.name">
-              <para>A lock name.</para>
+              <para>A raw lock name.</para>
             </callout>
           </calloutlist>
         </para>
@@ -2682,8 +2639,8 @@ public class MyClass {
           <itemizedlist>
             <listitem>
               <formalpara>
-                <title>The lock name <replaceable>lock_name</replaceable> must be
-                <link linkend="lock.names">well-formed</link></title>
+                <title>The raw lock name <replaceable>raw_lock_name</replaceable> must be
+                <link linkend="naming.raw.locks">well-formed</link></title>
               </formalpara>
             </listitem>
           </itemizedlist>
@@ -2716,8 +2673,20 @@ public class MyClass {
           <itemizedlist>
             <listitem>
               <formalpara>
-                <title>Each <replaceable>lock_name<subscript>i</subscript></replaceable> must be
+                <title>Each <replaceable>lock_name<subscript>i</subscript></replaceable>, which may be a raw or decorated lock name, must be
                 <link linkend="lock.names">well-formed</link></title>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>If <replaceable>lock_name<subscript>i</subscript></replaceable>
+                  is a raw lock name, then the <replaceable>lock_id</replaceable> <emphasis>cannot</emphasis> refer
+                  to a lock whose lock field refers to an object of
+                  type <classname>java.util.concurrent.locks.ReadWriteLock</classname>.</title>
+                
+                <para>It does not make sense to require a read&ndash;write lock object because that
+                lock cannot be acquired.</para>
               </formalpara>
             </listitem>
 
