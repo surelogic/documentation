@@ -195,7 +195,7 @@ public class Other {
         only</emphasis>. It is not sufficient to extend the protection
         to the elements of the array: we also need to know that the
         array object is accessible through that field only. If the array
-        could be referenced by through other fields, then it would still
+        could be referenced through other fields, then it would still
         be possible to access it concurrently because the locking model
         could be bypassed by accessing the array through a different
         field.</para>
@@ -304,7 +304,7 @@ public class Buffer {
       
           <programlisting>
 <emphasis>@SingleThreaded</emphasis>
-<emphasis>@Borrowed("this")</emphasis>
+<emphasis>@Borrowed</emphasis>
 public C(&hellip;) { &hellip; }
           </programlisting>
         </para>
@@ -365,7 +365,7 @@ public class C {
 public class C {
   &hellip;
   <emphasis>@SingleThreaded</emphasis>
-  <emphasis>@Borrowed("this")</emphasis>
+  <emphasis>@Borrowed</emphasis>
   public C() {}
   &hellip;
 }
