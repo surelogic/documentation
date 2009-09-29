@@ -22,6 +22,24 @@
 
       <para>This section describes new and noteworthy features in this
       version of Flashlight.</para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <emphasis>The Flashlight Status view provides a quick overview of a
+	    run's results.</emphasis> &mdash; A new view has been added to make
+	    it easier to tell if there are interesting results from a prepared
+	    run.  The Flashlight Status view indicates if the lock cycle
+	    analysis has found any potential deadlocks or if the lock set
+	    analysis has detected any possible race conditions.  You can
+	    double-click on a warning indicator to run the relevant query.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/flashlight-status-view.png" />
+	      </imageobject>
+	    </mediaobject>
+	  </para>
+	</listitem>
+      </itemizedlist>
     </sect2>
     
     <sect2>
