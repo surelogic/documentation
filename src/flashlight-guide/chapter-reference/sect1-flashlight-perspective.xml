@@ -148,13 +148,16 @@
       <para>
 	This view displays the results from performing a query on a Flashlight
 	run.  You can change the results displayed by clicking on a different
-	query in the <guilabel>Query Results Explorer</guilabel> view or in
-	the <guilabel>Query Menu</guilabel> view.
+	query in the <guilabel>Query Results Explorer</guilabel> view or in the
+	<guilabel>Query Menu</guilabel> view.
       </para>
       
-      <para>The result of a query is displayed as either a tree, table, or tree-table, 
-      depending on the specific query.  <xref linkend="query-reference"/> describes the 
-      different queries and the shapes of their results.</para>
+      <para>
+	The result of a query is displayed as either a tree, table, or
+	tree-table, depending on the specific query.  <xref
+	linkend="query-reference"/> describes the different queries and the
+	shapes of their results.
+      </para>
       
       <informalfigure id="fig-flashlight-query-results-view">
 	<!--title>The Query Results View</title-->
@@ -200,6 +203,25 @@
 	</mediaobject>
       </informalfigure>
     </sect3>
+
+    <sect3>
+      <title>Flashlight Status</title>
+      <para>
+	The Flashlight Status view indicates if the lock cycle analysis has
+	found any potential deadlocks or if the lock set analysis has detected
+	any possible race conditions.  You can double-click on a warning
+	indicator to run the relevant query.
+      </para>
+      <informalfigure id="fig-flashlight-status-view">
+	<!--title>The Flashlight Status View</title-->
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/flashlight-status-view.png" />
+	  </imageobject>
+	</mediaobject>
+      </informalfigure>
+    </sect3>
+
   </sect2>
 </sect1>
 
