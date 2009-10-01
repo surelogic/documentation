@@ -39,6 +39,19 @@
 	    </mediaobject>
 	  </para>
 	</listitem>
+	<listitem>
+	  <para>
+	    <emphasis>Quickly create tutorial projects</emphasis> &mdash; You
+	    can now create the PlanetBaron project from the menu in the
+	    Flashlight Runs view.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    The Flashlight Runs view now shows the total size of each run directory.
+	  </para>
+	</listitem>
+
       </itemizedlist>
     </sect2>
     
