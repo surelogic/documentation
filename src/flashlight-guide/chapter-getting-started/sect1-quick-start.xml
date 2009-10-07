@@ -4,8 +4,7 @@
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <sect1 id="quick-start">
-  <title>Quick start: How to instrument your code and query
-  Flashlight</title>
+  <title>Quick start: How to instrument your code and query Flashlight</title>
 
   <para>This section assumes that you have installed Flashlight. If you see a
   <guimenu>Flashlight</guimenu> menu item on your Eclipse main menu then you can

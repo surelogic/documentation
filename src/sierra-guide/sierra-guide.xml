@@ -532,24 +532,26 @@
       read through <xref linkend="sec-concepts" /> before you attempt
       these tutorials.  It is recommended that you go through these
       tutorials in order.  It is also recommended that these tutorials
-      be performed "hands-on" at your computer. You might want to
-      create a new Eclipse workspace to use for these tutorials. In
-      addition, if you run into any difficulties as you step through
-      the tutorials please consider sending us a tip for improvement
-      as described in <xref linkend="sec-bugs-and-tips"/>.</para>
+      be performed "hands-on" at your computer. You might want to create
+      a new Eclipse workspace to use for these tutorials. In addition,
+      if you run into any difficulties as you step through the tutorials
+      please consider sending us a tip for improvement as described in
+      <xref linkend="sec-bugs-and-tips"/>.</para>
 
       <section id="sec-tutorial-client">
 	<title>Using the Sierra Eclipse client</title>
 
-	<para>This tutorial assumes that you have installed Sierra. If you
-	see a <guimenu>Sierra</guimenu> menu item on your Eclipse main
-	menu than you can assume it has been installed properly.</para>
-
-	<para>Create a Java project called
-	<application>ShowOff</application> within Eclipse and create a
-	class in the default package with the same name. Replace the
-	contents of the <filename>ShowOff.java</filename> file with the
-	Java code below.</para>
+	<para>This tutorial assumes that you have installed Sierra. If
+	you see a <guimenu>Sierra</guimenu> menu item on your Eclipse
+	main menu than you can assume it has been installed properly.
+	To start off, we'll run Sierra on a project called
+	<application>ShowOff</application>. Select
+	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run the Sierra
+	Tutorials</guimenuitem></menuchoice> from the workspace menu and
+	add the <application>ShowOff</application> project to your
+	workspace.  The <application>ShowOff</application> project
+	contains a single class in <filename>ShowOff.java</filename>
+	with the Java code listed below.</para>
 
 	<programlisting>
 <![CDATA[
@@ -603,7 +605,7 @@ public class ShowOff {
 	in the <guilabel>Package Explorer</guilabel> and from the
 	<guimenu>Sierra</guimenu> menu select the <guimenuitem>Scan
 	Project</guimenuitem> menu item. Alternatively, you can choose the
-	<guimenuitem>Scan Project</guimenuitem> menu item frm the
+	<guimenuitem>Scan Project</guimenuitem> menu item from the
 	<guimenu>Sierra</guimenu> menu item in the Eclipse main menu. When
 	the dialog appears check the <application>ShowOff</application>
 	project and press the <guibutton>OK</guibutton> button. If this is
@@ -898,19 +900,17 @@ if (o == null) {
 	Sierra team server. The team server helps a group of programmers
 	work together with Sierra.</para>
 
-	<para>First download the <application>SmallWorld</application>
-	project from www.surelogic.com at <ulink
+	<para>If you have not added the
+	<application>SmallWorld</application> project to your workspace
+	yet, add it now by choosing
+	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run the Sierra
+	Tutorials</guimenuitem></menuchoice> from the workspace menu.
+	Alternatively, you can download the
+	<application>SmallWorld</application> project from
+	www.surelogic.com at <ulink
 	url="http://www.surelogic.com/static/sierra/SmallWorld.zip">
-	http://www.surelogic.com/static/sierra/SmallWorld.zip</ulink> to
-	your disk. Unzip this archive into your workspace and it will
-	create a <filename>SmallWorld</filename> directory. Next import
-	this project into your Eclipse workspace using
-	<guimenuitem>File</guimenuitem> |
-	<guimenuitem>Import...</guimenuitem> from the Eclipse main menu
-	and then choosing <emphasis>Existing Projects into
-	Workspace</emphasis> for the import wizard. Follow the import
-	steps of wizard until the <application>SmallWorld</application>
-	project is imported and built.</para>
+	http://www.surelogic.com/static/sierra/SmallWorld.zip</ulink>
+	and import it into your workspace manually.</para>
 
 	<para>SmallWorld is a Java text-oriented adventure game. The
 	Colossal Cave Adventure game, produced in the 70s, was the

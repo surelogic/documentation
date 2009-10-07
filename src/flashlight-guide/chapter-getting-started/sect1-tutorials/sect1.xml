@@ -15,6 +15,21 @@
   improvement as described in <xref
   linkend="sec-bugs-and-tips"/>.</para>
 
+  <para>These tutorials assume that you have installed Flashlight. If
+  you see a <guimenu>Flashlight</guimenu> menu item on your Eclipse main
+  menu than you can assume it has been installed properly.  To follow
+  along with the tutorials you will also need to add the PlanetBaron
+  project to your workspace.  From the Eclipse main menu, choose
+  <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run the
+  Flashlight Tutorials</guimenuitem></menuchoice> and add
+  <application>PlanetBaron</application> to your workspace.  If you
+  don't want to add the project to your workspace this way, you can also
+  download the <application>PlanetBaron</application> project from
+  <ulink
+  url="http://www.surelogic.com/static/flashlight/PlanetBaron.zip">
+  http://www.surelogic.com/static/flashlight/PlanetBaron.zip</ulink> and
+  import it into your workspace manually.</para>
+
   <xi:include href="sect2-sec-tutorial-client.xml"/>
   <xi:include href="sect2-sec-tutorial-server.xml"/>
   <xi:include href="sect2-sec-tutorial-playerui.xml"/>

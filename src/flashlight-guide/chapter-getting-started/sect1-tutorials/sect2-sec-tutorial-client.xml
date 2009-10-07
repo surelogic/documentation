@@ -6,22 +6,6 @@
 <sect2 id="sec-tutorial-client">
   <title>Using the Flashlight Eclipse client on PlanetBaron</title>
 
-  <para>This tutorial assumes that you have installed Flashlight. If you
-  see a <guimenu>Flashlight</guimenu> menu item on your Eclipse main
-  menu than you can assume it has been installed properly.</para>
-
-  <para>First download the <application>PlanetBaron</application> project from
-  www.surelogic.com at <ulink
-  url="http://www.surelogic.com/static/flashlight/PlanetBaron.zip">
-  http://www.surelogic.com/static/flashlight/PlanetBaron.zip</ulink> to your
-  disk. Unzip this archive into your workspace and it will create a
-  <filename>PlanetBaron</filename> directory. Next import this project into your
-  Eclipse workspace using <menuchoice><guimenu>File</guimenu>
-  <guimenuitem>Import&hellip;</guimenuitem></menuchoice> from the Eclipse main
-  menu and then choosing <guilabel>Existing Projects into Workspace</guilabel>
-  for the import wizard. Follow the import steps of wizard until the
-  <application>PlanetBaron</application> project is imported and built.</para>
-
   <para>PlanetBaron is a network-based real-time strategy game. It contains
   three programs that we will run during this tutorial. The first is a server
   program that manages the distributed game state. The second is a graphical
@@ -30,11 +14,11 @@
   purpose of debugging and management. For example, the chat-test client is used
   to shutdown a server.</para>
 
-  <para>Flashlight is a dynamic analysis tool. To get any useful results
-  from Flashlight we have to collect data while a program is running. We
-  will start below by describing how to run and play a PlanetBaron game.
-  After we understand a bit about how to run the game we will return to
-  using Flashlight on it.</para>
+  <para>Flashlight is a dynamic analysis tool. To get any useful results from
+  Flashlight we have to collect data while a program is running. We will start
+  below by describing how to run and play a PlanetBaron game.  After we
+  understand a bit about how to run the game we will return to using Flashlight
+  on it.</para>
 
   <para>Let's run a PlanetBaron game. Select <filename>Server.java</filename> in
   the <package>edu.afit.planetbaron.server</package> package. Right-click and
@@ -123,22 +107,20 @@
     </mediaobject>
   </figure>
 
-  <para>Press <guibutton>Send</guibutton> to shutdown the server. A
-  dialog will appear stating that the server has disconnected from the
-  ChatTestClient that you may dismiss. You can now terminate the
-  ChatTestClient by closing the application window. Back in the Eclipse
-  console for the server you should see the following message at the
-  bottom:</para>
+  <para>Press <guibutton>Send</guibutton> to shutdown the server. A dialog will
+  appear stating that the server has disconnected from the ChatTestClient that
+  you may dismiss. You can now terminate the ChatTestClient by closing the
+  application window. Back in the Eclipse console for the server you should see
+  the following message at the bottom:</para>
 
   <screen>
     [INFO "server-main"] PlanetBaron game server shutdown complete
   </screen>
 
-  <para>We are now ready to use Flashlight to help us understand the
-  concurrency in the PlanetBaron game. Let's start with the
-  ChatTestClient. To run the ChatTestClient with Flashlight
-  instrumentation we select it from the Flashlight launch tab in the
-  Eclipse toolbar as shown in <xref
+  <para>We are now ready to use Flashlight to help us understand the concurrency
+  in the PlanetBaron game. Let's start with the ChatTestClient. To run the
+  ChatTestClient with Flashlight instrumentation we select it from the
+  Flashlight launch tab in the Eclipse toolbar as shown in <xref
   linkend="fig-tutorial-planetbaron-running-chattestclient" />.</para>
 
   <figure id="fig-tutorial-planetbaron-running-chattestclient">
@@ -151,16 +133,14 @@
   </figure>
 
   <para>The ChatTestClient window will appear on your screen. Select the
-  <guibutton>Connect</guibutton> to try an connect to a game server.
-  This will fail and the application will show a dialog to you which you
-  may dismiss. The reason it fails is that we did not start a game
-  server. At this point we have exercised the ChatTestClient enough to
-  see some Flashlight results. Go ahead and close the application window
-  to terminate the program. At this point Eclipse, which knows that this
-  launch was instrumented, will prompt you to switch to the Flashlight
-  perspective as shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-switch-dialog"
-  />.</para>
+  <guibutton>Connect</guibutton> to try an connect to a game server.  This will
+  fail and the application will show a dialog to you which you may dismiss. The
+  reason it fails is that we did not start a game server. At this point we have
+  exercised the ChatTestClient enough to see some Flashlight results. Go ahead
+  and close the application window to terminate the program. At this point
+  Eclipse, which knows that this launch was instrumented, will prompt you to
+  switch to the Flashlight perspective as shown in <xref
+  linkend="fig-tutorial-planetbaron-perspective-switch-dialog" />.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-switch-dialog">
     <title>Prompting the user to switch to the Flashlight perspective</title>
@@ -270,11 +250,11 @@
   <para>Right click on the single row and select <emphasis>What threads read and
   write this field?</emphasis> The results should look something like <xref
   linkend="fig-tutorial-planetbaron-perspective-ctc2" />.  In the case of
-  <structfield>f_connectDisconnectButton</structfield> we see that the AWT-EventQueue-0, known as the event
-  dispatch thread (EDT), and the main thread shared this field. Note that all
-  the accesses by the main thread were during construction of the
-  ChatTestClient.
-</para>
+  <structfield>f_connectDisconnectButton</structfield> we see that the
+  AWT-EventQueue-0, known as the event dispatch thread (EDT), and the main
+  thread shared this field. Note that all the accesses by the main thread were
+  during construction of the ChatTestClient.
+  </para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc2">
     <title>What threads read and write this field?</title>
@@ -328,67 +308,66 @@
     </mediaobject>
   </figure>
 
-  <para>What is wrong? To understand this problem we quote from Haase
-  and Guy's <citetitle pubwork="book">Filthy Rich
-  Clients</citetitle><biblioref linkend="HaaseGuy07"/>:</para>
+  <para>What is wrong? To understand this problem we quote from Haase and Guy's
+  <citetitle pubwork="book">Filthy Rich Clients</citetitle><biblioref
+  linkend="HaaseGuy07"/>:</para>
 
-  <blockquote><para>Swing's threading model is based on a single rule:
-  The EDT is responsible for executing any method that modifies a
-  component's state. This includes any component's constructor.
-  According to this rule, and despite what you can read in many books
-  and tutorials about Swing, the <function>main()</function> method in
-  the previous code example is invalid and can cause
-  deadlock.</para></blockquote>
+  <blockquote><para>Swing's threading model is based on a single rule: The EDT
+  is responsible for executing any method that modifies a component's
+  state. This includes any component's constructor.  According to this rule, and
+  despite what you can read in many books and tutorials about Swing, the
+  <function>main()</function> method in the previous code example is invalid and
+  can cause deadlock.</para></blockquote>
 
-  <para>To fix this problem we need to call the ChatTestClient
-  constructor on the EDT. We can do this by changing the
-  <function>main()</function> method to look like the code below.</para>
+  <para>To fix this problem we need to call the ChatTestClient constructor on
+  the EDT. We can do this by changing the <function>main()</function> method to
+  look like the code below.</para>
 
   <programlisting><![CDATA[  public static void main(String[] args) {
-    // run the application
-    SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
-        new ChatTestClient();
-      }
-    });
+  // run the application
+  SwingUtilities.invokeLater(new Runnable() {
+  public void run() {
+  new ChatTestClient();
+  }
+  });
   }]]></programlisting>
 
-  <para>Save this change and launch ChatTestClient using the Flashlight
-  launch shortcut again. Perform the same actions that you did during
-  the first run:
-    <orderedlist>
-      <listitem>Try to connect.</listitem>
-      <listitem>Dismiss the dialog.</listitem>
-      <listitem>Exit.</listitem>
-    </orderedlist>
+  <para>Save this change and launch ChatTestClient using the Flashlight launch
+  shortcut again. Perform the same actions that you did during the first run:
+  <orderedlist>
+    <listitem>Try to connect.</listitem>
+    <listitem>Dismiss the dialog.</listitem>
+    <listitem>Exit.</listitem>
+  </orderedlist>
   </para>
 
-  <para>A new run will appear in the <guilabel>Flashlight
-  Runs</guilabel> view. Double-click this run to prep it if Flashlight does
-  not automatically ask to prepare the data.</para>
+  <para>A new run will appear in the <guilabel>Flashlight Runs</guilabel>
+  view. Double-click this run to prep it if Flashlight does not automatically
+  ask to prepare the data.</para>
 
   <para>Clear out the previous query results by clicking the
-  <guiicon><inlinegraphic fileref="images/gray_x_double.png"
-  /></guiicon> in either the <guilabel>Result Explorer</guilabel>
-  portion of the <guilabel>Query Flashlight</guilabel> view or the
-  <guilabel>Flashlight Query Results</guilabel> view. This action clears
-  out the saved results from all previous queries (the set of these
-  results is saved in the <guilabel>Result Explorer</guilabel> portion
-  of the <guilabel>Query Flashlight</guilabel> view).</para>
+  <guiicon><inlinegraphic fileref="images/gray_x_double.png" /></guiicon> in
+  either the <guilabel>Result Explorer</guilabel> portion of the <guilabel>Query
+  Flashlight</guilabel> view or the <guilabel>Flashlight Query
+  Results</guilabel> view. This action clears out the saved results from all
+  previous queries (the set of these results is saved in the <guilabel>Result
+  Explorer</guilabel> portion of the <guilabel>Query Flashlight</guilabel>
+  view).</para>
 
-  <para>Check that you have the new run selected in the
-  <guilabel>Flashlight Runs</guilabel> view and then double-click on the
-  <emphasis>What fields (non-static) are shared?</emphasis> query. The
-  query is successful but no rows are returned. This indicates that no
-  shared fields were observed. This run provides some evidence that we
-  have fixed the bug discovered in ChatTestClient.</para>
+  <para>Check that you have the new run selected in the <guilabel>Flashlight
+  Runs</guilabel> view and then double-click on the <emphasis>What fields
+  (non-static) are shared?</emphasis> query. The query is successful but no rows
+  are returned. This indicates that no shared fields were observed. This run
+  provides some evidence that we have fixed the bug discovered in
+  ChatTestClient.</para>
 
   <para>Before we move on let's examine the old run one final time.  Clear out
   the previous query results by again clicking the <guiicon><inlinegraphic
   fileref="images/gray_x_double.png" /></guiicon> icon. Select the first
   ChatTestClient run and double-click the <emphasis>What fields (non-static) are
-  shared?</emphasis> query. Select <structfield>f_connectDisconnectButton</structfield> and right-click
-  to select the <emphasis>What are the invidual instances of this non-static
+  shared?</emphasis> query. Select
+  <structfield>f_connectDisconnectButton</structfield> and right-click to select
+  the <emphasis>What are the invidual instances of this non-static
   field?</emphasis> query, then the <emphasis>When and by what threads was this
   field accessed?</emphasis> query. Select the second access by the main thread
   and right-click to select the <emphasis>Show stack trace for a field
@@ -407,13 +386,12 @@
     </mediaobject>
   </figure>
 
-  <para>We are finished with our examination of these runs, so let's
-  delete them. First, clear out all the queries by pressing the
-  <guiicon><inlinegraphic fileref="images/gray_x_double.png"
-  /></guiicon> icon. In the <guilabel>Flashlight Runs</guilabel> view
-  select both runs and right-click. Select
-  <guimenuitem>Delete</guimenuitem> from the context menu as shown in
-  <xref linkend="fig-tutorial-planetbaron-perspective-ctc6" />.</para>
+  <para>We are finished with our examination of these runs, so let's delete
+  them. First, clear out all the queries by pressing the <guiicon><inlinegraphic
+  fileref="images/gray_x_double.png" /></guiicon> icon. In the
+  <guilabel>Flashlight Runs</guilabel> view select both runs and
+  right-click. Select <guimenuitem>Delete</guimenuitem> from the context menu as
+  shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc6" />.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc6">
     <title>Deleting two Flashlight runs</title>
@@ -424,12 +402,11 @@
     </mediaobject>
   </figure>
 
-  <para>You will be prompted once per run to ensure that you really want
-  to delete this Flashlight run data. In both cases check the
-  <guilabel>Delete raw data files from the disk</guilabel> option and
-  press <guibutton>OK</guibutton>. After a short delay the
-  <guilabel>Flashlight Runs</guilabel> view should be empty. It is
-  important to delete old runs to ensure that you free up disk space on
-  your computer.</para>
+  <para>You will be prompted once per run to ensure that you really want to
+  delete this Flashlight run data. In both cases check the <guilabel>Delete raw
+  data files from the disk</guilabel> option and press
+  <guibutton>OK</guibutton>. After a short delay the <guilabel>Flashlight
+  Runs</guilabel> view should be empty. It is important to delete old runs to
+  ensure that you free up disk space on your computer.</para>
 
 </sect2>
