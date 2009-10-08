@@ -22,13 +22,23 @@
   project to your workspace.  From the Eclipse main menu, choose
   <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run the
   Flashlight Tutorials</guimenuitem></menuchoice> and add
-  <application>PlanetBaron</application> to your workspace.  If you
-  don't want to add the project to your workspace this way, you can also
+  <application>PlanetBaron</application> to your workspace as displayed
+  in <xref linkend="fig-tutorial-planetbaron-install" />.  If you don't
+  want to add the project to your workspace this way, you can also
   download the <application>PlanetBaron</application> project from
-  <ulink
-  url="http://www.surelogic.com/static/flashlight/PlanetBaron.zip">
+  <ulink url="http://www.surelogic.com/static/flashlight/PlanetBaron.zip">
   http://www.surelogic.com/static/flashlight/PlanetBaron.zip</ulink> and
   import it into your workspace manually.</para>
+
+
+  <figure id="fig-tutorial-planetbaron-install">
+    <title>Adding PlanetBaron to a Workspace</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-install.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
   <xi:include href="sect2-sec-tutorial-client.xml"/>
   <xi:include href="sect2-sec-tutorial-server.xml"/>
