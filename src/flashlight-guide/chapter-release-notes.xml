@@ -10,8 +10,8 @@
   features to try out, and known limitations to avoid or workaround.
   These are presented in the sections below for each released version of
   Flashlight.</para>
-	
-	
+  
+  
   <sect1>
     <title>Flashlight version 2.3.0</title>
     
@@ -41,9 +41,11 @@
 	</listitem>
 	<listitem>
 	  <para>
-	    <emphasis>Quickly create tutorial projects</emphasis> &mdash; You
-	    can now create the PlanetBaron project from the menu in the
-	    Flashlight Runs view.
+	    <emphasis>Quickly create tutorial projects</emphasis>
+	    &mdash; You can now create and start the tutorials from the
+	    workspace menu by choosing
+	    <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run
+	    the Flashlight Tutorials</guimenuitem></menuchoice>.
 	  </para>
 	</listitem>
 	<listitem>
@@ -53,6 +55,39 @@
 	</listitem>
 
       </itemizedlist>
+    </sect2>
+    
+    <sect2>
+      <title>Known Problems</title>
+
+      <para>This section describes known bugs and limitations in this
+      version of Flashlight.</para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <emphasis>Preparing very large files will sometimes fail.</emphasis>
+	    &mdash; Due to a limitation in Flashlight's embedded database
+	    implementation, Flashlight is unable to prepare very large files.
+	    The maximum size file that can be prepared depends on
+	    characteristics of the instrumented program, but as a general rule
+	    you shouldn't encounter this problem until your raw file is &gt; 300
+	    MB in size.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <sect1>
+    <title>Flashlight version 2.1.1</title>
+    
+    <para>This section describes the 2.1.1 release of Flashlight.</para>
+    
+    <sect2>
+      <title>New and Noteworthy</title>
+
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
     </sect2>
     
     <sect2>
