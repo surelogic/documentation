@@ -77,7 +77,9 @@
 	    showing this new view noting a typo in a
 	    <emphasis>@InRegion</emphasis> annotation is shown in
 	    <xref
-	    linkend="fig-release-notes-230-modeling-problems"/>.</para>
+	    linkend="fig-release-notes-230-modeling-problems"/>. The
+	    referenced region name should be "PrivateState" not
+	    "PrivateeState".</para>
 	    <figure id="fig-release-notes-230-modeling-problems">
 	      <title>The new Modeling Problems view</title>
 	      <mediaobject>
