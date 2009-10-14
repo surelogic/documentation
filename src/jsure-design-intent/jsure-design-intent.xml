@@ -76,7 +76,7 @@ public class C {
 
             <listitem><para>Protects all the fields in instances of the
             class (the <emphasis>region</emphasis>
-            <structfield>Instance</structfield>) .  Regions are
+            <structfield>Instance</structfield>).  Regions are
             described in more detail in <xref
             linkend="declaring-regions"/>; for now it is enough to know
 
@@ -304,7 +304,7 @@ public class Buffer {
       
           <programlisting>
 <emphasis>@SingleThreaded</emphasis>
-<emphasis>@Borrowed</emphasis>
+<emphasis>@Borrowed("this")</emphasis>
 public C(&hellip;) { &hellip; }
           </programlisting>
         </para>
@@ -313,7 +313,7 @@ public C(&hellip;) { &hellip; }
         of a constructor is to leverage the assurance that the
         constructor <emphasis>borrows</emphasis> the constructed
         object&mdash;that is, that it does not create an alias to it.
-        (The <classname>@Borrowed</classname> annotation is further
+        (The <classname>@Borrowed("this")</classname> annotation is further
         described below.) In particular, when analysis knows that the
         constructor does not create such an alias, it also knows that it
         is impossible for another thread to obtain a reference to the
@@ -340,10 +340,10 @@ public C(&hellip;) { &hellip; }
 public class C {
   private int f = 1;
   private int g;
-  
   {
     g = 2;
   }
+
   public synchronized int getF() {
     return f;
   }
@@ -365,7 +365,7 @@ public class C {
 public class C {
   &hellip;
   <emphasis>@SingleThreaded</emphasis>
-  <emphasis>@Borrowed</emphasis>
+  <emphasis>@Borrowed("this")</emphasis>
   public C() {}
   &hellip;
 }
@@ -373,17 +373,18 @@ public class C {
           </para>
         
           <para>Alternatively, if it is undesirable to insert the
-          constructor explicitly, the constructor can still be annotated
-          using a <emphasis>scoped promise</emphasis>.  These are
-          described in more detail below, but for the case of annotating
+          constructor explicitly, the constructor can still be
+          annotated using a <emphasis>scoped promise</emphasis>.
+          These are described in more detail below in <xref
+          linkend="scoped-promises"/>, but for the case of annotating
           an implicit constructor, we would annotate the class as
           follows:
         
             <programlisting>
 @RegionLock("Lock is this protects Instance")
-<emphasis>@Promise({</emphasis>
-  <emphasis>"'@SingleThreaded' for new()",</emphasis>
-  <emphasis>"'@Borrowed this' for new()"})</emphasis>
+<emphasis>@Promises({</emphasis>
+  <emphasis>@Promise("@SingleThreaded for new()"),</emphasis>
+  <emphasis>@Promise("@Borrowed(this) for new()")})</emphasis>
 public class C {
   &hellip;
 }
@@ -1196,7 +1197,7 @@ class Var {
             </programlisting>
           
           It's obvious that we can declare the receiver to be
-          <classname>@Borrowed</classname> for the two methods.  If we never
+          borrowed for the two methods.  If we never
           actually use a unique field as the receiver, then we do not need
           to declare the effects of the methods:
           
@@ -1243,6 +1244,15 @@ class Var {
           </para>
         </sect2>
       </sect1>
+    </chapter>
+
+    <chapter id="scoped-promises">
+      <title>Scoped Promises</title>
+      <para>Scoped promises are promises that act on other promises
+      within a static scope of code. Two types of scoped promises are
+      supported by the tool: <emphasis>@Promise</emphasis> to avoid
+      tedious user annotation and <emphasis>@Assume</emphasis> to
+      support team modeling.</para>
     </chapter>
   </part>
   
