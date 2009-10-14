@@ -546,14 +546,14 @@
 	main menu than you can assume it has been installed properly.
 	To start off, we'll run Sierra on a project called
 	<application>ShowOff</application>. Select
-	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run the Sierra
+	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
 	Tutorials</guimenuitem></menuchoice> from the workspace menu and
 	add the <application>ShowOff</application> project to your
 	workspace as shown in <xref
 	linkend="fig-tutorial-install"/>.</para>
 
 	<figure id="fig-tutorial-install">
-	  <title>Adding the ShowOff and SmallWorld projects to a Workspace</title>
+	  <title>Adding ShowOff and SmallWorld to a Workspace</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="images/tutorial-install.png" />

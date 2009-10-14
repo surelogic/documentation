@@ -9,44 +9,8 @@
   
   <para>This example demonstrates more sophisticated annotations and
   analysis results using a simple network capture the planet game:
-  <application>PlanetBaron</application>.</para>
-  
-  <sect3>
-    <title>Creating the PlanetBaron Project</title>
-
-    <orderedlist>
-      <listitem>
-        <para>Download the PlanetBaron project archive from SureLogic at
-        <ulink
-        url="http://www.surelogic.com/static/jsure/PlanetBaronJSure.zip">http://www.surelogic.com/static/jsure/PlanetBaronJSure.zip</ulink> to your disk.</para>
-      </listitem>
-      
-      <listitem>
-        <para>Import this project into your Eclipse workspace using
-        <menuchoice><guimenu>File</guimenu>
-        <guimenuitem>Import&hellip;</guimenuitem></menuchoice> from the
-        Eclipse main menu and then choosing
-        <menuchoice><guisubmenu>General</guisubmenu>
-        <guimenuitem>Existing Projects into
-        Workspace</guimenuitem></menuchoice> for the import
-        wizard.</para>
-      </listitem>
-      
-      <listitem>
-        <para>In the next pane, choose <guibutton>Select archive
-        file:</guibutton>, and then press
-        <guibutton>Browse&hellip;</guibutton> to select the
-        <filename>PlanetBaron.zip</filename> archive you
-        downloaded.</para>
-      </listitem>
-      
-      <listitem>
-        <para>Press <guibutton>Finish</guibutton> to import and build
-        the project. The project does not initially have the assurance
-        focus from JSure.  We will toggle this later.</para>
-      </listitem>
-    </orderedlist>
-  </sect3>
+  <application>PlanetBaron</application>.  It will use the tutorial
+  project <application>PlanetBaronJSure</application>.</para>
   
   <sect3>
     <title>Running PlanetBaron</title>

@@ -17,6 +17,35 @@
   <package>java.util.concurrent</package> reader&ndash;writer
   locks.</para>
   
+  <para>These tutorials assume that you have installed JSure. If you see
+  a <guimenu>JSure</guimenu> menu item on your Eclipse main menu than
+  you can assume it has been installed properly.  To follow along with
+  the tutorials you will also need to add the BoundedFIFO and
+  PlanetBaronJSure and BoundedFIFO projects to your workspace.  From the
+  Eclipse main menu, choose
+  <menuchoice><guimenu>JSure</guimenu><guimenuitem>Run JSure
+  Tutorials</guimenuitem></menuchoice> and add the projects to your
+  workspace as displayed in <xref linkend="fig-tutorial-jsure-install"
+  />.  If you don't want to add the project to your workspace this way,
+  you can also download the <application>BoundedFIFO</application>
+  project from <ulink
+  url="http://www.surelogic.com/static/jsure/BoundedFIFO.zip">
+  http://www.surelogic.com/static/jsure/BoundedFIFO.zip</ulink> or the
+  <application>PlanetBaronJSure</application> project from <ulink
+  url="http://www.surelogic.com/static/jsure/PlanetBaronJSure.zip">
+  http://www.surelogic.com/static/jsure/PlanetBaronJSure.zip</ulink> and
+  import them into your workspace manually.</para>
+
+  <figure id="fig-tutorial-jsure-install">
+    <title>Adding BoundedFIFO and PlanetBaronJSure to a Workspace</title>
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/tutorial-jsure-install.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
   <xi:include href="sect2-boundedfifo.xml"/>
   
   <xi:include href="sect2-planetbaron.xml"/>

@@ -20,8 +20,8 @@
   menu than you can assume it has been installed properly.  To follow
   along with the tutorials you will also need to add the PlanetBaron
   project to your workspace.  From the Eclipse main menu, choose
-  <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run the
-  Flashlight Tutorials</guimenuitem></menuchoice> and add
+  <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run Flashlight
+  Tutorials</guimenuitem></menuchoice> and add
   <application>PlanetBaron</application> to your workspace as displayed
   in <xref linkend="fig-tutorial-planetbaron-install" />.  If you don't
   want to add the project to your workspace this way, you can also

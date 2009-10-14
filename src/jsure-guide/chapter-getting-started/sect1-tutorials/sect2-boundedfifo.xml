@@ -7,14 +7,14 @@
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Verifying BoundedFIFO</title>
   
-  <para>In this turorial we walk through the creation of a project and 
-  its complete assurance using JSure.  Specifically, we assure both
-  the implementation and <emphasis>usage</emphasis> of a simple class.
-  That is, we demonstrate that is not always
-  enough to assure the implementation of a class: <emphasis>sometimes
-  the clients of a class must conform to a specific behavior as
-  well</emphasis>. This example focuses on two classes (plus one
-  auxillary class):
+  <para>In this turorial we walk through the its complete assurance of
+  the <application>BoundedFIFO</application> project using JSure.
+  Specifically, we assure both the implementation and
+  <emphasis>usage</emphasis> of a simple class.  That is, we demonstrate
+  that is not always enough to assure the implementation of a class:
+  <emphasis>sometimes the clients of a class must conform to a specific
+  behavior as well</emphasis>. This example focuses on two classes (plus
+  one auxillary class):
   
     <itemizedlist>
       <listitem>
@@ -55,42 +55,6 @@
   <classname>@Borrowed</classname>, <classname>@Unique</classname>,
   <classname>@Aggregate</classname>, and
   <classname>@Promise</classname>. </para>
-
-  <sect3>
-    <title>Creating the BoundedFIFO Project</title>
-    
-    <orderedlist>
-      <listitem>
-        <para>Download the BoundedFIFO project archive from SureLogic at
-        <ulink url="http://www.surelogic.com/static/jsure/BoundedFIFO.zip">http://www.surelogic.com/static/jsure/BoundedFIFO.zip</ulink> to your disk.</para>
-      </listitem>
-      
-      <listitem>
-        <para>Import this project into your Eclipse workspace using
-        <menuchoice><guimenu>File</guimenu>
-        <guimenuitem>Import&hellip;</guimenuitem></menuchoice> from the
-        Eclipse main menu and then choosing
-        <menuchoice><guisubmenu>General</guisubmenu>
-        <guimenuitem>Existing Projects into
-        Workspace</guimenuitem></menuchoice> for the import
-        wizard.</para>
-      </listitem>
-      
-      <listitem>
-        <para>In the next pane, choose <guibutton>Select archive
-        file:</guibutton>, and then press
-        <guibutton>Browse&hellip;</guibutton> to select the
-        <filename>BoundedFIFO.zip</filename> archive you
-        downloaded.</para>
-      </listitem>
-      
-      <listitem>
-        <para>Press <guibutton>Finish</guibutton> to import and build
-        the project. The project does not initially have the assurance
-        focus from JSure.</para>
-      </listitem>
-    </orderedlist>
-  </sect3>
     
   <sect3>
     <title>Enabling Assurance and Adding the SureLogic Annotation Types</title>
