@@ -112,8 +112,8 @@
       The easiest thing to do is to choose the default option
       <guibutton>Add to Project Root</guibutton>: JSure copies
       <filename>promises.jar</filename> to the root of project and
-      adds it to the build path.  See <xref linkend="sec-adding-promises-jar"/>
-      for more details.</para>
+      adds it to the build path. See <xref
+      linkend="sec-adding-promises-jar"/> for more details.</para>
       
     </sect3>
     
@@ -136,7 +136,9 @@
       
       <para>Disabling analysis of a project does not affect
       <filename>promises.jar</filename> or the project&rsquo;s build
-      path.</para>
+      path, however, you can manually delete the Jar and remove it
+      from the build path if you haven&rsquo;t added any
+      annotations to your code.</para>
     </sect3>
         
     <sect3>
@@ -183,11 +185,18 @@
       Status</guilabel> views; see <xref
       linkend="fig-code-verification-perspective"/>. The
       <guilabel>Verification Status</guilabel> view is divided into
-      sections to show the results of assuring different classes
-      of design intent, such as effects, and concurrency, as well as
+      sections to show the results of assuring different classes of
+      design intent, such as effects, and concurrency, as well as
       showing less specific suggestions and warnings. The various
       result messages are explained in detail in <xref
-      linkend="understanding-assurance-output"/>.</para>
+      linkend="understanding-assurance-output"/>. <xref
+      linkend="fig-code-verification-perspective"/> also shows the
+      <guilabel>Modeling Problems</guilabel> view which, by default,
+      will not appear. This view will appear below the
+      <guilabel>Verification Status</guilabel> view if any of the
+      annotations in your code do not make sense to JSure. This view
+      lists each bad annotation so that the programmer can fix
+      them.</para>
 
       <figure id="fig-code-verification-perspective">
         <title>The Code Verification Perspective</title>
