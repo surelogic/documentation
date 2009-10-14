@@ -20,7 +20,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 2.1.1&mdash;June 2009</pubdate>
+    <pubdate>Version 2.3.0&mdash;October 2009</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -53,5 +53,56 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+
+    <section id="sec-jsure-release-2-3-0">
+      <title>JSure version 2.3.0</title>
+      <para>This section describes the 2.3.0 version of the JSure Eclipse client.</para>
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Verification results are now separated
+	    from modeling problems</emphasis> &mdash; A new view,
+	    called the <guilabel>Modeling Problems</guilabel> view,
+	    has been added to JSure. Previously any annotations that
+	    were not well-formed (i.e., they had syntax errors or
+	    other problems) were reported as modeling problems in the
+	    <guilabel>Verification Status</guilabel> view. This was
+	    confusing to the user because these results, which are
+	    very important, could easily be missed when mixed in with
+	    the analysis results shown in this view. A screenshot
+	    showing this new view noting a typo in a
+	    <emphasis>@InRegion</emphasis> annotation is shown in
+	    <xref
+	    linkend="fig-release-notes-230-modeling-problems"/>.</para>
+	    <figure id="fig-release-notes-230-modeling-problems">
+	      <title>The new Modeling Problems view</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-230-modeling-problems.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	    <para>The new view, by default, appears when the code has
+	    any modeling problems. Therefore, the view can be
+	    dismissed to save screen space and it will come back when
+	    needed. This behavior can be changed as shown in  <xref
+	    linkend="fig-release-notes-230-modeling-problems-pref"/>.</para>
+	    <figure id="fig-release-notes-230-modeling-problems-pref">
+	      <title>Preference for the new Modeling Problems view</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-230-modeling-problems-pref.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Quickly create tutorial projects</emphasis> &mdash;
+	    You can now create the SmallWorld and ShowOff tutorial projects from
+	    the Findings Quick Search menu.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
   </chapter>
 </book>
