@@ -28,9 +28,9 @@
   workspace as displayed in <xref linkend="fig-tutorial-jsure-install"
   />.  If you don't want to add the project to your workspace this
   way, you can also download the
-  <application>BoundedFIFO</application> project from <ulink
-  url="http://www.surelogic.com/static/jsure/BoundedFIFO.zip">
-  http://www.surelogic.com/static/jsure/BoundedFIFO.zip</ulink> or the
+  <application>BoundedFIFOJSure</application> project from <ulink
+  url="http://www.surelogic.com/static/jsure/BoundedFIFOJSure.zip">
+  http://www.surelogic.com/static/jsure/BoundedFIFOJSure.zip</ulink> or the
   <application>PlanetBaronJSure</application> project from <ulink
   url="http://www.surelogic.com/static/jsure/PlanetBaronJSure.zip">
   http://www.surelogic.com/static/jsure/PlanetBaronJSure.zip</ulink>
@@ -41,7 +41,7 @@
   described below).</para>
 
   <figure id="fig-tutorial-jsure-install">
-    <title>Adding BoundedFIFO and PlanetBaronJSure to a Workspace</title>
+    <title>Adding BoundedFIFOJSure and PlanetBaronJSure to a Workspace</title>
     <mediaobject>
       <imageobject>
 	<imagedata fileref="images/tutorial-jsure-install.png" />
