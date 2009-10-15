@@ -9,7 +9,7 @@
   <para>This section will quickly get you started with JSure. It
   describes how to install JSure into your Eclipse, how to install a
   license file that allows you to use JSure.  It also describes how to 
-  enable JSure assurane of a Java project, and how to examine the
+  enable JSure assurance of a Java project, and how to examine the
   assurance results.</para>
 
   <sect2>
@@ -65,36 +65,38 @@
     &ldquo;bare-bones&rdquo; description of how to prepare a Java
     project for assurance by JSure.</para>
     
-    <para>JSure assurance compares Java code
-    against programmer design intent as expressed using a set of Java 5
-    annotation types declared in package <package>com.surelogic</package>.
-    To use JSure with your code, your project must be
-    able to reference the SureLogic annotation types.  The SureLogic
-    annotation types are bundled together in
+    <para>JSure compares Java code with models of programmer design
+    intent expressed using a set of Java 5 annotation types. The tool
+    verifies model-code consistency. To use JSure with your code, your
+    project must be able to reference the SureLogic annotation types
+    declared in package <package>com.surelogic</package>.  The
+    SureLogic annotation types are bundled together in
     <filename>promises.jar</filename>. This file must be on the build
     path of your project for the annotations be to used.  As described
-    below, the simplest way to add this JAR file to the project and its
-    build path is to allow JSure to do it for you. </para>
+    below, the simplest way to add this JAR file to the project and
+    its build path is to allow JSure to do it for you.</para>
     
     <sect3>
       <title>Enabling JSure Analysis</title>
       
       <para>JSure can only assure the contents of one project at a
       time. The icon of the project being assured is marked with a
-      small <wordasword>S</wordasword> (for SureLogic) in the lower
-      right corner: <guiicon><inlinegraphic
-      fileref="images/jsure-nature.png"/></guiicon>.  The easiest way
-      to select the project to assure is to
-        <orderedlist>
-          <listitem><para>Select the project in the <guilabel>Package
-          Explorer</guilabel>.</para></listitem>
+      small <wordasword>S</wordasword> in the lower right corner:
+      <guiicon><inlinegraphic
+      fileref="images/jsure-nature.png"/></guiicon>. The
+      <wordasword>J</wordasword> above the <wordasword>S</wordasword>
+      are intended to remind you that this is the project JSure is
+      analyzing. The easiest way to select the project to assure is to
+      <orderedlist>
+	<listitem><para>Select the project in the <guilabel>Package
+	Explorer</guilabel>.</para></listitem>
 
-          <listitem><para>Press the icon <guiicon><inlinegraphic
-          fileref="images/jsure_verify.gif"/></guiicon> in the view&rsquo;s
-          toolbar.  This same action is also available as
-          <menuchoice><guimenuitem>Focus Verificaton on this
-          Project</guimenuitem></menuchoice> in the view&rsquo;s menu.</para></listitem>
-        </orderedlist>
+	<listitem><para>Press the icon <guiicon><inlinegraphic
+	fileref="images/jsure_verify.gif"/></guiicon> in the view&rsquo;s
+	toolbar.  This same action is also available as
+	<menuchoice><guimenuitem>Focus Verification on this
+	Project</guimenuitem></menuchoice> in the view&rsquo;s menu.</para></listitem>
+      </orderedlist>
       If any other project is currently selected for assurance, this action first
       disables assurance on that project before enabling the newly selected
       project.</para>
@@ -129,7 +131,7 @@
           fileref="images/jsure_no_verify.gif"/></guiicon> in the
           view&rsquo;s toolbar.  This same action is also available as
           <menuchoice><guimenuitem>Disable
-          Verificaton</guimenuitem></menuchoice> in the view&rsquo;s
+          Verification</guimenuitem></menuchoice> in the view&rsquo;s
           menu.</para></listitem>
         </orderedlist>
       </para>
@@ -163,7 +165,7 @@
       the perspective.  Choosing <guibutton>No</guibutton> will leave
       the current Eclipse window in whatever perspective it is currently in.  If you check
       <guibutton>Remember my decision</guibutton> and press <guibutton>Yes</guibutton>
-      then whenever you focus verificaton on a project, Eclipse will switch
+      then whenever you focus verification on a project, Eclipse will switch
       to the perspective without asking you first.</para>
 
       <para>You can also switch to the <guilabel>Code Verification</guilabel>
