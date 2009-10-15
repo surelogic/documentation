@@ -175,13 +175,14 @@
     <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>
     fails to assure. This project also has two modeling problems
     listed in the <guilabel>Modeling Problems</guilabel> view. This
-    view displays problems with the annotations themselves.  Almost
-    always these are errors, and the erroneous annotations are ignored
-    by JSure.  Results under this heading include parsing problems
-    with annotation contents, name resolution errors (for example,
-    naming a region that does not exist in a
-    <classname>@RegionLock</classname> annotation), and semantic
-    errors (for example, using the object referenced by a
+    view displays problems with the annotations themselves. By default
+    this view only becomes visible when modeling problems exist in
+    your project.  Almost always these are annotation syntax errors,
+    and the erroneous annotations are ignored by JSure.  Results under
+    this heading include parsing problems with annotation contents,
+    name resolution errors (for example, naming a region that does not
+    exist in a <classname>@Region</classname> annotation), and
+    semantic errors (for example, using the object referenced by a
     non-<code>static</code> field as the lock for a
     <code>static</code> field).  In this case, however, we have two
     instances of the same warning: the visibility of the field that
@@ -235,8 +236,8 @@ public abstract class Thing {
 
     The lock <structfield>ThingLock</structfield> associates the lock
     object referenced by <structfield>f_lock</structfield> with the
-    class's non-<code>static</code>state.  In this case, the lock field
-    <structfield>f_lock</structfield> refers to a
+    class's non-<code>static</code> state.  In this case, the lock
+    field <structfield>f_lock</structfield> refers to a
     <classname>java.util.concurrent.lock.ReadWriteLock</classname>
     object.  JSure understands the semantics of these locks, in
     particular that
@@ -259,9 +260,9 @@ public abstract class Thing {
     protection to all the instance fields declared in them. </para>
     
     <para>Digging into the results for
-    <structfield>ThingLock</structfield> we see that assurance is
-    prevented by one unprotected field access and three inconsistent
-    lock preconditions:
+    <structfield>ThingLock</structfield> we see that model-code
+    consistency is prevented by one unprotected field access and three
+    inconsistent lock preconditions:
     
       <mediaobject>
         <imageobject>
@@ -269,7 +270,8 @@ public abstract class Thing {
         </imageobject>
       </mediaobject>
 
-    We also see that JSure matches up <function>lock()</function> and
+    We can also see, by the "i" result near the bottom, that JSure
+    matches up <function>lock()</function> and
     <function>unlock()</function> calls. Calls to
     <function>lock()</function> and <function>unlock()</function> are
     tracked separately because they do not need to be matched up
@@ -327,7 +329,7 @@ public abstract class Thing {
     method to expand the critical section to contain the entire
     conditional statement:
 
-      <programlisting linenumbering="numbered" startinglinenumber="157">  public void moveTo(Location destination) {
+      <programlisting>  public void moveTo(Location destination) {
     if (isMoving())
       throw new IllegalStateException(
           "a moving ship can't change its destination");
@@ -367,7 +369,7 @@ public abstract class Thing {
 
     <para>You can demonstrate to yourself that JSure understands the
     when the read component and when the write component of a
-    read&ndash;write lock needs to be held by changing lines 162 amd
+    read&ndash;write lock needs to be held by changing lines 162 and
     176 of <function>Ship.moveTo()</function> to acquire the read lock
     instead of the write lock:
 
@@ -536,13 +538,13 @@ public abstract class Thing {
     <structfield>f_lock</structfield> as the lock instead.  A quick
     inspection of the <structfield>f_lock</structfield> field
     declaration tells us the lock is a
-    <classname>ReadWriteLocK</classname>.</para>
+    <classname>ReadWriteLock</classname>.</para>
 
     <para>The call sites can be fixed by replacing the
     <code>synchronized</code> blocks with the appropriate
     <code>try</code>&ndash;<code>finally</code> blocks:
 
-      <programlisting linenumbering="numbered" startinglinenumber="115">  @Override
+      <programlisting>  @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
@@ -582,14 +584,15 @@ public abstract class Thing {
     }
   }</programlisting>
 
-    When you make these changes, you will see that the class
-    <classname>MapView</classname> no longer compiles; see <xref
+    When you make these changes (or cut and paste them from above),
+    you will see that the class <classname>MapView</classname> no
+    longer compiles; see <xref
     linkend="fig-pb-paintComponent-errors"/>.  Eclipse complains that
     <computeroutput>The field Thing.f_lock is not
     visible</computeroutput>.  Of course, <link
-    linkend="lock-viz-problems">as prevously discussed</link>, this is just
-    the situation that JSure is warning us about when it tells us that
-    <computeroutput>lock field "this.f_lock" is less visible than
+    linkend="lock-viz-problems">as previously discussed</link>, this is
+    just the situation that JSure is warning us about when it tells us
+    that <computeroutput>lock field "this.f_lock" is less visible than
     region "Instance" on Lock ThingLock is this.f_lock protects
     Instance at Thing.java</computeroutput>.  Here, in class
     <code>MapView</code>, we cannot make use of the contents of the
@@ -613,7 +616,7 @@ public abstract class Thing {
     <para>We could fix this problem by simply making the field
     <structfield>f_lock</structfield> <code>public</code> instead of
     <code>protected</code>.  Generally speaking, this violates the
-    principles of data hiding and abstraction.  The superioer
+    principles of data hiding and abstraction.  The superior
     alternative supported by JSure is to add a &ldquo;lock
     getter&rdquo; method to <classname>Thing</classname> to return the
     lock object.  We annotate this method with a
@@ -633,7 +636,7 @@ public abstract class Thing {
     <function>MapView.paintComponent()</function> (again) to use the
     new lock getter method:
 
-      <programlisting linenumbering="numbered" startinglinenumber="115">  @Override
+      <programlisting>  @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
@@ -692,9 +695,10 @@ public abstract class Thing {
   <sect3>
     <title>One More Fix</title>
 
-    <para>What is the problem now?  To find out, we turn our attention
-    once more to the <guilabel>Suggestions and warnings</guilabel>
-    section of the results.  Here we find method
+    <para>What is the lingering problem with the lock preconditions?
+    To find out, we turn our attention once more to the
+    <guilabel>Suggestions and warnings</guilabel> section of the
+    results.  Here we find method
     <function>MapView.paintComponent()</function> contains 6
     &ldquo;non-final lock expressions:&rdquo;
 
@@ -717,8 +721,8 @@ public abstract class Thing {
     <varname>s</varname>, for example, at the time it is used to
     acquire the lock will not be the same as the value of
     <varname>s</varname> as the time it is used to release the lock.
-    We can fix this by declaring <varname>s</varname> and
-    <varname>p</varname> to be <code>final</code>:
+    We can fix this by declaring <varname>s</varname> (at lines 128 and 145) and
+    <varname>p</varname> (at line 136) to be <code>final</code>:
 
       <programlisting linenumbering="numbered" startinglinenumber="115">  @Override
   protected void paintComponent(Graphics g) {
@@ -766,7 +770,7 @@ public abstract class Thing {
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="images/pb-thingLock-assures.png" />
+          <imagedata fileref="images/pb-thing-lock-assures.png" />
         </imageobject>
       </mediaobject>
     </para>
