@@ -14,7 +14,7 @@
     graph points from a lock that is already held to a lock being acquired.
     Cycles in the graph indicate that the program sometimes acquires a set of
     locks in more than one order, a behavior that commonly leads to deadlock.
-    To investigate this further, we will instrument the Planetbaron client this
+    To investigate this further, we will instrument the PlanetBaron client this
     time around.
   </para>
 
@@ -79,7 +79,7 @@
     that are held at this point.  Remove this query result by clicking
     <guiicon><inlinemediaobject><imageobject><imagedata
     fileref="images/gray_x.png" /></imageobject></inlinemediaobject></guiicon>
-    in the <guilabel>QueryResults</guilabel> view.  Now run the <emphasis>What
+    in the <guilabel>Query Results</guilabel> view.  Now run the <emphasis>What
     is the lock trace for this lock event?</emphasis> query.  <xref
     linkend="fig-tutorial-planetbaron-deadlock3" /> shows the result of running
     this query, which lists when and where the locks held here are acquired,
@@ -163,7 +163,7 @@
   <para>
     To summarize, our investigation has shown us that our lock cycle is composed
     of two separate and repeated events in our program.  Every time the AWT
-    Event Thread proccesses a mouseMoved event, we acquire
+    Event Thread processes a mouseMoved event, we acquire
     <structfield>m_cursorLocationLock</structfield>, then a read lock on
     <structfield>f_lock</structfield>.  Every time we get a response back from
     the server, we acquire a write lock on <structfield>f_lock</structfield>,

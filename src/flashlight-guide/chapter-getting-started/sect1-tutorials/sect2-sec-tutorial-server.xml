@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <sect2 id="sec-tutorial-server">
-  <title>Finding a race condition with the lockset analysis</title>
+  <title>Finding a race condition with the lock set analysis</title>
 
   <para>ChatTestClient was a simple Swing application that we tried out
   one query on. This query let us understand shared state that was
@@ -27,7 +27,7 @@
   toolbar as shown in <xref
   linkend="fig-tutorial-planetbaron-running-server" />.  We are assuming
   you ran the server and player applications earlier in the tutorial so
-  that the Server and PlayerUI launch configuratons will still be
+  that the Server and PlayerUI launch configurations will still be
   present in the Eclipse launch menus.</para>
 
   <figure id="fig-tutorial-planetbaron-running-server">
@@ -86,14 +86,14 @@
   <!-- Start of lockset tutorial -->
 
   <para>We'll use a couple of analyses performed by Flashlight during the prep
-  phase to investigate the PlanetBaron server.  The first of these is a lockset
-  analysis.  A lockset analysis examines each access of a field in the program
-  and intersects the set of locks held.  If shared state has a lockset it is a
+  phase to investigate the PlanetBaron server.  The first of these is a lock set
+  analysis.  A lock set analysis examines each access of a field in the program
+  and intersects the set of locks held.  If shared state has a lock set it is a
   good thing&mdash;this state was observed to be protected consistently by at
   least one lock.  This isn't a guarantee that this field will always be
   protected in every run of the program (to make this determination a sound
   verification tool like SureLogic JSure is required), but it was observed to be true for the
-  particular run of the program.  If shared state has no lockset then
+  particular run of the program.  If shared state has no lock set then
   this may be a bad thing&mdash;it might mean that your program contains a race
   condition.  To take a look at the results of Flashlight's lock analysis, run
   the query <emphasis>What fields (non-static) have an empty lock

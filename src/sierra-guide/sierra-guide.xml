@@ -1890,7 +1890,7 @@ if (o == null) {
       client. The second section (from the top) contains commands that
       communicate with one or more Sierra team servers. The third
       section contains commands to report problems about or suggest
-      improvements to Sierra directly to Surelogic.  The bottom
+      improvements to Sierra directly to SureLogic.  The bottom
       section allows access to the license management dialog.</para>
 
       <para>The commands on the Sierra main menu are:</para>
@@ -2271,7 +2271,7 @@ if (o == null) {
 	    projects to scan even when projects are selected in the
 	    Package Explorer.</emphasis> This setting controls if the
 	    dialog is shown to allow the user to select projects when
-	    the user preforms a scan or publish. If this setting is
+	    the user performs a scan or publish. If this setting is
 	    checked then the dialog always appears even if projects
 	    are selected in the Package Explorer. If this setting is
 	    not checked then the dialog will only appear when no
@@ -2313,7 +2313,7 @@ if (o == null) {
 	</orderedlist>
 
 	<para>The <emphasis>Code Scanning</emphasis> settings are used
-	when code scans are preformed by Sierra from within
+	when code scans are performed by Sierra from within
 	Eclipse. This group contains the following settings:</para>
 
 	<orderedlist>
@@ -2935,7 +2935,7 @@ if (o == null) {
 	    <para><emphasis>Logging out of a team server sometimes does not
 	    clear page state</emphasis> &mdash; (Unchanged from 2.2) When
 	    logging in and logging out to the team server with a browser,
-	    especially with different usernames, sometimes page state is not
+	    especially with different user names, sometimes page state is not
 	    cleared. To work around this problem simple reload the page or
 	    restart your browser when you log out.</para>
 
@@ -3022,7 +3022,7 @@ if (o == null) {
 	    <para><emphasis>Logging out of a team server sometimes does not
 	    clear page state</emphasis> &mdash; (Unchanged from 2.2) When
 	    logging in and logging out to the team server with a browser,
-	    especially with different usernames, sometimes page state is not
+	    especially with different user names, sometimes page state is not
 	    cleared. To work around this problem simple reload the page or
 	    restart your browser when you log out.</para>
 
@@ -3173,7 +3173,7 @@ if (o == null) {
 	    does not clear page state</emphasis> &mdash; (Unchanged
 	    from 2.1) When logging in and logging out to the team
 	    server with a browser, especially with different
-	    usernames, sometimes page state is not cleared. To work
+	    user names, sometimes page state is not cleared. To work
 	    around this problem simple reload the page or restart your
 	    browser when you log out.</para>
 
@@ -3446,7 +3446,7 @@ if (o == null) {
 	    <para><emphasis>Logging out of a team server sometimes does
 	    not clear page state</emphasis> &mdash; When logging in and
 	    logging out to the team server with a browser, especially
-	    with different usernames, sometimes page state is not
+	    with different user names, sometimes page state is not
 	    cleared. To work around this problem simple reload the page
 	    or restart your browser when you log out.</para>
 

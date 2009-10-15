@@ -367,7 +367,7 @@
   ChatTestClient run and double-click the <emphasis>What fields (non-static) are
   shared?</emphasis> query. Select
   <structfield>f_connectDisconnectButton</structfield> and right-click to select
-  the <emphasis>What are the invidual instances of this non-static
+  the <emphasis>What are the individual instances of this non-static
   field?</emphasis> query, then the <emphasis>When and by what threads was this
   field accessed?</emphasis> query. Select the second access by the main thread
   and right-click to select the <emphasis>Show stack trace for a field

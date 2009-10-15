@@ -13,7 +13,7 @@
   in the Eclipse UI:
     <itemizedlist>
       <listitem><menuchoice><guimenu>Run</guimenu> <guisubmenu>Flashlight</guisubmenu></menuchoice>
-      in the Eclipe main menu.</listitem>
+      in the Eclipse main menu.</listitem>
       
       <listitem>The <guiicon><inlinegraphic
       fileref="images/fl_logo.png"/></guiicon> icon in the Eclipse
@@ -26,7 +26,7 @@
   The <guisubmenu>Flashlight</guisubmenu> menu and the toolbar menu are identical.  
   They show the last several application launches, which serve as shortcuts for
   rerunning those applications using Flashlight.  They also provide menu items for
-  expliciting editing Flashlight launch configurations.</para>
+  explicitly editing Flashlight launch configurations.</para>
   
   <para>The <guisubmenu>Flashlight As</guisubmenu> in the
   <guilabel>Package Explorer</guilabel> context menu is the same as the
@@ -155,7 +155,7 @@
     processed before it is written to disk. The two sections of the
     pane, <guilabel>Data file options</guilabel> and <guilabel>Data
     collection options</guilabel>, contain settings identical to those
-    in the <guilabel>Instrumentatino</guilabel> section of the <link
+    in the <guilabel>Instrumentation</guilabel> section of the <link
     linkend="flashlight-preferences">Flashlight preferences pane</link>.
     In fact, when a new Flashlight launch configuration is created, the
     initial values for these settings are taken from the corresponding
@@ -209,7 +209,7 @@
         methods should be used.</listitem>
 
         <listitem>A list of files that declare additional indirect
-        access methods.  The format of these files is decribed in
+        access methods.  The format of these files is described in
         <xref linkend="flashlight-method-files"/>.</listitem>
       </orderedlist>
     </para>

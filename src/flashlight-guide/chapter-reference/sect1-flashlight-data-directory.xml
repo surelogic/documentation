@@ -27,7 +27,7 @@
     
       <itemizedlist>
         <listitem><replaceable>fully-qualified-main-class-name</replaceable>
-        is the fully qualified classname of the
+        is the fully qualified class name of the
         class that contains the <function>main</function> method of the
         application.</listitem>
         
@@ -50,7 +50,7 @@
         <listitem>Zip archives of the source code of the
         application.</listitem>
 
-        <listitem>JAR files of the instrumented classfiles.</listitem>
+        <listitem>JAR files of the instrumented class files.</listitem>
 
         <listitem>The Flashlight data file gathered during execution,
         and any additional log file it may have generated.</listitem>
@@ -151,7 +151,7 @@
             <title><filename>projects</filename></title>
             
             <para>This directory contains JAR files holding the
-            instrumented classfiles of the instrumented
+            instrumented class files of the instrumented
             application.</para>
           </formalpara>
         </listitem>
@@ -163,7 +163,7 @@
             <para>This directory contains instrumented JAR files
             corresponding to JAR files that are normally located outside
             of any project in the Eclipse workspace.  These arise from
-            Eclipse classpath variables that are used to refer to things
+            Eclipse class path variables that are used to refer to things
             like <varname>ANT_HOME</varname>, which would normally be
             a directory in the user's file system, or
             <varname>JUNIT</varname>, which refers to a JAR file in an

@@ -26,7 +26,7 @@
 
   <sect2>
     <title>Views</title>
-    <para>This section describes the various Flashlight views unique to the Flaslight
+    <para>This section describes the various Flashlight views unique to the Flashlight
     Eclipse client, and that populate the perspective</para>
 
     <sect3>
@@ -98,7 +98,7 @@
 	  <listitem>
 	    <formalpara>
 	      <title>Max Memory (MB)</title>
-	      <para>The maximum amount of memory in megabtyes allotted to the program.</para>
+	      <para>The maximum amount of memory in megabytes allotted to the program.</para>
 	    </formalpara>
 	  </listitem>
 
