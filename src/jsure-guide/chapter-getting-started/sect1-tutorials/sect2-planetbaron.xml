@@ -11,12 +11,26 @@
   analysis results using a simple network capture the planet game:
   <application>PlanetBaron</application>.  It will use the tutorial
   project <application>PlanetBaronJSure</application>.</para>
+
+  <para>Enable assurance for the PlanetBaronJSure project by selecting
+  it and clicking on the focus verification <guiicon><inlinegraphic
+  fileref="images/jsure_verify.gif"/></guiicon> icon in the
+  <guilabel>Package Explorer</guilabel> toolbar (and adding the JSure
+  promises to its build path). Until this is done the PlanetBaronJSure
+  project will not compile without errors. This is because the project
+  already contains lock model annotations about its locking policies,
+  not all of which assure. In the rest of this example we fix these
+  failures.</para>
+
+  <para>After assurance is enabled on the PlanetBaronJSure project and
+  the JSure promises have been added to its build path, it should
+  compile without errors.</para>
   
   <sect3>
     <title>Running PlanetBaron</title>
 
     <para>Although we do not need to run
-    <application>PlanetBaron</application> to assure it with JSure, it
+    <application>PlanetBaron</application> to  it with JSure, it
     is helpful in the discussion below to know what the game does.  In
     particular, it makes it easier to understand the roles of the
     classes encountered in the assurance results. 
@@ -41,20 +55,20 @@
     <para>Let us run a <application>PlanetBaron</application> game. In
     the <guilabel>Package Explorer</guilabel>, select
     <filename>Server.java</filename> in the
-    <package>edu.afit.planetbaron.server</package> package.  Select
+    <package>com.surelogic.jsure.planetbaron.server</package> package.  Select
     <menuchoice><guisubmenu>Run As</guisubmenu> <guimenuitem>Java
     Application</guimenuitem></menuchoice> in the context menu. You
     should see following output in the <guilabel>Console</guilabel>
     view which indicates that the server has started successfully:
 
       <screen>
-[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map [edu.afit.planetbaron.server.Server.startListening()]
+[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map [com.surelogic.jsure.planetbaron.server.Server.startListening()]
       </screen>
     </para>
 
     <para>Now we need to add some players. Select
     <filename>PlayerUI.java</filename> in the
-    <package>edu.afit.planetbaron.client</package> package. Select
+    <package>com.surelogic.jsure.planetbaron.client</package> package. Select
     <menuchoice><guisubmenu>Run As</guisubmenu> <guimenuitem>Java
     Application</guimenuitem></menuchoice> in the context menu. You
     will see a Swing application start that has a blank grid. In the
@@ -102,7 +116,7 @@
     the chat-test client program.</para>
 
     <para>Select <filename>ChatTestClient.java</filename> in the
-    <package>edu.afit.planetbaron.client</package>
+    <package>com.surelogic.jsure.planetbaron.client</package>
     package. <menuchoice><guisubmenu>Run As</guisubmenu>
     <guimenuitem>Java Application</guimenuitem></menuchoice> in the
     context menu.  You will see a Swing application start. This
@@ -131,7 +145,7 @@
     
       <screen>
 &hellip;      
-[INFO "server-main"] PlanetBaron game server shutdown complete [edu.afit.planetbaron.server.Server.startListening()]
+[INFO "server-main"] PlanetBaron game server shutdown complete [com.surelogic.jsure.planetbaron.server.Server.startListening()]
       </screen>
     </para>
       
@@ -142,15 +156,9 @@
   <sect3 id="init-results">
     <title>Initial Assurance Results</title>
     
-    <para>Enable assurance for the PlanetBaron project by selecting it
-    and clicking on the focus verification <guiicon><inlinegraphic
-    fileref="images/jsure_verify.gif"/></guiicon> icon in the
-    <guilabel>Package Explorer</guilabel> toolbar.  The project already
-    contains the SureLogic annotations types JAR file, so you will not
-    be prompted to add it.  The project already contains some lock
-    model annotations, not all of which assure.  In the rest of this 
-    example we fix these failures.  The initial assurance results are
-    shown in <xref linkend="fig-pb-initial-state"/>.</para>
+    <para>The initial assurance results for the PlanetBaronJSure
+    project are shown in <xref
+    linkend="fig-pb-initial-state"/>.</para>
     
     <figure id="fig-pb-initial-state">
       <title>Initial assurance results for PlanetBaron</title>
@@ -164,23 +172,17 @@
     
     <para id="lock-viz-problems">The lock model for lock
     <structfield>ThingLock</structfield> in class
-    <classname>edu.afit.planetbaron.game.Thing</classname> fails to
-    assure.  This project also has two modeling problems:
-    
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/pb-modeling-problems.png" />
-        </imageobject>
-      </mediaobject>
-    
-    The <guilabel>Modeling problems</guilabel> result category
-    displays problems with the annotations themselves.  Almost always
-    these are errors, and the erroneous annotations are ignored by
-    JSure.  Results under this heading include parsing problems with
-    annotation contents, name resolution errors (for example, naming a
-    region that does not exist in a <classname>@RegionLock</classname>
-    annotation), and semantic errors (for example, using the object
-    referenced by a non-<code>static</code> field as the lock for a
+    <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>
+    fails to assure. This project also has two modeling problems
+    listed in the <guilabel>Modeling Problems</guilabel> view. This
+    view displays problems with the annotations themselves.  Almost
+    always these are errors, and the erroneous annotations are ignored
+    by JSure.  Results under this heading include parsing problems
+    with annotation contents, name resolution errors (for example,
+    naming a region that does not exist in a
+    <classname>@RegionLock</classname> annotation), and semantic
+    errors (for example, using the object referenced by a
+    non-<code>static</code> field as the lock for a
     <code>static</code> field).  In this case, however, we have two
     instances of the same warning: the visibility of the field that
     references a lock object is less visible than the region protected
@@ -201,7 +203,7 @@
     the code is inconsistent with the
     <structfield>ThingLock</structfield> annotation.  This lock is
     declared in the class
-    <classname>edu.afit.planetbaron.game.Thing</classname>:
+    <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>:
     
       <programlisting linenumbering="numbered" startinglinenumber="22"><emphasis>@RegionLock("ThingLock is f_lock protects Instance")</emphasis>
 public abstract class Thing {
@@ -421,7 +423,7 @@ public abstract class Thing {
      <itemizedlist>
        <listitem>
 	 <para>The method <function>drawPlanet()</function> of class
-	 <classname>edu.afit.planetbaron.client.MapView</classname>
+	 <classname>com.surelogic.jsure.planetbaron.client.MapView</classname>
 	 requires the read lock to be held on its
 	 <classname>Planet</classname> parameter.</para>
        </listitem>
