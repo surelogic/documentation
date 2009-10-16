@@ -913,7 +913,7 @@ if (o == null) {
 	<para>If you have not added the
 	<application>SmallWorld</application> project to your workspace
 	yet, add it now by choosing
-	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run the Sierra
+	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
 	Tutorials</guimenuitem></menuchoice> from the workspace menu.
 	Alternatively, you can download the
 	<application>SmallWorld</application> project from
