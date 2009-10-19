@@ -313,9 +313,8 @@
 	from an archived update site that you obtain from
 	SureLogic.</para>
 
-	<para>Sierra may be installed and used in Eclipse 3.2, the
-	Eclipse 3.2-based RAD 7.0, Eclipse 3.3, and Eclipse
-	3.4.</para>
+	<para>Sierra may be installed and used in Eclipse 3.3 and
+	higher.</para>
 
 	<orderedlist>
 	  <listitem>
@@ -323,7 +322,7 @@
 	    the Sierra feature. Contact SureLogic about how to obtain
 	    this file. You only follow one of the next two steps (skip
 	    the other one) depending upon what version of Eclipse you
-	    are using. If you are using Eclipse 3.2 do the next step,
+	    are using. If you are using Eclipse 3.4 do the next step,
 	    otherwise do the one after it.</para>
 	  </listitem>
 	  <listitem>
@@ -363,10 +362,10 @@
 	    installation is completed.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>In Eclipse 3.2, RAD 7.0, and Eclipse
-	    3.3:</emphasis> Select <guimenu>Help</guimenu> |
-	    <guimenuitem>Software Updates</guimenuitem> |
-	    <guimenuitem>Find and Install...</guimenuitem> to open the
+	    <para><emphasis>In Eclipse 3.3:</emphasis> Select
+	    <guimenu>Help</guimenu> | <guimenuitem>Software
+	    Updates</guimenuitem> | <guimenuitem>Find and
+	    Install...</guimenuitem> to open the
 	    <guilabel>Install/Update</guilabel> dialog. Select
 	    <emphasis>Search for new features to install</emphasis> and
 	    press <guibutton>Next &gt;</guibutton>. Press the
