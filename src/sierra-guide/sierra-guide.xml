@@ -320,84 +320,128 @@
 	  <listitem>
 	    <para>Download an archived update site file that contains
 	    the Sierra feature. Contact SureLogic about how to obtain
-	    this file. You only follow one of the next two steps (skip
-	    the other one) depending upon what version of Eclipse you
-	    are using. If you are using Eclipse 3.4 do the next step,
-	    otherwise do the one after it.</para>
+	    this file. </para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>In Eclipse 3.4:</emphasis> Select
-	    <guimenu>Help</guimenu> | <guimenuitem>Software
-	    Updates...</guimenuitem> to open the <guilabel>Software
-	    Updates and Add-ons</guilabel> dialog. Select the
-	    <guilabel>Available Software</guilabel> tab and click the
-	    <guibutton>Add Site...</guibutton> button. In the
-	    <guilabel>Add Site</guilabel> dialog that opens select the
-	    <guibutton>Archive...</guibutton> button and point to the
-	    Sierra archive file and press <guibutton>Open</guibutton>
-	    and then <guibutton>OK</guibutton>. The <guilabel>Software
-	    Updates and Add-ons</guilabel> dialog should appear as
-	    shown in <xref
-	    linkend="fig-quick-start-eclipse-34-install" />.</para>
+	    <para>Follow one of the next three steps &mdash; skip the
+	    other ones &mdash; depending upon what version of Eclipse
+	    you are using.</para>
+	    <orderedlist numeration="loweralpha">
+	      <listitem>
+		<para><emphasis>In Eclipse 3.5:</emphasis> Select
+		<guimenu>Help</guimenu> | <guimenuitem>Install New
+		Software...</guimenuitem> to open the
+		<guilabel>Install</guilabel> dialog. Click the
+		<guibutton>Add...</guibutton> button. In the
+		<guilabel>Add Site</guilabel> dialog that opens select
+		the <guibutton>Archive...</guibutton> button and point
+		to the Sierra archive file.  Press
+		<guibutton>Open</guibutton> and then
+		<guibutton>OK</guibutton>. The
+		<guilabel>Install</guilabel> dialog should appear as
+		shown in <xref
+		linkend="fig-quick-start-eclipse-35-install" />.</para>
 
-	    <figure id="fig-quick-start-eclipse-34-install">
-	      <title>Selecting Sierra features to install in Eclipse 3.4</title>
-	      <mediaobject>
-		<imageobject>
-		  <imagedata fileref="images/quick-start-eclipse-34-install.png" />
-		</imageobject>
-	      </mediaobject>
-	    </figure>
+		<figure id="fig-quick-start-eclipse-35-install">
+		  <title>Selecting Sierra features to install in Eclipse 3.5</title>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="images/quick-start-eclipse-35-install.png" />
+		    </imageobject>
+		  </mediaobject>
+		</figure>
 
-	    <para>Select the <emphasis>Sierra Eclipse
-	    Client</emphasis>. You only need the <emphasis>Sierra
-	    Eclipse Client Java 5 Compatibility Libraries</emphasis>
-	    feature if you are not using a Java 6 (or higher) VM, i.e.,
-	    you are running on a Java 5 VM (Running on a Java 1.4 VM is
-	    not supported by Sierra). To try out the local team server
-	    (used in the tutorials) select the <emphasis>Sierra Local
-	    Team Server</emphasis> feature. Press
-	    <guibutton>Install...</guibutton> and step through the
-	    wizard. You may be prompted to restart Eclipse when the
-	    installation is completed.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>In Eclipse 3.3:</emphasis> Select
-	    <guimenu>Help</guimenu> | <guimenuitem>Software
-	    Updates</guimenuitem> | <guimenuitem>Find and
-	    Install...</guimenuitem> to open the
-	    <guilabel>Install/Update</guilabel> dialog. Select
-	    <emphasis>Search for new features to install</emphasis> and
-	    press <guibutton>Next &gt;</guibutton>. Press the
-	    <guibutton>New Archived Site...</guibutton> and point to the
-	    Sierra archive file and press <guibutton>Open</guibutton>
-	    and then <guibutton>OK</guibutton>. Ensure the archive file
-	    is the only site checked and press
-	    <guibutton>Finish</guibutton>. The
-	    <guilabel>Updates</guilabel> dialog should appear as shown
-	    in <xref linkend="fig-quick-start-eclipse-33-install"
-	    />.</para>
+		<para>Select the <emphasis>Sierra Eclipse
+		Client</emphasis>. You only need the <emphasis>Sierra
+		Eclipse Client Java 5 Compatibility Libraries</emphasis>
+		feature if you are not using a Java 6 (or higher) VM,
+		i.e., you are running on a Java 5 VM (Running on a Java
+		1.4 VM is not supported by Sierra). To try out the local
+		team server (used in the tutorials) select the
+		<emphasis>Sierra Local Team Server</emphasis>
+		feature. Press <guibutton>Next</guibutton> and step
+		through the wizard. Click <guibutton>Finish</guibutton>
+		on the last screen after accepting the license
+		agreement.  You may be prompted to restart Eclipse when
+		the installation is completed.</para>
+	      </listitem>
 
-	    <figure id="fig-quick-start-eclipse-33-install">
-	      <title>Selecting Sierra features to install in Eclipse 3.3</title>
-	      <mediaobject>
-		<imageobject>
-		  <imagedata fileref="images/quick-start-eclipse-33-install.png" />
-		</imageobject>
-	      </mediaobject>
-	    </figure>
+	      <listitem>
+		<para><emphasis>In Eclipse 3.4:</emphasis> Select
+		<guimenu>Help</guimenu> | <guimenuitem>Software
+		Updates...</guimenuitem> to open the <guilabel>Software
+		Updates and Add-ons</guilabel> dialog. Select the
+		<guilabel>Available Software</guilabel> tab and click the
+		<guibutton>Add Site...</guibutton> button. In the
+		<guilabel>Add Site</guilabel> dialog that opens select the
+		<guibutton>Archive...</guibutton> button and point to the
+		Sierra archive file and press <guibutton>Open</guibutton>
+		and then <guibutton>OK</guibutton>. The <guilabel>Software
+		Updates and Add-ons</guilabel> dialog should appear as
+		shown in <xref
+		linkend="fig-quick-start-eclipse-34-install" />.</para>
 
-	    <para>Select the <emphasis>Sierra Eclipse
-	    Client</emphasis>. You only need the <emphasis>Sierra
-	    Eclipse Client Java 5 Compatibility Libraries</emphasis>
-	    feature if you are not using a Java 6 (or higher) VM,
-	    i.e., you are running on a Java 5 VM (Running on a Java
-	    1.4 VM is not supported by Sierra). To try out the local
-	    team server (used in the tutorials) select the
-	    <emphasis>Sierra Local Team Server</emphasis>
-	    feature. Press <guibutton>Next &gt;</guibutton> and step
-	    through the wizard. You may be prompted to restart Eclipse
-	    when the installation is completed.</para>
+		<figure id="fig-quick-start-eclipse-34-install">
+		  <title>Selecting Sierra features to install in Eclipse 3.4</title>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="images/quick-start-eclipse-34-install.png" />
+		    </imageobject>
+		  </mediaobject>
+		</figure>
+
+		<para>Select the <emphasis>Sierra Eclipse
+		Client</emphasis>. You only need the <emphasis>Sierra
+		Eclipse Client Java 5 Compatibility Libraries</emphasis>
+		feature if you are not using a Java 6 (or higher) VM, i.e.,
+		you are running on a Java 5 VM (Running on a Java 1.4 VM is
+		not supported by Sierra). To try out the local team server
+		(used in the tutorials) select the <emphasis>Sierra Local
+		Team Server</emphasis> feature. Press
+		<guibutton>Install...</guibutton> and step through the
+		wizard. You may be prompted to restart Eclipse when the
+		installation is completed.</para>
+	      </listitem>
+	      <listitem>
+		<para><emphasis>In Eclipse 3.3:</emphasis> Select
+		<guimenu>Help</guimenu> | <guimenuitem>Software
+		Updates</guimenuitem> | <guimenuitem>Find and
+		Install...</guimenuitem> to open the
+		<guilabel>Install/Update</guilabel> dialog. Select
+		<emphasis>Search for new features to install</emphasis>
+		and press <guibutton>Next &gt;</guibutton>. Press the
+		<guibutton>New Archived Site...</guibutton> and point to
+		the Sierra archive file and press
+		<guibutton>Open</guibutton> and then
+		<guibutton>OK</guibutton>. Ensure the archive file is
+		the only site checked and press
+		<guibutton>Finish</guibutton>. The
+		<guilabel>Updates</guilabel> dialog should appear as
+		shown in <xref
+		linkend="fig-quick-start-eclipse-33-install" />.</para>
+
+		<figure id="fig-quick-start-eclipse-33-install">
+		  <title>Selecting Sierra features to install in Eclipse 3.3</title>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="images/quick-start-eclipse-33-install.png" />
+		    </imageobject>
+		  </mediaobject>
+		</figure>
+
+		<para>Select the <emphasis>Sierra Eclipse
+		Client</emphasis>. You only need the <emphasis>Sierra
+		Eclipse Client Java 5 Compatibility Libraries</emphasis>
+		feature if you are not using a Java 6 (or higher) VM,
+		i.e., you are running on a Java 5 VM (Running on a Java
+		1.4 VM is not supported by Sierra). To try out the local
+		team server (used in the tutorials) select the
+		<emphasis>Sierra Local Team Server</emphasis>
+		feature. Press <guibutton>Next &gt;</guibutton> and step
+		through the wizard. You may be prompted to restart
+		Eclipse when the installation is completed.</para>
+	      </listitem>
+	    </orderedlist>
 	  </listitem>
 	</orderedlist>
       </section>
