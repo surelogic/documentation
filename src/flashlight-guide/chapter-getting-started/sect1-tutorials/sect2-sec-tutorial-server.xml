@@ -85,21 +85,23 @@
 
   <!-- Start of lockset tutorial -->
 
-  <para>We'll use a couple of analyses performed by Flashlight during the prep
-  phase to investigate the PlanetBaron server.  The first of these is a lock set
-  analysis.  A lock set analysis examines each access of a field in the program
-  and intersects the set of locks held.  If shared state has a lock set it is a
-  good thing&mdash;this state was observed to be protected consistently by at
-  least one lock.  This isn't a guarantee that this field will always be
-  protected in every run of the program (to make this determination a sound
-  verification tool like SureLogic JSure is required), but it was observed to be true for the
-  particular run of the program.  If shared state has no lock set then
-  this may be a bad thing&mdash;it might mean that your program contains a race
-  condition.  To take a look at the results of Flashlight's lock analysis, run
-  the query <emphasis>What fields (non-static) have an empty lock
-  set?</emphasis> The results should indicate that a few instances of
-  <classname>edu.afit.planetbaron.game.Ship</classname> have no lock set for the
-  field <structfield>f_location</structfield>, as seen in <xref
+  <para>We'll use a couple of analyses performed by Flashlight during
+  the prep phase to investigate the PlanetBaron server.  The first of
+  these is a lock set analysis.  A lock set analysis examines each
+  access of a field in the program and intersects the set of locks held.
+  If shared state has a lock set it is a good thing&mdash;this state was
+  observed to be protected consistently by at least one lock.  This
+  isn't a guarantee that this field will always be protected in every
+  run of the program (to make this determination a sound verification
+  tool like SureLogic JSure is required), but it was observed to be true
+  for the particular run of the program.  If shared state has no lock
+  set then this may be a bad thing&mdash;it might mean that your program
+  contains a race condition.  To take a look at the results of
+  Flashlight's lock analysis, run the query <emphasis>What fields
+  (non-static) have an empty lock set?</emphasis> The results should
+  indicate that a few instances of
+  <classname>edu.afit.planetbaron.game.Ship</classname> have no lock set
+  for the field <structfield>f_location</structfield>, as seen in <xref
   linkend="fig-tutorial-planetbaron-lockset1" />.</para>
   
   <figure id="fig-tutorial-planetbaron-lockset1">
@@ -111,16 +113,17 @@
     </mediaobject>
   </figure>
 
-  <para>As we did before when we were looking at shared fields in the test
-  client, we can look at the individual objects holding this field in by running
-  <emphasis>What are the individual instances of this non-static
-  field?</emphasis>As seen in <xref linkend="fig-tutorial-planetbaron-lockset2"
-  />, there is one Ship object for each ship in the PlanetBaron game, and none
-  of them have a lock set.  We'll investigate this further by looking to see
-  what locks <emphasis>are</emphasis> held when this field is accessed.  Choose
-  one of the Ship objects, and run the query <emphasis>How often is a lock held
-  when this field is accessed after object construction?</emphasis> You should
-  see something that looks like <xref
+  <para>As we did before when we were looking at shared fields in the
+  test client, we can look at the individual objects holding this field
+  in by running <emphasis>What instances of this field have an empty
+  lock set?</emphasis>As seen in <xref
+  linkend="fig-tutorial-planetbaron-lockset2" />, there is one Ship
+  object for each ship in the PlanetBaron game, and none of them have a
+  lock set.  We'll investigate this further by looking to see what locks
+  <emphasis>are</emphasis> held when this field is accessed.  Choose one
+  of the Ship objects, and run the query <emphasis>How often is a lock
+  held when this field is accessed after object construction?</emphasis>
+  You should see something that looks like <xref
   linkend="fig-tutorial-planetbaron-lockset3" />.</para>
 
   <figure id="fig-tutorial-planetbaron-lockset2">
