@@ -586,17 +586,28 @@
 
 	<para>This tutorial assumes that you have installed Sierra. If
 	you see a <guimenu>Sierra</guimenu> menu item on your Eclipse
-	main menu than you can assume it has been installed properly.
-	To start off, we'll run Sierra on a project called
+	main menu than you can assume it has been installed properly.</para>
+
+	<figure id="fig-tutorial-installing-projects">
+	  <title>Menu item to install tutorial projects into your workspace</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/tutorial-installing-projects.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>To start off, we'll run Sierra on a project called
 	<application>ShowOff</application>. Select
 	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
-	Tutorials</guimenuitem></menuchoice> from the workspace menu and
-	add the <application>ShowOff</application> project to your
+	Tutorials</guimenuitem></menuchoice> from the workspace menu
+	and add the <application>ShowOff</application> project to your
 	workspace as shown in <xref
+	linkend="fig-tutorial-installing-projects" /> and <xref
 	linkend="fig-tutorial-install"/>.</para>
 
 	<figure id="fig-tutorial-install">
-	  <title>Adding ShowOff and SmallWorld to a Workspace</title>
+	  <title>Adding ShowOff and SmallWorld to your workspace</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="images/tutorial-install.png" />
@@ -954,16 +965,11 @@ if (o == null) {
 	work together with Sierra.</para>
 
 	<para>If you have not added the
-	<application>SmallWorld</application> project to your workspace
-	yet, add it now by choosing
+	<application>SmallWorld</application> project to your
+	workspace yet, add it now by choosing
 	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
-	Tutorials</guimenuitem></menuchoice> from the workspace menu.
-	Alternatively, you can download the
-	<application>SmallWorld</application> project from
-	www.surelogic.com at <ulink
-	url="http://www.surelogic.com/static/sierra/SmallWorld.zip">
-	http://www.surelogic.com/static/sierra/SmallWorld.zip</ulink>
-	and import it into your workspace manually.</para>
+	Tutorials</guimenuitem></menuchoice> from the workspace
+	menu</para>
 
 	<para>SmallWorld is a Java text-oriented adventure game. The
 	Colossal Cave Adventure game, produced in the 70s, was the

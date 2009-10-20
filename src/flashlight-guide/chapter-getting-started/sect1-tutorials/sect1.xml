@@ -15,24 +15,28 @@
   improvement as described in <xref
   linkend="sec-bugs-and-tips"/>.</para>
 
-  <para>These tutorials assume that you have installed Flashlight. If
-  you see a <guimenu>Flashlight</guimenu> menu item on your Eclipse main
-  menu than you can assume it has been installed properly.  To follow
-  along with the tutorials you will also need to add the PlanetBaron
-  project to your workspace.  From the Eclipse main menu, choose
-  <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run Flashlight
-  Tutorials</guimenuitem></menuchoice> and add
-  <application>PlanetBaron</application> to your workspace as displayed
-  in <xref linkend="fig-tutorial-planetbaron-install" />.  If you don't
-  want to add the project to your workspace this way, you can also
-  download the <application>PlanetBaron</application> project from
-  <ulink url="http://www.surelogic.com/static/flashlight/PlanetBaron.zip">
-  http://www.surelogic.com/static/flashlight/PlanetBaron.zip</ulink> and
-  import it into your workspace manually.</para>
+ <figure id="fig-tutorial-installing-projects">
+    <title>Menu item to install tutorial projects into your workspace</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-installing-projects.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
+  <para>These tutorials assume that you have installed Flashlight. If
+  you see a <guimenu>Flashlight</guimenu> menu item on your Eclipse
+  main menu than you can assume it has been installed properly.  To
+  follow along with the tutorials you will also need to add the
+  PlanetBaron project to your workspace.  From the Eclipse main menu,
+  choose <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run
+  Flashlight Tutorials</guimenuitem></menuchoice> and add
+  <application>PlanetBaron</application> to your workspace as
+  displayed in <xref linkend="fig-tutorial-installing-projects" /> and
+  <xref linkend="fig-tutorial-planetbaron-install" />.</para>
 
   <figure id="fig-tutorial-planetbaron-install">
-    <title>Adding PlanetBaron to a Workspace</title>
+    <title>Adding PlanetBaron to your workspace</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-install.png" />
