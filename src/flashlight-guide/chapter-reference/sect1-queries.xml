@@ -1243,6 +1243,64 @@ public class Foo {
       <qandaentry>
 	<question>
 	  <para>
+	    What instances of this non-static field have an empty lock set?
+	  </para>
+	</question>
+	<answer>
+	  <para>
+	    Lists the objects containing the given field that are
+	    accessed by more than one thread in the program and have no
+	    lock set.  The number of reads/writes is also shown.
+	  </para>
+	  <informaltable>
+	    <tgroup cols="3">
+	      <colspec colnum="1" colname="c1" colwidth="1*" align="right"/>
+	      <colspec colnum="2" colname="c2" colwidth="1*" align="right"/>
+	      <colspec colnum="3" colname="c3" colwidth="6*" align="left"/>
+
+	      <spanspec spanname="full-header" namest="c1" nameend="c2"/>
+
+	      <tbody>
+		<row>
+		  <entry spanname="full-header"><emphasis role="strong">Displayed as</emphasis></entry>
+		  <entry>Table</entry>
+		</row>
+		
+		<row>
+		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry>Field Object</entry>
+		  <entry>An object identifier</entry>
+		</row>
+
+		<row>
+		  <entry>Reads</entry>
+		  <entry>The read count of the field on this object</entry>
+		</row>
+
+		<row>
+		  <entry>Writes</entry>
+		  <entry>The write count of the field on this object</entry>
+		</row>
+
+		<row>
+		  <entry>Reads Under Construction</entry>
+		  <entry>The read count of the field on this object while it was
+		  being initialized</entry>
+		</row>
+		
+		<row>
+		  <entry>Writes Under Construction</entry>
+		  <entry>The write count of the field on this object while it was
+		  being initialized</entry>
+		</row>
+	      </tbody>
+	    </tgroup>
+	  </informaltable>
+	</answer>
+      </qandaentry>
+      <qandaentry>
+	<question>
+	  <para>
 	    What is the lock trace for this lock event?
 	  </para>
 	</question>
