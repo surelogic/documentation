@@ -673,7 +673,7 @@ public class C {
           <sect3 id="intrinsic-vs-juc">
             <title>Intrinsic or <package>java.util.concurrent</package> Locks</title>
             
-            <para>JSure understands the semantics of both instrinsic
+            <para>JSure understands the semantics of both intrinsic
             Java locks acquired using the <code>synchronized</code>
             block and <package>java.util.concurrent</package> locks,
             including <classname>ReadWriteLock</classname>.  JSure
@@ -697,7 +697,7 @@ public class C {
             <para>If the class of the lock is not
             <classname>Lock</classname> or
             <classname>ReadWriteLock</classname>, then JSure considers
-            the lock to be an instrinsic lock.  JSure considers the lock
+            the lock to be an intrinsic lock.  JSure considers the lock
             to be acquired when it is referenced in a
             <code>sychronized</code> block, and to be released at the
             end of the block.</para>
@@ -710,7 +710,7 @@ public class C {
             <function>tryLock</function>, and released by calling
             <function>unlock</function>.  JSure checks that each lock acquisition
             must have a subsequent lock release, and that each lock release has a prior
-            lock acquistion.  JSure does not specifically enforce the pattern
+            lock acquisition.  JSure does not specifically enforce the pattern
             
               <programlisting>  myLock.lock();
   try {
@@ -1253,6 +1253,78 @@ class Var {
       supported by the tool: <emphasis>@Promise</emphasis> to avoid
       tedious user annotation and <emphasis>@Assume</emphasis> to
       support team modeling.</para>
+
+      <note>
+	<para>Scoped promises are still experimental in JSure, however,
+	it is possible to use <emphasis>@Promise</emphasis> in your
+	models. We will not describe <emphasis>@Assume</emphasis> any
+	further.
+	</para>
+      </note>
+
+      <para>The simplest example of the use of
+      <emphasis>@Promise</emphasis> is to change the default for a
+      class. So instead of writing</para>
+
+<programlisting>
+class Example {
+  private int value = 0;
+  
+  @Borrowed("this")
+  public void set(int v) { value = v; }
+
+  @Borrowed("this")
+  public int get() { return v; } 
+}
+</programlisting>
+
+<para>you would write</para>
+
+<programlisting>
+@Promise("@Borrowed(this)")
+class Example {
+  private int value = 0;
+  
+  public void set(int v) { value = v; }
+
+  public int get() { return v; } 
+}
+</programlisting>
+
+<para>Notice that the <emphasis>payload</emphasis> promise within the
+scoped promise has the same syntax as the original annotation except
+that the quotation marks are removed. So
+<emphasis>@Borrowed("this")</emphasis> is changed to
+<emphasis>@Borrowed(this)</emphasis> when used as the payload for a
+scoped promise.</para>
+
+<para>In the form shown in the example above
+<emphasis>@Promise</emphasis> places the payload promise on every
+declaration in the class where the payload promise makes sense. In the
+example above, this is all methods and constructors within the Example
+class. It is possible to be more specific by providing an explicit
+target.</para>
+
+<programlisting>
+@Promises({
+  @Promise("@SingleThreaded for new(**)"),
+  @Promise("@Borrowed(this) for new(**)"),
+  @Promise("@Borrowed(this) for get*(**)"),
+})
+class Example2 {
+  ...
+}
+</programlisting>
+
+<para>In the example above a <emphasis>@SingleThreaded</emphasis> and
+<emphasis>@Borrowed("this")</emphasis> annotation are placed on all
+the constructors in the Example2 class using the explicit target
+<emphasis>new(**)</emphasis>. A <emphasis>@Borrowed("this")</emphasis>
+annotation is placed on all methods within the Example2 class that
+have names that start with "get" (e.g.,
+<emphasis>getValue()</emphasis>) and have any number of parameters of
+any type.</para>
+
     </chapter>
   </part>
   
@@ -1282,7 +1354,7 @@ class Var {
             new region.</para></callout>
 
             <callout arearefs="region.decl.parent"><para>The name of the
-            region's parent.  If ommitted, the parent for
+            region's parent.  If omitted, the parent for
             non-<code>static</code> regions is
             <structfield>Instance</structfield>,
             <structfield>All</structfield> for <code>static</code>
@@ -2365,7 +2437,7 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
                 outside of the scope of the lock field. The field itself
                 need not be declared to have the necessary visibility.
                 The visibility of a lock field can be modified through
-                the use of methods that are annoted with
+                the use of methods that are annotated with
                 <classname>@ReturnsLock</classname>. So a
                 <code>private</code> field can be used to protect a
                 <code>protected</code> region as long as there is a
@@ -2448,10 +2520,10 @@ any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="an
         because of the nature of read&ndash;write locks as implemented by
         <classname>ReadWriteLock</classname> in <package>java.util.concurrent</package>.
         A raw lock name refers to a declared lock, identified with an object referenced
-        as a Java instrinsic lock, a <classname>java.util.concurrent.Lock</classname> object,
+        as a Java intrinsic lock, a <classname>java.util.concurrent.Lock</classname> object,
         or a <classname>java.util.concurrent.ReadWriteLock</classname> object.  In most cases
         a <classname>ReadWriteLock</classname> identified by a raw lock name is not useful
-        because it cannot be acquried directly: the read or write lock must be identified.  
+        because it cannot be acquired directly: the read or write lock must be identified.  
         This is the role of the decorated lock name, which is a raw lock name enhanced to 
         further identify either the read or write lock.</para>
                 
@@ -2882,7 +2954,7 @@ class C {
         <classname>@Unique("return, this")</classname>.</para>
         
         <sect2>
-          <title>Field Contraints</title>
+          <title>Field Constraints</title>
           
           <itemizedlist>
             <listitem>
@@ -2899,7 +2971,7 @@ class C {
         </sect2>
         
         <sect2>
-          <title>Parameter Contraints</title>
+          <title>Parameter Constraints</title>
           
           <itemizedlist>
             <listitem>
@@ -2913,7 +2985,7 @@ class C {
         </sect2>
         
         <sect2>
-          <title>Return Value Contraints</title>
+          <title>Return Value Constraints</title>
           
           <itemizedlist>
             <listitem>
@@ -2928,7 +3000,7 @@ class C {
       </sect1>
       
       <sect1>
-        <title>Non-Uniquness Declaration</title>
+        <title>Non-Uniqueness Declaration</title>
         
         <para>Uniqueness on parameters is <emphasis>contravariant</emphasis>, meaning that
         the constraint may be relaxed when the method that contains the
@@ -2943,7 +3015,7 @@ class C {
           </synopsis>
         
         As with <classname>@Unique</classname>, this annotation is normally used on 
-        paramter declarations, except in the special case of the receiver, where it is used
+        parameter declarations, except in the special case of the receiver, where it is used
         on the method itself:
         
           <programlisting>
@@ -3004,7 +3076,7 @@ class D extends C {
           
         As with <classname>@Unique</classname> and <classname>@NotUnique</classname>, 
         the form <classname>@Borrowed</classname> is used when annotated an explicit
-        paramater declaration, and the method annotation <classname>@Borrowed("this")</classname>
+        parameter declaration, and the method annotation <classname>@Borrowed("this")</classname>
         is used when annotating the receiver.</para>
         
         <sect2>
