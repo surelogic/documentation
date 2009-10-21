@@ -1467,7 +1467,7 @@ if (o == null) {
 	context menu as shown in <xref
 	linkend="fig-tutorial-copy-scan-filter" />. A dialog will warn
 	that this will replace the scan filter currently on your
-	client. Press <emphasis>OK</emphasis> to continue.</para>
+	client. Press <emphasis>Yes</emphasis> to continue.</para>
 
 	<figure id="fig-tutorial-copy-scan-filter">
 	  <title>Downloading a copy of the Tutorial scan filter to the client from local server</title>
