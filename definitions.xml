@@ -13,7 +13,7 @@
   
   <property name="promises-project" location="${basedir}/../promises"/>   
   <available property="promises-project-exists" file="${promises-project}"/>
-  <property name="javadoc.src" location="${promises-project}/src"/>
+  <property name="javadoc.src" location="${promises-project}/src/main/java"/>
   <property name="javadoc.dest" location="${promises-project}/javadoc"/>
     
   <property name="docbook.package.name" value="docbook-xsl-1.75.1" />
