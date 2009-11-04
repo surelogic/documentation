@@ -3093,6 +3093,14 @@ class D extends C {
 
             <listitem>
               <formalpara>
+                <title>When annotating a method, the method must not be <code>static</code></title>
+                
+                <para>Methods that are <code>static</code> do not have receivers.</para>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
                 <title>The parameter must not also be explicitly
                 annotated with <classname>@Unique</classname></title>
               </formalpara>
