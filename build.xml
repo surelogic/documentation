@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="surelogic-docs" basedir="." default="build-and-install">
+<project name="surelogic-docs" basedir="." default="fresh-build-and-install">
+
 	<import file="./definitions.xml" />
+
+	<target name="fresh-build-and-install" depends="clean-and-uninstall, build-all-but-pdf, install-all" />
 
 	<target name="build-and-install" depends="build-all-but-pdf, install-all" />
 
@@ -33,14 +36,14 @@
 
 	<target name="jsure-design-intent-html">
 		<docbook-to-html srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.html.dir}" destfile="${di.html.file}" />
-		<copy todir="${di.html.dir}">
+		<copy todir="${di.html.dir}/javadoc">
 			<fileset dir="../promises-x/build/javadoc" />
 		</copy>
 	</target>
 
 	<target name="jsure-design-intent-eclipse-help">
 		<docbook-to-eclipse-help srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.eclipse.help.dir}" />
-		<copy todir="${di.eclipse.help.dir}">
+		<copy todir="${di.eclipse.help.dir}/javadoc">
 			<fileset dir="../promises-x/build/javadoc" />
 		</copy>
 	</target>
@@ -48,7 +51,6 @@
 	<target name="jsure-design-intent-pdf">
 		<docbook-to-pdf srcfile="${di.source.file}" destfile="${di.pdf.file}" destdir="${di.build.dir}" />
 	</target>
-
 
 
 	<target name="sierra-guide" depends="sierra-guide-html, sierra-guide-eclipse-help" />
