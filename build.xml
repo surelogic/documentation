@@ -16,6 +16,8 @@
 	<target name="build-pdf" depends="jsure-guide-pdf, jsure-design-intent-pdf, sierra-guide-pdf, flashlight-guide-pdf" />
 
 
+	<!-- JSure Guide -->
+
 	<target name="jsure-guide" depends="jsure-guide-html, jsure-guide-eclipse-help" />
 
 	<target name="jsure-guide-html">
@@ -30,9 +32,13 @@
 		<docbook-to-pdf srcfile="${je.source.file}" destfile="${je.pdf.file}" destdir="${je.build.dir}" />
 	</target>
 
+	<!-- JSure Design Intent -->
 
+	<target name="jsure-design-intent" depends="jar-up-promises,jsure-design-intent-html,jsure-design-intent-eclipse-help" />
 
-	<target name="jsure-design-intent" depends="jsure-design-intent-html, jsure-design-intent-eclipse-help" />
+	<target name="jar-up-promises">
+		<ant antfile="build.xml" dir="../promises-x" inheritAll="false" />
+	</target>
 
 	<target name="jsure-design-intent-html">
 		<docbook-to-html srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.html.dir}" destfile="${di.html.file}" />
@@ -52,6 +58,7 @@
 		<docbook-to-pdf srcfile="${di.source.file}" destfile="${di.pdf.file}" destdir="${di.build.dir}" />
 	</target>
 
+	<!-- Sierra Guide -->
 
 	<target name="sierra-guide" depends="sierra-guide-html, sierra-guide-eclipse-help" />
 
@@ -67,7 +74,7 @@
 		<docbook-to-pdf srcfile="${sg.source.file}" destfile="${sg.pdf.file}" destdir="${sg.build.dir}" />
 	</target>
 
-
+	<!-- Flashlight Guide -->
 
 	<target name="flashlight-guide" depends="flashlight-guide-html, flashlight-guide-eclipse-help" />
 
