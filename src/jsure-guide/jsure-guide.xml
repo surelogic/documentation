@@ -213,6 +213,24 @@ public class FSEditLog { ... }
 	  JSure.</para>
 	  </listitem>
 	  <listitem>
+	    <para><emphasis>Main menu item to add the JSure
+	    annotations to a project</emphasis> &mdash; It is now
+	    possible to add or update the JSure annotations library to
+	    a project from the Eclipse main menu as shown in <xref
+	    linkend="fig-release-notes-300-add-jar"/>
+	    <figure id="fig-release-notes-300-add-jar">
+	      <title>Main menu item to add the JSure annotations to a project</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-300-add-jar.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	    It is a good idea to run this menu choice after you
+	    install a new version of JSure to ensure the annotation
+	    library is up to date. If there is not an update the tool
+	    will tell you you are up-to-date.
+	    </para>
+	  </listitem>
+	  <listitem>
 	    <para><emphasis>JSure annotations submitted to the Maven
 	    Central Repository</emphasis> &mdash; SureLogic has
 	    submitted the updated promise syntax (as described above)
