@@ -54,6 +54,212 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
 
+    <section id="sec-jsure-release-3-0-0">
+      <title>JSure version 3.0.0</title>
+      <para>This section describes the 3.0.0 version of the JSure Eclipse client.</para>
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>A more straightforward aggregation
+	    syntax</emphasis> &mdash; The syntax of aggregation is
+	    improved. Many programmers have found found
+<programlisting>
+@RegionLock("CLock is this protects Instance")
+class C {
+  @Unique
+  @Aggregate("Instance into Instance")
+  private final Set&lt;String&gt; cSet = new HashSet&lt;String&gt;();
+  &hellip;
+}
+</programlisting>
+to be confusing and too academic-looking. This syntax is still
+accepted by JSure (for backwards compatibility), however, it can be
+simplified to
+<programlisting>
+@RegionLock("CLock is this protects Instance")
+class C {
+  @Unique
+  @Aggregate
+  private final Set&lt;String&gt; cSet = new HashSet&lt;String&gt;();
+  &hellip;
+}
+</programlisting>
+when dealing the <code>Instance</code> region (indicating all the
+declared fields in the object). If the region is named then you can
+use
+<programlisting>
+@Region("private CRegion")
+@RegionLock("CLock is this protects CRegion")
+class C {
+  @Unique
+  @AggregateInRegion("CRegion")
+  private final Set&lt;String&gt; cSet = new HashSet&lt;String&gt;();
+ 
+  @InRegion("CRegion")
+  private int counter;
+  &hellip;
+}
+</programlisting>
+             which is similar to the <code>@InRegion</code>
+             annotation (as seen above for the counter field).</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Goetz/Perlis annotation support</emphasis>
+	    &mdash; We now support three of the four Goetz/Perlis
+	    annotations: <code>@ThreadSafe</code>,
+	    <code>@NotThreadSafe</code>, and
+	    <code>@Immutable</code>. (We have some work to do with
+	    <code>@GuardedBy</code>, but that annotation is really an
+	    impoverished version of <code>@RegionLock</code>.)
+	    Primarily these are for code documentation purposes. The
+	    <code>@SelfProtected</code> annotation is replaced by
+	    <code>@ThreadSafe</code>, therefore, if any
+	    <code>@SelfProtected</code> annotations are in the code
+	    they will not compile with the new JAR and will need to be
+	    changed to <code>@ThreadSafe</code>. We decided to make
+	    this, sadly incompatible, change to better support
+	    standard annotations. It is our intention to fully support
+	    all the standard Goetz/Perlis annotations in JSure.</para>
+
+	    <para>The <code>@Immutable</code> annotation is not
+	    verified in this release but an analysis will be added to
+	    support verification of this assertion in a future release
+	    of JSure.</para>
+	  </listitem>
+	  <listitem><para><emphasis>@MapFields replaced by
+	  @InRegion</emphasis> &mdash; Another incompatible change is
+	  the replacement of the <code>@MapFields</code> annotation
+	  and its associated plural <code>@MapsFields</code> with
+	  <code>@InRegion</code> and <code>@InRegions</code>,
+	  respectively. This annotation was out of date (older
+	  annotations talked about mapping fields into a region) and
+	  we wanted to updated it and make it consistent with the
+	  scheme used to allow multiple annotations on a class.</para>
+	  <para>For example, one would change the below annotations
+<programlisting>
+/**
+ * FSEditLog maintains a log of the namespace modifications.
+ */
+@Region("LogState")
+@RegionLock("LogLock is this protects LogState")
+@MapFields("editStreams, fsimage into LogState")
+public class FSEditLog { ... }
+</programlisting>
+to
+<programlisting>
+/**
+ * FSEditLog maintains a log of the namespace modifications.
+ */
+@Region("LogState")
+@RegionLock("LogLock is this protects LogState")
+@InRegion("editStreams, fsimage into LogState")
+public class FSEditLog { ... }
+</programlisting>
+</para>
+	  </listitem>
+	  <listitem><para><emphasis>Programmer vouch capability added
+	  to JSure</emphasis> &mdash; Vouches for any any inconsistent
+	  analysis result within the scope of code that the annotation
+	  appears on. This means that any inconsistent result will be
+	  changed to a consistent result. Its use is for documentation
+	  and to quiet overly conservative analysis results. This
+	  annotation is trusted, i.e., it is not verified by
+	  analysis.</para>
+
+	  <para>The annotation requires a brief programmer explanation
+	  for the vouch being made.</para>
+
+	  <para>For example, an <code>init</code> method is used to
+	  set set state, perhaps due to an API restriction about using
+	  constructors, then <code>CentralControl</code> instances are
+	  safely published. A <code>@Vouch</code> annotation is used
+	  to explain that the <code>init</code> method needs to be an
+	  exception to the lock policy.
+<programlisting>
+ @Region("private ControlRegion")
+ @InRegion("f_id into ControlRegion")
+ @RegionLock("ControlLock is lock protects ControlRegion")
+ public class CentralControl {
+ 
+   private final Object lock = new Object();
+   private String f_id;
+ 
+   @Vouch("Instances are thread confined until after init(String) is called.")
+   public void init(String id) {
+     f_id = id;
+   }
+ 
+   public String getId() {
+     synchronized (lock) {
+       return f_id;
+     }
+   }
+ 
+   public void setId(String value) {
+     synchronized (lock) {
+       f_id = value;
+     }
+   }
+ }
+</programlisting>
+	  Notice that the current implementation vouches for all
+	  inconsistent analysis results within the type or method or
+	  constructor that the annotation appears on. A more targeted
+	  capability will be introduced in a future version of
+	  JSure.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>JSure annotations submitted to the Maven
+	    Central Repository</emphasis> &mdash; SureLogic has
+	    submitted the updated promise syntax (as described above)
+	    to the Maven central repository and is awaiting them to
+	    perform the upload request. The JIRA is <ulink
+	    url="http://jira.codehaus.org/browse/MAVENUPLOAD-2654">http://jira.codehaus.org/browse/MAVENUPLOAD-2654</ulink>.
+	    The maven site for JSure is <ulink
+	    url="http://surelogic.com/promises/index.html">http://surelogic.com/promises/index.html</ulink>
+	    with the associated Javadoc at <ulink
+	    url="http://surelogic.com/promises/apidocs/index.html">http://surelogic.com/promises/apidocs/index.html</ulink>. This
+	    inclusion in the Maven Central Repository is a step toward
+	    making the JSure annotations a Java standard for
+	    documenting and verifying concurrency design intent.
+</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+
+      <section>
+	<title>Known Problems</title>
+	<para>This section describes known bugs and limitations in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem><para><emphasis>Incremental analysis sometimes
+	  fails</emphasis> &mdash; In rare cases the incremental
+	  analysis, i.e., the results update when you save, fails. A
+	  workaround is to restart Eclipse or perform a
+	  <guimenu>Project</guimenu> |
+	  <guimenuitem>Clean...</guimenuitem> of the project being
+	  verified. If this problem occurs please notify
+	  SureLogic.</para>
+	  </listitem>
+	  <listitem><para><emphasis>Analysis can sometimes be
+	  slow</emphasis> &mdash; If JSure verification is slow on
+	  your computer, please notify SureLogic. It is suggested that
+	  you only turn on JSure when you are using it. Another
+	  workaround is to disable the automatic building of your code
+	  in Eclipse by unchecking <guimenu>Project</guimenu> |
+	  <guimenuitem>Build Automatically</guimenuitem> in
+	  Eclipse. This lets you select <guimenu>Project</guimenu> |
+	  <guimenuitem>Build Project</guimenuitem> to run the Java
+	  compiler and JSure only when you are ready to.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+
     <section id="sec-jsure-release-2-3-0">
       <title>JSure version 2.3.0</title>
       <para>This section describes the 2.3.0 version of the JSure Eclipse client.</para>
