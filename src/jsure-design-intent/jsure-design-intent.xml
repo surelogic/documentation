@@ -1287,20 +1287,20 @@ class Var {
       <title>Scoped Promises</title>
       <para>Scoped promises are promises that act on other promises
       within a static scope of code. Two types of scoped promises are
-      supported by the tool: <emphasis>@Promise</emphasis> to avoid
-      tedious user annotation and <emphasis>@Assume</emphasis> to
+      supported by the tool: <classname>@Promise</classname> to avoid
+      tedious user annotation and <classname>@Assume</classname> to
       support team modeling.</para>
 
       <note>
 	<para>Scoped promises are still experimental in JSure, however,
-	it is possible to use <emphasis>@Promise</emphasis> in your
-	models. We will not describe <emphasis>@Assume</emphasis> any
+	it is possible to use <classname>@Promise</classname> in your
+	models. We will not describe <classname>@Assume</classname> any
 	further.
 	</para>
       </note>
 
       <para>The simplest example of the use of
-      <emphasis>@Promise</emphasis> is to change the default for a
+      <classname>@Promise</classname> is to change the default for a
       class. So instead of writing</para>
 
 <programlisting>
@@ -1331,12 +1331,12 @@ class Example {
 <para>Notice that the <emphasis>payload</emphasis> promise within the
 scoped promise has the same syntax as the original annotation except
 that the quotation marks are removed. So
-<emphasis>@Borrowed("this")</emphasis> is changed to
-<emphasis>@Borrowed(this)</emphasis> when used as the payload for a
+<code>@Borrowed("this")</code> is changed to
+<code>@Borrowed(this)</code> when used as the payload for a
 scoped promise.</para>
 
 <para>In the form shown in the example above
-<emphasis>@Promise</emphasis> places the payload promise on every
+<classname>@Promise</classname> places the payload promise on every
 declaration in the class where the payload promise makes sense. In the
 example above, this is all methods and constructors within the Example
 class. It is possible to be more specific by providing an explicit
@@ -1353,13 +1353,13 @@ class Example2 {
 }
 </programlisting>
 
-<para>In the example above a <emphasis>@SingleThreaded</emphasis> and
-<emphasis>@Borrowed("this")</emphasis> annotation are placed on all
-the constructors in the Example2 class using the explicit target
-<emphasis>new(**)</emphasis>. A <emphasis>@Borrowed("this")</emphasis>
-annotation is placed on all methods within the Example2 class that
+<para>In the example above a <classname>@SingleThreaded</classname> and
+<code>@Borrowed("this")</code> annotation are placed on all
+the constructors in the <classname>Example2</classname> class using the explicit target
+<code>new(**)</code>. A <code>@Borrowed("this")</code>
+annotation is placed on all methods within the <classname>Example2</classname> class that
 have names that start with "get" (e.g.,
-<emphasis>getValue()</emphasis>) and have any number of parameters of
+<function>getValue</function>) and have any number of parameters of
 any type.</para>
 
     </chapter>
@@ -1787,6 +1787,7 @@ public class Blooper extends Duper {
               referenced object into the field itself, for example,
         
                 <programlisting>
+@Unique
 @Aggregate("Instance into record")
 protected PersonRecord record;
                 </programlisting>
@@ -1799,6 +1800,17 @@ protected PersonRecord record;
             </itemizedlist>
           </para>
         </para>
+        
+        <para>The <classname>@Aggregate</classname> annotation may be used as a 
+        marker annotation, in which case it is equivalent to writing
+        <code>@Aggregate("Instance into Instance")</code>:
+        
+          <programlisting>
+@Unique
+@Aggregate
+protected final PersonRecord record;
+          </programlisting>
+        </para>        
         
         <sect2>
           <title>Constraints</title>
@@ -2038,12 +2050,6 @@ protected PersonRecord record;
             </itemizedlist>
           </para>
         </sect2>
-      </sect1>
-      
-      <sect1>
-        <title>MapFields</title>
-        
-        <para>To do&hellip;</para>
       </sect1>
     </chapter>
     
