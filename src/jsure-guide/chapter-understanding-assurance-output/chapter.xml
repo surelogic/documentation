@@ -47,6 +47,7 @@
   <xi:include href="sect1-effects-assurance.xml"/>
   <xi:include href="sect1-lock-assurance/sect1.xml"/>
   <xi:include href="sect1-thread-effects.xml"/>
+  <xi:include href="sect1-vouch-assurance.xml"/>
   <!--xi:include href="sect1-uniqueness.xml"/-->
   <xi:include href="sect1-result-index.xml"/>
 </chapter>
