@@ -125,6 +125,15 @@ public class C {
     }
   }
           </programlisting>
+	  To make this code assure (i.e., make it consistent with the
+	  locking model) it needs to be holding two locks:
+	  <programlisting>
+  public synchronized void copy(final C other) {
+    synchronized (other) {
+      this.f = other.f;
+    }
+  }
+          </programlisting>
         </para>
       </sect1>
     
@@ -209,7 +218,7 @@ public class Other {
       
           <programlisting>
 <emphasis>@Unique</emphasis>
-<emphasis>@Aggregate("Instance into Instance")</emphasis>
+<emphasis>@Aggregate</emphasis>
 private Object[] myArray;
           </programlisting>
       
@@ -225,9 +234,7 @@ private Object[] myArray;
             <classname>@Unique</classname> field.</para></listitem>
   
             <listitem><para>Extends the state of the referencing object
-            to include the elements of the array (recall that the
-            <structfield>Instance</structfield> region is the
-            non-<code>static</code> state of an object).  State
+            to include the elements of the array. State
             aggregation is not automatically transitive; thus if the
             array elements are objects, those objects are not
             aggregated, only the references to them.</para></listitem>
@@ -263,7 +270,7 @@ private Object[] myArray;
 <emphasis>@RegionLock("Lock is this protects Instance")</emphasis>
 public class Buffer {
   <emphasis>@Unique</emphasis>
-  <emphasis>@Aggregate("Instance into Instance")</emphasis>
+  <emphasis>@Aggregate</emphasis>
   private final Object[] buf;
   &hellip;
   public Buffer(int size) {
@@ -282,10 +289,35 @@ public class Buffer {
 }
         </programlisting>
       
-        <para>Aggregation applies not only to arrays, but to objects in
-        general.  So any object-typed field can be declared
+        <para>Aggregation applies not only to arrays, but to objects
+        in general.  So any object-typed field can be declared
         <classname>@Unique</classname> and can then have its state
-        aggregated into the state of its referring object. </para>
+        aggregated into the state of its referring object. In
+        practice, aggregation of collections is common. The code below
+        aggregates the set <code>log</code> into the
+        <code>Instance</code> region.</para>
+	<programlisting>
+public class LogExample {
+  @Unique
+  @Aggregate
+  private final Set&lt;String&gt; log = new HashSet&lt;String&gt;();
+  &hellip;
+}
+	</programlisting>
+	<para>The annotation for aggregation when a named region is
+	used is slightly different. Declaring a named region is
+	further described below. The code below declares a named
+	region <code>LogData</code> and aggregates the set
+	<code>log</code> into it.</para>
+	<programlisting>
+@Region("private LogData")
+public class LogExample {
+  @Unique
+  @AggregateInRegion("LogData")
+   private final Set&lt;String&gt; log = new HashSet&lt;String&gt;();
+   &hellip;
+}
+	</programlisting>
       </sect1>
     
       <sect1 id="constructors">
@@ -394,7 +426,7 @@ public class C {
       </sect1>
     
       <sect1 id="self-protected-objects">
-        <title>Self-Protected Objects</title>
+        <title>Thread-Safe Objects</title>
       
         <para>Region aggregation, described above, is one technique that
         can be used to deal with the fact that fields
@@ -423,19 +455,23 @@ public class C {
         <structfield>f</structfield> that references objects of class
         <classname>C</classname> by annotating class
         <classname>C</classname> with
-        <classname>@SelfProtected</classname>. This
+        <classname>@ThreadSafe</classname>. This
         <emphasis>unchecked</emphasis> annotation declares that
         instances of the class/interface are meant to be “thread safe.”
         Exactly what is meant by this is presently unspecified; the
         annotation is intended to encompass non&ndash;lock-based
         protections schemes such as single-threadedness and
         immutability.</para>
-      
+       
         <important>
           <para>No analysis is performed on classes declared to be
-          self-protected to assure that the implementation is thread
-          safe.</para>
+          <code>@ThreadSafe</code> to assure that the implementation
+          is thread safe.</para>
         </important>
+
+	<para>For immutable objects you can alternatively use
+	<code>@Immutable</code> instead of, or with
+	<code>@ThreadSafe</code>.</para>
       
         <para>As an example, let us consider the simple rational numbers
         class below:
@@ -482,7 +518,8 @@ public class C {
         warning by annotating the <classname>Rational</classname> class:
       
           <programlisting>
-<emphasis>@SelfProtected</emphasis>
+<emphasis>@ThreadSafe</emphasis>
+<emphasis>@Immutable</emphasis>
 public class Rational {
   &hellip;
 }
