@@ -71,10 +71,26 @@
     project must be able to reference the SureLogic annotation types
     declared in package <package>com.surelogic</package>.  The
     SureLogic annotation types are bundled together in
-    <filename>promises.jar</filename>. This file must be on the build
-    path of your project for the annotations be to used.  As described
-    below, the simplest way to add this JAR file to the project and
-    its build path is to allow JSure to do it for you.</para>
+    <filename>promises-3.0.0.jar</filename>. This file must be on the
+    build path of your project for the annotations be to used.  As
+    described below, the simplest way to add this JAR file to the
+    project and its build path is to allow JSure to do it for
+    you.</para>
+
+    <para>To manually add/update the JAR file select
+    <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
+    Promises Library...</guimenuitem> from the Eclipse main menu as
+    shown below.</menuchoice>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/quick-start-add-jar.png" />
+      </imageobject>
+    </mediaobject>
+
+    This action will prompt you through the process of adding or
+    updating the JAR to your project's classpath. It does not enable
+    JSure on that project (as described below).</para>
     
     <sect3>
       <title>Enabling JSure Analysis</title>

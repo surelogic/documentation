@@ -254,6 +254,22 @@ public class FSEditLog { ... }
 	<para>This section describes known bugs and limitations in this
 	version of JSure.</para>
 	<orderedlist>
+	  <listitem><para><emphasis>Small <wordasword>S</wordasword>
+	  in the project icon lower right corner does not go away when
+	  JSure is disabled</emphasis> &mdash; JSure can only assure
+	  the contents of one project at a time. The icon of the
+	  project being assured is marked with a small
+	  <wordasword>S</wordasword> in the lower right corner:
+	  <guiicon><inlinegraphic
+	  fileref="images/jsure-nature.png"/></guiicon>. The
+	  <wordasword>J</wordasword> above the
+	  <wordasword>S</wordasword> are intended to remind you that
+	  this is the project JSure is analyzing. Sometimes when you
+	  disable JSure verification the small
+	  <wordasword>S</wordasword> does not go away immediatly. This
+	  is a refresh bug in Eclipse. To make it go away simply
+	  refresh the project (with F5) or restart Eclipse.</para>
+	  </listitem>
 	  <listitem><para><emphasis>Incremental analysis sometimes
 	  fails</emphasis> &mdash; In rare cases the incremental
 	  analysis, i.e., the results update when you save, fails. A

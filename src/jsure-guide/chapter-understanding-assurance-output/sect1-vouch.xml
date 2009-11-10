@@ -3,8 +3,8 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="vouch-assurance">
-  <title>Vouch Assurance</title>
+<sect1 id="vouch">
+  <title>Programmer Vouch Capability</title>
   
   <para>Instances of the <classname>@Vouch</classname> annotation are not assured, but they
   do change the way that other assurance results are displayed.  Consider the class
@@ -45,7 +45,7 @@ public class Controller {
   </mediaobject>
   
   <para>The assignment to field <structfield>id</structfield> on line 21 is not
-  assured.  But the intent is that the <function>init</function> method is only
+  consistent with the annotated assertions.  But the intent is that the <function>init</function> method is only
   called by the factory method <function>makeController</function> while the
   newly constructed <classname>Controller</classname> object is still confined
   to a single thread.  Thus we can use the <classname>@Vouch</classname>
@@ -76,9 +76,9 @@ public class Controller {
   }
 }</programlisting>
   
-  <para>Now any negative assurance result that occurs within the body of the
+  <para>Now any negative (or inconsistent) assurance result that occurs within the body of the
   <function>init</function> method is promoted to a <emphasis>trusted</emphasis>
-  positive result.  These results are marked with a grey plus <guiicon><inlinegraphic
+  positive result.  These "vouched" results are marked with a grey plus <guiicon><inlinegraphic
   fileref="images/grey-plus.png"/></guiicon>:</para>
   
   <mediaobject>
@@ -92,7 +92,7 @@ public class Controller {
   icons along the entire
   chain of evidence for that result, starting from the <classname>@Vouch</classname>
   annotation and ending with the <guilabel>Concurrency</guilabel> heading are
-  poisoned with a red dot to indicate that the assurance is conditional on the
+  "poisoned" with a red dot to indicate that the assurance is conditional on the
   programmer-supplied testament of assurance.</para>
   
   <para>All vouches are also displayed under a separate <guilabel>Vouches</guilabel> 
