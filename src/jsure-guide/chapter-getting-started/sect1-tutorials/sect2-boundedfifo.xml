@@ -512,7 +512,7 @@ public void put(LoggingEvent e) {
 @Promise("@RequiresLock(BufLock) for *(**)")
 public class BoundedFIFO {
   <emphasis>@Unique</emphasis>
-  <emphasis>@Aggregate("Instance into Instance")</emphasis>
+  <emphasis>@Aggregate</emphasis>
   LoggingEvent[] buf;
   &hellip;
 }
