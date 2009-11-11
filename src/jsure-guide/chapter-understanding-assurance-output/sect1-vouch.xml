@@ -98,4 +98,17 @@ public class Controller {
   <para>All vouches are also displayed under a separate <guilabel>Vouches</guilabel> 
   heading.  Each <classname>@Vouch</classname> annotation result shows as supporting
   information all the assurance results that it promotes to being trusted.</para>
+  
+  <note>
+    <title>Not Recommended</title>
+    
+    <para>The example in this section is contrived, but based on actual 
+    scenarios we have encountered while annotating actual production
+    Java code.  Obviously, in this case, we could easily rewrite class
+    <classname>Controller</classname> to avoid the need to use a
+    <classname>@Vouch</classname> annotation.  Often times this is not practical
+    or possible because of constraints imposed by external frameworks or
+    libraries.  The <classname>@Vouch</classname> is provided to deal with
+    such situations.</para>  
+  </note>
 </sect1>
