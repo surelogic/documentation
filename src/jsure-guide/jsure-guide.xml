@@ -274,21 +274,22 @@ public class FSEditLog { ... }
 	  fails</emphasis> &mdash; In rare cases the incremental
 	  analysis, i.e., the results update when you save, fails. A
 	  workaround is to restart Eclipse or perform a
-	  <guimenu>Project</guimenu> |
-	  <guimenuitem>Clean...</guimenuitem> of the project being
-	  verified. If this problem occurs please notify
-	  SureLogic.</para>
+	  <menuchoice><guimenuitem>Project</guimenuitem><guimenuitem>Clean...</guimenuitem></menuchoice>
+	  of the project being verified. If this problem occurs please
+	  notify SureLogic.</para>
 	  </listitem>
 	  <listitem><para><emphasis>Analysis can sometimes be
 	  slow</emphasis> &mdash; If JSure verification is slow on
 	  your computer, please notify SureLogic. It is suggested that
 	  you only turn on JSure when you are using it. Another
 	  workaround is to disable the automatic building of your code
-	  in Eclipse by unchecking <guimenu>Project</guimenu> |
-	  <guimenuitem>Build Automatically</guimenuitem> in
-	  Eclipse. This lets you select <guimenu>Project</guimenu> |
-	  <guimenuitem>Build Project</guimenuitem> to run the Java
-	  compiler and JSure only when you are ready to.</para>
+	  in Eclipse by unchecking
+	  <menuchoice><guimenuitem>Project</guimenuitem><guimenuitem>Build
+	  Automatically</guimenuitem></menuchoice> in Eclipse. This
+	  lets you select
+	  <menuchoice><guimenuitem>Project</guimenuitem><guimenuitem>Build
+	  Project</guimenuitem></menuchoice> to run the Java compiler
+	  and JSure only when you are ready to.</para>
 	  </listitem>
 	</orderedlist>
       </section>

@@ -12,19 +12,38 @@
   <application>PlanetBaron</application>.  It will use the tutorial
   project <application>PlanetBaronJSure</application>.</para>
 
-  <para>Enable assurance for the PlanetBaronJSure project by selecting
-  it and clicking on the focus verification <guiicon><inlinegraphic
-  fileref="images/jsure_verify.gif"/></guiicon> icon in the
-  <guilabel>Package Explorer</guilabel> toolbar (and adding the JSure
-  promises to its build path). Until this is done the PlanetBaronJSure
-  project will not compile without errors. This is because the project
-  already contains lock model annotations about its locking policies,
-  not all of which assure. In the rest of this example we fix these
-  failures.</para>
+  <para>The <application>PlanetBaronJSure</application> does not
+  compile because it already contains JSure annotations. Add the
+  needed annotation library by selecting
+  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
+  Promises Library...</guimenuitem></menuchoice> from the Eclipse main menu.</para>
 
-  <para>After assurance is enabled on the PlanetBaronJSure project and
-  the JSure promises have been added to its build path, it should
-  compile without errors.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/quick-start-add-jar.png" />
+      </imageobject>
+    </mediaobject>
+
+  <para>In the dialog that appears select the
+  <application>PlanetBaronJSure</application> project and press
+  <guimenuitem>OK</guimenuitem>.</para>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/tutorial-add-jar-dialog.png" />
+      </imageobject>
+    </mediaobject>
+
+   <para>At this point the project should compile without errors.</para>
+
+  <para>Enable assurance for the PlanetBaronJSure project by selecting
+  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Focus
+  Verification...</guimenuitem></menuchoice> and again choosing the
+  <application>PlanetBaronJSure</application> project in the dialog
+  that appears. Finally, press <guimenuitem>OK</guimenuitem>.  This
+  project already contains lock model annotations about its locking
+  policies, not all of which assure. In the rest of this example we
+  fix these assurance failures.</para>
   
   <sect3>
     <title>Running PlanetBaron</title>
