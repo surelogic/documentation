@@ -787,11 +787,16 @@ public abstract class Thing {
     <para>After making this change, the complete model for
     <structfield>ThingLock</structfield> assures:
 
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/pb-thing-lock-assures.png" />
-        </imageobject>
-      </mediaobject>
-    </para>
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/pb-thing-lock-assures.png" />
+      </imageobject>
+    </mediaobject>
+
+    There is one modeling problem remaining (as can be seen above),
+    however, it is about the <code>GameMap</code> locking model. We
+    leave this as an exercise for the reader to fix. There are several
+    other locking models in this code that can be examined at your
+    leisure.</para>
   </sect3>
 </sect2>
