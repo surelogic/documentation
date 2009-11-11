@@ -222,9 +222,9 @@ public class BoundedFIFO {
     line of code.  Let us view the first line of code from the first
     assurance failure by double-clicking on <computeroutput>Lock
     "&lt;this&gt;.BufLock" not held when accessing (this.first) at
-    BoundedFIFO.java line 54</computeroutput>.   Eclipse opens an editor
+    BoundedFIFO.java line 55</computeroutput>.   Eclipse opens an editor
     window for <classname>BoundedFIFO</classname> and highlights the
-    field expression <code>first</code> on line 54:<footnote>
+    field expression <code>first</code> on line 55:<footnote>
     <para>You can enable line numbering in the Java editors by
     right-clicking in the editor gutter and selecting
     <guimenu>Show Line Numbers</guimenu> or by going
@@ -527,7 +527,7 @@ public class BoundedFIFO {
     saving (and reanalyzing) we can see the effects of
     this annotation: there are now 29 protected field accesses, up
     from 27. This is because the two array dereferences are now
-    counted as protected accesses (lines 63 and 79):
+    counted as protected accesses (lines 64 and 81):
     
       <mediaobject>
         <imageobject>

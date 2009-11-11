@@ -225,7 +225,7 @@
     declared in the class
     <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>:
     
-      <programlisting linenumbering="numbered" startinglinenumber="22"><emphasis>@RegionLock("ThingLock is f_lock protects Instance")</emphasis>
+      <programlisting linenumbering="numbered" startinglinenumber="20"><emphasis>@RegionLock("ThingLock is f_lock protects Instance")</emphasis>
 public abstract class Thing {
 
   /**
@@ -319,7 +319,7 @@ public abstract class Thing {
       <classname>Ship</classname>.  The erroneous access occurs in the
       method <function>Ship.moveTo()</function>:
 
-        <programlisting linenumbering="numbered" startinglinenumber="157">  public void moveTo(Location destination) {
+        <programlisting linenumbering="numbered" startinglinenumber="156">  public void moveTo(Location destination) {
     if (isMoving())
       throw new IllegalStateException(
           "a moving ship can't change its destination");
@@ -342,7 +342,7 @@ public abstract class Thing {
     }
   }</programlisting>
 
-    We see that the field access on line 162 in the condition of the
+    We see that the field access on line 161 in the condition of the
     <code>if</code>-statement occurs outside of the critical section
     that only spans the <code>else</code>-block.  We need to edit the
     method to expand the critical section to contain the entire
@@ -388,8 +388,8 @@ public abstract class Thing {
 
     <para>You can demonstrate to yourself that JSure understands the
     when the read component and when the write component of a
-    read&ndash;write lock needs to be held by changing lines 162 and
-    176 of <function>Ship.moveTo()</function> to acquire the read lock
+    read&ndash;write lock needs to be held by changing lines 161 and
+    175 of <function>Ship.moveTo()</function> to acquire the read lock
     instead of the write lock:
 
       <programlisting linenumbering="numbered" startinglinenumber="157">  public void moveTo(Location destination) {
@@ -430,7 +430,7 @@ public abstract class Thing {
     <structfield>ThingLock</structfield> is held.</para>
 
     <para>Restore the method to its previously corrected form by
-    changing lines 162 and 176 to invoke
+    changing lines 161 and 175 to invoke
     <function>writeLock()</function> instead of
     <function>readLock()</function>.</para>
   </sect3>
@@ -481,11 +481,11 @@ public abstract class Thing {
     <function>MapView.paintComponent()</function>, we see that it draws
     the basic game map, and then iterates over all the ships and
     planets to draw them individually by calling the methods
-    <function>drawShipMovementTrail()</function> (line 130),
-    <function>drawPlanet()</function> (line 135), and
-    <function>drawShip()</function> (line 141):
+    <function>drawShipMovementTrail()</function> (line 131),
+    <function>drawPlanet()</function> (line 136), and
+    <function>drawShip()</function> (line 142):
 
-      <programlisting linenumbering="numbered" startinglinenumber="115">  @Override
+      <programlisting linenumbering="numbered" startinglinenumber="116">  @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
@@ -612,7 +612,7 @@ public abstract class Thing {
     linkend="lock-viz-problems">as previously discussed</link>, this is
     just the situation that JSure is warning us about when it tells us
     that <computeroutput>lock field "this.f_lock" is less visible than
-    region "Instance" on Lock ThingLock is this.f_lock protects
+    region "Instance"; consider protecting a less visible region or adding a lock getter method on Lock ThingLock is this.f_lock protects
     Instance at Thing.java</computeroutput>.  Here, in class
     <code>MapView</code>, we cannot make use of the contents of the
     <classname>Ship</classname> and <classname>Planet</classname>
@@ -740,10 +740,10 @@ public abstract class Thing {
     <varname>s</varname>, for example, at the time it is used to
     acquire the lock will not be the same as the value of
     <varname>s</varname> as the time it is used to release the lock.
-    We can fix this by declaring <varname>s</varname> (at lines 128 and 145) and
-    <varname>p</varname> (at line 136) to be <code>final</code>:
+    We can fix this by declaring <varname>s</varname> (at lines 129 and 146) and
+    <varname>p</varname> (at line 137) to be <code>final</code>:
 
-      <programlisting linenumbering="numbered" startinglinenumber="115">  @Override
+      <programlisting linenumbering="numbered" startinglinenumber="116">  @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
