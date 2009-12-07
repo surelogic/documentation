@@ -443,7 +443,7 @@ public class Foo {
 		</row>
 		
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>LockEvent</entry>
 		  <entry>A lock event identifier</entry>
 		</row>
@@ -565,7 +565,7 @@ public class Foo {
 		</row>
 		
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Instances</entry>
 		  <entry>The number of objects with a lock set on this field</entry>
 		</row>
@@ -610,7 +610,7 @@ public class Foo {
 		</row>
 		
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Instances</entry>
 		  <entry>The number of objects with a lock set on this field</entry>
 		</row>
@@ -727,7 +727,7 @@ public class Foo {
 		</row>
 		
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="2"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Read Count</entry>
 		  <entry>The number of times this field was read in this thread</entry>
 		</row>
@@ -781,7 +781,7 @@ public class Foo {
 		</row>
 		
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Lock</entry>
 		  <entry>The identifier of a lock in this field's lock set</entry>
 		</row>
@@ -863,7 +863,7 @@ public class Foo {
 		</row>
 		
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="2"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Read Count</entry>
 		  <entry>The number of times this field was read in this thread</entry>
 		</row>
@@ -1075,7 +1075,7 @@ public class Foo {
 		</row>
 		
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="2"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Times Held</entry>
 		  <entry>The number of times the lock was held while this field
 		  was accessed</entry>
@@ -1134,7 +1134,7 @@ public class Foo {
 		</row>
 		
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="1"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Threads</entry>
 		  <entry>The number of threads that indirectly access objects of this class</entry>
 		</row>
@@ -1252,7 +1252,7 @@ public class Foo {
 		</row>
 		
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Lock Acquired</entry>
 		  <entry>The lock acquired while the given lock is already held
 		  in this component's cycle</entry>
@@ -1312,7 +1312,7 @@ public class Foo {
 		</row>
 		
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Accesses</entry>
 		  <entry>The number of times this object was indirectly accessed
 		  in this thread</entry>
@@ -1325,7 +1325,7 @@ public class Foo {
       <qandaentry>
 	<question>
 	  <para>
-	    What instances of this non-static field have an empty lock set?
+	    What instances of this field have an empty lock set?
 	  </para>
 	</question>
 	<answer>
@@ -1408,7 +1408,7 @@ public class Foo {
                 </row>
 
                 <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+                  <entry morerows="4"><emphasis role="strong">Columns</emphasis></entry>
 	          <entry>Lock</entry>
                   <entry>The lock acquired in this line of the trace</entry>
                 </row>
@@ -1464,7 +1464,7 @@ public class Foo {
                 </row>
 
                 <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+                  <entry morerows="4"><emphasis role="strong">Columns</emphasis></entry>
                   <entry>Package</entry>
                   <entry>The package this method invocation or access occurred
                   in</entry>
@@ -1526,7 +1526,7 @@ public class Foo {
                 </row>
 
                 <row>
-                  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+                  <entry morerows="4"><emphasis role="strong">Columns</emphasis></entry>
                   <entry>Package</entry>
                   <entry>The package this method invocation or lock acquisition occurred
                   in</entry>
@@ -1592,7 +1592,7 @@ public class Foo {
 		</row>
 
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Reads</entry>
 		  <entry>The read count of this field</entry>
 		</row>
@@ -1652,7 +1652,7 @@ public class Foo {
 		</row>
 
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="1"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Time</entry>
 		  <entry>The time this field access occurred</entry>
 		</row>
@@ -1694,7 +1694,7 @@ public class Foo {
 		</row>
 
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="1"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Thread</entry>
 		  <entry>The thread this object was indirectly accessed in</entry>
 		</row>
@@ -1739,7 +1739,7 @@ public class Foo {
 		</row>
 
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="1"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Locks Already Held</entry>
 		  <entry>The number of locks already held when we acquire the
 		  lock at this time</entry>
@@ -1860,7 +1860,7 @@ public class Foo {
 		</row>
 
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Most Locks Already Held</entry>
 		  <entry>The maximum number of locks already held when we
 		  acquire the lock at this point</entry>
@@ -2015,7 +2015,7 @@ public class Foo {
 		</row>
 
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="1"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>Type</entry>
 		  <entry>The type of lock access, either Intrinsic,
 		  java.util.concurrent Lock, java.util.concurrent
@@ -2068,7 +2068,7 @@ public class Foo {
 		</row>
 
 		<row>
-		  <entry morerows="5"><emphasis role="strong">Columns</emphasis></entry>
+		  <entry morerows="3"><emphasis role="strong">Columns</emphasis></entry>
 		  <entry>BlockTime</entry>
 		  <entry>The amount of time the thread spends blocking while
 		  acquiring this lock</entry>
