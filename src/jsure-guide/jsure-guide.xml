@@ -54,6 +54,49 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
 
+    <section id="sec-jsure-release-3-1-0">
+      <title>JSure version 3.1.0</title>
+      <para>This section describes the 3.1.0 version of the JSure Eclipse client.</para>
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem><para><emphasis>@Unique("return") on constructors?</emphasis> &mdash;
+            </para>
+	  </listitem>
+	  <listitem><para><emphasis>Turn off analysis for test directories??</emphasis> &mdash;
+              If your project includes source directories for test code, you can setup your project
+	      to ignore those directories by adding a "jsure.properties" file with the following contents
+              to the project root:
+<programlisting>
+# A comma-separated list of source paths
+ModuleDecl.Test=src/java/test/*,src/test/*
+# Load only interfaces, not method bodies
+Module.asClass=Test
+# Load on demand from other classes
+Module.asNeeded=Test
+# Load everything else as usual
+Module.defaults=asSource
+</programlisting>
+            </para>
+	  </listitem>
+	  <listitem><para><emphasis>Improved JSure job progress</emphasis> &mdash;
+	      Progress updates have been added to longer-running analyses to provide better feedback
+	      as to what JSure is doing.
+            </para>
+	  </listitem>
+	  <listitem><para><emphasis>Quickly copy text for problem/improvement reports</emphasis> &mdash;
+	      To simplify reporting, you can now copy text from the Verification Status view.
+	      In addition, the reporting dialogs no longer block operations in the Eclipse IDE, 
+	      so you can take full advantage of the IDE to compose your reports.
+            </para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+
     <section id="sec-jsure-release-3-0-0">
       <title>JSure version 3.0.0</title>
       <para>This section describes the 3.0.0 version of the JSure Eclipse client.</para>
