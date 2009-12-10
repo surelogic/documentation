@@ -82,6 +82,17 @@ Module.defaults=asSource
 </programlisting>
             </para>
 	  </listitem>
+	  <listitem><para><emphasis>Use JSure annotations in Javadoc under Java 1.4</emphasis> &mdash;
+              For those developers still wedded to using Java 1.4 or below, JSure supports putting 
+	      promises in Javadoc, instead of using the Java 5 annotations.  See the help documents for 
+              more details: 
+<programlisting>
+    /**
+     * @annotate @RegionLock("SimpleLock is this protects Instance")
+     */
+</programlisting>
+            </para>
+	  </listitem>
 	  <listitem><para><emphasis>Improved JSure job progress</emphasis> &mdash;
 	      Progress updates have been added to longer-running analyses to provide better feedback
 	      as to what JSure is doing.
