@@ -3261,6 +3261,12 @@ class C {
                 <para>This is trivially satisfied when annotating a constructor return value.</para>
               </formalpara>
             </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>The return type must not be <code>void</code>.</title>
+              </formalpara>
+            </listitem>
           </itemizedlist>
         </sect2>
       </sect1>
