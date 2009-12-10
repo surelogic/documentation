@@ -3264,7 +3264,13 @@ class C {
 
             <listitem>
               <formalpara>
-                <title>The return type must not be <code>void</code>.</title>
+                <title>The return type must not be <code>void</code></title>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>A constructor with a unique return value must not also be annotated with <code>@Borrowed("this")</code></title>
               </formalpara>
             </listitem>
           </itemizedlist>
@@ -3375,6 +3381,13 @@ class D extends C {
               <formalpara>
                 <title>The parameter must not also be explicitly
                 annotated with <classname>@Unique</classname></title>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>A constructor with a borrowed receiver value must not
+                also be annotated with <code>@Unique("return")</code></title>
               </formalpara>
             </listitem>
           </itemizedlist>
