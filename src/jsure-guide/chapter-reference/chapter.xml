@@ -237,7 +237,7 @@
     <sect2>
       <title>The Verification Status View</title>
       
-      <para>The only view unique to the <guilabel>Code
+      <para>One view that is unique to the <guilabel>Code
       Verification</guilabel> perspective is the <guilabel>Verification
       Status</guilabel> view.  You can add this view to any other
       Eclipse perspective by choosing
@@ -262,27 +262,17 @@
       <guilabel>Uniqueness</guilabel>, and <guilabel>Thread
       effects</guilabel>. There is also a special category for
       warnings and informational results <guilabel>Suggestions and
-      warnings</guilabel>, as well as a category for error reports
-      about the annotations themselves: <guilabel>Modeling
-      problems</guilabel>. The specific results are described in
+      warnings</guilabel>. The specific results are described in
       detail in <xref
       linkend="understanding-assurance-output"/>.</para>
       
-      <para>The view&rsquo;s toolbar has three command icons:
+      <para>The view&rsquo;s toolbar has two command icons:
         <itemizedlist>
           <listitem>
             <formalpara>
-              <title><guiicon><inlinegraphic fileref="images/info.gif"/></guiicon></title>
+              <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/></guiicon></title>
               <para>Toggling this button controls whether or not the warning results are 
               displayed in the view.</para>
-            </formalpara>            
-          </listitem>
-          <listitem>
-            <formalpara>
-              <title><guiicon><inlinegraphic fileref="images/expandall.gif"/></guiicon></title>
-              <para>This button expands all the nodes in the result trees.  Generally speaking,
-              this an expensive operation because the result trees can be very large.  It is
-              not recommended that you do this.</para>
             </formalpara>            
           </listitem>
           <listitem>
@@ -301,19 +291,76 @@
         </mediaobject>
       </figure>
       
-      <para>The view&rsquo;s menu has one commands; see <xref
+      <para>The view&rsquo;s menu has three commands; see <xref
       linkend="fig-status-view-menu"/>:
-        <itemizedlist>
-          <listitem>
-            <formalpara>
-              <title><guiicon><inlinegraphic fileref="images/info.gif"/> Hide/Show Information &amp; Warning Results</guiicon></title>
-              <para>Toggling this menu item controls whether or not the warning results are 
-              displayed in the view.</para>
-            </formalpara>            
-          </listitem>
-        </itemizedlist>
+      <itemizedlist>
+	<listitem>
+	  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/> Collapse All</guiicon></title>
+	    <para>Selecting this menu item collapses all the nodes in the result trees.</para>
+	  </formalpara>            
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/> Hide/Show Information &amp; Warning Results</guiicon></title>
+	    <para>Toggling this menu item controls whether or not the warning results are 
+	    displayed in the view.</para>
+	  </formalpara>
+	</listitem>
+	<listitem>  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/jsure_model_problems.gif"/> Show Modeling Problems</guiicon></title>
+	    <para>Selecting this menu item opens the
+	    <guilabel>Modeling Problems</guilabel> view.</para>
+	  </formalpara>          
+	</listitem>
+      </itemizedlist>
       </para>      
     </sect2>
+
+    <sect2>
+      <title>The Modeling Problems View</title>
+      
+      <para>A second view that is unique to the <guilabel>Code
+      Verification</guilabel> perspective is the <guilabel>Modeling
+      Problems</guilabel> view.  You can add this view to any other
+      Eclipse perspective by choosing
+      <menuchoice><guimenu>Window</guimenu> <guisubmenu>Show
+      View</guisubmenu>
+      <guimenuitem>Other&hellip;</guimenuitem></menuchoice> command,
+      and then choosing <guilabel>Modeling Problems</guilabel> under
+      the <guilabel>JSure</guilabel> category.</para>
+
+      <figure id="fig-modeling-problems-view">
+        <title>The <guilabel>Modeling Problems</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/modeling-problems-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+
+      <para>This view, as shown in <xref
+      linkend="fig-modeling-problems-view"/>, shows any annotations
+      that are not well-formed. This means that they have syntax
+      errors or other problems such as referencing models that are not
+      defined or (as shown in the figure above)
+      enscapulation/visibility issues.</para>
+
+      <para>The <guilabel>Modeling Problems</guilabel> view, by
+      default, appears when the code has any modeling
+      problems. Therefore, the view can be dismissed to save screen
+      space and it will come back when needed. This behavior can be
+      changed as shown in <xref
+      linkend="fig-modeling-problems-pref"/>.</para>
+      <figure id="fig-modeling-problems-pref">
+	<title>Preference for the Modeling Problems view</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/modeling-problems-pref.png"/></imageobject>
+	</mediaobject>
+      </figure>
+
+    </sect2>
+
   </sect1>
 
   <sect1 id="sec-adding-promises-jar">
@@ -322,12 +369,15 @@
     <para>As mentioned <link
     linkend="sec-quick-start-annotations">previously</link>, JSure
     design intent is expressed using a set of Java 5 annotation types
-    in the package <package>com.surelogic</package>. 
-    To use JSure with your code, your project must be able to reference
-    the SureLogic annotation types.  The SureLogic annotation types are
-    bundled together in <filename>promises.jar</filename>. This file
-    must be on the build path of your project for the annotations be to
-    used.</para>
+    in the package <package>com.surelogic</package>.  To use JSure
+    with your code, your project must be able to reference the
+    SureLogic annotation types.  The SureLogic annotation types are
+    bundled together in <filename>promises.jar</filename>. In this
+    section we refer to the file as <filename>promises.jar</filename>,
+    however, the actual file name contains a version identifier, such
+    as <filename>promises-3.1.0.jar</filename> which identifies which
+    version of the annotations it contains. This file must be on the
+    build path of your project for the annotations be to used.</para>
       
     <para>When verification is focused on a project, JSure checks to see if
       <orderedlist>
@@ -453,32 +503,81 @@
     
     <para>The <guilabel>JSure</guilabel> pane, see <xref linkend="fig-jsure-prefs-1"/>,
     allows you to reset settings for switching to the <guilabel>Code Verification</guilabel>
-    perspective.  It has two options under the <guilabel>Appearance</guilabel> heading:
-      <itemizedlist>
-        <listitem>
-          <formalpara>
-            <title><guibutton>Prompt to change to the Code Verification
-            perspective on project focus</guibutton></title>
+    perspective.  It has three options under the <guilabel>Appearance</guilabel> heading:
+    <itemizedlist>
+      <listitem>
+	<formalpara>
+	  <title><guibutton>Prompt to change to the Code Verification
+	  perspective on project focus</guibutton></title>
 
-            <para>If selected, whenever a project is selected to receive
-            the JSure focus, you will be prompted to change to the
-            <guilabel>Code Verification</guilabel> perspective if it is not
-            already the active perspective.</para>
-          </formalpara>
-        </listitem>
+	  <para>If selected, whenever a project is selected to receive
+	  the JSure focus, you will be prompted to change to the
+	  <guilabel>Code Verification</guilabel> perspective if it is not
+	  already the active perspective.</para>
+	</formalpara>
+      </listitem>
 
-        <listitem>
-          <formalpara>
-            <title><guibutton>If no prompt, automatically change to the
-            Code Verification perspective</guibutton></title>
+      <listitem>
+	<formalpara>
+	  <title><guibutton>If no prompt, automatically change to the
+	  Code Verification perspective</guibutton></title>
 
-            <para>If selected, and JSure is not set to prompt for a perspective
-            change, JSure automatically changes to the <guilabel>Code
-            Verification</guilabel> perspective when a project receives
-            the JSure focus.</para>
-          </formalpara>
-        </listitem>
-      </itemizedlist>
+	  <para>If selected, and JSure is not set to prompt for a perspective
+	  change, JSure automatically changes to the <guilabel>Code
+	  Verification</guilabel> perspective when a project receives
+	  the JSure focus.</para>
+	</formalpara>
+      </listitem>
+
+      <listitem>
+	<formalpara>
+	  <title><guibutton>When modeling problems exist,
+	  automatically show the Modeling Problems
+	  view</guibutton></title>
+
+	  <para>If selected JSure automatically opens the
+	  <guilabel>Modeling Problems</guilabel> view when JSure
+	  analysis finishes and at least one modeling problem was
+	  reported.</para>
+	</formalpara>
+      </listitem>
+    </itemizedlist>
+
+    It has one option under the <guilabel>Javadoc Annotation Support</guilabel> heading:
+
+    <itemizedlist>
+      <listitem>
+	<formalpara>
+	  <title><guibutton>Consider @annotate tags in Javadoc
+	  comments to be JSure Annotations (useful for Java 1.4
+	  code)</guibutton></title>
+
+	  <para>If the source code level of a project is set to Java
+	  1.4, by default, JSure will look for @annotate tags in
+	  Javadoc. However, if the source code level of the project is
+	  set to Java 5 or higher then it will not. This preference
+	  enables @annotate tags for projects that have a source code
+	  level set to Java 5 or higher.</para>
+	</formalpara>
+      </listitem>
+    </itemizedlist>
+
+    It has one option under the <guilabel>Analysis Thread Use</guilabel> heading:
+
+    <itemizedlist>
+      <listitem>
+	<formalpara>
+	  <title><guibutton>Number of threads the analysis is allowed to use</guibutton></title>
+
+	  <para>Portions of the JSure analysis are able to use
+	  multiple threads to increase performance of the
+	  analysis. This setting allows the user to control the number
+	  of threads used by the JSure analysis. The default for this
+	  setting is the number of cores detected on the user's
+	  computer.</para>
+	</formalpara>
+      </listitem>
+    </itemizedlist>
     
     The pane also has a <guibutton>Manage SureLogic Licenses</guibutton> button 
     that brings up the dialog box for installing and removing licenes; see

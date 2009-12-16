@@ -71,7 +71,7 @@
     project must be able to reference the SureLogic annotation types
     declared in package <package>com.surelogic</package>.  The
     SureLogic annotation types are bundled together in
-    <filename>promises-3.0.0.jar</filename>. This file must be on the
+    <filename>promises-3.1.0.jar</filename>. This file must be on the
     build path of your project for the annotations be to used.  As
     described below, the simplest way to add this JAR file to the
     project and its build path is to allow JSure to do it for
@@ -117,9 +117,11 @@
       disables assurance on that project before enabling the newly selected
       project.</para>
       
-      <para>When a project is selected for analysis, JSure checks to see if
-      <filename>promises.jar</filename> is on the project&rsquo;s build path.
-      If it is not, it offers to add the file to the project and the build path:
+      <para>When a project is selected for analysis, JSure checks to
+      see if <filename>promises-3.1.0.jar</filename> is on the
+      project&rsquo;s build path.  If it is not, and your source code
+      is for Java 5 or above, it offers to add the file to the project
+      and the build path:
       
         <mediaobject>
           <imageobject>
@@ -129,7 +131,7 @@
 
       The easiest thing to do is to choose the default option
       <guibutton>Add to Project Root</guibutton>: JSure copies
-      <filename>promises.jar</filename> to the root of project and
+      <filename>promises-3.1.0.jar</filename> to the root of project and
       adds it to the build path. See <xref
       linkend="sec-adding-promises-jar"/> for more details.</para>
       
