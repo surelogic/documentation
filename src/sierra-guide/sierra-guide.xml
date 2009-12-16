@@ -2979,6 +2979,14 @@ if (o == null) {
 	    <ulink
 	    url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>.</para>
 	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>The "Tip for Improvement" and "Problem
+	    Report" dialogs are no longer modal</emphasis> &mdash;
+	    This allows the user to cut and paste information from
+	    Eclipse that they want to send to SureLogic into the
+	    dialog.</para>
+	  </listitem>
 	</orderedlist>
       </section>
       <section>
