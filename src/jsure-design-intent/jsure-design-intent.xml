@@ -352,11 +352,12 @@ class C {
 	<para>The <classname>@Unique("return")</classname> annotation,
 	which for a constructor is defined to be equilivent to a
 	<classname>@Borrowed("this")</classname> annotation, is
-	further described below. In particular, when analysis knows
-	that the constructor does not create such an alias, it also
-	knows that it is impossible for another thread to obtain a
-	reference to the object under construction during the
-	constructor’s execution.</para>
+	further described in <xref
+	linkend="uniqueness-annotations"/>. In particular, when
+	analysis knows that the constructor does not create such an
+	alias, it also knows that it is impossible for another thread
+	to obtain a reference to the object under construction during
+	the constructor’s execution.</para>
       
         <para>Annotating a constructor as being
         <classname>@Unique("return")</classname> requires that the
@@ -3274,71 +3275,6 @@ class C {
             <listitem>
               <formalpara>
                 <title>A constructor with a unique return value must not also be annotated with <code>@Borrowed("this")</code></title>
-              </formalpara>
-            </listitem>
-          </itemizedlist>
-        </sect2>
-      </sect1>
-      
-      <sect1>
-        <title>Non-Uniqueness Declaration</title>
-        
-        <para>Uniqueness on parameters is <emphasis>contravariant</emphasis>, meaning that
-        the constraint may be relaxed when the method that contains the
-        parameter is overridden. We cannot relax <classname>@Unique</classname> by simply not
-        stating it because in that case the annotation inheritance
-        system<footnote><para>Not yet implemented.</para></footnote> would cause the <classname>@Unique</classname> annotation to be applied anyway.
-        So we must explicitly state that a parameter is not required to
-        be unique using the annotation
-        
-          <synopsis>
-@NotUnique("<optional>this</optional>")
-          </synopsis>
-        
-        As with <classname>@Unique</classname>, this annotation is normally used on 
-        parameter declarations, except in the special case of the receiver, where it is used
-        on the method itself:
-        
-          <programlisting>
-class C {
-  @Unique("this")
-  public void method1() {
-    &hellip;
-  }
-  
-  public void method2(@Unique Object p) {
-    &hellip;
-  }
-}
-
-class D extends C {
-  <emphasis>@NotUnique("this")</emphasis>
-  public void method1() {
-    &hellip;
-  }
-  
-  public void method2(<emphasis>@NotUnique</emphasis> Object p) {
-    &hellip;
-  }
-}
-          </programlisting>
-        </para>
-        
-        <sect2>
-          <title>Constraints</title>
-          
-          <itemizedlist>
-            <listitem>
-              <formalpara>
-                <title>The parameter must have a non-primitive type</title>
-                
-                <para>This is trivially satisfied when the the receiver is not unique.</para>
-              </formalpara>
-            </listitem>
-
-            <listitem>
-              <formalpara>
-                <title>The parameter must not also be explicitly annotated with <classname>@Unique</classname></title>
               </formalpara>
             </listitem>
           </itemizedlist>
