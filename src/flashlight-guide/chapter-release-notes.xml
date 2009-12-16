@@ -10,6 +10,42 @@
   features to try out, and known limitations to avoid or workaround.
   These are presented in the sections below for each released version of
   Flashlight.</para>
+
+  <sect1>
+    <title>Flashlight version 3.1.0</title>
+    
+    <para>This section describes the 3.1.0 release of Flashlight.</para>
+    
+    <sect2>
+      <title>New and Noteworthy</title>
+
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+      <orderedlist>
+	<listitem>
+	  <para><emphasis>Tips and problem reports are tracked by
+	  SureLogic</emphasis> &mdash; When you submit a tip for
+	  improvement or a problem report to SureLogic it is tracked
+	  via an automatically created Bugzilla issue report at
+	  <ulink
+	      url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>. If
+	  you include your email address in the tip or problem
+	  report you will be notified when changes to the status of
+	  the Bugzilla issue are made by SureLogic engineers. The
+	  public Bugzilla may also be accessed via a browser at
+	  <ulink
+	      url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>.</para>
+	</listitem>
+      </orderedlist>
+    </sect2>
+
+    <sect2>
+      <title>Known Problems</title>
+
+      <para>The known bugs and limitations in this version of
+	Flashlight is unchanged from the previous release.</para>
+    </sect2>
+  </sect1>
   
     <sect1>
     <title>Flashlight version 3.0.0</title>

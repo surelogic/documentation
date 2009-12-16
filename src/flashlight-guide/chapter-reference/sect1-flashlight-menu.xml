@@ -52,6 +52,16 @@
     </listitem>
     <listitem>
       <formalpara>
+	<title><guimenuitem>Run Flashlight
+	Tutorials</guimenuitem></title> <para>This command opens a
+	dialog to allow the user to import tutorial projects into
+	their workspace and open the Flashlight help to the step by
+	step tutorials.  For more information please see <xref
+	linkend="sec-tutorial"/>.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
         <title><guimenuitem>Manage SureLogic Licenses</guimenuitem></title>
         <para>This command opens the SureLogic license management
         dialog. This dialog allows the user to install, view, and

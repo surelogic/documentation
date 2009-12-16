@@ -568,7 +568,7 @@
       </section>
     </section>
 
-    <section>
+    <section id="sec-tutorial">
       <title>Tutorials</title>
 
       <para>This section contains a series of Sierra tutorials, please
@@ -2058,7 +2058,8 @@ if (o == null) {
 	  <para><emphasis>Run Sierra Tutorials</emphasis> &mdash; This
 	  command opens a dialog to allow the user to import tutorial
 	  projects into their workspace and open the Sierra help to
-	  the step by step tutorials.</para>
+	  the step by step tutorials. For more information please see
+	  <xref linkend="sec-tutorial"/>.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis>Manage SureLogic Licenses</emphasis> &mdash;
