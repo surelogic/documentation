@@ -52,6 +52,21 @@
 	  Eclipse that they want to send to SureLogic into the
 	  dialog.</para>
 	</listitem>
+	<listitem>
+	  <para><emphasis>Tool tips have been added to all
+	  queries</emphasis> &mdash; All query names in the
+	  <guilabel>Query Menu</guilabel>, <guilabel>Query Results
+	  Explorer</guilabel>, and <guilabel>Query
+	  Editor</guilabel> views will now display tooltips when hovered
+	  over.  The tool tip view is similar to the javadoc view in
+	  Eclipse's Java Editor, and can be focused and resized.
+	  </para>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/flashlight-tooltip.png" />
+	    </imageobject>
+	  </mediaobject>
+	</listitem>
       </orderedlist>
     </sect2>
 
