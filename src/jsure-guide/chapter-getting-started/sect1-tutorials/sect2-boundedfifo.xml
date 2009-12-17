@@ -466,7 +466,7 @@ public void put(LoggingEvent e) {
     and, therefore, the <classname>@Unique("return")</classname>
     annotation is as well.</para>
 
-    <para>Add the annotations to the constructor
+    <para>Add the annotation to the constructor
     <function>BoundedFIFO(int)</function>, save and reanalyze. The model
     now assures:
 
