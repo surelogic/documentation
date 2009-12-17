@@ -231,7 +231,11 @@
       <para>The icons shown in the <guilabel>Verification
       Status</guilabel> view have meaning. The table below is a quick
       reference about what each icon and decorator indicates to the
-      tool user.</para>
+      tool user. This table can be brought up as a dialog in JSure by
+      pressing the
+      <inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/>
+      toolbar button in the <guilabel>Verification Status</guilabel>
+      view.</para>
 
       <informaltable frame='none'>
 	<tgroup cols='2' align='left'>
