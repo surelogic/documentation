@@ -87,6 +87,24 @@
 	  </listitem>
 
 	  <listitem>
+	    <para><emphasis>New Iconography Quick Reference
+	    card</emphasis> &mdash; To help the user understand the
+	    iconography of the "Verification Status" view a non-model
+	    dialog has been added that is a quick reference to the
+	    icons and what they indicate to the user. The dialog is
+	    opened via a toolbar button on the "Verification Status"
+	    view as shown in <xref
+	    linkend="fig-release-notes-310-icon-quick-ref"/>.</para>
+
+	    <figure id="fig-release-notes-310-icon-quick-ref">
+	      <title>The Iconography Quick Reference dialog.</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-310-icon-quick-ref.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	  </listitem>
+
+	  <listitem>
 	    <para><emphasis>JSure icon changes</emphasis> &mdash; The
 	    JSure icon used for the "Verification Status" view looked
 	    like it indicated that the view contained a "red-dot" (an

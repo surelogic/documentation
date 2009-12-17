@@ -266,8 +266,16 @@
       detail in <xref
       linkend="understanding-assurance-output"/>.</para>
       
-      <para>The view&rsquo;s toolbar has two command icons:
+      <para>The view&rsquo;s toolbar has three command icons:
         <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
+              <para>This button collapses all the nodes in the result trees.</para>
+            </formalpara>            
+          </listitem>
+
           <listitem>
             <formalpara>
               <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/></guiicon></title>
@@ -275,12 +283,18 @@
               displayed in the view.</para>
             </formalpara>            
           </listitem>
+
           <listitem>
             <formalpara>
-              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
-              <para>This button collapses all the nodes in the result trees.</para>
+              <title><guiicon><inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/></guiicon></title>
+              <para>This button displays a quick refence card to the
+              user about what the iconography used in the
+              <guilabel>Verification Status</guilabel> view
+              means.</para>
             </formalpara>            
           </listitem>
+
+
         </itemizedlist>
       </para>
 
@@ -306,6 +320,15 @@
 	    <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/> Hide/Show Information &amp; Warning Results</guiicon></title>
 	    <para>Toggling this menu item controls whether or not the warning results are 
 	    displayed in the view.</para>
+	  </formalpara>
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/> Show Iconography Quick Reference Card</guiicon></title>
+	    <para>Selecting this menu item displays a quick refence
+	    card to the user about what the iconography used in the
+	    <guilabel>Verification Status</guilabel> view
+	    means.</para>
 	  </formalpara>
 	</listitem>
 	<listitem>  
