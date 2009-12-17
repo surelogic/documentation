@@ -203,20 +203,7 @@
       <para>The code verification perspective defaults to showing the
       <guilabel>Package Explorer</guilabel> and <guilabel>Verification
       Status</guilabel> views; see <xref
-      linkend="fig-code-verification-perspective"/>. The
-      <guilabel>Verification Status</guilabel> view is divided into
-      sections to show the results of assuring different classes of
-      design intent, such as effects, and concurrency, as well as
-      showing less specific suggestions and warnings. The various
-      result messages are explained in detail in <xref
-      linkend="understanding-assurance-output"/>. <xref
-      linkend="fig-code-verification-perspective"/> also shows the
-      <guilabel>Modeling Problems</guilabel> view which, by default,
-      will not appear. This view will appear below the
-      <guilabel>Verification Status</guilabel> view if any of the
-      annotations in your code do not make sense to JSure. This view
-      lists each bad annotation so that the programmer can fix
-      them.</para>
+      linkend="fig-code-verification-perspective"/>.</para>
 
       <figure id="fig-code-verification-perspective">
         <title>The Code Verification Perspective</title>
@@ -226,6 +213,87 @@
           </imageobject>
         </mediaobject>
       </figure>
+
+      <para>The <guilabel>Verification Status</guilabel> view is
+      divided into sections to show the results of assuring different
+      classes of design intent, such as effects, and concurrency, as
+      well as showing less specific suggestions and warnings. The
+      various result messages are explained in detail in <xref
+      linkend="understanding-assurance-output"/>. <xref
+      linkend="fig-code-verification-perspective"/> also shows the
+      <guilabel>Modeling Problems</guilabel> view which, by default,
+      will not appear. This view will appear below the
+      <guilabel>Verification Status</guilabel> view if any of the
+      annotations in your code do not make sense to JSure. This view
+      lists each bad annotation so that the programmer can fix
+      them.</para>
+
+      <para>The icons shown in the <guilabel>Verification
+      Status</guilabel> view have meaning. The table below is a quick
+      reference about what each icon and decorator indicates to the
+      tool user.</para>
+
+      <informaltable frame='none'>
+	<tgroup cols='2' align='left'>
+	<colspec colwidth='1in' align='center'/>
+	  <thead>
+	    <row>
+	      <entry>Image</entry>
+	      <entry>Semantics</entry>
+	    </row>
+	  </thead>
+	  <tbody>
+	    <row>
+	      <entry><inlinegraphic fileref="images/annotation.gif"/></entry>
+	      <entry>An annotation or promise about the code</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/plus.gif"/></entry>
+	      <entry>Consistent analysis result</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/red_x.gif"/></entry>
+	      <entry>Inconsistent analysis result</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/plus_vouch.gif"/></entry>
+	      <entry>Inconsistent analysis result vouched for by the programmer using @Vouch</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/consistent_decr.gif"/></entry>
+	      <entry>Consistent verification result decorator</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/inconsistent_decr.gif"/></entry>
+	      <entry>Inconsistent verification result decorator</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/trusted_decr.gif"/></entry>
+	      <entry>Trusted promise decorator &ndash; the annotation is not checked by analysis</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/reddot_decr.gif"/></entry>
+	      <entry>Red dot &ndash; an @Vouch or trusted promise is used in the verification proof</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/virtual_decr.gif"/></entry>
+	      <entry>Virtual promise decorator &ndash; created by @Promise</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/info.gif"/></entry>
+	      <entry>Informational message &ndash; a possible next modeling step</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/warning.gif"/></entry>
+	      <entry>Warning message &ndash; a possible next modeling step</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/annotation_error.gif"/></entry>
+	      <entry>Modeling problem &ndash; check the syntax of your annotations</entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
     </sect3>
   </sect2> 
 </sect1>
