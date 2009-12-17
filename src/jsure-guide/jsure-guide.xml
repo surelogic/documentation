@@ -87,16 +87,18 @@
 	  </listitem>
 
 	  <listitem>
-	    <para><emphasis>JSure icon changed</emphasis> &mdash; The
+	    <para><emphasis>JSure icon changes</emphasis> &mdash; The
 	    JSure icon used for the "Verification Status" view looked
 	    like it indicated that the view contained a "red-dot" (an
-	    assumption or vouch). The icon has been changed to avoid
-	    this confusion (blue is used instead of red) as shown in
-	    the upper-right of <xref
+	    assumption or vouch). The icon now uses blue instead of
+	    read to avoid this confusion. The inconsistent
+	    verification result decorator (a little red X) has been
+	    changed to a small version of the inconsistent analysis
+	    result icon. These two new icons are shown in <xref
 	    linkend="fig-release-notes-310-new-jsure-icon"/>.</para>
 
 	    <figure id="fig-release-notes-310-new-jsure-icon">
-	      <title>The new JSure icon used by the Verification Status view.</title>
+	      <title>The two new JSure icons used by the Verification Status view.</title>
 	      <mediaobject>
 		<imageobject><imagedata fileref="images/release-notes-310-new-jsure-icon.png"/></imageobject>
 	      </mediaobject>
@@ -150,14 +152,15 @@
 	  <listitem>
 	    <para><emphasis>Simpler constructor annotation to support
 	    locking models</emphasis> &mdash; The annotations required
-	    on constructors to support locking models has been
-	    simplified in 3.1.0. First, the @SingleThreaded annotation
-	    has been deprecated, it is no longer required (if it is
-	    used in code it is ignored by JSure 3.1.0). Second, we now
-	    allow the annotation @Unique("return") to be placed on a
-	    constructor to mean @Borrowed("this"). For example, a
-	    typical constructor for a class with a lock policy in
-	    JSure 3.0.0 looked like
+	    on constructors to support locking models have been
+	    simplified in JSure version 3.1.0. First, the
+	    @SingleThreaded annotation has been deprecated, it is no
+	    longer required.  If this annotation is in your code it is
+	    ignored by the tool. Second, the annotation
+	    @Unique("return") on a constructor is now defined to be
+	    equivalent @Borrowed("this"). For example, a typical
+	    constructor for a class with a lock policy in JSure 3.0.0
+	    looked like
 <programlisting>
   @SingleThreaded
   @Borrowed("this")
@@ -172,7 +175,7 @@ In 3.1.0 you can omit the @SingleThreaded annotation
     ...
   }
 </programlisting>
-In addition, the annotation @Unique("return") can (but does not have to) replace @Borrowed("this")
+In addition, the annotation @Unique("return") can, but does not have to, replace @Borrowed("this")
 <programlisting>
   @Unique("return")
   public Aircraft(long x, long y) {
