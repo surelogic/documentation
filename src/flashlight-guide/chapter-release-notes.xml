@@ -23,6 +23,14 @@
       version of Flashlight.</para>
       <orderedlist>
 	<listitem>
+	  <para><emphasis>Instrumentation of Java 1.4 code running on
+	  a Java 1.4 VM</emphasis> &mdash; It is now possible to
+	  collect data using Flashlight about Java 1.4 code running on
+	  a Java 1.4 VM. (Note that the Ecilpse that runs Flashlight
+	  must still use a Java 5, or above, VM.)</para>
+	</listitem>
+
+	<listitem>
 	  <para><emphasis>Tips and problem reports are tracked by
 	  SureLogic</emphasis> &mdash; When you submit a tip for
 	  improvement or a problem report to SureLogic it is tracked
@@ -84,7 +92,7 @@
 	    the Swing and AWT libraries, so it cannot detect all
 	    violations of this policy.  What this query provides is a
 	    synopsis of all of your program's fields that are read while
-	    in the AWT Event Dispath Thread but modified outside it.
+	    in the AWT Event Dispatch Thread but modified outside it.
 	    This can give you a general idea as to what portions of the
 	    program interact with Swing and AWT and can help identify
 	    violations of the threading policy.
