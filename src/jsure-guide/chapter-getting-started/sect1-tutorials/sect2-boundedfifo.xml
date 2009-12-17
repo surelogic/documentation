@@ -51,7 +51,6 @@
   this example shows off the JSure annotations
   <classname>@RegionLock</classname>,
   <classname>@RequiresLock</classname>,
-  <classname>@SingleThreaded</classname>,
   <classname>@Borrowed</classname>, <classname>@Unique</classname>,
   <classname>@Aggregate</classname>, and
   <classname>@Promise</classname>. </para>
@@ -437,39 +436,35 @@ public void put(LoggingEvent e) {
     the constructor for the class and one in each constructor of any
     subclasses, etc.</para>
     
-    <para>The solution is to take advantage of the fact the constructor
-    is operating on a newly created object.  Specifically, we would like
-    to assure that the constructor does not do anything that gives any
-    thread other than the one that invoked the constructor access to the
-    newly created object.  If we can assure this, we know that the
-    object can only be accessed by a single thread&mdash;the one that
-    invoked the constructor&mdash;during the execution of the
-    constructor.  Specifically, we want to declare the intent that the
-    constructor is single threaded.  We most commonly do this use the
-    pair of annotations on the constructor
+    <para>The solution is to take advantage of the fact the
+    constructor is operating on a newly created object.  Specifically,
+    we would like to assure that the constructor does not do anything
+    that gives any thread other than the one that invoked the
+    constructor access to the newly created object.  If we can assure
+    this, we know that the object can only be accessed by a single
+    thread&mdash;the one that invoked the constructor&mdash;during the
+    execution of the constructor.  To do this we annotate the
+    constructor as shown below.
     
       <programlisting>
-  <emphasis>@SingleThreaded</emphasis>
-  <emphasis>@Borrowed("this")</emphasis>
+  <emphasis>@Unique("return")</emphasis>
   public BoundedFIFO(int size) {
     &hellip;
   }
       </programlisting>
     </para>
         
-    <para>The first annotation declares the intent that the object is
-    accessed by a single thread while under construction.  The second
-    annotation declares that no aliases to the newly constructed object
-    will be created during the execution of the constructor.  The
-    assurance of the <classname>@SingleThreaded</classname> annotation
-    actually depends in part on the assurance of the
-    <classname>@Borrowed</classname> annotation.<footnote>
-        <para>Usually <classname>@SingleThreaded</classname> is
-        supported by the <classname>@Borrowed</classname> annotation.  It
-        can also be supported using effect annotations: see the JSure
-        Annotation Guide.</para>
-      </footnote>
-    </para>  
+    <para>The <classname>@Unique("return")</classname> annotation
+    declares the intent that no aliases to the newly constructed
+    object will be created during the execution of the
+    constructor. For constructors the annotations
+    <classname>@Unique("return")</classname> and
+    <classname>@Borrowed("this")</classname> are defined to be
+    equivalent. That said, most programmers have a mental model of the
+    constructor "returning" a new object. The idea that the returned
+    object is required to be a unique reference is intuitive to them
+    and, therefore, the <classname>@Unique("return")</classname>
+    annotation is as well.</para>
 
     <para>Add the annotations to the constructor
     <function>BoundedFIFO(int)</function>, save and reanalyze. The model
