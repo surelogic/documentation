@@ -235,8 +235,7 @@ public abstract class Thing {
 
   private final GameMap f_map; // immutable
 
-  @SingleThreaded
-  @Borrowed("this")
+  @Unique("return")
   Thing(GameMap map) {
     assert map != null;
     f_map = map;
@@ -319,7 +318,7 @@ public abstract class Thing {
       <classname>Ship</classname>.  The erroneous access occurs in the
       method <function>Ship.moveTo()</function>:
 
-        <programlisting linenumbering="numbered" startinglinenumber="156">  public void moveTo(Location destination) {
+        <programlisting linenumbering="numbered" startinglinenumber="155">  public void moveTo(Location destination) {
     if (isMoving())
       throw new IllegalStateException(
           "a moving ship can't change its destination");
@@ -342,7 +341,7 @@ public abstract class Thing {
     }
   }</programlisting>
 
-    We see that the field access on line 161 in the condition of the
+    We see that the field access on line 160 in the condition of the
     <code>if</code>-statement occurs outside of the critical section
     that only spans the <code>else</code>-block.  We need to edit the
     method to expand the critical section to contain the entire
@@ -388,11 +387,11 @@ public abstract class Thing {
 
     <para>You can demonstrate to yourself that JSure understands the
     when the read component and when the write component of a
-    read&ndash;write lock needs to be held by changing lines 161 and
-    175 of <function>Ship.moveTo()</function> to acquire the read lock
+    read&ndash;write lock needs to be held by changing lines 160 and
+    174 of <function>Ship.moveTo()</function> to acquire the read lock
     instead of the write lock:
 
-      <programlisting linenumbering="numbered" startinglinenumber="157">  public void moveTo(Location destination) {
+      <programlisting linenumbering="numbered" startinglinenumber="155">  public void moveTo(Location destination) {
     if (isMoving())
       throw new IllegalStateException(
           "a moving ship can't change its destination");
@@ -430,7 +429,7 @@ public abstract class Thing {
     <structfield>ThingLock</structfield> is held.</para>
 
     <para>Restore the method to its previously corrected form by
-    changing lines 161 and 175 to invoke
+    changing lines 160 and 174 to invoke
     <function>writeLock()</function> instead of
     <function>readLock()</function>.</para>
   </sect3>
