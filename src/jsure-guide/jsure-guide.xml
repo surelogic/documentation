@@ -212,6 +212,33 @@ makes the most intuitive sense.
 	    @SingleThreaded annotations be removed from the code. It
 	    is also recommended to consider the use of
 	    @Unique("return") on constructors.</para>
+	    
+            <note>
+              <title>Known Issue</title>
+              <para>There is a known assurance issue with the new approach 
+              to single-threaded constructors when a class uses 
+              <package>java.util.concurrent</package> locks.  The issue
+              occurs when 
+                <itemizedlist>
+                  <listitem>
+                    <para>A class contains an instance initializer block or 
+                    field declaration with an initializer</para>
+                  </listitem>
+                  <listitem>
+                    <para>Has more than one constructor declaration</para>
+                  </listitem>
+                  <listitem>
+                    <para>Some constructors can be proven to be single-threaded,
+                    but some cannot be</para>
+                  </listitem>
+                </itemizedlist>
+              In this case, some of the assurance 
+              results for field accesses that occur in the instance initalizer
+              block or field initializer may be reported to be unassured, when
+              in fact they actually are assured.
+              </para>
+            </note>
+	    
 	  </listitem>
 
 	  <listitem>
