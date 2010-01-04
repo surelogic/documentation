@@ -2954,6 +2954,23 @@ if (o == null) {
     workaround. These are presented in the sections below for each
     released version of Sierra.</para>
 
+    <section id="sec-sierra-release-3-1-1">
+      <title>Flashlight version 3.1.1</title>
+      <section>
+	<title>New and Noteworthy</title>
+	<para>
+	  Sierra is unchanged since the previous release.
+	</para>
+      </section>
+
+      <section>
+	<title>Known Problems</title>
+
+	<para>The known bugs and limitations in this version of Sierra is
+	unchanged from the previous release.</para>
+      </section>
+    </section>
+
     <section id="sec-sierra-release-3-1-0">
       <title>Sierra version 3.1.0</title>
 
