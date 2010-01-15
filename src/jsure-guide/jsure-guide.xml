@@ -54,19 +54,26 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
 
+
     <section id="sec-jsure-release-3-1-1">
       <title>JSure version 3.1.1</title>
+      <para>This section describes the 3.1.1 version of the JSure Eclipse client.</para>
       <section>
 	<title>New and Noteworthy</title>
+
 	<para>This section describes new and noteworthy features in this
 	version of JSure.</para>
-      </section>
-      <section>
-	<title>Known Problems</title>
-	<para>This section describes known bugs and limitations in this
-	version of JSure.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Problem with single-threaded constructors and
+	    <package>java.util.concurrent.locks</package> fixed</emphasis>
+	    &mdash; The <link linkend="known-issue-single-threaded">known issue</link>
+	    described in the 3.1.0 release notes has been fixed.</para>
+	  </listitem>
+        </orderedlist>
       </section>
     </section>
+
     <section id="sec-jsure-release-3-1-0">
       <title>JSure version 3.1.0</title>
       <para>This section describes the 3.1.0 version of the JSure Eclipse client.</para>
@@ -226,7 +233,7 @@ makes the most intuitive sense.
 	    is also recommended to consider the use of
 	    @Unique("return") on constructors.</para>
 	    
-            <note>
+            <note id="known-issue-single-threaded">
               <title>Known Issue</title>
               <para>There is a known assurance issue with the new approach 
               to single-threaded constructors when a class uses 
