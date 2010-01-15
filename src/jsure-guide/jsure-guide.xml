@@ -70,6 +70,17 @@
 	    &mdash; The <link linkend="known-issue-single-threaded">known issue</link>
 	    described in the 3.1.0 release notes has been fixed.</para>
 	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Improved performance</emphasis> &mdash; 
+            Key internal data structures have been optimized for the common case.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Avoidance of unnecessary re-analysis</emphasis> &mdash; 
+            Uninteresting files no longer trigger (lengthy) re-analysis.</para>
+	  </listitem>
+
         </orderedlist>
       </section>
     </section>
