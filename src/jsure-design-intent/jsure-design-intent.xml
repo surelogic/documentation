@@ -227,7 +227,7 @@ private Object[] myArray;
           <orderedlist>
             <listitem><para>Declares the programmer’s intent that the
             field is the only field that references the array object it
-            references.  A separate analyses is used to assure that a
+            references.  A separate analysis is used to assure that a
             <classname>@Unique</classname> field is never aliased.  A
             new expression always creates an unaliased object, so it is
             always safe to assign the results of a new expression to a
@@ -335,11 +335,11 @@ public class LogExample {
         held. To support that assumption we need to annotate each
         constructor.</para>
       
-        <para>One way that analysis can assure the single-threadedness
+        <para>One way that analysis can assure the thread confinement
         of a constructor is to leverage the assurance that the
         constructor does not alias the constructed object&mdash;that
         is, that it does not create an alias to <code>this</code>
-        during construction it. This is annotated as shown below.</para>
+        during construction. This is annotated as shown below.</para>
 
           <programlisting>
 class C {
@@ -1168,21 +1168,28 @@ public class C {
         <sect2 id="borrowed-params">
           <title>Borrowed Parameters</title>
           
-          <para>When an object is passed as a parameter to a method, an
-          alias to that object is created.  Thus, if strictly enforced, a
-          unique field can never be passed as a parameter to a method,
-          even as the receiver!  But if a method is known to not create
-          any additional aliases to the object, then a unique field may
-          safely be passed as a parameter because it is guaranteed that
-          the method will restore the uniqueness of the field.  However,
-          the method is not allowed to directly or indirectly make use of
-          the unique field used as the parameter because the field is
-          <emphasis>not</emphasis> unique within the dynamic scope of the
-          method.  A parameter (including the receiver) is declared to be
-          borrowed by annotating the parameter as
-          <classname>@Borrowed</classname>.  We saw earlier that to declare
-          that the receiver is borrowed, we annotate the method/constructor
-          with <code>@Borrowed("this")</code>.</para>
+          <para>When an object is passed as a parameter to a method,
+          an alias to that object is created.  Thus, if strictly
+          enforced, a unique field can never be passed as a parameter
+          to a method, even as the receiver!  But if a method is known
+          to not create any additional aliases to the object, then a
+          unique field may safely be passed as a parameter because it
+          is guaranteed that the method will restore the uniqueness of
+          the field.  However, the method is not allowed to directly
+          or indirectly make use of the unique field used as the
+          parameter because the field is <emphasis>not</emphasis>
+          unique within the dynamic scope of the method.  A parameter
+          (including the receiver) is declared to be borrowed by
+          annotating the parameter as
+          <classname>@Borrowed</classname>.  We saw earlier that to
+          declare that the receiver is borrowed, we annotate the
+          method with <code>@Borrowed("this")</code>. To declare that
+          the receiver is borrowed, we annotate the method with
+         <code>@Borrowed("this")</code>. To declare that a constructor does
+          not alias the object under construction, we annotation it
+          with either <code>@Unique("return")</code> or
+          <code>@Borrowed("this")</code> (which are defined to be equivalent
+          for constructors).</para>
           
           <para>Consider method <function>C.copyInternalArray()</function>:
           
