@@ -117,7 +117,8 @@
     thread-safe. The usual assumption is that an object protects its
     own state, and we intend for that to be the case here.  Declare this 
     design intent by adding a <classname>@RegionLock</classname> annotation
-    to the class <classname>BoundedFIFO</classname>:
+    to the class <classname>BoundedFIFO</classname> 
+    (and not to <classname>BlockingFIFO</classname>):
     
     <programlisting>
 <emphasis>@RegionLock("BufLock is this protects Instance")</emphasis>
