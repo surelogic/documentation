@@ -49,7 +49,7 @@
     <title>Running PlanetBaron</title>
 
     <para>Although we do not need to run
-    <application>PlanetBaron</application> to  it with JSure, it
+    <application>PlanetBaron</application> to analyze it with JSure, it
     is helpful in the discussion below to know what the game does.  In
     particular, it makes it easier to understand the roles of the
     classes encountered in the assurance results. 
