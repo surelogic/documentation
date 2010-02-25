@@ -1084,7 +1084,8 @@ if (o == null) {
 
 	<para>So that this tutorial can start with a fresh team server
 	database, select <guimenuitem>Wipe Local Team Server
-	Database</guimenuitem> to delete the
+	Database</guimenuitem> from the local team server view menu 
+        (top right of the view) to delete the
 	<filename>.sierra-data/server</filename> directory from your
 	workspace (If you already started a local team server using the
 	<guibutton>Start Server</guibutton>, stop it before you wipe
