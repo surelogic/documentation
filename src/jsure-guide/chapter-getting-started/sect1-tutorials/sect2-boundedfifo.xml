@@ -22,7 +22,7 @@
           <title><classname>BoundedFIFO</classname></title>
           
           <para>The &ldquo;thread safe&rdquo; class.  This class is
-          taken from the Apache Log4J project.</para>
+          taken &ldquo;as is&rdquo; from the Apache Log4J project.</para>
         </formalpara>
       </listitem>
     
@@ -55,6 +55,11 @@
   <classname>@Aggregate</classname>, and
   <classname>@Promise</classname>. </para>
     
+  <para>After completely assuring the project, we show how the annotated model
+  for <classname>BoundedFIFO</classname> can be augmented by named regions
+  of state using the annotations <classname>Region</classname> and
+  <classname>InRegion</classname>.</para>
+  
   <sect3>
     <title>Enabling Assurance and Adding the SureLogic Annotation Types</title>
       
@@ -192,7 +197,14 @@ public class BoundedFIFO {
 	<imagedata fileref="images/switched-to-code-verification.png" />
       </imageobject>
     </mediaobject>
-    By digging into the <guilabel>Concurrency</guilabel> results, we
+    There are JSure results in two views: the <guilabel>Verification
+    Status</guilabel> view, and the <guilabel>Proposed Promises</guilabel>
+    view.  The first shows the results of assuring model&ndash;code consistency;
+    the second lists additional annotations whose insertion into the code
+    might improve the assurance results.  We concentrate on the assurance 
+    results for now, and return to proposed promises later in the tutorial.</para>
+    
+    <para>By digging into the <guilabel>Concurrency</guilabel> results, we
     find that with this single annotation, assurance by JSure produces
     two main concurrency results, mostly indicating that the
     annotation is <emphasis>not</emphasis> assured, and a few
@@ -219,12 +231,12 @@ public class BoundedFIFO {
 
     Double-clicking on any of the results in the <guilabel>Verification
     Status</guilabel> view focuses an Eclipse editor on the offending
-    line of code.  Let us view the first line of code from the first
-    assurance failure by double-clicking on <computeroutput>Lock
-    "&lt;this&gt;.BufLock" not held when accessing (this.first) at
-    BoundedFIFO.java line 55</computeroutput>.   Eclipse opens an editor
+    line of code.  Let us view line of code from the
+    assurance failure at line 52 by double-clicking on <computeroutput>Lock
+    "&lt;this&gt;.BufLock" not held when accessing this.numElts at
+    BoundedFIFO.java line 52</computeroutput>.   Eclipse opens an editor
     window for <classname>BoundedFIFO</classname> and highlights the
-    field expression <code>first</code> on line 55:<footnote>
+    field expression <code>numElts</code> on line 52:<footnote>
     <para>You can enable line numbering in the Java editors by
     right-clicking in the editor gutter and selecting
     <guimenu>Show Line Numbers</guimenu> or by going
@@ -287,7 +299,7 @@ public class BoundedFIFO {
     
     This tells us that <function>BoundedFIFO.get()</function> is
     called by <function>BlockingFIFO.get</function>.  Double-clicking
-    on <guilabel>get() - test.BlockingFIFO</guilabel> opens
+    on <computeroutput>get() - test.BlockingFIFO</computeroutput> opens
     <classname>BlockingFIFO</classname> in a Java editor and selects
     the call expression:
     
@@ -305,7 +317,6 @@ public class BoundedFIFO {
     line 29.  This suggests that it is the case the clients of
     <classname>BoundedFIFO</classname> are expected to acquire the
     lock.</para>
-
   </sect3>
 
   <sect3 id="declaring-lock-preconditions">
@@ -315,7 +326,25 @@ public class BoundedFIFO {
     <classname>BoundedFIFO</classname> with the lock precondition
     <classname>@RequiresLock("BufLock")</classname>.   There are seven
     methods in the class, so we could quickly add the annotations
-    without too much work.  There is a way, however, to accomplish the
+    without too much work.  We can also take advantage of the 
+    <guilabel>Proposed Promises</guilabel> view to have JSure add these
+    promises for us.  The view proposes seven <classname>RequiresLock</classname>
+    annotations.  We can have JSure add these to the code by selecting them
+    all and choosing <menuchoice><guimenuitem>Add promises to
+    code&hellip;</guimenuitem></menuchoice>:
+    
+      <mediaobject>
+        <imageobject>
+         <imagedata fileref="images/proposed-promises-requireslock.png" />
+        </imageobject>
+      </mediaobject>    
+      
+    Doing this would bring up an Eclipse source code refactoring dialog box.  
+    We choose not to go this route here (a more complete example using
+    proposed promises is below).
+    </para>
+    
+    <para>There is a way, however, to accomplish the
     same thing with only single annotation: we can use a
     <emphasis>scoped annotation</emphasis> to add the annotation to all
     the methods in the class.
@@ -346,9 +375,9 @@ public class BoundedFIFO {
 
     <para>Add the <classname>@Promise</classname> annotation to
     <classname>BoundedFIFO</classname> and save the source file so
-    that JSure will reanalyze the project.</para>
+    that JSure reanalyzes the project.</para>
         
-    <para>After the analysis completes, there is now <guilabel>Scoped
+    <para>After the analysis completes, there is a new <guilabel>Scoped
     promises</guilabel> heading in the <guilabel>Verification
     Status</guilabel> view, and we can see all the places where the
     <classname>@Promise</classname> annotation added
@@ -409,7 +438,7 @@ public void put(LoggingEvent e) {
   </sect3>
   
   <sect3 id="single-threaded-constructor">
-    <title>Declaring a Single-Threaded Constructor</title>
+    <title>Declaring a Thread-Confined Constructor</title>
 
     <para>After analysis of the changed code completes, all the lock
     preconditions are assured, but there still five unprotected field
@@ -432,7 +461,8 @@ public void put(LoggingEvent e) {
     does not exist before the constructor is called.  Furthermore, it
     is bad practice to use <code>synchronized</code> blocks in the
     constructor to protect the state of the object under construction
-    because we cannot create a single atomic block.  There would have
+    because we cannot create a single atomic block that encloses all the
+    constructors invoked while initializing an object.  There would have
     to be multiple distinct <code>synchronized</code> blocks: one in
     the constructor for the class and one in each constructor of any
     subclasses, etc.</para>
@@ -444,39 +474,51 @@ public void put(LoggingEvent e) {
     constructor access to the newly created object.  If we can assure
     this, we know that the object can only be accessed by a single
     thread&mdash;the one that invoked the constructor&mdash;during the
-    execution of the constructor.  To do this we annotate the
-    constructor as shown below.
+    execution of the constructor.  We can do this by annotating the 
+    constructor <function>BoundedFIFO(int)</function> with
+    <classname>@Unique("return")</classname> to declare
+    the intent that no aliases to the newly constructed object will be
+    created during the execution of the constructor.  This annotation is
+    listed in the <guilabel>Proposed Promises</guilabel> view:
     
-      <programlisting>
-  <emphasis>@Unique("return")</emphasis>
-  public BoundedFIFO(int size) {
-    &hellip;
-  }
-      </programlisting>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/proposed-promises-uniquereturn.png"/>
+        </imageobject>
+      </mediaobject>
     </para>
-        
-    <para>The <classname>@Unique("return")</classname> annotation
-    declares the intent that no aliases to the newly constructed
-    object will be created during the execution of the
-    constructor. For constructors the annotations
-    <classname>@Unique("return")</classname> and
-    <classname>@Borrowed("this")</classname> are defined to be
-    equivalent. That said, most programmers have a mental model of the
-    constructor "returning" a new object. The idea that the returned
-    object is required to be a unique reference is intuitive to them
-    and, therefore, the <classname>@Unique("return")</classname>
-    annotation is as well.</para>
 
-    <para>Add the annotation to the constructor
-    <function>BoundedFIFO(int)</function>, save and reanalyze. The model
+    <para>Select the <classname>@Unique("return")</classname> annotation
+    in the view and choose <menuchoice><guimenuitem>Add promises to
+    code&hellip;</guimenuitem></menuchoice> from the context menu.  An Eclipse
+    refactoring dialog appears:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/refactoring-window.png"/>
+        </imageobject>
+      </mediaobject>
+    
+    Select <guibutton>OK</guibutton> to insert the annotation.  The model
     now assures:
 
       <mediaobject>
         <imageobject>
           <imagedata fileref="images/boundedfifo10.png"/>
         </imageobject>
-      </mediaobject>
+      </mediaobject>    
     </para>
+        
+    <tip>
+      <para>For constructors the annotations
+      <classname>@Unique("return")</classname> and
+      <classname>@Borrowed("this")</classname> are defined to be
+      equivalent. That said, most programmers have a mental model of the
+      constructor "returning" a new object. The idea that the returned
+      object is required to be a unique reference is intuitive to them
+      and, therefore, the <classname>@Unique("return")</classname>
+      annotation is as well.</para>
+    </tip>
   </sect3>    
   
   <sect3 id="aggregating-state">
@@ -514,7 +556,11 @@ public class BoundedFIFO {
 }
       </programlisting>
     
-    Now, as part of the state of the
+    These annotation are suggested by JSure in the <guilabel>Proposed
+    Promises</guilabel> view.
+    </para>
+    
+    <para>Now, as part of the state of the
     <classname>BoundedFIFO</classname> object, the array object
     referenced by <structfield>buf</structfield> is also protected by
     the lock that protects that state of the buffer.</para>
@@ -523,7 +569,7 @@ public class BoundedFIFO {
     saving (and reanalyzing) we can see the effects of
     this annotation: there are now 29 protected field accesses, up
     from 27. This is because the two array dereferences are now
-    counted as protected accesses (lines 64 and 81):
+    counted as protected accesses (lines 61 and 78):
     
       <mediaobject>
         <imageobject>
