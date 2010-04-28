@@ -580,4 +580,123 @@ public class BoundedFIFO {
       The models and code in the BoundedFIFOJSure project are now consistent with no warnings.
     </para>
   </sect3>
+
+  <sect3 id="named-region">
+    <title>Using a Named Region</title>
+    
+    <para>The lock <structfield>BufLock</structfield> is declared to protect
+    the region <structfield>Instance</structfield>.  This is a region declared
+    the class <classname>java.lang.Object</classname> that is the ancestor of 
+    every instance field declared in a class.  By associating the lock with this
+    region we declare that every instance field of the class, <emphasis>and every
+    instance field declared in all subclasses of the class</emphasis>, are protected
+    by the lock.  This is not something that we always want to do, and using the 
+    <structfield>Instance</structfield> region in this way, while convenient, 
+    does not usually describe the design intent as well as one might like.  It is
+    often better to use an expliclty declared region.  In real-world use of the JSure
+    tool explicitly declared regions are far more common than the use of the
+    default <structfield>Instance</structfield> region. It is important for you to
+    understand how to use explicitly declared regions.  Here we demonstrate how to
+    annotate <classname>BoundedFIFO</classname> to use an explicitly declared
+    region <structfield>BufState</structfield>.</para>
+    
+    <para>We declare the new region using the <classname>Region</classname> annotation
+    on the class <classname>BoundedFIFO</classname>.  We also update the
+    <classname>RegionLock</classname> annotation to protect
+    <structfield>BufState</structfield> instead of <structfield>Instance</structfield>:
+
+      <programlisting><emphasis>@Region("BufState")</emphasis>
+@RegionLock("BufLock is this protects <emphasis>BufState</emphasis>")
+@Promise("@RequiresLock(BufLock) for *(**)")
+public class BoundedFIFO {
+  &hellip;
+}</programlisting>
+    
+    After making this change, the model still assures, but upon closer inspection
+    the assurance is essentially vacuous because it contains no protected or unprotected
+    field accesses, although the method preconditions are still shown to be satisfied:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/named-region-01.png"/>
+        </imageobject>
+      </mediaobject>      
+    </para>
+    
+    <para>The problem here is that the region <structfield>BufState</structfield>
+    is initially empty.  It needs to be populated with actual state, that is, 
+    with fields.  This is done by annotating fields with the <classname>InRegion</classname>
+    annotation:
+    
+      <programlisting>@Region("BufState")
+@RegionLock("BufLock is this protects BufState")
+@Promise("@RequiresLock(BufLock) for *(**)")
+public class BoundedFIFO {
+  <emphasis>@InRegion("BufState")</emphasis>
+  @Unique
+  <emphasis>@AggregateInRegion("BufState")</emphasis>
+  LoggingEvent[] buf;
+
+  <emphasis>@InRegion("BufState")</emphasis>
+  int numElts = 0;
+  <emphasis>@InRegion("BufState")</emphasis>
+  int first = 0;
+  <emphasis>@InRegion("BufState")</emphasis>
+  int next = 0;
+  <emphasis>@InRegion("BufState")</emphasis>
+  int size;
+  &hellip;
+}</programlisting>
+    
+    In this case, we place each of the fields into the
+    region <structfield>BufState</structfield>.  We also update the
+    aggregation of the array referenced by
+    <structfield>buf</structfield> so that the array elements are
+    aggregated into <structfield>BufState</structfield> by replacing
+    the previous <classname>@Aggregate</classname> annotation with
+    <classname>@AggregateInRegion("BufState")</classname>.  After these
+    changes we again have 29 protected field accesses:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/named-region-02.png"/>
+        </imageobject>
+      </mediaobject>      
+    </para>
+    
+    <para>Region declarations, like field declarations, accept
+    visibility modifiers. The absence of a modifier in the declaration
+    for <structfield>BufState</structfield> means the region has
+    &ldquo;default&rdquo; or &ldquo;package&rdquo; visibility.  This is
+    the minimum visibility necessary for this region because the fields
+    we have populated it with have that same visibility.  If we tried to
+    declare the region to be <code>private</code>, JSure would report a
+    modeling error.  It would make more sense, however, for the
+    region and fields to be declared as <code>private</code>; in this
+    case there is no reason for them to be visible to other classes. 
+    This prevents, for example, a subclass from adding additional fields
+    to the region&mdash;because the region is not visible to
+    subclasses&mdash;and interfering with the design intent.
+    
+      <programlisting>@Region("<emphasis>private</emphasis> BufState")
+@RegionLock("BufLock is this protects BufState")
+@Promise("@RequiresLock(BufLock) for *(**)")
+public class BoundedFIFO {
+  @InRegion("BufState")
+  @Unique
+  @AggregateInRegion("BufState")
+  <emphasis>private</emphasis> LoggingEvent[] buf;
+
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int numElts = 0;
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int first = 0;
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int next = 0;
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int size;
+  &hellip;
+}</programlisting>
+    </para>
+  </sect3>
 </sect2>
