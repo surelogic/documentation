@@ -12,6 +12,37 @@
   Flashlight.</para>
 
   <sect1>
+    <title>Flashlight version 3.1.2</title>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+      <orderedlist>
+	<listitem>
+	  <para><emphasis>Inference of JSure Annotations</emphasis>
+	  &mdash; Flashlight can now infer a base set of promise
+	  annotations from a run.  These can be used to get started
+	  verifying your project with JSure.  You can try this by
+	  choosing <menuchoice><guisubmenu>Flashlight</guisubmenu>
+	  <guimenuitem>Infer JSure
+	  Annotations</guimenuitem></menuchoice>.  Then choose the
+	  project you want to infer annotations for, and the run(s) that
+	  you want to use to do it.
+	  </para>
+	</listitem>
+      </orderedlist>
+    </sect2>
+
+    <sect2>
+      <title>Known Problems</title>
+
+      <para>The known bugs and limitations in this version of
+	Flashlight is unchanged from the previous release.</para>
+    </sect2>
+  </sect1>
+
+
+  <sect1>
     <title>Flashlight version 3.1.1</title>
     <sect2>
       <title>New and Noteworthy</title>
