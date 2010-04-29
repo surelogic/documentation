@@ -189,31 +189,12 @@
       </mediaobject>
     </figure>
     
-    <para id="lock-viz-problems">The lock model for lock
+    <para>The lock model for lock
     <structfield>ThingLock</structfield> in class
     <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>
-    fails to assure. This project also has two modeling problems
-    listed in the <guilabel>Modeling Problems</guilabel> view. This
-    view displays problems with the annotations themselves. By default
-    this view only becomes visible when modeling problems exist in
-    your project.  Almost always these are annotation syntax errors,
-    and the erroneous annotations are ignored by JSure.  Results under
-    this heading include parsing problems with annotation contents,
-    name resolution errors (for example, naming a region that does not
-    exist in a <classname>@Region</classname> annotation), and
-    semantic errors (for example, using the object referenced by a
-    non-<code>static</code> field as the lock for a
-    <code>static</code> field).  In this case, however, we have two
-    instances of the same warning: the visibility of the field that
-    references a lock object is less visible than the region protected
-    by that lock.  This is potentially problematic because it means
-    there are contexts in which the region is visible, but the lock
-    needed to access that region is not visible.  One of these
-    warnings refers to the the lock
-    <structfield>ThingLock</structfield>&mdash;a lock we look more
-    closely at in the following sections&mdash;and the other refers to
-    the lock <structfield>MapLock</structfield>.  Whether this will be
-    a problem for us remains to be seen.</para>
+    fails to assure.  The project also has two proposed
+    <classname>RequiresLock</classname> promises.  It remains to be seen
+    if these are relevant.</para>
   </sect3>
   
   <sect3>
@@ -254,7 +235,7 @@ public abstract class Thing {
 
     The lock <structfield>ThingLock</structfield> associates the lock
     object referenced by <structfield>f_lock</structfield> with the
-    class's non-<code>static</code> state.  In this case, the lock
+    class&rsquo;s non-<code>static</code> state.  In this case, the lock
     field <structfield>f_lock</structfield> refers to a
     <classname>java.util.concurrent.lock.ReadWriteLock</classname>
     object.  JSure understands the semantics of these locks, in
@@ -278,7 +259,7 @@ public abstract class Thing {
     protection to all the instance fields declared in them. </para>
     
     <para>Digging into the results for
-    <structfield>ThingLock</structfield> we see that model-code
+    <structfield>ThingLock</structfield> we see that model&ndash;code
     consistency is prevented by one unprotected field access and three
     inconsistent lock preconditions:
     
@@ -287,8 +268,22 @@ public abstract class Thing {
           <imagedata fileref="images/pb-thing-lock-start.png" />
         </imageobject>
       </mediaobject>
+    </para>
+    
+    <para id="lock-viz-problems">Also of note this project has a
+    warning, in the middle of the resutls, regarding the
+    <classname>RegionLock</classname> annotation that
+    <computeroutput>Lock field "this.f_lock" is less visible than region
+    "Instance"</computeroutput>.  That is, the visibility of the field
+    that references the lock object is less visible than the region
+    protected by that lock.  This is potentially problematic because it
+    means there are contexts in which the region
+    <structfield>Instance</structfield> is visible, but the reference to
+    the lock, the field <structfield>f_lock</structfield>, <emphasis>is
+    not visible</emphasis>. Whether this will be a problem for us
+    remains to be seen.</para>
 
-    We can also see, by the "i" result near the bottom, that JSure
+    <para>Finally we see, by the blue &ldquo;i&rdquo; result near the bottom, that JSure
     matches up <function>lock()</function> and
     <function>unlock()</function> calls. Calls to
     <function>lock()</function> and <function>unlock()</function> are
@@ -440,31 +435,29 @@ public abstract class Thing {
     <para>We now move on to the three unsatisfied lock preconditions.
     Expanding the results as shown in <xref linkend="fig-pb-unsatisfied-preconditions"/> reveals
      
-     <itemizedlist>
-       <listitem>
-	 <para>The method <function>drawPlanet()</function> of class
-	 <classname>com.surelogic.jsure.planetbaron.client.MapView</classname>
-	 requires the read lock to be held on its
-	 <classname>Planet</classname> parameter.</para>
-       </listitem>
-       <listitem>
-	 <para>The method <function>drawShip()</function> of class
-	 <classname>MapView</classname> requires the read lock to be
-	 held on its <classname>Ship</classname> parameter.</para>
-       </listitem>
-       <listitem>
-	 <para>The method <function>drawShipMovementTrail()</function> of
-	 class <classname>MapView</classname> requires the read lock
-	 to be held on its <classname>Ship</classname>
-	 parameter.</para>
-       </listitem>
-       <listitem>
-	 <para>All three erroneous method calls originate in the
-	 method <function>paintComponent()</function> of class
-	 <classname>MapView</classname></para>
-       </listitem>
-     </itemizedlist>
-    </para>
+      <itemizedlist>
+        <listitem>
+	  <para>The method <function>drawPlanet()</function> of class
+	  <classname>com.surelogic.jsure.planetbaron.client.MapView</classname>
+          requires the read lock to be held on its
+          <classname>Planet</classname> parameter.</para>
+        </listitem>
+        <listitem>
+          <para>The method <function>drawShip()</function> of class
+          <classname>MapView</classname> requires the read lock to be
+          held on its <classname>Ship</classname> parameter.</para>
+        </listitem>
+        <listitem>
+          <para>The method <function>drawShipMovementTrail()</function>
+          of class <classname>MapView</classname> requires the read lock
+          to be held on its <classname>Ship</classname>
+          parameter.</para>
+        </listitem>
+      </itemizedlist>
+      
+    Clicking on the results shows that all three erroneous method calls
+    originate in the method <function>paintComponent(Graphics)</function> of
+    class <classname>MapView</classname>.</para>
 
     <figure id="fig-pb-unsatisfied-preconditions">
       <title>Expanded precondition results</title>
@@ -517,7 +510,7 @@ public abstract class Thing {
 
     At first glance, it is not easy to see what is the problem because
     all the method calls originate from within
-    <code>synchronized</code> blocks that do lock on the
+    <code>synchronized</code> blocks that do lock on the correct
     <classname>Ship</classname> or <classname>Planet</classname>
     object.
     </para>
@@ -611,8 +604,7 @@ public abstract class Thing {
     linkend="lock-viz-problems">as previously discussed</link>, this is
     just the situation that JSure is warning us about when it tells us
     that <computeroutput>lock field "this.f_lock" is less visible than
-    region "Instance"; consider protecting a less visible region or adding a lock getter method on Lock ThingLock is this.f_lock protects
-    Instance at Thing.java</computeroutput>.  Here, in class
+    region "Instance"; consider protecting a less visible region or adding a lock getter method</computeroutput>.  Here, in class
     <code>MapView</code>, we cannot make use of the contents of the
     <classname>Ship</classname> and <classname>Planet</classname>
     objects because we cannot access the necessary lock.</para>
@@ -707,7 +699,14 @@ public abstract class Thing {
 
     Do note, however, that the method
     <function>Thing.getThingLock()</function> is assured to return the
-    correct lock object.</para>
+    correct lock object:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-getThingLock-okay.png" />
+        </imageobject>
+      </mediaobject>
+    </para>
   </sect3>
 
   <sect3>
@@ -786,16 +785,11 @@ public abstract class Thing {
     <para>After making this change, the complete model for
     <structfield>ThingLock</structfield> assures:
 
-    <mediaobject>
-      <imageobject>
-	<imagedata fileref="images/pb-thing-lock-assures.png" />
-      </imageobject>
-    </mediaobject>
-
-    There is one modeling problem remaining (as can be seen above),
-    however, it is about the <code>GameMap</code> locking model. We
-    leave this as an exercise for the reader to fix. There are several
-    other locking models in this code that can be examined at your
-    leisure.</para>
+      <mediaobject>
+        <imageobject>
+  	  <imagedata fileref="images/pb-thing-lock-assures.png" />
+        </imageobject>
+      </mediaobject>
+    </para>
   </sect3>
 </sect2>
