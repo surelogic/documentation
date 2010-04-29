@@ -7,11 +7,12 @@
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Tutorials</title>
 
-  <para>This section contains two tutorials demonstrating the use of
+  <para>This section contains three tutorials demonstrating the use of
   JSure and SureLogic program annotations to assure the correct use of
-  locks in two concurrent programs.  The first tutorial uses a small
+  locks in three concurrent programs.  The first tutorial uses a small
   closed-world example to demonstrate the complete assurance of a class
-  and its usage, starting with no annotations at all.  The second begins
+  and its usage, starting with no annotations at all.  The second and
+  thrid exampeles begin
   with a partially annotated program, and demonstrates more
   sophisticated concepts such as support for
   <package>java.util.concurrent</package> reader&ndash;writer
@@ -54,4 +55,6 @@
   <xi:include href="sect2-boundedfifo.xml"/>
   
   <xi:include href="sect2-planetbaron.xml"/>
+  
+  <xi:include href="sect2-util.concurrent.xml"/>
 </sect1>
