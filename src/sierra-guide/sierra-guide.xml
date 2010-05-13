@@ -715,11 +715,13 @@ public class ShowOff {
 
 	<para>Read the description in the <guilabel>Finding
 	Details</guilabel> view <guilabel>Synopsis</guilabel> tab. In
-	addition you can click the two line references in the
+	addition, you can click the two line references in the
 	<guilabel>Location</guilabel> portion of the tab to examine
-	the two lines of code referenced by this finding. This high
-	importance finding is about a possible null dereference. It
-	was noticed because the <function>box</function> method checks
+	the two lines of code referenced by this finding.  This high
+	importance finding is about a possible null dereference, and
+	these two lines represent code that would be executed before
+	the null dereference.  It was noticed because
+	the <function>box</function> method checks
 	if <varname>o</varname> is null but then later, regardless of
 	the outcome of this check, dereferences it. This is clearly a
 	problem, and if you run the code the second call from the
