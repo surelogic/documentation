@@ -441,7 +441,7 @@ public void put(LoggingEvent e) {
     <title>Declaring a Thread-Confined Constructor</title>
 
     <para>After analysis of the changed code completes, all the lock
-    preconditions are assured, but there still five unprotected field
+    preconditions are assured, but there are still five unprotected field
     accesses:
     
       <mediaobject>
