@@ -67,7 +67,7 @@
     </mediaobject>
   </figure>
 
-  <para>When you have exercised the three players, terminate the thee
+  <para>When you have exercised the three players, terminate the three
   PlayerUI instances by closing the application windows. Run a
   ChatTestClient (without instrumentation) and use it to shutdown the
   server.</para>
