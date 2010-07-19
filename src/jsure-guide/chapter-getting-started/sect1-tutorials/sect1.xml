@@ -58,5 +58,5 @@
   
   <xi:include href="sect2-util.concurrent.xml"/>
   
-  <xi:include href="sect2-smallworld.xml"/>
+  <!-- xi:include href="sect2-smallworld.xml"/ -->
 </sect1>
