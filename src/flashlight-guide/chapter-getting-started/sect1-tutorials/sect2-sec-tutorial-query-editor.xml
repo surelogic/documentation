@@ -134,7 +134,7 @@
     box:
   </para>
   <programlisting><![CDATA[
-SELECT DISTINCT CO.PACKAGENAME "Package", CO.CLASSNAME "Class", S.LOCATION "Method__|"
+SELECT DISTINCT CO.PACKAGENAME "Package", CO.CLASSNAME "Class", S.LOCATION "Method", S.ATLINE "Line__|"
 FROM ACCESS A, TRACE T, SITE S, OBJECT CO
 WHERE A.FIELD = ?FieldId? AND
       T.ID = A.TRACE AND
