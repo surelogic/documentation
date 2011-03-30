@@ -82,7 +82,7 @@
       <title>Classpath and Boothpath Entries to Instrument</title>
     
       <para>The first section lists the entries on the application's
-      classpath.  The second sections lists the entries on the
+      classpath.  The second section lists the entries on the
       application's boot classpath.  These entries are taken directly
       from the settings in the standard Java
       <guilabel>Classpath</guilabel> configuration pane.  When a new
@@ -152,10 +152,11 @@
     <para>The settings in the <guilabel>Data Collection</guilabel> pane,
     see <xref linkend="fig-data-collection-pane"/>, control how the
     collected data is saved to disk and how the collected data is
-    processed before it is written to disk. The two sections of the
-    pane, <guilabel>Data file options</guilabel> and <guilabel>Data
-    collection options</guilabel>, contain settings identical to those
-    in the <guilabel>Instrumentation</guilabel> section of the <link
+    processed before it is written to disk. The three sections of the
+    pane, <guilabel>Store options</guilabel>, <guilabel>Data file
+    options</guilabel>, and <guilabel>Data collection
+    options</guilabel>, contain settings identical to those in the
+    <guilabel>Instrumentation</guilabel> section of the <link
     linkend="flashlight-preferences">Flashlight preferences pane</link>.
     In fact, when a new Flashlight launch configuration is created, the
     initial values for these settings are taken from the corresponding

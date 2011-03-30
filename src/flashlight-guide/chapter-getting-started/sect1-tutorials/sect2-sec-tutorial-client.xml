@@ -203,6 +203,12 @@
   listed in the <guilabel>Query Menu</guilabel> view directly below the
   <guilabel>Flashlight Runs</guilabel> view.</para>
 
+  <para>At this point we can inspect and query the run data. If you haven't
+  selected the row in the <guilabel>Flashlight Runs</guilabel> view already, go
+  ahead and click on it now.  This should bring up the <guilabel>Run
+  Overview</guilabel>. The <guilabel>Run Overview</guilabel> displays a summary
+  of what Flashlight observed while the program was being run.</para>
+
   <para>At this point we can run a query on the data. Double-click on the
   <emphasis>What fields (non-static) are shared?</emphasis> query.  The results
   will appear in the <guilabel>Query Results</guilabel> view.  Your screen

@@ -70,9 +70,30 @@
       events from the running program:
       
         <itemizedlist>
-          <listitem><guilabel>Output
-          type</guilabel> determines whether the recorded
-          information should be stored as an XML file, or as binary
+          <listitem><guilabel>Collect data for postmortem analysis</guilabel>
+          determines whether or not Flashlight should be collecting data to be
+          used by the postmortem tool.  If this box is not checked monitoring
+          will still be performed at runtime, but data cannot be prepped after
+          the program terminates.</listitem>
+
+	  <listitem><guilabel>Console port (counts up if this port is in
+	  use)</guilabel> specifies the port that the instrumentation will
+	  listen on.  You can telnet to this port and issue a 'stop' command if
+	  you want to shut down the instrumentation and leave your program up
+	  and running.  Alternatively, a 'quit' or 'exit' command will terminate
+	  the program as well.</listitem>
+
+	  <listitem><guilabel>Collection type</guilabel> determines whether all
+	  or some events, such as field accesses; object and class
+	  instantiations; and lock acquisitions, attempts, and releases should
+	  be considered by Flashlight.  The default is to record all events, but
+	  the user can choose to focus only on locking events if they wish.
+	  Doing so will eliminate most analyses from the Flashlight postmortem
+	  tool, but lock cycle detection and lock contention information will
+	  still be available.</listitem>
+
+          <listitem><guilabel>Output type</guilabel> determines whether the
+          recorded information should be stored as an XML file, or as binary
           data.</listitem>
 
           <listitem><guilabel>Compress
@@ -95,13 +116,6 @@
           time shutdown event.  Programs that do not explicitly terminate, for
           example by calling <code>System.exit()</code> may need it,
           though.</listitem>
-
-	  <listitem><guilabel>Console port (counts up if this port is in
-	  use)</guilabel> specifies the port that the instrumentation will
-	  listen on.  You can telnet to this port and issue a 'stop' command if
-	  you want to shut down the instrumentation and leave your program up
-	  and running.  Alternatively, a 'quit' or 'exit' command will terminate
-	  the program as well.</listitem>
 	  
         </itemizedlist>
     </para>
