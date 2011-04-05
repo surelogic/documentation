@@ -32,5 +32,22 @@ Classpath entry workspace/project is instrumented and nests the instrumented cla
           view.</para>
         </formalpara>
       </listitem>
+      <listitem>
+        <formalpara>
+          <title>Unexpected Stack or Stack Trace</title>
+          <para>
+            Flashlight works hard to transform your program while
+            preserving its original behavior.  A program that makes
+            extensive use of reflection may notice Flashlight, however.
+            Programs that make use of SecurityManager#getClassContext or
+            similar method calls to inspect the execution stack can
+            potentially run into trouble, as Flashlight wraps many
+            method calls in the classes that it instruments.  Methods
+            such as SecurityManager#checkAccess should still work,
+            however, as Flashlight does not instrument the standard
+            library by default.
+          </para>
+        </formalpara>
+      </listitem>
     </orderedlist>
 </chapter>
