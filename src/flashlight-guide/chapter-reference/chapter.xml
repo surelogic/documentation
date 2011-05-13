@@ -15,5 +15,6 @@
   <xi:include href="sect1-promises-inference.xml"/>
   <xi:include href="sect1-flashlight-data-directory.xml"/>
   <xi:include href="sect1-queries.xml"/>
+  <xi:include href="sect1-flashlight-ant.xml"/>    
   <xi:include href="sect1-sec-bugs-and-tips.xml"/>    
 </chapter>
