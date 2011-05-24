@@ -12,8 +12,7 @@
   computer. You might want to create a new Eclipse workspace to use for
   these tutorials. In addition, if you run into any difficulties as you
   step through the tutorials please consider sending us a tip for
-  improvement as described in <xref
-  linkend="sec-bugs-and-tips"/>.</para>
+  improvement as described in <xref linkend="sec-bugs-and-tips"/>.</para>
 
  <figure id="fig-tutorial-installing-projects">
     <title>Menu item to install tutorial projects into your workspace</title>

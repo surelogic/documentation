@@ -6,14 +6,14 @@
 <sect1 id="flashlight-perspective">
   <title>The Flashlight perspective</title>
 
-  <para>The <guilabel>Flashlight</guilabel> perspective organizes the Eclipse workbench to
-  show views which will help you to interact with data from program
+  <para>The <guilabel>Flashlight</guilabel> perspective organizes the Eclipse
+  workbench to show views which will help you to interact with data from program
   runs.</para>
 
-  <para>This perspective is useful for beginning use of the Flashlight
-  tool. Its "canned" organization can help you to understand the
-  capabilities of the tool.  Advanced users may want to reconfigure the
-  screen layout and save a custom perspective.</para>
+  <para>This perspective is useful for beginning use of the Flashlight tool. Its
+  "canned" organization can help you to understand the capabilities of the tool.
+  Advanced users may want to reconfigure the screen layout and save a custom
+  perspective.</para>
 
   <informalfigure id="fig-flashlight-perspective">
     <!--title>The Flashlight Perspective</title-->
@@ -26,15 +26,16 @@
 
   <sect2>
     <title>Views</title>
-    <para>This section describes the various Flashlight views unique to the Flashlight
-    Eclipse client, and that populate the perspective</para>
+    <para>This section describes the various Flashlight views unique to the
+    Flashlight Eclipse client, and that populate the perspective</para>
 
     <sect3>
       <title>Flashlight Runs</title>
       <para>
-	The <guilabel>Flashlight Runs</guilabel> view lists information about all of
-	the completed runs of programs launched from the Flashlight launch tab.
-	
+	The <guilabel>Flashlight Runs</guilabel> view lists information about
+	all of the completed runs of programs launched from the Flashlight
+	launch tab.
+
 	<itemizedlist>
 	  <listitem>
 	    <formalpara>
@@ -54,8 +55,8 @@
 	  <listitem>
 	    <formalpara>
 	      <title>Run</title>
-	      <para>The name of the program run.  This is the same name that
-	      you see when launching a program from the Flashlight launch
+	      <para>The name of the program run.  This is the same name that you
+	      see when launching a program from the Flashlight launch
 	      tab.</para>
 	    </formalpara>
 	  </listitem>
@@ -98,7 +99,8 @@
 	  <listitem>
 	    <formalpara>
 	      <title>Max Memory (MB)</title>
-	      <para>The maximum amount of memory in megabytes allotted to the program.</para>
+	      <para>The maximum amount of memory in megabytes allotted to the
+	      program.</para>
 	    </formalpara>
 	  </listitem>
 
@@ -125,81 +127,76 @@
     <sect3>
       <title>Run Overview</title>
       <para>
-        The <guilabel>Run Overview</guilabel> view displays a summary of
-        the data Flashlight collected for a given run.  The overview for
-        a run is displayed whenever a run is selected in the
-        <guilabel>Run View</guilabel>.
+        The <guilabel>Run Overview</guilabel> view displays a summary of the
+        data Flashlight collected for a given run.  The overview for a run is
+        displayed whenever a run is selected in the <guilabel>Run
+        View</guilabel>.
       </para>
       <para>
-        The collected data is organized into a series of tabs, each
-        focusing on a facet of the data.
+        The collected data is organized into a series of tabs, each focusing on
+        a facet of the data.
         <itemizedlist>
           <listitem>
             <formalpara>
               <title>Lock Contention</title>
-              <para>Lists the most highly contended locks in the program,
-              sorted in descended order by average block time.  Drilling
-              into the lock will display all of the code locations where
-              the lock was acquired during the run, and how long the
-              program was blocked for.</para>
+              <para>Lists the most highly contended locks in the program, sorted
+              in descended order by average block time.  Drilling into the lock
+              will display all of the code locations where the lock was acquired
+              during the run, and how long the program was blocked for.</para>
             </formalpara>
           </listitem>
           <listitem>
             <formalpara>
               <title>Deadlocks</title>
-              <para>Allows the user to browse all detected lock cycles in
-              the program. Each cycle has a numeric identifier, and is
-              displayed as a link at the top of the page. Clicking on the
-              cycle's link will display a graph of the cycle.  The nodes
-              in the graph represent lock objects in the program, and each
-              directed edge indicates that the target node was acquired
-              while the source node was held at some point in the run.
-              The edges are also displayed as hyperlinks to the right of
-              the graph, and clicking on an edge shows example stack
-              traces for both source and target node acquisitions.  The
-              threads that contributed to this lock cycle are also shown,
-              and hovering over them with the mouse highlights the edges
-              observed in that thread.</para>
+              <para>Allows the user to browse all detected lock cycles in the
+              program. Each cycle has a numeric identifier, and is displayed as
+              a link at the top of the page. Clicking on the cycle's link will
+              display a graph of the cycle.  The nodes in the graph represent
+              lock objects in the program, and each directed edge indicates that
+              the target node was acquired while the source node was held at
+              some point in the run.  The edges are also displayed as hyperlinks
+              to the right of the graph, and clicking on an edge shows example
+              stack traces for both source and target node acquisitions.  The
+              threads that contributed to this lock cycle are also shown, and
+              hovering over them with the mouse highlights the edges observed in
+              that thread.</para>
             </formalpara>
           </listitem>
           <listitem>
             <formalpara>
               <title>Race Conditions</title>
-              <para>Displays a tree of all the fields for which a
-              potential race condition was detected during the run.
-              Clicking on a field will display a list of all of the locks
-              that were held while the field was accessed, and when and
-              where the locks were acquired.</para>
+              <para>Displays a tree of all the fields for which a potential race
+              condition was detected during the run.  Clicking on a field will
+              display a list of all of the locks that were held while the field
+              was accessed, and when and where the locks were acquired.</para>
             </formalpara>
           </listitem>
           <listitem>
             <formalpara>
               <title>Bad Publishes</title>
-              <para>Displays a tree of all the fields that were written to
-              and read by multiple threads before their owning object was
-              fully constructed. Drilling into a field shows all of the
-              events that occurred during object construction, and
-              clicking on an event displays the event's full stack trace
-              underneath the tree.</para>
+              <para>Displays a tree of all the fields that were written to and
+              read by multiple threads before their owning object was fully
+              constructed. Drilling into a field shows all of the events that
+              occurred during object construction, and clicking on an event
+              displays the event's full stack trace underneath the tree.</para>
             </formalpara>
           </listitem>
           <listitem>
             <formalpara>
               <title>Program Timeline</title>
               <para>A timeline of the observed run. The timeline shows the
-              duration of each thread as a blue line, and displays the
-              full program duration in red.</para>
+              duration of each thread as a blue line, and displays the full
+              program duration in red.</para>
             </formalpara>
           </listitem>
           <listitem>
             <formalpara>
               <title>Coverage</title>
-              <para>Shows the entire call graph of the observed program as
-              a tree, as well as the names of every thread.  Clicking on a
-              thread will narrow the call graph down to just the portion
-              of the program observed in that that thread.  Multiple
-              threads can also be selected and deselected by
-              shift-clicking.
+              <para>Shows the entire call graph of the observed program as a
+              tree, as well as the names of every thread.  Clicking on a thread
+              will narrow the call graph down to just the portion of the program
+              observed in that that thread.  Multiple threads can also be
+              selected and deselected by shift-clicking.
               </para>
             </formalpara>
           </listitem>
@@ -234,9 +231,10 @@
 	This view displays the results from performing a query on a Flashlight
 	run.  You can change the results displayed by clicking on a different
 	query in the <guilabel>Query Results Explorer</guilabel> view or in the
-	<guilabel>Query Menu</guilabel> view.
+	<guilabel>Query Menu</guilabel> view.  Only one of the Query Results and
+	Run Overview views are displayed at a time.
       </para>
-      
+
       <para>
 	The result of a query is displayed as either a tree, table, or
 	tree-table, depending on the specific query.  <xref

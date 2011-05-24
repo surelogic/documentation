@@ -102,7 +102,8 @@
   fields observed to have no lock set during the last run of the
   program.  In this case, the results should indicate that
   <classname>edu.afit.planetbaron.game.Ship</classname> has no lock set
-  for the field <structfield>f_location</structfield>, as seen in <xref linkend="fig-tutorial-planetbaron-lockset1" />.</para>
+  for the field <structfield>f_location</structfield>, as seen in <xref
+  linkend="fig-tutorial-planetbaron-lockset1" />.</para>
 
   <figure id="fig-tutorial-planetbaron-lockset1">
     <title>An empty lock set in PlanetBaron</title>
