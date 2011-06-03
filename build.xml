@@ -22,7 +22,7 @@
 
 	<target name="jsure-guide-html">
 		<docbook-to-html srcdir="${je.source.dir}" srcfile="${je.source.file}" destdir="${je.html.dir}" destfile="${je.html.file}" />
-	</target> 
+	</target>
 
 	<target name="jsure-guide-eclipse-help">
 		<docbook-to-eclipse-help srcdir="${je.source.dir}" srcfile="${je.source.file}" destdir="${je.eclipse.help.dir}" />

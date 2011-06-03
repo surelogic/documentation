@@ -77,6 +77,13 @@
 
 	  <listitem>
 	    <formalpara>
+	      <title>Host</title>
+	      <para>The hostname of the computer the program ran on.</para>
+	    </formalpara>
+	  </listitem>
+
+	  <listitem>
+	    <formalpara>
 	      <title>Java</title>
 	      <para>The version of the JVM that ran the program.</para>
 	    </formalpara>
@@ -202,6 +209,15 @@
           </listitem>
         </itemizedlist>
       </para>
+      <informalfigure id="fig-flashlight-run-overview">
+	<!--title>The Flashlight Run Overview</title-->
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/flashlight-run-overview.png" />
+	  </imageobject>
+	</mediaobject>
+      </informalfigure>
+
     </sect3>
     <sect3>
       <title>Query Menu</title>

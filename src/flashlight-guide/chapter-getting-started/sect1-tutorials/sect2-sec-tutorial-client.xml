@@ -203,16 +203,36 @@
   listed in the <guilabel>Query Menu</guilabel> view directly below the
   <guilabel>Flashlight Runs</guilabel> view.</para>
 
-  <para>At this point we can inspect and query the run data. If you haven't
+  <para>At this point we should be able to inspect the run data. If you haven't
   selected the row in the <guilabel>Flashlight Runs</guilabel> view already, go
   ahead and click on it now.  This should bring up the <guilabel>Run
   Overview</guilabel>. The <guilabel>Run Overview</guilabel> displays a summary
   of what Flashlight observed while the program was being run.</para>
 
-  <para>At this point we can run a query on the data. Double-click on the
-  <emphasis>What fields (non-static) are shared?</emphasis> query.  The results
-  will appear in the <guilabel>Query Results</guilabel> view.  Your screen
-  should appear as shown in <xref
+  <para>Click on the <guimenuitem>Program Timeline</guimenuitem> tab of the
+  <guilabel>Run Overview</guilabel>.  Your screen should appear as shown in
+  <xref linkend="fig-tutorial-planetbaron-ctc-program-timeline" />.  The
+  <guimenuitem>Program Timeline</guimenuitem> shows a timeline of all the
+  threads observed in this run of the program.  In the figure below, two threads
+  were observed.  <code>Thread-2</code> was the initial thread that the
+  <methodname>main</methodname> method was run from, and
+  <code>EventDispatchThread-512</code> is the AWT Event Dispatch Thread.</para>
+
+  <figure id="fig-tutorial-planetbaron-ctc-program-timeline">
+    <title>A sample Program Timeline for a ChatTestClient run</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-ctc-program-timeline.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+  <para>We can also run queries on the run now.  Double-click on the
+  <emphasis>What fields are read by the AWT Event Dispatch Thread and written in
+  others?</emphasis> query from the <guilabel>Query Menu</guilabel>.  The
+  results will appear in the <guilabel>Query Results</guilabel> view.  Your
+  screen should appear as shown in <xref
   linkend="fig-tutorial-planetbaron-perspective-ctc1" />.  Query results are
   presented as a table, tree, or tree-table.  This result is a tree-table. The
   result reports the shared non-static fields noted in the run.</para>
@@ -361,17 +381,18 @@
   view).</para>
 
   <para>Check that you have the new run selected in the <guilabel>Flashlight
-  Runs</guilabel> view and then double-click on the <emphasis>What fields
-  (non-static) are shared?</emphasis> query. The query is successful but no rows
-  are returned. This indicates that no shared fields were observed. This run
-  provides some evidence that we have fixed the bug discovered in
-  ChatTestClient.</para>
+  Runs</guilabel> view and then double-click on the <emphasis>What fields are
+  read by the AWT Event Dispatch Thread and written in others?</emphasis>
+  query. The query is successful but no rows are returned. This indicates that
+  no fields were observed being accessed in both the AWT Event Dispatch Thread
+  and the main thread. This run provides some evidence that we have fixed the
+  bug discovered in ChatTestClient.</para>
 
   <para>Before we move on let's examine the old run one final time.  Clear out
   the previous query results by again clicking the <guiicon><inlinegraphic
   fileref="images/gray_x_double.png" /></guiicon> icon. Select the first
-  ChatTestClient run and double-click the <emphasis>What fields (non-static) are
-  shared?</emphasis> query. Select
+  ChatTestClient run and double-click the <emphasis>What fields are read by the
+  AWT Event Dispatch Thread and written in others?</emphasis> query. Select
   <structfield>f_connectDisconnectButton</structfield> and right-click to select
   the <emphasis>What are the individual instances of this non-static
   field?</emphasis> query, then the <emphasis>When and by what threads was this
