@@ -83,7 +83,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock4">
-    <title></title>
+    <title>Acquisition of <structfield>f_lock</structfield> in the <classname>GameMap</classname> class</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock4.png" />
@@ -91,7 +91,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock5">
-    <title></title>
+    <title>Acquisition of <structfield>m_cursorLocationLock</structfield> in the MapView class</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock5.png" />
@@ -125,7 +125,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock6">
-    <title></title>
+    <title>Acquisition of <structfield>m_cursorLocationLock</structfield> in the <classname>MapView</classname> class</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock6.png" />
@@ -133,7 +133,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock7">
-    <title></title>
+    <title>Acquisition of <structfield>f_lock</structfield> in the <classname>GameMap</classname> class</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock7.png" />
