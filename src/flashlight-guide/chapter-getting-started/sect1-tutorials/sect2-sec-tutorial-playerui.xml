@@ -59,12 +59,107 @@
   <para>
     To figure out where the trouble lies, we'll have to look at both lock edges
     in the cycle.  Click on the <code>Object-42 ->
-    ReentrantReadWriteLock-51</code>link under the <guilabel>Edges</guilabel>
-    heading.  This will bring up two stack traces, labeled <guilabel>Lock
-    Acquired</guilabel> and <guilabel>Lock Held</guilabel>.
+    ReentrantReadWriteLock-51</code> link under the <guilabel>Edges</guilabel>
+    heading.  This will display two stack traces underneath the cycle graph. The
+    <guilabel>Lock Acquired</guilabel> stack trace shows where
+    <code>ReentrantReadWriteLock-51</code> was acquired and the <guilabel>Lock
+    Held</guilabel> stack trace shows where <code>Object-42</code> was acquired.
+    We can see from the stack traces that this edge originated from the
+    <function>mouseMoved</function> method in
+    <classname>edu.afit.planetbaron.client.MapView</classname>.  If we click on
+    a link to the <classname>MapView</classname> class from one of the stack
+    traces and inspect the class, we see that the <classname>MapView</classname>
+    class implements <classname>java.awt.event.MouseMotionListener</classname>.
+    We can deduce that <function>mouseMoved</function> is called as the result
+    of an event triggered in the AWT event thread.
   </para>
 
-  <!-- You shall not pass -->
+  <figure id="fig-tutorial-planetbaron-deadlock2">
+    <title>Stack traces for the <code>Object-42 -> ReentrantReadWriteLock-51</code> lock edge from <xref linkend="fig-tutorial-planetbaron-deadlock1" /></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock2.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock4">
+    <title></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock4.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock5">
+    <title></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock5.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    Now let's look at the other edge in our potential deadlock cycle, and see if
+    there really is a problem.  Click on the <code>ReentrantReadWriteLock-51->
+    Object-42</code> link under the <guilabel>Edges</guilabel> heading.  Here
+    the displayed stack traces show that the lock acquisitions originated from
+    the <function>run</function> method in
+    <classname>edu.afit.planetbaron.client.communication.ServerProxy</classname>.
+    The <classname>ServerProxy</classname> class extends
+    <classname>java.lang.Thread</classname>, and an instance of it is created
+    and started when we connect to a server.  If we inspect the stack traces, we
+    see that the edge first acquires a write lock on
+    <structfield>f_lock</structfield> in
+    <classname>edu.afit.planetbaron.game.GameMap</classname>, followed by a lock
+    on <structfield>m_cursorLocationLock</structfield> in
+    <classname>edu.afit.planetbaron.client.MapView</classname>.
+  </para>
+
+  <figure id="fig-tutorial-planetbaron-deadlock3">
+    <title>Stack traces for the <code>ReentrantReadWriteLock-51 -> Object-42 </code> lock edge from <xref linkend="fig-tutorial-planetbaron-deadlock1" /></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock3.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock6">
+    <title></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock6.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock7">
+    <title></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock7.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    To summarize, our investigation has shown us that our lock cycle is composed
+    of two separate and repeated events in our program.  Every time the AWT
+    Event Thread processes a mouseMoved event, we acquire
+    <structfield>m_cursorLocationLock</structfield>, then a read lock on
+    <structfield>f_lock</structfield>.  Every time we get a response back from
+    the server, we acquire a write lock on <structfield>f_lock</structfield>,
+    then <structfield>m_cursorLocationLock</structfield>.  Unfortunately for the
+    program, both of these events can happen at any time.  If they trigger
+    near-simultaneously, we can end up in a scenario where the server thread
+    holds onto <structfield>f_lock</structfield> and waits on
+    <structfield>m_cursorLocationLock</structfield>, while the AWT event thread
+    holds onto <structfield>m_cursorLocationLock</structfield> and waits for the
+    server thread to give up its write lock on
+    <structfield>f_lock</structfield>.  When this happens, the program will
+    deadlock.
+  </para>
+
+  <!-- You shall not pass
 
   <para>
     To figure out where the trouble lies, we'll have to look at some of the lock
@@ -128,9 +223,9 @@
     Now let's look at the other edge in our potential deadlock cycle, and see if
     there really is a problem.  Run the <emphasis>What are the lock events for
     this lock graph edge?</emphasis> on the second entry from our potential
-    deadlock results.  We see in <xref linkend="fig-tutorial-planetbaron-deadlock4"
-    /> that this edge is concerned with the acquisition of
-    <structfield>m_cursorLocationLock</structfield> in
+    deadlock results.  We see in <xref
+    linkend="fig-tutorial-planetbaron-deadlock4" /> that this edge is concerned
+    with the acquisition of <structfield>m_cursorLocationLock</structfield> in
     <classname>edu.afit.planetbaron.client.MapView</classname> from a thread
     named Thread-3.  Running <emphasis>What is the stack trace for this lock
     event?</emphasis> on one of the lock events shows that this lock acquisition
@@ -188,5 +283,5 @@
     <structfield>f_lock</structfield>.  When this happens, the program will
     deadlock.
   </para>
-
+ -->
 </sect2>
