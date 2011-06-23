@@ -75,7 +75,7 @@
   </para>
 
   <figure id="fig-tutorial-planetbaron-deadlock2">
-    <title>Stack traces for the <code>Object-42 -> ReentrantReadWriteLock-51</code> lock edge from <xref linkend="fig-tutorial-planetbaron-deadlock1" /></title>
+    <title>Stack traces for the <code>Object-42 -> ReentrantReadWriteLock-51</code> lock edge</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock2.png" />
@@ -83,7 +83,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock4">
-    <title>Acquisition of <structfield>f_lock</structfield> in the <classname>GameMap</classname> class</title>
+    <title>Acquisition of <structfield>f_lock</structfield> in the <classname>GameMap</classname> class from <xref linkend="fig-tutorial-planetbaron-deadlock2" /></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock4.png" />
@@ -91,7 +91,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock5">
-    <title>Acquisition of <structfield>m_cursorLocationLock</structfield> in the MapView class</title>
+    <title>Acquisition of <structfield>m_cursorLocationLock</structfield> in the MapView class from <xref linkend="fig-tutorial-planetbaron-deadlock2" /></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock5.png" />
@@ -117,7 +117,7 @@
   </para>
 
   <figure id="fig-tutorial-planetbaron-deadlock3">
-    <title>Stack traces for the <code>ReentrantReadWriteLock-51 -> Object-42 </code> lock edge from <xref linkend="fig-tutorial-planetbaron-deadlock1" /></title>
+    <title>Stack traces for the <code>ReentrantReadWriteLock-51 -> Object-42 </code> lock edge</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock3.png" />
@@ -125,7 +125,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock6">
-    <title>Acquisition of <structfield>m_cursorLocationLock</structfield> in the <classname>MapView</classname> class</title>
+    <title>Acquisition of <structfield>m_cursorLocationLock</structfield> in the <classname>MapView</classname> class from <xref linkend="fig-tutorial-planetbaron-deadlock3" /></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock6.png" />
@@ -133,7 +133,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock7">
-    <title>Acquisition of <structfield>f_lock</structfield> in the <classname>GameMap</classname> class</title>
+    <title>Acquisition of <structfield>f_lock</structfield> in the <classname>GameMap</classname> class from <xref linkend="fig-tutorial-planetbaron-deadlock3" /></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock7.png" />
