@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+      
+<sect1 id="policy-locks">
+  <title>Policy Locks</title>
+        
+    <para>Sometimes there is no obvious state to associate with a lock. 
+    That is, a lock is being used to enforce a higher-level invariant
+    that requires a section of code to execute atomically with respect
+    to some other section of code.  We call locks used for such a
+    purpose <emphasis>policy locks</emphasis>.  They can be declared
+    using the class annotation
+          
+      <synopsis>
+@PolicyLock("<replaceable>LockName</replaceable> is <replaceable>Lock</replaceable>")
+      </synopsis>
+          
+    This annotation is basically the same as the
+    <classname>@RegionLock</classname> annotation except that it does
+    not associate the lock with any particular region of state.  The
+    tool does not provide any assurance about the uses of policy locks. 
+    The annotation is primarily used to document the intent behind the
+    lock, and to suppress tool warnings about a particular lock object
+    being an unknown lock.</para>
+          
+    <para>One common use for policy locks is to enforce an "initialize
+    once" invariant.  Consider this example from
+    <classname>java.util.logging.Logger</classname>:
+          
+      <programlisting>
+<emphasis>@PolicyLock("InitLock is class")</emphasis>
+public class Logger {
+  &hellip;
+  public static synchronized Logger getLogger(String name) { 
+    LogManager manager = LogManager.getLogManager(); 
+    Logger result = manager.getLogger(name);
+   if (result == null) {
+     result = new Logger(name, null); 
+      manager.addLogger(result);
+     result = manager.getLogger(name); 
+    }
+   return result;
+  }
+}
+    </programlisting>
+  </para>
+        
+  <para>First, note the <code>static</code> method does not change any
+  state directly; it is difficult so say what state the lock
+  <code>Logger.class</code> is protecting.  This is because the lock is
+  ensuring that the method <function>getLogger</function> executes
+  atomically with respect to itself.  If two threads were allowed to
+  simultaneously execute the method it would be possible to create two
+  new <classname>Logger</classname> objects with the same name, but only
+  one of them would be registered in the global log registry.  This
+  would cause problems later on during the use of the loggers.  The
+  synchronization ensures that only one <classname>Logger</classname>
+  object is ever created for any given name.</para>
+</sect1>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+    
+<sect1 id="constructors">
+  <title>Constructors</title>
+      
+  <para>Constructors cannot be declared <code>synchronized</code> in
+  Java, but our assurance requires that fields protected by a lock be
+  accessed only when that lock is held.  So how do we keep assurance
+  from failing when analyzing a constructor?  We rely on the fact that
+  during object construction, an object is almost always accessed by a
+  single thread only: the thread that invoked the constructor. If the
+  analysis assumes that this is the case, we can proceed as if the locks
+  for the object’s state are already held. To support that assumption we
+  need to annotate each constructor.</para>
+
+  <para>One way that analysis can assure the thread confinement of a
+  constructor is to leverage the assurance that the constructor does not
+  alias the constructed object&mdash;that is, that it does not create an
+  alias to <code>this</code> during construction. This is annotated as
+  shown below.</para>
+
+    <programlisting>
+class C {
+  <emphasis>@Unique("return")</emphasis>
+  public C(&hellip;) { &hellip; }
+  &hellip;
+}
+    </programlisting>
+
+  <para>The <classname>@Unique("return")</classname> annotation, which
+  for a constructor is defined to be equilivent to a
+  <classname>@Borrowed("this")</classname> annotation, is further
+  described in <xref linkend="uniqueness-annotations"/>. In particular,
+  when analysis knows that the constructor does not create such an
+  alias, it also knows that it is impossible for another thread to
+  obtain a reference to the object under construction during the
+  constructor’s execution.</para>
+      
+  <para>Annotating a constructor as being
+  <classname>@Unique("return")</classname> requires that the
+  super-constructor it invokes is also
+  <classname>@Unique("return")</classname>.</para>
+
+  <sect2 id="field-initialization">
+    <title>Field Initialization and Implicit Constructors</title>
+        
+    <para>Field initializers are part of the object construction
+    process, and fields that have initializers are considered to be
+    written to.  Instance initializer blocks are also part of the object
+    construction process and need to be assured accordingly. This can be
+    become problematic when a class does not have an explicit
+    constructor:
+        
+      <programlisting>
+@RegionLock("Lock is this protects Instance")
+public class C {
+  private int f = 1;
+  private int g;
+  {
+    g = 2;
+  }
+
+  public synchronized int getF() {
+    return f;
+  }
+  
+  public synchronized void incG() {
+    g += 1;
+  }
+}
+      </programlisting>
+        
+    Lock assurance will not assure the correct use of
+    <structfield>Lock</structfield> because the accesses to fields
+    <structfield>f</structfield> and <structfield>g</structfield> during
+    construction are not protected.  One way to fix this is to make the
+    constructor explicit and annotate it:
+        
+      <programlisting>
+@RegionLock("Lock is this protects Instance")
+public class C {
+  &hellip;
+  <emphasis>@Unique("return")</emphasis>
+  public C() {}
+  &hellip;
+}
+      </programlisting>
+    </para>
+        
+    <para>Alternatively, if it is undesirable to insert the constructor
+    explicitly, the constructor can still be annotated using a
+    <emphasis>scoped promise</emphasis>. These are described in more
+    detail below in <xref linkend="scoped-promises"/>, but for the case
+    of annotating an implicit constructor, we would annotate the class
+    as follows:
+        
+      <programlisting>
+@RegionLock("Lock is this protects Instance")
+<emphasis>@Promise("@Unique(return) for new()")</emphasis>
+public class C {
+  &hellip;
+}
+      </programlisting>
+    </para>
+  </sect2>
+</sect1>

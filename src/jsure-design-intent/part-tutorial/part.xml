@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<part xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Tutorial</title>
+  
+  <xi:include href="chapter-simple-lock-models/chapter.xml"/>
+  
+  <xi:include href="chapter-advanced-locks/chapter.xml"/>
+  
+  <xi:include href="chapter-method-effects/chapter.xml"/>
+      
+  <xi:include href="chapter-scoped-promises/chapter.xml"/>
+
+  <xi:include href="chapter-vouches/chapter.xml"/>
+</part>

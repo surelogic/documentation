@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+    <chapter id="region-annotations">
+      <title>Region Annotations</title>
+      
+      <sect1 id="region-declaration">
+        <title>Region Declaration</title>
+        
+        <para>A new <emphasis>abstract</emphasis> region is declared using the annotation
+        
+          <synopsis>
+@Region("<optional><co id="region.decl.viz"/><replaceable>visibility</replaceable></optional> <optional>static</optional> <co id="region.decl.name"/><replaceable>Region</replaceable> <optional>extends <co id="region.decl.parent"/><replaceable>Parent</replaceable></optional>")
+          </synopsis>
+
+          <calloutlist>
+            <callout arearefs="region.decl.viz"><para>A standard Java
+            visibility modifier (<code>public</code>,
+            <code>protected</code>, <code>private</code>). It may be
+            omitted to declare Java "default"
+            visibility.</para></callout>
+
+            <callout arearefs="region.decl.name"><para>The name of the
+            new region.</para></callout>
+
+            <callout arearefs="region.decl.parent"><para>The name of the
+            region's parent.  If omitted, the parent for
+            non-<code>static</code> regions is
+            <structfield>Instance</structfield>,
+            <structfield>All</structfield> for <code>static</code>
+            regions.</para></callout>
+          </calloutlist>
+        </para>
+        
+        <para>Regular Java fields are also considered to be regions, and
+        thus a field declaration is also a <emphasis>concrete</emphasis>
+        region declaration, possibly augmented by an
+        <classname>@InRegion</classname> annotation.</para>
+        
+        <sect2 id="region.decl.constraints">
+          <title>Constraints</title>
+          
+          <itemizedlist>
+            <listitem>
+              <formalpara>
+                <title>The name of a region must be unique within the
+                declaration of the class being annotated</title>
+
+                <para>This includes the names of any fields declared in
+                the class because fields are region declarations. See
+                also <xref linkend="region.hiding"/>.</para>
+              </formalpara>
+            </listitem>
+            
+            <listitem>
+              <formalpara>
+                <title>The region's parent region must exist in the
+                class</title>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>The region's parent region must be accessible</title>
+
+                <para>To preserve abstraction it is not appropriate to
+                refer to <code>private</code> regions from a superclass.</para>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>The region's parent cannot be <code>final</code> or <code>volatile</code></title>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>The region cannot be more visible than its parent</title>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>A <code>static</code> region cannot extend a
+                non-<code>static</code> region</title>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title>Regions must form a tree</title>
+
+                <para>There cannot be a cycle in the region ancestor
+                relationship.</para>
+              </formalpara>
+            </listitem>
+          </itemizedlist>
+        </sect2>
+        
+        <sect2 id="region.hiding">
+          <title>Region Hiding</title>
+          
+          <para>Regions/fields may be hidden. That is, if class <classname>C</classname>
+          declares a region <structfield>R</structfield>, then a
+          subclass <classname>D</classname> may also declare a
+          region <structfield>R</structfield> that is distinct from the original.
+          In the context of
+          <classname>D</classname> and its descendants, <structfield>R</structfield>
+          refers to the region declared in <classname>D</classname>,
+          unless, of course, it is hidden yet again.</para>
+          
+          <warning>
+            <para>Although Java allows hidden fields to be accessed via type
+            casting, e.g., <code>((Super) this)).field</code>, JSure annotations do
+            not currently provide a similar capability.  So once a region
+            is hidden, it is impossible to refer to the hidden region
+            from within a JSure annotation.  This is problematic for effects
+            annotations or for creating a subregion of a hidden region.</para>
+          </warning>
+          
+          <para>Consider the three classes <classname>Super</classname>,
+          <classname>Duper</classname>, and
+          <classname>Blooper</classname>:
+          
+            <programlisting>
+<emphasis>@Region("public R")</emphasis>
+@RegionLock("L is superLock protects R")
+public class Super {
+  public final Object superLock = new Object();
+  
+  @InRegion("R")
+  <emphasis>public int field;</emphasis>
+  
+  public void bad() {
+    field = 1; // Needs L
+  }
+}
+
+<emphasis>@Region("public R")</emphasis>
+@RegionLock("LL is duperLock protects R")
+public class Duper extends Super {
+  public final Object duperLock = new Object();
+  
+  @InRegion("R")
+  <emphasis>public int field;</emphasis>
+  
+  public void worse() {
+    ((Super) this).field = 2; // Needs L
+    field = 1; // Needs LL
+  }
+} 
+
+<emphasis>@Region("public R")</emphasis>
+@RegionLock("LLL is blooperLock protects R")
+public class Blooper extends Duper {
+  public final Object blooperLock = new Object();
+  
+  @InRegion("R")
+  <emphasis>public int field;</emphasis>
+  
+  public void worst() {
+    ((Super) this).field = 2; // Needs L
+    ((Duper) this).field = 3; // Needs LL
+    field = 1; // Needs LLL
+  }
+}
+            </programlisting>
+            
+          Objects of class <classname>Blooper</classname> have three
+          fields, all of them named <structfield>field</structfield>,
+          and each field is in a distinct region named
+          <structfield>R</structfield> associated with a distinct lock.
+          Although the lock analysis understands this scenario, if we wanted
+          to annotate the effects of method <code>Blooper.worst()</code>, the most
+          specific annotation we could use is <code>@RegionEffects("writes Instance")</code>
+          because we cannot refer to the regions <structfield>R</structfield> declared in 
+          ancestor classes <classname>Super</classname> and <classname>Duper</classname>
+          from annotations in class <classname>Blooper</classname>.</para>
+          
+        </sect2>
+      </sect1>
+      
+      <sect1 id="field.as.region">
+        <title>Fields as Regions</title>
+        
+        <para>A field is placed into a non-default region using the annotation
+        <classname>@InRegion</classname>, which can be used on either a field
+        or on a class.
+        </para>
+        
+        <sect2 id="inregion.field">
+          <title>Field Annotation</title>
+          
+          <para>The normal usage is to annotate a field with           
+        
+            <synopsis>
+@InRegion("<co id="inregion.parent"/><replaceable>Parent</replaceable>")
+            </synopsis>
+          
+            <calloutlist>
+              <callout arearefs="inregion.parent"><para>The name of the
+              region that field extends.</para></callout>
+            </calloutlist>
+          </para>
+        
+          <sect3>
+            <title>Constraints</title>
+
+            <itemizedlist>
+              <listitem>
+                <formalpara>
+                  <title>The field cannot be <code>final</code></title>
+                
+                  <para>Fields that are <code>final</code> do not represent mutable
+                  state and are thus outside of the region model.</para>
+                </formalpara>
+              </listitem>
+            
+              <listitem>
+                <formalpara>
+                  <title>Region <replaceable>Parent</replaceable> must exist in the
+                  class</title>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>Region <replaceable>Parent</replaceable> must be accessible</title>
+
+                  <para>To preserve abstraction it is not appropriate to
+                  refer to <code>private</code> regions from a superclass.</para>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>Region <replaceable>Parent</replaceable> cannot be <code>final</code> or <code>volatile</code></title>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>The field cannot be more visible than region <replaceable>Parent</replaceable></title>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>A <code>static</code> region cannot extend a
+                  non-<code>static</code> region</title>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>Regions must form a tree</title>
+
+                  <para>There cannot be a cycle in the region ancestor
+                  relationship.</para>
+                </formalpara>
+              </listitem>
+            </itemizedlist>
+          </sect3>
+        </sect2>
+        
+        <sect2 id="inregion.class">
+          <title>Class Annotation</title>
+          
+          <para>Alternatively, many fields can be placed into the same region by annotating
+          a class <replaceable>C</replaceable> with
+        
+            <synopsis>
+@InRegion("<co id="inregion.field-i"/><replaceable>f<subscript>1</subscript></replaceable>, &hellip; <replaceable>f<subscript>n</subscript></replaceable> into <co id="inregion.parent2"/><replaceable>Parent</replaceable>")<co id="inregion.n"/>
+            </synopsis>
+          
+            <calloutlist>
+              <callout arearefs="inregion.field-i"><para><replaceable>f<subscript>i</subscript></replaceable>
+              are fields of the annotated class.</para></callout>
+
+              <callout arearefs="inregion.parent2"><para>The name of the
+              region that the fields extend.</para></callout>
+
+              <callout arearefs="inregion.n"><para><replaceable>n</replaceable> &ge; 1</para></callout>
+            </calloutlist>
+          </para>
+        
+          <sect3>
+            <title>Constraints</title>
+
+            <itemizedlist>
+              <listitem>
+                <formalpara>
+                  <title>Field <replaceable>f<subscript>i</subscript></replaceable>
+                  must be declared in class <replaceable>C</replaceable></title>
+                
+                  <para>You cannot change the parent region of fields declared in
+                  ancestor classes.</para>
+                </formalpara>
+              </listitem>
+            
+              <listitem>
+                <formalpara>
+                  <title>Field <replaceable>f<subscript>i</subscript></replaceable> cannot be <code>final</code></title>
+                
+                  <para>Fields that are <code>final</code> do not represent mutable
+                  state and are thus outside of the region model.</para>
+                </formalpara>
+              </listitem>
+            
+              <listitem>
+                <formalpara>
+                  <title>Region <replaceable>Parent</replaceable> must exist in the
+                  class</title>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>Region <replaceable>Parent</replaceable> must be accessible</title>
+
+                  <para>To preserve abstraction it is not appropriate to
+                  refer to <code>private</code> regions from a superclass.</para>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>Region <replaceable>Parent</replaceable> cannot be <code>final</code> or <code>volatile</code></title>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>Field <replaceable>f<subscript>i</subscript></replaceable> cannot be more visible than region <replaceable>Parent</replaceable></title>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>A <code>static</code> region cannot extend a
+                  non-<code>static</code> region</title>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>Regions must form a tree</title>
+
+                  <para>There cannot be a cycle in the region ancestor
+                  relationship.</para>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>Each <replaceable>f<subscript>i</subscript></replaceable> must be
+                  unique.</title>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>A field <replaceable>f</replaceable> cannot be named in more than
+                  one <classname>@InRegion</classname> annotation on the same class</title>
+                  
+                  <para>It does not make sense to give a region more than one parent.</para>
+                </formalpara>
+              </listitem>
+
+              <listitem>
+                <formalpara>
+                  <title>The declaration of a field named in an <classname>@InRegion</classname>
+                  on a class cannot itself be annotated with <classname>@InRegion</classname></title>
+                  
+                  <para>It does not make sense to give a region more than one parent.</para>
+                </formalpara>
+              </listitem>
+            </itemizedlist>
+          </sect3>
+        </sect2>        
+      </sect1>
+      
+      <sect1>
+        <title>Region Aggregation</title>
+        
+        <para>When a field refers to a <classname>@Unique</classname>
+        reference, the regions of the referenced object must be
+        aggregated into the regions of the referring object. This
+        effectively allows the referenced object to be treated as part
+        of the referring object. This is achieved using the field
+        annotation
+
+          <synopsis>
+@Aggregate("<co id="agg.src.region"/><replaceable>R<subscript>1</subscript></replaceable> into <co id="agg.dest.region"/><replaceable>Q<subscript>1</subscript></replaceable>, &hellip; <replaceable>R<subscript>n</subscript></replaceable> into <replaceable>Q<subscript>n</subscript></replaceable>")<co id="agg.n"/>
+          </synopsis>
+          
+          <calloutlist>
+            <callout
+            arearefs="agg.src.region"><para><replaceable>R<subscript>i</subscript></replaceable> are regions of the annotated
+            field's class.</para></callout>
+
+            <callout
+            arearefs="agg.dest.region"><para><replaceable>Q<subscript>i</subscript></replaceable> are regions of the class
+            that declares the field.</para></callout>
+
+            <callout arearefs="agg.n"><para><replaceable>n</replaceable>
+            &ge; 1.</para></callout>
+          </calloutlist>
+
+          <para>The flexibility of the aggregation depends on whether
+          the annotated field is or is not <code>final</code>:
+          
+            <itemizedlist>
+              <listitem><para>When the field is not <code>final</code>,
+              all the regions of the referenced object must be mapped
+              into regions of the object that contain the field. 
+              Generally, in this case, the best thing to do is to map
+              the <structfield>Instance</structfield> region of the
+              referenced object into the field itself, for example,
+        
+                <programlisting>
+@Unique
+@Aggregate("Instance into record")
+protected PersonRecord record;
+                </programlisting>
+              </para></listitem>
+
+              <listitem><para>When the field is <code>final</code>, the
+              regions of the referenced object may be mapped more
+              freely, as long as they respect the region
+              hierarchy.</para></listitem>
+            </itemizedlist>
+          </para>
+        </para>
+        
+        <para>The <classname>@Aggregate</classname> annotation may be used as a 
+        marker annotation, in which case it is equivalent to writing
+        <code>@Aggregate("Instance into Instance")</code>:
+        
+          <programlisting>
+@Unique
+@Aggregate
+protected final PersonRecord record;
+          </programlisting>
+        </para>        
+        
+        <sect2>
+          <title>Constraints</title>
+          
+          <para>An <classname>@Aggregate</classname> annotation on a
+          field <structfield>field</structfield> with class type
+          <classname>D</classname> declared in a class
+          <classname>C</classname> is subject to the following
+          constraints:
+            <itemizedlist>
+              <listitem>
+                <formalpara>
+                  <title>The field <structfield>field</structfield> must
+                  also be annotated with
+                  <classname>@Unique</classname></title>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>The type <classname>D</classname> must be a non-primitive type</title>
+                  
+                  <para>Practically, this is guaranteed by the first
+                  rule, because <classname>@Unique</classname> is only applicable to fields
+                  with a non-primitive type.</para>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title><replaceable>R<subscript>i</subscript></replaceable>
+                  must be a non-<code>static</code> region
+                  from class <classname>D</classname></title>
+                  
+                  <para>If <classname>D</classname> is an array, that is
+                  <classname>D</classname> &equiv;
+                  <classname>T[]&hellip;[]</classname>, then we treat
+                  <classname>D</classname> as if it is the class
+                  <classname>java.lang.Array</classname>.</para>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>Each
+                  <replaceable>R<subscript>i</subscript></replaceable>
+                  must be unique</title>
+                  
+                  <para>A region cannot be aggregated more than once.</para>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>If <structfield>field</structfield> is not
+                  <code>final</code> then
+                  <structfield>field</structfield> must be a subregion
+                  of or equal to each
+                  <replaceable>Q<subscript>i</subscript></replaceable></title>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title><replaceable>Q<subscript>i</subscript></replaceable> cannot be <code>final</code> or <code>volatile</code></title>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>If <structfield>field</structfield> is
+                  <code>final</code> and <code>static</code> then all regions
+                  <replaceable>Q<subscript>i</subscript></replaceable>
+                  must be <code>static</code></title>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>Each
+                  <replaceable>R<subscript>i</subscript></replaceable>
+                  must be accessible in the context of class
+                  <classname>C</classname></title>
+
+                  <para>It violates abstraction to refer to
+                  <code>private</code> regions of the referenced
+                  object.</para>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>Each
+                  <replaceable>Q<subscript>i</subscript></replaceable>
+                  must be accessible in the context of class
+                  <classname>C</classname></title>
+
+                  <para>It violates abstraction to refer to
+                  <code>private</code> regions of <classname>C</classname>'s ancestors.</para>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>All instance regions of
+                  <classname>D</classname> must be mapped into a region
+                  of <classname>C</classname></title>
+
+                  <para>Practically, speaking, this requirement means
+                  that the <structfield>Instance</structfield> of
+                  <classname>D</classname> must be explicitly aggregated
+                  into a region of <classname>C</classname>.</para>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>Aggregation must respect the region
+                  hierarchy</title>
+
+                  <para>Formally, if the annotation maps
+                  <replaceable>R<subscript>i</subscript></replaceable>
+                  into
+                  <replaceable>Q<subscript>i</subscript></replaceable>
+                  and
+                  <replaceable>R<subscript>j</subscript></replaceable>
+                  into
+                  <replaceable>Q<subscript>j</subscript></replaceable>,
+                  and
+                  <replaceable>R<subscript>i</subscript></replaceable>
+                  is a subregion of
+                  <replaceable>R<subscript>j</subscript></replaceable>,
+                  then
+                  <replaceable>Q<subscript>i</subscript></replaceable>
+                  <emphasis>must</emphasis> be a subregion of
+                  <replaceable>Q<subscript>j</subscript></replaceable>.</para>
+                </formalpara>
+              </listitem>
+            </itemizedlist>
+          </para>
+        </sect2>
+      </sect1>
+      
+      <sect1>
+        <title>Aggregating <structfield>Instance</structfield> Only</title>
+        
+        <para>In the common use case, it is only necessary to aggregate
+        the <structfield>Instance</structfield> region of the referenced
+        object. In this case, a simpler annotation can be used:
+
+          <synopsis>
+@AggregateInRegion("<co id="agginreg.dest.region"/><replaceable>Q</replaceable>")
+          </synopsis>
+          
+          <calloutlist>
+            <callout
+            arearefs="agginreg.dest.region"><para><replaceable>Q</replaceable>
+            is a region of the class that declares the
+            field.</para></callout>
+          </calloutlist>
+         </para>
+         
+        <para>This annotation is equivalent to using
+        <code>@Aggregate("Instance into <replaceable>Q</replaceable>")</code>,
+        and is meant to be similar in name and syntax to <classname>@InRegion</classname>.
+        </para>
+        
+        <sect2>
+          <title>Constraints</title>
+          
+          <para>An <classname>@AggregateInRegion</classname> annotation on a
+          field <structfield>field</structfield> with class type
+          <classname>D</classname> declared in a class
+          <classname>C</classname> is subject to the following
+          constraints:
+            <itemizedlist>
+              <listitem>
+                <formalpara>
+                  <title>The field <structfield>field</structfield> must
+                  also be annotated with
+                  <classname>@Unique</classname></title>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>The type <classname>D</classname> must be a non-primitive type</title>
+                  
+                  <para>Practically, this is guaranteed by the first
+                  rule, because <classname>@Unique</classname> is only applicable to fields
+                  with a non-primitive type.</para>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>If <structfield>field</structfield> is not
+                  <code>final</code> then
+                  <structfield>field</structfield> must be a subregion
+                  of region
+                  <replaceable>Q</replaceable></title>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title><replaceable>Q</replaceable> cannot be <code>final</code> or <code>volatile</code></title>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>If <structfield>field</structfield> is
+                  <code>final</code> and <code>static</code> then region
+                  <replaceable>Q</replaceable> must be <code>static</code></title>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>Region
+                  <replaceable>Q</replaceable>
+                  must be accessible in the context of class
+                  <classname>C</classname></title>
+
+                  <para>It violates abstraction to refer to
+                  <code>private</code> regions of <classname>C</classname>'s ancestors.</para>
+                </formalpara>
+              </listitem>
+              
+              <listitem>
+                <formalpara>
+                  <title>No field may be annotated with both <classname>@Aggregate</classname>
+                  and <classname>@AggregateInRegion</classname></title>
+                </formalpara>
+              </listitem>
+            </itemizedlist>
+          </para>
+        </sect2>
+      </sect1>
+    </chapter>

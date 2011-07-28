@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="regions-and-locks">
+  <title>Regions and Locks</title>
+      
+  <para>The lock annotation <classname>@RegionLock</classname> actually
+  associates a lock with a region.  A <emphasis>region</emphasis> is a
+  named, hierarchical abstraction of state.  All fields are regions, and
+  thus a region is a named, extensible set of fields. Using annotations,
+  the programmer can declare new abstract regions as members of a class,
+  and then associate different locks with different regions.  The state
+  of an object may thus be partitioned into multiple abstract regions,
+  each protected by a different lock, enabling concurrent access to
+  different segments of the object’s state.</para>
+
+  <sect2 id="declaring-regions">
+    <title>Declaring New Regions</title>
+        
+    <para>New regions are declared by annotating a class with
+        
+      <synopsis>
+@Region("<replaceable>visibility</replaceable> <replaceable>Region</replaceable> extends <replaceable>Parent</replaceable>")
+      </synopsis>
+        
+    which declares a new region <replaceable>Region</replaceable> which
+    is a subregion of <replaceable>Parent</replaceable>.  A region may
+    be declared to be <code>static</code>, and may have any of the
+    standard Java visibility modifiers (or none).  A <code>static</code>
+    region must extend another <code>static</code> region;
+    non-<code>static</code> regions may extend <code>static</code>
+    regions.  If no parent region is specified, <code>Instance</code> is
+    used for non-<code>static</code> regions; the root region&mdash;the
+    <code>static</code> region <structfield>All</structfield>&mdash;is
+    used for <code>static</code> regions.  Java only allows a single
+    annotation of each type to be used at time, so to declare more than
+    one region on a class, the <classname>@Regions</classname>
+    annotation is used:
+        
+      <programlisting>
+<emphasis>@Regions</emphasis>({
+  // region with default visibility, extends Instance
+  @Region("region1"),
+  // static private region, extends All
+  @Region("private static region2"),
+  // public instance region
+  @Region("public region3 extends region2")
+})
+      </programlisting>
+    </para>
+        
+    <para>Unless otherwise specified, a <code>static</code> field is in
+    the region <structfield>All</structfield>, and a
+    non-<code>static</code> field is in the region
+    <structfield>Instance</structfield>.  To place a field in a
+    user-declared region, the <classname>@InRegion</classname>
+    annotation is used:
+        
+      <programlisting>
+@Region("protected NewRegion")
+public class C {
+  <emphasis>@InRegion("NewRegion")</emphasis>
+  private int f;
+  &hellip;
+}
+      </programlisting>
+    </para>
+        
+    <para>As with abstract regions, a <code>static</code> field may only
+    be placed into a <code>static</code> region. Non-<code>static</code>
+    fields may be placed into either <code>static</code> or
+    non-<code>static</code> regions.</para>
+  </sect2>
+      
+  <sect2 id="locks-with-regions">
+    <title>Associating Locks with Regions</title>
+        
+    <para>The general form of the <classname>@RegionLock</classname> annotation is
+        
+      <synopsis>
+@RegionLock("<replaceable>LockName</replaceable> is <replaceable>Lock</replaceable> protects <replaceable>Region</replaceable>")
+      </synopsis>
+        
+    where <replaceable>LockName</replaceable> is a programmer-declared
+    name for the lock, <replaceable>Lock</replaceable> is a reference to
+    the lock object, and <replaceable>Region</replaceable> is the name
+    of a region.  More specifically, <replaceable>Lock</replaceable>
+    must be one of the following:
+          
+      <itemizedlist>
+        <listitem><parameter>this</parameter></listitem>
+
+        <listitem>A field declared in the class being annotated or an
+        ancestor of the class being annotated that is visible within the
+        class, for example, a protected field from an
+        ancestor.</listitem>
+
+        <listitem><structfield>class</structfield></listitem>
+
+        <listitem>A field of an outer class.</listitem>              
+      </itemizedlist>
+    </para>
+           
+    <para>When <replaceable>Lock</replaceable> is
+    <parameter>this</parameter>, the object itself is acquired to
+    protect the state.  When <replaceable>Lock</replaceable> is a field,
+    the field must refer to an object.  The field must be
+    <code>final</code>: otherwise the lock object referenced by the
+    field could change.  The field may be <code>static</code> or
+    instance.  When <replaceable>Lock</replaceable> is
+    <structfield>class</structfield>, the unique
+    <classname>Class</classname> object referenced by the
+    <code>static</code> pseudo-field <structfield>class</structfield>
+    must be acquired.  (This is the object that is locked by
+    <code>static synchronized</code> methods.)</para>
+
+    <para>If a class is declared inside class
+    <classname>Outer</classname>, and wants to declare that the field
+    <structfield>f</structfield> of the <classname>Outer</classname>
+    instance that is the container for the inner class's instance
+    protects a region of the inner class, then the lock reference is
+    given by <code>Outer.this.f</code>.  Although the tool supports
+    declaring locks that are the fields of outer classes, it is not
+    presently possible to assure their correct use.  This is because of
+    deficiencies in both our internal representation and with Java
+    syntax. Given a variable <varname>v</varname> that refers to an
+    instance of a non-<code>static</code> inner class, there is no
+    syntactic expression that evaluates to the “outer” object of that
+    instance, that is, the object referenced by <varname>o</varname> in
+    the expression <code>o.new Inner()</code>.  We allow the declaration
+    of such locks, even though they cannot be assured, because we have
+    encountered them in real code and it is nice to be able to document
+    the design intent.</para>
+          
+    <para>A region may only be associated with a lock declared in a
+    class <classname>C</classname> if the region does not contain any
+    fields from superclasses of <classname>C</classname>.  This is
+    trivially true if the region is declared in
+    <classname>C</classname>.  The region may have abstract sub-regions,
+    but they also cannot contain any fields.  Specifically, the region
+    (and any of its subregions) cannot contain any fields, when
+    considered from the point of view of the class in which the lock
+    declaration appears.  (Indeed, otherwise you could never associate a
+    lock with a region.)  This restriction exists to prevent
+    unsoundness.  Suppose class <classname>C</classname> declares a
+    region <structfield>R</structfield> and populates it with field
+    <structfield>f</structfield>.  Suppose <classname>D</classname>
+    extends <classname>C</classname>, adds field
+    <structfield>g</structfield> to region <structfield>R</structfield>,
+    and also associates <structfield>R</structfield> with a lock.  The
+    problem is, in contexts where a <classname>D</classname> object is
+    viewed as a <classname>C</classname>, such as when a
+    <classname>D</classname> object is passed a method with a
+    <classname>C</classname> parameter, analysis cannot enforce
+    <classname>D</classname>'s locking policy. Thus, fields in
+    <structfield>R</structfield> that should be protected might not be,
+    and analysis would not complain.</para>
+            
+    <para>We allow the protection of an empty region to be delayed
+    because no state can be accessed through that region by
+    “unprotected” superclasses.  Any actual code that accesses state in
+    that region must access the region through a subclass that does know
+    about the protection, and therefore analysis can enforce the
+    protection.</para>
+            
+    <para>A <code>static</code> region must be protected by a
+    <code>static</code> field or by
+    <structfield>class</structfield>.</para>
+  
+    <para>A region may be associated with a lock only if none of its
+    ancestors are associated with a lock.  This prevents a region from
+    being protected by multiple locks.</para>
+          
+    <sect3 id="intrinsic-vs-juc">
+      <title>Intrinsic or <package>java.util.concurrent</package> Locks</title>
+            
+      <para>JSure understands the semantics of both intrinsic Java locks
+      acquired using the <code>synchronized</code> block and
+      <package>java.util.concurrent</package> locks, including
+      <classname>ReadWriteLock</classname>.  JSure determines which
+      semantics to enforce based on the object referenced by the
+      <replaceable>Lock</replaceable> portion of each
+      <classname>@RegionLock</classname> annotation.  There are three
+      cases:
+            
+        <orderedlist>
+          <listitem>The class of the referenced lock descends from
+          <classname>java.util.concurrent.locks.Lock</classname>.</listitem>
+
+          <listitem>The class of the referenced lock descends from
+          <classname>java.util.concurrent.locks.ReadWriteLock</classname>.</listitem>
+
+          <listitem>The class of the referenced lock is any other
+          class.</listitem>
+        </orderedlist>
+      </para>
+            
+      <para>If the class of the lock is not <classname>Lock</classname>
+      or <classname>ReadWriteLock</classname>, then JSure considers the
+      lock to be an intrinsic lock.  JSure considers the lock to be
+      acquired when it is referenced in a <code>sychronized</code>
+      block, and to be released at the end of the block.</para>
+            
+      <para>If the class of the lock object descends from
+      <classname>Lock</classname>, then JSure understands that the lock
+      is acquired by calling one of <function>lock</function>,
+      <function>lockInterruptibly</function>, or
+      <function>tryLock</function>, and released by calling
+      <function>unlock</function>.  JSure checks that each lock
+      acquisition must have a subsequent lock release, and that each
+      lock release has a prior lock acquisition.  JSure does not
+      specifically enforce the pattern
+            
+        <programlisting>  myLock.lock();
+  try {
+    // do stuff
+  } finally {
+    myLock.unlock();
+  }</programlisting>
+            
+      but, in practice, this pattern must be used to satisfy the
+      analysis due to the bidirectional matching of lock acquisitions
+      and releases.</para>
+
+      <para>If the class of the lock object descends from
+      <classname>ReadWriteLock</classname> then JSure understands that
+      writes to the protected region require the write lock to be held,
+      and that reads from the protected region require either the read
+      or the write lock to be held.  The write lock is retrieved using
+      the method <function>writeLock</function> and the read lock is
+      retrieved using the method <function>readLock</function>.  For
+      example, JSure finds that the following class is consistent with
+      its annotations:
+            
+        <programlisting>@RegionLock("L is lock protects f")
+public class C {
+  private final ReadWriteLock lock = new ReentrantReadWriteLock();
+  private int f;
+  
+  public void set(final int v) {
+    lock.writeLock().lock();
+    try {
+      f = v;
+    } finally {
+      lock.writeLock().unlock();
+    }
+  }
+  
+  public int get() {
+    lock.readLock().lock();
+    try {
+      return f;
+    } finally {
+      lock.readLock().unlock();
+    }
+  }
+}</programlisting>
+      </para>
+
+      <para>JSure recognizes a common shorthand used with
+      <classname>ReadWriteLocks</classname>: the caching of the
+      individual read and write locks in additional <code>final</code>
+      fields of the class that declares the <code>ReadWriteLock</code>. 
+      For example
+            
+        <programlisting>@RegionLock("L is lock protects f")
+public class CC {
+  private final ReadWriteLock lock = new ReentrantReadWriteLock();
+  private final Lock read = lock.readLock();
+  private final Lock write = lock.writeLock();
+  private int f;
+  
+  public void set(final int v) {
+    write.lock();
+    try {
+      f = v;
+    } finally {
+      write.unlock();
+    }
+  }
+  
+  public int get() {
+    read.lock();
+    try {
+      return f;
+    } finally {
+      read.unlock();
+    }
+  }
+}</programlisting>
+
+      This works with both <code>static</code> and instance locks.  If
+      the original lock field is <code>static</code>, the cache fields
+      must also be <code>static</code>.
+      </para>
+    </sect3>
+  </sect2>
+        
+  <sect2 id="multiple-locks">
+    <title>Declaring Multiple Locks</title>
+          
+    <para>Multiple locks are declared as members of a class my using the
+    <classname>@RegionLocks</classname> annotation:</para>
+          
+    <programlisting>
+@Regions({
+  @Region("public Location"),
+  @Region("public Appearance")
+})
+<emphasis>@RegionLocks({</emphasis>
+  <emphasis>@RegionLock("LocationLock is this protects Location"),</emphasis>
+  <emphasis>@RegionLock("AppearanceLock is appLock protects Appearance")</emphasis>
+<emphasis>})</emphasis>
+public class Sprite {
+  protected static Object appLock = new Object();
+  &hellip;
+}
+    </programlisting>
+  </sect2>
+</sect1>

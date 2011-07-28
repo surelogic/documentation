@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1>
+  <title>Instance Targets</title>
+  
+  <para>An instance target has one of the following forms:</para>
+  
+  <informaltable>
+    <tgroup align="left" cols="2">
+      <thead>
+        <row align="center">
+          <entry>Syntax</entry>
+          <entry>Constraints</entry>
+        </row>
+      </thead>
+    
+      <tbody>
+        <row>
+          <entry>
+            <synopsis>
+this:<co id="instance.target.reg1"/><replaceable>region_name</replaceable>
+            </synopsis>
+            <calloutlist>
+              <callout arearefs="instance.target.reg1">
+                <para>The name of a region.</para>
+              </callout>
+            </calloutlist>
+          </entry>
+        
+          <entry>
+            <itemizedlist>
+              <listitem>
+                <formalpara>
+                  <title>The target must <link
+                  linkend="preserve.abstraction">preserve
+                  abstraction</link></title>
+                </formalpara>
+              </listitem>
+              <listitem>
+                <formalpara>
+                  <title>The annotation must be on a non-<code>static</code> method</title>
+                
+                  <para>Methods that are <code>static</code> don't have
+                  a receiver. Constructors mask their effects on the
+                  receiver, so there is no point in declaring
+                  them</para>
+                </formalpara>
+              </listitem>
+              <listitem>
+                <formalpara>
+                  <title>The region identified by <replaceable>region_name</replaceable> must a
+                  non-<code>static</code> region that exists in the type of the
+                  method receiver</title>
+                </formalpara>
+              </listitem>
+            </itemizedlist>
+          </entry>
+        </row>
+
+        <row>
+          <entry>
+            <synopsis>
+<co id="instance.target.param"/><replaceable>parameter_name</replaceable>:<co id="instance.target.reg2"/><replaceable>region_name</replaceable>
+            </synopsis>
+            <calloutlist>
+              <callout arearefs="instance.target.param">
+                <para>The name of a method/constructor parameter.</para>
+              </callout>
+              <callout arearefs="instance.target.reg2">
+                <para>The name of a region.</para>
+              </callout>
+            </calloutlist>
+          </entry>
+        
+          <entry>
+            <itemizedlist>
+              <listitem>
+                <formalpara>
+                  <title>The target must <link
+                  linkend="preserve.abstraction">preserve
+                  abstraction</link></title>
+                </formalpara>
+              </listitem>
+              <listitem>
+                <formalpara>
+                  <title>The parameter <replaceable>parameter_name</replaceable> must be a
+                  parameter of the annotated method/constructor
+                  and be of a non-primitive type</title>
+                </formalpara>
+              </listitem>
+              <listitem>
+                <formalpara>
+                  <title>The region identified by <replaceable>region_name</replaceable> must
+                  a non-<code>static</code> region that exists in the type of
+                  the parameter <replaceable>parameter_name</replaceable></title>
+                </formalpara>
+              </listitem>
+            </itemizedlist>
+          </entry>
+        </row>
+
+        <row>
+          <entry>
+            <synopsis>
+<co id="instance.target.type"/><replaceable>type_name</replaceable>.this:<co id="instance.target.reg3"/><replaceable>region_name</replaceable>
+            </synopsis>
+            <calloutlist>
+              <callout arearefs="instance.target.type">
+                <para>The name of a class.</para>
+              </callout>
+              <callout arearefs="instance.target.reg3">
+                <para>The name of a region.</para>
+              </callout>
+            </calloutlist>
+          </entry>
+        
+          <entry>
+            <itemizedlist>
+              <listitem>
+                <formalpara>
+                  <title>The target must <link
+                  linkend="preserve.abstraction">preserve
+                  abstraction</link></title>
+                </formalpara>
+              </listitem>
+              <listitem>
+                <formalpara>
+                  <title>The method/constructor being annotated must be
+                  in a non-<code>static</code> inner class</title>
+
+                  <para>If a nested class is <code>static</code> then it
+                  doesn't have an outer receiver. (A <code>static</code>
+                  method may never refer to a qualified receiver because
+                  they must always be inside of <code>static</code>
+                  nested class.)</para>
+                </formalpara>
+              </listitem>
+              <listitem>
+                <formalpara>
+                  <title>The class named by <code>type_name</code>
+                  must exist and be a lexically enclosing
+                  class<footnote><para>A class
+                  <replaceable>O</replaceable> is the zeroth
+                  lexically enclosing class of itself.  A class
+                  <replaceable>O</replaceable> is the
+                  <replaceable>n</replaceable><superscript>th</superscript>
+                  lexically enclosing class of a
+                  class <replaceable>C</replaceable> if it is the
+                  immediately enclosing class of the
+                  (<replaceable>n</replaceable>-1)<superscript>st</superscript>
+                  lexically enclosing class of
+                  <replaceable>C</replaceable>.  (<ulink url="http://java.sun.com/docs/books/jls/third_edition/html/classes.html#8.1.3"><citetitle pubwork="book">The Java Language Specification, 3<superscript>rd</superscript> Edition</citetitle>
+                  &sect;8.1.3</ulink>)</para></footnote> of the class that
+                  contains the method/constructor being
+                  annotated.</title>
+                </formalpara>
+              </listitem>
+              <listitem>
+                <formalpara>
+                  <title>The region identified by
+                  <replaceable>region_name</replaceable> must a
+                  non-<code>static</code> region that exists in
+                  <replaceable>type_name</replaceable></title>
+                </formalpara>
+              </listitem>
+            </itemizedlist>
+          </entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>        
+</sect1>

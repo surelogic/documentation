@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+    
+<sect1 id="extended-model1">
+  <title>Extending the Model: Caller Locking</title>
+      
+  <para>A frequent exception to the basic lock model is the expectation
+  by a method implementation that it is the responsibility of the caller
+  of the method to acquire the lock. Analysis can assure this
+  expectation if it is declared using the
+  <classname>@RequiresLock</classname> method annotation:
+      
+    <programlisting>
+@RegionLock("Lock is this protects Instance")
+public class C {
+  private int f;
+
+  <emphasis>@RequiresLock("Lock")</emphasis>
+  public void m() { &hellip; }
+  &hellip;
+}
+    </programlisting>
+      
+   When analyzing the implementation of method
+   <function>C.m()</function>, analysis assumes that lock
+   <structfield>Lock</structfield> is held.  When analyzing the callsite
+   of the method, however, analysis requires that the calling context
+   hold the lock object identified with <structfield>Lock</structfield>.
+    The method implementations <function>C.m()</function> and
+   <function>C.calls_m()</function>, below, are thus both correct:
+
+    <programlisting>
+  <emphasis>@RequiresLock("Lock")</emphasis>
+  public void m() {
+    this.f = 0;
+  }
+  
+  protected synchronized void calls_m() {
+    this.m();
+  }
+    </programlisting>
+  </para>
+      
+  <para>The method implementation of <function>Other.bad()</function>
+  is, however, erroneous because it does not acquire the lock on the
+  object referenced by <parameter>cObject</parameter>:
+      
+    <programlisting>
+public class Other {
+  &hellip;
+  public bad(final C cObject) {
+    cObject.m(); // bad callsite!
+  }
+} 
+    </programlisting>
+  </para>
+</sect1>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+  
+      <sect1 id="declaring-effects">
+        <title>Declaring Effects</title>
+  
+        <para>The effects of a constructor or method are declared using
+        the <classname>@RegionEffects</classname> annotation:
+        
+          <synopsis>
+@RegionEffects("reads <replaceable>readTarget<subscript>1</subscript></replaceable>, &hellip;, <replaceable>readTarget<subscript>N</subscript></replaceable>;
+    writes <replaceable>writeTarget<subscript>1</subscript></replaceable>, &hellip;, <replaceable>writeTarget<subscript>M</subscript></replaceable>")
+          </synopsis>
+        
+        Specifically, the annotation contains reads and write
+        clauses that each have a list of one or more
+        <emphasis>targets</emphasis>.  The <code>reads</code> clause
+        describes the state that may be read by the method/constructor;
+        the <code>writes</code> clause describes the state that may
+        be <emphasis>read or written</emphasis> by the method/constructor.
+         Because writing includes reading, there is no need to list a
+        target in the reads clause if its state is already described in
+        the <code>writes</code> clause.</para>
+  
+        <para>Both the <code>reads</code> and the
+        <code>writes</code> clauses are optional: to indicate that
+        there are no effects use
+        <code>@RegionEffects("none")</code>.</para>
+  
+        <para>A target is an extrinsic syntactic mechanism to name
+        references to regions, and can be one of
+  
+          <itemizedlist>
+            <listitem>
+              <formalpara>
+                <title><replaceable>Region</replaceable> or
+                <code>this:<replaceable>Region</replaceable></code></title>
+
+                <para><replaceable>Region</replaceable> is a region of
+                the class containing the method.  The method affects the
+                named region of the receiver
+                object.</para>
+              </formalpara>
+            </listitem>
+          
+            <listitem>
+              <formalpara>
+                <title><code><replaceable>param</replaceable>:<replaceable>Region</replaceable></code></title>
+                
+                <para><replaceable>param</replaceable> is a parameter of
+                the method that references an object.
+                <replaceable>Region</replaceable> is a region of the
+                class of <replaceable>param</replaceable>'s type.  The
+                method affects the named region of the object referenced
+                by <replaceable>param</replaceable> <emphasis>at the
+                start of the method's execution</emphasis>.</para>
+              </formalpara>
+            </listitem>
+
+            <listitem>
+              <formalpara>
+                <title><code><replaceable>pkg.C</replaceable>.this:<replaceable>Region</replaceable></code></title>
+                
+                <para><replaceable>pkg.C</replaceable> is an “outer
+                class” of the class that contains the annotated method. 
+                That is, the method being annotated is in class
+                <replaceable>D</replaceable>, and
+                <replaceable>D</replaceable> is an inner class of
+                <replaceable>C</replaceable>.
+                <replaceable>Region</replaceable> is a region of class
+                <replaceable>pkg.C</replaceable>.  The method affects
+                the named region of the given outer class
+                receiver.</para>
+              </formalpara>
+            </listitem>
+            
+            <listitem>
+              <formalpara>
+                <title><code>any(<replaceable>pkg.C</replaceable>):<replaceable>Region</replaceable></code></title>
+                
+                <para><replaceable>pkg.C</replaceable> is a class name
+                and <replaceable>Region</replaceable> is a region of
+                <replaceable>pkg.C</replaceable>.  This target indicates
+                that the method affects the given region of any object
+                of class <replaceable>pkg.C</replaceable>.</para>
+              </formalpara>
+            </listitem>
+          
+            <listitem>
+              <formalpara>
+                <title><code><replaceable>pkg.C</replaceable>:<replaceable>Region</replaceable></code></title>
+                
+                <para><replaceable>Region</replaceable> is a
+                <code>static</code> region of class
+                <replaceable>pkg.C</replaceable>.  The method affects
+                the given <code>static</code> region.</para>
+              </formalpara>
+            </listitem>
+          </itemizedlist>
+        </para>
+        
+        <para>Assurance checks that the actual effects of the method
+        implementation are no greater than its declared effects.  There
+        are several fine points to this:
+        
+          <itemizedlist>
+            <listitem><para>Uses of <code>final</code> fields produce no
+            effects.</para></listitem>
+  
+            <listitem><para>Effects on local variables are not visible
+            outside of a method/constructor.</para></listitem>
+  
+            <listitem><para>Effects on objects created within a method are
+            not visible outside of a method.</para></listitem>
+            
+            <listitem><para>Constructors do not have to report effects on
+            the <structfield>Instance</structfield> region of the newly
+            constructed object.</para></listitem>
+  
+            <listitem><para>Region aggregation (described below) is taken
+            into account.</para></listitem>
+          </itemizedlist>
+        </para>
+        
+        <para>Here is a simple "variable" class with effects
+        annotations:
+        
+          <programlisting>
+@Region("public Value")
+public class Var {
+  @InRegion("Value")
+  private int value;
+
+  <emphasis>@RegionEffects("none")</emphasis>
+  public Var(int v) {
+    value = v;
+  }
+
+  <emphasis>@RegionEffects("reads Value")</emphasis>
+  public int getValue() {
+    return value;
+  }
+
+  <emphasis>@RegionEffects("writes Value")</emphasis>
+  public void setValue(int v) {
+    value = v;
+  }
+}
+          </programlisting>
+        </para>
+      </sect1>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+     
+<chapter id="method-effects" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Method Effects</title>
+        
+  <para>Regions provide an abstract way to name the state of an
+  object. The effects of a method&mdash;the state read and written
+  during the execution of that method&mdash;may be expressed in terms
+  of regions. Effects are useful when determining whether code can be
+  reordered by a refactoring, and are also necessary to support the
+  analyses that assure <classname>@Unique</classname> and
+  <classname>@RegionLock</classname> annotations.</para>
+  
+  <xi:include href="sect1-declaring-effects.xml"/>
+
+  <xi:include href="sect1-effects-and-constructors.xml"/>
+
+  <xi:include href="sect1-borrowed-and-effects.xml"/>
+</chapter>
