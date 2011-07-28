@@ -212,13 +212,13 @@ public class Other {
         <para>Much of the time, however, it is not intended that an
         array is aliased; in these cases, the array can be incorporated
         into the state of the object that references it.  We call this
-        <emphasis>aggregating state</emphasis>. An array is aggregated
-        into the object that references it by adding a pair of
-        annotations to the field that references the array:
+        <emphasis>aggregating state</emphasis>. In the simpliest case,
+        an array is aggregated
+        into the object that references it by adding a single
+        annotation to the field that references the array:
       
           <programlisting>
 <emphasis>@Unique</emphasis>
-<emphasis>@Aggregate</emphasis>
 private Object[] myArray;
           </programlisting>
       
@@ -270,7 +270,6 @@ private Object[] myArray;
 <emphasis>@RegionLock("Lock is this protects Instance")</emphasis>
 public class Buffer {
   <emphasis>@Unique</emphasis>
-  <emphasis>@Aggregate</emphasis>
   private final Object[] buf;
   &hellip;
   public Buffer(int size) {
@@ -291,7 +290,7 @@ public class Buffer {
       
         <para>Aggregation applies not only to arrays, but to objects
         in general.  So any object-typed field can be declared
-        <classname>@Unique</classname> and can then have its state
+        <classname>@Unique</classname> and have its state
         aggregated into the state of its referring object. In
         practice, aggregation of collections is common. The code below
         aggregates the set <code>log</code> into the
@@ -299,21 +298,21 @@ public class Buffer {
 	<programlisting>
 public class LogExample {
   @Unique
-  @Aggregate
   private final Set&lt;String&gt; log = new HashSet&lt;String&gt;();
   &hellip;
 }
 	</programlisting>
-	<para>The annotation for aggregation when a named region is
-	used is slightly different. Declaring a named region is
-	further described below. The code below declares a named
+	<para>The annotation <classname>@UniqueInRegion</classname> is used 
+	when the state of the referenced object should be aggregated into a 
+	named region other than <code>Instance</code>.
+	(Declaring a named region is
+	further described in a later section.) The code below declares a named
 	region <code>LogData</code> and aggregates the set
 	<code>log</code> into it.</para>
 	<programlisting>
 @Region("private LogData")
 public class LogExample {
-  @Unique
-  @AggregateInRegion("LogData")
+  @UniqueInRegion("LogData")
    private final Set&lt;String&gt; log = new HashSet&lt;String&gt;();
    &hellip;
 }
@@ -430,7 +429,7 @@ public class C {
       </sect1>
     
       <sect1 id="self-protected-objects">
-        <title>Thread-Safe Objects</title>
+        <title>Thread-Safe and Immutable Objects</title>
       
         <para>Region aggregation, described above, is one technique that
         can be used to deal with the fact that fields
@@ -460,22 +459,23 @@ public class C {
         <classname>C</classname> by annotating class
         <classname>C</classname> with
         <classname>@ThreadSafe</classname>. This
-        <emphasis>unchecked</emphasis> annotation declares that
-        instances of the class/interface are meant to be “thread safe.”
-        Exactly what is meant by this is presently unspecified; the
-        annotation is intended to encompass non&ndash;lock-based
-        protections schemes such as single-threadedness and
-        immutability.</para>
+        annotation declares that no sequences of accesses (reads and writes to
+        public fields, calls to public methods) may put an object of
+        the annotated class into an invalid state, regardless of the
+        interleaving of those actions by the runtime, and without requiring
+        any additional synchronization or coordination on the part of the
+        caller.  If a class is thread safe because its instances are 
+        immutable objects, the more specific annotation 
+        <code>@Immutable</code> is preferred.</para>
        
-        <important>
-          <para>No analysis is performed on classes declared to be
-          <code>@ThreadSafe</code> to assure that the implementation
-          is thread safe.</para>
-        </important>
-
-	<para>For immutable objects you can alternatively use
-	<code>@Immutable</code> instead of, or with
-	<code>@ThreadSafe</code>.</para>
+        <note>
+          <para>In earlier versions of JSure the <code>@ThreadSafe</code>
+          and <code>@Immutable</code> annotations were not assured by 
+          analysis.  This is no longer the case.  Both annotations are assured
+          by restricting how the fields of the class are declared and
+          annotated.  Please see the JavaDoc for the annotations for 
+          more details.</para>
+        </note>
       
         <para>As an example, let us consider the simple rational numbers
         class below:
@@ -518,11 +518,12 @@ public class C {
         we may be doing something unsafe: accessing the state of the
         rational object in multiple threads without protection.  But in
         this case, we know that <classname>Rational</classname> objects
-        are immutable, and thus thread safe, so we can suppress this
-        warning by annotating the <classname>Rational</classname> class:
+        are immutable, and thus thread safe, so we can both suppress this
+        warning and use analysis to ensure that instances of the class
+        remain immutable by annotating the <classname>Rational</classname>
+        class:
       
           <programlisting>
-<emphasis>@ThreadSafe</emphasis>
 <emphasis>@Immutable</emphasis>
 public class Rational {
   &hellip;
@@ -1181,12 +1182,10 @@ public class C {
           unique within the dynamic scope of the method.  A parameter
           (including the receiver) is declared to be borrowed by
           annotating the parameter as
-          <classname>@Borrowed</classname>.  We saw earlier that to
-          declare that the receiver is borrowed, we annotate the
-          method with <code>@Borrowed("this")</code>. To declare that
+          <classname>@Borrowed</classname>.  To declare that
           the receiver is borrowed, we annotate the method with
          <code>@Borrowed("this")</code>. To declare that a constructor does
-          not alias the object under construction, we annotation it
+          not alias the object under construction, we annotate it
           with either <code>@Unique("return")</code> or
           <code>@Borrowed("this")</code> (which are defined to be equivalent
           for constructors).</para>
@@ -1222,7 +1221,7 @@ public class C {
          <sect2 id="borrowed-with-method-effects">
            <title>Supporting Borrowed With Method Effects</title>
            
-           <para>As explained above, when a method is passed, the value of
+           <para>As explained above, when a method is passed the value of
            a unique field as the actual to a borrowed parameter, the
            method is not allowed to access the unique field.  Analysis
            looks to the effects of the methods to determine if the method
@@ -1386,7 +1385,7 @@ any type.</para>
       use is for documentation and to quiet overly conservative
       analysis results.</para>
 
-      <para>Use of the<code>@Vouch</code> annotation is trusted,\ie
+      <para>Use of the<code>@Vouch</code> annotation is trusted:
       it is not verified by analysis. The annotation requires a brief
       programmer explanation for the vouch being made.</para>
 
@@ -1394,38 +1393,37 @@ any type.</para>
       method is used to set state, perhaps due to an API restriction
       about using constructors, and then
       <classname>CentralControl</classname> instances are safely
-      published. An <code>@Vouch</code> annotation is used to explain
+      published. A <code>@Vouch</code> annotation is used to explain
       that the init method needs to be an exception to the lock
       policy.</para>
 
 <programlisting>
-\begin{CodeBox}
- @Region("private ControlRegion")
- @RegionLock("ControlLock is lock protects ControlRegion")
- public class CentralControl {
+@Region("private ControlRegion")
+@RegionLock("ControlLock is lock protects ControlRegion")
+public class CentralControl {
  
-   private final Object lock = new Object();
+  private final Object lock = new Object();
 
-   @InRegion("ControlRegion")
-   private String f_id;
+  @InRegion("ControlRegion")
+  private String f_id;
  
-   @Vouch("Instances are thread confined until after init(String) is called.")
-   public void init(String id) {
-     f_id = id;
-   }
+  @Vouch("Instances are thread confined until after init(String) is called.")
+  public void init(String id) {
+    f_id = id;
+  }
  
-   public String getId() {
-     synchronized (lock) {
-       return f_id;
-     }
-   }
+  public String getId() {
+    synchronized (lock) {
+      return f_id;
+    }
+  }
  
-   public void setId(String value) {
-     synchronized (lock) {
-       f_id = value;
-     }
-   }
- }
+  public void setId(String value) {
+    synchronized (lock) {
+      f_id = value;
+    }
+  }
+}
 </programlisting>
 
      <para>In the example code below a <code>@Vouch</code> annotation
