@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="lock.names">
+  <title>Lock Names</title>
+
+  <para><classname>@ReturnsLock</classname> and
+  <classname>@RequiresLock</classname> annotations make use of
+  <emphasis>lock names</emphasis>. Lock names have their own semantic
+  constraints. A lock name identifies a lock in a particular object
+  reference or class. It differs from a <emphasis>lock id</emphasis>:
+  The lock id is the name of the lock as it is declared, while the lock
+  name represents a particular instance of the lock.</para>
+
+  <para>For <emphasis><code>static</code> locks</emphasis> (locks whose
+  lock field is a <code>static</code> field or a class object), there is
+  only one instance of the lock and its name is the lock id qualified by
+  the name of the class in which it is declared.</para>
+
+  <para>Otherwise we have an <emphasis>instance lock</emphasis> whose
+  lock name is the lock id qualified by the name of a local variable
+  (possibly <parameter>this</parameter>) that references the object that
+  contains the lock.</para>
+
+  <para>We differentiate between a <emphasis>raw</emphasis> lock name
+  and a <emphasis>decorated</emphasis> lock name.  This distinction is
+  necessary because of the nature of read&ndash;write locks as
+  implemented by <classname>ReadWriteLock</classname> in
+  <package>java.util.concurrent</package>. A raw lock name refers to a
+  declared lock, identified with an object referenced as a Java
+  intrinsic lock, a <classname>java.util.concurrent.Lock</classname>
+  object, or a <classname>java.util.concurrent.ReadWriteLock</classname>
+  object.  In most cases a <classname>ReadWriteLock</classname>
+  identified by a raw lock name is not useful because it cannot be
+  acquired directly: the read or write lock must be identified. This is
+  the role of the decorated lock name, which is a raw lock name enhanced
+  to further identify either the read or write lock.</para>
+          
+  <sect2 id="naming.raw.locks">
+    <title>Raw Lock Names</title>
+    
+    <para>A raw lock name must conform
+    to the syntax and constraints shown in <xref linkend="lock.name.constraints"/>.
+    </para>
+    
+    <table id="lock.name.constraints">
+      <title>Syntax and Constraints for Naming Raw Locks</title>
+      
+      <tgroup align="left" cols="2">
+        <thead>
+          <row align="center">
+            <entry>Syntax</entry>
+            <entry>Constraints</entry>
+          </row>
+        </thead>
+    
+        <tbody>
+          <row>
+            <entry>
+              <synopsis>
+<co id="lockid1"/><replaceable>lock_id</replaceable><!--no break here--><footnote><para>This form is really a shorthand for either
+              <parameter>this</parameter><code>:</code><replaceable>lock_id</replaceable> or
+              <classname>fully.qualified.class.name</classname><code>:</code><replaceable>lock_id</replaceable> where
+              <classname>fully.qualified.class.name</classname> is
+              the name of the class containing the annotated method.
+               The ambiguity is resolved by checking whether
+              <replaceable>lock_id</replaceable> names a instance or
+              <code>static</code> lock, respectively.</para></footnote></synopsis>
+            
+              <calloutlist>
+                <callout arearefs="lockid1">
+                  <para>A lock id.</para>
+                </callout>
+              </calloutlist>
+            </entry>
+          
+            <entry>
+              <itemizedlist>
+                <listitem>
+                  <formalpara>
+                    <title><replaceable>lock_id</replaceable> must
+                    exist in the class containing the annotated
+                    method</title>
+                  </formalpara>
+                </listitem>
+                
+                <listitem>
+                  <formalpara>
+                    <title>The lock id <replaceable>lock_id</replaceable> must
+                    refer to a <code>static</code> lock if the
+                    method is <code>static</code></title>
+
+                    <para>Although, a non-<code>static</code> method
+                    may refer to either a <code>static</code> or an instance
+                    lock.</para>
+                  </formalpara>
+                </listitem>
+              </itemizedlist>
+            </entry>
+          </row>
+
+          <row>
+            <entry>
+              <synopsis>
+<co id="lock.name.param"/><replaceable>parameter_name</replaceable>:<co id="lockid2"/><replaceable>lock_id</replaceable>
+              </synopsis>
+            
+              <calloutlist>
+                <callout arearefs="lock.name.param">
+                  <para>The name of a method/constructor parameter,
+                  including <parameter>this</parameter>.</para>
+                </callout>
+                <callout arearefs="lockid2">
+                  <para>A lock id.</para>
+                </callout>
+              </calloutlist>
+            </entry>
+          
+            <entry>
+              <itemizedlist>
+                <listitem>
+                  <formalpara>
+                    <title>The parameter
+                    <replaceable>parameter_name</replaceable> must be a
+                    <code>final</code> parameter of the annotated
+                    method/constructor</title>
+
+                    <para>If the parameter isn't <code>final</code> then
+                    the object referenced by the parameter can change
+                    during execution of the method and the named lock is
+                    not unique.  Note that <parameter>this</parameter>
+                    <emphasis>is not</emphasis> a parameter of
+                    <code>static</code> methods.</para>
+                  </formalpara>
+                </listitem>
+  
+                <listitem>
+                  <formalpara>
+                    <title>The lock id <replaceable>lock_id</replaceable> must
+                    name an instance lock in the type of the parameter</title>
+                  
+                    <para>For clarity purposes we do not allow
+                    <code>static</code> locks to be named through instances; it
+                    only leads to confusion.</para>
+                  </formalpara>
+                </listitem>
+              </itemizedlist>
+            </entry>
+          </row>
+
+          <row>
+            <entry>
+              <synopsis>
+<co id="lock.name.fqclass1"/><replaceable>fully.qualified.class.name</replaceable>:<co id="lockid3"/><replaceable>lock_id</replaceable>
+              </synopsis>
+            
+              <calloutlist>
+                <callout arearefs="lock.name.fqclass1">
+                  <para>A fully qualified class name.</para>
+                </callout>
+                <callout arearefs="lockid3">
+                  <para>A lock id.</para>
+                </callout>
+              </calloutlist>
+            </entry>
+          
+            <entry>
+              <itemizedlist>
+                <listitem>
+                  <formalpara>
+                    <title>The named class
+                    <replaceable>fully.qualified.class.name</replaceable>
+                    must exist.</title>
+                  </formalpara>
+                </listitem>
+
+                <listitem>
+                  <formalpara>
+                    <title>The lock id <replaceable>lock_id</replaceable> must
+                    name a <code>static</code> lock in the type <replaceable>fully.qualified.class.name</replaceable></title>
+                  </formalpara>
+                </listitem>
+              </itemizedlist>
+            </entry>
+          </row>
+
+          <row>
+            <entry>
+              <synopsis>
+<co id="lock.name.fqclass2"/><replaceable>fully.qualified.class.name</replaceable>.this:<co id="lockid4"/><replaceable>lock_id</replaceable>
+              </synopsis>
+            
+              <calloutlist>
+                <callout arearefs="lock.name.fqclass2">
+                  <para>A fully qualified class name.</para>
+                </callout>
+                <callout arearefs="lockid4">
+                  <para>A lock id.</para>
+                </callout>
+              </calloutlist>
+            </entry>
+          
+            <entry>
+              <itemizedlist>
+                <listitem>
+                  <formalpara>
+                    <title>The qualified receiver
+                    <replaceable>fully.qualified.class.name</replaceable>.this
+                    must exist for the annotated method</title>
+                  </formalpara>
+                </listitem>
+  
+                <listitem>
+                  <formalpara>
+                    <title>The lock id <replaceable>lock_id</replaceable> must
+                    name an instance lock in the type <replaceable>fully.qualified.class.name</replaceable></title>
+                  </formalpara>
+                </listitem>
+              </itemizedlist>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </sect2>
+  
+  <sect2 id="naming.decorated.locks">
+    <title>Decorated Lock Names</title>
+    
+    <para>The syntax and constraints for a decorated lock name are similar
+    to those shown in <xref linkend="lock.name.constraints"/> with the following
+    exceptions:
+    
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title><replaceable>lock_id</replaceable>
+              <emphasis>must</emphasis> refer to a lock whose lock
+              field refers to an object of type
+              <classname>java.util.concurrent.locks.ReadWriteLock</classname>
+            </title>
+          
+            <para>Intrinsic locks and
+            <classname>java.util.concurrent.locks.Lock</classname>
+            objects do not have any sub components.</para>
+          </formalpara>
+        </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title><replaceable>lock_id</replaceable> must be followed
+              by either "<code>.readLock()</code>" or "<code>.writeLock()</code>"
+            </title>
+            
+            <para>This refers to the read lock or write lock component, respectively.</para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    </para>
+  </sect2>
+</sect1>

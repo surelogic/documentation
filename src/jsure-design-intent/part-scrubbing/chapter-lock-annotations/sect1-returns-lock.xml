@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+      <sect1>
+        <title>Returns Lock</title>
+        
+        <para>A declaration that a method returns a particular lock has the form
+
+          <synopsis>
+@ReturnsLock("<co id="ret.lock.name"/><replaceable>raw_lock_name</replaceable>")
+          </synopsis>
+          
+          <calloutlist>
+            <callout arearefs="ret.lock.name">
+              <para>A raw lock name.</para>
+            </callout>
+          </calloutlist>
+        </para>
+        
+        <sect2>
+          <title>Constraints</title>
+          
+          <itemizedlist>
+            <listitem>
+              <formalpara>
+                <title>The raw lock name <replaceable>raw_lock_name</replaceable> must be
+                <link linkend="naming.raw.locks">well-formed</link></title>
+              </formalpara>
+            </listitem>
+          </itemizedlist>
+        </sect2>
+      </sect1>
