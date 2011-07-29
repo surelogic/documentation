@@ -9,7 +9,7 @@
   <para>The same annotation, <classname>@Unique</classname>, is used to annotate
     <itemizedlist>
       <listitem><para>That a field reference is
-      unaliased.</para></listitem>
+      unaliased and aggregated into the referencing object.</para></listitem>
 
       <listitem><para>That a method/constructor returns an
       unaliased reference.</para></listitem>
@@ -32,32 +32,44 @@
   is syntactic sugar for
   <classname>@Unique("")</classname>.</para></footnote>
   
-    <programlisting>
-class C {
-  <emphasis>@Unique</emphasis>
-  List list;
+    <programlisting>class C {
+  <emphasis>@Unique</emphasis> List list;
   &hellip;
   public void method(final <emphasis>@Unique</emphasis> Object p) {
     &hellip;
   }
   &hellip;
-}
-    </programlisting>
+}</programlisting>
+  </para>
   
-  The receiver (<parameter>this</parameter>) is a special case because
+  <para>The <code>Instance</code> region of the object referenced by a 
+  <classname>@Unique</classname> field is implicitly aggregated into the state
+  of the referencing class:
+  
+    <itemizedlist>
+      <listitem><para>If the field is non-<code>final</code>, the <code>Instance</code>
+      region of the referenced object is aggregated into the annotated
+      field.</para></listitem>
+      
+      <listitem><para>if the field is <code>final</code> and non-<code>static</code>,
+      the <code>Instance</code> region of the referenced object is aggregated
+      into the <code>Instance</code> region of the class that contains the
+      annotated field.</para></listitem>
+    </itemizedlist>
+  </para>
+  
+  <para>The receiver (<parameter>this</parameter>) is a special case because
   it is not explicitly declared.  To annotate that the receiver must be
   unaliased, the method itself must be annotated instead:
   
-    <programlisting>
-class C {
+    <programlisting>class C {
   &hellip;
   <emphasis>@Unique("this")</emphasis>
   public void needsUnaliasedReceiver(&hellip;) {
     &hellip;
   }
   &hellip;
-}
-    </programlisting>
+}</programlisting>
     
   A method may be annotated to indicate that the return value is an
   unaliased object.  A constructor may be annotated to indicate that the
@@ -95,7 +107,9 @@ class C {
       </listitem>
       <listitem>
         <formalpara>
-          <title>The field must also have an <classname>@Aggregate</classname> annotation</title>
+          <title>The field cannot be <code>final static</code></title>  The
+          annotation <classname>@UniqueInRegion</classname> should be used
+          in this case.
         </formalpara>
       </listitem>
     </itemizedlist>

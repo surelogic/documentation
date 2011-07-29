@@ -8,5 +8,9 @@
       
   <xi:include href="sect1-uniqueness-declarations.xml"/>
 
+  <xi:include href="sect1-agg-named-region.xml"/>
+
+  <xi:include href="sect1-agg-general.xml"/>
+
   <xi:include href="sect1-borrowed-declarations.xml"/>
 </chapter>

@@ -9,8 +9,4 @@
   <xi:include href="sect1-region-declaration.xml"/>
       
   <xi:include href="sect1-field-as-region.xml"/>
-      
-  <xi:include href="sect1-region-aggregation.xml"/>
-
-  <xi:include href="sect1-aggregating-instance-only.xml"/>
 </chapter>

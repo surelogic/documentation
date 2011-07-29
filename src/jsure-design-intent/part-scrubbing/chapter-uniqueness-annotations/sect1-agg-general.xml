@@ -4,16 +4,14 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <sect1>
-  <title>Region Aggregation</title>
+  <title>General Aggregation</title>
   
-  <para>When a field refers to a <classname>@Unique</classname>
-  reference, the regions of the referenced object must be aggregated
-  into the regions of the referring object. This effectively allows the
-  referenced object to be treated as part of the referring object. This
-  is achieved using the field annotation
-
+  <para>The <classname>@UniqueInRegion</classname> field annotation is also used
+  to declare a unique field whose regions are more freely aggregated into
+  the regions of the class that contains the aggregated field:
+  
     <synopsis>
-@Aggregate("<co id="agg.src.region"/><replaceable>R<subscript>1</subscript></replaceable> into <co id="agg.dest.region"/><replaceable>Q<subscript>1</subscript></replaceable>, &hellip; <replaceable>R<subscript>n</subscript></replaceable> into <replaceable>Q<subscript>n</subscript></replaceable>")<co id="agg.n"/>
+@UniqueInRegion("<co id="agg.src.region"/><replaceable>R<subscript>1</subscript></replaceable> into <co id="agg.dest.region"/><replaceable>Q<subscript>1</subscript></replaceable>, &hellip; <replaceable>R<subscript>n</subscript></replaceable> into <replaceable>Q<subscript>n</subscript></replaceable>")<co id="agg.n"/>
     </synopsis>
     
     <calloutlist>
@@ -28,42 +26,39 @@
       <callout arearefs="agg.n"><para><replaceable>n</replaceable>
       &ge; 1.</para></callout>
     </calloutlist>
-
-    <para>The flexibility of the aggregation depends on whether the
-    annotated field is or is not <code>final</code>:
-    
-      <itemizedlist>
-        <listitem><para>When the field is not <code>final</code>, all
-        the regions of the referenced object must be mapped into regions
-        of the object that contain the field. Generally, in this case,
-        the best thing to do is to map the
-        <structfield>Instance</structfield> region of the referenced
-        object into the field itself, for example,
-  
-          <programlisting>
-@Unique
-@Aggregate("Instance into record")
-protected PersonRecord record;
-          </programlisting>
-        </para></listitem>
-
-        <listitem><para>When the field is <code>final</code>, the
-        regions of the referenced object may be mapped more freely, as
-        long as they respect the region hierarchy.</para></listitem>
-      </itemizedlist>
-    </para>
   </para>
+          
+  <para>This annotation
   
-  <para>The <classname>@Aggregate</classname> annotation may be used as
-  a marker annotation, in which case it is equivalent to writing
-  <code>@Aggregate("Instance into Instance")</code>:
+    <itemizedlist>
+      <listitem><para>Declares that the field is unique (as if it were
+      annotated with <classname>@Unique</classname>).</para></listitem>
+
+      <listitem><para>Aggregates each region <replaceable>R<subscript>i</subscript></replaceable>
+      of the referenced object into region <replaceable>Q<subscript>i</subscript></replaceable>
+      of the referencing object.</para></listitem>
+    </itemizedlist>
+
+  The flexibility of the aggregation depends on whether the
+  annotated field is or is not <code>final</code>:
+    
+    <itemizedlist>
+      <listitem><para>When the field is not <code>final</code>, all
+      the regions of the referenced object must be mapped into regions
+      that contain the annotated field. Generally, in this case,
+      the best thing to do is to map the
+      <structfield>Instance</structfield> region of the referenced
+      object into the field itself, for example,
   
-    <programlisting>
-@Unique
-@Aggregate
-protected final PersonRecord record;
-    </programlisting>
-  </para>        
+        <programlisting>@UniqueInRegion("Instance into record")
+protected PersonRecord record;</programlisting>
+      </para></listitem>
+
+      <listitem><para>When the field is <code>final</code>, the
+      regions of the referenced object may be mapped more freely, as
+      long as they respect the region hierarchy.</para></listitem>
+    </itemizedlist>
+  </para>
   
   <sect2>
     <title>Constraints</title>
@@ -76,19 +71,7 @@ protected final PersonRecord record;
       <itemizedlist>
         <listitem>
           <formalpara>
-            <title>The field <structfield>field</structfield> must
-            also be annotated with
-            <classname>@Unique</classname></title>
-          </formalpara>
-        </listitem>
-        
-        <listitem>
-          <formalpara>
-            <title>The type <classname>D</classname> must be a non-primitive type</title>
-            
-            <para>Practically, this is guaranteed by the first
-            rule, because <classname>@Unique</classname> is only applicable to fields
-            with a non-primitive type.</para>
+            <title>The type of the annotated field must be a non-primitive</title>
           </formalpara>
         </listitem>
         
@@ -206,4 +189,3 @@ protected final PersonRecord record;
     </para>
   </sect2>
 </sect1>
-

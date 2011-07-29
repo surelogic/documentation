@@ -8,11 +8,11 @@
 
   <xi:include href="chapter-region-annotations/chapter.xml"/>
           
+  <xi:include href="chapter-uniqueness-annotations/chapter.xml"/>
+          
   <xi:include href="chapter-effect-annotations/chapter.xml"/>
           
   <xi:include href="chapter-lock-annotations/chapter.xml"/>
-          
-  <xi:include href="chapter-uniqueness-annotations/chapter.xml"/>
 
   <appendix condition="isHTML">
     <title>SureLogic Annotation Types JavaDoc</title>
