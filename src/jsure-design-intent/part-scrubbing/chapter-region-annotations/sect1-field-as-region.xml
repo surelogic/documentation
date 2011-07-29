@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="field.as.region">
+  <title>Fields as Regions</title>
+  
+  <para>A field is placed into a non-default region using the annotation
+  <classname>@InRegion</classname>, which can be used on either a field
+  or on a class.
+  </para>
+  
+  <sect2 id="inregion.field">
+    <title>Field Annotation</title>
+    
+    <para>The normal usage is to annotate a field with           
+  
+      <synopsis>
+@InRegion("<co id="inregion.parent"/><replaceable>Parent</replaceable>")
+      </synopsis>
+    
+      <calloutlist>
+        <callout arearefs="inregion.parent"><para>The name of the
+        region that field extends.</para></callout>
+      </calloutlist>
+    </para>
+  
+    <sect3>
+      <title>Constraints</title>
+
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title>The field cannot be <code>final</code></title>
+          
+            <para>Fields that are <code>final</code> do not represent mutable
+            state and are thus outside of the region model.</para>
+          </formalpara>
+        </listitem>
+      
+        <listitem>
+          <formalpara>
+            <title>Region <replaceable>Parent</replaceable> must exist in the
+            class</title>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>Region <replaceable>Parent</replaceable> must be accessible</title>
+
+            <para>To preserve abstraction it is not appropriate to
+            refer to <code>private</code> regions from a superclass.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>Region <replaceable>Parent</replaceable> cannot be <code>final</code> or <code>volatile</code></title>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>The field cannot be more visible than region <replaceable>Parent</replaceable></title>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>A <code>static</code> region cannot extend a
+            non-<code>static</code> region</title>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>Regions must form a tree</title>
+
+            <para>There cannot be a cycle in the region ancestor
+            relationship.</para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    </sect3>
+  </sect2>
+  
+  <sect2 id="inregion.class">
+    <title>Class Annotation</title>
+    
+    <para>Alternatively, many fields can be placed into the same region by annotating
+    a class <replaceable>C</replaceable> with
+  
+      <synopsis>
+@InRegion("<co id="inregion.field-i"/><replaceable>f<subscript>1</subscript></replaceable>, &hellip; <replaceable>f<subscript>n</subscript></replaceable> into <co id="inregion.parent2"/><replaceable>Parent</replaceable>")<co id="inregion.n"/>
+      </synopsis>
+    
+      <calloutlist>
+        <callout arearefs="inregion.field-i"><para><replaceable>f<subscript>i</subscript></replaceable>
+        are fields of the annotated class.</para></callout>
+
+        <callout arearefs="inregion.parent2"><para>The name of the
+        region that the fields extend.</para></callout>
+
+        <callout arearefs="inregion.n"><para><replaceable>n</replaceable> &ge; 1</para></callout>
+      </calloutlist>
+    </para>
+  
+    <sect3>
+      <title>Constraints</title>
+
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title>Field <replaceable>f<subscript>i</subscript></replaceable>
+            must be declared in class <replaceable>C</replaceable></title>
+          
+            <para>You cannot change the parent region of fields declared in
+            ancestor classes.</para>
+          </formalpara>
+        </listitem>
+      
+        <listitem>
+          <formalpara>
+            <title>Field <replaceable>f<subscript>i</subscript></replaceable> cannot be <code>final</code></title>
+          
+            <para>Fields that are <code>final</code> do not represent mutable
+            state and are thus outside of the region model.</para>
+          </formalpara>
+        </listitem>
+      
+        <listitem>
+          <formalpara>
+            <title>Region <replaceable>Parent</replaceable> must exist in the
+            class</title>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>Region <replaceable>Parent</replaceable> must be accessible</title>
+
+            <para>To preserve abstraction it is not appropriate to
+            refer to <code>private</code> regions from a superclass.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>Region <replaceable>Parent</replaceable> cannot be <code>final</code> or <code>volatile</code></title>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>Field <replaceable>f<subscript>i</subscript></replaceable> cannot be more visible than region <replaceable>Parent</replaceable></title>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>A <code>static</code> region cannot extend a
+            non-<code>static</code> region</title>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>Regions must form a tree</title>
+
+            <para>There cannot be a cycle in the region ancestor
+            relationship.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>Each <replaceable>f<subscript>i</subscript></replaceable> must be
+            unique.</title>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>A field <replaceable>f</replaceable> cannot be named in more than
+            one <classname>@InRegion</classname> annotation on the same class</title>
+            
+            <para>It does not make sense to give a region more than one parent.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title>The declaration of a field named in an <classname>@InRegion</classname>
+            on a class cannot itself be annotated with <classname>@InRegion</classname></title>
+            
+            <para>It does not make sense to give a region more than one parent.</para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    </sect3>
+  </sect2>        
+</sect1>

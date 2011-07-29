@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1>
+  <title>Borrowed Parameter Declarations</title>
+  
+  <para>A method can be constrained to not create aliases to
+  a particular parameter using the annotation
+  
+    <synopsis>
+@Borrowed("<optional>this</optional>")
+    </synopsis>
+    
+  As with <classname>@Unique</classname> and
+  <classname>@NotUnique</classname>, the form
+  <classname>@Borrowed</classname> is used when annotated an explicit
+  parameter declaration, and the method annotation
+  <classname>@Borrowed("this")</classname> is used when annotating the
+  receiver.</para>
+  
+  <sect2>
+    <title>Constraints</title>
+    
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>The parameter must have a non-primitive type</title>
+          
+          <para>This is trivially satisfied when the the receiver is borrowed.</para>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>When annotating a method, the method must not be <code>static</code></title>
+          
+          <para>Methods that are <code>static</code> do not have receivers.</para>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>The parameter must not also be explicitly
+          annotated with <classname>@Unique</classname></title>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>A constructor with a borrowed receiver value must not
+          also be annotated with <code>@Unique("return")</code></title>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+</sect1>

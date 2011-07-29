@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+
+<sect1>
+  <title>Aggregating <structfield>Instance</structfield> Only</title>
+  
+  <para>In the common use case, it is only necessary to aggregate
+  the <structfield>Instance</structfield> region of the referenced
+  object. In this case, a simpler annotation can be used:
+
+    <synopsis>
+@AggregateInRegion("<co id="agginreg.dest.region"/><replaceable>Q</replaceable>")
+    </synopsis>
+    
+    <calloutlist>
+      <callout
+      arearefs="agginreg.dest.region"><para><replaceable>Q</replaceable>
+      is a region of the class that declares the
+      field.</para></callout>
+    </calloutlist>
+   </para>
+   
+  <para>This annotation is equivalent to using
+  <code>@Aggregate("Instance into <replaceable>Q</replaceable>")</code>,
+  and is meant to be similar in name and syntax to <classname>@InRegion</classname>.
+  </para>
+  
+  <sect2>
+    <title>Constraints</title>
+    
+    <para>An <classname>@AggregateInRegion</classname> annotation on a
+    field <structfield>field</structfield> with class type
+    <classname>D</classname> declared in a class
+    <classname>C</classname> is subject to the following
+    constraints:
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title>The field <structfield>field</structfield> must
+            also be annotated with
+            <classname>@Unique</classname></title>
+          </formalpara>
+        </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title>The type <classname>D</classname> must be a non-primitive type</title>
+            
+            <para>Practically, this is guaranteed by the first
+            rule, because <classname>@Unique</classname> is only applicable to fields
+            with a non-primitive type.</para>
+          </formalpara>
+        </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title>If <structfield>field</structfield> is not
+            <code>final</code> then
+            <structfield>field</structfield> must be a subregion
+            of region
+            <replaceable>Q</replaceable></title>
+          </formalpara>
+        </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title><replaceable>Q</replaceable> cannot be <code>final</code> or <code>volatile</code></title>
+          </formalpara>
+        </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title>If <structfield>field</structfield> is
+            <code>final</code> and <code>static</code> then region
+            <replaceable>Q</replaceable> must be <code>static</code></title>
+          </formalpara>
+        </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title>Region
+            <replaceable>Q</replaceable>
+            must be accessible in the context of class
+            <classname>C</classname></title>
+
+            <para>It violates abstraction to refer to
+            <code>private</code> regions of <classname>C</classname>'s ancestors.</para>
+          </formalpara>
+        </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title>No field may be annotated with both <classname>@Aggregate</classname>
+            and <classname>@AggregateInRegion</classname></title>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    </para>
+  </sect2>
+</sect1>
