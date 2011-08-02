@@ -29,7 +29,7 @@
     <para>This section describes the various Flashlight views unique to the
     Flashlight Eclipse client, and that populate the perspective</para>
 
-    <sect3>
+    <sect3 id="flashlight-runs-view">
       <title>Flashlight Runs</title>
       <para>
 	The <guilabel>Flashlight Runs</guilabel> view lists information about
@@ -131,7 +131,7 @@
 
     </sect3>
 
-    <sect3>
+    <sect3 id="flashlight-run-overview">
       <title>Run Overview</title>
       <para>
         The <guilabel>Run Overview</guilabel> view displays a summary of the

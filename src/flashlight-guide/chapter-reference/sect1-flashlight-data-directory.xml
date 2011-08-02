@@ -261,4 +261,15 @@
               sierra-tool.src.zip</screen>
     </para>
   </sect2>
+  <sect2 id="per-run-directory">
+    <title>Deleting Flashlight Data</title>
+    <para>After using Flashlight for a while, you may find that your Flashlight
+    data directory is getting quite large.  The easiest way to reduce the size
+    of your data directory is to delete runs you no longer need from the <link
+    linkend="flashlight-runs-view">Flashlight Runs</link> view.  A run can also
+    be removed by deleting the directory directly from the Flashlight data
+    directory.  Both methods will remove all prepared data from this run as
+    well, so make sure that you are completely done with the run before deleting
+    it.</para>
+  </sect2>
 </sect1>

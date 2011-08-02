@@ -349,14 +349,19 @@
   the EDT. We can do this by changing the <function>main()</function> method to
   look like the code below.</para>
 
-  <programlisting><![CDATA[  public static void main(String[] args) {
+  <programlisting>
+<![CDATA[
+public static void main(String[] args) {
   // run the application
   SwingUtilities.invokeLater(new Runnable() {
-  public void run() {
-  new ChatTestClient();
-  }
+    @Override
+    public void run() {
+      new ChatTestClient();
+    }
   });
-  }]]></programlisting>
+}
+]]>
+  </programlisting>
 
   <para>Save this change and launch ChatTestClient using the Flashlight launch
   shortcut again. Perform the same actions that you did during the first run:

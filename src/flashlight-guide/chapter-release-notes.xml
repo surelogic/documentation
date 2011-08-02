@@ -12,6 +12,55 @@
   Flashlight.</para>
 
   <sect1>
+    <title>Flashlight version 4.0.0</title>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+      <orderedlist>
+	<listitem>
+	  <para><emphasis>Support for running Flashlight as an Ant
+	  task</emphasis> &mdash; Flashlight now allows you to instrument and
+	  run Java programs outside of Eclipse using Ant.  The tasks support
+	  instrumentation of class folders, Jars, Wars, and Ejb Jars.  See the
+	  <link linkend="flashlight-ant-tasks">Flashlight Ant Tasks</link>
+	  documentation for details.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>New Overview Page</emphasis> &mdash; Flashlight now
+	  displays an overview for a run after it has been prepared.  See the
+	  <link linked="flashlight-run-overview">Run Overview</link>
+	  documentation for details.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>More Flashlight Queries</emphasis> &mdash; Flashlight
+	  has added a number of new queries that can be used on any prepared
+	  run:
+          </para>
+          <itemizedlist>
+            <listitem>What instances of this class are indirectly accessed by more than one thread?</listitem>
+            <listitem>What is the stack trace for this lock event?</listitem>
+            <listitem>What locks are held during this field access?</listitem>
+            <listitem>What objects are protected by this lock, and how
+            often?</listitem>
+            <listitem>What threads are blocked for the longest time?</listitem>
+            <listitem>When and where did this lock event occur?</listitem>
+          </itemizedlist>
+	</listitem>
+        <para>For documentation on these queries and others, see <xref linkend="query-reference" />.
+        </para>
+      </orderedlist>
+    </sect2>
+    <sect2>
+      <title>Known Problems</title>
+      <para>Flashlight has no known problems at this time.</para>
+    </sect2>
+
+  </sect1>
+
+  <sect1>
     <title>Flashlight version 3.2.0</title>
     <sect2>
       <title>New and Noteworthy</title>
@@ -73,7 +122,7 @@
 	  <para><emphasis>Instrumentation of Java 1.4 code running on
 	  a Java 1.4 VM</emphasis> &mdash; It is now possible to
 	  collect data using Flashlight about Java 1.4 code running on
-	  a Java 1.4 VM. (Note that the Ecilpse that runs Flashlight
+	  a Java 1.4 VM. (Note that the Eclipse that runs Flashlight
 	  must still use a Java 5, or above, VM.)</para>
 	</listitem>
 
