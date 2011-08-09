@@ -38,9 +38,12 @@
 
 	  <para>This will cause the <guilabel>Manage SureLogic
 	  Licenses</guilabel> window to appear as shown in <xref
-	  linkend="fig-quick-start-license-dialog-empty" />.  Highlight the
-	  JSure row and select the <guibutton>Install License</guibutton>
-	  button to install your license file.</para>
+	  linkend="fig-quick-start-license-dialog-empty" />. Select
+	  the <guibutton>Install from File</guibutton> button to
+	  install your license if you saved it as a file on your
+	  disk. Select the <guibutton>Install from
+	  Clipboard</guibutton> button to install your license if you
+	  copied it from an email message.</para>
 
     <figure id="fig-quick-start-license-dialog-empty">
       <title>The SureLogic license management dialog</title>
@@ -66,12 +69,12 @@
     project for assurance by JSure.</para>
     
     <para>JSure compares Java code with models of programmer design
-    intent expressed using a set of Java 5 annotation types. The tool
+    intent expressed using a set of Java annotation types. The tool
     verifies model-code consistency. To use JSure with your code, your
     project must be able to reference the SureLogic annotation types
     declared in package <package>com.surelogic</package>.  The
     SureLogic annotation types are bundled together in
-    <filename>promises-3.1.0.jar</filename>. This file must be on the
+    <filename>promises-4.0.0.jar</filename>. This file must be on the
     build path of your project for the annotations be to used.  As
     described below, the simplest way to add this JAR file to the
     project and its build path is to allow JSure to do it for
@@ -79,8 +82,8 @@
 
     <para>To manually add/update the JAR file select
     <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
-    Promises Library...</guimenuitem> from the Eclipse main menu as
-    shown below.</menuchoice>
+    Promises Library in Project...</guimenuitem></menuchoice> from the Eclipse main
+    menu as shown below.
 
     <mediaobject>
       <imageobject>
@@ -89,87 +92,68 @@
     </mediaobject>
 
     This action will prompt you through the process of adding or
-    updating the JAR to your project's classpath. It does not enable
-    JSure on that project (as described below).</para>
+    updating the JAR to your project's classpath. It does not scan
+    that project (as described below).</para>
+
+    <para>You could also save the JSure JAR file to your disk and
+    manually setup your project's classpath.  To do this you would
+    select
+    <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Save
+    Promises Library As...</guimenuitem></menuchoice> from the Eclipse
+    main menu. This command will prompt you where to save the JAR file
+    to your disk.
+    </para>
     
     <sect3>
-      <title>Enabling JSure Analysis</title>
+      <title>Scanning Your Projects with JSure</title>
       
-      <para>JSure can only assure the contents of one project at a
-      time. The icon of the project being assured is marked with a
-      small <wordasword>S</wordasword> in the lower right corner:
-      <guiicon><inlinegraphic
-      fileref="images/jsure-nature.png"/></guiicon>. The
-      <wordasword>J</wordasword> above the <wordasword>S</wordasword>
-      are intended to remind you that this is the project JSure is
-      analyzing. The easiest way to select the project to assure is to
-      <orderedlist>
-	<listitem><para>Select the project in the <guilabel>Package
-	Explorer</guilabel>.</para></listitem>
+      <para>JSure can only assure any number of projects at the same
+      time time. Analysis by the tool is performed on a copy of your
+      code in the background so that your work is not disrupted
+      through the use of JSure.</para>
 
-	<listitem><para>Press the icon <guiicon><inlinegraphic
-	fileref="images/jsure_verify.gif"/></guiicon> in the view&rsquo;s
-	toolbar.  This same action is also available as
-	<menuchoice><guimenuitem>Focus Verification on this
-	Project</guimenuitem></menuchoice> in the view&rsquo;s menu.</para></listitem>
-      </orderedlist>
-      If any other project is currently selected for assurance, this action first
-      disables assurance on that project before enabling the newly selected
-      project.</para>
-      
-      <para>When a project is selected for analysis, JSure checks to
-      see if <filename>promises-3.1.0.jar</filename> is on the
-      project&rsquo;s build path.  If it is not, and your source code
-      is for Java 5 or above, it offers to add the file to the project
-      and the build path:
-      
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="images/add-promises-jar.png" />
-          </imageobject>
-        </mediaobject>
+      <para>To scan one or more of your projects with JSure select
+      <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Verify
+      Project</guimenuitem></menuchoice> from the Eclipse main menu
+      as shown below.
 
-      The easiest thing to do is to choose the default option
-      <guibutton>Add to Project Root</guibutton>: JSure copies
-      <filename>promises-3.1.0.jar</filename> to the root of project and
-      adds it to the build path. See <xref
+      <mediaobject>
+	<imageobject>
+	  <imagedata fileref="images/quick-start-verify-menu.png" />
+	</imageobject>
+      </mediaobject>
+
+      This action will open the dialog shown below.
+
+      <mediaobject>
+	<imageobject>
+	  <imagedata fileref="images/quick-start-verify-dialog.png" />
+	</imageobject>
+      </mediaobject>
+
+      This dialog allows
+      you to select which projects are to be analyzed by JSure</para>
+      
+      <para>When a project is scanned, JSure does not check to see if
+      <filename>promises-4.0.0.jar</filename> is on the
+      project&rsquo;s build path. Therefore make sure you add it to
+      the project's you want to verify (Unless you are using Java 1.4
+      in which case annotations are added as Javadoc). See <xref
       linkend="sec-adding-promises-jar"/> for more details.</para>
       
-    </sect3>
-    
-    <sect3>
-      <title>Disabling JSure Analysis</title>
-      
-      <para>To deselect a project without selecting another project to assure
-        <orderedlist>
-          <listitem><para>Select the project in the <guilabel>Package
-          Explorer</guilabel>.</para></listitem>
-
-          <listitem><para>Press the icon <guiicon><inlinegraphic
-          fileref="images/jsure_no_verify.gif"/></guiicon> in the
-          view&rsquo;s toolbar.  This same action is also available as
-          <menuchoice><guimenuitem>Disable
-          Verification</guimenuitem></menuchoice> in the view&rsquo;s
-          menu.</para></listitem>
-        </orderedlist>
-      </para>
-      
-      <para>Disabling analysis of a project does not affect
-      <filename>promises.jar</filename> or the project&rsquo;s build
-      path, however, you can manually delete the Jar and remove it
-      from the build path if you haven&rsquo;t added any
-      annotations to your code.</para>
     </sect3>
         
     <sect3>
       <title>Viewing Assurance Results</title>
       
-      <para>JSure reassures the chosen project whenever a file in that project
-      is changed.  This guarantees that the assurance results are always up to
-      date.  The assurance results are displayed in the <guilabel>Verification
-      Status</guilabel> view.  The easiest way to open this view is to switch
-      to the <guilabel>Code Verification</guilabel> perspective.  The first time you enable
-      JSure analysis on any project in the workspace JSure prompts you
+      <para>JSure scans run in the background on a copy of your
+      code. Therefore you may safely continue your work while a JSure
+      scan is running. When a scan is completed the results are
+      displayed in the <guilabel>Verification Status</guilabel> and
+      <guilabel>JSure Quick Search</guilabel> views.  The easiest way
+      to open this view is to switch to the <guilabel>Code
+      Verification</guilabel> perspective.  The first time a scan is
+      completed on any project in the workspace JSure prompts you
       about switching to the <guilabel>Code Verification</guilabel>
       perspective:
       
@@ -179,12 +163,13 @@
           </imageobject>
         </mediaobject>
 
-      Choosing <guibutton>Yes</guibutton> will immediately switch Eclipse to 
-      the perspective.  Choosing <guibutton>No</guibutton> will leave
-      the current Eclipse window in whatever perspective it is currently in.  If you check
-      <guibutton>Remember my decision</guibutton> and press <guibutton>Yes</guibutton>
-      then whenever you focus verification on a project, Eclipse will switch
-      to the perspective without asking you first.</para>
+      Choosing <guibutton>Yes</guibutton> will immediately switch
+      Eclipse to the perspective.  Choosing <guibutton>No</guibutton>
+      will leave the current Eclipse window in whatever perspective it
+      is currently in.  If you check <guibutton>Remember my
+      decision</guibutton> and press <guibutton>Yes</guibutton> then
+      whenever you focus verification on a project, Eclipse will
+      switch to the perspective without asking you first.</para>
 
       <para>You can also switch to the <guilabel>Code Verification</guilabel>
       perspective by selecting <menuchoice><guimenu>JSure</guimenu>
@@ -201,8 +186,7 @@
       </figure>
 
       <para>The code verification perspective defaults to showing the
-      <guilabel>Package Explorer</guilabel> and <guilabel>Verification
-      Status</guilabel> views; see <xref
+      views shown in <xref
       linkend="fig-code-verification-perspective"/>.</para>
 
       <figure id="fig-code-verification-perspective">
@@ -214,19 +198,24 @@
         </mediaobject>
       </figure>
 
+      <para>The <guilabel>JSure Scans</guilabel> view lists all the
+      scans you have run on your code. This view lets you select which
+      scan to examine. Checking a scan updates all the other views
+      with that scan's data. You can check a different at any
+      time. This view also lets you delete older scans by selecting
+      them and choosing
+      <menuchoice><guimenu>Delete</guimenu></menuchoice> from the
+      view's context menu.</para>
+
+      <para>The <guilabel>Modeling Problems</guilabel> view which
+      tells you if any of the annotations in your code do not make
+      sense to JSure. This view lists each bad annotation so that the
+      programmer can fix them.</para>
+
       <para>The <guilabel>Verification Status</guilabel> view is
       divided into sections to show the results of assuring different
       classes of design intent, such as effects, and concurrency, as
-      well as showing less specific suggestions and warnings. The
-      various result messages are explained in detail in <xref
-      linkend="understanding-assurance-output"/>. <xref
-      linkend="fig-code-verification-perspective"/> also shows the
-      <guilabel>Modeling Problems</guilabel> view which, by default,
-      will not appear. This view will appear below the
-      <guilabel>Verification Status</guilabel> view if any of the
-      annotations in your code do not make sense to JSure. This view
-      lists each bad annotation so that the programmer can fix
-      them.</para>
+      well as showing less specific suggestions and warnings.</para>
 
       <para>The icons shown in the <guilabel>Verification
       Status</guilabel> view have meaning. The table below is a quick
@@ -258,6 +247,10 @@
 	    <row>
 	      <entry><inlinegraphic fileref="images/red_x.gif"/></entry>
 	      <entry>Inconsistent analysis result</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/timeout_x.gif"/></entry>
+	      <entry>Inconsistent analysis result due to a user-specified execution timeout</entry>
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/plus_vouch.gif"/></entry>
@@ -298,6 +291,93 @@
 	  </tbody>
 	</tgroup>
       </informaltable>
+
+      <para>The <guilabel>Proposed Promises</guilabel> view lists
+      annotations, also called <emphasis>promises</emphasis> about
+      your code, that the tool has infered you may want to add to your
+      code. The tool uses your existing annotations and the
+      verification results to generate this list of proposals. The
+      tool will automatically add these to the code if you select the
+      proposal and select <menuchoice><guimenu>Add Promises to
+      Code...</guimenu></menuchoice> from the view's context
+      menu. This can save time in modeling, however, you should double
+      check that the proposed promise represents actual design intent
+      about your code.</para>
+
+      <para>The <guilabel>JSure Quick Search</guilabel> view allows
+      you to query the scan results in an ad hoc manner. You can setup
+      a series of filters on the results to focus on the particular
+      scan results that are of immediate interest. Selecting a result
+      highlights that result in the <guilabel>Verification
+      Status</guilabel> view. Double-clicking on a result brings up
+      the code location of that result in your code.</para>
+
+      <informaltable frame='none'>
+	<tgroup cols='2' align='left'>
+	<colspec colwidth='1in' align='left'/>
+	  <thead>
+	    <row>
+	      <entry>Filter</entry>
+	      <entry>Semantics</entry>
+	    </row>
+	  </thead>
+	  <tbody>
+	    <row>
+	      <entry><inlinegraphic fileref="images/analysis_result.gif"/> Analysis Result</entry>
+	      <entry>Allows you to filter the results by analysis
+	      results. An analysis result is a finding reported by one
+	      of the JSure tool's verifying analyses. These results
+	      form the basis used to prove that an annotation is
+	      consistent, i.e., a verification judgement about a
+	      promise. This filter could be used to quickly find all
+	      inconsistent analysis results so that you can work to
+	      eliminate them.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/annotation.gif"/> Annotation</entry>
+	      <entry>Allows you to filter the results by
+	      annotation. This filter could be used to quickly find
+	      all <classname>@RegionLock</classname> annotations in
+	      your code.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/class.gif"/> Java Class</entry>
+	      <entry>Allows you to filter the results to a particular set of Java classes.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/package.gif"/> Java Package</entry>
+	      <entry>Allows you to filter the results to a particular set of Java packages.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/project.gif"/> Project</entry>
+	      <entry>Allows you to filter the results to a particular set of Eclipse projects.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/verification_result.gif"/> Verification Judgement</entry>
+	      <entry>Allows you to filter the results by the
+	      verification judgement on an annotation. This filter
+	      could be used to find all consistent promises or find
+	      promises with a "red-dot" (contingent verification
+	      judgements).</entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
+
+      <para>The <guilabel>JSure Quick Search</guilabel> view is very
+      flexible and allows you to chain many filters together before
+      you <menuchoice><guimenu>Show</guimenu></menuchoice> a list of
+      results. You can also save queries that you find useful via the
+      toolbar at the bottom of the view.</para>
+
+      <para>The <guilabel>JSure Historical Source</guilabel> view is
+      shown to the right of the Java editor at the bottom of the
+      perspective. This view shows you what your source code looked
+      like when JSure scanned your code. Because the scan you are
+      examining may have been run at any time in the past, your may
+      have changed since that time. This view helps you understand the
+      tool results by showing the code as it was when the scan was
+      run.</para>
     </sect3>
   </sect2> 
 </sect1>

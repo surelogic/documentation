@@ -21,7 +21,7 @@
 
     <para>More specifically, JSure verifies that Java class
     implementations are consistent with programmer design intent as
-    expressed using Java 5 annotations. Annotations make JSure
+    expressed using Java annotations. Annotations make JSure
     scalable: Unannotated classes have no design intent to
     assure. Annotations may be inserted incrementally in critical
     classes.  Later, additional annotations may be added as required
@@ -30,9 +30,10 @@
     clients, and thus, the behavior of a client class is assured even
     if that class has no annotations of its own.</para>
     
-    <para>The JSure analysis engine is integrated into the Eclipse build 
-    process.  This enables the assurance results to be always up to date
-    as assurance is rerun whenever a file is recompiled.</para>
+    <para>The JSure analysis engine is integrated into the Eclipse
+    Java IDE.  This enables JSure scans to be run in the background
+    within Eclipse and verification results to be examined by the tool
+    user within the widely-used Eclipse Java IDE.</para>
   </sect1>
 
   <xi:include href="sect1-quick-start.xml"/>
