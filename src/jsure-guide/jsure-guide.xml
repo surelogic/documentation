@@ -20,7 +20,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 3.1.0&mdash;December 2009</pubdate>
+    <pubdate>Version 4.0.0&mdash;August 2011</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -54,6 +54,33 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
 
+    <section id="sec-jsure-release-4-0-0">
+      <title>JSure version 3.0.0</title>
+      <para>This section describes the 3.0.0 version of the JSure Eclipse client.</para>
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>New approach to scanning annotated code</emphasis>
+	    &mdash; TBD</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Improved analysis performance</emphasis> &mdash; 
+	    TBD.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Query based user interface</emphasis> &mdash; 
+            TBD.</para>
+	  </listitem>
+
+        </orderedlist>
+      </section>
+    </section>
 
     <section id="sec-jsure-release-3-1-1">
       <title>JSure version 3.1.1</title>
