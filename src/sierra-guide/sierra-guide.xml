@@ -9,7 +9,7 @@
   <subtitle>How to use and configure the Sierra Eclipse client</subtitle>
   <bookinfo>
     <copyright>
-      <year>2010</year>
+      <year>2011</year>
       <holder>SureLogic Inc.</holder>
     </copyright>
     <legalnotice>
@@ -2956,6 +2956,24 @@ if (o == null) {
     noteworthy features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of Sierra.</para>
+
+    <section id="sec-sierra-release-4-0-0">
+      <title>Sierra version 4.0.0</title>
+      <section>
+	<title>New and Noteworthy</title>
+	<para>
+	  Sierra is unchanged since the previous release.
+	</para>
+      </section>
+
+      <section>
+	<title>Known Problems</title>
+
+	<para>The known bugs and limitations in this version of Sierra is
+	unchanged from the previous release.</para>
+      </section>
+    </section>
+
 
     <section id="sec-sierra-release-3-1-1">
       <title>Sierra version 3.1.1</title>
