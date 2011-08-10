@@ -328,11 +328,12 @@
 	  <tbody>
 	    <row>
 	      <entry><inlinegraphic fileref="images/analysis_result.gif"/> Analysis Result</entry>
-	      <entry>Allows you to filter the results by analysis
-	      results. An analysis result is a finding reported by one
-	      of the JSure tool's verifying analyses. These results
-	      form the basis used to prove that an annotation is
-	      consistent, i.e., a verification judgement about a
+	      <entry>Allows you to filter the results by the type of
+	      analysis result reported by the tool's verifying
+	      analyses. An analysis result is a finding reported by
+	      one of the JSure tool's verifying analyses. These
+	      results form the basis used to prove that an annotation
+	      is consistent, i.e., a verification judgement about a
 	      promise. This filter could be used to quickly find all
 	      inconsistent analysis results so that you can work to
 	      eliminate them.</entry>
