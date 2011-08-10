@@ -16,11 +16,11 @@
   compile because it already contains JSure annotations. Add the
   needed annotation library by selecting
   <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
-  Promises Library...</guimenuitem></menuchoice> from the Eclipse main menu.</para>
+  Promises Library In Project...</guimenuitem></menuchoice> from the Eclipse main menu.</para>
 
     <mediaobject>
       <imageobject>
-	<imagedata fileref="images/quick-start-add-jar.png" />
+	<imagedata fileref="images/planetbaron-add-jar.png" />
       </imageobject>
     </mediaobject>
 
@@ -36,14 +36,16 @@
 
    <para>At this point the project should compile without errors.</para>
 
-  <para>Enable assurance for the PlanetBaronJSure project by selecting
-  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Focus
-  Verification...</guimenuitem></menuchoice> and again choosing the
-  <application>PlanetBaronJSure</application> project in the dialog
-  that appears. Finally, press <guimenuitem>OK</guimenuitem>.  This
-  project already contains lock model annotations about its locking
-  policies, not all of which assure. In the rest of this example we
-  fix these assurance failures.</para>
+  <para>Next, scan the <application>PlanetBaronJSure</application>
+  project with JSure. To do this choose
+  <menuchoice><guimenu>JSure</guimenu> <guisubmenu>Verify
+  Project</guisubmenu></menuchoice> from the Eclipse main menu. You
+  can also use the keyboard shortcut
+  <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.
+  This project already contains lock model annotations about its
+  locking policies, not all of which assure (as you can see if you
+  examine the scan results). In the rest of this example we fix these
+  assurance failures.</para>
   
   <sect3>
     <title>Running PlanetBaron</title>

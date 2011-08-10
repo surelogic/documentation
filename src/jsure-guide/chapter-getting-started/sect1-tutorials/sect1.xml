@@ -42,7 +42,7 @@
   build path (as described below).</para>
 
   <figure id="fig-tutorial-jsure-install">
-    <title>Adding BoundedFIFOJSure and PlanetBaronJSure to your workspace</title>
+    <title>Adding tutorial projects to your workspace</title>
     <mediaobject>
       <imageobject>
 	<imagedata fileref="images/tutorial-jsure-install.png" />
