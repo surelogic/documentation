@@ -316,9 +316,9 @@
       Status</guilabel> view. Double-clicking on a result brings up
       the code location of that result in your code.</para>
 
-      <informaltable frame='none'>
+      <informaltable frame='all'>
 	<tgroup cols='2' align='left'>
-	<colspec colwidth='1in' align='left'/>
+	<colspec colwidth='4cm' align='left'/>
 	  <thead>
 	    <row>
 	      <entry>Filter</entry>
