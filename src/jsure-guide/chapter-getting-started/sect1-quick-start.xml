@@ -115,9 +115,9 @@
       <para>To scan one or more of your projects with JSure select
       <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Verify
       Project</guimenuitem></menuchoice> from the Eclipse main menu as
-      shown below. Using the menu can become tedious in real work so
+      shown below. Using the menu can become tedious in real tool use so
       this command is associated with the keyboard shortcut
-      <keysym>Ctrl</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>. This
+      <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>. This
       keyboard shortcut is worth remembering to make JSure easier to
       use.
 

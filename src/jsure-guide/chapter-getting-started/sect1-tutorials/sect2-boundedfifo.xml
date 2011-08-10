@@ -154,7 +154,7 @@ public class BoundedFIFO {
 	<para>Choose <menuchoice><guimenu>JSure</guimenu>
 	<guisubmenu>Verify Project</guisubmenu></menuchoice> from the
 	Eclipse main menu. You can also use the keyboard shortcut
-	<keysym>Ctrl</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.
+	<keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.
 
 	<mediaobject>
 	  <imageobject>
@@ -403,7 +403,7 @@ public class BoundedFIFO {
     <guisubmenu>Verify Project</guisubmenu></menuchoice> from the
     Eclipse main menu to scan the project again or use the keyboard
     shortcut
-    <keysym>Ctrl</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
+    <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
         
     <para>After the analysis completes, there is a new <guilabel>Scoped
     promises</guilabel> heading in the <guilabel>Verification
@@ -464,7 +464,7 @@ public void put(LoggingEvent e) {
     
     <para>Make this change to <filename>BlockingFIFO.java</filename>
     and run another JSure scan using the keyboard shortcut
-    <keysym>Ctrl</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
+    <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
   </sect3>
   
   <sect3 id="single-threaded-constructor">
@@ -650,7 +650,7 @@ public class BoundedFIFO {
     saving (and reanalyzing) we can see the effects of
     this annotation: there are now 29 protected field accesses, up
     from 27. This is because the two array dereferences are now
-    counted as protected accesses (lines 60 and 77):
+    counted as protected accesses (lines 59 and 76):
     
       <mediaobject>
         <imageobject>
@@ -714,8 +714,7 @@ public class BoundedFIFO {
 @Promise("@RequiresLock(BufLock) for *(**)")
 public class BoundedFIFO {
   <emphasis>@InRegion("BufState")</emphasis>
-  @Unique
-  <emphasis>@AggregateInRegion("BufState")</emphasis>
+  <emphasis>@UniqueInRegion("BufState")</emphasis>
   LoggingEvent[] buf;
 
   <emphasis>@InRegion("BufState")</emphasis>
@@ -763,9 +762,7 @@ public class BoundedFIFO {
 @RegionLock("BufLock is this protects BufState")
 @Promise("@RequiresLock(BufLock) for *(**)")
 public class BoundedFIFO {
-  @InRegion("BufState")
-  @Unique
-  @AggregateInRegion("BufState")
+  @UniqueInRegion("BufState")
   <emphasis>private</emphasis> LoggingEvent[] buf;
 
   @InRegion("BufState")
