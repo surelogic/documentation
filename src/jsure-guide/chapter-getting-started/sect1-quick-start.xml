@@ -107,7 +107,7 @@
     <sect3>
       <title>Scanning Your Projects with JSure</title>
       
-      <para>JSure can only assure any number of projects at the same
+      <para>JSure can assure any number of projects at the same
       time time. Analysis by the tool is performed on a copy of your
       code in the background so that your work is not disrupted
       through the use of JSure.</para>
