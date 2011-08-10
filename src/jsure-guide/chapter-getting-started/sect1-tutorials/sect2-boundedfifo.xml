@@ -153,7 +153,8 @@ public class BoundedFIFO {
       <listitem>
 	<para>Choose <menuchoice><guimenu>JSure</guimenu>
 	<guisubmenu>Verify Project</guisubmenu></menuchoice> from the
-	Eclipse main menu.
+	Eclipse main menu. You can also use the keyboard shortcut
+	<keysym>Ctrl</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.
 
 	<mediaobject>
 	  <imageobject>
@@ -400,7 +401,9 @@ public class BoundedFIFO {
     <classname>BoundedFIFO</classname> and save the source
     file. Choose <menuchoice><guimenu>JSure</guimenu>
     <guisubmenu>Verify Project</guisubmenu></menuchoice> from the
-    Eclipse main menu to scan the project again.</para>
+    Eclipse main menu to scan the project again or use the keyboard
+    shortcut
+    <keysym>Ctrl</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
         
     <para>After the analysis completes, there is a new <guilabel>Scoped
     promises</guilabel> heading in the <guilabel>Verification
@@ -460,7 +463,8 @@ public void put(LoggingEvent e) {
     </para>
     
     <para>Make this change to <filename>BlockingFIFO.java</filename>
-    and run another JSure scan.</para>
+    and run another JSure scan using the keyboard shortcut
+    <keysym>Ctrl</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
   </sect3>
   
   <sect3 id="single-threaded-constructor">
