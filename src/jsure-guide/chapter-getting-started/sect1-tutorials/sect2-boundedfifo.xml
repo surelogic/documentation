@@ -192,7 +192,7 @@ public class BoundedFIFO {
 
       <listitem>
 	<para>The scan should not take long to complete. When it
-	finishes you will be prompted to swich to the <guilabel>Code
+	finishes you will be prompted to switch to the <guilabel>Code
 	Verification</guilabel> perspective.
 	
 	<mediaobject>
@@ -219,8 +219,8 @@ public class BoundedFIFO {
     the results of assuring model&ndash;code consistency. It is
     similar to a file system explorer, but instead of showing
     directories and files, it shows the chain of evidence used to
-    build verification judgements (consistent or inconsistent) about
-    your annotations.</para>
+    build a verification judgement (consistent or inconsistent) about
+    each of your annotations.</para>
     
     <para>By digging into the <guilabel>Concurrency</guilabel> results, we
     find that with this single annotation, assurance by JSure produces
@@ -259,7 +259,7 @@ public class BoundedFIFO {
     expression <code>numElts</code> on line 52. In addition the
     <guilabel>JSure Historical Source</guilabel> view shows the same
     code because the current Java code and the code when the scan was
-    preformed are the same.
+    performed are the same.
     <footnote>
       <para>You can enable line numbering in the Java editors by
       right-clicking in the editor gutter and selecting <guimenu>Show
@@ -348,13 +348,15 @@ public class BoundedFIFO {
     
     <para>We can test this hypothesis by annotating all the methods of
     <classname>BoundedFIFO</classname> with the lock precondition
-    <classname>@RequiresLock("BufLock")</classname>.   There are seven
+    <classname>@RequiresLock("BufLock")</classname>.  There are seven
     methods in the class, so we could quickly add the annotations
-    without too much work.  We can also take advantage of the 
-    <guilabel>Proposed Promises</guilabel> view to have JSure add these
-    promises for us.  The view proposes seven <classname>RequiresLock</classname>
-    annotations.  We can have JSure add these to the code by selecting them
-    all and choosing <menuchoice><guimenuitem>Add promises to
+    without too much work.  We can also take advantage of the
+    <guilabel>Proposed Promises</guilabel> view to have JSure add
+    these promises for us.  If we sort the view by its first column
+    (by clicking on the column header) we can see that the view
+    proposes seven <classname>RequiresLock</classname> annotations.
+    We can have JSure add these to the code by selecting them all and
+    choosing <menuchoice><guimenuitem>Add promises to
     code&hellip;</guimenuitem></menuchoice>:
     
       <mediaobject>
@@ -363,9 +365,9 @@ public class BoundedFIFO {
         </imageobject>
       </mediaobject>    
       
-    Doing this would bring up an Eclipse source code refactoring dialog box.  
-    We choose not to go this route here (a more complete example using
-    proposed promises is below).
+    Doing this would bring up an Eclipse source code refactoring
+    dialog box.  We choose not to go this route here (an example of
+    adding annotations using proposed promises is presented below).
     </para>
     
     <para>There is a way, however, to accomplish the
@@ -521,7 +523,12 @@ public void put(LoggingEvent e) {
 
     Press <guilabel>OK</guilabel> to save the query. It now appears in
     the space below the view and can be selected at any time via a
-    click.
+    click. Let's test the saved query. First, clear the current query
+    by pressing the <inlinegraphic fileref="images/gray_x.gif"/> image
+    in the upper-right-hand corner of the view. The view resets to its
+    initial state. Now, to get our query back, click on the <code>X
+    Results</code> link at the bottom of the view. The query is
+    redisplayed in the view.
 
     <mediaobject>
       <imageobject>
@@ -581,8 +588,8 @@ public void put(LoggingEvent e) {
         </imageobject>
       </mediaobject>
     
-    Select <guibutton>OK</guibutton> to insert the annotation.  The model
-    now assures:
+    Select <guibutton>OK</guibutton> to insert the annotation.  Rescan
+    the project and the model now assures:
 
       <mediaobject>
         <imageobject>
@@ -646,11 +653,13 @@ public class BoundedFIFO {
     referenced by <structfield>buf</structfield> is also protected by
     the lock that protects that state of the buffer.</para>
 
-    <para>After adding the annotations to the field <structfield>buf</structfield>,
-    saving (and reanalyzing) we can see the effects of
-    this annotation: there are now 29 protected field accesses, up
-    from 27. This is because the two array dereferences are now
-    counted as protected accesses (lines 59 and 76):
+    <para>After adding the annotations to the field
+    <structfield>buf</structfield> and performing a scan of the
+    <application>BoundedFIFOJSure</application> project again we can
+    see the effects of this annotation: there are now 29 protected
+    field accesses, up from 27. This is because the two array
+    dereferences are now counted as protected accesses (lines 59 and
+    76):
     
       <mediaobject>
         <imageobject>
@@ -658,7 +667,9 @@ public class BoundedFIFO {
         </imageobject>
       </mediaobject>      
       
-      The models and code in the BoundedFIFOJSure project are now consistent with no warnings.
+      The models and code in the
+      <application>BoundedFIFOJSure</application> project are now
+      consistent with no warnings.
     </para>
   </sect3>
 
@@ -674,7 +685,7 @@ public class BoundedFIFO {
     by the lock.  This is not something that we always want to do, and using the 
     <structfield>Instance</structfield> region in this way, while convenient, 
     does not usually describe the design intent as well as one might like.  It is
-    often better to use an expliclty declared region.  In real-world use of the JSure
+    often better to use an explicitly declared region.  In real-world use of the JSure
     tool explicitly declared regions are far more common than the use of the
     default <structfield>Instance</structfield> region. It is important for you to
     understand how to use explicitly declared regions.  Here we demonstrate how to
@@ -693,9 +704,11 @@ public class BoundedFIFO {
   &hellip;
 }</programlisting>
     
-    After making this change, the model still assures, but upon closer inspection
-    the assurance is essentially vacuous because it contains no protected or unprotected
-    field accesses, although the method preconditions are still shown to be satisfied:
+    After making this change and performing a scan of the project, the
+    model still assures, but upon closer inspection the assurance is
+    essentially vacuous because it contains no protected or
+    unprotected field accesses, although the method preconditions are
+    still shown to be satisfied:
     
       <mediaobject>
         <imageobject>
@@ -704,16 +717,17 @@ public class BoundedFIFO {
       </mediaobject>      
     </para>
     
-    <para>The problem here is that the region <structfield>BufState</structfield>
-    is initially empty.  It needs to be populated with actual state, that is, 
-    with fields.  This is done by annotating fields with the <classname>InRegion</classname>
-    annotation:
+    <para>The problem here is that the region
+    <structfield>BufState</structfield> is initially empty.  It needs
+    to be populated with actual state, that is, with fields.  This is
+    done by annotating fields with the <classname>InRegion</classname>
+    annotation and changing our <classname>Unique</classname>
+    annotation to a <classname>UniqueInRegion</classname> annotation:
     
       <programlisting>@Region("BufState")
 @RegionLock("BufLock is this protects BufState")
 @Promise("@RequiresLock(BufLock) for *(**)")
 public class BoundedFIFO {
-  <emphasis>@InRegion("BufState")</emphasis>
   <emphasis>@UniqueInRegion("BufState")</emphasis>
   LoggingEvent[] buf;
 
@@ -775,6 +789,43 @@ public class BoundedFIFO {
   <emphasis>private</emphasis> int size;
   &hellip;
 }</programlisting>
+
+Go ahead and make these changes and scan the project again. The
+verification results should not change.
     </para>
+  </sect3>
+
+  <sect3 id="named-region">
+    <title>Deleting Old Scans</title>
+
+    <para>JSure saves each scan that you run. The <guilabel>JSure
+    Scans</guilabel> view lists these scans and you can view their
+    data by changing which scan is checked. Check a few of your
+    earlier scans and note how the other JSure views change. Each time
+    a new scan completes the view automatically selects this scan so
+    that it's results are visible to the tool user.</para>
+
+    <para>The <guilabel>JSure Scans</guilabel> view also lets you
+    delete old scans which take up disk space on your machine. This is
+    done by selecting them and choosing
+    <menuchoice><guimenu>Delete</guimenu></menuchoice> from the view's
+    context menu.</para>
+
+    <para>We are done with the scans we performed on
+    <application>BoundedFIFOJSure</application> so select all the
+    scans in the view (with the mouse or using
+    <keysym>Ctrl</keysym>+<keysym>A</keysym>) and delete them with the
+    view's context menu as shown below.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/deleting-boundedfifo-scans.png"/>
+      </imageobject>
+    </mediaobject>
+    </para>
+
+    <para>You are now finished with this tutorial. The next tutorial
+    works on a larger codebase and presents the use of JSure to verify
+    lock policies that use <code>util.concurrent</code> locks.</para>
   </sect3>
 </sect2>

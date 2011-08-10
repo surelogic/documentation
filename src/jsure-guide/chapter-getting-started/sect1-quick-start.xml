@@ -298,7 +298,7 @@
 
       <para>The <guilabel>Proposed Promises</guilabel> view lists
       annotations, also called <emphasis>promises</emphasis> about
-      your code, that the tool has infered you may want to add to your
+      your code, that the tool has inferred you may want to add to your
       code. The tool uses your existing annotations and the
       verification results to generate this list of proposals. The
       tool will automatically add these to the code if you select the
