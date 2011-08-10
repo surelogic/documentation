@@ -4,21 +4,20 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <sect1 id="tutorials"
-    xmlns:xi="http://www.w3.org/2001/XInclude">
+       xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Tutorials</title>
 
   <para>This section contains three tutorials demonstrating the use of
   JSure and SureLogic program annotations to assure the correct use of
   locks in three concurrent programs.  The first tutorial uses a small
-  closed-world example to demonstrate the complete assurance of a class
-  and its usage, starting with no annotations at all.  The second and
-  third examples begin
-  with a partially annotated program, and demonstrates more
-  sophisticated concepts such as support for
+  closed-world example to demonstrate the complete assurance of a
+  class and its usage, starting with no annotations at all.  The
+  second and third examples begin with a partially annotated program,
+  and demonstrates more sophisticated concepts such as support for
   <package>java.util.concurrent</package> reader&ndash;writer
   locks.</para>
 
-<figure id="fig-tutorial-installing-projects">
+  <figure id="fig-tutorial-installing-projects">
     <title>Menu item to install tutorial projects into your workspace</title>
     <mediaobject>
       <imageobject>
@@ -39,9 +38,8 @@
   linkend="fig-tutorial-installing-projects" /> and <xref
   linkend="fig-tutorial-jsure-install" />. Note that the
   PlanetBaronJSure project will <emphasis>not</emphasis> compile
-  without errors until you enable JSure analysis on this project. This
-  action will add the <package>promises.jar</package> file to the
-  project's build path (as described below).</para>
+  without errors until you add the promises JAR file to the project's
+  build path (as described below).</para>
 
   <figure id="fig-tutorial-jsure-install">
     <title>Adding BoundedFIFOJSure and PlanetBaronJSure to your workspace</title>

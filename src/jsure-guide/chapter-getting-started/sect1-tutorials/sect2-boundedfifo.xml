@@ -52,66 +52,45 @@
   <classname>@RegionLock</classname>,
   <classname>@RequiresLock</classname>,
   <classname>@Borrowed</classname>, <classname>@Unique</classname>,
-  <classname>@Aggregate</classname>, and
-  <classname>@Promise</classname>. </para>
+  and <classname>@Promise</classname>. </para>
     
   <para>After completely assuring the project, we show how the annotated model
   for <classname>BoundedFIFO</classname> can be augmented by named regions
-  of state using the annotations <classname>Region</classname> and
-  <classname>InRegion</classname>.</para>
+  of state using the annotations <classname>@Region</classname>,
+  <classname>@InRegion</classname>, and <classname>@UniqueInRegion</classname>.</para>
   
   <sect3>
-    <title>Enabling Assurance and Adding the SureLogic Annotation Types</title>
-      
-    <para>Before we can add annotations to the project, we need to add the
+    <title>Adding the SureLogic Annotation Types to the Project</title>
+    
+    <para>Before we can add annotations to the project's code, we need to add the
     SureLogic annotation types in the package <package>com.surelogic</package>
-    to the class path.  This is most easily done
-    by allowing JSure to do it for us when we focus verification on the
-    project:
-      
-      <orderedlist>
-        <listitem>
-          <para>Select the BoundedFIFOJSure project in the
-          <guilabel>Package Explorer</guilabel>.</para>
-        </listitem>
-        <listitem>
-          <para>Press the icon <guiicon><inlinegraphic
-          fileref="images/jsure_verify.gif"/></guiicon> in the
-          <guilabel>Package Explorer</guilabel> toolbar.</para>
-        </listitem>
-        <listitem>
-          <para>Choose <guilabel>Add to Project Root</guilabel> when prompted 
-          by JSure whether to add <filename>promises.jar</filename> to the
-          project and its build path:
-            
-            <mediaobject>
-              <imageobject>
-                <imagedata fileref="images/add-promises-jar.png" />
-              </imageobject>
-            </mediaobject>
-            
-          JSure now copies the <filename>promises.jar</filename> to the root 
-          directory of the project and adds it to the build path.</para>
-        </listitem>
-        <listitem>
-          <para>If you are working with a fresh workspace, JSure may also ask
-          if you would like to switch to the <guilabel>Code Verification</guilabel>
-          perspective:
+    to the project's class path.  This is most easily done
+    by allowing JSure to do it for us:
+    
+    <orderedlist>
+      <listitem>
+	<para>Select
+	<menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
+	Promises Library in Project...</guimenuitem></menuchoice> from
+	the Eclipse menu.</para>
+      </listitem>
+      <listitem>
+	<para>Check <application>BoundedFIFOJSure</application> in the
+	dialog which appears.
 
-            <mediaobject>
-              <imageobject>
-                <imagedata fileref="images/perspective-switch.png" />
-              </imageobject>
-            </mediaobject>
-              
-          If asked, choose <guilabel>Yes</guilabel>. Otherwise you may
-          open the <guilabel>Code Verification</guilabel> perspective
-          by by selecting <menuchoice><guimenu>JSure</guimenu>
-          <guimenuitem>Open Code Verification
-          Perspective</guimenuitem></menuchoice>.</para>
-        </listitem>
-      </orderedlist>
-    </para>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/add-promises-to-boundedfifo.png" />
+	  </imageobject>
+	</mediaobject>
+
+	Then press <guilabel>OK</guilabel> to add the promises JAR to
+	the <application>BoundedFIFOJSure</application> project's
+	classpath.</para>
+      </listitem>
+    </orderedlist>
+
+    We do not need to scan the project with JSure at this time.</para>
   </sect3>
   
   <sect3 id="declaring-protected-state">
@@ -167,27 +146,64 @@ public class BoundedFIFO {
       </para>
     </note>
 
-    <para>Enabling assurance and adding annotations is not enough to see the
-    assurance results.  Unless you have previously explicitly added the
-    <guilabel>Verification Status</guilabel> view to the currently active perspective,
-    or switched to the <guilabel>Code Verification</guilabel> perspective, you still will not
-    see any assurance results.  You can open the view by using the
-    standard Eclipse <menuchoice><guimenu>Window</guimenu>
-    <guisubmenu>Show View</guisubmenu>
-    <guimenuitem>Other&hellip;</guimenuitem></menuchoice> command, and
-    then choosing <guilabel>Verification Status</guilabel> under the
-    <guilabel>JSure</guilabel> category. However, JSure provides a
-    <guilabel>Code Verification</guilabel> perspective that includes
-    this view, as well as a view layout more conducive to interacting
-    with the assurance results.  If you are not already in this perspective,
-    switch to it by choosing
-    <menuchoice><guimenu>JSure</guimenu> <guimenuitem>Open Code
-    Verification Perspective</guimenuitem></menuchoice>:
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/open-code-verification.png" />
-        </imageobject>
-      </mediaobject>    
+    <para>Adding annotations is not enough to see assurance
+    results. To scan the project
+
+    <itemizedlist>
+      <listitem>
+	<para>Choose <menuchoice><guimenu>JSure</guimenu>
+	<guisubmenu>Verify Project</guisubmenu></menuchoice> from the
+	Eclipse main menu.
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/verify-project.png" />
+	  </imageobject>
+	</mediaobject>  
+	</para>
+      </listitem>
+
+      <listitem>
+	<para>This will bring up the dialog shown below which allows
+	you to select the set of projects you want to scan from the
+	set of open Java projects in your Eclipse workspace.
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/verify-project-dialog.png" />
+	  </imageobject>
+	</mediaobject>  
+
+	Check <application>BoundedFIFOJSure</application> and press
+	<guilabel>OK</guilabel> to start a scan. A balloon
+	notification will appear telling you that the scan has been
+	started in the background and that you will be notified when
+	the scan has been completed.
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/verify-project-scan-started.png" />
+	  </imageobject>
+	</mediaobject>  
+
+	</para>
+      </listitem>
+
+      <listitem>
+	<para>The scan should not take long to complete. When it
+	finishes you will be prompted to swich to the <guilabel>Code
+	Verification</guilabel> perspective.
+	
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/perspective-switch.png" />
+	  </imageobject>
+	</mediaobject>  
+
+	Choose <guilabel>Yes</guilabel> because we want to examine the
+	scan results.</para>
+      </listitem>
+    </itemizedlist>
     </para>
 
     <para>Switching to the <guilabel>Code Verification</guilabel>
@@ -197,12 +213,13 @@ public class BoundedFIFO {
 	<imagedata fileref="images/switched-to-code-verification.png" />
       </imageobject>
     </mediaobject>
-    There are JSure results in two views: the <guilabel>Verification
-    Status</guilabel> view, and the <guilabel>Proposed Promises</guilabel>
-    view.  The first shows the results of assuring model&ndash;code consistency;
-    the second lists additional annotations whose insertion into the code
-    might improve the assurance results.  We concentrate on the assurance 
-    results for now, and return to proposed promises later in the tutorial.</para>
+    We begin our examination of the results using the
+    <guilabel>Verification Status</guilabel> view.  This view shows
+    the results of assuring model&ndash;code consistency. It is
+    similar to a file system explorer, but instead of showing
+    directories and files, it shows the chain of evidence used to
+    build verification judgements (consistent or inconsistent) about
+    your annotations.</para>
     
     <para>By digging into the <guilabel>Concurrency</guilabel> results, we
     find that with this single annotation, assurance by JSure produces
@@ -229,24 +246,30 @@ public class BoundedFIFO {
       </imageobject>
     </mediaobject>    
 
-    Double-clicking on any of the results in the <guilabel>Verification
-    Status</guilabel> view focuses an Eclipse editor on the offending
-    line of code.  Let us view line of code from the
-    assurance failure at line 52 by double-clicking on <computeroutput>Lock
-    "&lt;this&gt;.BufLock" not held when accessing this.numElts at
-    BoundedFIFO.java line 52</computeroutput>.   Eclipse opens an editor
-    window for <classname>BoundedFIFO</classname> and highlights the
-    field expression <code>numElts</code> on line 52:<footnote>
-    <para>You can enable line numbering in the Java editors by
-    right-clicking in the editor gutter and selecting
-    <guimenu>Show Line Numbers</guimenu> or by going
-    to <menuchoice><guimenu>General</guimenu>
-    <guisubmenu>Editors</guisubmenu> <guisubmenu>Text
-    Editors</guisubmenu></menuchoice> in the Eclipse
-    <guilabel>Preferences</guilabel> dialog box, and selecting
-    <guilabel>Show line numbers</guilabel> in the preference
-    pane.</para>
-  </footnote>
+    Double-clicking on any of the results in the
+    <guilabel>Verification Status</guilabel> view focuses an Eclipse
+    Java editor and the <guilabel>JSure Historical Source</guilabel>
+    view on the offending line of code.  Let us view line of code from
+    the assurance failure at line 52 by double-clicking on
+    <computeroutput>Lock "&lt;this&gt;.BufLock" not held when
+    accessing this.numElts at BoundedFIFO.java line
+    52</computeroutput>. Eclipse opens an editor window for
+    <classname>BoundedFIFO</classname> and highlights the field
+    expression <code>numElts</code> on line 52. In addition the
+    <guilabel>JSure Historical Source</guilabel> view shows the same
+    code because the current Java code and the code when the scan was
+    preformed are the same.
+    <footnote>
+      <para>You can enable line numbering in the Java editors by
+      right-clicking in the editor gutter and selecting <guimenu>Show
+      Line Numbers</guimenu> or by going to
+      <menuchoice><guimenu>General</guimenu>
+      <guisubmenu>Editors</guisubmenu> <guisubmenu>Text
+      Editors</guisubmenu></menuchoice> in the Eclipse
+      <guilabel>Preferences</guilabel> dialog box, and selecting
+      <guilabel>Show line numbers</guilabel> in the preference
+      pane.</para>
+    </footnote>
 
   <mediaobject>
     <imageobject>
@@ -374,8 +397,10 @@ public class BoundedFIFO {
     precondition to a new method.</para>
 
     <para>Add the <classname>@Promise</classname> annotation to
-    <classname>BoundedFIFO</classname> and save the source file so
-    that JSure reanalyzes the project.</para>
+    <classname>BoundedFIFO</classname> and save the source
+    file. Choose <menuchoice><guimenu>JSure</guimenu>
+    <guisubmenu>Verify Project</guisubmenu></menuchoice> from the
+    Eclipse main menu to scan the project again.</para>
         
     <para>After the analysis completes, there is a new <guilabel>Scoped
     promises</guilabel> heading in the <guilabel>Verification
@@ -434,38 +459,91 @@ public void put(LoggingEvent e) {
       </programlisting>
     </para>
     
-    <para>Make this change and save <filename>BlockingFIFO.java</filename>.</para>
+    <para>Make this change to <filename>BlockingFIFO.java</filename>
+    and run another JSure scan.</para>
   </sect3>
   
   <sect3 id="single-threaded-constructor">
     <title>Declaring a Thread-Confined Constructor</title>
 
-    <para>After analysis of the changed code completes, all the lock
-    preconditions are assured, but there are still five unprotected field
-    accesses:
+    <para>After analysis of the
+    <application>BoundedFIFOJSure</application> code completes, all
+    the lock preconditions are assured, but there are still five
+    unprotected field accesses:
     
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/boundedfifo9.png"/>
-        </imageobject>
-      </mediaobject>
-    
-    If you double-click on the five assurance failures, you will see
-    that they point to the field initializers for the fields
-    <structfield>first</structfield>, <structfield>next</structfield>,
-    and <structfield>numElts</structfield>, and to the use of the
-    fields <structfield>buf</structfield> and
-    <structfield>size</structfield> in the class&rsquo;s constructor.
-    Constructors are interesting because we cannot require the caller
-    to hold a lock on <parameter>this</parameter> because the instance
-    does not exist before the constructor is called.  Furthermore, it
-    is bad practice to use <code>synchronized</code> blocks in the
-    constructor to protect the state of the object under construction
-    because we cannot create a single atomic block that encloses all the
-    constructors invoked while initializing an object.  There would have
-    to be multiple distinct <code>synchronized</code> blocks: one in
-    the constructor for the class and one in each constructor of any
-    subclasses, etc.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo9.png"/>
+      </imageobject>
+    </mediaobject>
+
+    Getting to these results can take several click in the
+    <guilabel>Verification Status</guilabel> view. It is possible to
+    get a list of the inconsistent analysis results more directly
+    using the <guilabel>JSure Quick Search</guilabel>.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo9qs1.png"/>
+      </imageobject>
+    </mediaobject>
+
+    Select <guilabel>Analysis Result</guilabel> from the menu. This
+    lets you filter the results by the type of analysis result. The
+    graphics show that there are 41 analysis results and that 36 of
+    those results are consistent and 5 are inconsistent. Check
+    <inlinegraphic fileref="images/red_x.gif"/>
+    <guilabel>Inconsistent</guilabel>. This selection allows the
+    inconsistent analysis results through this filter. We don't need
+    another filter, so select <guilabel>Show</guilabel> to show the 5
+    inconsistent analysis results.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo9qs2.png"/>
+      </imageobject>
+    </mediaobject>
+
+    This query is useful so we want to save it for future use. Click
+    on the <inlinegraphic fileref="images/saveas_edit.gif"/> icon at
+    the lower-left of the view and enter <code>X Results</code> into
+    the dialog.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo9qs3.png"/>
+      </imageobject>
+    </mediaobject>
+
+    Press <guilabel>OK</guilabel> to save the query. It now appears in
+    the space below the view and can be selected at any time via a
+    click.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo9qs4.png"/>
+      </imageobject>
+    </mediaobject>
+    </para>
+
+    <para>If you double-click on the five assurance failures, the
+    <inlinegraphic fileref="images/red_x.gif"/> results at the right
+    above, you will see that they point to the field initializers for
+    the fields <structfield>first</structfield>,
+    <structfield>next</structfield>, and
+    <structfield>numElts</structfield>, and to the use of the fields
+    <structfield>buf</structfield> and <structfield>size</structfield>
+    in the class&rsquo;s constructor.  Constructors are interesting
+    because we cannot require the caller to hold a lock on
+    <parameter>this</parameter> because the instance does not exist
+    before the constructor is called.  Furthermore, it is bad practice
+    to use <code>synchronized</code> blocks in the constructor to
+    protect the state of the object under construction because we
+    cannot create a single atomic block that encloses all the
+    constructors invoked while initializing an object.  There would
+    have to be multiple distinct <code>synchronized</code> blocks: one
+    in the constructor for the class and one in each constructor of
+    any subclasses, etc.</para>
     
     <para>The solution is to take advantage of the fact the
     constructor is operating on a newly created object.  Specifically,
@@ -541,22 +619,21 @@ public void put(LoggingEvent e) {
     to the contents of the array by declaring the array reference to be
     <classname>@Unique</classname>&mdash;no object but the
     <classname>BoundedFIFO</classname> object can hold a reference to
-    it&mdash;and then by declaring that the state of the array is part
+    it&mdash;this also declares that the state of the array is part
     of the state of the <classname>BoundedFIFO</classname>
-    object:
+    object (its <code>Instance</code> region):
     
       <programlisting>
 @RegionLock("BufLock is this protects Instance")
 @Promise("@RequiresLock(BufLock) for *(**)")
 public class BoundedFIFO {
   <emphasis>@Unique</emphasis>
-  <emphasis>@Aggregate</emphasis>
   LoggingEvent[] buf;
   &hellip;
 }
       </programlisting>
     
-    These annotation are suggested by JSure in the <guilabel>Proposed
+    This annotation is suggested by JSure in the <guilabel>Proposed
     Promises</guilabel> view.
     </para>
     
@@ -569,7 +646,7 @@ public class BoundedFIFO {
     saving (and reanalyzing) we can see the effects of
     this annotation: there are now 29 protected field accesses, up
     from 27. This is because the two array dereferences are now
-    counted as protected accesses (lines 61 and 78):
+    counted as protected accesses (lines 60 and 77):
     
       <mediaobject>
         <imageobject>
