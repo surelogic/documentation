@@ -262,11 +262,11 @@
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/consistent_decr.gif"/></entry>
-	      <entry>Consistent verification result decorator</entry>
+	      <entry>Consistent verification judgment decorator</entry>
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/inconsistent_decr.gif"/></entry>
-	      <entry>Inconsistent verification result decorator</entry>
+	      <entry>Inconsistent verification judgment decorator</entry>
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/trusted_decr.gif"/></entry>
