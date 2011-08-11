@@ -644,8 +644,11 @@ public class BoundedFIFO {
 }
       </programlisting>
     
-    This annotation is suggested by JSure in the <guilabel>Proposed
-    Promises</guilabel> view.
+    This annotation is suggested by JSure in the
+    <guilabel>Verification Status</guilabel> view (under the
+    suggestion) and in <guilabel>Proposed Promises</guilabel>
+    view. You can use either of these views to add the promise to the
+    code.
     </para>
     
     <para>Now, as part of the state of the
