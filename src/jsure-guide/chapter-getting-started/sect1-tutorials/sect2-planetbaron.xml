@@ -44,7 +44,7 @@
   <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.
   This project already contains lock model annotations about its
   locking policies, not all of which assure (as you can see if you
-  examine the scan results). In the rest of this example we fix these
+  examine the scan results). In the rest of this tutorial we fix these
   assurance failures.</para>
   
   <sect3>
@@ -170,8 +170,8 @@
       </screen>
     </para>
       
-    <para>We are now ready to use JSure to assure
-    <application>PlanetBaron</application>.</para>
+    <para>We are now ready to examine the results from scanning the
+    <application>PlanetBaron</application> codebase with JSure.</para>
   </sect3>
   
   <sect3 id="init-results">
@@ -191,12 +191,35 @@
       </mediaobject>
     </figure>
     
-    <para>The lock model for lock
-    <structfield>ThingLock</structfield> in class
+    <para>The lock model for lock <structfield>ThingLock</structfield>
+    in class
     <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>
-    fails to assure.  The project also has two proposed
-    <classname>RequiresLock</classname> promises.  It remains to be seen
-    if these are relevant.</para>
+    fails to assure. The <classname>ThreadSafe</classname> on the
+    class
+    <classname>com.surelogic.jsure.planetbaron.game.Location</classname>
+    also fails to assure.</para>
+
+    <para>We also note, primarily because a view is painted in bright
+    yellow, that the project has a modeling problem. This view is
+    shown in <xref
+    linkend="fig-pb-initial-state-modeling-problems"/>.</para>
+
+    <figure id="fig-pb-initial-state-modeling-problems">
+      <title>Initial modeling problems for PlanetBaron</title>
+      
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-initial-state-modeling-problems.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>A modeling problem indicates a syntactic or semantic problem
+    with an annotation that has been added to the code. This modeling
+    problem is related to the visibility of <code>f_lock</code>, the
+    lock specified in the <structfield>ThingLock</structfield> locking
+    model. First we will examine the lock model for
+    <structfield>ThingLock</structfield>.</para>
   </sect3>
   
   <sect3>
@@ -271,28 +294,36 @@ public abstract class Thing {
         </imageobject>
       </mediaobject>
     </para>
+
+    <para>We see, by the <inlinegraphic fileref="images/info.gif"/>
+    result near the bottom, that JSure matches up
+    <function>lock()</function> and <function>unlock()</function>
+    calls. Calls to <function>lock()</function> and
+    <function>unlock()</function> are tracked separately because they
+    do not need to be matched up one-to-one. JSure will also flag if
+    <function>lock()</function> or <function>unlock()</function>
+    cannot be matched or if it matches inconsistently along different
+    control-flow paths.</para>
     
     <para id="lock-viz-problems">Also of note this project has a
-    warning, in the middle of the resutls, regarding the
-    <classname>RegionLock</classname> annotation that
-    <computeroutput>Lock field "this.f_lock" is less visible than region
-    "Instance"</computeroutput>.  That is, the visibility of the field
-    that references the lock object is less visible than the region
-    protected by that lock.  This is potentially problematic because it
-    means there are contexts in which the region
-    <structfield>Instance</structfield> is visible, but the reference to
-    the lock, the field <structfield>f_lock</structfield>, <emphasis>is
-    not visible</emphasis>. Whether this will be a problem for us
-    remains to be seen.</para>
+    modeling problem, in bright yellow, regarding the
+    <classname>RegionLock</classname> annotation in the
+    <classname>Thing</classname> class.
 
-    <para>Finally we see, by the blue &ldquo;i&rdquo; result near the bottom, that JSure
-    matches up <function>lock()</function> and
-    <function>unlock()</function> calls. Calls to
-    <function>lock()</function> and <function>unlock()</function> are
-    tracked separately because they do not need to be matched up
-    one-to-one. JSure will also flag if <function>lock()</function> or
-    <function>unlock()</function> cannot be matched or if it matches
-    inconsistently along different control-flow paths.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/pb-initial-state-modeling-problems.png" />
+      </imageobject>
+    </mediaobject>
+
+    That is, the visibility of the field that references the lock
+    object is less visible than the region protected by that lock.
+    This is potentially problematic because it means there are
+    contexts in which the region <structfield>Instance</structfield>
+    is visible, but the reference to the lock, the field
+    <structfield>f_lock</structfield>, <emphasis>is not
+    visible</emphasis>. Whether this will be a problem for us remains
+    to be seen.</para>
   </sect3>
 
   <sect3>
@@ -315,7 +346,7 @@ public abstract class Thing {
       <classname>Ship</classname>.  The erroneous access occurs in the
       method <function>Ship.moveTo()</function>:
 
-        <programlisting linenumbering="numbered" startinglinenumber="155">  public void moveTo(Location destination) {
+        <programlisting linenumbering="numbered" startinglinenumber="157">  public void moveTo(Location destination) {
     if (isMoving())
       throw new IllegalStateException(
           "a moving ship can't change its destination");
@@ -338,7 +369,7 @@ public abstract class Thing {
     }
   }</programlisting>
 
-    We see that the field access on line 160 in the condition of the
+    We see that the field access on line 162 in the condition of the
     <code>if</code>-statement occurs outside of the critical section
     that only spans the <code>else</code>-block.  We need to edit the
     method to expand the critical section to contain the entire
@@ -368,8 +399,10 @@ public abstract class Thing {
   }</programlisting>
     </para>
 
-    <para>After making the change, saving, and reassuring, we have 54
-    protected field accesses, up from the previous 53:
+    <para>Make the above changes (you can cut and paste the method
+    into the code) and scan the code again. The new results for
+    <structfield>ThingLock</structfield> have 54 protected field
+    accesses, up from the previous 53:
 
       <mediaobject>
         <imageobject>
@@ -384,11 +417,11 @@ public abstract class Thing {
 
     <para>You can demonstrate to yourself that JSure understands the
     when the read component and when the write component of a
-    read&ndash;write lock needs to be held by changing lines 160 and
-    174 of <function>Ship.moveTo()</function> to acquire the read lock
+    read&ndash;write lock needs to be held by changing lines 162 and
+    176 of <function>Ship.moveTo()</function> to acquire the read lock
     instead of the write lock:
 
-      <programlisting linenumbering="numbered" startinglinenumber="155">  public void moveTo(Location destination) {
+      <programlisting linenumbering="numbered" startinglinenumber="157">  public void moveTo(Location destination) {
     if (isMoving())
       throw new IllegalStateException(
           "a moving ship can't change its destination");
@@ -411,7 +444,7 @@ public abstract class Thing {
     }
   }</programlisting>
 
-    If you save these changes, the results show 49 protected field
+    If you save these changes, and run a scan, the results show 49 protected field
     accesses and 5 unprotected field accesses:
 
       <mediaobject>
@@ -426,9 +459,10 @@ public abstract class Thing {
     <structfield>ThingLock</structfield> is held.</para>
 
     <para>Restore the method to its previously corrected form by
-    changing lines 160 and 174 to invoke
+    changing lines 162 and 176 to invoke
     <function>writeLock()</function> instead of
-    <function>readLock()</function>.</para>
+    <function>readLock()</function>. When you are finished making these
+    changing these lines back, run another scan.</para>
   </sect3>
 
   <sect3>
@@ -510,9 +544,9 @@ public abstract class Thing {
     }
   }</programlisting>
 
-    At first glance, it is not easy to see what is the problem because
-    all the method calls originate from within
-    <code>synchronized</code> blocks that do lock on the correct
+    At first glance, it is not easy to spot the problem because all
+    the method calls originate from within <code>synchronized</code>
+    blocks that appear to lock on the correct
     <classname>Ship</classname> or <classname>Planet</classname>
     object.
     </para>
@@ -642,11 +676,13 @@ public abstract class Thing {
     return f_lock;
   }
       </programlisting>
+
+      Add this code to the the <classname>Thing</classname> class.
     </para>
 
-    <para>We can now update
-    <function>MapView.paintComponent()</function> (again) to use the
-    new lock getter method:
+    <para>Now update <function>MapView.paintComponent()</function>
+    (again) in the <classname>MapView</classname> class to use the new lock
+    getter method:
 
       <programlisting>  @Override
   protected void paintComponent(Graphics g) {
@@ -689,9 +725,9 @@ public abstract class Thing {
   }</programlisting>
     </para>
 
-    <para>The class <classname>MapView</classname> now compiles, and
-    we have JSure assurance results again.  Surprisingly, the lock
-    preconditions still fail to assure:
+    <para>The <classname>MapView</classname> class now compiles. So
+    run another JSure scan.  Surprisingly, the lock preconditions
+    still fail to assure:
 
       <mediaobject>
         <imageobject>
@@ -712,7 +748,7 @@ public abstract class Thing {
   </sect3>
 
   <sect3>
-    <title>One More Fix</title>
+    <title>One More Fix: Locks must be final</title>
 
     <para>What is the lingering problem with the lock preconditions?
     To find out, we turn our attention once more to the
@@ -792,6 +828,53 @@ public abstract class Thing {
   	  <imagedata fileref="images/pb-thing-lock-assures.png" />
         </imageobject>
       </mediaobject>
+
+      Why is there a red dot on the verification result? This
+      indicates that the judgment is contingent upon a promise made by
+      the programmer. This means the the code likely contains a
+      <classname>Vouch</classname> or <classname>Assume</classname>
+      annotation. If we open the <structfield>ThingLock</structfield>
+      and follow the trail of red dots we find a
+      <classname>Vouch</classname> has been placed at line 94 of
+      <classname>Ship</classname>. The programmer hasn't finished
+      modeling, but thinks the constructor is okay.
+
+      <mediaobject>
+        <imageobject>
+  	  <imagedata fileref="images/pb-reddot-1.png" />
+        </imageobject>
+      </mediaobject>
+
+      <mediaobject>
+        <imageobject>
+  	  <imagedata fileref="images/pb-reddot-2.png" />
+        </imageobject>
+      </mediaobject>
+
+      Notice that the use of the <classname>Vouch</classname> turns
+      what would have been an <inlinegraphic
+      fileref="images/red_x.gif"/> result into a <inlinegraphic
+      fileref="images/plus_vouch.gif"/>.
     </para>
+
+    <para>There is a simple way to find all the vouches in your code
+    using the <guilabel>JSure Quick Search</guilabel> view. In this
+    view select the <guilabel>Annotation</guilabel> filter and scroll
+    down and check the <emphasis>Vouch</emphasis>. The graph shows you
+    how many of each type of annotation. In this case there is only
+    one <classname>Vouch</classname> annotation in the code. To see
+    the annotation, select <guilabel>Show</guilabel> in the menu to
+    the right of the filter.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/pb-reddot-3.png" />
+      </imageobject>
+    </mediaobject>
+    </para>
+
+ <para>You are now finished with this tutorial. The next tutorial
+    step through finding what was a real bug in a concurrency
+    library.</para>
   </sect3>
 </sect2>
