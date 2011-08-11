@@ -219,7 +219,7 @@ public class BoundedFIFO {
     the results of assuring model&ndash;code consistency. It is
     similar to a file system explorer, but instead of showing
     directories and files, it shows the chain of evidence used to
-    build a verification judgement (consistent or inconsistent) about
+    build a verification judgment (consistent or inconsistent) about
     each of your annotations.</para>
     
     <para>By digging into the <guilabel>Concurrency</guilabel> results, we

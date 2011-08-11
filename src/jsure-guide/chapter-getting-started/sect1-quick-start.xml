@@ -333,7 +333,7 @@
 	      analyses. An analysis result is a finding reported by
 	      one of the JSure tool's verifying analyses. These
 	      results form the basis used to prove that an annotation
-	      is consistent, i.e., a verification judgement about a
+	      is consistent, i.e., a verification judgment about a
 	      promise. This filter could be used to quickly find all
 	      inconsistent analysis results so that you can work to
 	      eliminate them.</entry>
@@ -358,12 +358,12 @@
 	      <entry>Allows you to filter the results to a particular set of Eclipse projects.</entry>
 	    </row>
 	    <row>
-	      <entry><inlinegraphic fileref="images/verification_result.gif"/> Verification Judgement</entry>
+	      <entry><inlinegraphic fileref="images/verification_result.gif"/> Verification Judgment</entry>
 	      <entry>Allows you to filter the results by the
-	      verification judgement on an annotation. This filter
+	      verification judgment on an annotation. This filter
 	      could be used to find all consistent promises or find
 	      promises with a "red-dot" (contingent verification
-	      judgements).</entry>
+	      judgments).</entry>
 	    </row>
 	  </tbody>
 	</tgroup>
