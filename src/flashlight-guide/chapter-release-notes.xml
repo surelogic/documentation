@@ -30,7 +30,7 @@
 	<listitem>
 	  <para><emphasis>New Overview Page</emphasis> &mdash; Flashlight now
 	  displays an overview for a run after it has been prepared.  See the
-	  <link linked="flashlight-run-overview">Run Overview</link>
+	  <link linkend="flashlight-run-overview">Run Overview</link>
 	  documentation for details.
 	  </para>
 	</listitem>
