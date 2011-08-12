@@ -644,8 +644,8 @@
 
     <para>JSure is commercial software and a license is required to
     use it. Licenses are obtained from SureLogic and expire after some
-    period of time. Lack of a license will prohibit you from running
-    assuing code.  Selecting <guimenuitem>Manage SureLogic
+    period of time. Lack of a license will prohibit you from scanning code with JSure.
+    Selecting <guimenuitem>Manage SureLogic
     Licenses</guimenuitem> from the <guimenu>JSure</guimenu> menu
     brings up the license management form as seen in <xref
     linkend="fig-license-management" />. For JSure to operate properly
@@ -692,8 +692,10 @@
     row in the license table that matches the type of license.  For
     example, if you have been sent a JSure license select the
     JSure row in the license table.  Next press the
-    <guibutton>Install License</guibutton> button.  You will be
-    prompted for the location of your license file.  The tool checks
+    <guibutton>Install from File</guibutton> or <guibutton>Install from Clipboard</guibutton>
+    button depending upon if you saved your license
+    to a file or copied it from an email.  Once the license is loaded press <guibutton>Activate</guibutton>
+    to activate it with SureLogic. The tool checks
     with SureLogic and reports that your license has been installed
     and returns showing information about the installed license. The
     license file is not examined by the tool after the installation
