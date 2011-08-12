@@ -64,13 +64,250 @@
 	version of JSure.</para>
 	<orderedlist>
 	  <listitem>
-	    <para><emphasis>New approach to scanning annotated code</emphasis>
-	    &mdash; TBD</para>
+	    <para><emphasis>Persistent tool results</emphasis> &mdash;
+	    In prior releases JSure reanalyzed code when it was
+	    started. This delayed Eclipse startup and could take a
+	    significant portion of time away from the programmer's
+	    work. This problem has been solved by making JSure results
+	    persistent. Results from scans of the users code are saved
+	    and can be examined immediatly upon Ecipse startup.</para>
 	  </listitem>
 
 	  <listitem>
-	    <para><emphasis>Improved analysis performance</emphasis> &mdash; 
-	    TBD.</para>
+	    <para><emphasis>Scan model replaces "JSure as a
+	    compiler"</emphasis> &mdash; In prior releases, JSure
+	    integrated into the Eclipse Java compiler. It performed
+	    its analysis after the Java compiler completed. This could
+	    add a significant delay to code compilation. Further, the
+	    "focus" model of selecting projects to be analyzed was
+	    confusing to JSure users. To address these problems, a
+	    scan model has replaced the "JSure as a compiler"
+	    model. Rather than "focus" on a project, the user asks the
+	    tool to scan projects.</para>
+
+	    <para>To scan one or more of your projects with JSure select
+	    <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Verify
+	    Project</guimenuitem></menuchoice> from the Eclipse main menu as
+	    shown below. Using the menu can become tedious in real tool use so
+	    this command is associated with the keyboard shortcut
+	    <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>. This
+	    keyboard shortcut is worth remembering to make JSure scans easier to
+	    start.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-quick-start-verify-menu.png" />
+	      </imageobject>
+	    </mediaobject>
+
+	    This action will open the dialog shown below.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-quick-start-verify-dialog.png" />
+	      </imageobject>
+	    </mediaobject>
+
+	    This dialog allows you to select which projects are to be
+	    analyzed by JSure</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Improved support for verifying
+	    multi-project codebases</emphasis> &mdash; Prior releases
+	    could only verify a single project at a time. This release
+	    allows any number of Java projects in the workspace to be
+	    scanned. This makes JSure much simpler to use on larger
+	    real-world codebases that are spread into a large number
+	    of Eclipse Java project.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>JSure scans run in a separate
+	    VM</emphasis> &mdash; Scans of code in prior JSure
+	    releases were performed in the same VM as Eclipse. This
+	    could cause Eclipse to run low on memory (or run
+	    out). This release of JSure runs scans in a separate VM to
+	    elimiate the memory footprint of the (large and complex)
+	    JSure analysis infrastructure.</para>
+
+	    <para>The memory and thread use of the VM started for
+	    scans can be controlled in the SJure preferences.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-prefs-vm.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Long running analysis warning and timeout supported</emphasis>
+	    &mdash; If a codebase contains complex code that takes a
+	    significant amount of time to analyse, JSure now supports
+	    a timeout of analysis execution on a particular element of
+	    control flow of the code. The tool now produces a warning
+	    that a element of control flow (a method or constructor)
+	    takes a long time to analyze. Optionally, the tool can be
+	    told to "timeout" the analysis.</para>
+
+	    <para>The warning time and timeout time can be configured in the JSure preferences.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-prefs-timeout.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+
+	    <para>Warnings about methods and constructors that take a
+	    long time to analyze appear as shown below.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-timeout-warning.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+
+	    <para>When a timeout occurs the analysis result is
+	    highlighted by a <inlinegraphic
+	    fileref="images/timeout_x.gif"/> as shown below.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-timeout-coe.png" />
+	      </imageobject>
+	    </mediaobject>
+
+	    It is easy to use the <guilabel>JSure Quick
+	    Search</guilabel> <emphasis>Analysis Result</emphasis>
+	    filter to find all <inlinegraphic
+	    fileref="images/timeout_x.gif"/> results in a scan.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-timeout-query.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Improved analysis performance</emphasis>
+	    &mdash; The performance of slow-running analyses, in
+	    particular the uniqueness analysis, has been significantly
+	    improved in this release.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Verification of the Goetz/Perlis
+	    @ThreadSafe annotation now supported</emphasis> &mdash;
+	    Support for verification of thread safe classes has been
+	    added to JSure.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-threadsafe.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+
+	    <para>The <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project, an animation library for Swing
+	    and SWT, contains a complex example of use of the
+	    <classname>ThreadSafe</classname> annotation in its <ulink
+	    url="http://java.net/projects/timingframework/sources/svn/content/trunk/timingframework-core/src/org/jdesktop/core/animation/timing/Animator.java?rev=239">Animator</ulink>
+	    class that has been verified by JSure.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Verification of the Goetz/Perlis
+	    @Immutable annotation now supported</emphasis> &mdash;
+	    Support for verification of immutable classes has been
+	    added to JSure.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-immutable.png" />
+	      </imageobject>
+	    </mediaobject>
+            </para>
+
+	    <para>The red dot above is from the use of
+	    <classname>@Vouch("Immutable")</classname> on one of the
+	    fields.
+	    <programlisting>@Vouch("Immutable")
+private final List&lt;LengthItem&gt; f_lengths;</programlisting>
+
+            This special form of the <classname>Vouch</classname>
+            annotation is required for the programmer to vouch for
+            standard collections that cannot, in general, be annotated
+            to be immutable.
+	    </para>
+
+	    <para>The <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project, an animation library for Swing
+	    and SWT, contains many examples of immutable classes that
+	    have been annotated and verified by JSure.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>@Aggregate and @AggregateInRegion
+	    annotations have been eliminated</emphasis> &mdash; The
+	    <classname>Aggregate</classname> and
+	    <classname>AggregateInRegion</classname> annotations have
+	    been elimiated. More percisely, they have been merged with
+	    the <classname>Unique</classname> annotation. Tool users
+	    will need to remove these annotations from their
+	    code. There are two possible changes
+
+	    <informaltable frame='all'>
+	      <tgroup cols='3' align='left'>
+		<thead>
+		  <row>
+		    <entry>Old</entry>
+		    <entry>New</entry>
+		    <entry>Description</entry>
+		  </row>
+		</thead>
+		<tbody>
+		  <row>
+		    <entry><programlisting>@Aggregate
+@Unique
+private MyClass foo;
+		    </programlisting></entry>
+		    <entry><programlisting>@Unique
+private MyClass foo;
+		    </programlisting></entry>
+		    <entry>The <classname>Unique</classname>
+		    annotation applied to a field now implies
+		    aggregation of the referenced field's state into
+		    the default <code>Instance</code> region.</entry>
+		  </row>
+		  <row>
+		    <entry><programlisting>@AggregateInRegion("FooState")
+@Unique
+private MyClass foo;
+		    </programlisting></entry>
+		    <entry><programlisting>@UniqueInRegion("FooState")
+private MyClass foo;
+		    </programlisting></entry>
+		    <entry>The new
+		    <classname>UniqueInRegion</classname> annotation
+		    on a field allows aggregation of the referenced
+		    field's state into the named region. This
+		    annotation also places the field itself into the
+		    named region if the field is not declared to be
+		    <code>final</code>. In the example above it would
+		    imply
+		    <classname>@InRegion("FooState")</classname>.</entry>
+		  </row>
+		</tbody>
+	      </tgroup>
+	    </informaltable>
+            </para>
 	  </listitem>
 
 	  <listitem>
