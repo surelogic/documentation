@@ -322,6 +322,17 @@ private MyClass foo;
 		<imagedata fileref="images/release-notes-400-perspective.png" />
 	      </imageobject>
 	    </mediaobject>
+	    
+	    <para>If you updated from a prior version of JSure you may need
+	    to <guilabel>Reset</guilabel> the <guilabel>Code Verification</guilabel> perspective
+	    in Eclipse as shown below. Do this if your perspective does not look similar to the
+	    screenshot shown above.</para>
+	    
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-perspective-reset.png" />
+	      </imageobject>
+	    </mediaobject>
 	  </listitem>
 
 	  <listitem>
@@ -417,6 +428,30 @@ private MyClass foo;
 
         </orderedlist>
       </section>
+
+	<section>
+		<title>Known Problems</title>
+		<para>This section describes known bugs and limitations in this
+			version of JSure.
+		</para>
+		<orderedlist>
+			<listitem>
+				<para>
+					<emphasis>Section 2 (Understanding JSure Assurance Output) of the
+						JSure Users Guide has only had minor updates made to it</emphasis>
+					&mdash; Only minor updates to Section 2 of this guide have been
+					done for this release. This portion of the documentation, based
+					upon
+					user feedback, requires a significant rewrite and possible
+					merging with the contents of the
+					<emphasis>JSure Annotation Guide</emphasis>.
+				</para>
+				<para>SureLogic is working to update this material, both Section 2 of this
+				guide and the entire <emphasis>JSure Annotation Guide</emphasis>, to best
+				convey the syntax and semantics of JSure's specification language.</para>
+			</listitem>
+		</orderedlist>
+	</section>
     </section>
 
     <section id="sec-jsure-release-3-1-1">
