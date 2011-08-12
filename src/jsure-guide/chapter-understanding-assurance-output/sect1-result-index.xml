@@ -145,14 +145,6 @@
         statement expected to return lock "<replaceable>lock</replaceable>"</link></para></listitem>
 
         <listitem><para><link
-        linkend="singleThreaded-escaping">single-threaded constructor has
-        possibly escaping receiver</link></para></listitem>
-
-        <listitem><para><link
-        linkend="singledThreaded-supported">single-threaded constructor
-        supported</link></para></listitem>
-
-        <listitem><para><link
         linkend="does-not-name-static">Synchronized method <replaceable>method</replaceable>:
         "<replaceable>Class</replaceable>.class" is not identifiable as a programmer-declared
         lock</link></para></listitem>

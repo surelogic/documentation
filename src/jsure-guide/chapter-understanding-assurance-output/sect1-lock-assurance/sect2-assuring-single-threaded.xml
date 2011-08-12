@@ -4,83 +4,9 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <sect2 id="assuring-single-threaded">
-  <title>Assuring Constructors:
-  <classname>@SingleThreaded</classname></title>
+  <title>Assuring Constructors</title>
 
-  <para>The class <classname>ConstructorExample</classname> below from project 
-  <filename>Lock Output</filename>
-  demonstrates assurance issues with object constructors. Specifically,
-  each <classname>@SingleThreaded</classname> annotation appears
-  directly under the <guilabel>Concurrency</guilabel> top-level heading,
-  and field initializers and their initialization expressions are
-  assured once <emphasis>for each</emphasis> constructor in the class.
-  This section discusses the single-threaded constructors; the next,
-  <xref linkend="assuring-field-init"/> discusses field initialization
-  issues.</para>
-
-  <programlisting linenumbering="numbered" startinglinenumber="8"><emphasis>@RegionLock("L2 is this protects Instance")</emphasis>
-public class ConstructorExample {
-  private int f = 100;
-  
-  private int g = f + 10;
-  
-  private int h;
-  
-  private final Aux aux = new Aux();
-  
-  private final int bad = aux.doStuff();
-  
-  public ConstructorExample(final int a) {
-    // bad
-    h = a;
-  }
-
-  <emphasis>@SingleThreaded</emphasis>
-  <emphasis>@Borrowed("this")</emphasis>
-  // good constructor
-  public ConstructorExample(final int a, final int b) {
-    // good
-    h = a;
-    // good
-    f += b;
-  }
-  
-  <emphasis>@SingleThreaded</emphasis>
-  // bad constructor
-  public ConstructorExample() {
-    h = 10;
-  }
-  
-  <emphasis>@RegionLock("AuxLock is this protects Instance")</emphasis>
-  static class Aux {
-    private int x;
-    
-    <emphasis>@RequiresLock("AuxLock")</emphasis>
-    public int doStuff() {
-      return x; 
-    }
-  }
-}</programlisting>
-  
-  <para>Class <classname>ConstructorExample</classname> has two
-  constructors annotated with <classname>@SingleThreaded</classname>:
-  <function>ConstructorExample(int, int)</function> at line 28, and
-  <function>ConstructorExample()</function> at line 37. The annotation
-  assures for the first, but not for the second:</para>
-  
-  <mediaobject>
-    <imageobject condition="isHTML">
-      <imagedata fileref="images/lock-assurance-04.png"/>
-    </imageobject>
-    <imageobject condition="isFO">
-      <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-04.png"/>
-    </imageobject>
-  </mediaobject>
-
-  <sect3 id="singledThreaded-supported">
-    <title>single-threaded constructor supported</title>
-
-    <para>This result indicates that JSure is able to assure that the
+    <para>JSure is able to assure that the
     constructor has exclusive access to the object being constructed.
     This assurance is acheived in one of two ways:</para>
 
@@ -88,15 +14,18 @@ public class ConstructorExample {
       <listitem>
         <para>The constructor has a borrowed receiver.  That is, the
         constructor is also annotated with
-        <classname>@Borrowed("this")</classname>.</para>
+        <classname>@Unique("return")</classname> (or alternatively
+        <classname>@Borrowed("this")</classname>, which has the same
+        meaning in the case of a constructor).</para>
       </listitem>
       <listitem>
-        <para>The constructor does not start any threads and only writes
-        to the newly created object under construction. Specifically,
-        the constructor is annotated with
+        <para>The constructor does not start any threads and only
+        writes to the newly created object under
+        construction. Specifically, the constructor is annotated with
         <classname>@Starts("nothing")</classname> and its declared
         effects are contained in the effect <code>"writes
-        this:Instance"</code>.</para>
+        this:Instance"</code>. Most constructors can be annotated with
+        <classname>@RegionEffects("none")</classname></para>
       </listitem>
     </orderedlist>
 
@@ -109,18 +38,11 @@ public class ConstructorExample {
     elaborating the assurance that the receiver is unaliased. Any
     evidence about using the second option would appear under the
     subheading <guilabel>by effects</guilabel>.</para>
-  </sect3>
- 
-  <sect3 id="singleThreaded-escaping">
-    <title>single-threaded constructor has possibly escaping
-    receiver</title>
 
-    <para>This result indicates that JSure is unable to assure that the
-    object being constructed is accessed by the thread that is
+    <para>This result indicates that JSure is unable to assure that
+    the object being constructed is accessed by the thread that is
     constructing it only. That is, the receiver may escape the
-    constructing thread and not be accessed by a single thread. In our
-    example, the constructor <function>ConstructorExample()</function>
-    fails to assure because we do not provide any design intent that can
-    be used to back up the claims of single-threadedness.</para>
-  </sect3>
+    constructing thread and not be accessed by a single
+    thread. Examples are provided in the tutorials.</para>
+
 </sect2>
