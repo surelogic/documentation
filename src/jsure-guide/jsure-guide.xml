@@ -192,6 +192,11 @@
 	      </imageobject>
 	    </mediaobject>
 	    </para>
+	    
+	    <para>What can be done about a method that takes a long time to analyse? If possible, reduce
+	    the number of local variables in the method. This will speed analysis. Typically methods
+	    that are very large can be broken up into smaller methods or refactored to call a series of
+	    new methods extracted from the larger method. Doing this will also speed analysis.</para>
 	  </listitem>
 
 	  <listitem>
@@ -204,8 +209,24 @@
 	  <listitem>
 	    <para><emphasis>Verification of the Goetz/Perlis
 	    @ThreadSafe annotation now supported</emphasis> &mdash;
-	    Support for verification of thread safe classes has been
-	    added to JSure.
+	    Support for verification of thread-safe classes has been
+	    added to JSure using <classname>@ThreadSafe</classname>.</para>
+	    
+	    <para>The <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project, an animation library for Swing
+	    and SWT, contains a complex example of use of the
+	    <classname>ThreadSafe</classname> annotation in its <ulink
+	    url="http://java.net/projects/timingframework/sources/svn/content/trunk/timingframework-core/src/org/jdesktop/core/animation/timing/Animator.java?rev=239">Animator</ulink>
+	    class that has been verified by JSure.
+	    
+	    <programlisting>@ThreadSafe
+@Region("private AnimatorState")
+@RegionLock("AnimatorLock is f_lock protects AnimatorState")
+public final class Animator implements TickListener {
+&hellip;
+}
+	    </programlisting>
 	    <mediaobject>
 	      <imageobject>
 		<imagedata fileref="images/release-notes-400-threadsafe.png" />
@@ -213,20 +234,25 @@
 	    </mediaobject>
 	    </para>
 
-	    <para>The <ulink
-	    url="http://java.net/projects/timingframework">Timing
-	    Framework</ulink> project, an animation library for Swing
-	    and SWT, contains a complex example of use of the
-	    <classname>ThreadSafe</classname> annotation in its <ulink
-	    url="http://java.net/projects/timingframework/sources/svn/content/trunk/timingframework-core/src/org/jdesktop/core/animation/timing/Animator.java?rev=239">Animator</ulink>
-	    class that has been verified by JSure.</para>
 	  </listitem>
 
 	  <listitem>
 	    <para><emphasis>Verification of the Goetz/Perlis
 	    @Immutable annotation now supported</emphasis> &mdash;
 	    Support for verification of immutable classes has been
-	    added to JSure.
+	    added to JSure using <classname>@Immutable</classname>.</para>
+	    
+	    <para>The <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project, an animation library for Swing
+	    and SWT, contains many examples of immutable classes that
+	    have been annotated and verified by JSure.
+	    
+	    <programlisting>@Immutable
+public final class SplineInterpolator implements Interpolator {
+&hellip;
+}
+	    </programlisting>
 	    <mediaobject>
 	      <imageobject>
 		<imagedata fileref="images/release-notes-400-immutable.png" />
@@ -246,11 +272,70 @@ private final List&lt;LengthItem&gt; f_lengths;</programlisting>
             immutable. This is because the standard collection types
             cannot, in general, be annotated as being immutable.
 	    </para>
+	    
+	    <para>The <classname>Vouch</classname> can, optionally be given a reason
+	     that will show up in the analysis results.
+	     
+	     <programlisting>@Vouch(value="Immutable"
+       reason="Collections.unmodifiableList is used on the referenced collection")
+private final List&lt;LengthItem&gt; f_lengths;</programlisting></para>
+
+	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>Improved analysis performance</emphasis>
+	    &mdash; The performance of slow-running analyses, in
+	    particular the uniqueness analysis, has been significantly
+	    improved in this release.</para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>More understandable results for Uniqueness</emphasis>
+	    &mdash; The understandability and actionability of the results reported from
+	    the uniqueness analysis (which checks <classname>Unique</classname>,
+	    <classname>UniqueInRegion</classname>, and <classname>Borrowed</classname>
+	    annotations) has been significantly
+	    improved in this release. In particular the results are more precise
+	    which helps to avoid messages potentially confusing to the programmer.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Verification of utility classes now supported with @Utility</emphasis> &mdash;
+	    Support for verification of utility classes has been added to JSure.
+	    A utility class has static methods and state. This annotation is similar to the
+	    UML stereotype &laquo;utility&raquo; which is applied to a class
+	    that does not have instances (it is noninstantiable), but whose
+	    attributes and operations have class scope. Joshua Bloch in Effective Java (Second Edition)
+	    (Addison-Wesley 2008) refers to such classes as utility classes (in Item 4).
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-utility.png" />
+	      </imageobject>
+	    </mediaobject>
+	    
+	    An example use of the <classname>Utility</classname> annotation in the Timing Framework code is shown below.
+	    
+	    <programlisting>@Utility
+public final class TriggerUtility {
+  public static Trigger addTimingTrigger(Animator source, Animator target, TimingTriggerEvent event) {
+    &hellip;
+  }
+&hellip;
+}
+	    </programlisting>
+	    </para>
+	    
+	    <para>It is recommended that a utility class extend
+	    only <classname>java.lang.Object</classname>.
+        However this is not required because the noninstantiability of the utility
+        class makes its parent irrelevant. Further, some security coding standards
+        require all classes to extend a common base class&mdash;including utilities.
+	    </para>
 
 	    <para>The <ulink
 	    url="http://java.net/projects/timingframework">Timing
 	    Framework</ulink> project, an animation library for Swing
-	    and SWT, contains many examples of immutable classes that
+	    and SWT, contains many examples of utility classes that
 	    have been annotated and verified by JSure.</para>
 	  </listitem>
 
