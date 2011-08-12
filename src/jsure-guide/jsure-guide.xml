@@ -109,7 +109,7 @@
 	    </mediaobject>
 
 	    This dialog allows you to select which projects are to be
-	    analyzed by JSure</para>
+	    scanned by JSure.</para>
 	  </listitem>
 
 	  <listitem>
@@ -123,11 +123,11 @@
 	  </listitem>
 
 	  <listitem>
-	    <para><emphasis>JSure scans run in a separate
-	    VM</emphasis> &mdash; Scans of code in prior JSure
-	    releases were performed in the same VM as Eclipse. This
-	    could cause Eclipse to run low on memory (or run
-	    out). This release of JSure runs scans in a separate VM to
+	    <para><emphasis>JSure scans run in a separate virtual machine</emphasis>
+	    &mdash; Scans of code in prior JSure
+	    releases were performed in the same virtual machine (VM) as Eclipse. This
+	    could cause Eclipse to run low on memory&mdash;or run
+	    out. This release of JSure runs scans in a separate VM to
 	    eliminate the memory footprint of the (large and complex)
 	    JSure analysis infrastructure.</para>
 
@@ -144,13 +144,10 @@
 
 	  <listitem>
 	    <para><emphasis>Long running analysis warning and timeout supported</emphasis>
-	    &mdash; If a codebase contains complex code that takes a
-	    significant amount of time to analyse, JSure now supports
-	    a timeout of analysis execution on a particular element of
-	    control flow of the code. The tool now produces a warning
+	    &mdash; JSure produces a warning
 	    that a element of control flow (a method or constructor)
 	    takes a long time to analyze. Optionally, the tool can be
-	    told to "timeout" the analysis.</para>
+	    told to "timeout" (stop) the long running analysis.</para>
 
 	    <para>The warning time and timeout time can be configured in the JSure preferences.
 
@@ -204,6 +201,16 @@
 	    &mdash; The performance of slow-running analyses, in
 	    particular the uniqueness analysis, has been significantly
 	    improved in this release.</para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>More understandable results for Uniqueness</emphasis>
+	    &mdash; The understandability and actionability of the results reported from
+	    the uniqueness analysis (which checks <classname>Unique</classname>,
+	    <classname>UniqueInRegion</classname>, and <classname>Borrowed</classname>
+	    annotations) has been significantly
+	    improved in this release. In particular the results are more precise
+	    which helps to avoid messages potentially confusing to the programmer.</para>
 	  </listitem>
 
 	  <listitem>
@@ -282,23 +289,6 @@ private final List&lt;LengthItem&gt; f_lengths;</programlisting></para>
 
 	  </listitem>
 	  
-	  <listitem>
-	    <para><emphasis>Improved analysis performance</emphasis>
-	    &mdash; The performance of slow-running analyses, in
-	    particular the uniqueness analysis, has been significantly
-	    improved in this release.</para>
-	  </listitem>
-	  
-	  <listitem>
-	    <para><emphasis>More understandable results for Uniqueness</emphasis>
-	    &mdash; The understandability and actionability of the results reported from
-	    the uniqueness analysis (which checks <classname>Unique</classname>,
-	    <classname>UniqueInRegion</classname>, and <classname>Borrowed</classname>
-	    annotations) has been significantly
-	    improved in this release. In particular the results are more precise
-	    which helps to avoid messages potentially confusing to the programmer.</para>
-	  </listitem>
-
 	  <listitem>
 	    <para><emphasis>Verification of utility classes now supported with @Utility</emphasis> &mdash;
 	    Support for verification of utility classes has been added to JSure.
@@ -395,7 +385,13 @@ private MyClass foo;
 	    </informaltable>
             </para>
 	  </listitem>
-
+	  
+	  <listitem>
+	    <para><emphasis>Experimental @ReadOnly annotation added</emphasis>
+	    &mdash; The set of JSure annotations now contains the <classname>ReadOnly</classname>
+	    annotation. This is for development/experimental use only at this time.</para>
+	  </listitem>
+	  
 	  <listitem>
 	    <para><emphasis>JSure Code Verification perspective
 	    updated</emphasis> &mdash; The JSure perspective, called
