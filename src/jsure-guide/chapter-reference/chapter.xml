@@ -565,11 +565,27 @@
         </listitem>
       </itemizedlist>
     </para>
+     
+    <figure id="fig-jsure-prefs-1">
+      <title>The JSure Eclipse preferences pane</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/jsure-prefs-1.png"/></imageobject>
+      </mediaobject>
+    </figure>
     
     <para>The <guilabel>JSure</guilabel> pane, see <xref linkend="fig-jsure-prefs-1"/>,
     allows you to reset settings for switching to the <guilabel>Code Verification</guilabel>
-    perspective.  It has three options under the <guilabel>Appearance</guilabel> heading:
+    perspective.  It has five options under the <guilabel>Appearance</guilabel> heading:
     <itemizedlist>
+     <listitem>
+	<formalpara>
+	  <title><guibutton>Show 'balloon' notifications for scan start and completion</guibutton></title>
+
+	  <para>If selected, pop-up notifications (also called balloon notifications) will be displayed
+	  when a JSure scan is started and when it is competed.</para>
+	</formalpara>
+      </listitem>
+    
       <listitem>
 	<formalpara>
 	  <title><guibutton>Prompt to change to the Code Verification
@@ -596,14 +612,19 @@
 
       <listitem>
 	<formalpara>
-	  <title><guibutton>When modeling problems exist,
-	  automatically show the Modeling Problems
-	  view</guibutton></title>
+	  <title><guibutton>Allow the user to select the set of projects to scan even when projects are selected in the Package Explorer</guibutton></title>
 
-	  <para>If selected JSure automatically opens the
-	  <guilabel>Modeling Problems</guilabel> view when JSure
-	  analysis finishes and at least one modeling problem was
-	  reported.</para>
+	  <para>If this is checked then the project selection dialog is always shown when a scan is started. If it is not checked it is only displayed
+	  if no projects are selected in the <guilabel>Package Explorer</guilabel> view.</para>
+	</formalpara>
+      </listitem>
+      
+            <listitem>
+	<formalpara>
+	  <title><guibutton>Always save editors before verifying</guibutton></title>
+
+	  <para>If this is checked then any edits are automatically saved. It it is not checked the user is
+	  prompted to decided if they want to save edits before the scan is started.</para>
 	</formalpara>
       </listitem>
     </itemizedlist>
@@ -627,13 +648,12 @@
       </listitem>
     </itemizedlist>
 
-    It has one option under the <guilabel>Analysis Thread Use</guilabel> heading:
+    It has five options under the <guilabel>Scan/Verifying Analysis Settings</guilabel> heading:
 
     <itemizedlist>
       <listitem>
 	<formalpara>
 	  <title><guibutton>Number of threads the analysis is allowed to use</guibutton></title>
-
 	  <para>Portions of the JSure analysis are able to use
 	  multiple threads to increase performance of the
 	  analysis. This setting allows the user to control the number
@@ -642,18 +662,54 @@
 	  computer.</para>
 	</formalpara>
       </listitem>
+      
+       <listitem>
+	<formalpara>
+	  <title><guibutton>Maximum VM memory allowed for scans</guibutton></title>
+	  <para>Sets the maximum machine memory the external VM started for a JSure scan is allowed to use. In some cases, for very large codebases, the default
+	  value may need to be raised.</para>
+	</formalpara>
+      </listitem>
+      
+             <listitem>
+	<formalpara>
+	  <title><guibutton>Warn when analysis execution time exceeds</guibutton></title>
+	  <para>Reports a warning in the <guilabel>Verification Status</guilabel> view when the time to analyse
+	  a method or constructor exceeds the value set in this preference.</para>
+	</formalpara>
+      </listitem>
+      
+             <listitem>
+	<formalpara>
+	  <title><guibutton>Enable timeout of analysis execution</guibutton></title>
+	  <para>Enables timeouts (stopping) of an analysis that is taking too long. The time limit is defined by the value
+	  of <guilabel>Timeout when analysis execution time exceeds</guilabel>.</para>
+	</formalpara>
+      </listitem>
+      
+             <listitem>
+	<formalpara>
+	  <title><guibutton>Timeout when analysis execution time exceeds</guibutton></title>
+	  <para>Sets a time limit for analysis of a method or constructor. For this time to stop
+	  the analysis <guilabel>Enable timeout of analysis execution</guilabel> must be checked.</para>
+	</formalpara>
+      </listitem>
+      
     </itemizedlist>
+    </para>
     
-    The pane also has a <guibutton>Manage SureLogic Licenses</guibutton> button 
+    <para>What can be done about a method that takes a long time to analyse? If possible,
+    reduce the number of local variables in the method. This will speed analysis.
+    Typically methods that are very large can be broken up into smaller methods or refactored to
+    call a series of new methods extracted from the larger method. Doing this will also speed analysis.
+    </para>
+    
+	<para>The <guilabel>Model Naming</guilabel> section controls inferred models from the Surelogic <application>Flashlight</application> tool.</para>
+    
+    <para>The pane also has a <guibutton>Manage SureLogic Licenses</guibutton> button 
     that brings up the dialog box for installing and removing licenes; see
     <xref linkend="sec-license-management"/>.</para>
-    
-    <figure id="fig-jsure-prefs-1">
-      <title>The JSure Eclipse preferences pane</title>
-      <mediaobject>
-        <imageobject><imagedata fileref="images/jsure-prefs-1.png"/></imageobject>
-      </mediaobject>
-    </figure>
+
     
     <para>The <guilabel>Analyses</guilabel> pane allows you to choose
     which assurance analyses are actually executed by JSure.  Most of
