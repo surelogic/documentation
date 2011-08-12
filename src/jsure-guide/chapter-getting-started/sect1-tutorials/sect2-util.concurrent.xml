@@ -7,16 +7,40 @@
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Verifying <package>util.concurrent</package></title>
 
-  <para>In this example we examine <package>util.concurrent</package> from Doug
-  Lea, a concurrency library that eventually grew into the current
-  <package>java.util.concurrent</package> library.</para>
+  <para>In this example we examine <package>util.concurrent</package>
+  from Doug Lea, a concurrency library that eventually grew into the
+  current <package>java.util.concurrent</package> library. This code
+  is located in the <application>oswego.util.concurrent</application>
+  project which was previously loaded into your workspace.</para>
+
+  <para>Add the JSure annotation library to the
+  <application>oswego.util.concurrent</application> project by
+  selecting
+  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
+  Promises Library In Project...</guimenuitem></menuchoice> from the
+  Eclipse main menu.</para>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/util-concurrent-add-jar.png" />
+      </imageobject>
+    </mediaobject>
+
+  <para>In the dialog that appears check the
+  <application>oswego.util.concurrent</application> project and press
+  <guimenuitem>OK</guimenuitem>.</para>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/util-concurrent-add-jar-dialog.png" />
+      </imageobject>
+    </mediaobject>
+
+   <para>At this point the project is ready to use with JSure.</para>
   
-  <para>Load the oswego.util.concurrent project into your workspace
-  using <menuchoice><guimenu>JSure</guimenu> <guimenuitem>Run JSure
-  Tutorials</guimenuitem></menuchoice>.  The class
-  <classname>SynchronizedVariable</classname> is the parent class of
-  several thread-safe wrapper classes.  We can view this hierachy in
-  Eclipse by
+  <para>The class <classname>SynchronizedVariable</classname> is the
+  parent class of several thread-safe wrapper classes.  We can view
+  this hierachy in Eclipse by
   
     <orderedlist>
       <listitem>
@@ -44,11 +68,10 @@
   </figure>
 
   <para>In this example we model the locking policy of
-  <classname>SynchronizedVariable</classname> and its subclasses.  Make
-  sure to add the promises library to the probject, using
-  <menuchoice><guimenu>JSure</guimenu> <guimenuitem>Add/Update
-  Promises Library&hellip;</guimenuitem></menuchoice> for example.
-  We start by annotating <classname>SynchronizedVariable</classname>:
+  <classname>SynchronizedVariable</classname> and its subclasses. Open
+  the <classname>SynchronizedVariable</classname> in the Java editor
+  and annotate it as shown below. Don't forget to <code>import</code>
+  the annotation types.
   
     <programlisting><emphasis>@Region("protected VarState")</emphasis>
 <emphasis>@RegionLock("VarLock is lock_ protects VarState")</emphasis>
@@ -59,19 +82,27 @@ public class SynchronizedVariable implements Executor {
   This creates an empty <code>protected</code> (as in protected visibility) region
   called <structfield>VarState</structfield> that is protected by
   holding a lock on the object referenced by the field
-  <structfield>lock_</structfield>. The class
-  <classname>SychronizedVariable</classname> does not have any fields
-  besides the lock reference: it is in the subclasses that we need to
-  map data into <structfield>VarState</structfield>.  A subclass can
-  add state to any region declared in a superclass that is visible to it
-  according to standard Java visibility rules.  Add the following to
-  the <structfield>value_</structfield> field in class
-  <classname>SynchronizedLong</classname> and save:
+  <structfield>lock_</structfield>.</para>
+
+  <para>The class <classname>SychronizedVariable</classname> does not
+  have any fields besides the lock reference: it is in the subclasses
+  that we need to map data into <structfield>VarState</structfield>.
+  A subclass can add state to any region declared in a superclass that
+  is visible to it according to standard Java visibility rules.  Add
+  the following to the <structfield>value_</structfield> field in
+  the <classname>SynchronizedLong</classname> class:
 
     <programlisting>  <emphasis>@InRegion("VarState")</emphasis>
   protected long value_;</programlisting>
   
-  At this point, you should have the following verification results:
+  Now scan the project with JSure. To do this choose
+  <menuchoice><guimenu>JSure</guimenu> <guisubmenu>Verify
+  Project</guisubmenu></menuchoice> from the Eclipse main menu or use
+  the keyboard shortcut
+  <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
+
+  <para>At this point, if you drill into the <guilabel>Verification
+  Status</guilabel> view, you should see the following results:
   
     <mediaobject>
       <imageobject>
@@ -79,15 +110,29 @@ public class SynchronizedVariable implements Executor {
       </imageobject>
     </mediaobject>
   </para>
+
+  <para>You could also use the <guilabel>X Results</guilabel> query we
+  created during the <application>BoundedFIFOJSure</application>
+  tutorial. To do this click on <guilabel>X Results</guilabel> link at
+  the bottom of the <guilabel>JSure Quick Search</guilabel> view.
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/sv-initial-query.png" />
+      </imageobject>
+    </mediaobject>
+  </para>
+
   
-  <para>The model fails to assure because there are three unprotected field
-  accesses.  Closer inspection (by clicking on the results) reveals that
-  the first two of these are field initializations in the class&rsquo;s constructors.
-  In the case of the constructors <function>SynchronizedLong(long)</function>
-  and <function>SynchronizedVariable()</function>, we cannot use the annotation
-  <classname>@Unique("return")</classname> because the constructor
-  <function>SynchronizedVariable()</function> aliases the new object into the
-  field <structfield>lock_</structfield>:
+  <para>The model fails to verify because there are three unprotected
+  field accesses.  Closer inspection (by double-clicking on the
+  results in either view) reveals that the first two of these are
+  field initializations in the class&rsquo;s constructors.  In the
+  case of the constructors <function>SynchronizedLong(long)</function>
+  and <function>SynchronizedVariable()</function>, we cannot use the
+  annotation <classname>@Unique("return")</classname> because the
+  constructor <function>SynchronizedVariable()</function> aliases the
+  new object into the field <structfield>lock_</structfield>:
   
     <programlisting>  /**
    * Create a SynchronizedVariable using itself as the lock
@@ -118,9 +163,25 @@ public class SynchronizedVariable implements Executor {
   @Starts("nothing")</programlisting>
   
   to <function>SynchronizedVariable()</function> and 
-  <function>SynchronizedLong(long)</function>.  Aftering saving
-  and reassuring the project, there is still one unprotected
-  field access:
+  <function>SynchronizedLong(long)</function>.</para>
+
+  <para>Scan the project with JSure. It is curious that there is still one
+  unprotected field access. Note that the <guilabel>JSure Quick
+  Search</guilabel> immediately updates to show the remaining
+  inconsistent analysis result.
+
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="images/sv-thread-confined-query.png" />
+    </imageobject>
+  </mediaobject>
+
+  It is simple to "sync" up the <guilabel>Verification
+  Status</guilabel> view. Click on the one <inlinegraphic
+  fileref="images/red_x.gif"/> result in the <guilabel>JSure Quick
+  Search</guilabel>. This will "sync" the two views. A double-click on
+  the result will also bring up the code in both the Java editor and
+  the <guilabel>JSure Historical Source</guilabel> view.
 
     <mediaobject>
       <imageobject>
@@ -129,8 +190,9 @@ public class SynchronizedVariable implements Executor {
     </mediaobject>
   </para>
   
-  <para>The unprotected access is in the <code>return</code>
-  statement of the <function>swap</function> method:
+  <para>What is wrong? We see that the unprotected access is in the
+  <code>return</code> statement of the <function>swap</function>
+  method:
   
     <programlisting>  public long swap(SynchronizedLong other) {
     if (other != this) {
@@ -149,7 +211,7 @@ public class SynchronizedVariable implements Executor {
     return value_;
   }</programlisting>
   
-  This is incorrect for two reasons: (1) By occuring outside of the 
+  This is incorrect for two reasons: (1) By occurring outside of the 
   synchronized blocks the return is not atomic with the rest of the method
   and thus another thread could alter the value of the <structfield>value_</structfield>
   before <function>swap</function> returns. And (2) Java does guarantee that a read of 
@@ -179,17 +241,24 @@ public class SynchronizedVariable implements Executor {
   }</programlisting>
   
   Using the <code>synchronized</code> <function>get</function> method 
-  helps aleviate the problem that it is not statically detectable
+  helps alleviate the problem that it is not statically detectable
   to know whether the lock on <varname>fst</varname> or <varname>snd</varname> is
   the correct lock for <code>this.value_</code> inside the <code>synchronized</code>
   blocks.
   </para>
   
-  <para>The lock model assures after making this change:
+  <para>Change the code of the <function>swap</function> method in the
+  <classname>SychronizedVariable</classname> class as shown above and
+  run a JSure scan. The <code>VarLock</code> lock model is judged to
+  be consistent with the code. Note that our query in the
+  <guilabel>JSure Quick Search</guilabel> view remains but shows no
+  results.
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/sv-final.png" />
       </imageobject>
     </mediaobject>
-  </para>    
+  </para>   
+
+  <para>You are now finished with this tutorial. Good luck using JSure on your own code.</para>
 </sect2>
