@@ -70,7 +70,7 @@
 	    significant portion of time away from the programmer's
 	    work. This problem has been solved by making JSure results
 	    persistent. Results from scans of the users code are saved
-	    and can be examined immediatly upon Ecipse startup.</para>
+	    and can be examined immediately upon Eclipse startup.</para>
 	  </listitem>
 
 	  <listitem>
@@ -128,7 +128,7 @@
 	    releases were performed in the same VM as Eclipse. This
 	    could cause Eclipse to run low on memory (or run
 	    out). This release of JSure runs scans in a separate VM to
-	    elimiate the memory footprint of the (large and complex)
+	    eliminate the memory footprint of the (large and complex)
 	    JSure analysis infrastructure.</para>
 
 	    <para>The memory and thread use of the VM started for
@@ -242,8 +242,9 @@ private final List&lt;LengthItem&gt; f_lengths;</programlisting>
 
             This special form of the <classname>Vouch</classname>
             annotation is required for the programmer to vouch for
-            standard collections that cannot, in general, be annotated
-            to be immutable.
+            standard collections that the programmer has made
+            immutable. This is because the standard collection types
+            cannot, in general, be annotated as being immutable.
 	    </para>
 
 	    <para>The <ulink
@@ -258,7 +259,7 @@ private final List&lt;LengthItem&gt; f_lengths;</programlisting>
 	    annotations have been eliminated</emphasis> &mdash; The
 	    <classname>Aggregate</classname> and
 	    <classname>AggregateInRegion</classname> annotations have
-	    been elimiated. More percisely, they have been merged with
+	    been eliminated. More precisely, they have been merged with
 	    the <classname>Unique</classname> annotation. Tool users
 	    will need to remove these annotations from their
 	    code. There are two possible changes
@@ -297,10 +298,10 @@ private MyClass foo;
 		    <entry>The new
 		    <classname>UniqueInRegion</classname> annotation
 		    on a field allows aggregation of the referenced
-		    field's state into the named region. This
+		    field's state into the named region (<code>FooState</code> in the example). This
 		    annotation also places the field itself into the
 		    named region if the field is not declared to be
-		    <code>final</code>. In the example above it would
+		    <code>final</code>. In the example it would
 		    imply
 		    <classname>@InRegion("FooState")</classname>.</entry>
 		  </row>
@@ -311,8 +312,79 @@ private MyClass foo;
 	  </listitem>
 
 	  <listitem>
-	    <para><emphasis>Query based user interface</emphasis> &mdash; 
-            TBD.</para>
+	    <para><emphasis>JSure Code Verification perspective
+	    updated</emphasis> &mdash; The JSure perspective, called
+	    the <guilabel>Code Verification</guilabel> perspective,
+	    has been updated to include new user interface
+	    elements.</para>
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-perspective.png" />
+	      </imageobject>
+	    </mediaobject>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>New view to manage JSure scans</emphasis>
+	    &mdash; The <guilabel>JSure Scans</guilabel> view has been
+	    added to allow the user to manage.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-scan-view.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>New view to query JSure results</emphasis>
+	    &mdash; A new query-based view, called the <guilabel>JSure
+	    Quick Search</guilabel> has been added to JSure. This view
+	    is similar to the one used by Sierra.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-quick-search-view.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Modeling Problems view "goes yellow" if
+	    the scan contains modeling problems</emphasis> &mdash;
+	    Modeling problems are syntatic or semantic problems with
+	    annotations placed in the code. Typically, none of these
+	    should exist in an annotated codebase. Many users felt
+	    that the addition of a item into the <guilabel>Modeling
+	    Problems</guilabel> view was to subtle. To help highlight
+	    the serious nature of any modeling problems the
+	    <guilabel>Modeling Problems</guilabel> view background now
+	    changes to yellow if any modeling problems are listed. It
+	    uses a normal background color if no modeling problems are
+	    listed. This helps to draw the programmer's attention away
+	    from the verification results to this view when modeling
+	    problems exist&mndash;so that they can be fixed by the
+	    programmer.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-yellow-view.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>JSure analysis infrastructure uses the
+	    standard Java compiler</emphasis> &mdash; Prior to this
+	    release the Eclipse Java compiler was used as the parser
+	    for Java code. This has been changed to the standard Java
+	    compiler, <application>javac</application>. This lowers
+	    the memory footprint of the JSure tool
+	    (<application>javac</application> requires less memory
+	    because we can restrict our use of it to parsing) and
+	    allows JSure scans outside the Eclipse IDE (e.g., with
+	    Ant).
+	    </para>
 	  </listitem>
 
         </orderedlist>
