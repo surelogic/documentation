@@ -2961,9 +2961,16 @@ if (o == null) {
       <title>Sierra version 4.0.0</title>
       <section>
 	<title>New and Noteworthy</title>
-	<para>
-	  Sierra is unchanged since the previous release.
-	</para>
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+	<orderedlist>
+	  	   <listitem>
+	    <para><emphasis>New SureLogic license format</emphasis> &mdash; The format
+	    of SureLogic licenses has changed. You may need to contact SureLogic to obtain
+	    a new license.</para>
+	  </listitem>
+
+        </orderedlist>
       </section>
 
       <section>

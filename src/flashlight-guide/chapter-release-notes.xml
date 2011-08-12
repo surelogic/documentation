@@ -38,7 +38,7 @@
 	  <para><emphasis>More Flashlight Queries</emphasis> &mdash; Flashlight
 	  has added a number of new queries that can be used on any prepared
 	  run:
-          </para>
+ 
           <itemizedlist>
             <listitem>What instances of this class are indirectly accessed by more than one thread?</listitem>
             <listitem>What is the stack trace for this lock event?</listitem>
@@ -48,9 +48,16 @@
             <listitem>What threads are blocked for the longest time?</listitem>
             <listitem>When and where did this lock event occur?</listitem>
           </itemizedlist>
-	</listitem>
-        <para>For documentation on these queries and others, see <xref linkend="query-reference" />.
+
+         For documentation on these queries and others, see <xref linkend="query-reference" />.
         </para>
+	</listitem>
+        
+      <listitem>
+	    <para><emphasis>New SureLogic license format</emphasis> &mdash; The format
+	    of SureLogic licenses has changed. You may need to contact SureLogic to obtain
+	    a new license.</para>
+	  </listitem>
       </orderedlist>
     </sect2>
     <sect2>

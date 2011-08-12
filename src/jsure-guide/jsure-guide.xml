@@ -408,6 +408,12 @@ private MyClass foo;
 	    Ant).
 	    </para>
 	  </listitem>
+	  
+	   <listitem>
+	    <para><emphasis>New SureLogic license format</emphasis> &mdash; The format
+	    of SureLogic licenses has changed. You may need to contact SureLogic to obtain
+	    a new license.</para>
+	  </listitem>
 
         </orderedlist>
       </section>
