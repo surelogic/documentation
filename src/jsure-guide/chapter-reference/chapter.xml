@@ -25,46 +25,56 @@
       <itemizedlist>
         <listitem>
           <formalpara>
-            <title><guimenuitem>Focus Verification&hellip;</guimenuitem></title>
+            <title><guimenuitem>Verify Project</guimenuitem></title>
             <para>This command allows the user to choose which project
             should be assured by JSure.  A dialog is opened to allow the
-            user to select which project to assure, as seen in <xref
-            linkend="fig-focus-verification-window"/>. Assurance will be
-            enabled for the selected project and disabled for all other
-            projects in the workspace.  JSure may additionally prompt the 
-            user whether to add the SureLogic annotation types JAR file
-            to the project; see <xref linkend="sec-adding-promises-jar"/>.</para>
+            user to select which projects to analyse, as seen in <xref
+            linkend="fig-verify-project-dialog"/>. This dialog remembers your prior selection and includes
+            projects selected in the <guilabel>Package Explorer</guilabel>.</para>
           </formalpara>
           
-          <figure id="fig-focus-verification-window">
-            <title><guimenuitem>The Focus Verification dialog box</guimenuitem></title>
+          <figure id="fig-verify-project-dialog">
+            <title><guimenuitem>The Verify Project dialog box</guimenuitem></title>
             <mediaobject>
-              <imageobject><imagedata fileref="images/focus-verification-window.png"/></imageobject>
+              <imageobject><imagedata fileref="images/verify-project-dialog.png"/></imageobject>
             </mediaobject>
           </figure>
         </listitem>
 
         <listitem>
           <formalpara>
-            <title><guimenuitem>Add/Update Promises Library...</guimenuitem></title>
+            <title><guimenuitem>Add/Update Promises Library in Project...</guimenuitem></title>
             <para>This command lets the user add or update the
-            promises library for a project. A dialog is opened to
-            allow the user to select the project.</para>
+            promises library for a project. The dialog shown in <xref
+            linkend="fig-add-update-promises-library-window"/> is opened to
+            allow the user to select the set of projects to update.
+            For each selected project, this command copies the <code>promises-4.0.0.jar</code>
+            into the root of the project and adds the JAR to the project's classpath.</para>
           </formalpara>
 
 	  <figure id="fig-add-update-promises-library-window">
             <title><guimenuitem>The Add/Update Promises Library dialog box</guimenuitem></title>
             <mediaobject>
-              <imageobject><imagedata fileref="images/fig-add-update-promises-library-window.png"/></imageobject>
+              <imageobject><imagedata fileref="images/add-update-promises-library-dialog.png"/></imageobject>
             </mediaobject>
           </figure>
         </listitem>
 
         <listitem>
           <formalpara>
-            <title><guimenuitem>Disable Verification of All Projects</guimenuitem></title>
-            <para>This command ensures that no project is selected for assurance.</para>
+            <title><guimenuitem>Save Promises Library As&hellip;</guimenuitem></title>
+            <para>This command copies the <code>promises-4.0.0.jar</code> to the disk. A dialog, shown in
+            <xref linkend="fig-save-promises-library-as-dialog"/>, is opened to let the user to
+            specify the directory the JAR file should be placed within. This command is useful if you need, for any reason,
+            to manually add the JSure annotation JAR file to a codebase.</para>
           </formalpara>
+          
+           <figure id="fig-save-promises-library-as-dialog">
+            <title><guimenuitem>The Add/Update Promises Library dialog box</guimenuitem></title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/save-promises-library-as-dialog.png"/></imageobject>
+            </mediaobject>
+          </figure>
         </listitem>
   
         <listitem>
