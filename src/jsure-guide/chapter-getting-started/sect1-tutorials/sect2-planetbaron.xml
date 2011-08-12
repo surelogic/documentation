@@ -744,6 +744,15 @@ public abstract class Thing {
           <imagedata fileref="images/pb-getThingLock-okay.png" />
         </imageobject>
       </mediaobject>
+
+      In addition, note that the addition of the
+      <function>Thing.getThingLock()</function> has eliminated the
+      modeling problem. the <guilabel>Modeling Problems</guilabel>
+      view is now empty and no longer has a yellow background. This
+      occurred because we have added the ability for the lock to be
+      accessed with <code>public</code> visibility and the lock
+      visibility now matches the <code>public</code> visibility of the
+      <code>Instance</code> region.
     </para>
   </sect3>
 
