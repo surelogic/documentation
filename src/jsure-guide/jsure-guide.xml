@@ -327,7 +327,12 @@ private MyClass foo;
 	  <listitem>
 	    <para><emphasis>New view to manage JSure scans</emphasis>
 	    &mdash; The <guilabel>JSure Scans</guilabel> view has been
-	    added to allow the user to manage.
+	    added to allow the user to manage scans. The view list each scan
+	    that the programmer has performed. The view lists when each scan was
+	    performed, its size on disk, and the projects examined. Checking a scan
+	    causes all the other views in the <guilabel>Code Verification</guilabel>
+	    perspective to display that scan's results. The view allows old scans
+	    to be deleted from the disk.
 	    <mediaobject>
 	      <imageobject>
 		<imagedata fileref="images/release-notes-400-scan-view.png" />
@@ -339,7 +344,7 @@ private MyClass foo;
 	  <listitem>
 	    <para><emphasis>New view to query JSure results</emphasis>
 	    &mdash; A new query-based view, called the <guilabel>JSure
-	    Quick Search</guilabel> has been added to JSure. This view
+	    Quick Search</guilabel> view has been added to JSure. This view
 	    is similar to the one used by Sierra.
 	    <mediaobject>
 	      <imageobject>
@@ -348,11 +353,28 @@ private MyClass foo;
 	    </mediaobject>
 	    </para>
 	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>Historical source code saved for each JSure scan</emphasis>
+	    &mdash; A new view, called the <guilabel>JSure
+	    Historical Source</guilabel> view has been added to JSure. This view
+	    is similar to the one used by Flashlight. When a JSure scan is run all the
+	    source code is saved to that it can be shown to the user in this view. This
+	    helps the user understand if their code has changed since the JSure scan was
+	    performed. This new view is shown, in the <guilabel>Code Verification</guilabel>
+	    perspective, to the right of the Java editor at the bottom of the perspective.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-historical-source-view.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
 
 	  <listitem>
 	    <para><emphasis>Modeling Problems view "goes yellow" if
 	    the scan contains modeling problems</emphasis> &mdash;
-	    Modeling problems are syntatic or semantic problems with
+	    Modeling problems are syntactic or semantic problems with
 	    annotations placed in the code. Typically, none of these
 	    should exist in an annotated codebase. Many users felt
 	    that the addition of a item into the <guilabel>Modeling
@@ -363,7 +385,7 @@ private MyClass foo;
 	    uses a normal background color if no modeling problems are
 	    listed. This helps to draw the programmer's attention away
 	    from the verification results to this view when modeling
-	    problems exist&mndash;so that they can be fixed by the
+	    problems exist&mdash;so that they can be fixed by the
 	    programmer.
 	    <mediaobject>
 	      <imageobject>
