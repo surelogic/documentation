@@ -146,6 +146,8 @@
 			<imagedata fileref="images/code-verification-perspective.png" />
 		</imageobject>
 	</mediaobject>
+	
+	Each of the view shown in the screenshot above is discussed in the following sections.
     </para>
     
     <sect2>
@@ -157,7 +159,13 @@
           <listitem>
             <para>By selecting <menuchoice><guimenu>JSure</guimenu>
             <guimenuitem>Open Code Verification
-            Perspective</guimenuitem></menuchoice>.</para>
+            Perspective</guimenuitem></menuchoice>.
+            <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/open-code-verification.png" />
+                </imageobject>
+              </mediaobject>
+            </para>
           </listitem>
           
           <listitem>
@@ -188,24 +196,86 @@
     </sect2>
 
 	<sect2>
-		<title>The JSure Scans View</title>
+		<title>The JSure Scans view</title>
 
-		<para></para>
+		<para>The <guilabel>JSure Scans</guilabel> view, as shown in <xref
+      linkend="fig-jsure-scans-view"/>, lists the scans performed by the tool. One and only scan in this
+      view can be checked. The checked scan is called the <emphasis>scan of focus</emphasis>. Results
+      from the scan of focus are displayed in all the other JSure views.</para>
+		
+	<figure id="fig-jsure-scans-view">
+        <title>The <guilabel>JSure Scans</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-scans-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+       <para>The view&rsquo;s toolbar has two command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/refresh.gif"/></guiicon></title>
+              <para>This button scans the disk and refreshes the list of JSure scans. This can be
+              useful if an Ant scan was added to the JSure scan directory.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/red_x.gif"/></guiicon></title>
+              <para>This button deletes the selected scans from the disk.</para>
+            </formalpara>            
+          </listitem>
+
+        </itemizedlist>
+      </para>
+      
+       <figure id="fig-jsure-scans-view-menu">
+        <title>The <guilabel>JSure Scans</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-scans-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+            <para>The view&rsquo;s menu has three commands; see <xref
+      linkend="fig-jsure-scans-view-menu"/>:
+      <itemizedlist>
+	<listitem>
+	  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/refresh.gif"/> Refresh</guiicon></title>
+	    <para>Selecting this menu item scans the disk and refreshes the list of JSure scans. This can be
+              useful if an Ant scan was added to the JSure scan directory.</para>
+	  </formalpara>            
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon>Select to View Results</guiicon></title>
+	    <para>Selecting this menu item causes the selected scan to become checked.
+	    This menu choice is only enabled when a single project is selected and it is
+	    not the scan of focus.</para>
+	  </formalpara>
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/red_x.gif"/> Delete</guiicon></title>
+	    <para>Selecting this menu item deletes the selected scans from the disk.</para>
+	  </formalpara>
+	</listitem>
+      </itemizedlist>
+      </para>      
 	</sect2>
 	
 	    <sect2>
-      <title>The Modeling Problems View</title>
-      
-      <para>A second view that is unique to the <guilabel>Code
-      Verification</guilabel> perspective is the <guilabel>Modeling
-      Problems</guilabel> view.  You can add this view to any other
-      Eclipse perspective by choosing
-      <menuchoice><guimenu>Window</guimenu> <guisubmenu>Show
-      View</guisubmenu>
-      <guimenuitem>Other&hellip;</guimenuitem></menuchoice> command,
-      and then choosing <guilabel>Modeling Problems</guilabel> under
-      the <guilabel>JSure</guilabel> category.</para>
+      <title>The Modeling Problems view</title>
 
+      <para>The <guilabel>Modeling Problems</guilabel> view, as shown in <xref
+      linkend="fig-modeling-problems-view"/>, shows any annotations
+      that are not well-formed. This means that they have syntax
+      errors or other problems such as referencing models that are not
+      defined or enscapulation/visibility issues.</para>
+      
       <figure id="fig-modeling-problems-view">
         <title>The <guilabel>Modeling Problems</guilabel> view</title>
         <mediaobject>
@@ -213,52 +283,22 @@
         </mediaobject>
       </figure>
 
-      <para>This view, as shown in <xref
-      linkend="fig-modeling-problems-view"/>, shows any annotations
-      that are not well-formed. This means that they have syntax
-      errors or other problems such as referencing models that are not
-      defined or (as shown in the figure above)
-      enscapulation/visibility issues.</para>
-
-      <para>The <guilabel>Modeling Problems</guilabel> view, by
-      default, appears when the code has any modeling
-      problems. Therefore, the view can be dismissed to save screen
-      space and it will come back when needed. This behavior can be
-      changed as shown in <xref
-      linkend="fig-modeling-problems-pref"/>.</para>
-      <figure id="fig-modeling-problems-pref">
-	<title>Preference for the Modeling Problems view</title>
-	<mediaobject>
-	  <imageobject><imagedata fileref="images/modeling-problems-pref.png"/></imageobject>
-	</mediaobject>
-      </figure>
+	<para>The background of the <guilabel>Modeling Problems</guilabel> view changes to yellow if the
+	selected scan has any modeling problems. This highlights the view to the tool user. The background
+	is changed back to normal when no modeling problems exist in the selected scan.</para>
+	
+	<para>Double-clicking on a modeling problem will open the Java editor and
+	the <guilabel>JSure Historical Source</guilabel> view to the problem annotation.</para>
 
     </sect2>
     
     <sect2>
-      <title>The Verification Status View</title>
-      
-      <para>One view that is unique to the <guilabel>Code
-      Verification</guilabel> perspective is the <guilabel>Verification
-      Status</guilabel> view.  You can add this view to any other
-      Eclipse perspective by choosing
-      <menuchoice><guimenu>Window</guimenu> <guisubmenu>Show
-      View</guisubmenu>
-      <guimenuitem>Other&hellip;</guimenuitem></menuchoice> command, and
-      then choosing <guilabel>Verification Status</guilabel> under the
-      <guilabel>JSure</guilabel> category.</para>
-
-      <figure id="fig-status-view">
-        <title>The <guilabel>Verification Status</guilabel> view</title>
-        <mediaobject>
-          <imageobject><imagedata fileref="images/status-view.png"/></imageobject>
-        </mediaobject>
-      </figure>
+      <title>The Verification Status view</title>
 
       <para>The <guilabel>Verification Status</guilabel> view displays
       the JSure assurance results in a tree form; see <xref
       linkend="fig-status-view"/>.  The results are grouped by
-      category: <guilabel>Effects</guilabel>,
+      category, for example <guilabel>Effects</guilabel>,
       <guilabel>Concurrency</guilabel>,
       <guilabel>Uniqueness</guilabel>, and <guilabel>Thread
       effects</guilabel>. There is also a special category for
@@ -266,6 +306,16 @@
       warnings</guilabel>. The specific results are described in
       detail in <xref
       linkend="understanding-assurance-output"/>.</para>
+      
+      <figure id="fig-status-view">
+        <title>The <guilabel>Verification Status</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/status-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>Double-clicking on a result in the <guilabel>Verification Status</guilabel> view highlights
+      the code associated with that result in the Java editor and the <guilabel>JSure Historical Source</guilabel> view.</para>
       
       <para>The view&rsquo;s toolbar has three command icons:
         <itemizedlist>
@@ -288,7 +338,7 @@
           <listitem>
             <formalpara>
               <title><guiicon><inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/></guiicon></title>
-              <para>This button displays a quick refence card to the
+              <para>This button displays a quick reference card to the
               user about what the iconography used in the
               <guilabel>Verification Status</guilabel> view
               means.</para>
@@ -318,13 +368,6 @@
 	</listitem>
 	<listitem>
 	  <formalpara>
-	    <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/> Hide/Show Information &amp; Warning Results</guiicon></title>
-	    <para>Toggling this menu item controls whether or not the warning results are 
-	    displayed in the view.</para>
-	  </formalpara>
-	</listitem>
-	<listitem>
-	  <formalpara>
 	    <title><guiicon><inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/> Show Iconography Quick Reference Card</guiicon></title>
 	    <para>Selecting this menu item displays a quick refence
 	    card to the user about what the iconography used in the
@@ -332,33 +375,178 @@
 	    means.</para>
 	  </formalpara>
 	</listitem>
-	<listitem>  
+	<listitem>
 	  <formalpara>
-	    <title><guiicon><inlinegraphic fileref="images/jsure_model_problems.gif"/> Show Modeling Problems</guiicon></title>
-	    <para>Selecting this menu item opens the
-	    <guilabel>Modeling Problems</guilabel> view.</para>
-	  </formalpara>          
+	    <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/> Show Information/Warning Results</guiicon></title>
+	    <para>Toggling this menu item controls whether or not the warning results are 
+	    displayed in the view.</para>
+	  </formalpara>
 	</listitem>
       </itemizedlist>
       </para>      
     </sect2>
 
 	<sect2>
-		<title>The Proposed Promises View</title>
+		<title>The Proposed Promises view</title>
 
-		<para></para>
+		<para>The <guilabel>Proposed Promises</guilabel> view, as shown in <xref
+      linkend="fig-proposed-promises-view"/>, shows any annotations
+      that have been proposed by the analysis for inclusion in the program's source code. The
+      proposed annotations are inferred from other annotations in the code.</para>
+		
+	  <figure id="fig-proposed-promises-view">
+        <title>The <guilabel>Proposed Promises</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/proposed-promises-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>To add a proposed annotation to the code select one or more
+      rows in the view and select <guilabel>Add Promises To Code&hellip;</guilabel>
+      as shown in <xref
+      linkend="fig-proposed-promises-context-menu"/>. The edit is previewed before it is made to the code.</para>
+      
+      <figure id="fig-proposed-promises-context-menu">
+        <title>The <guilabel>Proposed Promises</guilabel> view context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/proposed-promises-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
 	</sect2>
 	
 	<sect2>
-		<title>The JSure Quick Search View</title>
+		<title>The JSure Quick Search view</title>
 
-		<para></para>
+		<para>The <guilabel>JSure Quick Search</guilabel> view, as shown in <xref
+      linkend="fig-jsure-quick-search-view.png"/>, shows</para>
+		
+	  <figure id="fig-jsure-quick-search-view.png">
+        <title>The <guilabel>JSure Quick Search</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-quick-search-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The <guilabel>JSure Quick Search</guilabel> view allows
+      you to query the scan results in an ad hoc manner. You can setup
+      a series of filters on the results to focus on the particular
+      scan results that are of immediate interest. Selecting a result
+      highlights that result in the <guilabel>Verification
+      Status</guilabel> view. Double-clicking on a result in the <guilabel>JSure Quick Search</guilabel> view highlights
+      the code associated with that result in the Java editor and the <guilabel>JSure Historical Source</guilabel>.</para>
+
+      <informaltable frame='all'>
+	<tgroup cols='2' align='left'>
+	<colspec colwidth='4cm' align='left'/>
+	  <thead>
+	    <row>
+	      <entry>Filter</entry>
+	      <entry>Semantics</entry>
+	    </row>
+	  </thead>
+	  <tbody>
+	    <row>
+	      <entry><inlinegraphic fileref="images/analysis_result.gif"/> Analysis Result</entry>
+	      <entry>Allows you to filter the results by the type of
+	      analysis result reported by the tool's verifying
+	      analyses. An analysis result is a finding reported by
+	      one of the JSure tool's verifying analyses. These
+	      results form the basis used to prove that an annotation
+	      is consistent, i.e., a verification judgment about a
+	      promise. This filter could be used to quickly find all
+	      inconsistent analysis results so that you can work to
+	      eliminate them.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/annotation.gif"/> Annotation</entry>
+	      <entry>Allows you to filter the results by
+	      annotation. This filter could be used to quickly find
+	      all <classname>@RegionLock</classname> annotations in
+	      your code.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/class.gif"/> Java Class</entry>
+	      <entry>Allows you to filter the results to a particular set of Java classes.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/package.gif"/> Java Package</entry>
+	      <entry>Allows you to filter the results to a particular set of Java packages.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/project.gif"/> Project</entry>
+	      <entry>Allows you to filter the results to a particular set of Eclipse projects.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/verification_result.gif"/> Verification Judgment</entry>
+	      <entry>Allows you to filter the results by the
+	      verification judgment on an annotation. This filter
+	      could be used to find all consistent promises or find
+	      promises with a "red-dot" (contingent verification
+	      judgments).</entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
+
+      <para>The <guilabel>JSure Quick Search</guilabel> view is very
+      flexible and allows you to chain many filters together before
+      you <menuchoice><guimenu>Show</guimenu></menuchoice> a list of
+      results. You can also save queries that you find useful via the
+      toolbar at the bottom of the view.</para>
+      
+            <para>The view&rsquo;s toolbar has three command icons at the bottom:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/sierra_investigate_dot.gif"/> Open Search</guiicon></title>
+              <para>This button opens a dialog that lists all the saved searches. The user can select a search
+              and it is loaded into the <guilabel>JSure Quick Search</guilabel> view. Note that the links to the
+              right of the toolbar list as many searches as can fit. This toolbar ensures that a long list of
+              searches can be saved.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/saveas_edit.gif"/> Save Search As</guiicon></title>
+              <para>This button brings up a dialog that lets the user name the current search. The search currently
+              being shown in the <guilabel>JSure Quick Search</guilabel> view is saved under the given name.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/gray_x_dot.gif"/> Delete Search</guiicon></title>
+              <para>This button brings up a dialog that lists all saved searches. The tool user is allowed to select
+              one or more saved searches to delete.</para>
+            </formalpara>            
+          </listitem>
+
+        </itemizedlist>
+      </para>
 	</sect2>
 	
 	<sect2>
-		<title>The JSure Historical Source View</title>
+		<title>The JSure Historical Source view</title>
 
-		<para></para>
+		<para>The <guilabel>JSure Historical Source</guilabel> view, as shown in <xref
+      linkend="fig-jsure-historical-source-view.png"/>, shows what the code looked like at the time that
+       the scan was performed.</para>
+		
+	   <figure id="fig-jsure-historical-source-view.png">
+        <title>The <guilabel>JSure Historical Source</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-historical-source-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>When a JSure scan is run all the source code is saved to that it can
+      be shown to the user in this view. This helps the user understand if their code
+      has changed since the JSure scan was performed. This new view is shown,
+      in the <guilabel>Code Verification</guilabel> perspective, to the right of the
+      Java editor at the bottom of the perspective.</para>
+      
 	</sect2>
 
   </sect1>
