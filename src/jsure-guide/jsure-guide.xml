@@ -190,7 +190,7 @@
 	    </mediaobject>
 	    </para>
 	    
-	    <para>What can be done about a method that takes a long time to analyse? If possible, reduce
+	    <para>What can be done about a method that takes a long time to analyze? If possible, reduce
 	    the number of local variables in the method. This will speed analysis. Typically methods
 	    that are very large can be broken up into smaller methods or refactored to call a series of
 	    new methods extracted from the larger method. Doing this will also speed analysis.</para>
@@ -327,6 +327,38 @@ public final class TriggerUtility {
 	    Framework</ulink> project, an animation library for Swing
 	    and SWT, contains many examples of utility classes that
 	    have been annotated and verified by JSure.</para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>Annotation consistency is now tool enforced</emphasis> &mdash; The annotations on a
+	    Java declaration <emphasis>N</emphasis> need to be checked for consistency with the annotations on
+	    the immediate ancestors of <emphasis>N</emphasis>. What it means to be consistent turns out to
+	    depend on the kind of annotation and is described in the Javadoc for each annotation supported
+	    by JSure.
+	    </para>
+	    
+	    <para>As an example consider the declaration of the 
+	    <classname>ManualTimingSource</classname> from the <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project.
+	    
+	    <programlisting>public final class ManualTimingSource extends TimingSource {
+}</programlisting>
+
+		JSure reports the a modeling problem on this declaration:
+		
+		<mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-consistency.png" />
+	      </imageobject>
+	    </mediaobject>
+	    
+	    This is because its parent class, <classname>TimingSource</classname> is declared <classname>ThreadSafe</classname>.
+	    
+	    	    <programlisting>@ThreadSafe
+public abstract class TimingSource {
+}</programlisting>
+	    </para>
 	  </listitem>
 
 	  <listitem>
@@ -516,6 +548,40 @@ private MyClass foo;
 			version of JSure.
 		</para>
 		<orderedlist>
+		    <listitem>
+		    <para><emphasis>Annotation consistency on the Java standard library</emphasis> &mdash; 
+		    The annotations on the Java standard library are now checked for consistency. For example
+		    the <classname>java.util.List</classname> class has two annotations
+		    on its <classname>isEmpty</classname> method specified
+		    in our XML promise format.
+		    <programlisting>
+&lt;package name="java.util"&gt;
+    &lt;class name="List"&gt;
+        &lt;method name="isEmpty"&gt;
+            &lt;Borrowed>this&lt;/Borrowed&gt;
+            &lt;RegionEffects&gt;reads this:Instance&lt;/RegionEffects&gt;
+        &lt;/method&gt;
+    ...
+    &lt;/class&gt;
+&lt;/package&gt;</programlisting>
+
+		Any subtypes of <classname>List</classname> must declare annotations
+		consistent with those shown below.</para>
+		
+		<para>In addition to the straightforward
+		task of examining all subtypes this task has been further complicated
+		by different Java library implementations. The Oracle, Apple, and
+		openjdk distributions of Java all have subtle implementation differences
+		that cause annotation consistency "warnings" to the user when the set
+		of annotations intended for the Oracle Java distribution are used.
+		This problem is difficult to work around because the Oracle
+		distribution is widely used on Windows, Apple's is the only option
+		on OS X (Mac computers), and openjdk is predominate on Linux distributions.</para>
+		
+		<para>We are working to solve this problem in a future release with multiple annotation
+		packs and smarter warning processing. In this release we have filtered any modeling problems
+		about binary/library code out of the tool's <guilabel>Modeling Problems</guilabel> view.</para>
+		    </listitem>
 			<listitem>
 				<para>
 					<emphasis>Section 2 (Understanding JSure Assurance Output) of the

@@ -28,7 +28,7 @@
             <title><guimenuitem>Verify Project</guimenuitem></title>
             <para>This command allows the user to choose which project
             should be assured by JSure.  A dialog is opened to allow the
-            user to select which projects to analyse, as seen in <xref
+            user to select which projects to analyze, as seen in <xref
             linkend="fig-verify-project-dialog"/>. This dialog remembers your prior selection and includes
             projects selected in the <guilabel>Package Explorer</guilabel>.</para>
           </formalpara>
@@ -674,7 +674,7 @@
              <listitem>
 	<formalpara>
 	  <title><guibutton>Warn when analysis execution time exceeds</guibutton></title>
-	  <para>Reports a warning in the <guilabel>Verification Status</guilabel> view when the time to analyse
+	  <para>Reports a warning in the <guilabel>Verification Status</guilabel> view when the time to analyze
 	  a method or constructor exceeds the value set in this preference.</para>
 	</formalpara>
       </listitem>
@@ -698,7 +698,7 @@
     </itemizedlist>
     </para>
     
-    <para>What can be done about a method that takes a long time to analyse? If possible,
+    <para>What can be done about a method that takes a long time to analyze? If possible,
     reduce the number of local variables in the method. This will speed analysis.
     Typically methods that are very large can be broken up into smaller methods or refactored to
     call a series of new methods extracted from the larger method. Doing this will also speed analysis.
