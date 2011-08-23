@@ -20,7 +20,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 4.0.0&mdash;August 2011</pubdate>
+    <pubdate>Version 4.0.1&mdash;August 2011</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -53,6 +53,41 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+
+	<section id="sec-jsure-release-4-0-1">
+		<title>JSure version 4.0.1</title>
+		<para>This section describes the 4.0.1 version of the JSure Eclipse
+			client.</para>
+		<section>
+			<title>New and Noteworthy</title>
+
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>The text of a Problem Report or a Tip for Improvement can be printed or saved</emphasis>
+						&mdash;
+						The preview pane now allows the tool user to print or save the text of a problem report or tip for improvement.
+
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/release-notes-401-printorsave.png" />
+		</imageobject>
+	</mediaobject>
+	
+	This is helpful to tool users who do not have an Internet connection on their machine.
+					</para>
+				</listitem>
+			</orderedlist>
+		</section>
+
+		<section>
+			<title>Known Problems</title>
+			<para>The know problems are unchanged from JSure version 4.0.0.</para>
+		</section>
+	</section>
 
     <section id="sec-jsure-release-4-0-0">
       <title>JSure version 4.0.0</title>
