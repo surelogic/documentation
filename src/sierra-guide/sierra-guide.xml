@@ -2704,8 +2704,9 @@ if (o == null) {
       user to improve the Sierra tool as seen in <xref
       linkend="fig-bugs-and-tips-menu-send-tip" />. The dialog allows the
       user to control exactly what information is sent to SureLogic.
-      In addition, the user can preview the exact text that will be
-      sent.</para>
+      In addition,
+  the user can preview and edit the exact text that will be sent. If you have no
+  Internet connection you can print or save the text of your problem report (to fax or email).</para>
 
       <figure id="fig-bugs-and-tips-menu-send-tip">
 	<title>Dialog allowing the user to enter a tip to improve Sierra</title>
@@ -2719,8 +2720,9 @@ if (o == null) {
       about the Sierra tool as seen in <xref
       linkend="fig-bugs-and-tips-menu-problem-report" />. The dialog
       allows the user to control exactly what information is sent to
-      SureLogic.  In addition, the user can preview the exact text
-      that will be sent.</para>
+      SureLogic.  In addition,
+  the user can preview and edit the exact text that will be sent. If you have no
+  Internet connection you can print or save the text of your problem report (to fax or email).</para>
 
       <figure id="fig-bugs-and-tips-menu-problem-report">
 	<title>Dialog allowing the user to enter a problem report about Sierra</title>

@@ -80,6 +80,13 @@
 	This is helpful to tool users who do not have an Internet connection on their machine.
 					</para>
 				</listitem>
+				
+				<listitem><para><emphasis>Odd auto-selection of project to be scanned behavior fixed</emphasis>
+				&mdash; In the 4.0.0 version of JSure if you selected one or more projects in the <guilabel>Package Explorer</guilabel>
+				then started a scan the selection behavior was odd. If the project selection dialog was used then the set of selected
+				projects was merged with the set of projects from the previous scan. If the project selection dialog was no
+				used only the selected projects were scanned. This approach was inconsistent. In this release if any projects are
+				selected in the <guilabel>Package Explorer</guilabel> then the set of projects from the previous scan is ignored.</para></listitem>
 			</orderedlist>
 		</section>
 

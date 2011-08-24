@@ -79,8 +79,8 @@
       <para>In normal usage, there are three required attributes</para>
       <informaltable>
         <tgroup cols='3'>
-          <colspec colname='c1' align='left' colwidth='auto'/>
-          <colspec colname='c2' align='left' colwidth='auto'/>
+          <colspec colname='c1' align='left'/>
+          <colspec colname='c2' align='left'/>
           <colspec colname='c3' align='left'/>
           <thead>
             <row>
@@ -495,8 +495,8 @@
       <title>Attributes</title>
       <informaltable>
         <tgroup cols='3'>
-          <colspec colname='c1' align='left' colwidth='auto'/>
-          <colspec colname='c2' align='left' colwidth='auto'/>
+          <colspec colname='c1' align='left'/>
+          <colspec colname='c2' align='left'/>
           <colspec colname='c3' align='left'/>
           <thead>
             <row>
@@ -602,8 +602,8 @@
       <title>Attributes</title>
       <informaltable>
         <tgroup cols='3'>
-          <colspec colname='c1' align='left' colwidth='auto'/>
-          <colspec colname='c2' align='left' colwidth='auto'/>
+          <colspec colname='c1' align='left'/>
+          <colspec colname='c2' align='left'/>
           <colspec colname='c3' align='left'/>
           <thead>
             <row>
@@ -670,8 +670,8 @@
     classpath.</para>
     <informaltable>
       <tgroup cols='3'>
-        <colspec colname='c1' align='left' colwidth='auto'/>
-        <colspec colname='c2' align='left' colwidth='auto'/>
+        <colspec colname='c1' align='left'/>
+        <colspec colname='c2' align='left'/>
         <colspec colname='c3' align='left'/>
         <thead>
           <row>
@@ -775,8 +775,8 @@
     <table>
       <title>Controlling the Data Store</title>
       <tgroup cols='3'>
-        <colspec colname='c1' align='left' colwidth='auto'/>
-        <colspec colname='c2' align='left' colwidth='auto'/>
+        <colspec colname='c1' align='left'/>
+        <colspec colname='c2' align='left'/>
         <colspec colname='c3' align='left'/>
         <thead>
           <row>
@@ -798,8 +798,8 @@
     <table>
       <title>Controlling Instruction Rewriting</title>
       <tgroup cols='3'>
-        <colspec colname='c1' align='left' colwidth='auto'/>
-        <colspec colname='c2' align='left' colwidth='auto'/>
+        <colspec colname='c1' align='left'/>
+        <colspec colname='c2' align='left'/>
         <colspec colname='c3' align='left'/>
         <thead>
           <row>
@@ -913,8 +913,8 @@
     <table>
       <title>Controlling Method Instrumentation</title>
       <tgroup cols='3'>
-        <colspec colname='c1' align='left' colwidth='auto'/>
-        <colspec colname='c2' align='left' colwidth='auto'/>
+        <colspec colname='c1' align='left'/>
+        <colspec colname='c2' align='left'/>
         <colspec colname='c3' align='left'/>
         <thead>
           <row>
@@ -990,8 +990,8 @@
     <table>
       <title>Other</title>
       <tgroup cols='3'>
-        <colspec colname='c1' align='left' colwidth='auto'/>
-        <colspec colname='c2' align='left' colwidth='auto'/>
+        <colspec colname='c1' align='left'/>
+        <colspec colname='c2' align='left'/>
         <colspec colname='c3' align='left'/>
         <thead>
           <row>
