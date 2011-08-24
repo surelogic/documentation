@@ -5,6 +5,29 @@
 
 <part id="scrubbing" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Annotation Syntax and Consistency</title>
+  
+<chapter   xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Annotation Keywords</title>
+  
+  <para>The following list of keywords cannot be used as identifiers in JSure annotations:</para>
+  
+   <informaltable frame='none' rowsep='1'>
+	<tgroup cols='1' align='left'>
+		  <tbody>
+	    <row><entry>is</entry></row>
+	    <row><entry>protects</entry></row>
+	    <row><entry>none</entry></row>
+	    <row><entry>reads</entry></row>
+	    <row><entry>writes</entry></row>
+	    <row><entry>any</entry></row>
+	    <row><entry>readLock</entry></row>
+	    <row><entry>writeLock</entry></row>
+	    <row><entry>into</entry></row>
+	    <row><entry>nothing</entry></row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
+  </chapter>
 
   <xi:include href="chapter-region-annotations/chapter.xml"/>
           
