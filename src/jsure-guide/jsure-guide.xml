@@ -81,12 +81,13 @@
 					</para>
 				</listitem>
 				
-				<listitem><para><emphasis>Odd auto-selection of project to be scanned behavior fixed</emphasis>
-				&mdash; In the 4.0.0 version of JSure if you selected one or more projects in the <guilabel>Package Explorer</guilabel>
-				then started a scan the selection behavior was odd. If the project selection dialog was used then the set of selected
-				projects was merged with the set of projects from the previous scan. If the project selection dialog was no
-				used only the selected projects were scanned. This approach was inconsistent. In this release if any projects are
-				selected in the <guilabel>Package Explorer</guilabel> then the set of projects from the previous scan is ignored.</para></listitem>
+				<listitem><para><emphasis>Odd auto-selection of projects to be scanned behavior fixed</emphasis>
+				&mdash; In JSure version 4.0.0 if the user selected one or more projects in the <guilabel>Package Explorer</guilabel>
+				then started a scan the selection behavior was odd. In particular, if the project selection dialog appeared, then the set of projects
+				selected in the <guilabel>Package Explorer</guilabel> was merged with the set of projects last scanned. If the project selection dialog did not appear,
+				then only the set of projects selected in the <guilabel>Package Explorer</guilabel> were scanned. This approach was inconsistent
+				and a potential source of confusion to tool users. In this release, if any projects are
+				selected in the <guilabel>Package Explorer</guilabel>, then the set of projects last scanned is ignored.</para></listitem>
 			</orderedlist>
 		</section>
 
