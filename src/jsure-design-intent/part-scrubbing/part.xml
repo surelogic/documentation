@@ -14,16 +14,17 @@
    <informaltable frame='none' rowsep='1'>
 	<tgroup cols='1' align='left'>
 		  <tbody>
-	    <row><entry>is</entry></row>
-	    <row><entry>protects</entry></row>
-	    <row><entry>none</entry></row>
-	    <row><entry>reads</entry></row>
-	    <row><entry>writes</entry></row>
 	    <row><entry>any</entry></row>
+	    <row><entry>is</entry></row>
+	    <row><entry>Instance</entry></row>
+	    <row><entry>into</entry></row>
+	    <row><entry>itself</entry></row>
+	    <row><entry>protects</entry></row>
+	    <row><entry>nothing</entry></row>
+	    <row><entry>reads</entry></row>
+	    <row><entry>super</entry></row>
 	    <row><entry>readLock</entry></row>
 	    <row><entry>writeLock</entry></row>
-	    <row><entry>into</entry></row>
-	    <row><entry>nothing</entry></row>
 	  </tbody>
 	</tgroup>
       </informaltable>
