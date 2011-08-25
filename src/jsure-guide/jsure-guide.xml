@@ -65,6 +65,24 @@
 				version of JSure.
 			</para>
 			<orderedlist>
+				<listitem><para><emphasis>Test code can be excluded from a scan using a property file</emphasis>
+				&mdash;
+				It is now possible to exclude test code from a JSure scan
+      by creating a <filename>surelogic-tools.properties</filename> file at the root of each project
+      that contains test code.
+      
+      <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-401-surelogic-tools-file.png" />
+				</imageobject>
+	  </mediaobject>
+      
+      For example, the screenshot above shows the use of the <filename>surelogic-tools.properties</filename>
+	  to exclude the <filename>test</filename> source folder of <application>timingframework-core</application> Java project. 
+      For more information on how to setup a <filename>surelogic-tools.properties</filename> file
+      see <xref linkend="sec-surelogic-tool-properties-file"/>.</para>
+				
+				</listitem>
 				<listitem>
 					<para>
 						<emphasis>The text of a Problem Report or a Tip for Improvement can be printed or saved</emphasis>
@@ -88,6 +106,23 @@
 				then only the set of projects selected in the <guilabel>Package Explorer</guilabel> were scanned. This approach was inconsistent
 				and a potential source of confusion to tool users. In this release, if any projects are
 				selected in the <guilabel>Package Explorer</guilabel>, then the set of projects last scanned is ignored.</para></listitem>
+
+	            <listitem><para><emphasis>Improvements to <code>@Containable</code> and <code>@ThreadSafe</code> verifying analyses</emphasis>
+				&mdash;
+				The analyses for <code>@Containable</code> and <code>@ThreadSafe</code> now consider
+				that a field declared to be of the array type <code>P[]</code>, where <code>P</code> is a primitive type,
+				is containable.</para>
+				
+				<para>The supporting information in the results
+				for <code>@Containable</code> and <code>@ThreadSafe</code> now better indicate
+				whether the type of a field is or isn't containable or thread safe,
+				whether the field is declared to be unique, and (for <code>@ThreadSafe</code>)
+				whether the regions of the referenced object are aggregated into lock-protected regions.</para>
+
+                <para>An incorrect proposal to add @Unique as an annotation in the <code>@ThreadSafe</code> analysis has been fixed.</para>
+                
+                <para>This issue was discussed on <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=65">SureLogic's Bugzilla</ulink>.</para>
+				</listitem>
 			</orderedlist>
 		</section>
 

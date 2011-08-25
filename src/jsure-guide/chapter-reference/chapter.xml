@@ -707,7 +707,7 @@
 	<para>The <guilabel>Model Naming</guilabel> section controls inferred models from the Surelogic <application>Flashlight</application> tool.</para>
     
     <para>The pane also has a <guibutton>Manage SureLogic Licenses</guibutton> button 
-    that brings up the dialog box for installing and removing licenes; see
+    that brings up the dialog box for installing and removing licenses; see
     <xref linkend="sec-license-management"/>.</para>
 
     
@@ -736,6 +736,63 @@
       </mediaobject>
     </figure>
   </sect1>
+
+	<sect1 id="sec-surelogic-tool-properties-file">
+		<title>SureLogic tool properties file</title>
+
+		<para>It is possible to exclude particular Eclipse source folders
+			or Java packages from a scan.
+			This feature can be useful to
+			exclude test or obsolete code from scans.
+		</para>
+		<para>To do this you create a
+			<filename>surelogic-tools.properties</filename>
+	file at the root of an Eclipse Java project. Two properties are recognized
+	
+	<itemizedlist>
+		<listitem>
+			<formalpara>
+				<title><guibutton>scan.exclude.source.folder</guibutton></title>
+				<para>This property excludes an entire source folder of the project from the JSure scan.
+				The source folder is referenced by its name relative to the root of the project.</para>
+			</formalpara>
+		</listitem>
+
+		<listitem>
+			<formalpara>
+				<title><guibutton>scan.exclude.source.package</guibutton></title>
+				<para>This property excludes the contents of a package from the JSure scan.</para>
+			</formalpara>
+		</listitem>
+	</itemizedlist>
+		</para>
+
+		<figure id="fig-surelogic-tools-timingframework">
+			<title>
+				Use of the <filename>surelogic-tools.properties</filename>
+				to exclude the <filename>test</filename> source	folder of the
+				<application>timingframework-core</application> project
+			</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/surelogic-tools-timingframework.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<figure id="fig-surelogic-tools-timingframework-pkg">
+			<title>
+				Use of the <filename>surelogic-tools.properties</filename>
+				to exclude packages from the
+				<application>timingframework-swing</application> project
+			</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/surelogic-tools-timingframework-pkg.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+	</sect1>
 
   <sect1 id="sec-license-management">
     <title>License management</title>

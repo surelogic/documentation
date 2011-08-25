@@ -144,6 +144,26 @@
       the project's you want to verify (Unless you are using Java 1.4
       in which case annotations are added as Javadoc).</para>
       
+      </sect3>
+      
+      <sect3>
+      <title>Excluding Your Test Code From a Scan</title>
+      
+      <para>It is possible to exclude test code from a JSure scan
+      by creating a <filename>surelogic-tools.properties</filename> file at the root of each project
+      that contains test code.
+      
+      <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/surelogic-tools-timingframework.png" />
+				</imageobject>
+	  </mediaobject>
+      
+      For example, the screenshot above shows the use of the <filename>surelogic-tools.properties</filename>
+	  to exclude the <filename>test</filename> source folder of <application>timingframework-core</application> Java project. 
+      For more information on how to setup a <filename>surelogic-tools.properties</filename> file
+      see <xref linkend="sec-surelogic-tool-properties-file"/>.</para>
+      
     </sect3>
         
     <sect3>
