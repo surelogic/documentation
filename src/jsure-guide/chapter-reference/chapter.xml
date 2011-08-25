@@ -753,19 +753,25 @@
 		<listitem>
 			<formalpara>
 				<title><guibutton>scan.exclude.source.folder</guibutton></title>
-				<para>This property excludes an entire source folder of the project from the JSure scan.
-				The source folder is referenced by its name relative to the root of the project.</para>
+				<para>This property excludes one or more source folders of a project from scans.
+				The source folder is referenced by its name relative to the root of the project. More than one
+				source folder can be specified using a comma separated list.</para>
 			</formalpara>
 		</listitem>
 
 		<listitem>
 			<formalpara>
 				<title><guibutton>scan.exclude.source.package</guibutton></title>
-				<para>This property excludes the contents of a package from the JSure scan.</para>
+				<para>This property excludes the contents of one or more packages from scans. Packages may be
+				listed explicitly using a comma separated list. A <code>*</code> can be used within a package name
+				as a wildcard to match several packages.</para>
 			</formalpara>
 		</listitem>
 	</itemizedlist>
 		</para>
+		
+		<para>The example shown in <xref linkend="fig-surelogic-tools-timingframework"/> excludes the <filename>test</filename>
+		source folder of the <application>timingframework-core</application> project.</para>
 
 		<figure id="fig-surelogic-tools-timingframework">
 			<title>
@@ -780,6 +786,11 @@
 			</mediaobject>
 		</figure>
 		
+		<para>The example shown in <xref linkend="fig-surelogic-tools-timingframework-pkg"/> excludes any package in the
+		<application>timingframework-swing</application> project that's name starts with <code>org.jdesktop.swing.animation.demos</code>.
+		For this example that matches two packages: <code>org.jdesktop.swing.animation.demos</code>
+		and <code>org.jdesktop.swing.animation.demos.splineeditor</code>.</para>
+		
 		<figure id="fig-surelogic-tools-timingframework-pkg">
 			<title>
 				Use of the <filename>surelogic-tools.properties</filename>
@@ -792,6 +803,70 @@
 				</imageobject>
 			</mediaobject>
 		</figure>
+		
+		<para>Some further examples of excluding code within an Eclipse Java project from a scan are shown in the table below.
+
+	<informaltable frame='all'>
+		<tgroup cols='2' align='left'>
+			<thead>
+				<row>
+					<entry>Example</entry>
+					<entry>Description</entry>
+				</row>
+			</thead>
+			<tbody>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.folder=test</guilabel>
+					</entry>
+					<entry>
+						Excludes a source folder named
+						<code>test</code>
+						located at the root of the project folder from scans.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.folder=test1,test2,test3</guilabel>
+					</entry>
+					<entry>
+						Excludes three source folders from scans:
+						<code>test1</code>, <code>test2</code>, and<code>test3</code>.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=com.surelogic.tests,com.surelogic.demos</guilabel>
+					</entry>
+					<entry>
+						Excludes two packages from scans:
+						<code>com.surelogic.tests</code> and <code>com.surelogic.demos</code>.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*test*</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that contains
+						<code>test</code>
+						as part of its name.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*test*,com.surelogic.demos</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that contains
+						<code>test</code>
+						as part of its name as well as the <code>com.surelogic.demos</code> package.
+					</entry>
+				</row>
+			</tbody>
+		</tgroup>
+	</informaltable>
+	</para>
 	</sect1>
 
   <sect1 id="sec-license-management">
