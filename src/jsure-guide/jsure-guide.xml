@@ -111,7 +111,43 @@
 				&mdash;
 				The analyses for <code>@Containable</code> and <code>@ThreadSafe</code> now consider
 				that a field declared to be of the array type <code>P[]</code>, where <code>P</code> is a primitive type,
-				is containable.</para>
+				is containable. For example, the below snippet of code will now assure.
+				
+				<programlisting>import java.util.Arrays;
+import com.surelogic.*;
+
+@ThreadSafe
+@Region("private TempState")
+@RegionLock("TempLock is lock protects TempState")
+class Temp {
+
+  private final Object lock = new Object();
+
+  @UniqueInRegion("TempState")
+  private byte[] value = new byte[0];
+
+  @Unique("return")
+  public Temp() { }
+
+  public byte[] getValue() {
+    synchronized (lock) {
+      int length = value.length;
+      return Arrays.copyOf(value, length);
+    }
+  }
+
+  public void setValue(@Unique final byte[] bytes) {
+    synchronized (lock) {
+      // set value to copy of passed data
+      value = bytes;
+    }
+  }
+}</programlisting>
+
+                One curio of the above example is the use of the local variable <code>length</code> to store <code>value.length</code> to pass to <code>Arrays.copyOf</code>.
+                This is due to the uniqueness analysis, i.e., it is too conservative to verify <code>Arrays.copyOf(value, value.length)</code>.
+                This limitation is being investigated by SureLogic and is being tracked on <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=68">SureLogic's Bugzilla</ulink>.
+				</para>
 				
 				<para>The supporting information in the results
 				for <code>@Containable</code> and <code>@ThreadSafe</code> now better indicate
@@ -121,7 +157,7 @@
 
                 <para>An incorrect proposal to add @Unique as an annotation in the <code>@ThreadSafe</code> analysis has been fixed.</para>
                 
-                <para>This issue was discussed on <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=65">SureLogic's Bugzilla</ulink>.</para>
+                <para>This overall issue was discussed on <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=65">SureLogic's Bugzilla</ulink>.</para>
 				</listitem>
 			</orderedlist>
 		</section>
