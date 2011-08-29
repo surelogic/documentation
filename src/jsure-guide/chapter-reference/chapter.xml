@@ -48,7 +48,7 @@
             promises library for a project. The dialog shown in <xref
             linkend="fig-add-update-promises-library-window"/> is opened to
             allow the user to select the set of projects to update.
-            For each selected project, this command copies the <code>promises-4.0.0.jar</code>
+            For each selected project, this command copies the <code>promises-4.0.1.jar</code>
             into the root of the project and adds the JAR to the project's classpath.</para>
           </formalpara>
 
@@ -63,7 +63,7 @@
         <listitem>
           <formalpara>
             <title><guimenuitem>Save Promises Library As&hellip;</guimenuitem></title>
-            <para>This command copies the <code>promises-4.0.0.jar</code> to the disk. A dialog, shown in
+            <para>This command copies the <code>promises-4.0.1.jar</code> to the disk. A dialog, shown in
             <xref linkend="fig-save-promises-library-as-dialog"/>, is opened to let the user to
             specify the directory the JAR file should be placed within. This command is useful if you need, for any reason,
             to manually add the JSure annotation JAR file to a codebase.</para>

@@ -74,7 +74,7 @@
     project must be able to reference the SureLogic annotation types
     declared in package <package>com.surelogic</package>.  The
     SureLogic annotation types are bundled together in
-    <filename>promises-4.0.0.jar</filename>. This file must be on the
+    <filename>promises-4.0.1.jar</filename>. This file must be on the
     build path of your project for the annotations be to used.  As
     described below, the simplest way to add this JAR file to the
     project and its build path is to allow JSure to do it for
@@ -139,7 +139,7 @@
       you to select which projects are to be analyzed by JSure</para>
       
       <para>When a project is scanned, JSure does not check to see if
-      <filename>promises-4.0.0.jar</filename> is on the
+      <filename>promises-4.0.1.jar</filename> is on the
       project&rsquo;s build path. Therefore make sure you add it to
       the project's you want to verify (Unless you are using Java 1.4
       in which case annotations are added as Javadoc).</para>
