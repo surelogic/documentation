@@ -209,6 +209,28 @@
           <imageobject><imagedata fileref="images/jsure-scans-view.png"/></imageobject>
         </mediaobject>
       </figure>
+
+	<para>
+		Each row in the table represents a scan. The table displays has the
+		following columns:
+		<itemizedlist>
+			<listitem>
+			<formalpara><title>Time</title><para>The time the scan occurred.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Size</title><para>The size of the scan data on your disk.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Projects Examined</title><para>A comma separated list of the projects that were scanned.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Exclusion Specification (surelogic-tools.properties)</title><para>The exclusions for source folders and packages
+			from the <filename>surelogic-tools.properties</filename> file located at the project's root. This file is optional and
+			its format is described in <xref linkend="sec-surelogic-tool-properties-file"/>. Several of these files will be combined if multiple projects are scanned.</para></formalpara>
+			</listitem>
+		</itemizedlist>
+
+	</para>
       
        <para>The view&rsquo;s toolbar has two command icons:
         <itemizedlist>
