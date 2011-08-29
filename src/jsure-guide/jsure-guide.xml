@@ -81,11 +81,43 @@
 	  to exclude the <filename>test</filename> source folder of <application>timingframework-core</application> Java project. 
       For more information on how to setup a <filename>surelogic-tools.properties</filename> file
       see <xref linkend="sec-surelogic-tool-properties-file"/>.</para>
+      
+      <para>The <guilabel>JSure Scans</guilabel> view has been updated to display the exclusions used when a scan was run.
+      These may be different that the current state of the <filename>surelogic-tools.properties</filename> file. For the example
+      of excluding the <filename>test</filename> source folder from the <application>timingframework-core</application> Java project the
+      <guilabel>JSure Scans</guilabel> view is shown below.
+      
+       <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-401-surelogic-tools-view.png" />
+				</imageobject>
+	  </mediaobject>
+	  
+	  A modeling error will be displayed in the <guilabel>Modeling Problems</guilabel> view if a specified exclusion
+	  filter in the <filename>surelogic-tools.properties</filename> file does not match any code in the project.
+	  </para>
 				
-				</listitem>
+	</listitem>
+	
+	<listitem><para><emphasis>If a scan crashes the tool will prompt to send a scan failure report to SureLogic</emphasis>
+	&mdash; If a JSure scan crashes or any sort of analysis problem is detected the tool will prompt the user to send
+	a scan failure report to SureLogic.
+	
+	<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-401-scan-crash.png" />
+				</imageobject>
+	  </mediaobject>
+	  
+	  This type of report includes a log of the verifying analysis scan (other problem reports typically
+	  include the Eclipse log) to help SureLogic pinpoint the problem. The log can be examined and edited before it is sent
+	  to SureLogic. Further, it can be saved to a file or printed as described in the next item.
+	
+	</para></listitem>
+				
 				<listitem>
 					<para>
-						<emphasis>The text of a Problem Report or a Tip for Improvement can be printed or saved</emphasis>
+						<emphasis>The text of a Problem Report, Scan Failure Report, or a Tip for Improvement can be printed or saved</emphasis>
 						&mdash;
 						The preview pane now allows the tool user to print or save the text of a problem report or tip for improvement.
 
