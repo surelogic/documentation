@@ -138,6 +138,29 @@
 				then only the set of projects selected in the <guilabel>Package Explorer</guilabel> were scanned. This approach was inconsistent
 				and a potential source of confusion to tool users. In this release, if any projects are
 				selected in the <guilabel>Package Explorer</guilabel>, then the set of projects last scanned is ignored.</para></listitem>
+				
+				<listitem><para><emphasis>Verification of singleton classes now partially supported with @Singleton</emphasis>
+				&mdash; Partial support for the verification of singleton classes has been added to JSure.
+				A class to which the @Singleton annotation is applied is a singleton, meaning it has only
+				one instance and provides a global point of access to that instance. That is, the class
+				is a Java implementation of the Singleton pattern described by Gamma, Helm, Johnson, and Vlissides
+				in <emphasis>Design Patterns: Elements of Reusable Object-Oriented Software</emphasis> (Addison-Wesley 1995).
+				Several Java implementation patterns are supported which are described in the @Singleton annotation's Javadoc.
+				
+				<mediaobject><imageobject><imagedata fileref="images/release-notes-401-singleton.png" /></imageobject></mediaobject>
+	
+				The verification in this release is partial. In particular, checking of serialization
+	    	or use of the <emphasis>lazy initialization holder class idiom</emphasis> is not performed. These
+	    	checks will be complete in the next release of JSure and we feel that the current implementation
+	    	covers enough real-world code to be useful.
+	    	</para>
+	    	
+	    	<para>The <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project, an animation library for Swing
+	    and SWT, contains many examples of singleton classes that
+	    have been annotated and verified by JSure.</para>
+				</listitem>
 
 	            <listitem><para><emphasis>Improvements to <code>@Containable</code> and <code>@ThreadSafe</code> verifying analyses</emphasis>
 				&mdash;
