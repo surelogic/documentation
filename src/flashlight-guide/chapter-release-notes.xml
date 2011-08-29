@@ -11,36 +11,51 @@
   These are presented in the sections below for each released version of
   Flashlight.</para>
 
-	<sect1>
-		<title>Flashlight version 4.0.1</title>
-		<para>This section describes the 4.0.1 version of Flashlight.</para>
-		<sect2>
-			<title>New and Noteworthy</title>
+  <sect1>
+    <title>Flashlight version 4.0.1</title>
+    <para>This section describes the 4.0.1 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
 
       <para>This section describes new and noteworthy features in this
       version of Flashlight.</para>
-			<orderedlist>
-				<listitem>
-					<para>
-						<emphasis>The text of a Problem Report or a Tip for Improvement
-							can be printed or saved</emphasis>
-						&mdash;
-						The preview pane now allows the tool user to print or save
-						the text of a problem report or tip for improvement.
+      <orderedlist>
+        <listitem>
+          <para>
+            <emphasis>New checkpointing feature</emphasis>
+            &mdash;
+            The Flashlight instrumentation now checkpoints its data output
+            periodically.  This means that you will still be able to prep and
+            analyze at least part of a run even if the process is forcibly
+            killed before it can call its shutdown hooks, e.g. using 'kill -9'
+            on Linux or the Eclipse 'Terminate' feature on Windows.  If
+            Flashlight believes that it can recover data from a run it will
+            display the run in the prep screen and allow the run to be prepped
+            normally.
+          </para>
+        </listitem>
 
-						<mediaobject>
-							<imageobject>
-								<imagedata fileref="images/release-notes-401-printorsave.png" />
-							</imageobject>
-						</mediaobject>
+        <listitem>
+          <para>
+            <emphasis>The text of a Problem Report or a Tip for Improvement
+            can be printed or saved</emphasis>
+            &mdash;
+            The preview pane now allows the tool user to print or save
+            the text of a problem report or tip for improvement.
 
-						This is helpful to tool users who do not have an Internet
-						connection on their machine.
-					</para>
-				</listitem>
-			</orderedlist>
-		</sect2>
-	</sect1>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/release-notes-401-printorsave.png" />
+              </imageobject>
+            </mediaobject>
+
+            This is helpful to tool users who do not have an Internet
+            connection on their machine.
+          </para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+  </sect1>
 
   <sect1>
     <title>Flashlight version 4.0.0</title>
