@@ -30,8 +30,8 @@
             killed before it can call its shutdown hooks, e.g. using 'kill -9'
             on Linux or the Eclipse 'Terminate' feature on Windows.  If
             Flashlight believes that it can recover data from a run it will
-            display the run in the prep screen and allow the run to be prepped
-            normally.
+            display the run in the <guilabel>Flashlight Runs</guilabel> view and
+            allow the run to be prepped normally.
           </para>
         </listitem>
 
