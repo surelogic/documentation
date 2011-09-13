@@ -54,6 +54,50 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
 
+	<section id="sec-jsure-release-4-0-2">
+		<title>JSure version 4.0.2</title>
+		<para>This section describes the 4.0.2 version of the JSure Eclipse
+			client.
+		</para>
+		<section>
+			<title>New and Noteworthy</title>
+
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+
+			<orderedlist>
+				<listitem>
+					<para><emphasis>Subtype annotation consistency checks performed across multiple Eclipse projects</emphasis>
+						&mdash;
+						When a type hierarchy spans multiple Eclipse projects annotation
+						consistency checks were not properly performed in the previous release.
+						This limitation has been fixed in this release.
+					</para>
+					<para>This problem in the previous release was tracked <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=69">here</ulink>.</para>
+				</listitem>
+				
+				<listitem>
+					<para><emphasis>Consistency checking of @ThreadSafe&mdash;@Immutable fixed</emphasis>
+						&mdash;
+						It is supposed to be the case that in some cases an immutable type can extend
+						from an thread-safe type.  But the way this checking in the previous release
+						was broken.  For example, if you have an @Immutable class that implements an
+						@Immutable interface you get an modeling problem that the class needs to be
+						@ThreadSafe	because it implements a @ThreadSafe interface.  This message was wrong.
+						This limitation has been fixed in this release.
+					</para>
+					<para>This problem in the previous release was tracked <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=70">here</ulink>.</para>
+				</listitem>
+			</orderedlist>
+		</section>
+		
+		<section>
+			<title>Known Problems</title>
+			<para>The know problems are unchanged from JSure version 4.0.0.</para>
+		</section>
+	</section>
+
 	<section id="sec-jsure-release-4-0-1">
 		<title>JSure version 4.0.1</title>
 		<para>This section describes the 4.0.1 version of the JSure Eclipse
