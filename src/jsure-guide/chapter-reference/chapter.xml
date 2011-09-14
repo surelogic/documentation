@@ -877,6 +877,16 @@
 				</row>
 				<row>
 					<entry>
+						<guilabel>scan.exclude.source.package=*.test.*</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that is a sub-package of a
+						<code>test</code>
+						package, but not the elements of the <code>test</code> package itself.
+					</entry>
+				</row>
+				<row>
+					<entry>
 						<guilabel>scan.exclude.source.package=*test*,com.surelogic.demos</guilabel>
 					</entry>
 					<entry>

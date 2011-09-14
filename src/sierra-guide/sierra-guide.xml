@@ -2588,6 +2588,149 @@ if (o == null) {
 	about them.</para>
       </section>
     </section>
+    
+    	<section id="sec-surelogic-tool-properties-file">
+		<title>SureLogic tool properties file</title>
+
+		<para>It is possible to exclude particular Eclipse source folders
+			or Java packages from a scan.
+			This feature can be useful to
+			exclude test or obsolete code from scans.
+		</para>
+		<para>To do this you create a
+			<filename>surelogic-tools.properties</filename>
+	file at the root of an Eclipse Java project. Two properties are recognized
+	
+	<itemizedlist>
+		<listitem>
+			<formalpara>
+				<title><guibutton>scan.exclude.source.folder</guibutton></title>
+				<para>This property excludes one or more source folders of a project from scans.
+				The source folder is referenced by its name relative to the root of the project. More than one
+				source folder can be specified using a comma separated list.</para>
+			</formalpara>
+		</listitem>
+
+		<listitem>
+			<formalpara>
+				<title><guibutton>scan.exclude.source.package</guibutton></title>
+				<para>This property excludes the contents of one or more packages from scans. Packages may be
+				listed explicitly using a comma separated list. A <code>*</code> can be used within a package name
+				as a wildcard to match several packages.</para>
+			</formalpara>
+		</listitem>
+	</itemizedlist>
+		</para>
+		
+		<para>The example shown in <xref linkend="fig-surelogic-tools-timingframework"/> excludes the <filename>test</filename>
+		source folder of the <application>timingframework-core</application> project.</para>
+
+		<figure id="fig-surelogic-tools-timingframework">
+			<title>
+				Use of the <filename>surelogic-tools.properties</filename>
+				to exclude the <filename>test</filename> source	folder of the
+				<application>timingframework-core</application> project
+			</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/surelogic-tools-timingframework.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<para>The example shown in <xref linkend="fig-surelogic-tools-timingframework-pkg"/> excludes any package in the
+		<application>timingframework-swing</application> project that's name starts with <code>org.jdesktop.swing.animation.demos</code>.
+		For this example that matches two packages: <code>org.jdesktop.swing.animation.demos</code>
+		and <code>org.jdesktop.swing.animation.demos.splineeditor</code>.</para>
+		
+		<figure id="fig-surelogic-tools-timingframework-pkg">
+			<title>
+				Use of the <filename>surelogic-tools.properties</filename>
+				to exclude packages from the
+				<application>timingframework-swing</application> project
+			</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/surelogic-tools-timingframework-pkg.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<para>Some further examples of excluding code within an Eclipse Java project from a scan are shown in the table below.
+
+	<informaltable frame='all'>
+		<tgroup cols='2' align='left'>
+			<thead>
+				<row>
+					<entry>Example</entry>
+					<entry>Description</entry>
+				</row>
+			</thead>
+			<tbody>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.folder=test</guilabel>
+					</entry>
+					<entry>
+						Excludes a source folder named
+						<code>test</code>
+						located at the root of the project folder from scans.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.folder=test1,test2,test3</guilabel>
+					</entry>
+					<entry>
+						Excludes three source folders from scans:
+						<code>test1</code>, <code>test2</code>, and<code>test3</code>.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=com.surelogic.tests,com.surelogic.demos</guilabel>
+					</entry>
+					<entry>
+						Excludes two packages from scans:
+						<code>com.surelogic.tests</code> and <code>com.surelogic.demos</code>.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*test*</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that contains
+						<code>test</code>
+						as part of its name.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*.test.*</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that is a sub-package of a
+						<code>test</code>
+						package, but not the elements of the <code>test</code> package itself.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*test*,com.surelogic.demos</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that contains
+						<code>test</code>
+						as part of its name as well as the <code>com.surelogic.demos</code> package.
+					</entry>
+				</row>
+			</tbody>
+		</tgroup>
+	</informaltable>
+	</para>
+	</section>
+    
 
     <section id="sec-license-management">
       <title>License management</title>
@@ -2960,8 +3103,44 @@ if (o == null) {
     released version of Sierra.</para>
     
     <section>
+		<title>Sierra version 4.0.2</title>
+		<para>This section describes the 4.0.2 version of Sierra.</para>
+		<section>
+			<title>New and Noteworthy</title>
+
+			<para>This section describes new and noteworthy features in this
+				version of Sierra.
+			</para>
+			<orderedlist>
+				<listitem><para><emphasis>Test code can be excluded from a scan using a property file</emphasis>
+				&mdash;
+				It is now possible to exclude test code from a Sierra scan
+      by creating a <filename>surelogic-tools.properties</filename> file at the root of each project
+      that contains test code.
+      
+      <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-402-surelogic-tools-file.png" />
+				</imageobject>
+	  </mediaobject>
+      
+      For example, the screenshot above shows the use of the <filename>surelogic-tools.properties</filename>
+	  to exclude the <filename>test</filename> source folder of <application>timingframework-core</application> Java project. 
+      For more information on how to setup a <filename>surelogic-tools.properties</filename> file
+      see <xref linkend="sec-surelogic-tool-properties-file"/>.</para>
+      
+      <para>A limitation of this feature that the exclusions are not saved for each scan. This limitation
+      can make it difficult to determine
+      the exclusions used for a scan if the <filename>surelogic-tools.properties</filename> file is frequently
+      changed. It is therefore recommended that this file be kept as stable as possible.</para>
+      </listitem>
+      </orderedlist>
+      </section>
+      </section>
+    
+    <section>
 		<title>Sierra version 4.0.1</title>
-		<para>This section describes the 4.0.1 version of the Sierra.</para>
+		<para>This section describes the 4.0.1 version of Sierra.</para>
 		<section>
 			<title>New and Noteworthy</title>
 
@@ -2994,6 +3173,7 @@ if (o == null) {
 
     <section id="sec-sierra-release-4-0-0">
       <title>Sierra version 4.0.0</title>
+      <para>This section describes the 4.0.0 version of Sierra.</para>
       <section>
 	<title>New and Noteworthy</title>
 	<para>This section describes new and noteworthy features in this
