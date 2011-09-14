@@ -3134,6 +3134,22 @@ if (o == null) {
       the exclusions used for a scan if the <filename>surelogic-tools.properties</filename> file is frequently
       changed. It is therefore recommended that this file be kept as stable as possible.</para>
       </listitem>
+      
+      	<listitem><para><emphasis>If a scan crashes the tool will prompt to send a scan failure report to SureLogic</emphasis>
+	&mdash; If a Sierra scan crashes or any sort of analysis problem is detected the tool will prompt the user to send
+	a scan failure report to SureLogic.
+	
+	<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-402-scan-crash.png" />
+				</imageobject>
+	  </mediaobject>
+	  
+	  This type of report includes a log of the verifying analysis scan (other problem reports typically
+	  include the Eclipse log) to help SureLogic pinpoint the problem. The log can be examined and edited before it is sent
+	  to SureLogic. Further, it can be saved to a file or printed.
+	
+	</para></listitem>
       </orderedlist>
       </section>
       </section>

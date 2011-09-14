@@ -602,76 +602,9 @@ public abstract class Thing {
 
     <para>The call sites can be fixed by replacing the
     <code>synchronized</code> blocks with the appropriate
-    <code>try</code>&ndash;<code>finally</code> blocks:
-
-      <programlisting>  @Override
-  protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
-
-    final int height = getHeight();
-    final int width = getWidth();
-
-    // fill the entire component with black
-    g.setColor(Color.black);
-    g.fillRect(0, 0, width, height);
-
-    drawGridOutline(g);
-
-    for (Ship s : GameMap.getInstance().getShips()) {
-      <emphasis>s.f_lock.readLock().lock();</emphasis>
-      <emphasis>try {</emphasis>
-        drawShipMovementTrail(g, s);
-      <emphasis>} finally {</emphasis>
-        <emphasis>s.f_lock.readLock().unlock();</emphasis>
-      <emphasis>}</emphasis>
-    }
-    for (Planet p : GameMap.getInstance().getPlanets()) {
-      <emphasis>p.f_lock.readLock().lock();</emphasis>
-      <emphasis>try {</emphasis>
-        drawPlanet(g, p);
-      <emphasis>} finally {</emphasis>
-        <emphasis>p.f_lock.readLock().unlock();</emphasis>
-      <emphasis>}</emphasis>
-    }
-    drawCursor(g);
-    for (Ship s : GameMap.getInstance().getShips()) {
-      <emphasis>s.f_lock.readLock().lock();</emphasis>
-      <emphasis>try {</emphasis>
-        drawShip(g, s);
-      <emphasis>} finally {</emphasis>
-        <emphasis>s.f_lock.readLock().unlock();</emphasis>
-      <emphasis>}</emphasis>
-    }
-  }</programlisting>
-
-    When you make these changes (or cut and paste them from above),
-    you will see that the class <classname>MapView</classname> no
-    longer compiles; see <xref
-    linkend="fig-pb-paintComponent-errors"/>.  Eclipse complains that
-    <computeroutput>The field Thing.f_lock is not
-    visible</computeroutput>.  Of course, <link
-    linkend="lock-viz-problems">as previously discussed</link>, this is
-    just the situation that JSure was warning us about when it produced a modeling problem for us
-    that <computeroutput>lock field "this.f_lock" (protected) is less visible than
-    region "Instance" (public); consider protecting a less visible region or adding a lock getter method</computeroutput>.  Here, in class
-    <code>MapView</code>, we cannot make use of the <code>f_lock</code> field of the
-    <classname>Ship</classname> and <classname>Planet</classname>
-    objects&mdash;but we can use the &ldquo;lock
-    getter&rdquo; method <code>getThingLock()</code> we added above.</para>
-
-    <figure id="fig-pb-paintComponent-errors">
-      <title>Compile-time errors after correcting the critical sections in <function>MapView.paintComponent()</function></title>
-      
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/pb-paintComponent-errors.png" />
-        </imageobject>
-      </mediaobject>
-    </figure>
-  
-    <para>Now update <function>MapView.paintComponent()</function>
-    (again) in the <classname>MapView</classname> class to use the lock
-    getter method <code>getThingLock()</code>:
+    <code>try</code>&ndash;<code>finally</code> blocks. Here we need to make use of the lock
+    getter method <code>getThingLock()</code> because <code>f_lock</code> is not visible.
+    Change (or cut and paste) the code to look like the listing below:
 
       <programlisting>  @Override
   protected void paintComponent(Graphics g) {
@@ -714,7 +647,7 @@ public abstract class Thing {
   }</programlisting>
     </para>
 
-    <para>The <classname>MapView</classname> class now compiles. So
+    <para>Once the changes to the <classname>MapView</classname> class are completed,
     run another JSure scan.  Surprisingly, the lock preconditions
     still fail to assure:
 
