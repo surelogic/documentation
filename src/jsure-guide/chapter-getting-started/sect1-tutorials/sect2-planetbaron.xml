@@ -199,7 +199,7 @@
     <classname>com.surelogic.jsure.planetbaron.game.Location</classname>
     also fails to assure.</para>
 
-    <para>We also note, primarily because a view is painted in bright
+    <para id="lock-viz-problems">We also note, primarily because a view is painted in bright
     yellow, that the project has a modeling problem. This view is
     shown in <xref
     linkend="fig-pb-initial-state-modeling-problems"/>.</para>
@@ -218,8 +218,41 @@
     with an annotation that has been added to the code. This modeling
     problem is related to the visibility of <code>f_lock</code>, the
     lock specified in the <structfield>ThingLock</structfield> locking
-    model. First we will examine the lock model for
-    <structfield>ThingLock</structfield>.</para>
+    model. That is, the visibility of the field that references the lock
+    object is less visible than the region protected by that lock.
+    This is potentially problematic because it means there are
+    contexts in which the region <structfield>Instance</structfield>
+    is visible, but the reference to the lock, the field
+    <structfield>f_lock</structfield>, <emphasis>is not
+    visible</emphasis>.</para>
+    
+     <para>We could fix this modeling problem by simply making the field
+    <structfield>f_lock</structfield> <code>public</code> instead of
+    <code>protected</code>. Generally speaking, however, this violates the
+    principles of data hiding and abstraction.
+    A reasonable approach would be to make a named region with <code>protected</code>
+    visibility (as was demonstrated at the end of the BoundedFIFO tutorial).
+    For this tutorial, however, we will use another
+    alternative supported by JSure. We will add a &ldquo;lock
+    getter&rdquo; method to <classname>Thing</classname> to return the
+    lock object.  We annotate this method with a
+    <classname>@ReturnsLock</classname> annotation so JSure knows we
+    intend to use it to return a lock object and assures that we do in
+    fact return the correct lock object:
+
+      <programlisting>
+  @ReturnsLock("ThingLock")
+  public final ReadWriteLock getThingLock() {
+    return f_lock;
+  }
+      </programlisting>
+
+      Add this code to the the <classname>Thing</classname> class. Scan the project again
+      to verify that the modeling problem is gone.
+    </para>
+    
+     <para>Now that we have fixed the modeling problem, we examine the lock model
+     for <structfield>ThingLock</structfield> in more detail.</para>
   </sect3>
   
   <sect3>
@@ -304,26 +337,6 @@ public abstract class Thing {
     <function>lock()</function> or <function>unlock()</function>
     cannot be matched or if it matches inconsistently along different
     control-flow paths.</para>
-    
-    <para id="lock-viz-problems">Also of note this project has a
-    modeling problem, in bright yellow, regarding the
-    <classname>RegionLock</classname> annotation in the
-    <classname>Thing</classname> class.
-
-    <mediaobject>
-      <imageobject>
-	<imagedata fileref="images/pb-initial-state-modeling-problems.png" />
-      </imageobject>
-    </mediaobject>
-
-    That is, the visibility of the field that references the lock
-    object is less visible than the region protected by that lock.
-    This is potentially problematic because it means there are
-    contexts in which the region <structfield>Instance</structfield>
-    is visible, but the reference to the lock, the field
-    <structfield>f_lock</structfield>, <emphasis>is not
-    visible</emphasis>. Whether this will be a problem for us remains
-    to be seen.</para>
   </sect3>
 
   <sect3>
@@ -638,12 +651,13 @@ public abstract class Thing {
     <computeroutput>The field Thing.f_lock is not
     visible</computeroutput>.  Of course, <link
     linkend="lock-viz-problems">as previously discussed</link>, this is
-    just the situation that JSure is warning us about when it tells us
-    that <computeroutput>lock field "this.f_lock" is less visible than
-    region "Instance"; consider protecting a less visible region or adding a lock getter method</computeroutput>.  Here, in class
-    <code>MapView</code>, we cannot make use of the contents of the
+    just the situation that JSure was warning us about when it produced a modeling problem for us
+    that <computeroutput>lock field "this.f_lock" (protected) is less visible than
+    region "Instance" (public); consider protecting a less visible region or adding a lock getter method</computeroutput>.  Here, in class
+    <code>MapView</code>, we cannot make use of the <code>f_lock</code> field of the
     <classname>Ship</classname> and <classname>Planet</classname>
-    objects because we cannot access the necessary lock.</para>
+    objects&mdash;but we can use the &ldquo;lock
+    getter&rdquo; method <code>getThingLock()</code> we added above.</para>
 
     <figure id="fig-pb-paintComponent-errors">
       <title>Compile-time errors after correcting the critical sections in <function>MapView.paintComponent()</function></title>
@@ -654,35 +668,10 @@ public abstract class Thing {
         </imageobject>
       </mediaobject>
     </figure>
-  </sect3>
-
-  <sect3>
-    <title>Fixing the Lock Visibility</title>
-
-    <para>We could fix this problem by simply making the field
-    <structfield>f_lock</structfield> <code>public</code> instead of
-    <code>protected</code>.  Generally speaking, this violates the
-    principles of data hiding and abstraction.  The superior
-    alternative supported by JSure is to add a &ldquo;lock
-    getter&rdquo; method to <classname>Thing</classname> to return the
-    lock object.  We annotate this method with a
-    <classname>@ReturnsLock</classname> annotation so JSure knows we
-    intend to use it to return a lock object and assures that we do in
-    fact return the correct lock object:
-
-      <programlisting>
-  @ReturnsLock("ThingLock")
-  public final ReadWriteLock getThingLock() {
-    return f_lock;
-  }
-      </programlisting>
-
-      Add this code to the the <classname>Thing</classname> class.
-    </para>
-
+  
     <para>Now update <function>MapView.paintComponent()</function>
-    (again) in the <classname>MapView</classname> class to use the new lock
-    getter method:
+    (again) in the <classname>MapView</classname> class to use the lock
+    getter method <code>getThingLock()</code>:
 
       <programlisting>  @Override
   protected void paintComponent(Graphics g) {
