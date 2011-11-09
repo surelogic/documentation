@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sierra Client On-Line Help
+Bundle-SymbolicName: com.surelogic.sierra.client.eclipse.help;singleton:=true
+Bundle-Version: 4.0.2.qualifier
+Bundle-Vendor: SureLogic, Inc.
+Require-Bundle: org.eclipse.help

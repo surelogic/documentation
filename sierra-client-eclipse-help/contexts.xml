@@ -1,0 +1,91 @@
+<contexts>
+  <!-- !!!WARNING DO NOT REFORMAT THIS XML!!!:
+       The description contents should not include extra
+       whitespace, Eclipse reacts badly to this. -->
+
+  <!-- Menus -->
+
+  <context id="menu-scan-project">
+    <description>This command starts a full scan on the selected set of projects.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+  </context>
+  <context id="menu-re-scan-changes-in-project">
+    <description>This command starts a partial scan on only those Java types in the project that have been recompiled since the last scan. If little has been changed in a project then this choice will be quicker than running a full scan.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+  </context>
+  <context id="menu-open-code-review-perspective">
+    <description>This command opens the Code Review perspective. This perspective is useful for examining and auditing analysis findings.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+    <topic href="ch02s02.html" label="The Code Review perspective" />
+  </context>
+  <context id="menu-configure-team-servers">
+    <description>This command opens the view that is used to manage connections to Sierra team servers.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+    <topic href="ch02s03.html#sec-team-servers-view" label="The Team Servers view" />
+  </context>
+  <context id="menu-synchronize-all">
+    <description>This command synchronizes BugLink data and audit data for all the projects connected to all Sierra team servers.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+  </context>
+  <context id="menu-synchronize-project">
+    <description>This command sends all local audits to the Sierra team server the selected project is connected to. It also downloads all audits (made by other users) from the server to this client.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+  </context>
+  <context id="menu-publish-latest-scan">
+    <description>This command sends the scan results from the last full scan to the Sierra team server that the selected project is connected to. This data is then used by the Sierra team server for web-based reports.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+  </context>
+  <context id="menu-disconnect">
+    <description>This command disconnects the selected project from the Sierra team server it is currently connected to. This action causes all local information about the project to be deleted (so a new scan will have to be run on the project). The disconnected project may then be connected to a different Sierra team server.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+  </context>
+  <context id="menu-send-tip-for-improvement">
+    <description>This command opens a dialog that allows you to send a tip for improvement to SureLogic. Messages sent from this dialog goes over HTTP to SureLogic. If a proxy is used on your network then it is critical to configure Eclipse to use it. To do this open the Eclipse Preferences and examine the Network Connections under the General preferences.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+  </context>
+  <context id="menu-send-problem-report">
+    <description>This command opens a dialog that allows you to send a problem report to SureLogic. If something does not work properly or you cannot figure out how to accomplish some task this command allows you to ask for help. Messages sent from this dialog goes over HTTP to SureLogic. If a proxy is used on your network then it is critical to configure Eclipse to use it. To do this open the Eclipse Preferences and examine the Network Connections under the General preferences.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+  </context>
+  <context id="menu-manage-licenses">
+    <description>This command opens the license management dialog. This dialog lets to install, examine, and uninstall licenses. Sierra is commercial software and a license is required to use it. Licenses are obtained from SureLogic and expire after some period of time. Lack of a license will prohibit you from running scans.</description>
+    <topic href="ch02.html#sec-menu" label="The Sierra menu" />
+    <topic href="ch02s05.html" label="License management" />
+  </context>
+
+  <!-- Views -->
+
+  <context id="view-findings-quick-search">
+    <description>This view allows you to select a set of findings to examine based upon a set of filters.</description>
+    <topic href="ch02s03.html#sec-findings-quick-search" label="The Findings Quick Search view" />
+  </context>
+  <context id="view-finding-details">
+    <description>This view displays information about and allows you to audit an analysis finding.</description>
+    <topic href="ch02s03.html#sec-finding-details-view" label="The Finding Details view" />
+  </context>
+  <context id="view-team-servers">
+    <description>This view displays information about and allows you configure connections to Sierra team servers.</description>
+    <topic href="ch02s03.html#sec-team-servers-view" label="The Team Servers view" />
+  </context>
+  <context id="view-synchronize-history">
+    <description>This view displays your history of synchronizing with Sierra team servers.</description>
+    <topic href="ch02s03.html#sec-synchronize-history" label="The Synchronize History view" />
+  </context>
+  <context id="view-synchronize-history-details">
+    <description>This view displays details about one synchronize, selected in the Synchronize History view, with a Sierra team server.</description>
+    <topic href="ch02s03.html#sec-synchronize-history-details" label="The Synchronize History Details view" />
+  </context>
+
+  <!-- Preference panels -->
+
+  <context id="preferences-sierra">
+    <description>This preference page is used to configure the appearance behavior the Sierra Eclipse client.</description>
+    <topic href="ch02s04.html" label="Configuring Sierra preferences" />
+    <topic href="ch02s04.html#sec-preferences-sierra" label="General Sierra preferences" />
+    <topic href="ch02s04.html#sec-preferences-local-team-server" label="Local Team Server preferences" />
+    <topic href="ch02s04.html#sec-preferences-scan-data" label="Scan Data preferences" />
+    <topic href="ch02s04.html#sec-preferences-scan-filter" label="Scan Filter preferences" />
+    <topic href="ch02s04.html#sec-preferences-server-interaction" label="Server Interaction preferences" />
+    <topic href="ch02s04.html#sec-preferences-tools" label="Tool preferences" />
+  </context>
+</contexts>
