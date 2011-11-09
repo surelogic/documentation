@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<chapter id="effect-annotations"  xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Region Effect Annotations</title>
+      
+  <para>The effects a method may have on the state of the program are
+  declared using a single annotation
+  <classname>@RegionEffects</classname>.  The syntax and constraints for
+  this annotation are described below.  Effects declarations are
+  effectively lists of <emphasis>targets</emphasis>. In Java, the handle
+  on an object is a reference. Therefore, it is not possible to name a
+  region of a particular object, only to name a region of the object
+  referenced by a particular expression. Targets, are an extrinsic
+  syntactic mechanism to name references to regions. Targets have
+  several syntactic forms due to the different way that state may be
+  identified.  The syntax and constraint for these different forms are
+  described below.</para>
+      
+  <para>All targets contain a reference to a region name.
+  <emphasis id="preserve.abstraction">Access to this region must preserve
+  abstraction.</emphasis>  This requires two things:
+
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title> The region must be accessible to the method being
+          annotated</title>
+
+          <para>If the method cannot use the region, it has no business
+          naming it in an annotation.</para>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>The region must be accessible to all potential callers
+          of the method.</title>
+
+          <para>It's not fair, for example, to expose the existence of
+          <code>private</code> regions to contexts that wouldn't
+          normally be able to access them.</para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+  </para>
+      
+  <para>In general, the second point is satisfied by only allowing a
+  method to name a region in a target based on the visibility of the
+  method and the visibility of the region:
+      
+    <informaltable>
+      <tgroup align="center" cols="6">
+        <colspec colnum="1" colname="c1"/>
+        <colspec colnum="2" align="right" colname="c2"/>
+        <colspec colnum="3" colname="c3"/>
+        <colspec colnum="6" colname="c6"/>
+        <thead>
+          <row>
+            <entry namest="c1" nameend="c2" morerows="1"></entry>
+            <entry namest="c3" nameend="c6">Region Visibility</entry>
+          </row>
+          <row>
+            <entry namest="c3"><code>private</code></entry>
+            <entry>default</entry>
+            <entry><code>protected</code></entry>
+            <entry><code>public</code></entry>
+          </row>
+        </thead>
+            
+        <tbody>
+          <row>
+            <entry morerows="3" valign="middle" rotate="1"><emphasis role="strong">Method Visibility</emphasis></entry>
+            <entry><emphasis role="strong"><code>private</code></emphasis></entry>
+            <entry>Yes</entry>
+            <entry>Yes</entry>
+            <entry morerows="2" valign="middle"><co id="protected.special.case"/></entry>
+            <entry>Yes</entry>
+          </row>
+            
+          <row>
+            <entry><emphasis role="strong">default</emphasis></entry>
+            <entry>No</entry>
+            <entry>Yes</entry>
+            <!-- protected case -->
+            <entry>Yes</entry>
+          </row>
+            
+          <row>
+            <entry><emphasis role="strong"><code>protected</code></emphasis></entry>
+            <entry>No</entry>
+            <entry>No</entry>
+            <!-- protected case -->
+            <entry>Yes</entry>
+          </row>
+             
+          <row>
+            <entry><emphasis role="strong"><code>public</code></emphasis></entry>
+            <entry>No</entry>
+            <entry>No</entry>
+            <entry>No</entry>
+            <entry>Yes</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+        
+    <calloutlist>
+      <callout arearefs="protected.special.case">
+        <para>The region may be used <emphasis>unless</emphasis> the
+        region is declared in a superclass <classname>S</classname> of
+        the class <classname>C</classname> that contains the method
+        being annotated and <classname>S</classname> is not in the same
+        package as <classname>C</classname>.</para>
+      </callout>
+    </calloutlist>
+  </para>
+      
+  <xi:include href="sect1-region-effects.xml"/>
+
+  <xi:include href="sect1-instance-target.xml"/>
+   
+  <xi:include href="sect1-any-instance-target.xml"/>
+      
+  <xi:include href="sect1-class-target.xml"/>
+      
+  <xi:include href="sect1-implicit-target.xml"/>
+</chapter>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="flashlight-launch">
+  <title>Flashlight Launch Configuration</title>
+  
+  <para>Applications are executed with Flashlight instrumentation by
+  using a special Eclipse "flashlight" run mode.  Like executing your 
+  application using the Eclipse debugger, a special parallel set of
+  "run" menus is used for this purpose.  These menus are in three places 
+  in the Eclipse UI:
+    <itemizedlist>
+      <listitem><menuchoice><guimenu>Run</guimenu> <guisubmenu>Flashlight</guisubmenu></menuchoice>
+      in the Eclipse main menu.</listitem>
+      
+      <listitem>The <guiicon><inlinegraphic
+      fileref="images/fl_logo.png"/></guiicon> icon in the Eclipse
+      toolbar.</listitem>
+      
+      <listitem><menuchoice><guisubmenu>Flashlight As</guisubmenu></menuchoice>
+      in the <guilabel>Package Explorer</guilabel> context menu.</listitem>      
+    </itemizedlist>
+    
+  The <guisubmenu>Flashlight</guisubmenu> menu and the toolbar menu are identical.  
+  They show the last several application launches, which serve as shortcuts for
+  rerunning those applications using Flashlight.  They also provide menu items for
+  explicitly editing Flashlight launch configurations.</para>
+  
+  <para>The <guisubmenu>Flashlight As</guisubmenu> in the
+  <guilabel>Package Explorer</guilabel> context menu is the same as the
+  <guisubmenu>Flashlight As</guisubmenu> sub menu that appears under the
+  <guisubmenu>Flashlight</guisubmenu> menu and the toolbar menu.  When a
+  class is selected in the <guilabel>Package Explorer</guilabel> that
+  contains a <code>public static void main(String[])</code> method, the
+  menu item <guimenuitem>Java Application</guimenuitem> appears below
+  <guisubmenu>Flashlight As</guisubmenu>. This executes the application
+  defined by the class using Flashlight. </para>
+  
+  <para>Flashlight presents a customized launch configuration dialog
+  when the <guimenuitem>Open Flashlight Dialog&hellip;</guimenuitem>
+  command is selected from any one of the Flashlight menus.  The Flashlight launch configuration
+  dialog is based on the standard Java launch dialog, but with four
+  additional configuration panes between the standard
+  <guilabel>Arguments</guilabel> and <guilabel>JRE</guilabel> panes:
+
+    <orderedlist>
+      <listitem><guilabel>Instrumentation</guilabel></listitem>
+      <listitem><guilabel>Data Collection</guilabel></listitem>
+      <listitem><guilabel>Methods</guilabel></listitem>
+      <listitem><guilabel>Fields</guilabel></listitem>
+    </orderedlist>
+  </para>
+  
+  <sect2 id="instrumentation-pane">
+    <title>Instrumentation</title>
+    
+    <para>The settings in the <guilabel>Instrumentation</guilabel> pane
+    control which classes are actually rewritten by Flashlight to
+    contain instrumentation. The pane is divided into three sections,
+    see <xref linkend="fig-instrumentation-pane"/>:
+      <orderedlist>
+        <listitem><guilabel>Classpath entries to instrument</guilabel></listitem>
+        <listitem><guilabel>Bootpath entries to instrument</guilabel></listitem>
+        <listitem><guilabel>Classes not to be instrumented</guilabel></listitem>
+      </orderedlist>
+    </para>
+
+    <figure id="fig-instrumentation-pane">
+      <title>The Flashlight launch configuration
+      <guilabel>Instrumentation</guilabel> pane.</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/instrumentation-pane.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <sect3 id="entries-to-instrument">
+      <title>Classpath and Boothpath Entries to Instrument</title>
+    
+      <para>The first section lists the entries on the application's
+      classpath.  The second section lists the entries on the
+      application's boot classpath.  These entries are taken directly
+      from the settings in the standard Java
+      <guilabel>Classpath</guilabel> configuration pane.  When a new
+      launch configuration is created, all the classpath entries are
+      selected for instrumentation, while all the boot classpath
+      entries, if any, are <emphasis>not</emphasis> selected for
+      instrumentation.  You can change these settings by checking or
+      unchecking the items in the two lists.  You might want to alter
+      this settings, for example, if you do not want to instrument any
+      library JAR files used by your application.</para>
+    </sect3>
+    
+    <sect3 id="classes-not-to-instrument">
+      <title>Classes Not to Be Instrumented</title>
+
+      <para>The third section lists those classes that should not be
+      instrumented, even if they are located in a classpath/boot
+      classpath entry whose contents are otherwise selected for
+      instrumentation. Generally, you should not have to add any classes
+      to this list.  We have only found one case so far where adding a
+      class to this was necessary: When the system class loader is
+      changed by setting the system property
+      <varname>java.system.class.loader</varname> as a JVM argument. For
+      example, if
+      <parameter>-Djava.system.class.loader=com.aelitis.azureus.launcher.classloading.PrimaryClassloader</parameter>
+      is passed to the JVM, then you would have to add the class
+      <classname>com.aelitis.azureus.launcher.classloading.PrimaryClassloader</classname>
+      to the list of classes not to be instrumented.</para>
+      
+      <para>To add a class to the list, click on the
+      <guibutton>Add&hellip;</guibutton> button to bring up a class
+      selection dialog.  To remove one or more classes from the list,
+      select the classes and click on the <guibutton>Remove</guibutton>
+      button.</para>
+      
+      <para>The class selection dialog is shown in <xref
+      linkend="fig-type-selection-dialog"/>. To select a type, first
+      enter a search pattern into the search field.  By default the all
+      the packages in the application will be searched, unless you
+      include part of the package name as part of the pattern.  The
+      character <literal>*</literal> may be used a wildcard to represent
+      zero or more elided characters.  Press return to begin the search.
+      The matching type names appear in the list below the <guilabel>Search status</guilabel>
+      section.  A long-running search can
+      be cancelled by pressing the <guibutton>Cancel</guibutton> next to
+      the status bar; on Mac OS X press the cancel icon on the search
+      field instead.  To choose a type, select a type from the list and
+      press the <guibutton>OK</guibutton> button.  Pressing
+      <guibutton>Cancel</guibutton> closes the dialog without choosing a
+      type.</para>
+
+      <figure id="fig-type-selection-dialog">
+        <title>The Class Selection Dialog</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/type-selection-dialog.png" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </sect3>    
+  </sect2>
+  
+  <sect2 id="data-collection-pane">
+    <title>Data Collection</title>
+    
+    <para>The settings in the <guilabel>Data Collection</guilabel> pane,
+    see <xref linkend="fig-data-collection-pane"/>, control how the
+    collected data is saved to disk and how the collected data is
+    processed before it is written to disk. The three sections of the
+    pane, <guilabel>Store options</guilabel>, <guilabel>Data file
+    options</guilabel>, and <guilabel>Data collection
+    options</guilabel>, contain settings identical to those in the
+    <guilabel>Instrumentation</guilabel> section of the <link
+    linkend="flashlight-preferences">Flashlight preferences pane</link>.
+    In fact, when a new Flashlight launch configuration is created, the
+    initial values for these settings are taken from the corresponding
+    settings in the preferences.</para>
+    
+    <figure id="fig-data-collection-pane">
+      <title>The <guilabel>Data Collection</guilabel> Pane</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/data-collection-pane.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+  </sect2>
+  
+  <sect2 id="methods-pane">
+    <title>Methods</title>
+
+    <para>The settings in this pane specify the methods that Flashlight
+    considers to be <emphasis>indirect access methods</emphasis>:
+    methods that alter complex arrangements of state that should be
+    considered to be part of an object passed as one of their
+    parameters.  The classic examples are the
+    <package>java.util</package> collections classes.  For example, the
+    <function>add()</function> method of a <classname>Set</classname>
+    object is usually implemented by adding the element to an
+    underlying array, hash table or tree structure.  But we are interesting in
+    capturing the <emphasis>abstract</emphasis> effects of the
+    operation, in particular that the state of the <classname>Set</classname> object
+    used as the method receiver is accessed.</para>
+    
+    <para>Flashlight uses a list of methods to identify those methods
+    that indirectly access state of their object parameters.  This list
+    is maintained in two parts:
+
+      <orderedlist>
+        <listitem>A default list containing methods from the
+        <package>java.util</package> collections classes, and several
+        other standard library classes.</listitem>
+
+        <listitem>User-specified lists of methods that identify
+        additional indirect access methods that may be part of
+        user-written code or library code.</listitem>
+      </orderedlist>
+      
+    The <guilabel>Methods</guilabel> pane, see <xref linkend="fig-methods-pane"/>,
+    accordingly has two parts:
+      <orderedlist>
+        <listitem>A checkbox indicating whether the default list of
+        methods should be used.</listitem>
+
+        <listitem>A list of files that declare additional indirect
+        access methods.  The format of these files is described in
+        <xref linkend="flashlight-method-files"/>.</listitem>
+      </orderedlist>
+    </para>
+    
+    <para>A new file is added to the list by clicking on the
+    <guibutton>Add&hellip;</guibutton> button and selecting the file
+    using the file browser.  One or more files can be removed from the
+    list by selecting the files in the list and clicking on the
+    <guibutton>Remove</guibutton> button.</para>    
+
+    <figure id="fig-methods-pane">
+      <title>The <guilabel>Methods</guilabel> Pane</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/methods-pane.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+  </sect2>
+  
+  <sect2 id="fields-pane">
+    <title>Fields</title>
+    
+    <para>The settings in this pane control which field accesses in
+    classes instrumented by Flashlight are actually instrumented to
+    collect data.  By changing these settings you can enable a more
+    focused data collection by only collecting a subset of the field
+    access information. This allows you to focus on the part of the
+    application that is of interest at the moment without cluttering up
+    the data file with information you are not interested in.  This
+    yields a smaller data file which, in turn, yields a faster data
+    preparation time.</para>
+    
+    <para>This pane has two sections, although the visibility of the second
+    section depends on the setting in the first section.  The first section,
+    <guilabel>Instrument fields</guilabel>, see <xref linkend="fig-fields-pane-1"/>,
+    controls whether or not all field accesses are instrumented.  There are three
+    possible settings:
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title><guilabel>Instrument all field accesses</guilabel></title>
+            
+            <para>Flashlight instruments all the field accesses in
+            classes that have instrumentation.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title><guilabel>Instrument accesses to fields declared in the
+            selected packages only</guilabel></title>
+
+            <para>Flashlight instruments only those field accesses that
+            <emphasis>refer to</emphasis> a field declared in a class
+            declared in one of the selected packages.  When selected,
+            the second section of the pane that allows you to select
+            packages is visible. </para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title><guilabel>Instrument accesses to fields used in the
+            selected packages only</guilabel></title>
+
+            <para>Flashlight instruments only those field accesses that
+            <emphasis>occur in</emphasis> a class declared in one of the
+            selected packages.  When selected, the second section of the
+            pane that allows you to select packages is visible. </para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    </para>
+    
+    <figure id="fig-fields-pane-1">
+      <title>The <guilabel>Fields</guilabel> Pane when
+      <guilabel>Instrument all field accesses</guilabel> is
+      selected</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/fields-pane-1.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>The second section, <guilabel>Select packages</guilabel>, see
+    <xref linkend="fig-fields-pane-2"/>, is visible only if a choice
+    other than <guilabel>Instrument all field accesses</guilabel> is
+    selected.  This section contains a list of the packages in the
+    application.  Select a package by clicking on its checkbox.  The row
+    of buttons above the list provide shortcuts for manipulating the
+    selection:
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title><guibutton>Select All</guibutton></title>
+            
+            <para>Causes all of the packages to be selected.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title><guibutton>Select None</guibutton></title>
+
+            <para>Causes none of the packages to be selected.</para>
+          </formalpara>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title><guibutton>Invert Selection</guibutton></title>
+
+            <para>Causes the selection to be inverted: those packages that 
+            were not selected become selected, and those that were selected 
+            become deselected.</para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    </para>
+    
+    <figure id="fig-fields-pane-2">
+      <title>The <guilabel>Fields</guilabel> Pane when
+      <guilabel>Instrument all field accesses</guilabel> is not
+      selected</title>
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/fields-pane-2.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+  </sect2>
+</sect1>

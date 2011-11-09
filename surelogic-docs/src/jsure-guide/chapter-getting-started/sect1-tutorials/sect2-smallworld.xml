@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect2 id="smallworld"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Verifying SmallWorld</title>
+  
+  <para>This example demonstrates how to use the static structure annotations 
+  using a simple Java text-oriented adventure game, called
+  <application>SmallWorld</application>.  It will use the tutorial
+  project <application>SmallWorldJSure</application>.</para>
+
+  <para><application>SmallWorld</application> uses the
+  model/view/controller pattern as an example of a layered
+  architecture.  The Java packages which make up SmallWorld are
+  briefly described below:
+
+      <itemizedlist>
+        <listitem><para><package>edu.afit.smallworld.model</package>
+        contains classes that represent game places (e.g., rooms),
+        items, characters, and the player.  All these entities are
+        aggregated into instances of a <classname>World</classname>
+        class that represents the world that the player is within.
+        The classes in this package make up the domain layer of the game.
+        </para></listitem>
+        
+        <listitem><para><package>edu.afit.smallworld.controller</package>
+        contains game logic that operates on the game world.  It also
+        controls the loading and saving of games using the persistence package.
+        </para></listitem>
+        
+        <listitem><para><package>edu.afit.smallworld.persistence</package>
+        contains logic to save and load a game world to and from an
+        XML file.  This logic is separated from the model to isolate
+        the complexity of encoding and decoding XML.
+        </para></listitem>
+        
+        <listitem><para><package>edu.afit.smallworld.textui</package>
+        contains two text-oriented user interfaces.  This is, in fact,
+        a package tree that contains several sub-packages.  The first
+        user interface allows the user to interact with the game by
+        typing text conmmands within a console window.  The second
+        allows the user to interact with the game by typing text
+        commands within an AWT/Swing window.  Both share a single text
+        parser. </para></listitem>        
+      </itemizedlist>
+  </para>
+
+  <para>Since we will be adding JSure annotations to <application>SmallWorldJSure</application>,
+  we will first add the required needed annotation library by selecting
+  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
+  Promises Library...</guimenuitem></menuchoice> from the Eclipse main menu.</para>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/quick-start-add-jar.png" />
+      </imageobject>
+    </mediaobject>
+
+  <para>In the dialog that appears select the
+  <application>SmallWorldJSure</application> project and press
+  <guimenuitem>OK</guimenuitem>.</para>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/tutorial-add-jar-dialog.png" />
+      </imageobject>
+    </mediaobject>
+
+  <para>Now, we are ready to add some annotations.</para>
+
+
+
+  <para>Next, we will enable assurance for the SmallWorldJSure project
+  by selecting
+  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Focus
+  Verification...</guimenuitem></menuchoice> and again choosing the
+  <application>SmallWorldJSure</application> project in the dialog
+  that appears. Finally, press <guimenuitem>OK</guimenuitem>. </para>
+  
+
+
+
+  <sect3 id="may-refer-to">
+    <title>A Simple Model of the Static Structure using 
+    <classname>@MayReferTo</classname></title>
+    
+    <para>We will begin with a simple model of the static structure of
+    the <application>SmallWorld</application> controller, model, and
+    persistence packages.  This model is made up of
+    several <classname>@MayReferTo</classname> promises about the 
+    program.  
+    </para>
+
+    <para>A <classname>@MayReferTo</classname> promise must annotate a
+    type, and its argument specifies the complete set of Java types
+    that the annotated type is <emphasis>allowed to
+    reference</emphasis>, or to statically depend upon.  This
+    corresponds to a promise that the type will compile and run if the
+    specified set of types is a subset of the set of types on the
+    program's classpath.  We refer to the specified set of types with
+    the term <emphasis>type set</emphasis>.
+    </para>
+
+    <para>The type set implicitly includes the annotated type itself,
+    as well as the types declared in the <package>java.lang</package>
+    package.  When used in combination with
+    a <classname>@Promise</classname> scoped promise to annotate a
+    package, it specifies the complete type set that all classes and
+    interfaces declared in that package (not including sub-packages)
+    are allowed to reference.
+    </para>
+
+    <para>First, we will annotate
+    the <package>edu.afit.smallworld.model</package> package with
+    a <classname>@MayReferTo</classname> promise.  To do that, we will
+    need to create a <classname>package-info.java</classname> file
+    within that package, so right-click on the package in the Package
+    Explorer, and select <guimenuitem>New | File</guimenuitem>.  In
+    the resulting dialog, name the file 'package-info.java', and
+    press <guimenuitem>OK</guimenuitem>.  Once the file is created, we
+    can populate it as follows:
+    </para>
+
+      <programlisting>
+      <emphasis>@Promise("@MayReferTo(edu.afit.smallworld.model | java.util)")</emphasis>
+      package edu.afit.smallworld.model;
+
+      import com.surelogic.*;
+      </programlisting>
+
+    <para>This specifies that all the types declared
+    in <package>edu.afit.smallworld.model</package> are only allowed 
+    to reference each other, as well as all the types declared within
+    the <package>java.util</package> package.
+    </para>
+
+    <para>Next, we will annotate
+    the <package>edu.afit.smallworld.persistence</package> package 
+    with a <classname>@MayReferTo</classname> promise.  We will create
+    a <classname>package-info.java</classname> file for that package,
+    (as we did before), and then annotate it as follows:
+    </para>
+
+      <programlisting>
+      <emphasis>@Promise("@MayReferTo(edu.afit.smallworld.{model, persistence} | org.jdom+ |java.{io, net, util})")</emphasis>
+      package edu.afit.smallworld.persistence;
+
+      import com.surelogic.*;
+      </programlisting>
+
+    <para>The type set specified above includes all the types declared
+    in the SmallWorld model and persistence packages, all the types
+    declared within the <package>org.jdom</package> package and its
+    sub-packages (indicated by the + suffix), and all the types
+    declared within the <package>java.io</package>, 
+    <package>java.net</package>, <package>java.util</package>, and
+    (implicitly) <package>java.lang</package> packages.  In general,
+    typesets of arbitrary complexity can be formed using the following
+    syntax: | for union, &amp; for intersection, and ! for set complement.
+    </para>
+
+    <para>Lastly, we will annotate
+    the <package>edu.afit.smallworld.controller</package> package.
+    Here, we can directly annotate the only class in the package, 
+    <classname>WorldController</classname>:
+    </para>
+
+      <programlisting>
+      package edu.afit.smallworld.controller;
+      ...
+      import com.surelogic.*;
+
+      <emphasis>@MayReferTo("edu.afit.smallworld.{model, persistence} | java.util | java.io.File)")</emphasis>
+      public final class WorldController {
+        ...
+      }
+      </programlisting>
+
+  </sect3>
+  
+  <sect3>
+    <title>Introducing Layers</title>
+    
+      <programlisting>
+      @TypeSets({
+        @TypeSet("UTIL = java.util &amp; !(java.util.{Enumeration, Hashtable, Vector})"),
+        @TypeSet("XML = org.jdom+ | UTIL | java.{io, net}")
+      })
+      @Layers({
+        @Layer("MODEL may refer to UTIL"),
+        @Layer("PERSISTENCE may refer to MODEL | XML"),
+        @Layer("CONTROLLER may refer to  MODEL | PERSISTENCE | java.io.File")
+      })
+      package edu.afit.smallworld;
+
+      import com.surelogic.*;
+      </programlisting>
+
+      <programlisting>
+      <emphasis>@Promise("@InLayer(edu.afit.smallworld.MODEL)")</emphasis>
+      package edu.afit.smallworld.model;
+      ...
+      import com.surelogic.*;
+      </programlisting>
+
+      <programlisting>
+      <emphasis>@Promise("@InLayer(edu.afit.smallworld.PERSISTENCE)")</emphasis>
+      package edu.afit.smallworld.persistence;
+      ...
+      import com.surelogic.*;
+      </programlisting>
+
+      <programlisting>
+      package edu.afit.smallworld.controller;
+      ...
+      import com.surelogic.*;
+
+      <emphasis>@InLayer("edu.afit.smallworld.CONTROLLER")</emphasis>
+      public final class WorldController {
+        ...
+      }
+      </programlisting>
+
+
+    <para>Class <classname>Thing</classname> is the superclass for all
+    the &ldquo;things&rdquo; in the game: it has the subclasses
+    <classname>Player</classname>, <classname>Planet</classname>, and
+    <classname>Ship</classname>.  The lock annotation thus binds the
+    implementations of these subclasses as well, extending its
+    protection to all the instance fields declared in them. </para>
+    
+    <para>Digging into the results for
+    <structfield>ThingLock</structfield> we see that model-code
+    consistency is prevented by one unprotected field access and three
+    inconsistent lock preconditions:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-thing-lock-start.png" />
+        </imageobject>
+      </mediaobject>
+
+    We can also see, by the "i" result near the bottom, that JSure
+    matches up <function>lock()</function> and
+    <function>unlock()</function> calls. Calls to
+    <function>lock()</function> and <function>unlock()</function> are
+    tracked separately because they do not need to be matched up
+    one-to-one. JSure will also flag if <function>lock()</function> or
+    <function>unlock()</function> cannot be matched or if it matches
+    inconsistently along different control-flow paths.</para>
+  </sect3>
+
+  <sect3>
+    <title>Unprotected Field Access</title>
+
+    <para>We first look at the unprotected field access:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-unprotected-field.png" />
+        </imageobject>
+      </mediaobject>
+
+      The field <structfield>f_location</structfield> is read without
+      holding the read lock in the class <classname>Ship</classname>.
+      Before even looking at the field access, we emphasize that this
+      error occurs in a <emphasis>subclass of
+      <classname>Thing</classname></emphasis>, and that the field
+      <structfield>f_location</structfield> is declared in
+      <classname>Ship</classname>.  The erroneous access occurs in the
+      method <function>Ship.moveTo()</function>:
+
+        <programlisting linenumbering="numbered" startinglinenumber="155">  public void moveTo(Location destination) {
+    if (isMoving())
+      throw new IllegalStateException(
+          "a moving ship can't change its destination");
+
+    if (<emphasis>f_location</emphasis>.equals(destination)) {
+      LOG.log(Level.WARNING,
+          "ignored attempt to move ship to its current location");
+    } else {
+      <emphasis>f_lock.writeLock().lock();</emphasis>
+      try {
+        f_isMoving = true;
+        f_turnsMoving = 0;
+        f_destination = destination;
+        f_moveDistance = f_location.distanceTo(f_destination);
+        f_percentageMoved = 0.0;
+        sendReport(); // OK to invoked holding a write lock
+      } finally {
+        <emphasis>f_lock.writeLock().unlock();</emphasis>
+      }
+    }
+  }</programlisting>
+
+    We see that the field access on line 160 in the condition of the
+    <code>if</code>-statement occurs outside of the critical section
+    that only spans the <code>else</code>-block.  We need to edit the
+    method to expand the critical section to contain the entire
+    conditional statement:
+
+      <programlisting>  public void moveTo(Location destination) {
+    if (isMoving())
+      throw new IllegalStateException(
+          "a moving ship can't change its destination");
+
+    f_lock.writeLock().lock();
+    try {
+      if (f_location.equals(destination)) {
+        LOG.log(Level.WARNING,
+            "ignored attempt to move ship to its current location");
+      } else {
+        f_isMoving = true;
+        f_turnsMoving = 0;
+        f_destination = destination;
+        f_moveDistance = f_location.distanceTo(f_destination);
+        f_percentageMoved = 0.0;
+        sendReport(); // OK to invoked holding a write lock
+      }
+    } finally {
+      f_lock.writeLock().unlock();
+    }
+  }</programlisting>
+    </para>
+
+    <para>After making the change, saving, and reassuring, we have 54
+    protected field accesses, up from the previous 53:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-field-access-corrected.png" />
+        </imageobject>
+      </mediaobject>
+    </para>
+  </sect3>
+
+  <sect3>
+    <title>Read&ndash;Write Locks</title>
+
+    <para>You can demonstrate to yourself that JSure understands the
+    when the read component and when the write component of a
+    read&ndash;write lock needs to be held by changing lines 160 and
+    174 of <function>Ship.moveTo()</function> to acquire the read lock
+    instead of the write lock:
+
+      <programlisting linenumbering="numbered" startinglinenumber="155">  public void moveTo(Location destination) {
+    if (isMoving())
+      throw new IllegalStateException(
+          "a moving ship can't change its destination");
+
+    f_lock.<emphasis>readLock()</emphasis>.lock();
+    try {
+      if (f_location.equals(destination)) {
+        LOG.log(Level.WARNING,
+            "ignored attempt to move ship to its current location");
+      } else {
+        f_isMoving = true;
+        f_turnsMoving = 0;
+        f_destination = destination;
+        f_moveDistance = f_location.distanceTo(f_destination);
+        f_percentageMoved = 0.0;
+        sendReport(); // OK to invoked holding a write lock
+      }
+    } finally {
+      f_lock.<emphasis>readLock()</emphasis>.unlock();
+    }
+  }</programlisting>
+
+    If you save these changes, the results show 49 protected field
+    accesses and 5 unprotected field accesses:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-needs-write-lock.png" />
+        </imageobject>
+      </mediaobject>
+      
+    In particular, all the write access from the
+    <code>else</code>-branch are unprotected because they require the
+    write lock to be held, but only the read lock component of
+    <structfield>ThingLock</structfield> is held.</para>
+
+    <para>Restore the method to its previously corrected form by
+    changing lines 160 and 174 to invoke
+    <function>writeLock()</function> instead of
+    <function>readLock()</function>.</para>
+  </sect3>
+
+  <sect3>
+    <title>Unsatisfied Preconditions</title>
+
+    <para>We now move on to the three unsatisfied lock preconditions.
+    Expanding the results as shown in <xref linkend="fig-pb-unsatisfied-preconditions"/> reveals
+     
+     <itemizedlist>
+       <listitem>
+	 <para>The method <function>drawPlanet()</function> of class
+	 <classname>com.surelogic.jsure.planetbaron.client.MapView</classname>
+	 requires the read lock to be held on its
+	 <classname>Planet</classname> parameter.</para>
+       </listitem>
+       <listitem>
+	 <para>The method <function>drawShip()</function> of class
+	 <classname>MapView</classname> requires the read lock to be
+	 held on its <classname>Ship</classname> parameter.</para>
+       </listitem>
+       <listitem>
+	 <para>The method <function>drawShipMovementTrail()</function> of
+	 class <classname>MapView</classname> requires the read lock
+	 to be held on its <classname>Ship</classname>
+	 parameter.</para>
+       </listitem>
+       <listitem>
+	 <para>All three erroneous method calls originate in the
+	 method <function>paintComponent()</function> of class
+	 <classname>MapView</classname></para>
+       </listitem>
+     </itemizedlist>
+    </para>
+
+    <figure id="fig-pb-unsatisfied-preconditions">
+      <title>Expanded precondition results</title>
+      
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-unsatisfied-preconditions.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Looking at the method
+    <function>MapView.paintComponent()</function>, we see that it draws
+    the basic game map, and then iterates over all the ships and
+    planets to draw them individually by calling the methods
+    <function>drawShipMovementTrail()</function> (line 131),
+    <function>drawPlanet()</function> (line 136), and
+    <function>drawShip()</function> (line 142):
+
+      <programlisting linenumbering="numbered" startinglinenumber="116">  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+
+    final int height = getHeight();
+    final int width = getWidth();
+
+    // fill the entire component with black
+    g.setColor(Color.black);
+    g.fillRect(0, 0, width, height);
+
+    drawGridOutline(g);
+
+    for (Ship s : GameMap.getInstance().getShips()) {
+      synchronized (s) {
+        <emphasis>drawShipMovementTrail(g, s);</emphasis>
+      }
+    }
+    for (Planet p : GameMap.getInstance().getPlanets()) {
+      synchronized (p) {
+        <emphasis>drawPlanet(g, p);</emphasis>
+      }
+    }
+    drawCursor(g);
+    for (Ship s : GameMap.getInstance().getShips()) {
+      synchronized (s) {
+        <emphasis>drawShip(g, s);</emphasis>
+      }
+    }
+  }</programlisting>
+
+    At first glance, it is not easy to see what is the problem because
+    all the method calls originate from within
+    <code>synchronized</code> blocks that do lock on the
+    <classname>Ship</classname> or <classname>Planet</classname>
+    object.
+    </para>
+  </sect3>
+
+  <sect3>
+    <title>Mixed Lock Paradigms</title>
+
+    <para>The problem in this case is that the
+    <code>synchronized</code> block is not the correct mechanism to
+    acquire the needed locks.  As stated previously, the needed locks
+    in this case are the read locks of the
+    <classname>Ship</classname>/<classname>Planet</classname> objects,
+    and these are acquired and released via explicit method calls.</para>
+
+    <para>What if we, like the author of this method, were too
+    forgetful to identify this problem on our own?  JSure has already
+    pointed out this problem to us via three warnings that appear with
+    the assurance results for <structfield>ThingLock</structfield>:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-mixed-usage-warnings.png" />
+        </imageobject>
+      </mediaobject>
+
+    JSure generates three warnings, one for each bad synchronized
+    statement, telling us that the object being synchronized on is not
+    known to be a lock (because there is no relevant
+    <classname>@RegionLock</classname> annotation), but that the
+    <classname>f_lock</classname> field of each object is known to be
+    a <package>java.util.concurrent</package> lock object named
+    <structfield>ThingLock</structfield>. These warnings are meant to
+    suggest that we are locking on the wrong object, and that perhaps
+    we should be using the object referenced by the field
+    <structfield>f_lock</structfield> as the lock instead.  A quick
+    inspection of the <structfield>f_lock</structfield> field
+    declaration tells us the lock is a
+    <classname>ReadWriteLock</classname>.</para>
+
+    <para>The call sites can be fixed by replacing the
+    <code>synchronized</code> blocks with the appropriate
+    <code>try</code>&ndash;<code>finally</code> blocks:
+
+      <programlisting>  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+
+    final int height = getHeight();
+    final int width = getWidth();
+
+    // fill the entire component with black
+    g.setColor(Color.black);
+    g.fillRect(0, 0, width, height);
+
+    drawGridOutline(g);
+
+    for (Ship s : GameMap.getInstance().getShips()) {
+      <emphasis>s.f_lock.readLock().lock();</emphasis>
+      <emphasis>try {</emphasis>
+        drawShipMovementTrail(g, s);
+      <emphasis>} finally {</emphasis>
+        <emphasis>s.f_lock.readLock().unlock();</emphasis>
+      <emphasis>}</emphasis>
+    }
+    for (Planet p : GameMap.getInstance().getPlanets()) {
+      <emphasis>p.f_lock.readLock().lock();</emphasis>
+      <emphasis>try {</emphasis>
+        drawPlanet(g, p);
+      <emphasis>} finally {</emphasis>
+        <emphasis>p.f_lock.readLock().unlock();</emphasis>
+      <emphasis>}</emphasis>
+    }
+    drawCursor(g);
+    for (Ship s : GameMap.getInstance().getShips()) {
+      <emphasis>s.f_lock.readLock().lock();</emphasis>
+      <emphasis>try {</emphasis>
+        drawShip(g, s);
+      <emphasis>} finally {</emphasis>
+        <emphasis>s.f_lock.readLock().unlock();</emphasis>
+      <emphasis>}</emphasis>
+    }
+  }</programlisting>
+
+    When you make these changes (or cut and paste them from above),
+    you will see that the class <classname>MapView</classname> no
+    longer compiles; see <xref
+    linkend="fig-pb-paintComponent-errors"/>.  Eclipse complains that
+    <computeroutput>The field Thing.f_lock is not
+    visible</computeroutput>.  Of course, <link
+    linkend="lock-viz-problems">as previously discussed</link>, this is
+    just the situation that JSure is warning us about when it tells us
+    that <computeroutput>lock field "this.f_lock" is less visible than
+    region "Instance"; consider protecting a less visible region or adding a lock getter method on Lock ThingLock is this.f_lock protects
+    Instance at Thing.java</computeroutput>.  Here, in class
+    <code>MapView</code>, we cannot make use of the contents of the
+    <classname>Ship</classname> and <classname>Planet</classname>
+    objects because we cannot access the necessary lock.</para>
+
+    <figure id="fig-pb-paintComponent-errors">
+      <title>Compile-time errors after correcting the critical sections in <function>MapView.paintComponent()</function></title>
+      
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-paintComponent-errors.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+  </sect3>
+
+  <sect3>
+    <title>Fixing the Lock Visibility</title>
+
+    <para>We could fix this problem by simply making the field
+    <structfield>f_lock</structfield> <code>public</code> instead of
+    <code>protected</code>.  Generally speaking, this violates the
+    principles of data hiding and abstraction.  The superior
+    alternative supported by JSure is to add a &ldquo;lock
+    getter&rdquo; method to <classname>Thing</classname> to return the
+    lock object.  We annotate this method with a
+    <classname>@ReturnsLock</classname> annotation so JSure knows we
+    intend to use it to return a lock object and assures that we do in
+    fact return the correct lock object:
+
+      <programlisting>
+  @ReturnsLock("ThingLock")
+  public final ReadWriteLock getThingLock() {
+    return f_lock;
+  }
+      </programlisting>
+    </para>
+
+    <para>We can now update
+    <function>MapView.paintComponent()</function> (again) to use the
+    new lock getter method:
+
+      <programlisting>  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+
+    final int height = getHeight();
+    final int width = getWidth();
+
+    // fill the entire component with black
+    g.setColor(Color.black);
+    g.fillRect(0, 0, width, height);
+
+    drawGridOutline(g);
+
+    for (Ship s : GameMap.getInstance().getShips()) {
+      s.<emphasis>getThingLock()</emphasis>.readLock().lock();
+      try {
+        drawShipMovementTrail(g, s);
+      } finally {
+        s.<emphasis>getThingLock()</emphasis>.readLock().unlock();
+      }
+    }
+    for (Planet p : GameMap.getInstance().getPlanets()) {
+      p.<emphasis>getThingLock()</emphasis>.readLock().lock();
+      try {
+        drawPlanet(g, p);
+      } finally {
+        p.<emphasis>getThingLock()</emphasis>.readLock().unlock();
+      }
+    }
+    drawCursor(g);
+    for (Ship s : GameMap.getInstance().getShips()) {
+      s.<emphasis>getThingLock()</emphasis>.readLock().lock();
+      try {
+        drawShip(g, s);
+      } finally {
+        s.<emphasis>getThingLock()</emphasis>.readLock().unlock();
+      }
+    }
+  }</programlisting>
+    </para>
+
+    <para>The class <classname>MapView</classname> now compiles, and
+    we have JSure assurance results again.  Surprisingly, the lock
+    preconditions still fail to assure:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-after-getThingLock.png" />
+        </imageobject>
+      </mediaobject>
+
+    Do note, however, that the method
+    <function>Thing.getThingLock()</function> is assured to return the
+    correct lock object.</para>
+  </sect3>
+
+  <sect3>
+    <title>One More Fix</title>
+
+    <para>What is the lingering problem with the lock preconditions?
+    To find out, we turn our attention once more to the
+    <guilabel>Suggestions and warnings</guilabel> section of the
+    results.  Here we find method
+    <function>MapView.paintComponent()</function> contains 6
+    &ldquo;non-final lock expressions:&rdquo;
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-non-final-locks.png" />
+        </imageobject>
+      </mediaobject>
+
+    What does this mean?  In JSure, a lock expression is an expression
+    used to reference a lock object.  For example <code>this</code> in
+    <code>synchronized (this) { &hellip; }</code>.  A <emphasis>final
+    lock expression</emphasis> is a lock expression that JSure can
+    determine must always evaluate to the same value, that is, the
+    expression is idempotent at run time.</para>
+
+    <para>The problem in <function>paintComponent()</function> is that
+    the local variables <varname>s</varname> and <varname>p</varname>
+    are not <code>final</code>, so JSure is worried that the value of
+    <varname>s</varname>, for example, at the time it is used to
+    acquire the lock will not be the same as the value of
+    <varname>s</varname> as the time it is used to release the lock.
+    We can fix this by declaring <varname>s</varname> (at lines 129 and 146) and
+    <varname>p</varname> (at line 137) to be <code>final</code>:
+
+      <programlisting linenumbering="numbered" startinglinenumber="116">  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+
+    final int height = getHeight();
+    final int width = getWidth();
+
+    // fill the entire component with black
+    g.setColor(Color.black);
+    g.fillRect(0, 0, width, height);
+
+    drawGridOutline(g);
+
+    for (<emphasis>final Ship s</emphasis> : GameMap.getInstance().getShips()) {
+      s.getThingLock().readLock().lock();
+      try {
+        drawShipMovementTrail(g, s);
+      } finally {
+        s.getThingLock().readLock().unlock();
+      }
+    }
+    for (<emphasis>final Planet p</emphasis> : GameMap.getInstance().getPlanets()) {
+      p.getThingLock().readLock().lock();
+      try {
+        drawPlanet(g, p);
+      } finally {
+        p.getThingLock().readLock().unlock();
+      }
+    }
+    drawCursor(g);
+    for (<emphasis>final Ship s</emphasis> : GameMap.getInstance().getShips()) {
+      s.getThingLock().readLock().lock();
+      try {
+        drawShip(g, s);
+      } finally {
+        s.getThingLock().readLock().unlock();
+      }
+    }
+  }</programlisting>
+    </para>
+
+    <para>After making this change, the complete model for
+    <structfield>ThingLock</structfield> assures:
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/pb-thing-lock-assures.png" />
+      </imageobject>
+    </mediaobject>
+
+    There is one modeling problem remaining (as can be seen above),
+    however, it is about the <code>GameMap</code> locking model. We
+    leave this as an exercise for the reader to fix. There are several
+    other locking models in this code that can be examined at your
+    leisure.</para>
+  </sect3>
+</sect2>

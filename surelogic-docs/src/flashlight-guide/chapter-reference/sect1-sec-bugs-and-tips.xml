@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="sec-bugs-and-tips">
+  <title>Bugs and tips</title>
+
+  <para>Flashlight allows any user to send problem reports and
+  suggestions to SureLogic from the main menu. Selecting
+  <guimenuitem>Send Tip for Improvement</guimenuitem> or
+  <guimenuitem>Send Problem Report</guimenuitem> allows a tip or problem
+  report to be send to SureLogic directly within Eclipse as shown in
+  <xref linkend="fig-bugs-and-tips-main-menu-service" />. These menu
+  choices bring up dialogs that allow the user to control exactly what
+  information is sent to SureLogic.  In addition, the user can preview
+  the exact text that will be sent over the internet.</para>
+
+  <figure id="fig-bugs-and-tips-main-menu-service">
+    <title>Menu items to send bugs and tips to SureLogic</title>
+    <mediaobject>
+      <imageobject><imagedata fileref="images/bugs-and-tips-main-menu-service.png"/></imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>The <guimenuitem>Send Tip for Improvement</guimenuitem> command
+  opens a dialog to allow entry of a suggestion by the user to improve
+  the Flashlight tool as seen in <xref
+  linkend="fig-bugs-and-tips-menu-send-tip" />. The dialog allows the
+  user to control exactly what information is sent to SureLogic. In addition, the
+  user can preview and edit the exact text that will be sent. If you have no
+  Internet connection you can print or save the text of your problem report (to fax or email).</para>
+
+  <figure id="fig-bugs-and-tips-menu-send-tip">
+    <title>Dialog allowing the user to enter a tip to improve Flashlight</title>
+    <mediaobject>
+      <imageobject><imagedata fileref="images/bugs-and-tips-menu-send-tip.png"/></imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>The <guimenuitem>Send Problem Report</guimenuitem> command opens
+  a dialog to allow entry of a problem report by the user about the
+  Flashlight tool as seen in <xref
+  linkend="fig-bugs-and-tips-menu-problem-report" />. The dialog allows
+  the user to control exactly what information is sent to SureLogic. In addition,
+  the user can preview and edit the exact text that will be sent. If you have no
+  Internet connection you can print or save the text of your problem report (to fax or email).</para>
+
+  <figure id="fig-bugs-and-tips-menu-problem-report">
+    <title>Dialog allowing the user to enter a problem report about Flashlight</title>
+    <mediaobject>
+      <imageobject><imagedata fileref="images/bugs-and-tips-menu-problem-report.png"/></imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>Messages sent from these dialogs go over HTTP to SureLogic. If a
+  proxy is used on your network then it is critical to configure Eclipse
+  to use it.  To do this open the Eclipse
+  <guilabel>Preferences</guilabel> and examine the <guilabel>Network
+  Connections</guilabel> under the <guilabel>General</guilabel>
+  preferences.  This dialog allows you to configure Eclipse for your
+  network as shown in <xref
+  linkend="fig-bugs-and-tips-network-connections" />.</para>
+
+  <figure id="fig-bugs-and-tips-network-connections">
+    <title>Eclipse preferences for network connections within the IDE</title>
+    <mediaobject>
+      <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
+    </mediaobject>
+  </figure>
+</sect1>

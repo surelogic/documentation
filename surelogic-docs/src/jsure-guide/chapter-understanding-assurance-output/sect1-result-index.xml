@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+    <sect1 id="result-index">
+      <title>Index of JSure Results</title>
+        
+      <itemizedlist>
+        <listitem><para><link
+        linkend="acquires-different"><replaceable>acquires</replaceable>
+        call has a different number of matching unlock() calls along
+        different control paths</link></para></listitem>
+
+        <listitem><para><link linkend="acquires-match"><replaceable>acquires</replaceable> call has matching
+        unlock() call at line <replaceable>line</replaceable></link></para></listitem>
+
+        <listitem><para><link linkend="acquires-no-match"><replaceable>acquires</replaceable> call has no matching
+        unlock() calls</link></para></listitem>
+
+        <listitem><para><link
+        linkend="checked-by"><replaceable>effect<subscript>1</subscript>
+        </replaceable> checked by
+        <replaceable>effect<subscript>2</subscript></replaceable></link>
+        </para></listitem>
+
+        <listitem><para><link
+        linkend="constructor-rule"><replaceable>effect</replaceable>
+        checked by constructor rule: writes to a newly created object
+        are invisible</link></para></listitem>
+
+        <listitem><para><link linkend="not-juc">"<replaceable>method</replaceable>" does not call a
+        method from java.util.concurrent.locks.Lock</link></para></listitem>
+
+        <listitem><para><link linkend="not-rw">"<replaceable>method</replaceable>" does not call a
+        method from
+        java.util.concurrent.locks.ReadWriteLock</link></para></listitem>
+
+        <listitem><para><link
+        linkend="not-accounted-for"><replaceable>effect</replaceable>
+        not accounted for by declared effect(s)</link></para></listitem>
+
+        <listitem><para><link linkend="redundant-locks">Acquisition of
+        lock "<replaceable>lock</replaceable>" may be
+        redundant</link></para></listitem>
+
+        <listitem><para><link linkend="on-behalf-of">Analyzed on behalf
+        of constructor
+        "<replaceable>constructor</replaceable>"</link></para></listitem>
+
+        <listitem><para><link linkend="call-does-not-promise">Call "<replaceable>method call</replaceable>" does not
+        promise to start nothing</link></para></listitem>
+
+        <listitem><para><link linkend="call-starts-nothing">Call "<replaceable>method call</replaceable>" promises to
+        start nothing</link></para></listitem>
+
+        <listitem><para><link linkend="trivially-satisfy">Empty effects
+        trivially satisfy declared effects</link></para></listitem>
+
+        <listitem><para><link linkend="possibly-shared-field">Field reference "<replaceable>field ref</replaceable>" may
+        be to a shared unprotected object</link></para></listitem>
+
+        <listitem><para><link linkend="intrinsic-lock-held">Intrinsic lock <replaceable>lock</replaceable> is
+        held</link></para></listitem>
+
+        <listitem><para><link linkend="juc-lock-held">java.util.concurrent lock
+        "<replaceable>lock</replaceable>" is held</link></para></listitem>
+
+        <!--listitem><para><link linkend="held-as-1">Lock
+        "<replaceable>lock</replaceable>" held as
+        "<replaceable>lock&prime;</replaceable>" when accessing
+        <replaceable>field</replaceable></link></para></listitem-->
+
+        <!--listitem><para><link linkend="held-as-2">Lock
+        "<replaceable>lock</replaceable>" held as
+        "<replaceable>lock&prime;</replaceable>" when invoking
+        <replaceable>method</replaceable>; precondition
+        satisfied</link></para></listitem-->
+
+        <!--listitem><para><link linkend="held-as-3">Lock
+        "<replaceable>lock</replaceable>" held as
+        "<replaceable>lock&prime;</replaceable>" when invoking
+        <replaceable>method</replaceable></link></para></listitem-->
+
+        <listitem><para><link linkend="protected-field-accesses">Lock
+        "<replaceable>lock</replaceable>" held when accessing <replaceable>field</replaceable></link></para></listitem>
+
+        <listitem><para><link linkend="preconditions-satisfied">Lock
+        "<replaceable>lock</replaceable>" held when invoking <replaceable>method</replaceable>; precondition
+        satisfied</link></para></listitem>
+
+        <listitem><para><link linkend="held-when-invoking">Lock "<replaceable>lock</replaceable>" held when
+        invoking <replaceable>method</replaceable></link></para></listitem>
+
+        <listitem><para><link linkend="unprotected-field-accesses">Lock
+        "<replaceable>lock</replaceable>" not held when accessing <replaceable>field</replaceable></link></para></listitem>
+
+        <listitem><para><link linkend="preconditions-unsatisfied">Lock
+        "<replaceable>lock</replaceable>" not held when invoking <replaceable>method</replaceable>; precondition
+        unsatisfied</link></para></listitem>
+
+        <listitem><para><link linkend="not-held-when-invoking">Lock "<replaceable>lock</replaceable>" not held when
+        invoking <replaceable>method</replaceable></link></para></listitem>
+
+        <!--listitem><para><link linkend="not-held-within">Lock
+        "<replaceable>lock</replaceable>", needed for accessing
+        <replaceable>field</replaceable>, is not held within the
+        anonymous class and cannot be resolved in the calling context;
+        lock must be held within the anonymous
+        class</link></para></listitem-->
+
+        <listitem><para><link linkend="does-not-name">Lock expression
+        "<replaceable>expr</replaceable>" does not name a programmer-declared lock; consider
+        declaring the state protected by the referenced
+        lock</link></para></listitem>
+
+        <listitem><para><link linkend="non-final-locks">Lock expression
+        "<replaceable>expr</replaceable>" is not final</link></para></listitem>
+
+        <!--listitem><para><link linkend="cannot-be-resolved">Lock specification "<replaceable>lock spec</replaceable>"
+        cannot be resolved in the calling context for <replaceable>method</replaceable>; precondition
+        unsatisfied</link></para></listitem-->
+
+        <listitem><para><link linkend="not-protecting">Locks <replaceable>set of locks</replaceable> not
+        needed by body of synchronized block</link></para></listitem>
+
+        <listitem><para><link linkend="indirect-evidence">Method effect <replaceable>effect</replaceable> affects
+        region <replaceable>region</replaceable> of <replaceable>field ref</replaceable> which is aggregated into region
+        <replaceable>region&prime;</replaceable></link></para></listitem>
+
+        <listitem><para><link linkend="no-threads-started">No threads started within
+        <replaceable>method</replaceable></link></para></listitem>
+
+        <listitem><para><link linkend="parameter">Parameter
+        "<replaceable>formal</replaceable>" bound to
+        "<replaceable>actual</replaceable>"</link></para></listitem>
+
+        <listitem><para><link linkend="possibly-shared-receiver">Receiver "<replaceable>field ref</replaceable>" may be a
+        shared unprotected object</link></para></listitem>
+
+        <listitem><para><link linkend="good-return">Return statement
+        correctly returns lock "<replaceable>lock</replaceable>"</link></para></listitem>
+
+        <listitem><para><link linkend="returns-lock-bad">Return
+        statement expected to return lock "<replaceable>lock</replaceable>"</link></para></listitem>
+
+        <listitem><para><link
+        linkend="does-not-name-static">Synchronized method <replaceable>method</replaceable>:
+        "<replaceable>Class</replaceable>.class" is not identifiable as a programmer-declared
+        lock</link></para></listitem>
+
+        <listitem><para><link
+        linkend="does-not-name-instance">Synchronized method <replaceable>method</replaceable>: "this"
+        is not identifiable as a programmer-declared
+        lock</link></para></listitem>
+
+        <listitem><para><link linkend="not-a-known-lock-general">The
+        object referenced by "<replaceable>expr</replaceable>" is not a
+        known lock, but its fields <replaceable>list of
+        fields</replaceable> are java.util.concurrent
+        locks</link></para></listitem>
+
+        <listitem><para><link linkend="not-a-known-lock-specific">The
+        object referenced by "<replaceable>expr</replaceable>" is not a
+        known lock, but its field "<replaceable>field</replaceable>" is
+        declared to be java.util.concurrent lock
+        "<replaceable>lock</replaceable>"</link></para></listitem>
+
+        <listitem><para><link linkend="thread-started">Thread effect declaration
+        prohibits: <replaceable>call to start()</replaceable></link></para></listitem>
+
+        <listitem><para><link linkend="release-different">unlock() call has a
+        different number of matching lock() calls along different
+        control paths</link></para></listitem>
+
+        <listitem><para><link linkend="release-match">unlock() call has matching
+        <replaceable>acquires</replaceable> call at line <replaceable>line</replaceable></link></para></listitem>
+
+        <listitem><para><link linkend="release-no-match">unlock() call has no
+        matching lock() calls</link></para></listitem>
+
+        <listitem><para><link linkend="juc-sync">Using a
+        java.util.concurrent.locks lock object "<replaceable>lock</replaceable>" in a syncronized
+        statement</link></para></listitem>
+      </itemizedlist>
+    </sect1>

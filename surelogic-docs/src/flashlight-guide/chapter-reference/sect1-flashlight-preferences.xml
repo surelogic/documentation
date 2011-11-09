@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="flashlight-preferences">
+  <title>Preferences</title>
+
+  <figure id="preference-page">
+    <title>The Flashlight preference page</title>
+    <mediaobject><imageobject><imagedata fileref="images/preference-page.png" /></imageobject></mediaobject>
+  </figure>
+
+  <para>
+    Flashlight lets you adjust the way it instruments, records, and
+    prepares data.  You do not have to change any preferences 
+    for Flashlight to work correctly, but changing some of these
+    parameters may improve performance or convenience.
+  </para>
+  
+  <formalpara>
+    <title><guilabel>Data directory</guilabel></title>
+    
+    <para>
+      The directory where flashlight places all recorded and prepared
+      data.  All data for a run is placed under a folder in this
+      directory; see <xref linkend="flashlight-data-directory"/> for a 
+      description of the contents of this directory.  The default name of
+      this directory is <filename>.flashlight-data</filename>, and the 
+      default location for it is at the root of the current Eclipse
+      workspace directory.
+    </para>
+  </formalpara>
+  
+  <formalpara>
+    <title><guilabel>Action on instrumented launch</guilabel></title>
+    
+    <para>
+      These options affect what additional actions occur when you launch
+      an instrumented application using the <guiicon><inlinegraphic
+      fileref="images/fl_logo.png" /></guiicon> menu. 
+      
+        <itemizedlist>
+          <listitem>The first checkbox controls whether the JVM used for
+          the launched program is allocated the maximum amount of memory
+          possible for its heap.  By default, this is checked. 
+          Generally, you want to leave this checked because the data
+          collection process creates a lot of objects and needs a lot of
+          heap space.</listitem>
+
+          <listitem>The second checkbox controls if Eclipse should ask
+          whether to switch to the <guilabel>Flashlight</guilabel>
+          perspective when an instrumented application finishes
+          executing.  This is true by default.</listitem>
+
+          <listitem>The third checkbox controls what happens when
+          Eclipse should not prompt to change the perspective: If
+          checked, Eclipse will automatically switch to the
+          <guilabel>Flashlight</guilabel> perspective when an
+          instrumented program terminates.</listitem>
+        </itemizedlist>
+    </para>
+  </formalpara>
+  
+  <formalpara>
+    <title><guilabel>Instrumentation</guilabel></title>
+    
+    <para>
+      These options control how the instrumentation collects and logs
+      events from the running program:
+      
+        <itemizedlist>
+          <listitem><guilabel>Collect data for postmortem analysis</guilabel>
+          determines whether or not Flashlight should be collecting data to be
+          used by the postmortem tool.  If this box is not checked monitoring
+          will still be performed at runtime, but data cannot be prepped after
+          the program terminates.</listitem>
+
+	  <listitem><guilabel>Console port (counts up if this port is in
+	  use)</guilabel> specifies the port that the instrumentation will
+	  listen on.  You can telnet to this port and issue a 'stop' command if
+	  you want to shut down the instrumentation and leave your program up
+	  and running.  Alternatively, a 'quit' or 'exit' command will terminate
+	  the program as well.</listitem>
+
+	  <listitem><guilabel>Collection type</guilabel> determines whether all
+	  or some events, such as field accesses; object and class
+	  instantiations; and lock acquisitions, attempts, and releases should
+	  be considered by Flashlight.  The default is to record all events, but
+	  the user can choose to focus only on locking events if they wish.
+	  Doing so will eliminate most analyses from the Flashlight postmortem
+	  tool, but lock cycle detection and lock contention information will
+	  still be available.</listitem>
+
+          <listitem><guilabel>Output type</guilabel> determines whether the
+          recorded information should be stored as an XML file, or as binary
+          data.</listitem>
+
+          <listitem><guilabel>Compress
+          output</guilabel> controls whether the data file is
+          compressed with gzip.</listitem>
+
+          <listitem>Flashlight has a 'refinery' component that attempts
+          to remove data known to be local to a single thread, such as
+          an object that is created and garbage collected within a
+          single method invocation. <guilabel>Use refinery to
+          remove thread-local fields</guilabel> turns the
+          refinery off and on, and you can also adjust the queue sizes
+          that it uses to hold onto events.</listitem>
+
+          <listitem><guilabel>Use a spy thread to detect program
+          termination</guilabel> causes Flashlight to spawn a thread on program
+          start-up that periodically checks to see if any non-daemon threads are
+          running and terminates the program when none are.  It is not always
+          necessary to run the spy thread, as Flashlight also listens to the run
+          time shutdown event.  Programs that do not explicitly terminate, for
+          example by calling <code>System.exit()</code> may need it,
+          though.</listitem>
+	  
+        </itemizedlist>
+    </para>
+  </formalpara>
+  
+  <formalpara>
+    <title><guilabel>Preparing run data</guilabel></title>
+    
+    <para>
+      A sufficiently large Flashlight run may contain millions of
+      objects.  <guilabel>Scan window
+      size</guilabel> determines how many of these objects we
+      look at in one pass of the data file. Decreasing this number may
+      allow you to prep a run with lower memory utilization at the cost
+      of a slightly longer prep time.  You can also specify whether or
+      not you want to automatically prepare data once a running program
+      has terminated.
+    </para>
+  </formalpara>
+  
+  <formalpara>
+    <title><guilabel>Result querying</guilabel></title>
+    
+    <para>
+      <guilabel>Maximum rows returned</guilabel>
+      lets you specify how many results you want to see returned by a
+      single query.  You may also change whether you are prompted once
+      you have run enough queries to use up a significant amount of
+      memory.
+    </para>
+  </formalpara>
+</sect1>

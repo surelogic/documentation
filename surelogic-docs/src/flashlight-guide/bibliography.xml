@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<bibliography>
+  <biblioentry id="HaaseGuy07">
+    <authorgroup>
+      <author><firstname>Chet</firstname> <surname>Haase</surname></author>
+      <author><firstname>Romain</firstname> <surname>Guy</surname></author>
+    </authorgroup>
+      
+    <title>Filthy Rich Clients</title>      
+    <subtitle>Developing Animated and Graphical Effects for Desktop Java
+    Applications</subtitle>
+      
+    <publisher>
+      <publishername>Prentice Hall PTR</publishername>      
+    </publisher>
+      
+    <pubdate>2007</pubdate>
+  </biblioentry>
+</bibliography>

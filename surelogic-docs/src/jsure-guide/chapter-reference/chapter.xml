@@ -1,0 +1,1061 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<chapter id="reference"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Reference</title>
+  <sect1>
+    <title>The JSure Menu</title>
+    
+    <para>The <guimenu>JSure</guimenu> menu, see <xref linkend="fig-jsure-menu"/>, appears
+    as an item on the Eclipse workspace main menu. This menu provides
+    direct access to common JSure commands.</para>
+
+    <figure id="fig-jsure-menu">
+      <title>The JSure menu</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/jsure-menu.png"/></imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para>The commands on the <guimenu>JSure</guimenu> main menu are
+    
+      <itemizedlist>
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Verify Project</guimenuitem></title>
+            <para>This command allows the user to choose which project
+            should be assured by JSure.  A dialog is opened to allow the
+            user to select which projects to analyze, as seen in <xref
+            linkend="fig-verify-project-dialog"/>. This dialog remembers your prior selection and includes
+            projects selected in the <guilabel>Package Explorer</guilabel>.</para>
+          </formalpara>
+          
+          <figure id="fig-verify-project-dialog">
+            <title><guimenuitem>The Verify Project dialog box</guimenuitem></title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/verify-project-dialog.png"/></imageobject>
+            </mediaobject>
+          </figure>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Add/Update Promises Library in Project...</guimenuitem></title>
+            <para>This command lets the user add or update the
+            promises library for a project. The dialog shown in <xref
+            linkend="fig-add-update-promises-library-window"/> is opened to
+            allow the user to select the set of projects to update.
+            For each selected project, this command copies the <code>promises-4.0.1.jar</code>
+            into the root of the project and adds the JAR to the project's classpath.</para>
+          </formalpara>
+
+	  <figure id="fig-add-update-promises-library-window">
+            <title><guimenuitem>The Add/Update Promises Library dialog box</guimenuitem></title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/add-update-promises-library-dialog.png"/></imageobject>
+            </mediaobject>
+          </figure>
+        </listitem>
+
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Save Promises Library As&hellip;</guimenuitem></title>
+            <para>This command copies the <code>promises-4.0.1.jar</code> to the disk. A dialog, shown in
+            <xref linkend="fig-save-promises-library-as-dialog"/>, is opened to let the user to
+            specify the directory the JAR file should be placed within. This command is useful if you need, for any reason,
+            to manually add the JSure annotation JAR file to a codebase.</para>
+          </formalpara>
+          
+           <figure id="fig-save-promises-library-as-dialog">
+            <title><guimenuitem>The Add/Update Promises Library dialog box</guimenuitem></title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/save-promises-library-as-dialog.png"/></imageobject>
+            </mediaobject>
+          </figure>
+        </listitem>
+  
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Open Code Verification Perspective</guimenuitem></title>
+            <para>This menu choice opens the <guilabel>Code
+            Verification</guilabel> perspective. This perspective is
+            useful for examining the JSure assurance results;
+            see <xref linkend="sec-code-verification-perspective"/>. This
+            perspective may also be opened via the normal Eclipse menus
+            and toolbars for perspectives.</para>
+          </formalpara>
+        </listitem>
+  
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Send Tip for Improvement</guimenuitem></title>
+            <para>This command opens a dialog to allow entry of a
+            suggestion by the user to improve the JSure tool. For more
+            information please see <xref
+            linkend="sec-bugs-and-tips"/>.</para>
+          </formalpara>
+        </listitem>
+  
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Send Problem Report</guimenuitem></title>
+            <para>This command opens a dialog to allow entry of a problem
+            report by the user about the JSure tool. For more information
+            please see <xref linkend="sec-bugs-and-tips"/>.</para>
+          </formalpara>
+        </listitem>
+
+	<listitem>
+	  <formalpara>
+	    <title><guimenuitem>Run JSure
+	    Tutorials</guimenuitem></title> <para>This command opens a
+	    dialog to allow the user to import tutorial projects into
+	    their workspace and open the JSure help to the step by
+	    step tutorials.  For more information please see <xref
+	    linkend="tutorials"/>.</para>
+	  </formalpara>
+	</listitem>
+  
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Manage SureLogic Licenses</guimenuitem></title>
+            <para>This command opens the SureLogic license management
+            dialog. This dialog allows the user to install, view, and
+            uninstall licenses for JSure and other SureLogic tools. For
+            more information see <xref linkend="sec-license-management"
+            />.</para>
+          </formalpara>
+        </listitem>          
+      </itemizedlist>
+    </para>
+  </sect1>
+
+  <sect1 id="sec-code-verification-perspective">
+    <title>The Code Verification perspective</title>
+    
+    <para>The <guilabel>Code Verification</guilabel>
+	perspective organizes the Eclipse
+	workbench to show views which will help you to interact with
+	tool findings.
+
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/code-verification-perspective.png" />
+		</imageobject>
+	</mediaobject>
+	
+	Each of the view shown in the screenshot above is discussed in the following sections.
+    </para>
+    
+    <sect2>
+      <title>Switching to the Perspective</title>
+      
+      <para>The <guilabel>Code Verification</guilabel> perspective can be enabled
+      in several ways:
+        <itemizedlist>
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>JSure</guimenu>
+            <guimenuitem>Open Code Verification
+            Perspective</guimenuitem></menuchoice>.
+            <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/open-code-verification.png" />
+                </imageobject>
+              </mediaobject>
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>By choosing to switch to the perspective when focusing
+            verification on a project:
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/perspective-switch.png" />
+                </imageobject>
+              </mediaobject>
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>Window</guimenu>
+            <guisubmenu>Open Perspective</guisubmenu>
+            <guimenuitem>Other&hellip;</guimenuitem></menuchoice>, and
+            then choosing <guilabel>Code Verification</guilabel> from
+            the <guilabel>Open Perspective</guilabel> dialog box.  Or by
+            using any other standard Ecilpse mechanism to switch
+            perspectives, such as clicking the the perspective&rsquo;s
+            icon (<guiicon><inlinegraphic
+            fileref="images/jsure_logo.gif"/></guiicon>) in the shortcut
+            bar.</para>
+          </listitem>          
+        </itemizedlist>
+      </para>
+    </sect2>
+
+	<sect2>
+		<title>The JSure Scans view</title>
+
+		<para>The <guilabel>JSure Scans</guilabel> view, as shown in <xref
+      linkend="fig-jsure-scans-view"/>, lists the scans performed by the tool. One and only scan in this
+      view can be checked. The checked scan is called the <emphasis>scan of focus</emphasis>. Results
+      from the scan of focus are displayed in all the other JSure views.</para>
+		
+	<figure id="fig-jsure-scans-view">
+        <title>The <guilabel>JSure Scans</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-scans-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+
+	<para>
+		Each row in the table represents a scan. The table displays has the
+		following columns:
+		<itemizedlist>
+			<listitem>
+			<formalpara><title>Time</title><para>The time the scan occurred.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Size</title><para>The size of the scan data on your disk.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Projects Examined</title><para>A comma separated list of the projects that were scanned.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Exclusion Specification (surelogic-tools.properties)</title><para>The exclusions for source folders and packages
+			from the <filename>surelogic-tools.properties</filename> file located at the project's root. This file is optional and
+			its format is described in <xref linkend="sec-surelogic-tool-properties-file"/>. Several of these files will be combined if multiple projects are scanned.</para></formalpara>
+			</listitem>
+		</itemizedlist>
+
+	</para>
+      
+       <para>The view&rsquo;s toolbar has two command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/refresh.gif"/></guiicon></title>
+              <para>This button scans the disk and refreshes the list of JSure scans. This can be
+              useful if an Ant scan was added to the JSure scan directory.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/red_x.gif"/></guiicon></title>
+              <para>This button deletes the selected scans from the disk.</para>
+            </formalpara>            
+          </listitem>
+
+        </itemizedlist>
+      </para>
+      
+       <figure id="fig-jsure-scans-view-menu">
+        <title>The <guilabel>JSure Scans</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-scans-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+            <para>The view&rsquo;s menu has three commands; see <xref
+      linkend="fig-jsure-scans-view-menu"/>:
+      <itemizedlist>
+	<listitem>
+	  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/refresh.gif"/> Refresh</guiicon></title>
+	    <para>Selecting this menu item scans the disk and refreshes the list of JSure scans. This can be
+              useful if an Ant scan was added to the JSure scan directory.</para>
+	  </formalpara>            
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon>Select to View Results</guiicon></title>
+	    <para>Selecting this menu item causes the selected scan to become checked.
+	    This menu choice is only enabled when a single project is selected and it is
+	    not the scan of focus.</para>
+	  </formalpara>
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/red_x.gif"/> Delete</guiicon></title>
+	    <para>Selecting this menu item deletes the selected scans from the disk.</para>
+	  </formalpara>
+	</listitem>
+      </itemizedlist>
+      </para>      
+	</sect2>
+	
+	    <sect2>
+      <title>The Modeling Problems view</title>
+
+      <para>The <guilabel>Modeling Problems</guilabel> view, as shown in <xref
+      linkend="fig-modeling-problems-view"/>, shows any annotations
+      that are not well-formed. This means that they have syntax
+      errors or other problems such as referencing models that are not
+      defined or enscapulation/visibility issues.</para>
+      
+      <figure id="fig-modeling-problems-view">
+        <title>The <guilabel>Modeling Problems</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/modeling-problems-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+
+	<para>The background of the <guilabel>Modeling Problems</guilabel> view changes to yellow if the
+	selected scan has any modeling problems. This highlights the view to the tool user. The background
+	is changed back to normal when no modeling problems exist in the selected scan.</para>
+	
+	<para>Double-clicking on a modeling problem will open the Java editor and
+	the <guilabel>JSure Historical Source</guilabel> view to the problem annotation.</para>
+
+    </sect2>
+    
+    <sect2>
+      <title>The Verification Status view</title>
+
+      <para>The <guilabel>Verification Status</guilabel> view displays
+      the JSure assurance results in a tree form; see <xref
+      linkend="fig-status-view"/>.  The results are grouped by
+      category, for example <guilabel>Effects</guilabel>,
+      <guilabel>Concurrency</guilabel>,
+      <guilabel>Uniqueness</guilabel>, and <guilabel>Thread
+      effects</guilabel>. There is also a special category for
+      warnings and informational results <guilabel>Suggestions and
+      warnings</guilabel>. The specific results are described in
+      detail in <xref
+      linkend="understanding-assurance-output"/>.</para>
+      
+      <figure id="fig-status-view">
+        <title>The <guilabel>Verification Status</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/status-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>Double-clicking on a result in the <guilabel>Verification Status</guilabel> view highlights
+      the code associated with that result in the Java editor and the <guilabel>JSure Historical Source</guilabel> view.</para>
+      
+      <para>The view&rsquo;s toolbar has three command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
+              <para>This button collapses all the nodes in the result trees.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not the warning results are 
+              displayed in the view.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/></guiicon></title>
+              <para>This button displays a quick reference card to the
+              user about what the iconography used in the
+              <guilabel>Verification Status</guilabel> view
+              means.</para>
+            </formalpara>            
+          </listitem>
+
+
+        </itemizedlist>
+      </para>
+
+      <figure id="fig-status-view-menu">
+        <title>The <guilabel>Verification Status</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/status-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has three commands; see <xref
+      linkend="fig-status-view-menu"/>:
+      <itemizedlist>
+	<listitem>
+	  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/> Collapse All</guiicon></title>
+	    <para>Selecting this menu item collapses all the nodes in the result trees.</para>
+	  </formalpara>            
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/> Show Iconography Quick Reference Card</guiicon></title>
+	    <para>Selecting this menu item displays a quick refence
+	    card to the user about what the iconography used in the
+	    <guilabel>Verification Status</guilabel> view
+	    means.</para>
+	  </formalpara>
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/> Show Information/Warning Results</guiicon></title>
+	    <para>Toggling this menu item controls whether or not the warning results are 
+	    displayed in the view.</para>
+	  </formalpara>
+	</listitem>
+      </itemizedlist>
+      </para>      
+    </sect2>
+
+	<sect2>
+		<title>The Proposed Promises view</title>
+
+		<para>The <guilabel>Proposed Promises</guilabel> view, as shown in <xref
+      linkend="fig-proposed-promises-view"/>, shows any annotations
+      that have been proposed by the analysis for inclusion in the program's source code. The
+      proposed annotations are inferred from other annotations in the code.</para>
+		
+	  <figure id="fig-proposed-promises-view">
+        <title>The <guilabel>Proposed Promises</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/proposed-promises-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>To add a proposed annotation to the code select one or more
+      rows in the view and select <guilabel>Add Promises To Code&hellip;</guilabel>
+      as shown in <xref
+      linkend="fig-proposed-promises-context-menu"/>. The edit is previewed before it is made to the code.</para>
+      
+      <figure id="fig-proposed-promises-context-menu">
+        <title>The <guilabel>Proposed Promises</guilabel> view context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/proposed-promises-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+	</sect2>
+	
+	<sect2>
+		<title>The JSure Quick Search view</title>
+
+		<para>The <guilabel>JSure Quick Search</guilabel> view, as shown in <xref
+      linkend="fig-jsure-quick-search-view.png"/>, shows</para>
+		
+	  <figure id="fig-jsure-quick-search-view.png">
+        <title>The <guilabel>JSure Quick Search</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-quick-search-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The <guilabel>JSure Quick Search</guilabel> view allows
+      you to query the scan results in an ad hoc manner. You can setup
+      a series of filters on the results to focus on the particular
+      scan results that are of immediate interest. Selecting a result
+      highlights that result in the <guilabel>Verification
+      Status</guilabel> view. Double-clicking on a result in the <guilabel>JSure Quick Search</guilabel> view highlights
+      the code associated with that result in the Java editor and the <guilabel>JSure Historical Source</guilabel>.</para>
+
+      <informaltable frame='all'>
+	<tgroup cols='2' align='left'>
+	<colspec colwidth='4cm' align='left'/>
+	  <thead>
+	    <row>
+	      <entry>Filter</entry>
+	      <entry>Semantics</entry>
+	    </row>
+	  </thead>
+	  <tbody>
+	    <row>
+	      <entry><inlinegraphic fileref="images/analysis_result.gif"/> Analysis Result</entry>
+	      <entry>Allows you to filter the results by the type of
+	      analysis result reported by the tool's verifying
+	      analyses. An analysis result is a finding reported by
+	      one of the JSure tool's verifying analyses. These
+	      results form the basis used to prove that an annotation
+	      is consistent, i.e., a verification judgment about a
+	      promise. This filter could be used to quickly find all
+	      inconsistent analysis results so that you can work to
+	      eliminate them.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/annotation.gif"/> Annotation</entry>
+	      <entry>Allows you to filter the results by
+	      annotation. This filter could be used to quickly find
+	      all <classname>@RegionLock</classname> annotations in
+	      your code.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/class.gif"/> Java Class</entry>
+	      <entry>Allows you to filter the results to a particular set of Java classes.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/package.gif"/> Java Package</entry>
+	      <entry>Allows you to filter the results to a particular set of Java packages.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/project.gif"/> Project</entry>
+	      <entry>Allows you to filter the results to a particular set of Eclipse projects.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/verification_result.gif"/> Verification Judgment</entry>
+	      <entry>Allows you to filter the results by the
+	      verification judgment on an annotation. This filter
+	      could be used to find all consistent promises or find
+	      promises with a "red-dot" (contingent verification
+	      judgments).</entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
+
+      <para>The <guilabel>JSure Quick Search</guilabel> view is very
+      flexible and allows you to chain many filters together before
+      you <menuchoice><guimenu>Show</guimenu></menuchoice> a list of
+      results. You can also save queries that you find useful via the
+      toolbar at the bottom of the view.</para>
+      
+            <para>The view&rsquo;s toolbar has three command icons at the bottom:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/sierra_investigate_dot.gif"/> Open Search</guiicon></title>
+              <para>This button opens a dialog that lists all the saved searches. The user can select a search
+              and it is loaded into the <guilabel>JSure Quick Search</guilabel> view. Note that the links to the
+              right of the toolbar list as many searches as can fit. This toolbar ensures that a long list of
+              searches can be saved.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/saveas_edit.gif"/> Save Search As</guiicon></title>
+              <para>This button brings up a dialog that lets the user name the current search. The search currently
+              being shown in the <guilabel>JSure Quick Search</guilabel> view is saved under the given name.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/gray_x_dot.gif"/> Delete Search</guiicon></title>
+              <para>This button brings up a dialog that lists all saved searches. The tool user is allowed to select
+              one or more saved searches to delete.</para>
+            </formalpara>            
+          </listitem>
+
+        </itemizedlist>
+      </para>
+	</sect2>
+	
+	<sect2>
+		<title>The JSure Historical Source view</title>
+
+		<para>The <guilabel>JSure Historical Source</guilabel> view, as shown in <xref
+      linkend="fig-jsure-historical-source-view.png"/>, shows what the code looked like at the time that
+       the scan was performed.</para>
+		
+	   <figure id="fig-jsure-historical-source-view.png">
+        <title>The <guilabel>JSure Historical Source</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-historical-source-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>When a JSure scan is run all the source code is saved to that it can
+      be shown to the user in this view. This helps the user understand if their code
+      has changed since the JSure scan was performed. This new view is shown,
+      in the <guilabel>Code Verification</guilabel> perspective, to the right of the
+      Java editor at the bottom of the perspective.</para>
+      
+	</sect2>
+
+  </sect1>
+
+  <sect1 id="sec-preferences">
+    <title>JSure Preferences</title>
+    
+    <para>JSure adds two panes to the Eclipse Preferences window:
+      <itemizedlist>
+        <listitem>
+          <para><menuchoice><guisubmenu>JSure</guisubmenu></menuchoice></para>
+        </listitem>
+        <listitem>
+          <para><menuchoice><guisubmenu>JSure</guisubmenu> 
+          <guimenuitem>Analyses</guimenuitem></menuchoice></para>
+        </listitem>
+      </itemizedlist>
+    </para>
+     
+    <figure id="fig-jsure-prefs-1">
+      <title>The JSure Eclipse preferences pane</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/jsure-prefs-1.png"/></imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para>The <guilabel>JSure</guilabel> pane, see <xref linkend="fig-jsure-prefs-1"/>,
+    allows you to reset settings for switching to the <guilabel>Code Verification</guilabel>
+    perspective.  It has five options under the <guilabel>Appearance</guilabel> heading:
+    <itemizedlist>
+     <listitem>
+	<formalpara>
+	  <title><guibutton>Show 'balloon' notifications for scan start and completion</guibutton></title>
+
+	  <para>If selected, pop-up notifications (also called balloon notifications) will be displayed
+	  when a JSure scan is started and when it is competed.</para>
+	</formalpara>
+      </listitem>
+    
+      <listitem>
+	<formalpara>
+	  <title><guibutton>Prompt to change to the Code Verification
+	  perspective on project focus</guibutton></title>
+
+	  <para>If selected, whenever a project is selected to receive
+	  the JSure focus, you will be prompted to change to the
+	  <guilabel>Code Verification</guilabel> perspective if it is not
+	  already the active perspective.</para>
+	</formalpara>
+      </listitem>
+
+      <listitem>
+	<formalpara>
+	  <title><guibutton>If no prompt, automatically change to the
+	  Code Verification perspective</guibutton></title>
+
+	  <para>If selected, and JSure is not set to prompt for a perspective
+	  change, JSure automatically changes to the <guilabel>Code
+	  Verification</guilabel> perspective when a project receives
+	  the JSure focus.</para>
+	</formalpara>
+      </listitem>
+
+      <listitem>
+	<formalpara>
+	  <title><guibutton>Allow the user to select the set of projects to scan even when projects are selected in the Package Explorer</guibutton></title>
+
+	  <para>If this is checked then the project selection dialog is always shown when a scan is started. If it is not checked it is only displayed
+	  if no projects are selected in the <guilabel>Package Explorer</guilabel> view.</para>
+	</formalpara>
+      </listitem>
+      
+            <listitem>
+	<formalpara>
+	  <title><guibutton>Always save editors before verifying</guibutton></title>
+
+	  <para>If this is checked then any edits are automatically saved. It it is not checked the user is
+	  prompted to decided if they want to save edits before the scan is started.</para>
+	</formalpara>
+      </listitem>
+    </itemizedlist>
+
+    It has one option under the <guilabel>Javadoc Annotation Support</guilabel> heading:
+
+    <itemizedlist>
+      <listitem>
+	<formalpara>
+	  <title><guibutton>Consider @annotate tags in Javadoc
+	  comments to be JSure Annotations (useful for Java 1.4
+	  code)</guibutton></title>
+
+	  <para>If the source code level of a project is set to Java
+	  1.4, by default, JSure will look for @annotate tags in
+	  Javadoc. However, if the source code level of the project is
+	  set to Java 5 or higher then it will not. This preference
+	  enables @annotate tags for projects that have a source code
+	  level set to Java 5 or higher.</para>
+	</formalpara>
+      </listitem>
+    </itemizedlist>
+
+    It has five options under the <guilabel>Scan/Verifying Analysis Settings</guilabel> heading:
+
+    <itemizedlist>
+      <listitem>
+	<formalpara>
+	  <title><guibutton>Number of threads the analysis is allowed to use</guibutton></title>
+	  <para>Portions of the JSure analysis are able to use
+	  multiple threads to increase performance of the
+	  analysis. This setting allows the user to control the number
+	  of threads used by the JSure analysis. The default for this
+	  setting is the number of cores detected on the user's
+	  computer.</para>
+	</formalpara>
+      </listitem>
+      
+       <listitem>
+	<formalpara>
+	  <title><guibutton>Maximum VM memory allowed for scans</guibutton></title>
+	  <para>Sets the maximum machine memory the external VM started for a JSure scan is allowed to use. In some cases, for very large codebases, the default
+	  value may need to be raised.</para>
+	</formalpara>
+      </listitem>
+      
+             <listitem>
+	<formalpara>
+	  <title><guibutton>Warn when analysis execution time exceeds</guibutton></title>
+	  <para>Reports a warning in the <guilabel>Verification Status</guilabel> view when the time to analyze
+	  a method or constructor exceeds the value set in this preference.</para>
+	</formalpara>
+      </listitem>
+      
+             <listitem>
+	<formalpara>
+	  <title><guibutton>Enable timeout of analysis execution</guibutton></title>
+	  <para>Enables timeouts (stopping) of an analysis that is taking too long. The time limit is defined by the value
+	  of <guilabel>Timeout when analysis execution time exceeds</guilabel>.</para>
+	</formalpara>
+      </listitem>
+      
+             <listitem>
+	<formalpara>
+	  <title><guibutton>Timeout when analysis execution time exceeds</guibutton></title>
+	  <para>Sets a time limit for analysis of a method or constructor. For this time to stop
+	  the analysis <guilabel>Enable timeout of analysis execution</guilabel> must be checked.</para>
+	</formalpara>
+      </listitem>
+      
+    </itemizedlist>
+    </para>
+    
+    <para>What can be done about a method that takes a long time to analyze? If possible,
+    reduce the number of local variables in the method. This will speed analysis.
+    Typically methods that are very large can be broken up into smaller methods or refactored to
+    call a series of new methods extracted from the larger method. Doing this will also speed analysis.
+    </para>
+    
+	<para>The <guilabel>Model Naming</guilabel> section controls inferred models from the Surelogic <application>Flashlight</application> tool.</para>
+    
+    <para>The pane also has a <guibutton>Manage SureLogic Licenses</guibutton> button 
+    that brings up the dialog box for installing and removing licenses; see
+    <xref linkend="sec-license-management"/>.</para>
+
+    
+    <para>The <guilabel>Analyses</guilabel> pane allows you to choose
+    which assurance analyses are actually executed by JSure.  Most of
+    the time you do not need to change these settings.  Each analysis
+    knows which other analyses it depends on: you can see this by
+    opening the tree rooted at each analysis.  Selecting an analysis
+    also transitively selects any analyses that it depends on.
+    Deselecting an analysis transitively deselects any analyses that
+    depend on it.  If you change the settings, JSure warns you that it
+    is a good idea to exit and restart Eclipse/JSure: see <xref
+    linkend="fig-analysis-change-warning"/>.</para>
+    
+    <figure id="fig-jsure-prefs-2">
+      <title>The JSure analyses preferences pane</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/jsure-prefs-2.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <figure id="fig-analysis-change-warning">
+      <title>Dialog box advising a restart after changing the analysis settings</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/analysis-change-warning.png"/></imageobject>
+      </mediaobject>
+    </figure>
+  </sect1>
+
+	<sect1 id="sec-surelogic-tool-properties-file">
+		<title>SureLogic tool properties file</title>
+
+		<para>It is possible to exclude particular Eclipse source folders
+			or Java packages from a scan.
+			This feature can be useful to
+			exclude test or obsolete code from scans.
+		</para>
+		<para>To do this you create a
+			<filename>surelogic-tools.properties</filename>
+	file at the root of an Eclipse Java project. Two properties are recognized
+	
+	<itemizedlist>
+		<listitem>
+			<formalpara>
+				<title><guibutton>scan.exclude.source.folder</guibutton></title>
+				<para>This property excludes one or more source folders of a project from scans.
+				The source folder is referenced by its name relative to the root of the project. More than one
+				source folder can be specified using a comma separated list.</para>
+			</formalpara>
+		</listitem>
+
+		<listitem>
+			<formalpara>
+				<title><guibutton>scan.exclude.source.package</guibutton></title>
+				<para>This property excludes the contents of one or more packages from scans. Packages may be
+				listed explicitly using a comma separated list. A <code>*</code> can be used within a package name
+				as a wildcard to match several packages.</para>
+			</formalpara>
+		</listitem>
+	</itemizedlist>
+		</para>
+		
+		<para>The example shown in <xref linkend="fig-surelogic-tools-timingframework"/> excludes the <filename>test</filename>
+		source folder of the <application>timingframework-core</application> project.</para>
+
+		<figure id="fig-surelogic-tools-timingframework">
+			<title>
+				Use of the <filename>surelogic-tools.properties</filename>
+				to exclude the <filename>test</filename> source	folder of the
+				<application>timingframework-core</application> project
+			</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/surelogic-tools-timingframework.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<para>The example shown in <xref linkend="fig-surelogic-tools-timingframework-pkg"/> excludes any package in the
+		<application>timingframework-swing</application> project that's name starts with <code>org.jdesktop.swing.animation.demos</code>.
+		For this example that matches two packages: <code>org.jdesktop.swing.animation.demos</code>
+		and <code>org.jdesktop.swing.animation.demos.splineeditor</code>.</para>
+		
+		<figure id="fig-surelogic-tools-timingframework-pkg">
+			<title>
+				Use of the <filename>surelogic-tools.properties</filename>
+				to exclude packages from the
+				<application>timingframework-swing</application> project
+			</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/surelogic-tools-timingframework-pkg.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<para>Some further examples of excluding code within an Eclipse Java project from a scan are shown in the table below.
+
+	<informaltable frame='all'>
+		<tgroup cols='2' align='left'>
+			<thead>
+				<row>
+					<entry>Example</entry>
+					<entry>Description</entry>
+				</row>
+			</thead>
+			<tbody>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.folder=test</guilabel>
+					</entry>
+					<entry>
+						Excludes a source folder named
+						<code>test</code>
+						located at the root of the project folder from scans.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.folder=test1,test2,test3</guilabel>
+					</entry>
+					<entry>
+						Excludes three source folders from scans:
+						<code>test1</code>, <code>test2</code>, and<code>test3</code>.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=com.surelogic.tests,com.surelogic.demos</guilabel>
+					</entry>
+					<entry>
+						Excludes two packages from scans:
+						<code>com.surelogic.tests</code> and <code>com.surelogic.demos</code>.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*test*</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that contains
+						<code>test</code>
+						as part of its name.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*.test.*</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that is a sub-package of a
+						<code>test</code>
+						package, but not the elements of the <code>test</code> package itself.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*test*,com.surelogic.demos</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that contains
+						<code>test</code>
+						as part of its name as well as the <code>com.surelogic.demos</code> package.
+					</entry>
+				</row>
+			</tbody>
+		</tgroup>
+	</informaltable>
+	</para>
+	</sect1>
+
+  <sect1 id="sec-license-management">
+    <title>License management</title>
+
+    <para>JSure is commercial software and a license is required to
+    use it. Licenses are obtained from SureLogic and expire after some
+    period of time. Lack of a license will prohibit you from scanning code with JSure.
+    Selecting <guimenuitem>Manage SureLogic
+    Licenses</guimenuitem> from the <guimenu>JSure</guimenu> menu
+    brings up the license management form as seen in <xref
+    linkend="fig-license-management" />. For JSure to operate properly
+    either a <emphasis>JSure</emphasis> or <emphasis>All
+    Tools</emphasis> license must be installed.</para>
+
+    <figure id="fig-license-management">
+      <title>The SureLogic license management dialog</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/quick-start-license-dialog-empty.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>By default license installation requires internet access.
+    SureLogic can, in special cases, provide licenses that do not
+    require internet access. Further use of the product does not
+    require internet access. If a manual uninstall is done, before
+    license expiration, internet access is also required.  SureLogic
+    tracks the number of times a particular license is installed and
+    uninstalled. We stress that JSure does not, unlike other
+    plug-ins such as MyEclipse, &ldquo;talk-back&rdquo; to SureLogic each time
+    Eclipse is started.</para>
+
+    <para>The installed license expires after a period of time
+    (clearly visible to the user) and a new license has to
+    be installed to continue to use JSure.</para>
+
+    <para>Licenses can be installed more than once.  Thus, one
+    license can be used for all of an organization or SureLogic can
+    issue one per location or one per organizational entity.</para>
+
+    <para>If the JSure Eclipse plug-in does not have a valid
+    license it will not affect the Eclipse installation that JSure
+    is installed into. The IDE will load and function normally, but
+    when JSure functions are executed they will fail noting the
+    lack of a license. Serviceability functions of the tool (e.g.,
+    sending problem reports to SureLogic, installing and
+    uninstalling licenses) function properly without a license.  The
+    unlicensed JSure plug-in can be uninstalled or disabled within
+    Eclipse.</para>
+
+    <para>When you receive a license file from SureLogic it is
+    installed via this dialog.  To install the license select the
+    row in the license table that matches the type of license.  For
+    example, if you have been sent a JSure license select the
+    JSure row in the license table.  Next press the
+    <guibutton>Install from File</guibutton> or <guibutton>Install from Clipboard</guibutton>
+    button depending upon if you saved your license
+    to a file or copied it from an email.  Once the license is loaded press <guibutton>Activate</guibutton>
+    to activate it with SureLogic. The tool checks
+    with SureLogic and reports that your license has been installed
+    and returns showing information about the installed license. The
+    license file is not examined by the tool after the installation
+    is completed unless you install the file again (after an
+    uninstall).</para>
+
+    <para>To uninstall a license, select the row in the license
+    table and press the <guibutton>Uninstall
+    License</guibutton>. You will be asked if you are sure you want
+    to uninstall the license.  If you confirm the uninstall then the
+    license is removed.  This may take a minute as SureLogic is
+    informed that your license has been uninstalled.</para>
+
+    <para>When a license is nearing expiration the tool warns the
+    user with the dialog shown in <xref
+    linkend="fig-license-management-expiration-warning" /></para>
+
+    <figure id="fig-license-management-expiration-warning">
+      <title>Dialog warning that the installed JSure license is about to expire</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/license-management-expiration-warning.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>When a license does expire it disappears from the dialog.
+    The tool is considered unlicensed at that point. To fix this
+    situation install a new license (it is not required to install a
+    new version of JSure).</para>
+  </sect1>
+
+  <sect1 id="sec-bugs-and-tips">
+    <title>Bugs and tips</title>
+
+    <para>JSure allows any user to send problem reports and suggestions
+    to SureLogic from the main menu. Selecting
+    <menuchoice><guimenu>JSure</guimenu> <guimenuitem>Send Tip for
+    Improvement</guimenuitem></menuchoice> or
+    <menuchoice><guimenu>JSure</guimenu> <guimenuitem>Send Problem
+    Report</guimenuitem></menuchoice> allows a tip or problem report to
+    be send to SureLogic directly within Eclipse as shown in <xref
+    linkend="fig-bugs-and-tips-main-menu-service"/>. These menu choices
+    bring up dialogs that allow the user to control exactly what
+    information is sent to SureLogic.  In addition, the user can preview
+    the exact text that will be sent over the Internet.</para>
+
+    <figure id="fig-bugs-and-tips-main-menu-service">
+      <title>Menu items to send bugs and tips to SureLogic</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/bugs-and-tips-main-menu-service.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>The <guimenuitem>Send Tip for Improvement</guimenuitem>
+    command opens a dialog to allow entry of a suggestion by the
+    user to improve the JSure tool as seen in <xref
+    linkend="fig-bugs-and-tips-menu-send-tip" />. The dialog allows the
+    user to control exactly what information is sent to SureLogic.
+    In addition, the user can preview and edit the exact text
+    that will be sent. If you have no Internet connection you can
+    print or save the text of your problem report (to fax or email).</para>
+
+    <figure id="fig-bugs-and-tips-menu-send-tip">
+      <title>Dialog allowing the user to enter a tip to improve JSure</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/bugs-and-tips-menu-send-tip.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>The <guimenuitem>Send Problem Report</guimenuitem> command
+    opens a dialog to allow entry of a problem report by the user
+    about the JSure tool as seen in <xref
+    linkend="fig-bugs-and-tips-menu-problem-report" /> The dialog
+    allows the user to control exactly what information is sent to
+    SureLogic.  In addition, the user can preview and edit the exact text
+    that will be sent. If you have no Internet connection you can
+    print or save the text of your problem report (to fax or email).</para>
+
+    <figure id="fig-bugs-and-tips-menu-problem-report">
+      <title>Dialog allowing the user to enter a problem report about JSure</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/bugs-and-tips-menu-problem-report.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Messages sent from these dialogs go over HTTP to
+    SureLogic. If a proxy is used on your network then it is
+    critical to configure Eclipse to use it.  To do this open the
+    Eclipse <guilabel>Preferences</guilabel> and examine the
+    <guilabel>Network Connections</guilabel> under the
+    <guilabel>General</guilabel> preferences.  This dialog allows
+    you to configure Eclipse for your network as shown in <xref
+    linkend="fig-bugs-and-tips-network-connections" /></para>
+
+    <figure id="fig-bugs-and-tips-network-connections">
+      <title>Eclipse preferences for network connections within the IDE.</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
+      </mediaobject>
+    </figure>
+  </sect1>
+</chapter>

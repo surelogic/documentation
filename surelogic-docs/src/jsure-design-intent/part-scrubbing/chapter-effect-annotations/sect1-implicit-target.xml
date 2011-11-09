@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="implicit.target">
+  <title>Implicitly Qualified Target</title>
+  
+  <para>A target may also have the simple form
+  
+    <synopsis>
+<co id="implicit.region"/><replaceable>region_name</replaceable>
+    </synopsis>
+    
+    <calloutlist>
+      <callout arearefs="implicit.region">
+        <para>The name of a region.</para>
+      </callout>
+    </calloutlist>
+    
+  This is shorthand for either an instance target, <code>this:<replaceable>region_name</replaceable></code>,
+  or a class target <code><replaceable>type_name</replaceable>:<replaceable>region_name</replaceable></code>, where
+  <replaceable>type_name</replaceable> is the class in which <replaceable>region_name</replaceable> is
+  declared, depending on whether the region named by <replaceable>region_name</replaceable>
+  is an instance or a static region, respectively.
+  </para>
+  
+  <sect2>
+    <title>Constraints</title>
+    
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>The target must <link linkend="preserve.abstraction">preserve
+          abstraction</link></title>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>If named region is non-<code>static</code>, then the annotation must
+          be on a non-<code>static</code> method</title>
+             
+          <para>Methods that are <code>static</code> don't have a
+          receiver. Constructors mask their effects on the
+          receiver, so there is no point in declaring them</para>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>The region identified by
+          <replaceable>region_name</replaceable> must be declared in the annotated class
+          or one of its ancestors.</title>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+</sect1>

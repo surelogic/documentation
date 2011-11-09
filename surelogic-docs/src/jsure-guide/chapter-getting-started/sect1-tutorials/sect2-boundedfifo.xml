@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect2 id="boundedfifo"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Verifying BoundedFIFO</title>
+  
+  <para>In this tutorial we walk through the complete assurance of the
+  <application>BoundedFIFOJSure</application> project using JSure.
+  Specifically, we assure both the implementation and
+  <emphasis>usage</emphasis> of a simple class.  That is, we
+  demonstrate that is not always enough to assure the implementation
+  of a class: <emphasis>sometimes the clients of a class must conform
+  to a specific behavior as well</emphasis>. This example focuses on
+  two classes (plus one auxiliary class):
+  
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title><classname>BoundedFIFO</classname></title>
+          
+          <para>The &ldquo;thread safe&rdquo; class.  This class is
+          taken &ldquo;as is&rdquo; from the Apache Log4J project.</para>
+        </formalpara>
+      </listitem>
+    
+      <listitem>
+        <formalpara>
+          <title><classname>BlockingFIFO</classname></title>
+        
+          <para>The client code.  We wrote this class based on actual
+          client code in the Apache Log4J project.</para>
+        </formalpara>
+      </listitem>
+    
+      <listitem>
+        <formalpara>
+          <title><classname>LoggingEvent</classname></title>
+        
+          <para>The class of objects stored in the queue.  This
+          class is not interesting, and is merely a placeholder for queue
+          objects.</para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+  </para>
+
+  <para>In addition to showing the basic usage of JSure with Eclipse,
+  this example shows off the JSure annotations
+  <classname>@RegionLock</classname>,
+  <classname>@RequiresLock</classname>,
+  <classname>@Borrowed</classname>, <classname>@Unique</classname>,
+  and <classname>@Promise</classname>. </para>
+    
+  <para>After completely assuring the project, we show how the annotated model
+  for <classname>BoundedFIFO</classname> can be augmented by named regions
+  of state using the annotations <classname>@Region</classname>,
+  <classname>@InRegion</classname>, and <classname>@UniqueInRegion</classname>.</para>
+  
+  <sect3>
+    <title>Adding the SureLogic Annotation Types to the Project</title>
+    
+    <para>Before we can add annotations to the project's code, we need to add the
+    SureLogic annotation types in the package <package>com.surelogic</package>
+    to the project's class path.  This is most easily done
+    by allowing JSure to do it for us:
+    
+    <orderedlist>
+      <listitem>
+	<para>Select
+	<menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
+	Promises Library in Project...</guimenuitem></menuchoice> from
+	the Eclipse menu.</para>
+      </listitem>
+      <listitem>
+	<para>Check <application>BoundedFIFOJSure</application> in the
+	dialog which appears.
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/add-promises-to-boundedfifo.png" />
+	  </imageobject>
+	</mediaobject>
+
+	Then press <guilabel>OK</guilabel> to add the promises JAR to
+	the <application>BoundedFIFOJSure</application> project's
+	classpath.</para>
+      </listitem>
+    </orderedlist>
+
+    We do not need to scan the project with JSure at this time.</para>
+  </sect3>
+  
+  <sect3 id="declaring-protected-state">
+    <title>Declaring Protected State</title>
+    
+    <para>The <classname>BoundedFIFO</classname> class is a buffer
+    meant to be shared between two threads. It obviously must be made
+    thread-safe. The usual assumption is that an object protects its
+    own state, and we intend for that to be the case here.  Declare this 
+    design intent by adding a <classname>@RegionLock</classname> annotation
+    to the class <classname>BoundedFIFO</classname> 
+    (and not to <classname>BlockingFIFO</classname>):
+    
+    <programlisting>
+<emphasis>@RegionLock("BufLock is this protects Instance")</emphasis>
+public class BoundedFIFO {
+  &hellip;
+}</programlisting>    
+    </para>
+
+    <note>
+      <title>Don't forget to <code>import</code> the annotation type</title>
+      
+      <para>The annotation type <classname>RegionLock</classname> (and any other
+      JSure annotation used in these examples) must be imported by the sourcefile
+      before the class name can be resolved by the compiler.  There are a number of ways
+      you can do this:
+      
+        <itemizedlist>
+          <listitem>
+            <para>You can manually add <code>import
+            com.surelogic.RegionLock</code>, or more generally,
+            <code>import com.surelogic.*</code> to the list of imports
+            at the top of <filename>BoundedFIFO.java</filename>.</para>
+          </listitem>
+
+          <listitem>
+            <para>If you are typing the annotation into the editor you can
+            use the Eclipse &ldquo;content assist&rdquo; feature as you are typing
+            the name <classname>RegionLock</classname>.  The Java editor will 
+            automatically add the correct <code>import</code> clauses or
+            enter the fully qualified name of the class, depending on your
+            Eclipse preferences.</para>
+          </listitem>
+
+          <listitem>
+            <para>If you used copy-and-paste to copy the annotation from this tutorial and paste
+            it into the Eclipse editor you can use the Eclipse &ldquo;quick fix&rdquo; feature
+            to insert the <code>import</code> clause.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </note>
+
+    <para>Adding annotations is not enough to see assurance
+    results. To scan the project
+
+    <itemizedlist>
+      <listitem>
+	<para>Choose <menuchoice><guimenu>JSure</guimenu>
+	<guisubmenu>Verify Project</guisubmenu></menuchoice> from the
+	Eclipse main menu. You can also use the keyboard shortcut
+	<keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/verify-project.png" />
+	  </imageobject>
+	</mediaobject>  
+	</para>
+      </listitem>
+
+      <listitem>
+	<para>This will bring up the dialog shown below which allows
+	you to select the set of projects you want to scan from the
+	set of open Java projects in your Eclipse workspace.
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/verify-project-dialog.png" />
+	  </imageobject>
+	</mediaobject>  
+
+	Check <application>BoundedFIFOJSure</application> and press
+	<guilabel>OK</guilabel> to start a scan. A balloon
+	notification will appear telling you that the scan has been
+	started in the background and that you will be notified when
+	the scan has been completed.
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/verify-project-scan-started.png" />
+	  </imageobject>
+	</mediaobject>  
+
+	</para>
+      </listitem>
+
+      <listitem>
+	<para>The scan should not take long to complete. When it
+	finishes you will be prompted to switch to the <guilabel>Code
+	Verification</guilabel> perspective.
+	
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/perspective-switch.png" />
+	  </imageobject>
+	</mediaobject>  
+
+	Choose <guilabel>Yes</guilabel> because we want to examine the
+	scan results.</para>
+      </listitem>
+    </itemizedlist>
+    </para>
+
+    <para>Switching to the <guilabel>Code Verification</guilabel>
+    perspective at this point should look something like this:
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/switched-to-code-verification.png" />
+      </imageobject>
+    </mediaobject>
+    We begin our examination of the results using the
+    <guilabel>Verification Status</guilabel> view.  This view shows
+    the results of assuring model&ndash;code consistency. It is
+    similar to a file system explorer, but instead of showing
+    directories and files, it shows the chain of evidence used to
+    build a verification judgment (consistent or inconsistent) about
+    each of your annotations.</para>
+    
+    <para>By digging into the <guilabel>Concurrency</guilabel> results, we
+    find that with this single annotation, assurance by JSure produces
+    two main concurrency results, mostly indicating that the
+    annotation is <emphasis>not</emphasis> assured, and a few
+    warnings.  There are 27 unprotected field accesses for
+    <structfield>BufLock</structfield>, and no protected field
+    accesses:
+    
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo1.png"/>
+      </imageobject>
+    </mediaobject>
+    </para>
+  
+    <para>Opening up the results tree further we see that JSure
+    identifies each location in the code where state is accessed
+    without holding the correct lock:
+    
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo2.png" />
+      </imageobject>
+    </mediaobject>    
+
+    Double-clicking on any of the results in the
+    <guilabel>Verification Status</guilabel> view focuses an Eclipse
+    Java editor and the <guilabel>JSure Historical Source</guilabel>
+    view on the offending line of code.  Let us view line of code from
+    the assurance failure at line 52 by double-clicking on
+    <computeroutput>Lock "&lt;this&gt;.BufLock" not held when
+    accessing this.numElts at BoundedFIFO.java line
+    52</computeroutput>. Eclipse opens an editor window for
+    <classname>BoundedFIFO</classname> and highlights the field
+    expression <code>numElts</code> on line 52. In addition the
+    <guilabel>JSure Historical Source</guilabel> view shows the same
+    code because the current Java code and the code when the scan was
+    performed are the same.
+    <footnote>
+      <para>You can enable line numbering in the Java editors by
+      right-clicking in the editor gutter and selecting <guimenu>Show
+      Line Numbers</guimenu> or by going to
+      <menuchoice><guimenu>General</guimenu>
+      <guisubmenu>Editors</guisubmenu> <guisubmenu>Text
+      Editors</guisubmenu></menuchoice> in the Eclipse
+      <guilabel>Preferences</guilabel> dialog box, and selecting
+      <guilabel>Show line numbers</guilabel> in the preference
+      pane.</para>
+    </footnote>
+
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="images/boundedfifo3.png" />
+    </imageobject>
+  </mediaobject>    
+      
+    This state access is one of many in the <function>get()</function>
+    method.  A quick inspection of the method shows that it does not
+    acquire any locks.  In fact, if you scroll through the rest of the
+    <classname>BoundedFIFO</classname> you will see that no locks are
+    acquired anywhere.  There are several explanations for this
+    situation, including
+      <orderedlist>
+        <listitem id="li1">
+          <para>The class is broken and needs to have
+          <code>synchronization</code> statements added to it.</para>
+        </listitem>
+        <listitem id="li2">
+          <para>The class expects the locks to acquired by users of
+          instances of the class.</para>
+        </listitem>
+        <listitem id="li3">
+          <para>The class uses some other technique to prevent data
+          races.</para>
+        </listitem>
+      </orderedlist>
+    It is very possible that <xref linkend="li1"/> is the case.  Another
+    quick inspection of the code suggests that <xref linkend="li3"/> is
+    probably not the case.  We need to inspect the clients of
+    <classname>BoundedFIFO</classname> to consider <xref
+    linkend="li2"/>. </para>
+
+    <para>We can investigate the clients of
+    <classname>BoundedFIFO</classname> by seeing where the methods of
+    the class are invoked.  Of course, we know already that the class
+    is used by <classname>BlockingFIFO</classname>, but suppose we did
+    not already know that.  We can find this out by using Eclipse to
+    display the call hierarchy for a method.  Open the context menu
+    within the <function>get()</function> method and select
+    <menuchoice><guimenuitem>Open Call
+    Hierarchy</guimenuitem></menuchoice>.  The <guilabel>Call
+    Hierarchy</guilabel> view appears, and shows
+    
+      <mediaobject>
+        <imageobject>
+         <imagedata fileref="images/boundedfifo4.png" />
+        </imageobject>
+      </mediaobject>    
+    
+    This tells us that <function>BoundedFIFO.get()</function> is
+    called by <function>BlockingFIFO.get</function>.  Double-clicking
+    on <computeroutput>get() - test.BlockingFIFO</computeroutput> opens
+    <classname>BlockingFIFO</classname> in a Java editor and selects
+    the call expression:
+    
+      <mediaobject>
+        <imageobject>
+         <imagedata fileref="images/boundedfifo5.png" />
+        </imageobject>
+      </mediaobject>    
+    </para>
+    
+    <para>Here we can see that the
+    <function>BlockingFIFO.get()</function> calls
+    <code>fifo.get()</code> on line 38. The method acquires the lock
+    on the object referenced by <structfield>fifo</structfield> on
+    line 29.  This suggests that it is the case the clients of
+    <classname>BoundedFIFO</classname> are expected to acquire the
+    lock.</para>
+  </sect3>
+
+  <sect3 id="declaring-lock-preconditions">
+    <title>Declaring Lock Preconditions</title>
+    
+    <para>We can test this hypothesis by annotating all the methods of
+    <classname>BoundedFIFO</classname> with the lock precondition
+    <classname>@RequiresLock("BufLock")</classname>.  There are seven
+    methods in the class, so we could quickly add the annotations
+    without too much work.  We can also take advantage of the
+    <guilabel>Proposed Promises</guilabel> view to have JSure add
+    these promises for us.  If we sort the view by its first column
+    (by clicking on the column header) we can see that the view
+    proposes seven <classname>RequiresLock</classname> annotations.
+    We can have JSure add these to the code by selecting them all and
+    choosing <menuchoice><guimenuitem>Add promises to
+    code&hellip;</guimenuitem></menuchoice>:
+    
+      <mediaobject>
+        <imageobject>
+         <imagedata fileref="images/proposed-promises-requireslock.png" />
+        </imageobject>
+      </mediaobject>    
+      
+    Doing this would bring up an Eclipse source code refactoring
+    dialog box.  We choose not to go this route here (an example of
+    adding annotations using proposed promises is presented below).
+    </para>
+    
+    <para>There is a way, however, to accomplish the
+    same thing with only single annotation: we can use a
+    <emphasis>scoped annotation</emphasis> to add the annotation to all
+    the methods in the class.
+
+      <programlisting>
+@RegionLock("BufLock is this protects Instance")
+<emphasis>@Promise("@RequiresLock(BufLock) for *(**)")</emphasis>
+public class BoundedFIFO {
+  &hellip;
+}
+      </programlisting>  
+
+    Here we use the <classname>@Promise</classname> annotation to add
+    <code>@RequiresLock("BufLock")</code> to the class members that
+    match the pattern <code>*(**)</code>. In the scoped promise the
+    quotation marks are removed from inside the parenthesis. This is
+    to avoid having to escape the inner quotation marks (i.e., \").
+    The pattern <code>*(**)</code> matches method with any name,
+    <code>*</code>, that have any parameter list, <code>(**)</code>.
+    Using a scoped promise has the additional advantage of better
+    capturing the design intent: all methods in the class are expected
+    to have the same lock precondition.  Were we to add a new method
+    to the class, and if we did not use the scoped annotation, we
+    would have to remember to add the
+    <classname>@RequiresLock</classname> annotation to the new method.
+    The scoped annotation would automatically apply the lock
+    precondition to a new method.</para>
+
+    <para>Add the <classname>@Promise</classname> annotation to
+    <classname>BoundedFIFO</classname> and save the source
+    file. Choose <menuchoice><guimenu>JSure</guimenu>
+    <guisubmenu>Verify Project</guisubmenu></menuchoice> from the
+    Eclipse main menu to scan the project again or use the keyboard
+    shortcut
+    <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
+        
+    <para>After the analysis completes, there is a new <guilabel>Scoped
+    promises</guilabel> heading in the <guilabel>Verification
+    Status</guilabel> view, and we can see all the places where the
+    <classname>@Promise</classname> annotation added
+    <classname>@RequiresLock</classname> annotations. Only 4 out of
+    the 7 are currently satisfied:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo6.png"/>
+        </imageobject>
+      </mediaobject>
+    </para>
+    
+    <para>Let us look at the chain of evidence for the first unassured
+    <code>@RequiresLock</code> on the method <function>BoundedFIFO.isFull()</function>:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo7.png"/>
+        </imageobject>
+      </mediaobject>
+    
+    We see that the caller is confused and is synchronized on
+    <parameter>this</parameter> (as evidenced by the caller holding
+    the lock <code>this.MUTEX</code>), although the analysis tells use
+    that the lock on <code>this.fifo</code> is the lock that is
+    needed.  Double-clicking on the supporting information result
+    opens a Java editor and selects the expression that acquires the
+    lock:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo8.png"/>
+        </imageobject>
+      </mediaobject>
+
+    Here we see that the method
+    <function>BlockingFIFO.put()</function> acquires the lock on
+    <parameter>this</parameter>.  But in the context of
+    <classname>BlockingFIFO</classname>, <parameter>this</parameter>
+    refers to the <classname>BlockingFIFO</classname> object, not the
+    <classname>BoundedFIFO</classname> object that is correctly
+    referred to by <structfield>fifo</structfield>. Therefore, this
+    code is <emphasis>acquiring the wrong lock</emphasis>. The
+    <code>synchronized</code> statement in method
+    <function>isFull()</function> needs to be changed:
+
+      <programlisting>
+public void put(LoggingEvent e) {
+  synchronized (<emphasis>fifo</emphasis>) {
+    &hellip;
+  }
+}
+      </programlisting>
+    </para>
+    
+    <para>Make this change to <filename>BlockingFIFO.java</filename>
+    and run another JSure scan using the keyboard shortcut
+    <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
+  </sect3>
+  
+  <sect3 id="single-threaded-constructor">
+    <title>Declaring a Thread-Confined Constructor</title>
+
+    <para>After analysis of the
+    <application>BoundedFIFOJSure</application> code completes, all
+    the lock preconditions are assured, but there are still five
+    unprotected field accesses:
+    
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo9.png"/>
+      </imageobject>
+    </mediaobject>
+
+    Getting to these results can take several click in the
+    <guilabel>Verification Status</guilabel> view. It is possible to
+    get a list of the inconsistent analysis results more directly
+    using the <guilabel>JSure Quick Search</guilabel>.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo9qs1.png"/>
+      </imageobject>
+    </mediaobject>
+
+    Select <guilabel>Analysis Result</guilabel> from the menu. This
+    lets you filter the results by the type of analysis result. The
+    graphics show that there are 41 analysis results and that 36 of
+    those results are consistent and 5 are inconsistent. Check
+    <inlinegraphic fileref="images/red_x.gif"/>
+    <guilabel>Inconsistent</guilabel>. This selection allows the
+    inconsistent analysis results through this filter. We don't need
+    another filter, so select <guilabel>Show</guilabel> to show the 5
+    inconsistent analysis results.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo9qs2.png"/>
+      </imageobject>
+    </mediaobject>
+
+    This query is useful so we want to save it for future use. Click
+    on the <inlinegraphic fileref="images/saveas_edit.gif"/> icon at
+    the lower-left of the view and enter <code>X Results</code> into
+    the dialog.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo9qs3.png"/>
+      </imageobject>
+    </mediaobject>
+
+    Press <guilabel>OK</guilabel> to save the query. It now appears in
+    the space below the view and can be selected at any time via a
+    click. Let's test the saved query. First, clear the current query
+    by pressing the <inlinegraphic fileref="images/gray_x.gif"/> image
+    in the upper-right-hand corner of the view. The view resets to its
+    initial state. Now, to get our query back, click on the <code>X
+    Results</code> link at the bottom of the view. The query is
+    redisplayed in the view.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/boundedfifo9qs4.png"/>
+      </imageobject>
+    </mediaobject>
+    </para>
+
+    <para>If you double-click on the five assurance failures, the
+    <inlinegraphic fileref="images/red_x.gif"/> results at the right
+    above, you will see that they point to the field initializers for
+    the fields <structfield>first</structfield>,
+    <structfield>next</structfield>, and
+    <structfield>numElts</structfield>, and to the use of the fields
+    <structfield>buf</structfield> and <structfield>size</structfield>
+    in the class&rsquo;s constructor.  Constructors are interesting
+    because we cannot require the caller to hold a lock on
+    <parameter>this</parameter> because the instance does not exist
+    before the constructor is called.  Furthermore, it is bad practice
+    to use <code>synchronized</code> blocks in the constructor to
+    protect the state of the object under construction because we
+    cannot create a single atomic block that encloses all the
+    constructors invoked while initializing an object.  There would
+    have to be multiple distinct <code>synchronized</code> blocks: one
+    in the constructor for the class and one in each constructor of
+    any subclasses, etc.</para>
+    
+    <para>The solution is to take advantage of the fact the
+    constructor is operating on a newly created object.  Specifically,
+    we would like to assure that the constructor does not do anything
+    that gives any thread other than the one that invoked the
+    constructor access to the newly created object.  If we can assure
+    this, we know that the object can only be accessed by a single
+    thread&mdash;the one that invoked the constructor&mdash;during the
+    execution of the constructor.  We can do this by annotating the 
+    constructor <function>BoundedFIFO(int)</function> with
+    <classname>@Unique("return")</classname> to declare
+    the intent that no aliases to the newly constructed object will be
+    created during the execution of the constructor.  This annotation is
+    listed in the <guilabel>Proposed Promises</guilabel> view:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/proposed-promises-uniquereturn.png"/>
+        </imageobject>
+      </mediaobject>
+    </para>
+
+    <para>Select the <classname>@Unique("return")</classname> annotation
+    in the view and choose <menuchoice><guimenuitem>Add promises to
+    code&hellip;</guimenuitem></menuchoice> from the context menu.  An Eclipse
+    refactoring dialog appears:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/refactoring-window.png"/>
+        </imageobject>
+      </mediaobject>
+    
+    Select <guibutton>OK</guibutton> to insert the annotation.  Rescan
+    the project and the model now assures:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo10.png"/>
+        </imageobject>
+      </mediaobject>    
+    </para>
+        
+    <tip>
+      <para>For constructors the annotations
+      <classname>@Unique("return")</classname> and
+      <classname>@Borrowed("this")</classname> are defined to be
+      equivalent. That said, most programmers have a mental model of the
+      constructor "returning" a new object. The idea that the returned
+      object is required to be a unique reference is intuitive to them
+      and, therefore, the <classname>@Unique("return")</classname>
+      annotation is as well.</para>
+    </tip>
+  </sect3>    
+  
+  <sect3 id="aggregating-state">
+    <title>Aggregating State</title>
+    
+    <para>Although the results show no outright assurance failures, there are still 
+    two warnings about references to possibly shared objects:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo11.png"/>
+        </imageobject>
+      </mediaobject>
+
+    These warnings refer to access to the contents of the array
+    referenced by the field <structfield>buf</structfield>. This array
+    is an object separate from the <classname>BoundedFIFO</classname>
+    object and is not protected by the lock protecting the fields of the
+    <classname>BoundedFIFO</classname> object. We can extend protection
+    to the contents of the array by declaring the array reference to be
+    <classname>@Unique</classname>&mdash;no object but the
+    <classname>BoundedFIFO</classname> object can hold a reference to
+    it&mdash;this also declares that the state of the array is part
+    of the state of the <classname>BoundedFIFO</classname>
+    object (its <code>Instance</code> region):
+    
+      <programlisting>
+@RegionLock("BufLock is this protects Instance")
+@Promise("@RequiresLock(BufLock) for *(**)")
+public class BoundedFIFO {
+  <emphasis>@Unique</emphasis>
+  LoggingEvent[] buf;
+  &hellip;
+}
+      </programlisting>
+    
+    This annotation is suggested by JSure in the
+    <guilabel>Verification Status</guilabel> view (under the
+    suggestion) and in <guilabel>Proposed Promises</guilabel>
+    view. You can use either of these views to add the promise to the
+    code.
+    </para>
+    
+    <para>Now, as part of the state of the
+    <classname>BoundedFIFO</classname> object, the array object
+    referenced by <structfield>buf</structfield> is also protected by
+    the lock that protects that state of the buffer.</para>
+
+    <para>After adding the annotations to the field
+    <structfield>buf</structfield> and performing a scan of the
+    <application>BoundedFIFOJSure</application> project again we can
+    see the effects of this annotation: there are now 29 protected
+    field accesses, up from 27. This is because the two array
+    dereferences are now counted as protected accesses (lines 59 and
+    76):
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo12.png"/>
+        </imageobject>
+      </mediaobject>      
+      
+      The models and code in the
+      <application>BoundedFIFOJSure</application> project are now
+      consistent with no warnings.
+    </para>
+  </sect3>
+
+  <sect3 id="named-region">
+    <title>Using a Named Region</title>
+    
+    <para>The lock <structfield>BufLock</structfield> is declared to protect
+    the region <structfield>Instance</structfield>.  This is a region declared
+    the class <classname>java.lang.Object</classname> that is the ancestor of 
+    every instance field declared in a class.  By associating the lock with this
+    region we declare that every instance field of the class, <emphasis>and every
+    instance field declared in all subclasses of the class</emphasis>, are protected
+    by the lock.  This is not something that we always want to do, and using the 
+    <structfield>Instance</structfield> region in this way, while convenient, 
+    does not usually describe the design intent as well as one might like.  It is
+    often better to use an explicitly declared region.  In real-world use of the JSure
+    tool explicitly declared regions are far more common than the use of the
+    default <structfield>Instance</structfield> region. It is important for you to
+    understand how to use explicitly declared regions.  Here we demonstrate how to
+    annotate <classname>BoundedFIFO</classname> to use an explicitly declared
+    region <structfield>BufState</structfield>.</para>
+    
+    <para>We declare the new region using the <classname>Region</classname> annotation
+    on the class <classname>BoundedFIFO</classname>.  We also update the
+    <classname>RegionLock</classname> annotation to protect
+    <structfield>BufState</structfield> instead of <structfield>Instance</structfield>:
+
+      <programlisting><emphasis>@Region("BufState")</emphasis>
+@RegionLock("BufLock is this protects <emphasis>BufState</emphasis>")
+@Promise("@RequiresLock(BufLock) for *(**)")
+public class BoundedFIFO {
+  &hellip;
+}</programlisting>
+    
+    After making this change and performing a scan of the project, the
+    model still assures, but upon closer inspection the assurance is
+    essentially vacuous because it contains no protected or
+    unprotected field accesses, although the method preconditions are
+    still shown to be satisfied:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/named-region-01.png"/>
+        </imageobject>
+      </mediaobject>      
+    </para>
+    
+    <para>The problem here is that the region
+    <structfield>BufState</structfield> is initially empty.  It needs
+    to be populated with actual state, that is, with fields.  This is
+    done by annotating fields with the <classname>InRegion</classname>
+    annotation and changing our <classname>Unique</classname>
+    annotation to a <classname>UniqueInRegion</classname> annotation:
+    
+      <programlisting>@Region("BufState")
+@RegionLock("BufLock is this protects BufState")
+@Promise("@RequiresLock(BufLock) for *(**)")
+public class BoundedFIFO {
+  <emphasis>@UniqueInRegion("BufState")</emphasis>
+  LoggingEvent[] buf;
+
+  <emphasis>@InRegion("BufState")</emphasis>
+  int numElts = 0;
+  <emphasis>@InRegion("BufState")</emphasis>
+  int first = 0;
+  <emphasis>@InRegion("BufState")</emphasis>
+  int next = 0;
+  <emphasis>@InRegion("BufState")</emphasis>
+  int size;
+  &hellip;
+}</programlisting>
+    
+    In this case, we place each of the fields into the
+    region <structfield>BufState</structfield>.  We also update the
+    aggregation of the array referenced by
+    <structfield>buf</structfield> so that the array elements are
+    aggregated into <structfield>BufState</structfield> by replacing
+    the previous <classname>@Aggregate</classname> annotation with
+    <classname>@AggregateInRegion("BufState")</classname>.  After these
+    changes we again have 29 protected field accesses:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/named-region-02.png"/>
+        </imageobject>
+      </mediaobject>      
+    </para>
+    
+    <para>Region declarations, like field declarations, accept
+    visibility modifiers. The absence of a modifier in the declaration
+    for <structfield>BufState</structfield> means the region has
+    &ldquo;default&rdquo; or &ldquo;package&rdquo; visibility.  This is
+    the minimum visibility necessary for this region because the fields
+    we have populated it with have that same visibility.  If we tried to
+    declare the region to be <code>private</code>, JSure would report a
+    modeling error.  It would make more sense, however, for the
+    region and fields to be declared as <code>private</code>; in this
+    case there is no reason for them to be visible to other classes. 
+    This prevents, for example, a subclass from adding additional fields
+    to the region&mdash;because the region is not visible to
+    subclasses&mdash;and interfering with the design intent.
+    
+      <programlisting>@Region("<emphasis>private</emphasis> BufState")
+@RegionLock("BufLock is this protects BufState")
+@Promise("@RequiresLock(BufLock) for *(**)")
+public class BoundedFIFO {
+  @UniqueInRegion("BufState")
+  <emphasis>private</emphasis> LoggingEvent[] buf;
+
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int numElts = 0;
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int first = 0;
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int next = 0;
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int size;
+  &hellip;
+}</programlisting>
+
+Go ahead and make these changes and scan the project again. The
+verification results should not change.
+    </para>
+  </sect3>
+
+  <sect3 id="named-region">
+    <title>Deleting Old Scans</title>
+
+    <para>JSure saves each scan that you run. The <guilabel>JSure
+    Scans</guilabel> view lists these scans and you can view their
+    data by changing which scan is checked. Check a few of your
+    earlier scans and note how the other JSure views change. Each time
+    a new scan completes the view automatically selects this scan so
+    that it's results are visible to the tool user.</para>
+
+    <para>The <guilabel>JSure Scans</guilabel> view also lets you
+    delete old scans which take up disk space on your machine. This is
+    done by selecting them and choosing
+    <menuchoice><guimenu>Delete</guimenu></menuchoice> from the view's
+    context menu.</para>
+
+    <para>We are done with the scans we performed on
+    <application>BoundedFIFOJSure</application> so select all the
+    scans in the view (with the mouse or using
+    <keysym>Ctrl</keysym>+<keysym>A</keysym>) and delete them with the
+    view's context menu as shown below.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/deleting-boundedfifo-scans.png"/>
+      </imageobject>
+    </mediaobject>
+    </para>
+
+    <para>You are now finished with this tutorial. The next tutorial
+    works on a larger codebase and presents the use of JSure to verify
+    lock policies that use <code>util.concurrent</code> locks.</para>
+  </sect3>
+</sect2>

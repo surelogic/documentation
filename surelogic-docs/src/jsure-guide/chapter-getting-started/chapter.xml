@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<chapter id="getting-started"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Getting started</title>
+  <sect1>
+    <title>Introduction</title>
+
+    <para><emphasis>What is JSure?</emphasis> JSure is a model-based
+    static analysis tool that helps developers answer the question
+    &ldquo;Are my threads accessing shared state in a safe way?&rdquo;
+    JSure provides positive assurance that correct locks are held when
+    shared state is accessed. The tool uses a sound analysis, i.e., it
+    is not based upon a rule-based analysis. This enables programmers
+    to develop a high confidence that their code is &ldquo;thread
+    safe,&rdquo; that is, that it satisfies state consistency
+    requirements.</para>
+
+    <para>More specifically, JSure verifies that Java class
+    implementations are consistent with programmer design intent as
+    expressed using Java annotations. Annotations make JSure
+    scalable: Unannotated classes have no design intent to
+    assure. Annotations may be inserted incrementally in critical
+    classes.  Later, additional annotations may be added as required
+    to assure additional classes.  Verification results are, however,
+    whole program: some annotations place requirements on class
+    clients, and thus, the behavior of a client class is assured even
+    if that class has no annotations of its own.</para>
+    
+    <para>The JSure analysis engine is integrated into the Eclipse
+    Java IDE.  This enables JSure scans to be run in the background
+    within Eclipse and verification results to be examined by the tool
+    user within the widely-used Eclipse Java IDE.</para>
+  </sect1>
+
+  <xi:include href="sect1-quick-start.xml"/>
+
+  <xi:include href="sect1-tutorials/sect1.xml"/>  
+</chapter>

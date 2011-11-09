@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1>
+  <title>Any-Instance Target</title>
+  
+  <para>An any-instance target has the form
+  
+    <synopsis>
+any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="any.instance.region"/><replaceable>region_name</replaceable>
+    </synopsis>
+    
+    <calloutlist>
+      <callout arearefs="any.instance.type">
+        <para>The name of a class or interface.</para>
+      </callout>
+      <callout arearefs="any.instance.region">
+        <para>The name of a region.</para>
+      </callout>
+    </calloutlist>
+  </para>
+  
+  <sect2>
+    <title>Constraints</title>
+    
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>The target must <link linkend="preserve.abstraction">preserve
+          abstraction</link></title>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>The class/interface identified by
+          <replaceable>type_name</replaceable> must exist</title>
+        </formalpara>
+      </listitem>
+      <listitem>
+        <formalpara>
+          <title>The region identified by
+          <replaceable>region_name</replaceable> must a
+          non-<code>static</code> region that exists in
+          <replaceable>type_name</replaceable></title>
+          
+          <para>There is no point in the region being <code>static</code>: in
+          that case a <link linkend="class.target">class target</link> can be used.</para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+</sect1>

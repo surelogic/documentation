@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="tutorials"
+       xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Tutorials</title>
+
+  <para>This section contains three tutorials demonstrating the use of
+  JSure and SureLogic program annotations to assure the correct use of
+  locks in three concurrent programs.  The first tutorial uses a small
+  closed-world example to demonstrate the complete assurance of a
+  class and its usage, starting with no annotations at all.  The
+  second and third examples begin with a partially annotated program,
+  and demonstrates more sophisticated concepts such as support for
+  <package>java.util.concurrent</package> reader&ndash;writer
+  locks.</para>
+
+  <figure id="fig-tutorial-installing-projects">
+    <title>Menu item to install tutorial projects into your workspace</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-installing-projects.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>These tutorials assume that you have installed JSure. If you
+  see a <guimenu>JSure</guimenu> menu item on your Eclipse main menu
+  than you can assume it has been installed properly.  To follow along
+  with the tutorials you will also need to add the BoundedFIFOJsure
+  and PlanetBaronJSure projects to your workspace.  From the Eclipse
+  main menu, choose
+  <menuchoice><guimenu>JSure</guimenu><guimenuitem>Run JSure
+  Tutorials</guimenuitem></menuchoice> and add the projects to your
+  workspace as displayed in <xref
+  linkend="fig-tutorial-installing-projects" /> and <xref
+  linkend="fig-tutorial-jsure-install" />. Note that the
+  PlanetBaronJSure project will <emphasis>not</emphasis> compile
+  without errors until you add the promises JAR file to the project's
+  build path (as described below).</para>
+
+  <figure id="fig-tutorial-jsure-install">
+    <title>Adding tutorial projects to your workspace</title>
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/tutorial-jsure-install.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <xi:include href="sect2-boundedfifo.xml"/>
+  
+  <xi:include href="sect2-planetbaron.xml"/>
+  
+  <xi:include href="sect2-util.concurrent.xml"/>
+  
+  <!-- xi:include href="sect2-smallworld.xml"/ -->
+</sect1>

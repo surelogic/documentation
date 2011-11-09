@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect2 id="assuring-single-threaded">
+  <title>Assuring Constructors</title>
+
+    <para>JSure is able to assure that the
+    constructor has exclusive access to the object being constructed.
+    This assurance is acheived in one of two ways:</para>
+
+    <orderedlist>
+      <listitem>
+        <para>The constructor has a borrowed receiver.  That is, the
+        constructor is also annotated with
+        <classname>@Unique("return")</classname> (or alternatively
+        <classname>@Borrowed("this")</classname>, which has the same
+        meaning in the case of a constructor).</para>
+      </listitem>
+      <listitem>
+        <para>The constructor does not start any threads and only
+        writes to the newly created object under
+        construction. Specifically, the constructor is annotated with
+        <classname>@Starts("nothing")</classname> and its declared
+        effects are contained in the effect <code>"writes
+        this:Instance"</code>. Most constructors can be annotated with
+        <classname>@RegionEffects("none")</classname></para>
+      </listitem>
+    </orderedlist>
+
+    <para>JSure attempts to assure the annotation using both techniques,
+    and the results of this are shown under the <guilabel>precondition
+    choice(s)</guilabel> subheading. For constructor
+    <function>ConstructorExample(int, int)</function> only the first
+    case applies, an we see the <guilabel>by borrowed
+    receiver</guilabel> subheading. Under that heading are the results
+    elaborating the assurance that the receiver is unaliased. Any
+    evidence about using the second option would appear under the
+    subheading <guilabel>by effects</guilabel>.</para>
+
+    <para>This result indicates that JSure is unable to assure that
+    the object being constructed is accessed by the thread that is
+    constructing it only. That is, the receiver may escape the
+    constructing thread and not be accessed by a single
+    thread. Examples are provided in the tutorials.</para>
+
+</sect2>

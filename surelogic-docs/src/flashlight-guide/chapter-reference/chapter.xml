@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<chapter id="reference" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Reference</title>
+
+  <xi:include href="sect1-flashlight-menu.xml"/>
+  <xi:include href="sect1-flashlight-perspective.xml"/>
+  <xi:include href="sect1-sec-license-management.xml"/>    
+  <xi:include href="sect1-flashlight-preferences.xml"/>
+  <xi:include href="sect1-flashlight-launch.xml"/>
+  <xi:include href="sect1-flashlight-method-files.xml"/>
+  <xi:include href="sect1-promises-inference.xml"/>
+  <xi:include href="sect1-flashlight-data-directory.xml"/>
+  <xi:include href="sect1-queries.xml"/>
+  <xi:include href="sect1-flashlight-ant.xml"/>    
+  <xi:include href="sect1-sec-bugs-and-tips.xml"/>    
+</chapter>

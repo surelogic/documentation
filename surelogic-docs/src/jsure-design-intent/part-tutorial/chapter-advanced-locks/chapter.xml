@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<chapter id="advanced-locks"  xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Advanced Lock Models</title>
+      
+  <xi:include href="sect1-regions-and-locks.xml"/>
+      
+  <xi:include href="sect1-returning-locks.xml"/>
+
+  <xi:include href="sect1-policy-locks.xml"/>
+</chapter>

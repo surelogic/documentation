@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:antcontrib="antlib:net.sf.antcontrib">
+
+	<property name="src" location="${basedir}/src" />
+	<property name="build" location="${basedir}/build" />
+	<property name="lib" location="${basedir}/lib" />
+
+	<property name="ant-contrib.jar" value="${lib}/ant-contrib-1.0b3.jar" />
+
+	<property name="stylesheet.name" value="surelogic-styles.css" />
+	<property name="stylesheet.path" value="${lib}/${stylesheet.name}" />
+
+	<property name="promises-project" location="${basedir}/../promises" />
+	<available property="promises-project-exists" file="${promises-project}" />
+	<property name="javadoc.src" location="${promises-project}/src/main/java" />
+	<property name="javadoc.dest" location="${promises-project}/javadoc" />
+
+	<property name="docbook.package.name" value="docbook-xsl-1.75.1" />
+	<property name="docbook.dir" location="${lib}/${docbook.package.name}" />
+	<property name="saxon.dir" location="${lib}/saxon-6-5-5" />
+	<property name="resolver.dir" location="${lib}/xml-commons-resolver-1.2" />
+	<property name="fop.dir" location="${lib}/fop-0.95" />
+	<property name="offo.dir" location="${lib}/offo-1.2" />
+	<property name="xerces.dir" location="${lib}/xerces-2.9.1" />
+
+	<property name="docbook-to-html-xsl" value="${docbook.dir}/html/profile-docbook.xsl" />
+	<property name="docbook-to-eclipse-xsl" value="${docbook.dir}/eclipse/profile-eclipse.xsl" />
+	<property name="docbook-to-fo-xsl" value="${docbook.dir}/fo/profile-docbook.xsl" />
+
+	<!-- JSure Guide definitions -->
+	<property name="je.source.dir" location="${src}/jsure-guide" />
+	<property name="je.source.file" location="${je.source.dir}/jsure-guide.xml" />
+	<property name="je.build.dir" location="${build}/jsure-guide" />
+	<property name="je.html.dir" location="${je.build.dir}/html" />
+	<property name="je.html.file" location="${je.html.dir}/jsure-guide.html" />
+	<property name="je.eclipse.help.dir" location="${je.build.dir}/eclipse-help" />
+	<property name="je.install.dir" location="../jsure-client-eclipse-help" />
+	<property name="je.pdf.file" location="${je.build.dir}/jsure-guide.pdf" />
+
+	<!-- Design Intent definitions -->
+	<property name="di.source.dir" location="${src}/jsure-design-intent" />
+	<property name="di.source.file" location="${di.source.dir}/jsure-design-intent.xml" />
+	<property name="di.build.dir" location="${build}/jsure-design-intent" />
+	<property name="di.html.dir" location="${di.build.dir}/html" />
+	<property name="di.html.file" location="${di.html.dir}/jsure-design-intent.html" />
+	<property name="di.eclipse.help.dir" location="${di.build.dir}/eclipse-help" />
+	<property name="di.install.dir" location="../jsure-design-intent-eclipse-help" />
+	<property name="di.pdf.file" location="${di.build.dir}/jsure-design-intent.pdf" />
+
+	<!-- Sierra Guide definitions -->
+	<property name="sg.source.dir" location="${src}/sierra-guide" />
+	<property name="sg.source.file" location="${sg.source.dir}/sierra-guide.xml" />
+	<property name="sg.build.dir" location="${build}/sierra-guide" />
+	<property name="sg.html.dir" location="${sg.build.dir}/html" />
+	<property name="sg.html.file" location="${sg.html.dir}/sierra-guide.html" />
+	<property name="sg.eclipse.help.dir" location="${sg.build.dir}/eclipse-help" />
+	<property name="sg.install.dir" location="../sierra-client-eclipse-help" />
+	<property name="sg.pdf.file" location="${sg.build.dir}/sierra-guide.pdf" />
+
+	<!-- Flashlight Guide definitions -->
+	<property name="fg.source.dir" location="${src}/flashlight-guide" />
+	<property name="fg.source.file" location="${fg.source.dir}/flashlight-guide.xml" />
+	<property name="fg.build.dir" location="${build}/flashlight-guide" />
+	<property name="fg.html.dir" location="${fg.build.dir}/html" />
+	<property name="fg.html.file" location="${fg.html.dir}/flashlight-guide.html" />
+	<property name="fg.eclipse.help.dir" location="${fg.build.dir}/eclipse-help" />
+	<property name="fg.install.dir" location="../flashlight-client-eclipse-help" />
+	<property name="fg.pdf.file" location="${fg.build.dir}/flashlight-guide.pdf" />
+
+	<!-- FOP engine class -->
+	<property name="fop.class" value="org.apache.fop.cli.Main" />
+
+	<!-- Classpath for the FOP engine to convert DocBook to PDF -->
+	<path id="fop.classpath">
+		<pathelement path="${fop.dir}/fop.jar" />
+		<pathelement path="${fop.dir}/avalon.framework-4.2.0.jar" />
+		<pathelement path="${fop.dir}/batik-all-1.7.jar" />
+		<pathelement path="${fop.dir}/commons-io-1.3.1.jar" />
+		<pathelement path="${fop.dir}/commons-logging-1.0.4.jar" />
+		<pathelement path="${fop.dir}/serializer-2.7.0.jar" />
+		<pathelement path="${fop.dir}/xalan-2.7.0.jar" />
+		<pathelement path="${fop.dir}/xerxesimpl-2.7.1.jar" />
+		<pathelement path="${fop.dir}/xml-apis-1.3.04.jar" />
+		<pathelement path="${fop.dir}/xml-apis-ext-1.3.04.jar" />
+		<pathelement path="${fop.dir}/xmlgraphics-commons-1.3.1.jar" />
+		<pathelement path="${offo.dir}/fop-hyph.jar" />
+	</path>
+
+	<!-- XSLT engine class -->
+	<property name="xslt.processor.class" value="com.icl.saxon.StyleSheet" />
+
+	<!-- path for xslt processor -->
+	<path id="xslt.processor.classpath">
+		<pathelement path="${saxon.dir}/saxon.jar" />
+		<!-- Saxon itself -->
+		<pathelement path="${resolver.dir}/resolver.jar" />
+		<!-- Catalog resolver -->
+		<pathelement path="${xerces.dir}/xercesImpl.jar" />
+		<!-- Xerces XML parser -->
+		<pathelement path="${docbook.dir}/extensions/saxon65.jar" />
+		<!-- DocBook extensions for XSLT -->
+		<!-- Add lib directory to pick up CatalogManager.properties -->
+		<pathelement path="${lib}" />
+	</path>
+
+	<taskdef uri="antlib:net.sf.antcontrib" resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="${ant-contrib.jar}" />
+		</classpath>
+	</taskdef>
+
+	<macrodef name="copy-images-for-html">
+		<attribute name="srcdir" />
+		<attribute name="destdir" />
+		<sequential>
+			<copy todir="@{destdir}">
+				<fileset dir="@{srcdir}">
+					<include name="**/*.png" />
+					<include name="**/*.jpg" />
+					<include name="**/*.gif" />
+				</fileset>
+			</copy>
+			<mkdir dir="@{destdir}/images" />
+			<copy todir="@{destdir}/images">
+				<fileset dir="${docbook.dir}/images">
+					<include name="caution.png" />
+					<include name="important.png" />
+					<include name="note.png" />
+					<include name="tip.png" />
+					<include name="warning.png" />
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<!-- Macro to convert DocBook to HTML -->
+	<macrodef name="docbook-to-html">
+		<attribute name="srcdir" />
+		<attribute name="srcfile" />
+		<attribute name="destdir" />
+		<attribute name="destfile" />
+		<sequential>
+			<mkdir dir="@{destdir}" />
+			<java classname="${xslt.processor.class}" fork="yes" dir="@{destdir}" failonerror="true">
+				<!-- Our classpath -->
+				<classpath refid="xslt.processor.classpath" />
+
+				<!-- Set up to use Xerces -->
+				<jvmarg line="-Djavax.xml.parsers.DocumentBuilderFactory=org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" />
+				<jvmarg line="-Djavax.xml.parsers.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl" />
+				<jvmarg line="-Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration" />
+
+				<!-- Output file -->
+				<arg line="-o '@{destfile}'" />
+
+				<!-- Turn on line numbering -->
+				<arg line="-l" />
+
+				<!-- Setup the catalog name resolver -->
+				<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
+
+				<!-- The input file -->
+				<arg line="'@{srcfile}'" />
+
+				<!-- The input style-stheet -->
+				<arg line="'${docbook-to-html-xsl}'" />
+
+				<!-- Restart chapter numbering for each "part" of a book -->
+				<arg line="label.from.part='1'" />
+
+				<!-- Prepend the section number to its label (a la LaTeX) -->
+				<arg line="section.autolabel='1'" />
+				<arg line="section.label.includes.component.label='1'" />
+
+				<!-- Set the profiling condition -->
+				<arg line="profile.condition='isHTML'" />
+
+				<!-- Don't output the title when generating cross-references; only use the number -->
+				<arg line="xref.with.number.and.title='0'" />
+
+				<!-- Use Saxon extensions, but not the graphicsize one becuase it is buggy -->
+				<arg line="use.extensions='1'" />
+				<arg line="graphicsize.extension='0'" />
+
+				<!-- Use line numbering, number every line, and insert ": " after the number -->
+				<arg line="linenumbering.extension='1'" />
+				<arg line="linenumbering.everyNth='1'" />
+				<arg line="linenumbering.separator=': '" />
+
+				<!-- Use Unicode characters for the callout numbering -->
+				<arg line="callout.unicode='1'" />
+				<arg line="callout.graphics='0'" />
+
+				<!-- Use PNG graphic files for the admonition sections -->
+				<arg line="admon.graphics='1'" />
+				<arg line="admon.graphics.extension='.png'" />
+
+				<!-- Number bibliography entries -->
+				<arg line="bibliography.numbered='1'" />
+
+				<!-- Add a style sheet -->
+				<arg line="html.stylesheet='${stylesheet.name}'" />
+			</java>
+			<copy-images-for-html srcdir="@{srcdir}" destdir="@{destdir}" />
+			<copy file="${stylesheet.path}" todir="@{destdir}" />
+		</sequential>
+	</macrodef>
+
+	<!-- Macro to convert DocBook to Eclipse Help -->
+	<macrodef name="docbook-to-eclipse-help">
+		<attribute name="srcdir" />
+		<attribute name="srcfile" />
+		<attribute name="destdir" />
+		<sequential>
+			<mkdir dir="@{destdir}" />
+			<java classname="${xslt.processor.class}" fork="yes" dir="@{destdir}" failonerror="true">
+				<classpath refid="xslt.processor.classpath" />
+				<jvmarg line="-Djavax.xml.parsers.DocumentBuilderFactory=org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" />
+				<jvmarg line="-Djavax.xml.parsers.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl" />
+				<jvmarg line="-Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration" />
+				<arg line="-l" />
+				<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
+				<arg line="'@{srcfile}'" />
+				<arg line="'${docbook-to-eclipse-xsl}'" />
+				<arg line="label.from.part='1'" />
+				<arg line="section.autolabel='1'" />
+				<arg line="profile.condition='isHTML'" />
+				<arg line="xref.with.number.and.title='0'" />
+				<arg line="use.extensions='1'" />
+				<arg line="graphicsize.extension='0'" />
+				<arg line="linenumbering.extension='1'" />
+				<arg line="linenumbering.everyNth='1'" />
+				<arg line="linenumbering.separator=': '" />
+				<arg line="eclipse.plugin.name='Sierra Eclipse Client Help'" />
+				<arg line="eclipse.plugin.id=com.surelogic.sierra.eclipse.client.help" />
+				<arg line="eclipse.plugin.provider='SureLogic, Inc.'" />
+				<arg line="callout.unicode='1'" />
+				<arg line="callout.graphics='0'" />
+				<arg line="admon.graphics='1'" />
+				<arg line="admon.graphics.extension='.png'" />
+
+				<!-- Number bibliography entries -->
+				<arg line="bibliography.numbered='1'" />
+
+				<!-- Add a style sheet -->
+				<arg line="html.stylesheet='${stylesheet.name}'" />
+			</java>
+			<copy-images-for-html srcdir="@{srcdir}" destdir="@{destdir}" />
+			<copy file="${stylesheet.path}" todir="@{destdir}" />
+		</sequential>
+	</macrodef>
+
+	<!-- Macro to convert DocBook to PDF -->
+	<macrodef name="docbook-to-pdf">
+		<attribute name="srcfile" />
+		<attribute name="destdir" />
+		<attribute name="destfile" />
+		<sequential>
+			<mkdir dir="@{destdir}" />
+			<java classname="${xslt.processor.class}" fork="yes" failonerror="true">
+				<classpath refid="xslt.processor.classpath" />
+				<jvmarg line="-Djavax.xml.parsers.DocumentBuilderFactory=org.apache.xerces.jaxp.DocumentBuilderFactoryImpl" />
+				<jvmarg line="-Djavax.xml.parsers.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl" />
+				<jvmarg line="-Dorg.apache.xerces.xni.parser.XMLParserConfiguration=org.apache.xerces.parsers.XIncludeParserConfiguration" />
+				<arg line="-o '@{srcfile}.fo'" />
+				<arg line="-l" />
+				<arg line="-x org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-y org.apache.xml.resolver.tools.ResolvingXMLReader" />
+				<arg line="-r org.apache.xml.resolver.tools.CatalogResolver " />
+				<arg line="'@{srcfile}'" />
+				<arg line="'${docbook-to-fo-xsl}'" />
+				<arg line="label.from.part='1'" />
+				<arg line="section.autolabel='1'" />
+				<arg line="profile.condition='isFO'" />
+				<arg line="xref.with.number.and.title='0'" />
+				<arg line="use.extensions='1'" />
+				<arg line="graphicsize.extension='0'" />
+				<arg line="linenumbering.extension='1'" />
+				<arg line="linenumbering.everyNth='1'" />
+				<arg line="linenumbering.separator=': '" />
+				<arg line="callout.unicode='1'" />
+				<arg line="callout.graphics='0'" />
+				<arg line="admon.graphics='1'" />
+				<arg line="admon.graphics.path='${docbook.dir}/images/'" />
+				<arg line="admon.graphics.extension='.svg'" />
+				<arg line="keep.relative.image.uris='1'" />
+
+				<!-- Number bibliography entries -->
+				<arg line="bibliography.numbered='1'" />
+			</java>
+			<java classname="${fop.class}" fork="yes" failonerror="true">
+				<classpath refid="fop.classpath" />
+				<arg line="-fo '@{srcfile}.fo'" />
+				<arg line="-pdf '@{destfile}'" />
+			</java>
+			<delete file="@{srcfile}.fo" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="install-eclipse-help">
+		<attribute name="srcdir" />
+		<attribute name="installdir" />
+		<sequential>
+			<copy file="@{srcdir}/toc.xml" todir="@{installdir}" />
+			<copy todir="@{installdir}">
+				<fileset dir="@{srcdir}">
+					<include name="**/*.html" />
+					<include name="**/*.png" />
+					<include name="**/*.jpg" />
+					<include name="**/*.gif" />
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="uninstall-eclipse-help">
+		<attribute name="installdir" />
+		<sequential>
+			<delete quiet="true" file="@{installdir}/toc.xml" />
+			<delete quiet="true">
+				<fileset dir="@{installdir}">
+					<include name="**/*.html" />
+					<include name="**/*.png" />
+					<include name="**/*.jpg" />
+					<include name="**/*.gif" />
+					<exclude name="**/about.html" />
+				</fileset>
+			</delete>
+			<delete quiet="true" dir="@{installdir}/images" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build-javadoc">
+		<sequential>
+			<antcontrib:if>
+				<isset property="promises-project-exists" />
+				<then>
+					<antcontrib:if>
+						<isset property="javadoc-already-built" />
+						<then>
+							<!-- We already build the javadoc, do nothing -->
+						</then>
+						<else>
+							<javadoc packagenames="net.jcip.annotations,com.surelogic" sourcepath="${javadoc.src}" destdir="${javadoc.dest}" access="public" author="false" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.5" splitindex="true" use="true" version="true" />
+							<property name="javadoc-already-built" value="true" />
+						</else>
+					</antcontrib:if>
+				</then>
+				<else>
+					<fail>
+             Could not build the javadoc: Please add the "promises" project to your workspace.
+           </fail>
+				</else>
+			</antcontrib:if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="build-and-copy-javadoc">
+		<attribute name="destdir" />
+		<sequential>
+			<build-javadoc />
+			<copy todir="@{destdir}/javadoc">
+				<fileset dir="${javadoc.dest}" />
+			</copy>
+		</sequential>
+	</macrodef>
+</project>

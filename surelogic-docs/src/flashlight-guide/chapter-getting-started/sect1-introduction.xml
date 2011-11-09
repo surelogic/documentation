@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="introduction">
+  <title>Introduction</title>
+
+  <para><emphasis>What is Flashlight?</emphasis> Flashlight is a dynamic
+  analysis tool that helps you to understand the concurrency within your
+  Java software. It is similar to a profiler in the sense that it
+  collects data from a program execution and presents information about
+  that run to the tool user. Flashlight casts light on issues related to
+  performance, concurrency, and code safety. The Flashlight dynamic
+  analysis tool is designed so that even one run can reveal information
+  regarding a relatively much larger universe of runs, and thus enable
+  developers to address potential issues earlier. The tool is also
+  designed to afford developers and evaluators a visibility that enables
+  them to develop models to support a "more complete" analysis by a
+  sound static analysis tool like SureLogic's JSure.</para>
+
+  <para>At a more technical level, Flashlight is designed to scale to
+  very large amounts of collected instrumentation data. It accomplishes
+  this through a unique pipeline/buffering approach that rapidly moves
+  data out of the instrumented program's process heap and into secondary
+  storage. It is designed to interact cleanly with garbage collection
+  and object finalization.</para>
+
+  <para>Flashlight use imposes an overhead cost, in terms of time and
+  memory, on your program. Flashlight is a much more invasive analysis
+  than a typical Java profiler. Roughly, an instrumented program will
+  require two to three times the memory it normally uses and will run
+  from 20 times to 80 times slower than it normally runs.  A dual- or
+  quad-core CPU is recommend to reduce the overhead Flashlight imposes
+  on the instrumented program because Flashlight is able to take
+  advantage of the available hardware. Flashlight uses a large amount of
+  disk space to store the data it collects, thus 50 to 100 Gigabytes of
+  free disk space is recommended.</para>
+
+  <para>Flashlight has a highly effective query capability, wherein the
+  database of program run data is queried using a hierarchy of queries
+  that enable the results of one query to be used as a basis for "drill
+  in" using sub-queries.</para>
+</sect1>

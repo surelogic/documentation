@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="sec-tutorial" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Tutorials</title>
+
+  <para>This section contains a series of Flashlight tutorials.  It is
+  recommended that you go through these tutorials in order.  It is also
+  recommended that these tutorials be performed "hands-on" at your
+  computer. You might want to create a new Eclipse workspace to use for
+  these tutorials. In addition, if you run into any difficulties as you
+  step through the tutorials please consider sending us a tip for
+  improvement as described in <xref linkend="sec-bugs-and-tips"/>.</para>
+
+ <figure id="fig-tutorial-installing-projects">
+    <title>Menu item to install tutorial projects into your workspace</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-installing-projects.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>These tutorials assume that you have installed Flashlight. If
+  you see a <guimenu>Flashlight</guimenu> menu item on your Eclipse main
+  menu than you can assume it has been installed properly.  To follow
+  along with the tutorials you will also need to add the PlanetBaron
+  project to your workspace.  From the Eclipse main menu, choose
+  <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run Flashlight
+  Tutorials</guimenuitem></menuchoice> and add
+  <application>PlanetBaron</application> to your workspace as displayed
+  in <xref linkend="fig-tutorial-installing-projects" /> and <xref
+  linkend="fig-tutorial-planetbaron-install" />.</para>
+
+  <figure id="fig-tutorial-planetbaron-install">
+    <title>Adding PlanetBaron to your workspace</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-install.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <xi:include href="sect2-sec-tutorial-client.xml"/>
+  <xi:include href="sect2-sec-tutorial-server.xml"/>
+  <xi:include href="sect2-sec-tutorial-playerui.xml"/>
+  <xi:include href="sect2-sec-tutorial-query-editor.xml"/>
+</sect1>

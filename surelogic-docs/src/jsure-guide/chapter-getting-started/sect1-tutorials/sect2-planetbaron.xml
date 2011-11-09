@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect2 id="planetbaron"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Verifying PlanetBaron</title>
+  
+  <para>This example demonstrates more sophisticated annotations and
+  analysis results using a simple network capture the planet game:
+  <application>PlanetBaron</application>.  It will use the tutorial
+  project <application>PlanetBaronJSure</application>.</para>
+
+  <para>The <application>PlanetBaronJSure</application> does not
+  compile because it already contains JSure annotations. Add the
+  needed annotation library by selecting
+  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
+  Promises Library In Project...</guimenuitem></menuchoice> from the Eclipse main menu.</para>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/planetbaron-add-jar.png" />
+      </imageobject>
+    </mediaobject>
+
+  <para>In the dialog that appears check only the
+  <application>PlanetBaronJSure</application> project and press
+  <guimenuitem>OK</guimenuitem>.</para>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/tutorial-add-jar-dialog.png" />
+      </imageobject>
+    </mediaobject>
+
+   <para>At this point the project should compile without errors.</para>
+
+  <para>Next, scan the <application>PlanetBaronJSure</application>
+  project with JSure. To do this choose
+  <menuchoice><guimenu>JSure</guimenu> <guisubmenu>Verify
+  Project</guisubmenu></menuchoice> from the Eclipse main menu. You
+  can also use the keyboard shortcut
+  <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.
+  This project already contains lock model annotations about its
+  locking policies, not all of which assure (as you can see if you
+  examine the scan results). In the rest of this tutorial we fix these
+  assurance failures.</para>
+  
+  <sect3>
+    <title>Running PlanetBaron</title>
+
+    <para>Although we do not need to run
+    <application>PlanetBaron</application> to analyze it with JSure, it
+    is helpful in the discussion below to know what the game does.  In
+    particular, it makes it easier to understand the roles of the
+    classes encountered in the assurance results. 
+    <application>PlanetBaron</application> is a network-based real-time
+    strategy game. It contains three programs:
+      <itemizedlist>
+        <listitem>
+          <para>A server program that manages game state.</para>
+        </listitem>
+        <listitem>
+          <para>A client user interface program that allows players to
+          interact with the game.</para>
+        </listitem>
+        <listitem>
+          <para>A program, called the chat-test client, that allows
+          direct interaction with the server. The chat-test client is
+          used to shutdown a running server.</para>
+        </listitem>
+      </itemizedlist>
+    </para>
+    
+    <para>Let us run a <application>PlanetBaron</application> game. In
+    the <guilabel>Package Explorer</guilabel>, select
+    <filename>Server.java</filename> in the
+    <package>com.surelogic.jsure.planetbaron.server</package> package.  Select
+    <menuchoice><guisubmenu>Run As</guisubmenu> <guimenuitem>Java
+    Application</guimenuitem></menuchoice> in the context menu. You
+    should see following output in the <guilabel>Console</guilabel>
+    view which indicates that the server has started successfully:
+
+      <screen>
+[INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map [com.surelogic.jsure.planetbaron.server.Server.startListening()]
+      </screen>
+    </para>
+
+    <para>Now we need to add some players. Select
+    <filename>PlayerUI.java</filename> in the
+    <package>com.surelogic.jsure.planetbaron.client</package> package. Select
+    <menuchoice><guisubmenu>Run As</guisubmenu> <guimenuitem>Java
+    Application</guimenuitem></menuchoice> in the context menu. You
+    will see a Swing application start that has a blank grid. In the
+    lower right-hand-corner enter a player name,
+    <userinput>Laurel</userinput>, and press
+    <guibutton>Connect</guibutton>.</para>
+    
+    <para>The screen will change to contain several planets and one
+    ship with <guilabel>Laurel</guilabel> as its label. By moving your
+    mouse around the grid you can direct your ship. Place your mouse
+    over a planet and left-click.  This action will cause your ship to
+    move slowly to that planet. When your ship arrives you will become
+    the owner of that planet. This is called &ldquo;taking
+    ownership&rdquo; of a planet. Go ahead an take ownership of a
+    planet. Note that while your ship is moving you are not allowed to
+    change its destination. Once it arrives at the destination you
+    selected you can then select a subsequent destination.</para>
+
+    <para>Now, go back to Eclipse and start a second instance of
+    <filename>PlayerUI.java</filename>. In the lower right-hand-corner
+    enter a player name, <userinput>Hardy</userinput>, and press
+    <guibutton>Connect</guibutton>.</para>
+
+    <para>The game supports as many players as you choose to connect to
+    the server. Notice that the planets that Laurel owns are red in the
+    Hardy PlayerUI while they are white in the Laurel PlayerUI. Moving
+    back and forth between the two PlayerUIs move the ships to play the
+    game. Note that the idea of the game is to own as many planets as
+    you can. A game screenshot is shown in <xref linkend="fig-PlayerUI"/>.</para>
+    
+    <figure id="fig-PlayerUI">
+      <title>The PlanetBaron PlayerUI for Laurel</title>
+      
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/PlayerUI.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>To finish the game press <guibutton>Disconnect</guibutton> in
+    both PlayerUI instances and then terminate the programs by normally.
+    This action ends both player user interfaces but
+    the server is still running. To terminate the server we need to use
+    the chat-test client program.</para>
+
+    <para>Select <filename>ChatTestClient.java</filename> in the
+    <package>com.surelogic.jsure.planetbaron.client</package>
+    package. <menuchoice><guisubmenu>Run As</guisubmenu>
+    <guimenuitem>Java Application</guimenuitem></menuchoice> in the
+    context menu.  You will see a Swing application start. This
+    program allows you to directly control the game server. We want to
+    use it to shutdown the game server. To do this, press
+    <guibutton>Connect</guibutton> to connect to the game server and
+    enter <userinput>shutdown</userinput> as the command. Your screen
+    should now look like the one shown in <xref
+    linkend="fig-chat-test-client"/>.</para>
+    
+    <figure id="fig-chat-test-client">
+      <title>The ChatTestClient</title>
+      
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/chat-test-client.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Press <guibutton>Send</guibutton> to shutdown the server. A
+    dialog will appear stating that the server has disconnected from the
+    ChatTestClient that you may dismiss. You can now terminate the
+    ChatTestClient. Back in the Eclipse
+    console for the server you should see the following message:
+    
+      <screen>
+&hellip;      
+[INFO "server-main"] PlanetBaron game server shutdown complete [com.surelogic.jsure.planetbaron.server.Server.startListening()]
+      </screen>
+    </para>
+      
+    <para>We are now ready to examine the results from scanning the
+    <application>PlanetBaron</application> codebase with JSure.</para>
+  </sect3>
+  
+  <sect3 id="init-results">
+    <title>Initial Assurance Results</title>
+    
+    <para>The initial assurance results for the PlanetBaronJSure
+    project are shown in <xref
+    linkend="fig-pb-initial-state"/>.</para>
+    
+    <figure id="fig-pb-initial-state">
+      <title>Initial assurance results for PlanetBaron</title>
+      
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-initial-state.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para>The lock model for lock <structfield>ThingLock</structfield>
+    in class
+    <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>
+    fails to assure. The <classname>ThreadSafe</classname> on the
+    class
+    <classname>com.surelogic.jsure.planetbaron.game.Location</classname>
+    also fails to assure.</para>
+
+    <para id="lock-viz-problems">We also note, primarily because a view is painted in bright
+    yellow, that the project has a modeling problem. This view is
+    shown in <xref
+    linkend="fig-pb-initial-state-modeling-problems"/>.</para>
+
+    <figure id="fig-pb-initial-state-modeling-problems">
+      <title>Initial modeling problems for PlanetBaron</title>
+      
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-initial-state-modeling-problems.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>A modeling problem indicates a syntactic or semantic problem
+    with an annotation that has been added to the code. This modeling
+    problem is related to the visibility of <code>f_lock</code>, the
+    lock specified in the <structfield>ThingLock</structfield> locking
+    model. That is, the visibility of the field that references the lock
+    object is less visible than the region protected by that lock.
+    This is potentially problematic because it means there are
+    contexts in which the region <structfield>Instance</structfield>
+    is visible, but the reference to the lock, the field
+    <structfield>f_lock</structfield>, <emphasis>is not
+    visible</emphasis>.</para>
+    
+     <para>We could fix this modeling problem by simply making the field
+    <structfield>f_lock</structfield> <code>public</code> instead of
+    <code>protected</code>. Generally speaking, however, this violates the
+    principles of data hiding and abstraction.
+    A reasonable approach would be to make a named region with <code>protected</code>
+    visibility (as was demonstrated at the end of the BoundedFIFO tutorial).
+    For this tutorial, however, we will use another
+    alternative supported by JSure. We will add a &ldquo;lock
+    getter&rdquo; method to <classname>Thing</classname> to return the
+    lock object.  We annotate this method with a
+    <classname>@ReturnsLock</classname> annotation so JSure knows we
+    intend to use it to return a lock object and assures that we do in
+    fact return the correct lock object:
+
+      <programlisting>
+  @ReturnsLock("ThingLock")
+  public final ReadWriteLock getThingLock() {
+    return f_lock;
+  }
+      </programlisting>
+
+      Add this code to the the <classname>Thing</classname> class. Scan the project again
+      to verify that the modeling problem is gone.
+    </para>
+    
+     <para>Now that we have fixed the modeling problem, we examine the lock model
+     for <structfield>ThingLock</structfield> in more detail.</para>
+  </sect3>
+  
+  <sect3>
+    <title>Introducing ThingLock</title>
+    
+    <para>As can be seen in <xref linkend="fig-pb-initial-state"/>,
+    the code is inconsistent with the
+    <structfield>ThingLock</structfield> annotation.  This lock is
+    declared in the class
+    <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>:
+    
+      <programlisting linenumbering="numbered" startinglinenumber="20"><emphasis>@RegionLock("ThingLock is f_lock protects Instance")</emphasis>
+public abstract class Thing {
+
+  /**
+   * A logger for subclasses.
+   */
+  protected static final Logger LOG = ConciseFormatter.getLogger("things");
+
+  private final GameMap f_map; // immutable
+
+  @Unique("return")
+  Thing(GameMap map) {
+    assert map != null;
+    f_map = map;
+  }
+
+  @Borrowed("this")
+  public GameMap getMap() {
+    return f_map;
+  }
+
+  /**
+   * Protects the state of this object including state added by subclasses.
+   */
+  <emphasis>protected final ReadWriteLock f_lock = new ReentrantReadWriteLock();</emphasis>
+}</programlisting>
+
+    The lock <structfield>ThingLock</structfield> associates the lock
+    object referenced by <structfield>f_lock</structfield> with the
+    class&rsquo;s non-<code>static</code> state.  In this case, the lock
+    field <structfield>f_lock</structfield> refers to a
+    <classname>java.util.concurrent.lock.ReadWriteLock</classname>
+    object.  JSure understands the semantics of these locks, in
+    particular that
+
+      <itemizedlist>
+        <listitem><para>Each <function>lock()</function> call must be
+        matched to a <function>unlock()</function> call, and vice
+        versa.</para></listitem>
+        
+        <listitem><para>The protected region must not be written to
+        when only the read lock is held.</para></listitem>
+      </itemizedlist>
+    </para>
+    
+    <para>Class <classname>Thing</classname> is the superclass for all
+    the &ldquo;things&rdquo; in the game: it has the subclasses
+    <classname>Player</classname>, <classname>Planet</classname>, and
+    <classname>Ship</classname>.  The lock annotation thus binds the
+    implementations of these subclasses as well, extending its
+    protection to all the instance fields declared in them. </para>
+    
+    <para>Digging into the results for
+    <structfield>ThingLock</structfield> we see that model&ndash;code
+    consistency is prevented by one unprotected field access and three
+    inconsistent lock preconditions:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-thing-lock-start.png" />
+        </imageobject>
+      </mediaobject>
+    </para>
+
+    <para>We see, by the <inlinegraphic fileref="images/info.gif"/>
+    result near the bottom, that JSure matches up
+    <function>lock()</function> and <function>unlock()</function>
+    calls. Calls to <function>lock()</function> and
+    <function>unlock()</function> are tracked separately because they
+    do not need to be matched up one-to-one. JSure will also flag if
+    <function>lock()</function> or <function>unlock()</function>
+    cannot be matched or if it matches inconsistently along different
+    control-flow paths.</para>
+  </sect3>
+
+  <sect3>
+    <title>Unprotected Field Access</title>
+
+    <para>We first look at the unprotected field access:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-unprotected-field.png" />
+        </imageobject>
+      </mediaobject>
+
+      The field <structfield>f_location</structfield> is read without
+      holding the read lock in the class <classname>Ship</classname>.
+      Before even looking at the field access, we emphasize that this
+      error occurs in a <emphasis>subclass of
+      <classname>Thing</classname></emphasis>, and that the field
+      <structfield>f_location</structfield> is declared in
+      <classname>Ship</classname>.  The erroneous access occurs in the
+      method <function>Ship.moveTo()</function>:
+
+        <programlisting linenumbering="numbered" startinglinenumber="157">  public void moveTo(Location destination) {
+    if (isMoving())
+      throw new IllegalStateException(
+          "a moving ship can't change its destination");
+
+    if (<emphasis>f_location</emphasis>.equals(destination)) {
+      LOG.log(Level.WARNING,
+          "ignored attempt to move ship to its current location");
+    } else {
+      <emphasis>f_lock.writeLock().lock();</emphasis>
+      try {
+        f_isMoving = true;
+        f_turnsMoving = 0;
+        f_destination = destination;
+        f_moveDistance = f_location.distanceTo(f_destination);
+        f_percentageMoved = 0.0;
+        sendReport(); // OK to invoked holding a write lock
+      } finally {
+        <emphasis>f_lock.writeLock().unlock();</emphasis>
+      }
+    }
+  }</programlisting>
+
+    We see that the field access on line 162 in the condition of the
+    <code>if</code>-statement occurs outside of the critical section
+    that only spans the <code>else</code>-block.  We need to edit the
+    method to expand the critical section to contain the entire
+    conditional statement:
+
+      <programlisting>  public void moveTo(Location destination) {
+    if (isMoving())
+      throw new IllegalStateException(
+          "a moving ship can't change its destination");
+
+    f_lock.writeLock().lock();
+    try {
+      if (f_location.equals(destination)) {
+        LOG.log(Level.WARNING,
+            "ignored attempt to move ship to its current location");
+      } else {
+        f_isMoving = true;
+        f_turnsMoving = 0;
+        f_destination = destination;
+        f_moveDistance = f_location.distanceTo(f_destination);
+        f_percentageMoved = 0.0;
+        sendReport(); // OK to invoked holding a write lock
+      }
+    } finally {
+      f_lock.writeLock().unlock();
+    }
+  }</programlisting>
+    </para>
+
+    <para>Make the above changes (you can cut and paste the method
+    into the code) and scan the code again. The new results for
+    <structfield>ThingLock</structfield> have 54 protected field
+    accesses, up from the previous 53:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-field-access-corrected.png" />
+        </imageobject>
+      </mediaobject>
+    </para>
+  </sect3>
+
+  <sect3>
+    <title>Read&ndash;Write Locks</title>
+
+    <para>You can demonstrate to yourself that JSure understands the
+    when the read component and when the write component of a
+    read&ndash;write lock needs to be held by changing lines 162 and
+    176 of <function>Ship.moveTo()</function> to acquire the read lock
+    instead of the write lock:
+
+      <programlisting linenumbering="numbered" startinglinenumber="157">  public void moveTo(Location destination) {
+    if (isMoving())
+      throw new IllegalStateException(
+          "a moving ship can't change its destination");
+
+    f_lock.<emphasis>readLock()</emphasis>.lock();
+    try {
+      if (f_location.equals(destination)) {
+        LOG.log(Level.WARNING,
+            "ignored attempt to move ship to its current location");
+      } else {
+        f_isMoving = true;
+        f_turnsMoving = 0;
+        f_destination = destination;
+        f_moveDistance = f_location.distanceTo(f_destination);
+        f_percentageMoved = 0.0;
+        sendReport(); // OK to invoked holding a write lock
+      }
+    } finally {
+      f_lock.<emphasis>readLock()</emphasis>.unlock();
+    }
+  }</programlisting>
+
+    If you save these changes, and run a scan, the results show 49 protected field
+    accesses and 5 unprotected field accesses:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-needs-write-lock.png" />
+        </imageobject>
+      </mediaobject>
+      
+    In particular, all the write access from the
+    <code>else</code>-branch are unprotected because they require the
+    write lock to be held, but only the read lock component of
+    <structfield>ThingLock</structfield> is held.</para>
+
+    <para>Restore the method to its previously corrected form by
+    changing lines 162 and 176 to invoke
+    <function>writeLock()</function> instead of
+    <function>readLock()</function>. When you are finished making these
+    changing these lines back, run another scan.</para>
+  </sect3>
+
+  <sect3>
+    <title>Unsatisfied Preconditions</title>
+
+    <para>We now move on to the three unsatisfied lock preconditions.
+    Expanding the results as shown in <xref linkend="fig-pb-unsatisfied-preconditions"/> reveals
+     
+      <itemizedlist>
+        <listitem>
+	  <para>The method <function>drawPlanet()</function> of class
+	  <classname>com.surelogic.jsure.planetbaron.client.MapView</classname>
+          requires the read lock to be held on its
+          <classname>Planet</classname> parameter.</para>
+        </listitem>
+        <listitem>
+          <para>The method <function>drawShip()</function> of class
+          <classname>MapView</classname> requires the read lock to be
+          held on its <classname>Ship</classname> parameter.</para>
+        </listitem>
+        <listitem>
+          <para>The method <function>drawShipMovementTrail()</function>
+          of class <classname>MapView</classname> requires the read lock
+          to be held on its <classname>Ship</classname>
+          parameter.</para>
+        </listitem>
+      </itemizedlist>
+      
+    Clicking on the results shows that all three erroneous method calls
+    originate in the method <function>paintComponent(Graphics)</function> of
+    class <classname>MapView</classname>.</para>
+
+    <figure id="fig-pb-unsatisfied-preconditions">
+      <title>Expanded precondition results</title>
+      
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-unsatisfied-preconditions.png" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para>Looking at the method
+    <function>MapView.paintComponent()</function>, we see that it draws
+    the basic game map, and then iterates over all the ships and
+    planets to draw them individually by calling the methods
+    <function>drawShipMovementTrail()</function> (line 131),
+    <function>drawPlanet()</function> (line 136), and
+    <function>drawShip()</function> (line 142):
+
+      <programlisting linenumbering="numbered" startinglinenumber="116">  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+
+    final int height = getHeight();
+    final int width = getWidth();
+
+    // fill the entire component with black
+    g.setColor(Color.black);
+    g.fillRect(0, 0, width, height);
+
+    drawGridOutline(g);
+
+    for (Ship s : GameMap.getInstance().getShips()) {
+      synchronized (s) {
+        <emphasis>drawShipMovementTrail(g, s);</emphasis>
+      }
+    }
+    for (Planet p : GameMap.getInstance().getPlanets()) {
+      synchronized (p) {
+        <emphasis>drawPlanet(g, p);</emphasis>
+      }
+    }
+    drawCursor(g);
+    for (Ship s : GameMap.getInstance().getShips()) {
+      synchronized (s) {
+        <emphasis>drawShip(g, s);</emphasis>
+      }
+    }
+  }</programlisting>
+
+    At first glance, it is not easy to spot the problem because all
+    the method calls originate from within <code>synchronized</code>
+    blocks that appear to lock on the correct
+    <classname>Ship</classname> or <classname>Planet</classname>
+    object.
+    </para>
+  </sect3>
+
+  <sect3>
+    <title>Mixed Lock Paradigms</title>
+
+    <para>The problem in this case is that the
+    <code>synchronized</code> block is not the correct mechanism to
+    acquire the needed locks.  As stated previously, the needed locks
+    in this case are the read locks of the
+    <classname>Ship</classname>/<classname>Planet</classname> objects,
+    and these are acquired and released via explicit method calls.</para>
+
+    <para>What if we, like the author of this method, were too
+    forgetful to identify this problem on our own?  JSure has already
+    pointed out this problem to us via three warnings that appear with
+    the assurance results for <structfield>ThingLock</structfield>:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-mixed-usage-warnings.png" />
+        </imageobject>
+      </mediaobject>
+
+    JSure generates three warnings, one for each bad synchronized
+    statement, telling us that the object being synchronized on is not
+    known to be a lock (because there is no relevant
+    <classname>@RegionLock</classname> annotation), but that the
+    <classname>f_lock</classname> field of each object is known to be
+    a <package>java.util.concurrent</package> lock object named
+    <structfield>ThingLock</structfield>. These warnings are meant to
+    suggest that we are locking on the wrong object, and that perhaps
+    we should be using the object referenced by the field
+    <structfield>f_lock</structfield> as the lock instead.  A quick
+    inspection of the <structfield>f_lock</structfield> field
+    declaration tells us the lock is a
+    <classname>ReadWriteLock</classname>.</para>
+
+    <para>The call sites can be fixed by replacing the
+    <code>synchronized</code> blocks with the appropriate
+    <code>try</code>&ndash;<code>finally</code> blocks. Here we need to make use of the lock
+    getter method <code>getThingLock()</code> because <code>f_lock</code> is not visible.
+    Change (or cut and paste) the code to look like the listing below:
+
+      <programlisting>  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+
+    final int height = getHeight();
+    final int width = getWidth();
+
+    // fill the entire component with black
+    g.setColor(Color.black);
+    g.fillRect(0, 0, width, height);
+
+    drawGridOutline(g);
+
+    for (Ship s : GameMap.getInstance().getShips()) {
+      s.<emphasis>getThingLock()</emphasis>.readLock().lock();
+      try {
+        drawShipMovementTrail(g, s);
+      } finally {
+        s.<emphasis>getThingLock()</emphasis>.readLock().unlock();
+      }
+    }
+    for (Planet p : GameMap.getInstance().getPlanets()) {
+      p.<emphasis>getThingLock()</emphasis>.readLock().lock();
+      try {
+        drawPlanet(g, p);
+      } finally {
+        p.<emphasis>getThingLock()</emphasis>.readLock().unlock();
+      }
+    }
+    drawCursor(g);
+    for (Ship s : GameMap.getInstance().getShips()) {
+      s.<emphasis>getThingLock()</emphasis>.readLock().lock();
+      try {
+        drawShip(g, s);
+      } finally {
+        s.<emphasis>getThingLock()</emphasis>.readLock().unlock();
+      }
+    }
+  }</programlisting>
+    </para>
+
+    <para>Once the changes to the <classname>MapView</classname> class are completed,
+    run another JSure scan.  Surprisingly, the lock preconditions
+    still fail to assure:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-after-getThingLock.png" />
+        </imageobject>
+      </mediaobject>
+
+    Do note, however, that the method
+    <function>Thing.getThingLock()</function> is assured to return the
+    correct lock object:
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-getThingLock-okay.png" />
+        </imageobject>
+      </mediaobject>
+
+      In addition, note that the addition of the
+      <function>Thing.getThingLock()</function> has eliminated the
+      modeling problem. the <guilabel>Modeling Problems</guilabel>
+      view is now empty and no longer has a yellow background. This
+      occurred because we have added the ability for the lock to be
+      accessed with <code>public</code> visibility and the lock
+      visibility now matches the <code>public</code> visibility of the
+      <code>Instance</code> region.
+    </para>
+  </sect3>
+
+  <sect3>
+    <title>One More Fix: Locks must be final</title>
+
+    <para>What is the lingering problem with the lock preconditions?
+    To find out, we turn our attention once more to the
+    <guilabel>Suggestions and warnings</guilabel> section of the
+    results.  Here we find method
+    <function>MapView.paintComponent()</function> contains 6
+    &ldquo;non-final lock expressions:&rdquo;
+
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-non-final-locks.png" />
+        </imageobject>
+      </mediaobject>
+
+    What does this mean?  In JSure, a lock expression is an expression
+    used to reference a lock object.  For example <code>this</code> in
+    <code>synchronized (this) { &hellip; }</code>.  A <emphasis>final
+    lock expression</emphasis> is a lock expression that JSure can
+    determine must always evaluate to the same value, that is, the
+    expression is idempotent at run time.</para>
+
+    <para>The problem in <function>paintComponent()</function> is that
+    the local variables <varname>s</varname> and <varname>p</varname>
+    are not <code>final</code>, so JSure is worried that the value of
+    <varname>s</varname>, for example, at the time it is used to
+    acquire the lock will not be the same as the value of
+    <varname>s</varname> as the time it is used to release the lock.
+    We can fix this by declaring <varname>s</varname> (at lines 129 and 146) and
+    <varname>p</varname> (at line 137) to be <code>final</code>:
+
+      <programlisting linenumbering="numbered" startinglinenumber="116">  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+
+    final int height = getHeight();
+    final int width = getWidth();
+
+    // fill the entire component with black
+    g.setColor(Color.black);
+    g.fillRect(0, 0, width, height);
+
+    drawGridOutline(g);
+
+    for (<emphasis>final Ship s</emphasis> : GameMap.getInstance().getShips()) {
+      s.getThingLock().readLock().lock();
+      try {
+        drawShipMovementTrail(g, s);
+      } finally {
+        s.getThingLock().readLock().unlock();
+      }
+    }
+    for (<emphasis>final Planet p</emphasis> : GameMap.getInstance().getPlanets()) {
+      p.getThingLock().readLock().lock();
+      try {
+        drawPlanet(g, p);
+      } finally {
+        p.getThingLock().readLock().unlock();
+      }
+    }
+    drawCursor(g);
+    for (<emphasis>final Ship s</emphasis> : GameMap.getInstance().getShips()) {
+      s.getThingLock().readLock().lock();
+      try {
+        drawShip(g, s);
+      } finally {
+        s.getThingLock().readLock().unlock();
+      }
+    }
+  }</programlisting>
+    </para>
+
+    <para>After making this change, the complete model for
+    <structfield>ThingLock</structfield> assures:
+
+      <mediaobject>
+        <imageobject>
+  	  <imagedata fileref="images/pb-thing-lock-assures.png" />
+        </imageobject>
+      </mediaobject>
+
+      Why is there a red dot on the verification result? This
+      indicates that the judgment is contingent upon a promise made by
+      the programmer. This means the the code likely contains a
+      <classname>Vouch</classname> or <classname>Assume</classname>
+      annotation. If we open the <structfield>ThingLock</structfield>
+      and follow the trail of red dots we find a
+      <classname>Vouch</classname> has been placed at line 94 of
+      <classname>Ship</classname>. The programmer hasn't finished
+      modeling, but thinks the constructor is okay.
+
+      <mediaobject>
+        <imageobject>
+  	  <imagedata fileref="images/pb-reddot-1.png" />
+        </imageobject>
+      </mediaobject>
+
+      <mediaobject>
+        <imageobject>
+  	  <imagedata fileref="images/pb-reddot-2.png" />
+        </imageobject>
+      </mediaobject>
+
+      Notice that the use of the <classname>Vouch</classname> turns
+      what would have been an <inlinegraphic
+      fileref="images/red_x.gif"/> result into a <inlinegraphic
+      fileref="images/plus_vouch.gif"/>.
+    </para>
+
+    <para>There is a simple way to find all the vouches in your code
+    using the <guilabel>JSure Quick Search</guilabel> view. In this
+    view select the <guilabel>Annotation</guilabel> filter and scroll
+    down and check the <emphasis>Vouch</emphasis>. The graph shows you
+    how many of each type of annotation. In this case there is only
+    one <classname>Vouch</classname> annotation in the code. To see
+    the annotation, select <guilabel>Show</guilabel> in the menu to
+    the right of the filter.
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/pb-reddot-3.png" />
+      </imageobject>
+    </mediaobject>
+    </para>
+
+ <para>You are now finished with this tutorial. The next tutorial
+    step through finding what was a real bug in a concurrency
+    library.</para>
+  </sect3>
+</sect2>

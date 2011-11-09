@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="region-declaration">
+  <title>Region Declaration</title>
+  
+  <para>A new <emphasis>abstract</emphasis> region is declared using the annotation
+  
+    <synopsis>
+@Region("<optional><co id="region.decl.viz"/><replaceable>visibility</replaceable></optional> <optional>static</optional> <co id="region.decl.name"/><replaceable>Region</replaceable> <optional>extends <co id="region.decl.parent"/><replaceable>Parent</replaceable></optional>")
+    </synopsis>
+
+    <calloutlist>
+      <callout arearefs="region.decl.viz"><para>A standard Java
+      visibility modifier (<code>public</code>,
+      <code>protected</code>, <code>private</code>). It may be
+      omitted to declare Java "default"
+      visibility.</para></callout>
+
+      <callout arearefs="region.decl.name"><para>The name of the
+      new region.</para></callout>
+
+      <callout arearefs="region.decl.parent"><para>The name of the
+      region's parent.  If omitted, the parent for
+      non-<code>static</code> regions is
+      <structfield>Instance</structfield>,
+      <structfield>All</structfield> for <code>static</code>
+      regions.</para></callout>
+    </calloutlist>
+  </para>
+  
+  <para>Regular Java fields are also considered to be regions, and thus
+  a field declaration is also a <emphasis>concrete</emphasis> region
+  declaration, possibly augmented by an <classname>@InRegion</classname>
+  annotation.</para>
+  
+  <sect2 id="region.decl.constraints">
+    <title>Constraints</title>
+    
+    <itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>The name of a region must be unique within the
+          declaration of the class being annotated</title>
+
+          <para>This includes the names of any fields declared in the
+          class because fields are region declarations. See also <xref
+          linkend="region.hiding"/>.</para>
+        </formalpara>
+      </listitem>
+      
+      <listitem>
+        <formalpara>
+          <title>The region's parent region must exist in the
+          class</title>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>The region's parent region must be accessible</title>
+
+          <para>To preserve abstraction it is not appropriate to
+          refer to <code>private</code> regions from a superclass.</para>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>The region's parent cannot be <code>final</code> or <code>volatile</code></title>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>The region cannot be more visible than its parent</title>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>A <code>static</code> region cannot extend a
+          non-<code>static</code> region</title>
+        </formalpara>
+      </listitem>
+
+      <listitem>
+        <formalpara>
+          <title>Regions must form a tree</title>
+
+          <para>There cannot be a cycle in the region ancestor
+          relationship.</para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+  
+  <sect2 id="region.hiding">
+    <title>Region Hiding</title>
+    
+    <para>Regions/fields may be hidden. That is, if class
+    <classname>C</classname> declares a region
+    <structfield>R</structfield>, then a subclass
+    <classname>D</classname> may also declare a region
+    <structfield>R</structfield> that is distinct from the original. In
+    the context of <classname>D</classname> and its descendants,
+    <structfield>R</structfield> refers to the region declared in
+    <classname>D</classname>, unless, of course, it is hidden yet
+    again.</para>
+    
+    <warning>
+      <para>Although Java allows hidden fields to be accessed via type
+      casting, e.g., <code>((Super) this)).field</code>, JSure
+      annotations do not currently provide a similar capability.  So
+      once a region is hidden, it is impossible to refer to the hidden
+      region from within a JSure annotation.  This is problematic for
+      effects annotations or for creating a subregion of a hidden
+      region.</para>
+    </warning>
+    
+    <para>Consider the three classes <classname>Super</classname>,
+    <classname>Duper</classname>, and <classname>Blooper</classname>:
+    
+      <programlisting>
+<emphasis>@Region("public R")</emphasis>
+@RegionLock("L is superLock protects R")
+public class Super {
+  public final Object superLock = new Object();
+  
+  @InRegion("R")
+  <emphasis>public int field;</emphasis>
+  
+  public void bad() {
+    field = 1; // Needs L
+  }
+}
+
+<emphasis>@Region("public R")</emphasis>
+@RegionLock("LL is duperLock protects R")
+public class Duper extends Super {
+  public final Object duperLock = new Object();
+  
+  @InRegion("R")
+  <emphasis>public int field;</emphasis>
+  
+  public void worse() {
+    ((Super) this).field = 2; // Needs L
+    field = 1; // Needs LL
+  }
+} 
+
+<emphasis>@Region("public R")</emphasis>
+@RegionLock("LLL is blooperLock protects R")
+public class Blooper extends Duper {
+  public final Object blooperLock = new Object();
+  
+  @InRegion("R")
+  <emphasis>public int field;</emphasis>
+  
+  public void worst() {
+    ((Super) this).field = 2; // Needs L
+    ((Duper) this).field = 3; // Needs LL
+    field = 1; // Needs LLL
+  }
+}
+      </programlisting>
+      
+    Objects of class <classname>Blooper</classname> have three fields,
+    all of them named <structfield>field</structfield>, and each field
+    is in a distinct region named <structfield>R</structfield>
+    associated with a distinct lock. Although the lock analysis
+    understands this scenario, if we wanted to annotate the effects of
+    method <code>Blooper.worst()</code>, the most specific annotation we
+    could use is <code>@RegionEffects("writes Instance")</code> because
+    we cannot refer to the regions <structfield>R</structfield> declared
+    in ancestor classes <classname>Super</classname> and
+    <classname>Duper</classname> from annotations in class
+    <classname>Blooper</classname>.</para>
+  </sect2>
+</sect1>

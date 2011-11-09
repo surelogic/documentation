@@ -1,0 +1,1398 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<book id="jsure-examples" lang="en-US"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>JSure User Guide</title>
+  <subtitle>How to use and configure the JSure Eclipse client</subtitle>
+  <bookinfo>
+    <copyright>
+      <year>2011</year>
+      <holder>SureLogic, Inc.</holder>
+    </copyright>
+    <legalnotice>
+      <para>The authors and publishers have taken care in the
+      preparation of this documentation, but make no expressed or
+      implied warranty of any kind and assume no responsibility for
+      errors and omissions. No liability is assumed for incidental or
+      consequential damages in connection with or arising out of the use
+      of the information or programs herein.</para>
+    </legalnotice>
+    <pubdate>Version 4.0.2&mdash;September 2011</pubdate>
+  </bookinfo>
+
+  <preface id="preface">
+    <title>Preface</title>
+    <sect1>
+      <title>Audience</title>
+      <para>This document is intended for Java developers who want to
+      use the JSure tool within the Eclipse Java IDE. We assume
+      that the reader understands both the Java programming language and
+      the use of Eclipse for Java development.</para>
+    </sect1>
+    <sect1>
+      <title>Contact information</title>
+      <para>For technical support or other questions, please
+      contact:</para>
+      <para><email>support@surelogic.com</email></para>
+      <para>5808 Forbes Avenue, Pittsburgh, PA 15217-1602</para>
+    </sect1>
+  </preface>
+
+  <xi:include href="chapter-getting-started/chapter.xml"/>
+
+  <xi:include href="chapter-understanding-assurance-output/chapter.xml"/>
+
+  <xi:include href="chapter-reference/chapter.xml"/>
+
+  <chapter>
+    <title>Release notes</title>
+    <para>For each release of JSure there are new and noteworthy
+    features to try out, and known limitations to avoid or
+    workaround. These are presented in the sections below for each
+    released version of JSure.</para>
+
+	<section id="sec-jsure-release-4-0-2">
+		<title>JSure version 4.0.2</title>
+		<para>This section describes the 4.0.2 version of the JSure Eclipse
+			client.
+		</para>
+		<section>
+			<title>New and Noteworthy</title>
+
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+
+			<orderedlist>
+				<listitem>
+					<para><emphasis>Subtype annotation consistency checks performed across multiple Eclipse projects</emphasis>
+						&mdash;
+						When a type hierarchy spans multiple Eclipse projects annotation
+						consistency checks were not properly performed in the previous release.
+						This limitation has been fixed in this release.
+					</para>
+					<para>This problem in the previous release was tracked <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=69">here</ulink>.</para>
+				</listitem>
+				
+				<listitem>
+					<para><emphasis>Consistency checking of @ThreadSafe&mdash;@Immutable fixed</emphasis>
+						&mdash;
+						It is supposed to be the case that in some cases an immutable type can extend
+						from an thread-safe type.  But the way this checking in the previous release
+						was broken.  For example, if you have an @Immutable class that implements an
+						@Immutable interface you get an modeling problem that the class needs to be
+						@ThreadSafe	because it implements a @ThreadSafe interface.  This message was wrong.
+						This limitation has been fixed in this release.
+					</para>
+					<para>This problem in the previous release was tracked <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=70">here</ulink>.</para>
+				</listitem>
+			</orderedlist>
+		</section>
+		
+		<section>
+			<title>Known Problems</title>
+			<para>The know problems are unchanged from JSure version 4.0.0.</para>
+		</section>
+	</section>
+
+	<section id="sec-jsure-release-4-0-1">
+		<title>JSure version 4.0.1</title>
+		<para>This section describes the 4.0.1 version of the JSure Eclipse
+			client.</para>
+		<section>
+			<title>New and Noteworthy</title>
+
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+				<listitem><para><emphasis>Test code can be excluded from a scan using a property file</emphasis>
+				&mdash;
+				It is now possible to exclude test code from a JSure scan
+      by creating a <filename>surelogic-tools.properties</filename> file at the root of each project
+      that contains test code.
+      
+      <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-401-surelogic-tools-file.png" />
+				</imageobject>
+	  </mediaobject>
+      
+      For example, the screenshot above shows the use of the <filename>surelogic-tools.properties</filename>
+	  to exclude the <filename>test</filename> source folder of <application>timingframework-core</application> Java project. 
+      For more information on how to setup a <filename>surelogic-tools.properties</filename> file
+      see <xref linkend="sec-surelogic-tool-properties-file"/>.</para>
+      
+      <para>The <guilabel>JSure Scans</guilabel> view has been updated to display the exclusions used when a scan was run.
+      These may be different that the current state of the <filename>surelogic-tools.properties</filename> file. For the example
+      of excluding the <filename>test</filename> source folder from the <application>timingframework-core</application> Java project the
+      <guilabel>JSure Scans</guilabel> view is shown below.
+      
+       <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-401-surelogic-tools-view.png" />
+				</imageobject>
+	  </mediaobject>
+	  
+	  A modeling error will be displayed in the <guilabel>Modeling Problems</guilabel> view if a specified exclusion
+	  filter in the <filename>surelogic-tools.properties</filename> file does not match any code in the project.
+	  </para>
+				
+	</listitem>
+	
+	<listitem><para><emphasis>If a scan crashes the tool will prompt to send a scan failure report to SureLogic</emphasis>
+	&mdash; If a JSure scan crashes or any sort of analysis problem is detected the tool will prompt the user to send
+	a scan failure report to SureLogic.
+	
+	<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-401-scan-crash.png" />
+				</imageobject>
+	  </mediaobject>
+	  
+	  This type of report includes a log of the verifying analysis scan (other problem reports typically
+	  include the Eclipse log) to help SureLogic pinpoint the problem. The log can be examined and edited before it is sent
+	  to SureLogic. Further, it can be saved to a file or printed as described in the next item.
+	
+	</para></listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>The text of a Problem Report, Scan Failure Report, or a Tip for Improvement can be printed or saved</emphasis>
+						&mdash;
+						The preview pane now allows the tool user to print or save the text of a problem report or tip for improvement.
+
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/release-notes-401-printorsave.png" />
+		</imageobject>
+	</mediaobject>
+	
+	This is helpful to tool users who do not have an Internet connection on their machine.
+					</para>
+				</listitem>
+				
+				<listitem><para><emphasis>Odd auto-selection of projects to be scanned behavior fixed</emphasis>
+				&mdash; In JSure version 4.0.0 if the user selected one or more projects in the <guilabel>Package Explorer</guilabel>
+				then started a scan the selection behavior was odd. In particular, if the project selection dialog appeared, then the set of projects
+				selected in the <guilabel>Package Explorer</guilabel> was merged with the set of projects last scanned. If the project selection dialog did not appear,
+				then only the set of projects selected in the <guilabel>Package Explorer</guilabel> were scanned. This approach was inconsistent
+				and a potential source of confusion to tool users. In this release, if any projects are
+				selected in the <guilabel>Package Explorer</guilabel>, then the set of projects last scanned is ignored.</para></listitem>
+				
+				<listitem><para><emphasis>Verification of singleton classes now partially supported with @Singleton</emphasis>
+				&mdash; Partial support for the verification of singleton classes has been added to JSure.
+				A class to which the @Singleton annotation is applied is a singleton, meaning it has only
+				one instance and provides a global point of access to that instance. That is, the class
+				is a Java implementation of the Singleton pattern described by Gamma, Helm, Johnson, and Vlissides
+				in <emphasis>Design Patterns: Elements of Reusable Object-Oriented Software</emphasis> (Addison-Wesley 1995).
+				Several Java implementation patterns are supported which are described in the @Singleton annotation's Javadoc.
+				
+				<mediaobject><imageobject><imagedata fileref="images/release-notes-401-singleton.png" /></imageobject></mediaobject>
+	
+				The verification in this release is partial. In particular, checking of serialization
+	    	or use of the <emphasis>lazy initialization holder class idiom</emphasis> is not performed. These
+	    	checks will be complete in the next release of JSure and we feel that the current implementation
+	    	covers enough real-world code to be useful.
+	    	</para>
+	    	
+	    	<para>The <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project, an animation library for Swing
+	    and SWT, contains many examples of singleton classes that
+	    have been annotated and verified by JSure.</para>
+				</listitem>
+
+	            <listitem><para><emphasis>Improvements to <code>@Containable</code> and <code>@ThreadSafe</code> verifying analyses</emphasis>
+				&mdash;
+				The analyses for <code>@Containable</code> and <code>@ThreadSafe</code> now consider
+				that a field declared to be of the array type <code>P[]</code>, where <code>P</code> is a primitive type,
+				is containable. For example, the below snippet of code will now assure.
+				
+				<programlisting>import java.util.Arrays;
+import com.surelogic.*;
+
+@ThreadSafe
+@Region("private TempState")
+@RegionLock("TempLock is lock protects TempState")
+class Temp {
+
+  private final Object lock = new Object();
+
+  @UniqueInRegion("TempState")
+  private byte[] value = new byte[0];
+
+  @Unique("return")
+  public Temp() { }
+
+  public byte[] getValue() {
+    synchronized (lock) {
+      int length = value.length;
+      return Arrays.copyOf(value, length);
+    }
+  }
+
+  public void setValue(@Unique final byte[] bytes) {
+    synchronized (lock) {
+      // set value to copy of passed data
+      value = bytes;
+    }
+  }
+}</programlisting>
+
+                One curio of the above example is the use of the local variable <code>length</code> to store <code>value.length</code> to pass to <code>Arrays.copyOf</code>.
+                This is due to the uniqueness analysis, i.e., it is too conservative to verify <code>Arrays.copyOf(value, value.length)</code>.
+                This limitation is being investigated by SureLogic and is being tracked on <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=68">SureLogic's Bugzilla</ulink>.
+				</para>
+				
+				<para>The supporting information in the results
+				for <code>@Containable</code> and <code>@ThreadSafe</code> now better indicate
+				whether the type of a field is or isn't containable or thread safe,
+				whether the field is declared to be unique, and (for <code>@ThreadSafe</code>)
+				whether the regions of the referenced object are aggregated into lock-protected regions.</para>
+
+                <para>An incorrect proposal to add @Unique as an annotation in the <code>@ThreadSafe</code> analysis has been fixed.</para>
+                
+                <para>This overall issue was discussed on <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=65">SureLogic's Bugzilla</ulink>.</para>
+				</listitem>
+			</orderedlist>
+		</section>
+
+		<section>
+			<title>Known Problems</title>
+			<para>The know problems are unchanged from JSure version 4.0.0.</para>
+		</section>
+	</section>
+
+    <section id="sec-jsure-release-4-0-0">
+      <title>JSure version 4.0.0</title>
+      <para>This section describes the 4.0.0 version of the JSure Eclipse client.</para>
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Persistent tool results</emphasis> &mdash;
+	    In prior releases JSure reanalyzed code when it was
+	    started. This delayed Eclipse startup and could take a
+	    significant portion of time away from the programmer's
+	    work. This problem has been solved by making JSure results
+	    persistent. Results from scans of the users code are saved
+	    and can be examined immediately upon Eclipse startup.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Scan model replaces "JSure as a
+	    compiler"</emphasis> &mdash; In prior releases, JSure
+	    integrated into the Eclipse Java compiler. It performed
+	    its analysis after the Java compiler completed. This could
+	    add a significant delay to code compilation. Further, the
+	    "focus" model of selecting projects to be analyzed was
+	    confusing to JSure users. To address these problems, a
+	    scan model has replaced the "JSure as a compiler"
+	    model. Rather than "focus" on a project, the user asks the
+	    tool to scan projects.</para>
+
+	    <para>To scan one or more of your projects with JSure select
+	    <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Verify
+	    Project</guimenuitem></menuchoice> from the Eclipse main menu as
+	    shown below. Using the menu can become tedious in real tool use so
+	    this command is associated with the keyboard shortcut
+	    <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>. This
+	    keyboard shortcut is worth remembering to make JSure scans easier to
+	    start.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-quick-start-verify-menu.png" />
+	      </imageobject>
+	    </mediaobject>
+
+	    This action will open the dialog shown below.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-quick-start-verify-dialog.png" />
+	      </imageobject>
+	    </mediaobject>
+
+	    This dialog allows you to select which projects are to be
+	    scanned by JSure.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Improved support for verifying
+	    multi-project codebases</emphasis> &mdash; Prior releases
+	    could only verify a single project at a time. This release
+	    allows any number of Java projects in the workspace to be
+	    scanned. This makes JSure much simpler to use on larger
+	    real-world codebases that are spread into a large number
+	    of Eclipse Java project.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>JSure scans run in a separate virtual machine</emphasis>
+	    &mdash; Scans of code in prior JSure
+	    releases were performed in the same virtual machine (VM) as Eclipse. This
+	    could cause Eclipse to run low on memory&mdash;or run
+	    out. This release of JSure runs scans in a separate VM to
+	    eliminate the memory footprint of the (large and complex)
+	    JSure analysis infrastructure.</para>
+
+	    <para>The memory and thread use of the VM started for
+	    scans can be controlled in the SJure preferences.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-prefs-vm.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Long running analysis warning and timeout supported</emphasis>
+	    &mdash; JSure produces a warning
+	    that a element of control flow (a method or constructor)
+	    takes a long time to analyze. Optionally, the tool can be
+	    told to "timeout" (stop) the long running analysis.</para>
+
+	    <para>The warning time and timeout time can be configured in the JSure preferences.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-prefs-timeout.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+
+	    <para>Warnings about methods and constructors that take a
+	    long time to analyze appear as shown below.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-timeout-warning.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+
+	    <para>When a timeout occurs the analysis result is
+	    highlighted by a <inlinegraphic
+	    fileref="images/timeout_x.gif"/> as shown below.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-timeout-coe.png" />
+	      </imageobject>
+	    </mediaobject>
+
+	    It is easy to use the <guilabel>JSure Quick
+	    Search</guilabel> <emphasis>Analysis Result</emphasis>
+	    filter to find all <inlinegraphic
+	    fileref="images/timeout_x.gif"/> results in a scan.
+
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-timeout-query.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	    
+	    <para>What can be done about a method that takes a long time to analyze? If possible, reduce
+	    the number of local variables in the method. This will speed analysis. Typically methods
+	    that are very large can be broken up into smaller methods or refactored to call a series of
+	    new methods extracted from the larger method. Doing this will also speed analysis.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Improved analysis performance</emphasis>
+	    &mdash; The performance of slow-running analyses, in
+	    particular the uniqueness analysis, has been significantly
+	    improved in this release.</para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>More understandable results for Uniqueness</emphasis>
+	    &mdash; The understandability and actionability of the results reported from
+	    the uniqueness analysis (which checks <classname>Unique</classname>,
+	    <classname>UniqueInRegion</classname>, and <classname>Borrowed</classname>
+	    annotations) has been significantly
+	    improved in this release. In particular the results are more precise
+	    which helps to avoid messages potentially confusing to the programmer.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Verification of the Goetz/Perlis
+	    @ThreadSafe annotation now supported</emphasis> &mdash;
+	    Support for verification of thread-safe classes has been
+	    added to JSure using <classname>@ThreadSafe</classname>.</para>
+	    
+	    <para>The <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project, an animation library for Swing
+	    and SWT, contains a complex example of use of the
+	    <classname>ThreadSafe</classname> annotation in its <ulink
+	    url="http://java.net/projects/timingframework/sources/svn/content/trunk/timingframework-core/src/org/jdesktop/core/animation/timing/Animator.java?rev=239">Animator</ulink>
+	    class that has been verified by JSure.
+	    
+	    <programlisting>@ThreadSafe
+@Region("private AnimatorState")
+@RegionLock("AnimatorLock is f_lock protects AnimatorState")
+public final class Animator implements TickListener {
+&hellip;
+}
+	    </programlisting>
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-threadsafe.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Verification of the Goetz/Perlis
+	    @Immutable annotation now supported</emphasis> &mdash;
+	    Support for verification of immutable classes has been
+	    added to JSure using <classname>@Immutable</classname>.</para>
+	    
+	    <para>The <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project, an animation library for Swing
+	    and SWT, contains many examples of immutable classes that
+	    have been annotated and verified by JSure.
+	    
+	    <programlisting>@Immutable
+public final class SplineInterpolator implements Interpolator {
+&hellip;
+}
+	    </programlisting>
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-immutable.png" />
+	      </imageobject>
+	    </mediaobject>
+            </para>
+
+	    <para>The red dot above is from the use of
+	    <classname>@Vouch("Immutable")</classname> on one of the
+	    fields.
+	    <programlisting>@Vouch("Immutable")
+private final List&lt;LengthItem&gt; f_lengths;</programlisting>
+
+            This special form of the <classname>Vouch</classname>
+            annotation is required for the programmer to vouch for
+            standard collections that the programmer has made
+            immutable. This is because the standard collection types
+            cannot, in general, be annotated as being immutable.
+	    </para>
+	    
+	    <para>The <classname>Vouch</classname> can, optionally be given a reason
+	     that will show up in the analysis results.
+	     
+	     <programlisting>@Vouch(value="Immutable"
+       reason="Collections.unmodifiableList is used on the referenced collection")
+private final List&lt;LengthItem&gt; f_lengths;</programlisting></para>
+
+	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>Verification of utility classes now supported with @Utility</emphasis> &mdash;
+	    Support for verification of utility classes has been added to JSure.
+	    A utility class has static methods and state. This annotation is similar to the
+	    UML stereotype &laquo;utility&raquo; which is applied to a class
+	    that does not have instances (it is noninstantiable), but whose
+	    attributes and operations have class scope. Joshua Bloch in Effective Java (Second Edition)
+	    (Addison-Wesley 2008) refers to such classes as utility classes (in Item 4).
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-utility.png" />
+	      </imageobject>
+	    </mediaobject>
+	    
+	    An example use of the <classname>Utility</classname> annotation in the Timing Framework code is shown below.
+	    
+	    <programlisting>@Utility
+public final class TriggerUtility {
+  public static Trigger addTimingTrigger(Animator source, Animator target, TimingTriggerEvent event) {
+    &hellip;
+  }
+&hellip;
+}
+	    </programlisting>
+	    </para>
+	    
+	    <para>It is recommended that a utility class extend
+	    only <classname>java.lang.Object</classname>.
+        However this is not required because the noninstantiability of the utility
+        class makes its parent irrelevant. Further, some security coding standards
+        require all classes to extend a common base class&mdash;including utilities.
+	    </para>
+
+	    <para>The <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project, an animation library for Swing
+	    and SWT, contains many examples of utility classes that
+	    have been annotated and verified by JSure.</para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>Annotation consistency is now tool enforced</emphasis> &mdash; The annotations on a
+	    Java declaration <emphasis>N</emphasis> need to be checked for consistency with the annotations on
+	    the immediate ancestors of <emphasis>N</emphasis>. What it means to be consistent turns out to
+	    depend on the kind of annotation and is described in the Javadoc for each annotation supported
+	    by JSure.
+	    </para>
+	    
+	    <para>As an example consider the declaration of the 
+	    <classname>ManualTimingSource</classname> from the <ulink
+	    url="http://java.net/projects/timingframework">Timing
+	    Framework</ulink> project.
+	    
+	    <programlisting>public final class ManualTimingSource extends TimingSource {
+}</programlisting>
+
+		JSure reports the a modeling problem on this declaration:
+		
+		<mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-consistency.png" />
+	      </imageobject>
+	    </mediaobject>
+	    
+	    This is because its parent class, <classname>TimingSource</classname> is declared <classname>ThreadSafe</classname>.
+	    
+	    	    <programlisting>@ThreadSafe
+public abstract class TimingSource {
+}</programlisting>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>@Aggregate and @AggregateInRegion
+	    annotations have been eliminated</emphasis> &mdash; The
+	    <classname>Aggregate</classname> and
+	    <classname>AggregateInRegion</classname> annotations have
+	    been eliminated. More precisely, they have been merged with
+	    the <classname>Unique</classname> annotation. Tool users
+	    will need to remove these annotations from their
+	    code. There are two possible changes
+
+	    <informaltable frame='all'>
+	      <tgroup cols='3' align='left'>
+		<thead>
+		  <row>
+		    <entry>Old</entry>
+		    <entry>New</entry>
+		    <entry>Description</entry>
+		  </row>
+		</thead>
+		<tbody>
+		  <row>
+		    <entry><programlisting>@Aggregate
+@Unique
+private MyClass foo;
+		    </programlisting></entry>
+		    <entry><programlisting>@Unique
+private MyClass foo;
+		    </programlisting></entry>
+		    <entry>The <classname>Unique</classname>
+		    annotation applied to a field now implies
+		    aggregation of the referenced field's state into
+		    the default <code>Instance</code> region.</entry>
+		  </row>
+		  <row>
+		    <entry><programlisting>@AggregateInRegion("FooState")
+@Unique
+private MyClass foo;
+		    </programlisting></entry>
+		    <entry><programlisting>@UniqueInRegion("FooState")
+private MyClass foo;
+		    </programlisting></entry>
+		    <entry>The new
+		    <classname>UniqueInRegion</classname> annotation
+		    on a field allows aggregation of the referenced
+		    field's state into the named region (<code>FooState</code> in the example). This
+		    annotation also places the field itself into the
+		    named region if the field is not declared to be
+		    <code>final</code>. In the example it would
+		    imply
+		    <classname>@InRegion("FooState")</classname>.</entry>
+		  </row>
+		</tbody>
+	      </tgroup>
+	    </informaltable>
+            </para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>Experimental @ReadOnly annotation added</emphasis>
+	    &mdash; The set of JSure annotations now contains the <classname>ReadOnly</classname>
+	    annotation. This is for development/experimental use only at this time.</para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>JSure Code Verification perspective
+	    updated</emphasis> &mdash; The JSure perspective, called
+	    the <guilabel>Code Verification</guilabel> perspective,
+	    has been updated to include new user interface
+	    elements.</para>
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-perspective.png" />
+	      </imageobject>
+	    </mediaobject>
+	    
+	    <para>If you updated from a prior version of JSure you may need
+	    to <guilabel>Reset</guilabel> the <guilabel>Code Verification</guilabel> perspective
+	    in Eclipse as shown below. Do this if your perspective does not look similar to the
+	    screenshot shown above.</para>
+	    
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-perspective-reset.png" />
+	      </imageobject>
+	    </mediaobject>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>New view to manage JSure scans</emphasis>
+	    &mdash; The <guilabel>JSure Scans</guilabel> view has been
+	    added to allow the user to manage scans. The view list each scan
+	    that the programmer has performed. The view lists when each scan was
+	    performed, its size on disk, and the projects examined. Checking a scan
+	    causes all the other views in the <guilabel>Code Verification</guilabel>
+	    perspective to display that scan's results. The view allows old scans
+	    to be deleted from the disk.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-scan-view.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>New view to query JSure results</emphasis>
+	    &mdash; A new query-based view, called the <guilabel>JSure
+	    Quick Search</guilabel> view has been added to JSure. This view
+	    is similar to the one used by Sierra.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-quick-search-view.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+	  
+	  <listitem>
+	    <para><emphasis>Historical source code saved for each JSure scan</emphasis>
+	    &mdash; A new view, called the <guilabel>JSure
+	    Historical Source</guilabel> view has been added to JSure. This view
+	    is similar to the one used by Flashlight. When a JSure scan is run all the
+	    source code is saved to that it can be shown to the user in this view. This
+	    helps the user understand if their code has changed since the JSure scan was
+	    performed. This new view is shown, in the <guilabel>Code Verification</guilabel>
+	    perspective, to the right of the Java editor at the bottom of the perspective.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-historical-source-view.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Modeling Problems view "goes yellow" if
+	    the scan contains modeling problems</emphasis> &mdash;
+	    Modeling problems are syntactic or semantic problems with
+	    annotations placed in the code. Typically, none of these
+	    should exist in an annotated codebase. Many users felt
+	    that the addition of a item into the <guilabel>Modeling
+	    Problems</guilabel> view was to subtle. To help highlight
+	    the serious nature of any modeling problems the
+	    <guilabel>Modeling Problems</guilabel> view background now
+	    changes to yellow if any modeling problems are listed. It
+	    uses a normal background color if no modeling problems are
+	    listed. This helps to draw the programmer's attention away
+	    from the verification results to this view when modeling
+	    problems exist&mdash;so that they can be fixed by the
+	    programmer.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/release-notes-400-yellow-view.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>JSure analysis infrastructure uses the
+	    standard Java compiler</emphasis> &mdash; Prior to this
+	    release the Eclipse Java compiler was used as the parser
+	    for Java code. This has been changed to the standard Java
+	    compiler, <application>javac</application>. This lowers
+	    the memory footprint of the JSure tool
+	    (<application>javac</application> requires less memory
+	    because we can restrict our use of it to parsing) and
+	    allows JSure scans outside the Eclipse IDE (e.g., with
+	    Ant).
+	    </para>
+	  </listitem>
+	  
+	   <listitem>
+	    <para><emphasis>New SureLogic license format</emphasis> &mdash; The format
+	    of SureLogic licenses has changed. You may need to contact SureLogic to obtain
+	    a new license.</para>
+	  </listitem>
+
+        </orderedlist>
+      </section>
+
+	<section>
+		<title>Known Problems</title>
+		<para>This section describes known bugs and limitations in this
+			version of JSure.
+		</para>
+		<orderedlist>
+		    <listitem>
+		    <para><emphasis>Annotation consistency on the Java standard library</emphasis> &mdash; 
+		    The annotations on the Java standard library are now checked for consistency. For example
+		    the <classname>java.util.List</classname> class has two annotations
+		    on its <classname>isEmpty</classname> method specified
+		    in our XML promise format.
+		    <programlisting>
+&lt;package name="java.util"&gt;
+    &lt;class name="List"&gt;
+        &lt;method name="isEmpty"&gt;
+            &lt;Borrowed>this&lt;/Borrowed&gt;
+            &lt;RegionEffects&gt;reads this:Instance&lt;/RegionEffects&gt;
+        &lt;/method&gt;
+    ...
+    &lt;/class&gt;
+&lt;/package&gt;</programlisting>
+
+		Any subtypes of <classname>List</classname> must declare annotations
+		consistent with those shown below.</para>
+		
+		<para>In addition to the straightforward
+		task of examining all subtypes this task has been further complicated
+		by different Java library implementations. The Oracle, Apple, and
+		openjdk distributions of Java all have subtle implementation differences
+		that cause annotation consistency "warnings" to the user when the set
+		of annotations intended for the Oracle Java distribution are used.
+		This problem is difficult to work around because the Oracle
+		distribution is widely used on Windows, Apple's is the only option
+		on OS X (Mac computers), and openjdk is predominate on Linux distributions.</para>
+		
+		<para>We are working to solve this problem in a future release with multiple annotation
+		packs and smarter warning processing. In this release we have filtered any modeling problems
+		about binary/library code out of the tool's <guilabel>Modeling Problems</guilabel> view.</para>
+		    </listitem>
+			<listitem>
+				<para>
+					<emphasis>Section 2 (Understanding JSure Assurance Output) of the
+						JSure Users Guide has only had minor updates made to it</emphasis>
+					&mdash; Only minor updates to Section 2 of this guide have been
+					done for this release. This portion of the documentation, based
+					upon
+					user feedback, requires a significant rewrite and possible
+					merging with the contents of the
+					<emphasis>JSure Annotation Guide</emphasis>.
+				</para>
+				<para>SureLogic is working to update this material, both Section 2 of this
+				guide and the entire <emphasis>JSure Annotation Guide</emphasis>, to best
+				convey the syntax and semantics of JSure's specification language.</para>
+			</listitem>
+		</orderedlist>
+	</section>
+    </section>
+
+    <section id="sec-jsure-release-3-1-1">
+      <title>JSure version 3.1.1</title>
+      <para>This section describes the 3.1.1 version of the JSure Eclipse client.</para>
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Problem with single-threaded constructors and
+	    <package>java.util.concurrent.locks</package> fixed</emphasis>
+	    &mdash; The <link linkend="known-issue-single-threaded">known issue</link>
+	    described in the 3.1.0 release notes has been fixed.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Improved performance</emphasis> &mdash; 
+            Key internal data structures have been optimized for the common case.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Avoidance of unnecessary re-analysis</emphasis> &mdash; 
+            Uninteresting files no longer trigger (lengthy) re-analysis.</para>
+	  </listitem>
+
+        </orderedlist>
+      </section>
+    </section>
+
+    <section id="sec-jsure-release-3-1-0">
+      <title>JSure version 3.1.0</title>
+      <para>This section describes the 3.1.0 version of the JSure Eclipse client.</para>
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Tips and problem reports are tracked by
+	    SureLogic</emphasis> &mdash; When you submit a tip for
+	    improvement or a problem report to SureLogic it is tracked
+	    via an automatically created Bugzilla issue report at
+	    <ulink
+		url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>. If
+	    you include your email address in the tip or problem
+	    report you will be notified when changes to the status of
+	    the Bugzilla issue are made by SureLogic engineers. The
+	    public Bugzilla may also be accessed via a browser at
+	    <ulink
+		url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>The "Tip for Improvement" and "Problem
+	    Report" dialogs are no longer modal</emphasis> &mdash;
+	    This allows the user to cut and paste information from
+	    Eclipse that they want to send to SureLogic into the
+	    dialog.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>New Iconography Quick Reference
+	    card</emphasis> &mdash; To help the user understand the
+	    iconography of the <guilabel>Verification
+	    Status</guilabel> view a non-model dialog has been added
+	    that is a quick reference to the icons and what they
+	    indicate to the user. The dialog is opened via a toolbar
+	    button on the <guilabel>Verification Status</guilabel>
+	    view as shown in <xref
+	    linkend="fig-release-notes-310-icon-quick-ref"/>.</para>
+
+	    <figure id="fig-release-notes-310-icon-quick-ref">
+	      <title>The Iconography Quick Reference dialog.</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-310-icon-quick-ref.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>JSure icon changes</emphasis> &mdash; The
+	    JSure icon used for the <guilabel>Verification
+	    Status</guilabel> view looked
+	    like it indicated that the view contained a "red-dot" (an
+	    assumption or vouch). The icon now uses blue instead of
+	    read to avoid this confusion. The inconsistent
+	    verification result decorator (a little red X) has been
+	    changed to a small version of the inconsistent analysis
+	    result icon. These two new icons are shown in <xref
+	    linkend="fig-release-notes-310-new-jsure-icon"/>.</para>
+
+	    <figure id="fig-release-notes-310-new-jsure-icon">
+	      <title>The two new JSure icons used by the Verification Status view.</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-310-new-jsure-icon.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>New promises library</emphasis> &mdash;
+	    The promises Jar has been updated in Maven to 3.1.0. If
+	    you are using JSure in the IDE, when you install 3.1.0
+	    select <guimenuitem>Add/Update Promises
+	    Library...</guimenuitem> from the JSure menu to update
+	    your Java project's Jar file. The annotation changes are
+	    discussed below.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Initial support for concurrent analysis
+	    (an analysis performance improvement)</emphasis> To help
+	    speed uniqueness assurance (i.e., verification of @Unique
+	    and @Borrowed annotations) you can use multiple threads
+	    under Java 6 (i.e., Eclipse must be running under a Java 6
+	    VM). This defaults to the number of processors in your
+	    computer but can be changed under the JSure Eclipse
+	    preferences as shown in <xref
+	    linkend="fig-release-notes-310-concurrent-analysis"/>.</para>
+
+	    <figure id="fig-release-notes-310-concurrent-analysis">
+	      <title>Preferences to set the number of processors used by JSure analysis.</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-310-concurrent-analysis.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Copy-Paste of verification
+	    results</emphasis> &mdash; You can now copy with ^C
+	    (Windows) or by right-clicking on a verification
+	    result. The text can then be pasted into another
+	    application.</para>
+
+	    <figure id="fig-release-notes-310-copy-paste">
+	      <title>Copying the text of a verification result to the clipboard.</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-310-copy-paste.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Simpler constructor annotation to support
+	    locking models</emphasis> &mdash; The annotations required
+	    on constructors to support locking models have been
+	    simplified in JSure version 3.1.0. First, the
+	    @SingleThreaded annotation has been deprecated, it is no
+	    longer required.  If this annotation is in your code it is
+	    ignored by the tool. Second, the annotation
+	    @Unique("return") on a constructor is now defined to be
+	    equivalent @Borrowed("this"). For example, a typical
+	    constructor for a class with a lock policy in JSure 3.0.0
+	    looked like
+<programlisting>
+  @SingleThreaded
+  @Borrowed("this")
+  public Aircraft(long x, long y) {
+    ...
+  }
+</programlisting>
+In 3.1.0 you can omit the @SingleThreaded annotation
+<programlisting>
+  @Borrowed("this")
+  public Aircraft(long x, long y) {
+    ...
+  }
+</programlisting>
+In addition, the annotation @Unique("return") can, but does not have to, replace @Borrowed("this")
+<programlisting>
+  @Unique("return")
+  public Aircraft(long x, long y) {
+    ...
+  }
+</programlisting>
+Programmers often think of the constructor "returning" a new object so
+we have allowed this annotation. @Unique("return") has exactly the
+same semantics for a constructor as @Borrowed("this") and they can be
+used interchangeably. It is programmer preference which annotation
+makes the most intuitive sense.
+	    </para>
+	    <para>It is recommend, but not required, that all
+	    @SingleThreaded annotations be removed from the code. It
+	    is also recommended to consider the use of
+	    @Unique("return") on constructors.</para>
+	    
+            <note id="known-issue-single-threaded">
+              <title>Known Issue</title>
+              <para>There is a known assurance issue with the new approach 
+              to single-threaded constructors when a class uses 
+              <package>java.util.concurrent</package> locks.  The issue
+              occurs when 
+                <itemizedlist>
+                  <listitem>
+                    <para>A class contains an instance initializer block or 
+                    field declaration with an initializer</para>
+                  </listitem>
+                  <listitem>
+                    <para>Has more than one constructor declaration</para>
+                  </listitem>
+                  <listitem>
+                    <para>Some constructors can be proven to be single-threaded,
+                    but some cannot be</para>
+                  </listitem>
+                </itemizedlist>
+              In this case, some of the assurance 
+              results for field accesses that occur in the instance initalizer
+              block or field initializer may be reported to be unassured, when
+              in fact they actually are assured.
+              </para>
+            </note>
+	    
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Support for Java 1.4 code</emphasis>
+	    &mdash; JSure annotations can now be placed in Java 1.4
+	    source code that does not have language support for
+	    annotations via the @annotate Javadoc tag. For example,
+<programlisting>
+/**
+ * BoundedFIFO serves as the bounded first-in-first-out buffer
+ * heavily used by the {@link org.apache.log4j.AsyncAppender}.
+ *
+ * @author Ceki G&uuml;lc&uuml;
+ * @since version 0.9.1
+ *
+ * @annotate RegionLock("BufLock is this protects Instance")
+ * @annotate Promise("@RequiresLock(BufLock) for *(**)")
+ */
+public class BoundedFIFO {
+  /**
+   * @annotate Unique
+   * @annotate Aggregate
+   */
+  LoggingEvent[] buf;
+...
+}
+</programlisting>
+Basically, the "@" in the Java 5 annotation is replaced with
+"@annotate" and the rest of the syntax is unchanged. The details are
+covered in the Javadoc for each annotation. If your source is Java 5
+or above this feature is turned off by default, but can be enabled
+using the preference setting shown in <xref
+	    linkend="fig-release-notes-310-java-1-4-support"/>.</para>
+
+	    <figure id="fig-release-notes-310-java-1-4-support">
+	      <title>Preferences to enable the use of @annotate in Javadoc.</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-310-java-1-4-support.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>Turn off JSure analysis for a set of
+	    specified directories</emphasis> &mdash; If your project
+	    includes source directories for test code, you can setup
+	    your project to ignore those directories by adding a
+	    "jsure.properties" file with the following contents to the
+	    project root:</para>
+<programlisting>
+# A comma-separated list of source paths (edit for your project)
+ModuleDecl.Test=src/java/test/*,src/test/*
+
+# -- Do not change the text below --
+# Load only interfaces, not method bodies
+Module.asClass=Test
+# Load on demand from other classes
+Module.asNeeded=Test
+# Load everything else as usual
+Module.defaults=asSource
+</programlisting>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Improved JSure analysis job progress status reporting</emphasis> &mdash;
+	    Progress updates have been added to longer-running analyses to provide better feedback
+	    as to what files JSure is examining.</para>
+	  </listitem>
+
+	</orderedlist>
+      </section>
+    </section>
+
+    <section id="sec-jsure-release-3-0-0">
+      <title>JSure version 3.0.0</title>
+      <para>This section describes the 3.0.0 version of the JSure Eclipse client.</para>
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>A more straightforward aggregation
+	    syntax</emphasis> &mdash; The syntax of aggregation is
+	    improved. Many programmers have found found
+<programlisting>
+@RegionLock("CLock is this protects Instance")
+class C {
+  @Unique
+  @Aggregate("Instance into Instance")
+  private final Set&lt;String&gt; cSet = new HashSet&lt;String&gt;();
+  &hellip;
+}
+</programlisting>
+to be confusing and too academic-looking. This syntax is still
+accepted by JSure (for backwards compatibility), however, it can be
+simplified to
+<programlisting>
+@RegionLock("CLock is this protects Instance")
+class C {
+  @Unique
+  @Aggregate
+  private final Set&lt;String&gt; cSet = new HashSet&lt;String&gt;();
+  &hellip;
+}
+</programlisting>
+when dealing the <code>Instance</code> region (indicating all the
+declared fields in the object). If the region is named then you can
+use
+<programlisting>
+@Region("private CRegion")
+@RegionLock("CLock is this protects CRegion")
+class C {
+  @Unique
+  @AggregateInRegion("CRegion")
+  private final Set&lt;String&gt; cSet = new HashSet&lt;String&gt;();
+ 
+  @InRegion("CRegion")
+  private int counter;
+  &hellip;
+}
+</programlisting>
+             which is similar to the <code>@InRegion</code>
+             annotation (as seen above for the counter field).</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Goetz/Perlis annotation support</emphasis>
+	    &mdash; We now support three of the four Goetz/Perlis
+	    annotations: <code>@ThreadSafe</code>,
+	    <code>@NotThreadSafe</code>, and
+	    <code>@Immutable</code>. (We have some work to do with
+	    <code>@GuardedBy</code>, but that annotation is really an
+	    impoverished version of <code>@RegionLock</code>.)
+	    Primarily these are for code documentation purposes. The
+	    <code>@SelfProtected</code> annotation is replaced by
+	    <code>@ThreadSafe</code>, therefore, if any
+	    <code>@SelfProtected</code> annotations are in the code
+	    they will not compile with the new JAR and will need to be
+	    changed to <code>@ThreadSafe</code>. We decided to make
+	    this, sadly incompatible, change to better support
+	    standard annotations. It is our intention to fully support
+	    all the standard Goetz/Perlis annotations in JSure.</para>
+
+	    <para>The <code>@Immutable</code> annotation is not
+	    verified in this release but an analysis will be added to
+	    support verification of this assertion in a future release
+	    of JSure.</para>
+	  </listitem>
+	  <listitem><para><emphasis>@MapFields replaced by
+	  @InRegion</emphasis> &mdash; Another incompatible change is
+	  the replacement of the <code>@MapFields</code> annotation
+	  and its associated plural <code>@MapsFields</code> with
+	  <code>@InRegion</code> and <code>@InRegions</code>,
+	  respectively. This annotation was out of date (older
+	  annotations talked about mapping fields into a region) and
+	  we wanted to updated it and make it consistent with the
+	  scheme used to allow multiple annotations on a class.</para>
+	  <para>For example, one would change the below annotations
+<programlisting>
+/**
+ * FSEditLog maintains a log of the namespace modifications.
+ */
+@Region("LogState")
+@RegionLock("LogLock is this protects LogState")
+@MapFields("editStreams, fsimage into LogState")
+public class FSEditLog { ... }
+</programlisting>
+to
+<programlisting>
+/**
+ * FSEditLog maintains a log of the namespace modifications.
+ */
+@Region("LogState")
+@RegionLock("LogLock is this protects LogState")
+@InRegion("editStreams, fsimage into LogState")
+public class FSEditLog { ... }
+</programlisting>
+</para>
+	  </listitem>
+	  <listitem><para><emphasis>Programmer vouch capability added
+	  to JSure</emphasis> &mdash; Vouches for any any inconsistent
+	  analysis result within the scope of code that the annotation
+	  appears on. This means that any inconsistent result will be
+	  changed to a consistent result. Its use is for documentation
+	  and to quiet overly conservative analysis results. This
+	  annotation is trusted, i.e., it is not verified by
+	  analysis.</para>
+
+	  <para>The annotation requires a brief programmer explanation
+	  for the vouch being made.</para>
+
+	  <para>For example, an <code>init</code> method is used to
+	  set set state, perhaps due to an API restriction about using
+	  constructors, then <code>CentralControl</code> instances are
+	  safely published. A <code>@Vouch</code> annotation is used
+	  to explain that the <code>init</code> method needs to be an
+	  exception to the lock policy.
+<programlisting>
+ @Region("private ControlRegion")
+ @InRegion("f_id into ControlRegion")
+ @RegionLock("ControlLock is lock protects ControlRegion")
+ public class CentralControl {
+ 
+   private final Object lock = new Object();
+   private String f_id;
+ 
+   @Vouch("Instances are thread confined until after init(String) is called.")
+   public void init(String id) {
+     f_id = id;
+   }
+ 
+   public String getId() {
+     synchronized (lock) {
+       return f_id;
+     }
+   }
+ 
+   public void setId(String value) {
+     synchronized (lock) {
+       f_id = value;
+     }
+   }
+ }
+</programlisting>
+	  Notice that the current implementation vouches for all
+	  inconsistent analysis results within the type or method or
+	  constructor that the annotation appears on. A more targeted
+	  capability will be introduced in a future version of
+	  JSure.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Main menu item to add the JSure
+	    annotations to a project</emphasis> &mdash; It is now
+	    possible to add or update the JSure annotations library to
+	    a project from the Eclipse main menu as shown in <xref
+	    linkend="fig-release-notes-300-add-jar"/>
+	    <figure id="fig-release-notes-300-add-jar">
+	      <title>Main menu item to add the JSure annotations to a project</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-300-add-jar.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	    It is a good idea to run this menu choice after you
+	    install a new version of JSure to ensure the annotation
+	    library is up to date. If there is not an update the tool
+	    will tell you you are up-to-date.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>JSure annotations submitted to the Maven
+	    Central Repository</emphasis> &mdash; SureLogic has
+	    submitted the updated promise syntax (as described above)
+	    to the Maven central repository and is awaiting them to
+	    perform the upload request. The JIRA is <ulink
+	    url="http://jira.codehaus.org/browse/MAVENUPLOAD-2654">http://jira.codehaus.org/browse/MAVENUPLOAD-2654</ulink>.
+	    The maven site for JSure is <ulink
+	    url="http://surelogic.com/promises/index.html">http://surelogic.com/promises/index.html</ulink>
+	    with the associated Javadoc at <ulink
+	    url="http://surelogic.com/promises/apidocs/index.html">http://surelogic.com/promises/apidocs/index.html</ulink>. This
+	    inclusion in the Maven Central Repository is a step toward
+	    making the JSure annotations a Java standard for
+	    documenting and verifying concurrency design intent.
+</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+
+      <section>
+	<title>Known Problems</title>
+	<para>This section describes known bugs and limitations in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem><para><emphasis>Small <wordasword>S</wordasword>
+	  in the project icon lower right corner does not go away when
+	  JSure is disabled</emphasis> &mdash; JSure can only assure
+	  the contents of one project at a time. The icon of the
+	  project being assured is marked with a small
+	  <wordasword>S</wordasword> in the lower right corner:
+	  <guiicon><inlinegraphic
+	  fileref="images/jsure-nature.png"/></guiicon>. The
+	  <wordasword>J</wordasword> above the
+	  <wordasword>S</wordasword> are intended to remind you that
+	  this is the project JSure is analyzing. Sometimes when you
+	  disable JSure verification the small
+	  <wordasword>S</wordasword> does not go away immediatly. This
+	  is a refresh bug in Eclipse. To make it go away simply
+	  refresh the project (with F5) or restart Eclipse.</para>
+	  </listitem>
+	  <listitem><para><emphasis>Incremental analysis sometimes
+	  fails</emphasis> &mdash; In rare cases the incremental
+	  analysis, i.e., the results update when you save, fails. A
+	  workaround is to restart Eclipse or perform a
+	  <menuchoice><guimenuitem>Project</guimenuitem><guimenuitem>Clean...</guimenuitem></menuchoice>
+	  of the project being verified. If this problem occurs please
+	  notify SureLogic.</para>
+	  </listitem>
+	  <listitem><para><emphasis>Analysis can sometimes be
+	  slow</emphasis> &mdash; If JSure verification is slow on
+	  your computer, please notify SureLogic. It is suggested that
+	  you only turn on JSure when you are using it. Another
+	  workaround is to disable the automatic building of your code
+	  in Eclipse by unchecking
+	  <menuchoice><guimenuitem>Project</guimenuitem><guimenuitem>Build
+	  Automatically</guimenuitem></menuchoice> in Eclipse. This
+	  lets you select
+	  <menuchoice><guimenuitem>Project</guimenuitem><guimenuitem>Build
+	  Project</guimenuitem></menuchoice> to run the Java compiler
+	  and JSure only when you are ready to.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+
+    <section id="sec-jsure-release-2-3-0">
+      <title>JSure version 2.3.0</title>
+      <para>This section describes the 2.3.0 version of the JSure Eclipse client.</para>
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of JSure.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Verification results are now separated
+	    from modeling problems</emphasis> &mdash; A new view,
+	    called the <guilabel>Modeling Problems</guilabel> view,
+	    has been added to JSure. Previously any annotations that
+	    were not well-formed (i.e., they had syntax errors or
+	    other problems) were reported as modeling problems in the
+	    <guilabel>Verification Status</guilabel> view. This was
+	    confusing to the user because these results, which are
+	    very important, could easily be missed when mixed in with
+	    the analysis results shown in this view. A screenshot
+	    showing this new view noting a typo in a
+	    <emphasis>@InRegion</emphasis> annotation is shown in
+	    <xref
+	    linkend="fig-release-notes-230-modeling-problems"/>. The
+	    referenced region name should be "PrivateState" not
+	    "PrivateeState".</para>
+	    <figure id="fig-release-notes-230-modeling-problems">
+	      <title>The new Modeling Problems view</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-230-modeling-problems.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	    <para>The new view, by default, appears when the code has
+	    any modeling problems. Therefore, the view can be
+	    dismissed to save screen space and it will come back when
+	    needed. This behavior can be changed as shown in  <xref
+	    linkend="fig-release-notes-230-modeling-problems-pref"/>.</para>
+	    <figure id="fig-release-notes-230-modeling-problems-pref">
+	      <title>Preference for the new Modeling Problems view</title>
+	      <mediaobject>
+		<imageobject><imagedata fileref="images/release-notes-230-modeling-problems-pref.png"/></imageobject>
+	      </mediaobject>
+	    </figure>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Quickly create tutorial projects</emphasis> &mdash;
+	    You can now create the SmallWorld and ShowOff tutorial projects from
+	    the Findings Quick Search menu.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+  </chapter>
+</book>

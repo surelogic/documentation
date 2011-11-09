@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="extended-model2">
+  <title>Extending the Model: Aggregating Arrays and Other
+  Objects</title>
+      
+  <para>An array in Java is a separate object from the object whose
+  field refers to the array. Protecting an array-typed field thus
+  protects <emphasis>the reference to the array only</emphasis>. It is
+  not sufficient to extend the protection to the elements of the array:
+  we also need to know that the array object is accessible through that
+  field only. If the array could be referenced through other fields,
+  then it would still be possible to access it concurrently because the
+  locking model could be bypassed by accessing the array through a
+  different field.</para>
+
+  <para>Much of the time, however, it is not intended that an array is
+  aliased; in these cases, the array can be incorporated into the state
+  of the object that references it.  We call this <emphasis>aggregating
+  state</emphasis>. In the simpliest case, an array is aggregated into
+  the object that references it by adding a single annotation to the
+  field that references the array:
+      
+    <programlisting>
+<emphasis>@Unique</emphasis>
+private Object[] myArray;
+    </programlisting>
+      
+  This does two things:
+
+    <orderedlist>
+      <listitem><para>Declares the programmer’s intent that the field is
+      the only field that references the array object it references.  A
+      separate analysis is used to assure that a
+      <classname>@Unique</classname> field is never aliased.  A new
+      expression always creates an unaliased object, so it is always
+      safe to assign the results of a new expression to a
+      <classname>@Unique</classname> field.</para></listitem>
+  
+      <listitem><para>Extends the state of the referencing object to
+      include the elements of the array. State aggregation is not
+      automatically transitive; thus if the array elements are objects,
+      those objects are not aggregated, only the references to
+      them.</para></listitem>
+    </orderedlist>
+  </para>
+      
+  <para>In the example below, the constructor
+  <function>Buffer(Object[])</function> does not assure because it
+  assigns an array to field buf that might be aliased, conflicting with
+  the <classname>@Unique</classname> annotation on the field. The
+  assignment to buf in the constructor <function>Buffer(int)</function>
+  assures because it assigns a fresh array to the field.  The lock
+  <structfield>Lock</structfield> does not need to be held to access the
+  field <structfield>buf</structfield> because it is <code>final</code>.
+  The implementation of <function>copyContents()</function> does not
+  assure because even though <structfield>Lock</structfield> does not
+  need to be held to access the field <structfield>buf</structfield> or
+  the field <structfield>length</structfield>,
+  <structfield>Lock</structfield> must be held to access the contents of
+  the array referenced by <structfield>buf</structfield>.  Analysis
+  knows that the method <function>System.arraycopy()</function> reads
+  from the <structfield>Instance</structfield> region of its first
+  parameter, and thus via aggregation, reads from the
+  <structfield>Instance</structfield> region of the
+  <classname>Buffer</classname> object.  (This analysis is informed by
+  effects analysis and annotations, described in <xref
+  linkend="method-effects"/>.)</para>
+      
+  <programlisting>
+<emphasis>@RegionLock("Lock is this protects Instance")</emphasis>
+public class Buffer {
+  <emphasis>@Unique</emphasis>
+  private final Object[] buf;
+  &hellip;
+  public Buffer(int size) {
+    this.buf = new Object[size]; // good!
+  }
+  &hellip;
+  public Buffer(Object[] newBuffer) {
+    this.buf = newBuffer; // bad!
+  }
+
+  public Object[] copyContents() {
+    final Object[] copy = new Object[this.buf.length];
+    System.arraycopy(this.buf, 0, copy, 0, this.buf.length);
+    return copy;
+  }
+}
+  </programlisting>
+      
+  <para>Aggregation applies not only to arrays, but to objects in
+  general.  So any object-typed field can be declared
+  <classname>@Unique</classname> and have its state aggregated into the
+  state of its referring object. In practice, aggregation of collections
+  is common. The code below aggregates the set <code>log</code> into the
+  <code>Instance</code> region.</para>
+
+  <programlisting>
+public class LogExample {
+  @Unique
+  private final Set&lt;String&gt; log = new HashSet&lt;String&gt;();
+  &hellip;
+}
+  </programlisting>
+  
+  <para>The annotation <classname>@UniqueInRegion</classname> is used
+  when the state of the referenced object should be aggregated into a
+  named region other than <code>Instance</code>. (Declaring a named
+  region is further described in a later section.) The code below
+  declares a named region <code>LogData</code> and aggregates the set
+  <code>log</code> into it.</para>
+
+  <programlisting>
+@Region("private LogData")
+public class LogExample {
+  @UniqueInRegion("LogData")
+   private final Set&lt;String&gt; log = new HashSet&lt;String&gt;();
+   &hellip;
+}
+  </programlisting>
+</sect1>

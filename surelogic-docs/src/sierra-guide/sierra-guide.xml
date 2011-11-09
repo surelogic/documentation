@@ -1,0 +1,4212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../lib/docbook-xml-4.5/docbookx.dtd">
+<!--!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"-->
+
+<book lang="en-US">
+  <title>Sierra User Guide</title>
+  <subtitle>How to use and configure the Sierra Eclipse client</subtitle>
+  <bookinfo>
+    <copyright>
+      <year>2011</year>
+      <holder>SureLogic Inc.</holder>
+    </copyright>
+    <legalnotice>
+      <para>SureLogic's Sierra offering is Eclipse Ready&trade;
+      (www.eclipse.org). This offering can be installed and used with
+      other Eclipse-based offerings.</para>
+
+      <para>The authors and publishers have taken care in the
+      preparation of this documentation, but make no expressed or
+      implied warranty of any kind and assume no responsibility for
+      errors and omissions. No liability is assumed for incidental or
+      consequential damages in connection with or arising out of the use
+      of the information or programs herein.</para>
+    </legalnotice>
+    <pubdate>Version 4.0.2&mdash;September 2011</pubdate>
+  </bookinfo>
+
+  <preface id="preface">
+    <title>Preface</title>
+    <section>
+      <title>Audience</title>
+      <para>This document is intended for Java developers who want to
+      use the Sierra tool within the Eclipse Java IDE. We assume that
+      the reader understands both the Java programming language and the
+      use of Eclipse for Java development.</para>
+    </section>
+    <section>
+      <title>Contact information</title>
+      <para>For technical support or other questions, please contact:</para>
+      <para><email>support@surelogic.com</email></para>
+      <para>5808 Forbes Avenue, Pittsburgh, PA 15217-1602</para>
+    </section>
+  </preface>
+
+  <chapter id="getting-started">
+    <title>Getting started</title>
+    <section>
+      <title>Introduction</title>
+
+      <para><emphasis>What is Sierra?</emphasis> Sierra is a rule-based
+      static analysis toolkit supporting team collaboration. It
+      integrates widely used open source tools, such as FindBugs and
+      PMD, into a single team-oriented tool.</para>
+
+      <para><emphasis>Why should you use Sierra?</emphasis> Sierra helps
+      you quickly uncover potential problems in your Java code. It uses
+      static analysis to examine your code, without having to run it,
+      and report any potential problems it uncovers to you for
+      action. Sierra deeply integrates well tested static analysis
+      tools, such as FindBugs and PMD, into the Eclipse environment.</para>
+
+      <para><emphasis>Why not just use FindBugs (or PMD)?</emphasis>
+      Sierra has the following advantages over just using an analysis
+      tool directly:</para>
+
+      <orderedlist>
+	<listitem>
+	  <para><emphasis>Persistence:</emphasis> Sierra remembers what
+	  findings you have audited across scans of your code. This is
+	  very helpful to avoid wasting your time examining the same
+	  findings over and over again.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Multi-Tool:</emphasis> Sierra integrates
+	  several analysis tools into one framework. This allows you to
+	  take advantage of the best tools, without the trouble of
+	  getting them all installed and properly configured to work on
+	  your software.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Eclipse:</emphasis> Sierra deeply integrates
+	  rule-based static analysis into Eclipse. It provides a
+	  cutting-edge Eclipse user interface designed for busy
+	  programmers.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Team-Oriented:</emphasis> Sierra has an
+	  optional team server capability that allows you and your
+	  development team to share your analysis tool settings (so
+	  everyone scans using the same settings) and finding audit
+	  trails. The team server also support a web interface to
+	  examine metrics about your source code over time.</para>
+	</listitem>
+      </orderedlist>
+
+      <para>The next section introduces concepts and definitions that
+      are important to understand when using Sierra.  The section
+      after that gets you started quick with the Sierra tool by
+      describing how to install Sierra, install your license, and scan
+      your code. If you have used FindBugs or PMD and want to get
+      going on your own code this is your quickest route.  The final
+      section of this chapter contain a series of tutorials that
+      describe how to use the Sierra on example Java projects.</para>
+    </section>
+
+    <section id="sec-concepts">
+      <title>Concepts</title>
+
+      <para>This section introduces concepts and definitions that are
+      important to understand about Sierra.</para>
+
+      <para>When Sierra examines your code, this is called a
+      <emphasis>scan</emphasis>.  By default, a Sierra scan runs three
+      analysis tools: FindBugs, PMD, and Reckoner.</para>
+
+      <para>The output of a scan is a <emphasis>scan
+      document</emphasis>.  A scan document is an XML file that
+      contains all the issues reported by the various analysis tools.
+      The scan document is unfiltered and may contain hundreds of
+      thousands of tool-reported issues.  Scan documents are stored in
+      your Sierra data directory.  This directory, by default, is
+      in your workspace under <filename>.sierra-data</filename>.</para>
+
+      <para>The results reported by analysis tools during a scan are
+      called <emphasis>artifacts</emphasis> by Sierra.  Sierra
+      aggregates these results to produce
+      <emphasis>findings</emphasis>, each of which is made up of one
+      or more artifacts.  The reason for this distinction between an
+      artifact and a finding is two-fold: to merge the "same" artifact
+      reported by two different tools and to track a particular code
+      issue over time (i.e., across multiple scans).  Two analysis
+      tools may report artifacts that are essentially the same issue.
+      For example, the line of Java code shown below would generate an
+      artifact from both the FindBugs and PMD analysis tools that
+      explicit construction of string objects is inefficient.</para>
+
+      <programlisting><![CDATA[String hi = new String("hi");]]></programlisting>
+
+      <para>It would be annoying for the user to deal with two reports
+      for this issue, so Sierra maps similar artifacts from
+      different analysis tools into one finding.</para>
+
+      <para>The second distinction between an artifact and a finding
+      involves tracking the same code issue across multiple scans.  An
+      artifact is tied to one particular scan.  A finding can exist
+      across multiple scans.  Sierra uses a matching heuristic to try
+      and "attach" an artifact reported by a new scan to an existing
+      finding.  A new finding is only created if no match can be
+      found.  This is desirable because it allows the user to
+      understand change, or the lack of change, in code over time with
+      respect to the issues reported by Sierra.</para>
+
+      <para>Sierra distinguishes between artifacts and artifact types
+      as well as between findings and finding types.  An
+      <emphasis>artifact type</emphasis> is often called a
+      <emphasis>rule</emphasis> by analysis tools.  Each analysis tool
+      included in Sierra reports artifacts based upon the set of
+      artifact types (or rules) that they contain.  For example, one
+      artifact type included in FindBugs and PMD is that explicit
+      construction of string objects is inefficient.  Each artifact
+      reported by a scan has one and only one artifact type.</para>
+
+      <para>A <emphasis>finding type</emphasis> is similar to an
+      artifact type, but it describes a type of finding rather than a
+      type of artifact.  For example, Sierra contains a finding type
+      that explicit construction of string objects is
+      inefficient. This finding type is established by two artifact
+      types: one from FindBugs and one from PMD.  There must be an
+      artifact type that establishes a finding type.  To state this
+      another way, there is no point to having a finding type that is
+      not reported by an analysis tool. Each finding has one and only
+      one finding type. Users of Sierra typically deal with finding
+      types and rarely need to be aware of artifact types.</para>
+
+      <para>Sierra groups findings into categories.  A
+      <emphasis>category</emphasis> is defined by a set of finding
+      types.  Sierra groups scan findings into categories by examining
+      the finding type of each finding and placing it into the correct
+      categories.  Categories are not required to be a partition of
+      the set of finding categories, i.e., a finding type can be used
+      to define two or more categories or no categories.  Sierra users
+      can create and modify categories on a Sierra team server.  The
+      team server allows categories to be defined in terms of other
+      categories as well as by finding types.  User created categories
+      can be shared with both Eclipse users and other Sierra team
+      servers.  Sierra contains a large number of defined "stock"
+      categories.</para>
+
+      <para>Armed with an understanding of what Sierra defines an
+      artifact, a finding, and a category to be, we now return to what
+      happens during a scan with the purpose introducing the concept
+      of a scan filter.  When a scan is performed several steps occur
+      within Sierra.  First the analysis tools are run.  These tools
+      produce a scan document.  Next this scan document is loaded into
+      a database.  While the scan document is loaded, findings are
+      matched and created and a scan filter is applied.  A
+      <emphasis>scan filter</emphasis> is the mechanism to control
+      what finding types are deemed important to report to the user.
+      The scan filter also controls at what level of importance each
+      finding is reported.  A scan filter is therefore a set of
+      categories and/or finding types with an importance level.  When
+      the scan filter is applied as the scan document is loaded into
+      the database it filters out all finding types that are not
+      included by the scan filter.  Sierra allows users to create and
+      modify scan filters on a Sierra team server.  Scan filters can
+      be shared with both Eclipse clients and other Sierra team
+      servers.  The Sierra Eclipse client has one special scan filter,
+      called the <emphasis>local scan filter</emphasis>, that can be
+      edited within Eclipse.  This scan filter is required if the
+      client is not connected to a Sierra team server, e.g.,
+      stand-alone use of the Sierra Eclipse client.</para>
+
+      <para><emphasis>Client scan model:</emphasis> The Sierra Eclipse
+      client stores two scans of each project: the most recent, or
+      current, scan and the previous scan.  This model allows the
+      client to "diff" the two scans and report to the user what has
+      changed.  In the Sierra Eclipse client, Java projects may be
+      connected to one and only one Sierra team server.  When a Java
+      project is connected to a team server, it is possible to publish
+      scans to that team server from Eclipse.  The scan filter used
+      for a scan run from the Sierra Eclipse client depends upon if
+      the Java project scanned is connected to a team server or not.
+      If the project is connected to a team server, then the scan
+      filter defined by that team server is used.  If the project is
+      not connected to a team server, then the local scan filter is
+      used.</para>
+
+      <para><emphasis>Team server scan model:</emphasis> The Sierra
+      team server stores all uploaded scans. Scans can be uploaded
+      from Eclipse clients or from Ant scripts.  The team server
+      allows a particular scan filter to be assigned to each Java
+      project.  A default scan filter is set for the team server and
+      is used for any Java project that does not have an explicit scan
+      filter set for it.</para>
+
+      <para>When a scan is uploaded to a team server from Eclipse or
+      Ant, it is the scan document that is sent to the team server
+      (not the filtered in-database version of the scan).  Thus, the
+      scan filter on the team server is applied to the uploaded scan
+      document as it it loaded into the team server's database.  This
+      means, in some cases, that a different scan filter can be
+      applied on the client than on the team server.  For example, if
+      an unconnected project is scanned on an Eclipse client then the
+      local scan filter of that client is applied to that scan.  If
+      that project is subsequently connected to a team server and the
+      scan is published (i.e., uploaded) from the client to that team
+      server then the default scan filter for that team server is
+      applied to the scan.  In this example, two different scan filters
+      where applied and they may not be the same.  This issue can be a
+      source of confusion, but, as described below, Sierra tries to
+      minimize this confusion by using the server scan filter for
+      client scans of all projects that are connected to a team
+      server.</para>
+
+      <para>When a client connects a Java project to a team server,
+      category and scan filter information is transferred down to the
+      client.  This transfer allows the connected Java project on the
+      client to use the same scan filter it would use on the team
+      server.  This helps to keep the scan filter consistent on client
+      connected to a team server.  To keep scan results consistent it
+      is recommend that a new scan be run after each project is
+      connected to a team server from an Eclipse client.</para>
+
+      <para>Why do the client and server use different scan models?
+      This is primarily due to the different roles they serve in the
+      overall Sierra system.  The client is intended for deep
+      investigation of current scan findings.  Users of the client are
+      engaged in auditing findings and fixing them in their source
+      code.  There is little purpose for saving dozens of scans on the
+      client and doing this could take up significant disk space on
+      that client user's desktop computer.  The server is intended to
+      support team collaboration and reporting.  The server needs to
+      be able to produce longitudinal reports and therefore needs to
+      save the results of a large number of scans.</para>
+
+      <para><emphasis>BugLink vs. ScanLink data:</emphasis> A Sierra
+      team server holds two different kinds of data: BugLink and
+      ScanLink. BugLink data includes artifact definitions, finding
+      type definitions, category definitions, and scan
+      filters. ScanLink data includes scan data (findings and
+      artifacts), audit data, code metrics data, and any other
+      analysis results about code.  Why this distinction between types
+      of data?  Because Sierra supports multiple team servers across
+      an organization. BugLink data can be transferred between team
+      servers and ScanLink data can't (ScanLink data is transferred
+      between clients and a team server).  Team servers can share
+      category and scan filter definitions, but they can't share scans
+      and audits.</para>
+
+      <para>All Sierra team servers hold BugLink data, but only some
+      hold ScanLink data.  This allows some team servers to be
+      purposed as a repository for category and scan filter
+      information within an organization without hosting the scan and
+      audit data for any projects.</para>
+
+    </section>
+
+    <section>
+      <title>Quick start</title>
+
+      <para>This section will quickly get you started with Sierra.  It
+      describes how to install Sierra into your Eclipse, how to
+      install a license file that allows you to use Sierra, and how to
+      scan your code and examine the results.</para>
+
+      <section>
+	<title>Installing Sierra</title>
+
+	<para>Sierra installs as a feature in your Eclipse IDE.  It is
+	installed (and uninstalled) via the normal Eclipse mechanisms
+	from an archived update site that you obtain from
+	SureLogic.</para>
+
+	<para>Sierra may be installed and used in Eclipse 3.3 and
+	higher.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para>Download an archived update site file that contains
+	    the Sierra feature. Contact SureLogic about how to obtain
+	    this file. </para>
+	  </listitem>
+	  <listitem>
+	    <para>Follow one of the next three steps &mdash; skip the
+	    other ones &mdash; depending upon what version of Eclipse
+	    you are using.</para>
+	    <orderedlist numeration="loweralpha">
+	      <listitem>
+		<para><emphasis>In Eclipse 3.5:</emphasis> Select
+		<guimenu>Help</guimenu> | <guimenuitem>Install New
+		Software...</guimenuitem> to open the
+		<guilabel>Install</guilabel> dialog. Click the
+		<guibutton>Add...</guibutton> button. In the
+		<guilabel>Add Site</guilabel> dialog that opens select
+		the <guibutton>Archive...</guibutton> button and point
+		to the Sierra archive file.  Press
+		<guibutton>Open</guibutton> and then
+		<guibutton>OK</guibutton>. The
+		<guilabel>Install</guilabel> dialog should appear as
+		shown in <xref
+		linkend="fig-quick-start-eclipse-35-install" />.</para>
+
+		<figure id="fig-quick-start-eclipse-35-install">
+		  <title>Selecting Sierra features to install in Eclipse 3.5</title>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="images/quick-start-eclipse-35-install.png" />
+		    </imageobject>
+		  </mediaobject>
+		</figure>
+
+		<para>Select the <emphasis>Sierra Eclipse
+		Client</emphasis>. You only need the <emphasis>Sierra
+		Eclipse Client Java 5 Compatibility Libraries</emphasis>
+		feature if you are not using a Java 6 (or higher) VM,
+		i.e., you are running on a Java 5 VM (Running on a Java
+		1.4 VM is not supported by Sierra). To try out the local
+		team server (used in the tutorials) select the
+		<emphasis>Sierra Local Team Server</emphasis>
+		feature. Press <guibutton>Next</guibutton> and step
+		through the wizard. Click <guibutton>Finish</guibutton>
+		on the last screen after accepting the license
+		agreement.  You may be prompted to restart Eclipse when
+		the installation is completed.</para>
+	      </listitem>
+
+	      <listitem>
+		<para><emphasis>In Eclipse 3.4:</emphasis> Select
+		<guimenu>Help</guimenu> | <guimenuitem>Software
+		Updates...</guimenuitem> to open the <guilabel>Software
+		Updates and Add-ons</guilabel> dialog. Select the
+		<guilabel>Available Software</guilabel> tab and click the
+		<guibutton>Add Site...</guibutton> button. In the
+		<guilabel>Add Site</guilabel> dialog that opens select the
+		<guibutton>Archive...</guibutton> button and point to the
+		Sierra archive file and press <guibutton>Open</guibutton>
+		and then <guibutton>OK</guibutton>. The <guilabel>Software
+		Updates and Add-ons</guilabel> dialog should appear as
+		shown in <xref
+		linkend="fig-quick-start-eclipse-34-install" />.</para>
+
+		<figure id="fig-quick-start-eclipse-34-install">
+		  <title>Selecting Sierra features to install in Eclipse 3.4</title>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="images/quick-start-eclipse-34-install.png" />
+		    </imageobject>
+		  </mediaobject>
+		</figure>
+
+		<para>Select the <emphasis>Sierra Eclipse
+		Client</emphasis>. You only need the <emphasis>Sierra
+		Eclipse Client Java 5 Compatibility Libraries</emphasis>
+		feature if you are not using a Java 6 (or higher) VM, i.e.,
+		you are running on a Java 5 VM (Running on a Java 1.4 VM is
+		not supported by Sierra). To try out the local team server
+		(used in the tutorials) select the <emphasis>Sierra Local
+		Team Server</emphasis> feature. Press
+		<guibutton>Install...</guibutton> and step through the
+		wizard. You may be prompted to restart Eclipse when the
+		installation is completed.</para>
+	      </listitem>
+	      <listitem>
+		<para><emphasis>In Eclipse 3.3:</emphasis> Select
+		<guimenu>Help</guimenu> | <guimenuitem>Software
+		Updates</guimenuitem> | <guimenuitem>Find and
+		Install...</guimenuitem> to open the
+		<guilabel>Install/Update</guilabel> dialog. Select
+		<emphasis>Search for new features to install</emphasis>
+		and press <guibutton>Next &gt;</guibutton>. Press the
+		<guibutton>New Archived Site...</guibutton> and point to
+		the Sierra archive file and press
+		<guibutton>Open</guibutton> and then
+		<guibutton>OK</guibutton>. Ensure the archive file is
+		the only site checked and press
+		<guibutton>Finish</guibutton>. The
+		<guilabel>Updates</guilabel> dialog should appear as
+		shown in <xref
+		linkend="fig-quick-start-eclipse-33-install" />.</para>
+
+		<figure id="fig-quick-start-eclipse-33-install">
+		  <title>Selecting Sierra features to install in Eclipse 3.3</title>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="images/quick-start-eclipse-33-install.png" />
+		    </imageobject>
+		  </mediaobject>
+		</figure>
+
+		<para>Select the <emphasis>Sierra Eclipse
+		Client</emphasis>. You only need the <emphasis>Sierra
+		Eclipse Client Java 5 Compatibility Libraries</emphasis>
+		feature if you are not using a Java 6 (or higher) VM,
+		i.e., you are running on a Java 5 VM (Running on a Java
+		1.4 VM is not supported by Sierra). To try out the local
+		team server (used in the tutorials) select the
+		<emphasis>Sierra Local Team Server</emphasis>
+		feature. Press <guibutton>Next &gt;</guibutton> and step
+		through the wizard. You may be prompted to restart
+		Eclipse when the installation is completed.</para>
+	      </listitem>
+	    </orderedlist>
+	  </listitem>
+	</orderedlist>
+      </section>
+
+      <section>
+	<title>Installing your license</title>
+
+	<para>This section assumes that you have installed Sierra. If you
+	see a <guimenu>Sierra</guimenu> menu item on your Eclipse main
+	menu then you can assume Sierra has been installed
+	properly.</para>
+
+	<para>You need to install a license to use Sierra.  If you do
+	not have a license file that was sent to you by SureLogic visit
+	<ulink
+	    url="http://www.surelogic.com">http://www.surelogic.com</ulink>
+	to obtain one.  To install the license select
+	<guimenuitem>Manage SureLogic Licenses</guimenuitem> from the
+	<guimenu>Sierra</guimenu> menu as shown in <xref
+	linkend="fig-quick-start-license-menu" />.</para>
+
+	<figure id="fig-quick-start-license-menu">
+	  <title>The menu option to install a license for Sierra</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/quick-start-license-menu.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para> This will cause the <guilabel>Manage SureLogic
+	Licenses</guilabel> to appear as shown in <xref
+	linkend="fig-quick-start-license-dialog-empty" />. Highlight the
+	Sierra row and select the <guibutton>Install License</guibutton>
+	button to install your license file.</para>
+
+	<figure id="fig-quick-start-license-dialog-empty">
+	  <title>The SureLogic license management dialog</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/quick-start-license-dialog-empty.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Sierra will not disrupt your Eclipse installation if a
+	license for it is not installed, however, it will not allow
+	you to use Sierra functionality (e.g., performing project
+	scans).  We will assume from this point on that you have
+	installed your license.  For more information see <xref
+	linkend="sec-license-management" />.</para>
+      </section>
+
+      <section>
+	<title>How to scan your code examine the results</title>
+
+	<para>For the impatient, this section provides a "bare-bones"
+	description of how to scan code with Sierra and examine the
+	results that it reports.</para>
+
+	<para>From the Sierra main menu select the <guimenuitem>Scan
+	Project</guimenuitem> command as shown in <xref
+	linkend="fig-quick-start-menu" />. (If this is the first time
+	Sierra has been loaded into your Eclipse it might take a few
+	seconds to a minute for it to initialize, please be
+	patient.)</para>
+
+	<figure id="fig-quick-start-menu">
+	  <title>The menu option to scan your projects</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/quick-start-menu.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>A dialog will open showing you the set of available Java
+	projects that you can scan. Check the projects you want to scan or
+	press the <guibutton>Select All</guibutton> button to check them
+	all and then press the <guibutton>OK</guibutton> button to start
+	the scan. Equivalently, you could right-click a selected set of
+	open Java projects in the <guilabel>Package Explorer</guilabel>
+	and from the <guimenu>Sierra</guimenu> menu select the
+	<guimenuitem>Scan Project</guimenuitem> menu item.</para>
+
+	<para>You will receive notification via a balloon that the scan
+	has been started and will run in the background. As the scan on
+	each project completes another balloon will notify you.</para>
+
+	<para>After one or more scans have completed running, you can
+	change to the <guilabel>Code Review</guilabel> perspective to
+	examine the results. To do this, select the <guimenuitem>Open Code
+	Review Perspective</guimenuitem> menu item from the
+	<guimenu>Sierra</guimenu> menu. The Eclipse layout will change to
+	show views which will help you to examine the findings the scan
+	reported.</para>
+
+	<para>The <guilabel>Findings Quick Search</guilabel> view allows
+	you to select what findings are of interest to you. For example,
+	if you select <guibutton>Project</guibutton> you will see your
+	results partitioned by project. Selecting
+	<guibutton>Show</guibutton> shows the list of findings you have
+	filtered down to. Use this view partition and filter your findings
+	as you see fit and then press <guibutton>Show</guibutton> to see
+	individual results.</para>
+
+	<para>Small orange <guiicon><inlinegraphic
+	fileref="images/asterisk-orange.png" /></guiicon> icons appear
+	in the Java editor gutter to highlight tool findings. By
+	default, these gutter icons only appear for findings deemed of
+	high or critical importance.</para>
+
+	<para>If you click on a finding in the <guilabel>Findings Quick
+	Search</guilabel> or in the Java editor that finding will be shown
+	in the <guilabel>Finding Details</guilabel> view. This view allows
+	you to read about the finding and interact with the finding. One
+	change that can be made is to the importance of the
+	finding.</para>
+
+	<para>This section is a quick overview of how to scan your
+	code and examine findings about your code. The next section
+	contains a series of tutorials that describe how to use Sierra
+	in much more detail.</para>
+      </section>
+    </section>
+
+    <section id="sec-tutorial">
+      <title>Tutorials</title>
+
+      <para>This section contains a series of Sierra tutorials, please
+      read through <xref linkend="sec-concepts" /> before you attempt
+      these tutorials.  It is recommended that you go through these
+      tutorials in order.  It is also recommended that these tutorials
+      be performed "hands-on" at your computer. You might want to create
+      a new Eclipse workspace to use for these tutorials. In addition,
+      if you run into any difficulties as you step through the tutorials
+      please consider sending us a tip for improvement as described in
+      <xref linkend="sec-bugs-and-tips"/>.</para>
+
+      <section id="sec-tutorial-client">
+	<title>Using the Sierra Eclipse client</title>
+
+	<para>This tutorial assumes that you have installed Sierra. If
+	you see a <guimenu>Sierra</guimenu> menu item on your Eclipse
+	main menu than you can assume it has been installed properly.</para>
+
+	<figure id="fig-tutorial-installing-projects">
+	  <title>Menu item to install tutorial projects into your workspace</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/tutorial-installing-projects.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>To start off, we'll run Sierra on a project called
+	<application>ShowOff</application>. Select
+	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
+	Tutorials</guimenuitem></menuchoice> from the workspace menu
+	and add the <application>ShowOff</application> project to your
+	workspace as shown in <xref
+	linkend="fig-tutorial-installing-projects" /> and <xref
+	linkend="fig-tutorial-install"/>.</para>
+
+	<figure id="fig-tutorial-install">
+	  <title>Adding ShowOff and SmallWorld to your workspace</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/tutorial-install.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+	<para>The <application>ShowOff</application> project contains a
+	single class in <filename>ShowOff.java</filename> with the Java
+	code listed below.</para>
+	<programlisting>
+<![CDATA[
+public class ShowOff {
+
+    /**
+     * A simple main program to demonstrate the {@link #box(Object)} method.
+     * 
+     * @param args
+     *            unused.
+     */
+    public static void main(String[] args) {
+        box(new String("hello"));
+        box(null);
+    }
+
+    /**
+     * Prints the passed object to {@link System#out} with a text box around it.
+     * 
+     * @param o
+     *            the object to show, may be <code>null</code>.
+     */
+    public static void box(Object o) {
+        /*
+         * If the object is null then we want to show null.
+         */
+        if (o == null) {
+            System.out.println("null");
+        }
+        /*
+         * Let's do a fancy "box" output for our object.
+         */
+        StringBuffer b = new StringBuffer(o.toString());
+        b.append(" --");
+        b.insert(0, "-- ");
+        StringBuffer line = new StringBuffer();
+        for (int i = 0; i < b.length(); i++)
+            line.append("-");
+        System.out.println(line.toString());
+        System.out.println(b.toString());
+        System.out.println(line.toString());
+    }
+}]]>
+	</programlisting>
+
+	<para>Save your changes and ensure that the file compiles
+	successfully. If not, fix any problems before you continue.</para>
+
+	<para>Now run a Sierra scan on the code. To do this right-click on
+	the <application>ShowOff</application> project (not the Java file)
+	in the <guilabel>Package Explorer</guilabel> and from the
+	<guimenu>Sierra</guimenu> menu select the <guimenuitem>Scan
+	Project</guimenuitem> menu item. Alternatively, you can choose the
+	<guimenuitem>Scan Project</guimenuitem> menu item from the
+	<guimenu>Sierra</guimenu> menu item in the Eclipse main menu. When
+	the dialog appears check the <application>ShowOff</application>
+	project and press the <guibutton>OK</guibutton> button. If this is
+	the first time Sierra has been loaded into your Eclipse it might
+	take a few seconds to a minute for it to initialize, please be
+	patient.</para>
+
+	<para>After the scan is completed you will be prompted to
+	change to the <guilabel>Code Review</guilabel>
+	perspective. You want to do this so click
+	<guibutton>Yes</guibutton>. You can also open this perspective
+	by selecting the <guimenuitem>Open Code Review
+	Perspective</guimenuitem> menu item from the
+	<guimenu>Sierra</guimenu> menu. The Eclipse layout will change
+	to show views which will help you examine the findings the
+	scan reported.</para>
+
+	<figure id="fig-tutorial-screenshot">
+	  <title>The Sierra code review perspective examines findings about the ShowOff project</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/tutorial-screenshot.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The <guilabel>Findings Quick Search</guilabel> view at
+	the top of the perspective allows you to "drill-into" findings
+	along several dimensions. It is a powerful control but is
+	straightforward to use. For this tutorial, first click on
+	<guibutton>Importance</guibutton> then check
+	<guibutton>High</guibutton> and then click on
+	<guibutton>Show</guibutton>. Next, select the one finding
+	shown in the table. Selecting this finding, with one click,
+	will bring up information about it in the <guilabel>Finding
+	Details</guilabel> view. Selecting this finding with a
+	double-click will bring up the information about it and
+	highlight the offending line of code. Your screen should now
+	look like <xref linkend="fig-tutorial-screenshot" />. If you
+	get more than one finding, you probably have scanned other
+	projects. (To delete the data from these projects see <xref
+	linkend="sec-preferences-scan-data" />.)</para>
+
+	<para>Read the description in the <guilabel>Finding
+	Details</guilabel> view <guilabel>Synopsis</guilabel> tab. In
+	addition, you can click the two line references in the
+	<guilabel>Location</guilabel> portion of the tab to examine
+	the two lines of code referenced by this finding.  This high
+	importance finding is about a possible null dereference, and
+	these two lines represent code that would be executed before
+	the null dereference.  It was noticed because
+	the <function>box</function> method checks
+	if <varname>o</varname> is null but then later, regardless of
+	the outcome of this check, dereferences it. This is clearly a
+	problem, and if you run the code the second call from the
+	<function>main</function> method indeed causes a failure in
+	the program: the call prints <literal>null</literal> and then
+	throws a <varname>NullPointerException</varname> to the
+	console.</para>
+
+	<para>To fix this problem add a <literal>return</literal>
+	statement after line 25 as shown below:</para>
+
+	<programlisting>
+<![CDATA[
+if (o == null) {
+    System.out.println("null");
+    return;
+}]]>
+	</programlisting>
+
+	<para>(To show line numbers in the Eclipse editor you
+	right-click in the left-hand margin of the editor and check
+	<guimenuitem>Show Line Numbers</guimenuitem>.)</para>
+
+	<para>Now save your change and scan the project again. The finding
+	seems to disappear, however, the tool knows it has been
+	fixed.</para>
+
+	<para>In the <guilabel>Findings Quick Search</guilabel> clear
+	your current search by pressing the <guiicon><inlinegraphic
+	fileref="images/asterisk-grey-x.png" /></guiicon> icon in the
+	upper-right of the view. Now select
+	<guibutton>Status</guibutton> check <guibutton>Fixed</guibutton>
+	and then <guibutton>Show</guibutton> to see the finding you just
+	fixed. Sierra works hard to remember findings across scans. It
+	does this by matching findings reported in each scan (The
+	matching heuristic used by the tool is not perfect but will work
+	most of the time, however, aggressive code changes might throw
+	it off).</para>
+
+	<para>In the <guilabel>Findings Quick Search</guilabel> clear
+	your current search again by pressing the
+	<guiicon><inlinegraphic fileref="images/asterisk-grey-x.png"
+	/></guiicon> icon in the upper-right of the view (or instead
+	of clearing the query just select
+	<guibutton>Importance</guibutton> in the far left pane of the
+	view which will change the current query). Select
+	<guibutton>Importance</guibutton> and then right click on the
+	bar chart and select <guibutton>Select All</guibutton> from
+	the context menu. This is a quick way to select all the items
+	listed. Select <guibutton>Audited</guibutton> and check the
+	two items listed (Yes and No) and then select
+	<guibutton>Show</guibutton> to see all the findings from the
+	most recent scan.</para>
+
+	<para>Select the first finding shown. It warns that all classes
+	and interfaces should belong to a named package.  This is not a
+	finding we care about for this project so we can audit
+	it. Right-click on the finding and via the <guimenuitem>Set
+	Importance</guimenuitem> context menu select
+	<guimenuitem>Irrelevant</guimenuitem> to change the importance of
+	the finding.</para>
+
+	<para>This action, which we call auditing the finding, causes
+	several things to occur. First, if you examine the counts bar
+	chart for <guibutton>Audited</guibutton> you will note that one
+	finding has now been audited and two have not. If you uncheck and
+	then check <guibutton>No</guibutton> (a checkbox under the
+	<guibutton>Audited</guibutton> filter) you can see the other two
+	findings in the list go away and then return. Second, in the
+	<guilabel>Finding Details</guilabel> view the audit tab shows one
+	audit.</para>
+
+	<para>Click on the audit tab (the middle tab) in the
+	<guilabel>Finding Details</guilabel> view. The change of the
+	finding's importance has been time-stamped and logged. Let's note
+	that we want to use the default package using another audit. Type
+	"The default package is OK for ShowOff." and press the
+	<guibutton>Add</guibutton> button.</para>
+
+	<para>Now the finding has two audits and both are time-stamped. If
+	you were using a Sierra team server then audits by your team would
+	appear in this audit list as well as audits made by you. When an
+	audit is synchronized with a Sierra team server, the name of who
+	made the audit changes from <emphasis>Local</emphasis> to the name
+	for that user on the team server. A team server helps your team
+	collaborate on finding audits, however, collaboration is not the
+	focus of this tutorial so we will continue without connecting to a
+	Sierra team server.</para>
+
+	<para>We probably do not want to see findings that we have
+	marked as <guibutton>Irrelevant</guibutton> in our list of
+	results. So in the <guilabel>Findings Quick Search</guilabel>
+	click the underlined <guibutton>Importance</guibutton>
+	"breadcrumb" (one of the underlined words at the top of the
+	view) to scroll the view over to the importance
+	selections. The breadcrumbs allow easy scrolling of the view
+	to areas that might be off the screen. Uncheck
+	<guibutton>Irrelevant</guibutton> and then examine the state
+	of the view. If we click on the <guibutton>Show</guibutton>
+	breadcrumb to scroll the view back to the far right, we can
+	see that the one irrelevant finding is now filtered out of the
+	set of findings shown.</para>
+
+	<para>Let's examine the two remaining findings. Double-click the
+	first one to bring it up in the <guilabel>Finding
+	Details</guilabel> view and highlight the issue in the Java editor
+	(a single-click only brings the finding up in the
+	<guilabel>Finding Details</guilabel> view). This finding notes
+	that you could append a character rather than a string. This
+	change would result in a slight performance improvement in our
+	code. To fix it change
+	<computeroutput>line.append("-")</computeroutput> to
+	<computeroutput>line.append('-')</computeroutput>. Next we want to
+	indicate our work in the audit trail for this finding.</para>
+
+	<figure id="fig-tutorial-audits">
+	  <title>Three audits have been performed on this finding</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-audits.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>In the <emphasis>Finding Details</emphasis> view open the
+	audit tab and click on the stamp image in the upper-left. This
+	creates an audit entry that states, "I examined this finding." and
+	is a quick way to note that you examined this finding. Since we
+	want to note that we have edited the code, type "I fixed this in
+	the code." and then press the <emphasis>Add</emphasis> button to
+	add a second audit.</para>
+
+	<para>Before we leave this finding let's set its importance to
+	<emphasis>Low</emphasis>. In this small program such a minor
+	performance improvement is likely not a big deal. We could
+	just change the radio button at the left, but let's use the
+	drop down in the upper-left of the view. Press the drop down
+	and change the importance. Notice that this changes the views
+	to reflect the new importance and adds a third audit entry to
+	reflect that you made this change. The state of this finding
+	can be seen in <xref linkend="fig-tutorial-audits" />.</para>
+
+	<para>Now let's examine the last finding by double-clicking on
+	this finding in the <guilabel>Findings Quick Search</guilabel>
+	view. The finding should be at the bottom of the list. This
+	finding is complaining about our use of <computeroutput>new
+	String("hello")</computeroutput> in the code. Explicit use of
+	string construction is considered bad practice in Java as it
+	forces the Java virtual machine to make extra copies of
+	strings.</para>
+
+	<figure id="fig-tutorial-artifacts">
+	  <title>Two tool artifacts have been combined to create this finding</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-artifacts.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>In the <guilabel>Finding Details</guilabel> view select the
+	artifacts tab (the last tab to the right) note that this finding
+	has two artifacts. This finding is made up of two tool reports:
+	one from FindBugs and one from PMD. The two artifacts that
+	establish this finding can be seen in <xref
+	linkend="fig-tutorial-artifacts" />.</para>
+
+	<para>In Sierra, reports from analysis tools are called
+	artifacts. Sierra works to merge artifacts that are really about
+	the same problem into one finding. One can think of artifacts as
+	raw tool results and findings as what Sierra creates based upon
+	those raw tool results.  One other difference between artifacts
+	and findings is that findings exist across scans while an artifact
+	is connected to one and only one scan.</para>
+
+	<para>To fix this finding change the code from
+	<computeroutput>box(new String("hello"))</computeroutput> to
+	<computeroutput>box("hello")</computeroutput> and then scan the
+	project one final time.</para>
+
+	<para>When the scan is completed the <guilabel>Findings Quick
+	Search</guilabel> view will update to show no findings. This
+	indicates that no new findings have been found and the two we
+	were working on have been fixed. Clear the search in the
+	<guilabel>Findings Quick Search</guilabel> view by pressing the
+	<guiicon><inlinegraphic
+	fileref="images/asterisk-grey-x.png" /></guiicon>
+	icon and press <guibutton>Status</guibutton> to see that two
+	findings have been fixed and one finding is unchanged as seen in
+	<xref linkend="fig-tutorial-status-fixed" />.</para>
+
+	<figure id="fig-tutorial-status-fixed">
+	  <title>Status bar graph after fixing two findings in the code</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-status-fixed.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>This tutorial has introduced basic use of the Sierra Eclipse
+	client to audit Java code. You should now try Sierra on your own
+	code and we encourage you to explore and make Sierra work the way
+	you want it to.</para>
+
+	<para>Before we move on to the next tutorial we want to delete
+	the ShowOff project from the Sierra database. This is done via
+	the Sierra preferences. Select <guimenu>Window</guimenu> |
+	<guimenuitem>Preferences</guimenuitem> from the Eclipse main
+	menu. On the Mac select <guimenu>Eclipse</guimenu> |
+	<guimenuitem>Preferences</guimenuitem> from the Eclipse main
+	menu. Open the <emphasis>Sierra</emphasis> item on the
+	left-hand side of the view and select <emphasis>Scan
+	Data</emphasis>. Alternatively, you can also type the word
+	<userinput>data</userinput> in the text box at the upper
+	right.  Select the <emphasis>ShowOff</emphasis> project in the
+	<guilabel>Scanned Projects</guilabel> box and press
+	<guibutton>Delete Sierra Data</guibutton>.  A confirmation
+	dialog will appear as shown in <xref
+	linkend="fig-tutorial-delete-data" />. Press
+	<guibutton>OK</guibutton> to confirm that you want to delete
+	this project's data.</para>
+
+	<figure id="fig-tutorial-delete-data">
+	  <title>Removing the ShowOff project from the Sierra findings database</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-delete-data.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Note that the <guibutton>Delete All Sierra Data For This
+	Workspace</guibutton> can be used to wipe the entire Sierra
+	database. There is one Sierra database per Eclipse workspace,
+	however, all scan documents are stored in your
+	<filename>.sierra-data</filename> directory.</para>
+      </section>
+
+      <section id="sec-tutorial-team-server">
+	<title>Interacting with a Sierra team server</title>
+
+	<para>This tutorial assumes that you have installed Sierra and
+	have run through <xref linkend="sec-tutorial-client" />. (For
+	understanding only, this tutorial does not use the
+	<application>ShowOff</application> project.) It also assumes
+	that you have the <emphasis>Sierra Local Team Server
+	(Optional)</emphasis> featured installed (available on the
+	SureLogic update site). This tutorial introduces you to use of a
+	Sierra team server. The team server helps a group of programmers
+	work together with Sierra.</para>
+
+	<para>If you have not added the
+	<application>SmallWorld</application> project to your
+	workspace yet, add it now by choosing
+	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
+	Tutorials</guimenuitem></menuchoice> from the workspace
+	menu</para>
+
+	<para>SmallWorld is a Java text-oriented adventure game. The
+	Colossal Cave Adventure game, produced in the 70s, was the
+	historic first "interactive fiction" game, in which the computer
+	would simulate and describe a situation and the user would type
+	in what to do next, in simple English. Read through the
+	<filename>overview.html</filename> file in the
+	<filename>src</filename> directory for more information about
+	this software.</para>
+
+	<para>To run SmallWorld in an Eclipse console run the
+	<varname>SmallWorld</varname> class in the
+	<varname>smallworld.textui.console</varname> package. To run
+	SmallWorld in a graphical window run the
+	<varname>SmallWorld</varname> class in the
+	<varname>smallworld.textui.graphical</varname> package. The
+	graphical window version of the game is shown in <xref
+	linkend="fig-running-smallworld" />.</para>
+
+	<figure id="fig-running-smallworld">
+	  <title>Running the SmallWorld game</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-running-smallworld.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Go ahead and run the game and play it for a while. The
+	<userinput>help</userinput> command will tell you the commands
+	the software understands. SmallWorld is clearly a work in
+	progress as there is no way to win the game and there are no
+	items to interact with in the virtual world. All you can do is
+	move around and load and save your game. When you are done
+	playing the game, type <userinput>exit</userinput> to
+	terminate the program.</para>
+
+	<para>This tutorial uses a team server running on your
+	desktop. The <emphasis>Sierra Local Team Server
+	(Optional)</emphasis> feature contributes a <guilabel>Local Team
+	Server</guilabel> view that allows you to start, stop, and
+	examine the logs of a Sierra team server that you run on your
+	desktop.</para>
+
+	<para>Open the <guilabel>Local Team Server</guilabel>
+	view. You can do this one of two ways. The first approach is
+	to reset the <emphasis>Code Review</emphasis> perspective
+	(using the <guimenuitem>Window</guimenuitem> |
+	<guimenuitem>Reset Perspective</guimenuitem> command from the
+	main menu) this view will appear stacked in the top portion of
+	the perspective and you can click the title bar to bring it to
+	the front. The second approach is to select
+	<guimenuitem>Window</guimenuitem> | <guimenuitem>Show
+	View</guimenuitem> | <guimenuitem>Other...</guimenuitem> from
+	the main menu. Then from the dialog that appears select the
+	<guilabel>Local Team Server</guilabel> view under the Sierra
+	category and press the <guibutton>OK</guibutton> button. The
+	view appears as shown in <xref
+	linkend="fig-tutorial-local-team-server" />. (If you cannot
+	find this view in Eclipse then it is likely that this feature
+	is not installed. Go back to the Eclipse update site you used
+	to install Sierra and install it.)</para>
+
+	<figure id="fig-tutorial-local-team-server">
+	  <title>The Local Team Server view</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-local-team-server.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The team server controlled by this view is fully
+	functional and can be connected to by other computers on your
+	network using the IP address of your machine (depending, of
+	course, upon the routing and firewall configuration on your
+	network). The database and logs for this local team server
+	appear in the <filename>.sierra-data/server</filename>
+	subdirectory in your workspace.  Two logs are available for you to
+	examine. The first is the Jetty console output which shows
+	logging output from the local server. The second is the Jetty
+	request log which shows information about requests made from
+	clients to the web site. <ulink
+	url="http://www.mortbay.org/jetty/">Jetty</ulink> is a
+	lightweight web server implemented entirely in Java. It is used
+	to execute the team server. If the logs panel is not visible
+	in your view, select <guimenuitem>Show Server
+	Logs</guimenuitem> from the view menu as shown in <xref
+	linkend="fig-tutorial-local-team-server-logs" />.</para>
+
+	<figure id="fig-tutorial-local-team-server-logs">
+	  <title>The Local Team Server view showing the server logs</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-local-team-server-logs.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>From the same menu used to show the logs you can also
+	access the local team server preferences. Select the
+	<guimenuitem>Preferences...</guimenuitem> menu item. You will
+	see <xref linkend="fig-tutorial-local-team-server-preferences"
+	/>. This panel lets you adjust the memory used by the local team
+	server and set the level of logging output. The default value is
+	fine for this tutorial so press the
+	<guibutton>Cancel</guibutton> button to exit the panel. (If your
+	computer can't handle the default setting then you might get an
+	infinite yellow light below. If this happens restart Eclipse and
+	lower the memory to try again.)</para>
+
+	<figure id="fig-tutorial-local-team-server-preferences">
+	  <title>Preference panel for controlling the memory used by the local team server</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-local-team-server-preferences.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>So that this tutorial can start with a fresh team server
+	database, select <guimenuitem>Wipe Local Team Server
+	Database</guimenuitem> from the local team server view menu 
+        (top right of the view) to delete the
+	<filename>.sierra-data/server</filename> directory from your
+	workspace (If you already started a local team server using the
+	<guibutton>Start Server</guibutton>, stop it before you wipe
+	the database). Next, press the <guibutton>Start
+	Server</guibutton> button on the view. A dialog will appear
+	warning you that the life of the server process you are
+	starting is not tied to the life of your Eclipse process. This
+	dialog is shown in <xref
+	linkend="fig-tutorial-local-team-server-warning-dialog" />.
+	Read it and press the <guibutton>OK</guibutton> button. The
+	traffic light will change to yellow during server start
+	up. The first time a local team server is started may take
+	several minutes because its database has to be created.</para>
+
+	<figure id="fig-tutorial-local-team-server-warning-dialog">
+	  <title>Warning you that the local team server does not exit when Eclipse exits</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-local-team-server-warning-dialog.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The traffic light will change to green when the team
+	server is up and running. When this occurs click on the
+	hyperlink <emphasis>here</emphasis> within the message line
+	<emphasis>A team server is running. Click here to open a
+	browser.</emphasis> to open a web browser within Eclipse on the
+	team server portal login page. The views appear as shown in
+	<xref linkend="fig-tutorial-local-team-server-running" />.</para>
+
+	<figure id="fig-tutorial-local-team-server-running">
+	  <title>The team server web portal and the Local Team Server view indicating that the team server is running</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-local-team-server-running.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Now, rather than using the internal Eclipse browser,
+	open your favorite web browser (that supports JavaScript).
+	Enter <ulink
+	url="http://localhost:13376/sl/">http://localhost:13376/sl/</ulink>
+	to bring up the team server portal. Alternatively, you may
+	also copy and paste the URL shown in the view to the right of
+	the <guilabel>Network URL:</guilabel> label. This URL should
+	also work from other machines on your local network. Sierra
+	tries to determine your machine's external IP address,
+	however, sometimes it mistakenly gets the loop-back one (in
+	which case you should examine the output of the
+	<userinput>ifconfig</userinput> for Linux/Mac or
+	<userinput>ipconfig /all</userinput> for Windows to determine
+	your machine's IP address). You do not need to know your
+	machine's external IP address for this tutorial.</para>
+
+	<para>A new team server only has one account:
+	<userinput>admin</userinput> with
+	<userinput>adminadmin</userinput> for its password. Enter this
+	information and press the <guibutton>Log In</guibutton>
+	button. Because this is the first time any user has logged
+	into the portal you are asked to give it a name.  The name is
+	used to identify this team server from other team servers.
+	Typically you will want to use a name that makes sense for
+	your organization, such as <emphasis>engineering</emphasis> or
+	<emphasis>QA</emphasis>.  For this tutorial, enter
+	<userinput>local desktop</userinput> and then press
+	<guibutton>Set Server Name</guibutton> as shown in <xref
+	linkend="fig-tutorial-portal-name-page" />.</para>
+
+	<figure id="fig-tutorial-portal-name-page">
+	  <title>Naming the team server upon first portal login</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-name-page.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>At this point the welcome page for the team server
+	portal should appear as shown in <xref
+	linkend="fig-tutorial-portal-welcome-page-empty" />.</para>
+
+	<figure id="fig-tutorial-portal-welcome-page-empty">
+	  <title>The welcome page on the team server portal</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-welcome-page-empty.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The welcome page shows information about the project scans
+	that have been published to the server as well as the
+	contributions of the users of this server. Because no project
+	scans have been published and no users have contributed any audits
+	our welcome page is a bit sparse.</para>
+
+	<para>Click on the <guibutton>Manage Site</guibutton> link in
+	the upper-right of the page (just to the left of <guibutton>Log
+	Out</guibutton>) to open the site management page. Select the
+	<guibutton>Users</guibutton> tab to open the user management
+	page.  This page lets you add and manage the users of this
+	server. We want to create two new users and disable the default
+	<userinput>admin</userinput> user. To add a new user click on
+	<guibutton>Create a New User</guibutton> link near the top of
+	the page. In the dialog that appears enter a new user using the
+	following information:</para>
+	
+	<informaltable>
+	  <tgroup cols='2' align='left'>
+	    <thead>
+	      <row>
+		<entry>Dialog prompt</entry>
+		<entry>Entry</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>User Name:</entry>
+		<entry>infocom</entry>
+	      </row>
+	      <row>
+		<entry>Password:</entry>
+		<entry>zork</entry>
+	      </row>
+	      <row>
+		<entry>Confirm Password:</entry>
+		<entry>zork</entry>
+	      </row>
+	      <row>
+		<entry>Administrator:</entry>
+		<entry>Check this option</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>Repeat the process to create a
+	<userinput>troll</userinput> user using the following
+	information:</para>
+
+	<informaltable>
+	  <tgroup cols='2' align='left'>
+	    <thead>
+	      <row>
+		<entry>Dialog prompt</entry>
+		<entry>Entry</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>User Name:</entry>
+		<entry>troll</entry>
+	      </row>
+	      <row>
+		<entry>Password:</entry>
+		<entry>troll</entry>
+	      </row>
+	      <row>
+		<entry>Confirm Password:</entry>
+		<entry>troll</entry>
+	      </row>
+	      <row>
+		<entry>Administrator:</entry>
+		<entry>Leave this option unchecked</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>The user management screen also lets users that have the
+	administrative role change the name, role, status, and password of
+	any user. Users without the administrative role can only change
+	their password.</para>
+
+	<para>We want to change the name of the user
+	<userinput>infocom</userinput> to <userinput>zork</userinput>
+	which is easier for us to remember. Click on
+	<userinput>infocom</userinput> in the table to enable an
+	in-place edit of this user name. Change it to
+	<userinput>zork</userinput> and press the <keycap>Enter</keycap>
+	key.</para>
+
+	<para>Select the <guibutton>Log Out</guibutton> link in the
+	upper-right-hand corner of the page and log back in as the
+	<userinput>zork</userinput> user. Go back to the users
+	panel. (Note that you might need to refresh pages or restart
+	your browser when you log in as a different user.)</para>
+
+	<para>The status of a user is either enabled or disabled. An
+	enabled user can login to the server portal a disabled user
+	cannot. Users are not deleted from a team server they are just
+	disabled. This keeps the source of all audit information about
+	findings on the server consistent.</para>
+
+	<para>We no longer need the default <emphasis>admin</emphasis>
+	user so change its status to <emphasis>Disabled</emphasis> using
+	the drop-down menu. If the list of disabled users gets long you
+	can uncheck the <emphasis>Show disabled users</emphasis> setting
+	on the table. Uncheck this setting now and your browser should
+	match <xref linkend="fig-tutorial-portal-users-page" />.</para>
+
+	<figure id="fig-tutorial-portal-users-page">
+	  <title>The users page on the team server portal showing two enabled users</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-users-page.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Click on the <guilabel>Settings</guilabel> tab to open
+	the settings panel. This panel allows you to see the name of
+        the server, the version of the software, and the current and
+	available versions of the database schema as shown in <xref
+	linkend="fig-tutorial-portal-settings-page" />. The current and
+	available versions of the database schema should always be the
+	same number unless a schema upgrade failed for some reason. If
+	this should occur it is a software bug and should be reported
+	to SureLogic. 
+        </para>
+
+        <para>
+        This page also allows you to change the name of the server, as
+        well as to configure it to email any errors it encounters to
+        an administrator.  You can fill in the new server name (e.g. 
+	<userinput>local desktop</userinput>), and click on 
+	<guibutton>Update Site Settings</guibutton>.	
+
+	Likewise, you can fill in the information required and
+        send a test email to try out your configuration. (This is
+        optional for this tutorial but recommended for a production
+	server.)</para>
+
+	<figure id="fig-tutorial-portal-settings-page">
+	  <title>The settings page on the team server portal sending a test notification email</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-settings-page.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Log your browser out of the team server.</para>
+
+	<para>At this point let's go back to your Eclipse. Go to the
+	<guilabel>Code Review</guilabel> perspective. Select
+	<guimenuitem>Sierra</guimenuitem> | <guimenuitem>Configure
+	Team Servers</guimenuitem> from the Eclipse main menu. This
+	will open the <guilabel>Team Servers</guilabel> view. This is
+	the view where connections from the Eclipse client to team
+	servers are defined. We will now define a connection to the
+	local team server we are running. To do this click on the
+	<guibutton>New team server location</guibutton> toolbar button
+	at the top of the view or right-click in the left-hand list
+	and choose <emphasis>New...</emphasis> from the context
+	menu.</para>
+
+	<para>The <emphasis>New Sierra Team Server Location</emphasis>
+	dialog will appear. This dialog lets you provide information
+	about the team server that you want to connect with. To
+	connect to our local team server fill in the following:</para>
+
+	<informaltable>
+	  <tgroup cols='2' align='left'>
+	    <thead>
+	      <row>
+		<entry>Dialog prompt</entry>
+		<entry>Entry</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Host:</entry>
+		<entry>localhost (the default value)</entry>
+	      </row>
+	      <row>
+		<entry>Port:</entry>
+		<entry>13376 (the default value)</entry>
+	      </row>
+	      <row>
+		<entry>Context:</entry>
+		<entry>/sl/ (the default value)</entry>
+	      </row>
+	      <row>
+		<entry>Protocol:</entry>
+		<entry>http (the default value)</entry>
+	      </row>
+	      <row>
+		<entry>User:</entry>
+		<entry>zork</entry>
+	      </row>
+	      <row>
+		<entry>Password:</entry>
+		<entry>zork</entry>
+	      </row>
+	      <row>
+		<entry>Save Password</entry>
+		<entry>checked (the default value)</entry>
+	      </row>
+	      <row>
+		<entry>Enable automatic synchronization</entry>
+		<entry>unchecked (the default value)</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>The panel should look like <xref
+	linkend="fig-tutorial-localhost-connection" />. If it does you can
+	press the <emphasis>OK</emphasis> button. If someone else on
+	another computer wants to connect to your local team server then
+	they cannot use <emphasis>localhost</emphasis> as the host. They
+	will need to enter the IP address of your machine. The rest of the
+	connection settings should be the same, except, of course, that
+	they should probably have a different user name and password. Next
+	we will connect the SmallWorld project to this server.</para>
+
+	<figure id="fig-tutorial-localhost-connection">
+	  <title>Defining the connection to the local team server within the Eclipse client</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-localhost-connection.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>A project can be connected to one and only one team server
+	at a time. You can disconnect and reconnect the project to another
+	team server, however, all the local data in your Eclipse client
+	will be deleted when you perform the disconnect. The reason for
+	this is that once you start sharing scans and audit information
+	with that server your local data becomes coupled with the data of
+	that team server.</para>
+
+	<para>The client does allow you to edit the properties of a server
+	connection to reference another team server. This works if the
+	name or IP address of that server was changed (for any reason) on
+	your network. It also works if the server database you were
+	connecting to was moved from one server to another. It also works
+	if your user name or password need to be updated (as we shall
+	demonstrate later in this tutorial using the
+	<emphasis>troll</emphasis> user). Sierra checks on each
+	client-server command that the client and servers databases are
+	the expected ones.</para>
+
+	<para>To connect the SmallWorld project to the local server
+	right-click on the server name and select <guimenuitem>Connect
+	Projects...</guimenuitem> from the context menu. Check the
+	SmallWorld project and press the <guibutton>OK</guibutton>
+	button. Your view will look like <xref
+	linkend="fig-tutorial-smallworld-connected" />.</para>
+
+	<figure id="fig-tutorial-smallworld-connected">
+	  <title>The Team Servers view showing that the SmallWorld project is connected to local server</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-smallworld-connected.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>A very useful feature of a team server is that it can
+	store the scan filter for your team. A scan filter defines the
+	types of results your team has deemed completely without
+	merit. These results are filtered out of the scan. For more
+	information about setting up a scan filter see <xref
+	linkend="sec-preferences-scan-filter" />. To send your scan
+	filter to the server right-click on the server name and select
+	the <emphasis>Send Local Scan Filter As...</emphasis> menu
+	item from the context menu. A dialog appear prompting you for
+	a name to save the scan filter with on the server as shown in
+	<xref linkend="fig-tutorial-send-scan-filter" />. Enter
+	<userinput>Tutorial</userinput> and press
+	<guibutton>Send</guibutton> to continue. The local server now
+	has a copy, the same scan filter as your client. You should see
+	this copy of the scan filter in the <guilabel>Team
+	Server</guilabel> under the Scan Filters portion of your local
+	server, it will be called
+	<emphasis>Tutorial</emphasis>.</para>
+
+	<figure id="fig-tutorial-send-scan-filter">
+	  <title>Sending a copy of the client scan filter to local server</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-send-scan-filter.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Other members of your team get the scan filter settings
+	from the team server. We don't need to download them since we
+	just uploaded them, however, for practice we will. To download
+	and use the Tutorial scan filter stored on the local server
+	you right-click on the scan filter name and select
+	<emphasis>Copy to Local Scan Filter</emphasis> from the
+	context menu as shown in <xref
+	linkend="fig-tutorial-copy-scan-filter" />. A dialog will warn
+	that this will replace the scan filter currently on your
+	client. Press <emphasis>Yes</emphasis> to continue.</para>
+
+	<figure id="fig-tutorial-copy-scan-filter">
+	  <title>Downloading a copy of the Tutorial scan filter to the client from local server</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-copy-scan-filter.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The reason it is important to keep the scan filter
+	consistent between your clients and your server is that if you
+	have different scan filters you can see different analysis
+	results. For example, if the server filters out findings about
+	null pointers and your client does not then you will see more
+	findings on the client than you do on your server. To understand
+	why this is true you need to understand a bit about how scans
+	work.</para>
+
+	<para>A project scan (via Eclipse or via Ant) creates a scan
+	document file. You can see these files in your
+	<filename>.sierra-data</filename> directory. For the
+	SmallWorld project you will see the
+	<filename>SmallWorld.sierra.gz</filename> scan document
+	file. This file contains the tool reports about the SmallWorld
+	project. When a scan is loaded into the client database your
+	local scan filter is applied.  When you publish your
+	SmallWorld scan to your server the scan document file is sent
+	to the server, which allows the server to apply its scan
+	filter.</para>
+
+	<para>When you connect a project to a server, as we have done
+	with SmallWorld. That project stops using the local client
+	scan filter and starts using the one assigned to it by the
+	team server. If you drill into the SmallWorld project in the
+	<guilabel>Team Servers</guilabel> view you can see that
+	SmallWorld is assigned <emphasis>Scan filter: Defaults for
+	local server</emphasis>.  This assignment is done on the
+	portal.</para>
+
+	<para>We will now edit the Tutorial scan filter on the portal
+	and assign it to the connected SmallWorld project. In your web
+	browser log back into the portal as the
+	<userinput>zork</userinput> user. Select the <guilabel>Scan
+	Filters</guilabel> tab and then select the
+	<emphasis>Tutorial</emphasis> scan filter in the list at the
+	left.  This scan filter is defined in terms of finding types,
+	let's define it with just a few focused categories. To do this
+	we will first delete the scan filter and then build it from
+	scratch.  Press the <emphasis>Delete</emphasis> link at the
+	upper-right to delete the scan filter.  Next, press the
+	<guibutton>Create a Scan Filter</guibutton> button at the
+	upper-left and enter <userinput>Tutorial</userinput> and press
+	<guibutton>Create</guibutton>. The new scan filter will be
+	created.</para>
+
+	<para>Select the now empty <emphasis>Tutorial</emphasis> scan
+	filter in the list at the left. Select the
+	<emphasis>Edit</emphasis> link a the upper-right to edit the
+	Tutorial scan filter.  Select the <emphasis>Add
+	Category</emphasis> link. In the dialog that opens select
+	<userinput>Correctness (FindBugs)</userinput> and
+	<userinput>Performance (FindBugs)</userinput> as shown in
+	<xref linkend="fig-tutorial-portal-scan-filter-add-categories"
+	/> and press <guibutton>OK</guibutton>.</para>
+
+	<figure id="fig-tutorial-portal-scan-filter-add-categories">
+	  <title>Adding Correctness and Performance to the Tutorial scan filter</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-scan-filter-add-categories.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Change the importance of the categories as follows:</para>
+
+	<informaltable>
+	  <tgroup cols='2' align='left'>
+	    <thead>
+	      <row>
+		<entry>Name</entry>
+		<entry>Importance</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>Correctness (FindBugs)</entry>
+		<entry>Critical</entry>
+	      </row>
+	      <row>
+		<entry>Performance (FindBugs)</entry>
+		<entry>High</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>The importance set on the scan filter is used to set the
+	importance of findings only when they are first created.  The
+	scan filter priority will not change the priority of any
+	finding that previously existed and was matched with a finding
+	from a previous scan.</para>
+
+	<para>Finally, press the <emphasis>Save</emphasis> link to
+	finish setting up this scan filter.  The result should look
+	like the screen shown in <xref
+	linkend="fig-tutorial-portal-scan-filter-done" />.</para>
+
+	<figure id="fig-tutorial-portal-scan-filter-done">
+	  <title>The completed Tutorial scan filter</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-scan-filter-done.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>We now need to assign this scan filter to the SmallWorld
+	project. To do this click on the <guilabel>Projects</guilabel>
+	tab. Select the SmallWorld project in the list to the left.
+	To change the scan filter assigned to this project select the
+	<emphasis>(Change)</emphasis> link on line where the scan
+	filter for this project is listed.  In the dialog that appears
+	select the <userinput>Tutorial</userinput> scan filter and
+	press <guibutton>OK</guibutton>. The result should look like
+	the screen shown in <xref
+	linkend="fig-tutorial-portal-scan-filter-assigned-to-smallworld"
+	/>.</para>
+
+	<figure id="fig-tutorial-portal-scan-filter-assigned-to-smallworld">
+	  <title>The Tutorial scan filter is assigned to the SmallWorld project</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-scan-filter-assigned-to-smallworld.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>We need to synchronize our Eclipse client with the
+	changes we have made.  To do this select the
+	<guimenuitem>Synchronize All</guimenuitem> command from the
+	<guimenu>Sierra</guimenu> menu or click the
+	<guiicon><inlinegraphic fileref="images/sierra-sync.png"
+	/></guiicon> icon in the <guilabel>Team Servers</guilabel>
+	view. This will synchronize with the local server and you
+	should see the scan filter for SmallWorld change as shown in
+	<xref
+	linkend="fig-tutorial-scan-filter-assigned-to-smallworld"
+	/>.</para>
+
+	<figure id="fig-tutorial-scan-filter-assigned-to-smallworld">
+	  <title>After a Synchronize All the client knows that the Tutorial scan filter is assigned to the SmallWorld project</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-scan-filter-assigned-to-smallworld.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Run a scan of the SmallWorld project. We can now publish
+	this scan of SmallWorld to the local server. Select
+	<guimenu>Sierra</guimenu> | <guimenuitem>Publish Latest
+	Scan</guimenuitem> from the Eclipse main menu. Check the
+	SmallWorld project and press the <guibutton>OK</guibutton>
+	button. This client operation is the first of two ways to
+	publish a scan to a team server. The second way to publish a
+	scan to a team server is to use Ant.</para>
+
+	<para>After the publish has completed, select the
+	<guilabel>Welcome</guilabel> tab in your web browser. The
+	welcome pages should now look like <xref
+	linkend="fig-tutorial-portal-welcome-smallworld-publish" />. It
+	is possible that you might need to refresh your browser to get
+	the page to reflect the changes caused by the scan
+	publish.</para>
+
+	<figure id="fig-tutorial-portal-welcome-smallworld-publish">
+	  <title>The welcome page after the scan of SmallWorld has been published</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-welcome-smallworld-publish.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The welcome page on the server now contains data about
+	the SmallWorld scan we just published. You can see the counts
+	of findings for SmallWorld in the <emphasis>Latest Scan
+	Results</emphasis> chart and the <emphasis>Projects Published
+	To This Portal</emphasis> table. Using <emphasis>Findings
+	Quick Search</emphasis> view you can verify that these counts
+	are consistent with the data in your client (Filter by the
+	project SmallWorld then show the importance counts).</para>
+
+	<para>Use the <emphasis>Findings Quick Search</emphasis> view
+	select all the findings from SmallWorld that are within the
+	<emphasis>Performance (FindBugs)</emphasis> finding
+	category. There should be three findings as shown in <xref
+	linkend="fig-tutorial-smallworld-category-counts" />.</para>
+
+	<figure id="fig-tutorial-smallworld-category-counts">
+	  <title>The findings by category for the SmallWorld scan</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-smallworld-category-counts.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The counts in the finding categories may appear
+	surprising. It states that there are 4 findings but the bars
+	add up to 6. In addition, the scan filter used for the scan
+	(i.e., Tutorial) only included two of the four categories
+	shown. What is the reason for these apparent inconsistencies?
+	The reason is that Sierra categories are not a partition of
+	the finding types.  It is possible for a finding type to be in
+	one or more categories.  In this case there is overlap. To see
+	this, add the <guilabel>Finding Type</guilabel> filter after
+	the <guilabel>Finding Category</guilabel> and check and
+	uncheck each finding category one at at time. Note that
+	<emphasis>Should be static</emphasis> finding type is in both
+	the <emphasis>Design Rules (PMD)</emphasis> and the
+	<emphasis>Performance (FindBugs)</emphasis> categories. In
+	addition, the <emphasis>Superfluous instanceof</emphasis>
+	finding type is in both the <emphasis>Correctness
+	(FindBugs)</emphasis> and <emphasis>Style
+	(FindBugs)</emphasis> categories. Go back and show the three
+	<emphasis>Performance (FindBugs)</emphasis> findings.</para>
+
+	<para>Check all the categories and select
+	<guilabel>Show</guilabel> to see the four findings. The two
+	findings about changing the anonymous inner classes to named
+	static classes we consider unimportant for this
+	program. Change the importance of these two findings to
+	Irrelevant by selecting both and using the context
+	menu.</para>
+
+	<para>One of the findings suggests that the
+	<varname>f_description</varname> field can be declared
+	static. Looking at the code of this class it is clear that
+	this field can be removed from the class, i.e., the string
+	literal could simply be returned from the
+	<varname>getDescription()</varname> method.  This can be
+	deemed a minor problem. First, change the importance of this
+	finding to low and enter an audit that states:</para>
+	
+	<blockquote>
+	  <para>Remove this field and simply return the string literal
+	  "Our Hero" from the getDescription() method.</para>
+	</blockquote>
+
+	<para>You have now made a few audits that you can share with
+	the team server. To do this select <guimenu>Sierra</guimenu> |
+	<guimenuitem>Synchronize All</guimenuitem> from the Eclipse
+	main menu. After this command completes, note that the name
+	the audit is attributed to changed from
+	<emphasis>Local</emphasis> to <emphasis>zork</emphasis>
+	because we synchronized under the user zork to the local
+	server. This can be seen in <xref
+	linkend="fig-tutorial-smallworld-zork-audits" />.</para>
+
+	<figure id="fig-tutorial-smallworld-zork-audits">
+	  <title>After a sync local audits are attributed to the zork user</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-smallworld-zork-audits.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>If you refresh the welcome page in your web browser it
+	will look like <xref
+	linkend="fig-tutorial-portal-welcome-page-zork-audits" />. The
+	charts and graphs have been updated to show the contributions
+	made by the zork user. Also we can see that the SmallWorld
+	project now has 4 findings (1 critical, 1 low, and 2
+	irrelevant) and 4 audits on 3 findings.</para>
+
+	<figure id="fig-tutorial-portal-welcome-page-zork-audits">
+	  <title>The portal shows the audits attributed to the zork user</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-welcome-page-zork-audits.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>In the Eclipse client mark the three performance
+	findings as being examined by me (a command in the context
+	menu) or make an ad hoc audit on each finding. Notice that
+	these new audits are attributed to <emphasis>Local</emphasis>
+	not to zork. This is because we have not synchronized these
+	audits with the server. To illustrate this point let's
+	attribute these audits to the <emphasis>troll</emphasis> user
+	not to the <emphasis>zork</emphasis> user.</para>
+
+	<para>Go to the <guilabel>Team Servers</guilabel> view,
+	right-click on the local server and select the
+	<guimenuitem>Properties...</guimenuitem> menu item. In the
+	dialog that appears change the user name and password to
+	<userinput>troll</userinput> and press the
+	<guibutton>OK</guibutton> button. Now synchronize with the
+	server again by pressing the <guiicon><inlinegraphic
+	fileref="images/sierra-sync.png" /></guiicon> icon (or by
+	selecting <guimenu>Sierra</guimenu> | <guimenuitem>Synchronize
+	All</guimenuitem> from the Eclipse main menu). The new audits
+	will change to the <emphasis>troll</emphasis> user as shown in
+	<xref linkend="fig-tutorial-smallworld-troll-audits" />.</para>
+
+	<figure id="fig-tutorial-smallworld-troll-audits">
+	  <title>After a sync local audits are attributed to the troll user</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-smallworld-troll-audits.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>If you refresh the welcome page in your web browser it
+	will look like <xref
+	linkend="fig-tutorial-portal-welcome-page-troll-audits" />. The
+	charts and graphs have been updated to show the contributions
+	made by the troll user. There are seven audits by two users
+	about three SmallWorld project findings.</para>
+
+	<figure id="fig-tutorial-portal-welcome-page-troll-audits">
+	  <title>The portal shows the audits attributed to the zork and troll users</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-welcome-page-troll-audits.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>To complete this tutorial go back to the <emphasis>Local
+	Team Server</emphasis> view and press <emphasis>Stop
+	Server</emphasis> to shutdown your local team server. You can opt
+	to leave the local team server running, however, realize that it
+	is listening on your local network.</para>
+
+	<para>This tutorial has introduced basic interaction of the Sierra
+	Eclipse client with a Sierra team server. You should now try using
+	the Sierra team server on your own code and we encourage you to
+	explore and make Sierra work the way you want it to.</para>
+      </section>
+
+      <section id="sec-tutorial-ant">
+	<title>Scanning code using Ant</title>
+
+	<para>This tutorial will demonstrate how to use the Sierra Ant
+	tasks to scan the SmallWorld project and publish the resulting
+	scan document to your local team server.  The Sierra Ant tasks
+	are used to automate scans as part of a QA or nightly build
+	process. This tutorial assumes you have run the previous
+	tutorial (See <xref linkend="sec-tutorial-team-server" />; You
+	can skip the previous tutorial if you create a new local team
+	server and add a <userinput>zork</userinput> user with
+	password <userinput>zork</userinput>).</para>
+
+	<para>For this tutorial you will need your local team server
+	running. Open the <guilabel>Local Team Server</guilabel>
+	view. If the local team server is stopped press the
+	<guibutton>Start Server</guibutton> to get it running
+	again.</para>
+
+	<para>The Sierra Ant tasks may be downloaded from <ulink
+	url="http://www.surelogic.com/static/sierra/sierra-ant.zip">
+	http://www.surelogic.com/static/sierra/sierra-ant.zip</ulink>. Unzip
+	them to any location on your disk. The archive will create a
+	<filename>sierra-ant</filename> directory.</para>
+
+	<para>In the SmallWorld project create a file at the root of
+	the project called <userinput>sierra-ant-scan.xml</userinput>
+	with the below contents.</para>
+
+	<programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="SmallWorld" default="scan" basedir="."&gt;
+  &lt;property name="sl.home" value="C:/Users/Tim/Documents/sierra-ant" /&gt;
+  &lt;property name="sl.lib"  value="${sl.home}/lib" /&gt;
+  &lt;property name="project" value="SmallWorld" /&gt;
+  &lt;path id="sl.classpath"&gt;&lt;fileset dir="${sl.lib}" includes="**/*.jar" /&gt;&lt;/path&gt;
+  &lt;taskdef name="sierra-scan"
+           classname="com.surelogic.ant.sierra.SierraScan"
+           classpathref="sl.classpath" /&gt;
+  &lt;taskdef name="sierra-publish"
+           classname="com.surelogic.ant.sierra.SierraPublish"
+           classpathref="sl.classpath" /&gt;
+  &lt;tstamp /&gt;
+  
+  &lt;target name="scan"&gt;	  	  	
+    &lt;property name="document" value="${project}-${DSTAMP}${TSTAMP}" /&gt;
+
+    &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
+                 classpath="${basedir}/jdom-1.0.jar" source="1.5"
+                 home="${sl.home}" document="${document}"
+                 projectname="${project}" /&gt;
+
+    &lt;sierra-publish user="zork" password="zork" host="localhost"
+                    secure="false" port="13376" contextPath="/sl/"
+                    document="${document}" /&gt;
+  &lt;/target&gt;
+&lt;/project&gt;
+	</programlisting>
+
+	<para>You will have to modify the setting for
+	<userinput>sl.home</userinput> to reference where you located
+	the <filename>sierra-ant</filename> directory on your
+	machine.</para>
+
+	<para>Within Eclipse run this as an Ant task by selecting the
+	XML file and selecting <guimenuitem>Run As</guimenuitem> |
+	<guimenuitem>Ant Build</guimenuitem>. Output from the running
+	task will appear in the console as seen in <xref
+	linkend="fig-tutorial-ant-console" />.</para>
+
+	<figure id="fig-tutorial-ant-console">
+	  <title>Console output from scanning SmallWorld with Ant</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-ant-console.png" /></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>Let's see that the scan was uploaded to the local team
+	server. First, log into the local team server with your web
+	browser and click on the <guilabel>Projects</guilabel>
+	tab. Select <guilabel>SmallWorld</guilabel> in the list of
+	projects (to the left). Note that the Ant scan will appear at
+	the top of the Scans table (at the bottom-right). You can
+	click on time of the scan to list its findings.</para>
+
+	<para>This tutorial has introduced the use of the Sierra Ant
+	tasks a Sierra team server. You now know how to use the Ant
+	tasks to add Sierra to your QA process or nightly
+	build. Reference documentation for the Sierra Ant tasks is
+	found in <xref linkend="sec-ant-tasks" />.</para>
+      </section>
+    </section>
+  </chapter>
+
+  <chapter id="reference">
+    <title>Reference</title>
+    <section id="sec-menu">
+      <title>The Sierra menu</title>
+
+      <figure id="fig-menu-sierra">
+	<title>The Sierra menu</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/menu-sierra.png"/></imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>The Sierra menu appears as an item on the Eclipse
+      workspace main menu. This menu provides direct access to common
+      Sierra commands. The menu is divided into four sections. The top
+      section contains commands that are useful in a stand-alone
+      client. The second section (from the top) contains commands that
+      communicate with one or more Sierra team servers. The third
+      section contains commands to report problems about or suggest
+      improvements to Sierra directly to SureLogic.  The bottom
+      section allows access to the license management dialog.</para>
+
+      <para>The commands on the Sierra main menu are:</para>
+
+      <orderedlist>
+	<listitem>
+	  <para><emphasis>Scan Project</emphasis> &mdash; This command
+	  starts a full scan on the selected set of projects. The
+	  scans are run in background jobs and progress can be seen in
+	  the Eclipse <guilabel>Progress</guilabel> view and (by
+	  default) via balloon notifications.  A dialog is opened to
+	  allow the user to select which Java projects to scan as seen
+	  in <xref linkend="fig-menu-sierra-dialog" />.</para>
+
+	  <figure id="fig-menu-sierra-dialog">
+	    <title>Dialog allowing the user to select which Java projects to scan</title>
+	    <mediaobject>
+	      <imageobject><imagedata fileref="images/menu-sierra-dialog.png"/></imageobject>
+	    </mediaobject>
+	  </figure>
+
+	  <para>If one or more projects are selected in the
+	  <guilabel>Package Explorer</guilabel> view then these
+	  projects will be checked when the dialog opens. (If only one
+	  Java project is open in the workspace then that project will
+	  also be checked by default.) If you do not want this dialog
+	  to appear when you have selected projects in the
+	  <guilabel>Package Explorer</guilabel> view then uncheck
+	  <emphasis>Show this dialog even when projects are selected
+	  in the Package Explorer</emphasis> before you press the
+	  <guibutton>OK</guibutton> button.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Re-Scan Changes in Project</emphasis>
+	  &mdash; This command starts a partial scan on only those
+	  Java types in the project that have been recompiled since
+	  the last scan. If little has been changed in a project then
+	  this choice will be quicker than running a full scan. For
+	  the purpose of finding differences, only those types that
+	  are scanned are changed. A dialog is opened to allow the
+	  user to select the set of projects to run this command on
+	  that operates just like the <guimenuitem>Scan
+	  Project</guimenuitem> command.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Open Code Review Perspective</emphasis>
+	  &mdash; This menu choice opens the <guilabel>Code
+	  Review</guilabel> perspective. This perspective is useful
+	  for examining and auditing analysis findings. This
+	  perspective may also be opened via the normal Eclipse menus
+	  and toolbars for perspectives.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Configure Team Servers</emphasis> &mdash;
+	  This menu choice opens and gives the focus to the
+	  <guilabel>Sierra Servers</guilabel> view. This view is used
+	  to manage connections to Sierra team servers.  This view may
+	  also be opened via the normal Eclipse menus and toolbars for
+	  views.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Synchronize All</emphasis> &mdash; This menu
+	  choice synchronizes audits for all the projects connected to
+	  all Sierra team servers. All BugLink data is synchronized as
+	  well. This command has the same effect as selecting each
+	  connected project and selecting the <guimenuitem>Synchronize
+	  Project</guimenuitem> menu item.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Synchronize Project</emphasis> &mdash; This
+	  command sends all local audits to the Sierra team server the
+	  selected project is connected to. It also downloads all
+	  audits (made by other users) from the server to this client.
+	  A dialog is opened to allow the user to select the set of
+	  projects to run this command on that operates just like the
+	  <guimenuitem>Scan Project</guimenuitem> command.  All
+	  BugLink data is synchronized as well.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Publish Latest Scan</emphasis> &mdash; This
+	  command sends the scan results from the last full scan to
+	  the Sierra team server that the project is connected
+	  to. Note that only <emphasis>full scans</emphasis> can be
+	  published to a team server.  A dialog is opened to allow the
+	  user to select the set of projects to run this command on
+	  that operates just like the <guimenuitem>Scan
+	  Project</guimenuitem> command.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Disconnect</emphasis> &mdash; This command
+	  disconnects the selected project from the Sierra team server
+	  it is currently connected to. This action causes all local
+	  information about the project to be deleted (so a new scan
+	  will have to be run on the project). The disconnected
+	  project may then be connected to a different Sierra team
+	  server.  A dialog is opened to allow the user to select the
+	  set of projects to run this command on that operates just
+	  like the <guimenuitem>Scan Project</guimenuitem>
+	  command.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Send Tip for Improvement</emphasis> &mdash;
+	  This command opens a dialog to allow entry of a suggestion
+	  by the user to improve the Sierra tool. For more
+	  information please see <xref
+	  linkend="sec-bugs-and-tips"/>.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Send Problem Report</emphasis> &mdash; This
+	  command opens a dialog to allow entry of a problem report by
+	  the user about the Sierra tool. For more information please
+	  see <xref linkend="sec-bugs-and-tips"/>.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Run Sierra Tutorials</emphasis> &mdash; This
+	  command opens a dialog to allow the user to import tutorial
+	  projects into their workspace and open the Sierra help to
+	  the step by step tutorials. For more information please see
+	  <xref linkend="sec-tutorial"/>.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Manage SureLogic Licenses</emphasis> &mdash;
+	  This command opens the SureLogic license management
+	  dialog. This dialog allows the user to install, view, and
+	  uninstall licenses for Sierra and other SureLogic tools.
+	  For more information see <xref
+	  linkend="sec-license-management" />.</para>
+	</listitem>
+      </orderedlist>
+    </section>
+
+    <section id="sec-code-review-perspective">
+      <title>The Code Review perspective</title>
+
+      <para>The Code Review perspective organizes the Eclipse workbench
+      to show views which will help you examine and interact with tool
+      findings. It also provides access to views supporting interaction
+      with one or more Sierra team servers.</para>
+
+      <para>This perspective is useful for beginning use of the Sierra
+      Eclipse client. Its "canned" organization can help you to
+      understand the capabilities of the tool. Advanced users may want
+      to reconfigure the screen layout and save a custom perspective
+      or add one or more of the Sierra views to the Java
+      perspective.</para>
+    </section>
+
+    <section>
+      <title>Views</title>
+
+      <para>This section describes the Eclipse views defined by the
+      Sierra Eclipse client.</para>
+
+      <section id="sec-findings-quick-search">
+	<title>Findings Quick Search</title>
+
+	<para>This view allows you to select a set of findings to
+	examine based upon a set of filters.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Audited</emphasis> &mdash; Partitions
+	    findings into the set of findings that have been audited by
+	    a programmer and the set of findings that have not been
+	    audited by a programmer.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Audits</emphasis> &mdash; Partitions
+	    findings based upon the number of times they have been
+	    audited by a programmer. A 0 indicates that no audits have
+	    been performed.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Finding Category</emphasis> &mdash;
+	    Separates findings by the category their finding type is
+	    part of. Categories are defined by a set of finding
+	    types. Because a finding type can be included in more than
+	    one category, and thus a finding can be in more than one
+	    category, this does not strictly partition
+	    findings.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Finding Type</emphasis> &mdash; Partitions
+	    findings by their finding type.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Importance</emphasis> &mdash; Partitions
+	    findings by their assigned importance. Importance is one of:
+	    critical, high, medium, low, and irrelevant.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Java Class</emphasis> &mdash; Partitions
+	    findings by the Java class that the (primary) code location
+	    the finding is about occurs within.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Java Package</emphasis> &mdash; Partitions
+	    findings by the Java package that the (primary) code
+	    location the finding is about occurs within.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Project</emphasis> &mdash; Partitions
+	    findings by the Java project that the (primary) code
+	    location the finding is about occurs within.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Status</emphasis> &mdash; Partitions
+	    findings by the status of the finding compared to the last
+	    scan. <emphasis>New</emphasis> indicates that the finding
+	    was not in the last scan (or that there is no last scan).
+	    <emphasis>Unchanged</emphasis> indicates that the finding
+	    was in the last scan. <emphasis>Fixed</emphasis> indicates
+	    that the finding was in the last scan, but is not in the
+	    current scan.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Tool</emphasis> &mdash; Partitions findings
+	    by the tool that reported the finding. If more than one tool
+	    reported the finding (i.e., it has multiple artifacts from
+	    different analysis tools) then <emphasis>multiple
+	    tools</emphasis> is indicated.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Tool Artifacts</emphasis> &mdash;
+	    Partitions findings based upon the number of analysis tool
+	    artifacts reported about them. A 1 indicates that one
+	    analysis tool artifact supported the finding, a 2
+	    indicates that two analysis tool artifacts supported the
+	    finding, and so on.</para>
+	  </listitem>
+	</orderedlist>
+
+	<para>Described further in <xref linkend="sec-tutorial-client"
+	/>.</para>
+      </section>
+
+      <section id="sec-finding-details-view">
+	<title>Finding Details</title>
+
+	<para>This view displays information about and allows you to
+	audit an analysis finding. It also displays all analysis tool
+	artifacts that support a finding.</para>
+
+	<para>Described further in <xref linkend="sec-tutorial-client"
+	/>.</para>
+      </section>
+
+      <section id="sec-team-servers-view">
+	<title>Team Servers</title>
+
+	<para>This view provides a tree that shows the Sierra Eclipse
+	client's connections to Sierra Team Servers on the
+	network. The view shows what projects are connected to
+	particular team servers and what scan filters exist and are in
+	use. This view has a shortcut <guiicon><inlinegraphic
+	fileref="images/sierra-sync.png" /></guiicon> icon that allows
+	all information to be synchronized with the set of known
+	Sierra Team Servers.</para>
+
+	<para>Described further in <xref
+	linkend="sec-tutorial-team-server" />.</para>
+      </section>
+
+      <section id="sec-synchronize-history">
+	<title>Synchronize History</title>
+	<para>This view provides a table that lists each synchronize
+	that has been done with a Sierra Team Server. The table lists
+	when the synchronize occurred, what server was involved, and a
+	summary of the audit data passed back and forth.  Selecting a
+	row in this table brings up the <guilabel>Synchronize History
+	Details</guilabel> view. This view is described in <xref
+	linkend="sec-synchronize-history-details" />.</para>
+      </section>
+
+      <section id="sec-synchronize-history-details">
+	<title>Synchronize History Details</title>
+	<para>This view provides details linking to particular audits
+	for a synchronize with a Sierra Team Server.  A synchronize
+	event is selected in the <guilabel>Synchronize
+	History</guilabel> view that focuses the information shown in
+	this view.  The <guilabel>Synchronize History</guilabel> view
+	is described in <xref linkend="sec-synchronize-history"
+	/>.</para>
+      </section>
+
+      <section>
+	<title>Query Sierra</title>
+	<para>This view allows direct queries on the embedded
+	relational database used to store Sierra data. It is typically
+	only used for serviceability of Sierra or by consultants
+	(using its ability to perform ad hoc queries on the Sierra
+	results for client reports).
+	</para>
+      </section>
+    </section>
+
+    <section>
+      <title>Preferences</title>
+
+      <para>The Sierra Eclipse client has many preferences. These
+      preferences are configurable by the user through preference
+      panels. There are three of these panels and each in described in
+      the sections below.</para>
+
+      <para>To open the Eclipse preferences select
+      <emphasis>Window</emphasis> | <emphasis>Preferences...</emphasis>
+      from the Eclipse main menu. Sierra should be visible in the
+      outline on the left of the dialog that appears. If you type
+      <emphasis>Sierra</emphasis> in the text box to the upper-left of
+      the dialog then the outline will be filtered to only shown the
+      Sierra preference pages.</para>
+
+      <section id="sec-preferences-sierra">
+	<title>Sierra</title>
+
+	<figure id="fig-preferences-sierra">
+	  <title>The Sierra preference pane</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/preferences-sierra.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>This preference page is used to configure the appearance
+	of and many general settings about the Sierra Eclipse client.</para>
+
+	<para>The settings that may be configured are described below:</para>
+
+	<para>The <emphasis>Data directory</emphasis> sets where
+	Sierra stores scan data and logs. In addition, the
+	<filename>server</filename> subdirectory of the data directory
+	is used to store all data for the Local Team Server. All
+	Sierra data goes into the data directory except the local
+	Database which is stored under the current Eclipse
+	workspace.</para>
+
+	<para>The <emphasis>Appearance</emphasis> group contains the
+	following settings:</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Maximum number of findings shown in
+	    'Findings Quick Search' results:</emphasis> This setting
+	    limits the number of findings that the <emphasis>Findings
+	    Quick Search</emphasis> view will show. This setting ensures
+	    that Eclipse doesn't run out of memory trying to display a
+	    gigantic set of analysis findings.</para>
+
+	    <para>The default value for this setting is 2000, however,
+	    it can be raised if Eclipse is given a large amount of
+	    memory. A warning is shown in the <emphasis>Findings Quick
+	    Search</emphasis> view if a list is truncated.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Show 'balloon' notifications for scan start
+	    and completion.</emphasis> This setting controls if balloon
+	    notifications pop up when a scan is run.</para>
+
+	    <para>The default value for this setting is checked
+	    (notifications are shown).</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Prompt to change to the Code Review
+	    perspective on scan completion.</emphasis> This setting
+	    controls a dialog is opened to prompt the user to consider
+	    changing to the <guilabel>Code Review</guilabel>
+	    perspective when a scan has completed.</para>
+
+	    <para>The default value for this setting is checked (the
+	    user is prompted).</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>If no prompt, automatically change to the
+	    Code Review perspective.</emphasis> If the previous
+	    setting is false (no user prompt) then this setting
+	    controls if the perspective is automatically changed to
+	    the <guilabel>Code Review</guilabel> perspective when a
+	    scan has completed.</para>
+
+	    <para>The default value for this setting is checked (the
+	    perspective is changed).</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Allow the user to select the set of
+	    projects to scan even when projects are selected in the
+	    Package Explorer.</emphasis> This setting controls if the
+	    dialog is shown to allow the user to select projects when
+	    the user performs a scan or publish. If this setting is
+	    checked then the dialog always appears even if projects
+	    are selected in the Package Explorer. If this setting is
+	    not checked then the dialog will only appear when no
+	    projects are selected in the Package Explorer.</para>
+
+	    <para>The default value for this setting is
+	    checked.</para>
+	  </listitem>
+          <listitem>
+	    <para><emphasis>Display results from the SureLogic JSure
+	    verification tool.</emphasis> This setting allows JSure
+	    results to be viewed in Sierra.</para>
+
+	    <para>The default value for this setting is not checked
+	    (JSure results are not shown).</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Show markers for findings in the Java
+	    editor (requires Eclipse restart).</emphasis> This setting
+	    turns on or off the * markers that highlight tool findings
+	    in the gutter of the Java editor. This setting must be
+	    checked for the next setting to be taken into account by
+	    Sierra.</para>
+
+	    <para>The default value for this setting is checked (markers
+	    are shown).</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Only show markers for findings in the Java
+	    editor at or above:</emphasis> If the previous setting is
+	    checked then this setting selects the importance threshold
+	    for showing markers in the gutter of the Java editor.</para>
+
+	    <para>The default value of this setting is
+	    <emphasis>High</emphasis> meaning that only findings of High
+	    or Critical importance are highlighted in the gutter of the
+	    Java editor.</para>
+	  </listitem>
+	</orderedlist>
+
+	<para>The <emphasis>Code Scanning</emphasis> settings are used
+	when code scans are performed by Sierra from within
+	Eclipse. This group contains the following settings:</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Maximum VM memory allowed for
+	    scans:</emphasis> Code scans run in a separate Java
+	    VM. This preference controls the maximum memory used by
+	    code scan processes.</para>
+
+	    <para>The default value for this setting is 1024 MB. The
+	    maximum value for your computer is shown in the
+	    dialog. This maximum value for this setting is difficult
+	    to determine and is different on each computer
+	    configuration due to technical limitations in Java VM
+	    implementations.  Sierra calculates this maximum for your
+	    computer configuration as best it can and limits your
+	    setting based upon the results of this
+	    calculation. However, it is possible, in rare cases, that
+	    too large a value for your computer configuration could be
+	    set. In this case the scan will abort right away and you
+	    should get an indication of what the problem is.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Save all modified resources automatically
+	    prior to starting a scan.</emphasis> This indicates that
+	    any unsaved resources in the workspace are automatically
+	    saved prior to a scan without prompted the user.</para>
+
+	    <para>The default value for this setting is unchecked (the
+	    user is prompted to save resources prior to a scan
+	    starting).</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+
+      <section id="sec-preferences-local-team-server">
+	<title>Local Team Server</title>
+
+	<figure id="fig-preferences-server">
+	  <title>The Local Team Server preference pane</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/preferences-local-team-server.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The Local Team Server preference pane allows you to
+	control the maximum memory used by and the logging level of
+	the local team server.</para>
+
+	<para>The <emphasis>Memory Use</emphasis> setting controls the
+	memory used by the Local Team Server process. The Local Team
+	Server runs in a separate Java VM. The Local Team Server is
+	executed within the Jetty web container. <ulink
+	url="http://www.mortbay.org/jetty/">Jetty</ulink> is a
+	lightweight web server implemented entirely in Java.</para>
+
+	<para>The default value for this setting is 1024 MB. The
+	maximum value for your computer is shown in the dialog.  This
+	maximum value for this setting is difficult to determine and
+	is different on each computer configuration due to technical
+	limitations in Java VM implementations. Sierra calculates this
+	maximum for your computer configuration as best it can and
+	limits your setting based upon the results of this
+	calculation. However, it is possible, in rare cases, that too
+	large a value for your computer configuration could be set. In
+	this case the server startup will hang at the yellow light
+	forever and if you restart Eclipse will become the red
+	light. You should see an error in the Jetty console log on
+	most Java VMs.</para>
+
+	<para>The <emphasis>Logging</emphasis> setting sets the
+	minimum threshold at or above which server log messages are
+	output to the Jetty console log. This log can be viewed in the
+	<guilabel>Local Team Server</guilabel> view.</para>
+
+	<para>The default value for this setting is
+	<emphasis>INFO</emphasis>.</para>
+      </section>
+
+      <section id="sec-preferences-scan-data">
+	<title>Scan Data</title>
+
+	<figure id="fig-preferences-scan-data">
+	  <title>The Scan Data preference pane</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/preferences-scan-data.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The Scan Data preference pane allows cleanup of scan data
+	about old and no longer needed projects. It also allows the
+	entire Sierra Eclipse client database to be wiped clean.</para>
+
+	<para>The list of projects shown in the <emphasis>Scanned
+	Projects</emphasis> group of this panel reflect projects that
+	have scan data and audits about them.  One or more of these
+	projects can be selected and deleted from the Sierra client
+	database. It is important to understand that the data is
+	deleted immediately when the <guibutton>Delete Sierra
+	Data</guibutton> button is pressed (not when the
+	<guibutton>OK</guibutton> or <guibutton>Apply</guibutton> is
+	pressed for the preference pane).</para>
+
+	<para>Sierra uses an embedded relational database to store its
+	results about your code. It is possible to wipe this database
+	clean by pressing the<emphasis>Delete All Sierra Data For This
+	Workspace</emphasis> button. This wipes all the data in the
+	database for the Sierra Eclipse client. This action is not
+	typically needed, but is useful for serviceability of Sierra.
+	Beware that all audits that have not been synchronized to a
+	team server will be lost. This action does not delete the
+	database for the Local Team Server. To do that select the
+	<guimenuitem>Wipe Local Team Server Database</guimenuitem> from
+	the <guilabel>Local Team Server</guilabel> view menu.</para>
+      </section>
+
+      <section id="sec-preferences-scan-filter">
+	<title>Scan Filter</title>
+
+	<figure id="fig-preferences-scan-filter">
+	  <title>The Scan Filter preference pane</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/preferences-scan-filter.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The Scan Filter preference pane allows fine control over
+	what analysis rules are loaded into the Sierra database during
+	a partial or full scan. This preference pane reflects the
+	local scan filter used <emphasis>only</emphasis> for
+	unconnected projects. If a project is connected to a team
+	server then it uses the scan filter assigned to it by that
+	team server.</para>
+
+	<para>Individual finding types can be checked or unchecked. If a
+	rule is checked it is included when a scan is run. If it is
+	unchecked it is excluded when a scan is run.</para>
+
+	<para>The local scan filter may be shared among a development
+	team using a Sierra team server. In the <guilabel>Team
+	Servers</guilabel> view you can select a server and on its
+	context menu select <emphasis>Send Local Scan Filter
+	As...</emphasis> to send your local scan filter settings to
+	that server. You will be prompted for a name for the scan
+	filter (all scan filters on a team server are explicitly
+	named). You can also select any named scan filter on a team
+	server and on its context menu select <emphasis>Copy to Local
+	Scan Filter</emphasis> to download that scan filter setting
+	from that server and overwrite your local settings.</para>
+      </section>
+
+      <section id="sec-preferences-server-interaction">
+	<title>Server Interaction</title>
+	<figure id="fig-preferences-server-interaction">
+	  <title>The Server Interaction preference pane</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/preferences-server-interaction.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The server interaction preference pane allows control
+	over automatic synchronization with Sierra Team Servers. To
+	enable automatic interaction with a server, right-click on a
+	team server in the <guilabel>Team Servers</guilabel> view and
+	check <guimenuitem>Use Automatic
+	Synchronization</guimenuitem>.</para>
+
+	<para>If automatic synchronization is turned on for a server
+	then the settings in this preference pane control the
+	interaction with that server.</para>
+
+	<para><emphasis>Period between team server
+	interactions:</emphasis> This sets the time in minutes between
+	automatic synchronization of a server.</para>
+
+	<para><emphasis>Policy for handling server
+	failures:</emphasis> This setting sets what to do if it is not
+	possible to communicate with a particular server.  A value of
+	<emphasis>Ignore</emphasis> logs the problem but does not
+	notify the user. A value of <emphasis>Pop-up a
+	balloon</emphasis> logs the problem and puts up a balloon
+	notification to the user for a short period of time (this is
+	the default setting). A value of <emphasis>Pop-up a
+	dialog</emphasis> logs the problem and pops up a dialog (which
+	must be dismissed) to notify the user.</para>
+
+	<para><emphasis>Retry threshold (# of consecutive failures
+	before switching into manual mode):</emphasis> If the number
+	of failed attempts to contact the server during one Eclipse
+	session exceeds this number then no further attempts are
+	made.</para>
+      </section>
+
+      <section id="sec-preferences-tools">
+	<title>Tools</title>
+	<figure id="fig-preferences-tools">
+	  <title>The Tools preference pane</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/preferences-tools.png"/></imageobject>
+	  </mediaobject>
+	</figure>
+
+	<para>The tools preference pane allows course control over what
+	tools are run during a partial or full scan.</para>
+
+	<para>Typically, it is recommended that all the tools are run
+	and that the scan filter preferences (which can be shared via a
+	team server across a development team) be used to filter scan
+	output. However, if a tool is failing on some project or taking
+	a exorbitant amount of time to execute, then it can be helpful
+	to use this panel to ensure the tool is not invoked. If either
+	of these problems occur, them please file a bug with SureLogic
+	about them.</para>
+      </section>
+    </section>
+    
+    	<section id="sec-surelogic-tool-properties-file">
+		<title>SureLogic tool properties file</title>
+
+		<para>It is possible to exclude particular Eclipse source folders
+			or Java packages from a scan.
+			This feature can be useful to
+			exclude test or obsolete code from scans.
+		</para>
+		<para>To do this you create a
+			<filename>surelogic-tools.properties</filename>
+	file at the root of an Eclipse Java project. Two properties are recognized
+	
+	<itemizedlist>
+		<listitem>
+			<formalpara>
+				<title><guibutton>scan.exclude.source.folder</guibutton></title>
+				<para>This property excludes one or more source folders of a project from scans.
+				The source folder is referenced by its name relative to the root of the project. More than one
+				source folder can be specified using a comma separated list.</para>
+			</formalpara>
+		</listitem>
+
+		<listitem>
+			<formalpara>
+				<title><guibutton>scan.exclude.source.package</guibutton></title>
+				<para>This property excludes the contents of one or more packages from scans. Packages may be
+				listed explicitly using a comma separated list. A <code>*</code> can be used within a package name
+				as a wildcard to match several packages.</para>
+			</formalpara>
+		</listitem>
+	</itemizedlist>
+		</para>
+		
+		<para>The example shown in <xref linkend="fig-surelogic-tools-timingframework"/> excludes the <filename>test</filename>
+		source folder of the <application>timingframework-core</application> project.</para>
+
+		<figure id="fig-surelogic-tools-timingframework">
+			<title>
+				Use of the <filename>surelogic-tools.properties</filename>
+				to exclude the <filename>test</filename> source	folder of the
+				<application>timingframework-core</application> project
+			</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/surelogic-tools-timingframework.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<para>The example shown in <xref linkend="fig-surelogic-tools-timingframework-pkg"/> excludes any package in the
+		<application>timingframework-swing</application> project that's name starts with <code>org.jdesktop.swing.animation.demos</code>.
+		For this example that matches two packages: <code>org.jdesktop.swing.animation.demos</code>
+		and <code>org.jdesktop.swing.animation.demos.splineeditor</code>.</para>
+		
+		<figure id="fig-surelogic-tools-timingframework-pkg">
+			<title>
+				Use of the <filename>surelogic-tools.properties</filename>
+				to exclude packages from the
+				<application>timingframework-swing</application> project
+			</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/surelogic-tools-timingframework-pkg.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<para>Some further examples of excluding code within an Eclipse Java project from a scan are shown in the table below.
+
+	<informaltable frame='all'>
+		<tgroup cols='2' align='left'>
+			<thead>
+				<row>
+					<entry>Example</entry>
+					<entry>Description</entry>
+				</row>
+			</thead>
+			<tbody>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.folder=test</guilabel>
+					</entry>
+					<entry>
+						Excludes a source folder named
+						<code>test</code>
+						located at the root of the project folder from scans.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.folder=test1,test2,test3</guilabel>
+					</entry>
+					<entry>
+						Excludes three source folders from scans:
+						<code>test1</code>, <code>test2</code>, and<code>test3</code>.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=com.surelogic.tests,com.surelogic.demos</guilabel>
+					</entry>
+					<entry>
+						Excludes two packages from scans:
+						<code>com.surelogic.tests</code> and <code>com.surelogic.demos</code>.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*test*</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that contains
+						<code>test</code>
+						as part of its name.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*.test.*</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that is a sub-package of a
+						<code>test</code>
+						package, but not the elements of the <code>test</code> package itself.
+					</entry>
+				</row>
+				<row>
+					<entry>
+						<guilabel>scan.exclude.source.package=*test*,com.surelogic.demos</guilabel>
+					</entry>
+					<entry>
+						Excludes any package from scans that contains
+						<code>test</code>
+						as part of its name as well as the <code>com.surelogic.demos</code> package.
+					</entry>
+				</row>
+			</tbody>
+		</tgroup>
+	</informaltable>
+	</para>
+	</section>
+    
+
+    <section id="sec-license-management">
+      <title>License management</title>
+
+      <para>Sierra is commercial software and a license is required to
+      use it. Licenses are obtained from SureLogic and expire after
+      some period of time. Lack of a license will prohibit you from
+      running scans. It is still possible to examine data from prior
+      scans (which can be useful if your license expires). Selecting
+      <guimenuitem>Manage SureLogic Licenses</guimenuitem> from the
+      Sierra menu brings up the license management form as seen in
+      <xref linkend="fig-license-management" />. (It is also possible
+      to bring this dialog up from the main Sierra preferences pane by
+      pressing the <guibutton>Manage SureLogic Licenses</guibutton>
+      button.) For Sierra to operate properly either a
+      <emphasis>Sierra</emphasis> or <emphasis>All Tools</emphasis>
+      license must be installed.</para>
+
+      <figure id="fig-license-management">
+	<title>The SureLogic license management dialog</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/license-management.png"/></imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>By default license installation requires internet access.
+      SureLogic can, in special cases, provide licenses that do not
+      require internet access. Further use of the product does not
+      require internet access. If a manual uninstall is done, before
+      license expiration, internet access is also required.  SureLogic
+      tracks the number of times a particular license is installed and
+      uninstalled. We stress that Sierra does not, unlike other
+      plug-ins such as MyEclipse, "talk-back" to SureLogic each time
+      Eclipse is started.</para>
+
+      <para>The installed license expires after a period of time
+      (clearly visible to the user) and a new license has to
+      be installed to continue to use Sierra.</para>
+
+      <para>Licenses can be installed more than once.  Thus, one
+      license can be used for all of an organization or SureLogic can
+      issue one per location or one per organizational entity.</para>
+
+      <para>If the Sierra Eclipse plug-in does not have a valid
+      license it will not effect the Eclipse installation that Sierra
+      is installed into. The IDE will load and function normally, but
+      when Sierra functions are executed they will fail noting the
+      lack of a license. Serviceability functions of the tool (e.g.,
+      sending problem reports to SureLogic, installing and
+      uninstalling licenses) function properly without a license.  The
+      unlicensed Sierra plug-in can be uninstalled or disabled within
+      Eclipse.</para>
+
+      <para>When you receive a license file from SureLogic it is
+      installed via this dialog.  To install the license select the
+      row in the license table that matches the type of license.  For
+      example, if you have been sent a Sierra license select the
+      Sierra row in the license table.  Next press the
+      <guibutton>Install License</guibutton> button.  You will be
+      prompted for the location of your license file.  The tool checks
+      with SureLogic and reports that your license has been installed
+      and returns showing information about the installed license. The
+      license file is not examined by the tool after the installation
+      is completed unless you install the file again (after an
+      uninstall).</para>
+
+      <para>To uninstall a license, select the row in the license
+      table and press the <guibutton>Uninstall
+      License</guibutton>. You will be asked if you are sure you want
+      to uninstall the license.  If you confirm the uninstall then the
+      license is removed.  This may take a minute as SureLogic is
+      informed that your license has been uninstalled.</para>
+
+      <para>When a license is nearing expiration the tool warns the
+      user with the dialog shown in <xref
+      linkend="fig-license-management-expiration-warning" />.</para>
+
+      <figure id="fig-license-management-expiration-warning">
+	<title>Dialog warning that the installed Sierra license is about to expire</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/license-management-expiration-warning.png"/></imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>When a license does expire it disappears from the dialog.
+      The tool is considered unlicensed at that point. To fix this
+      situation install a new license (it is not required to install a
+      new version of Sierra).</para>
+    </section>
+
+    <section id="sec-bugs-and-tips">
+      <title>Bugs and tips</title>
+
+      <para>Sierra allows any user to send problem reports and
+      suggestions to SureLogic from the main menu. Selecting
+      <guimenuitem>Send Tip for Improvement</guimenuitem> or
+      <guimenuitem>Send Problem Report</guimenuitem> allows a tip or
+      problem report to be send to SureLogic directly within Eclipse
+      as shown in <xref linkend="fig-bugs-and-tips-main-menu-service"
+      />. These menu choices bring up dialogs that allow the user to
+      control exactly what information is sent to SureLogic.  In
+      addition, the user can preview the exact text that will be sent
+      over the internet.</para>
+
+      <figure id="fig-bugs-and-tips-main-menu-service">
+	<title>Menu items to send bugs and tips to SureLogic</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/bugs-and-tips-main-menu-service.png"/></imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>The <guimenuitem>Send Tip for Improvement</guimenuitem>
+      command opens a dialog to allow entry of a suggestion by the
+      user to improve the Sierra tool as seen in <xref
+      linkend="fig-bugs-and-tips-menu-send-tip" />. The dialog allows the
+      user to control exactly what information is sent to SureLogic.
+      In addition,
+  the user can preview and edit the exact text that will be sent. If you have no
+  Internet connection you can print or save the text of your problem report (to fax or email).</para>
+
+      <figure id="fig-bugs-and-tips-menu-send-tip">
+	<title>Dialog allowing the user to enter a tip to improve Sierra</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/bugs-and-tips-menu-send-tip.png"/></imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>The <guimenuitem>Send Problem Report</guimenuitem> command
+      opens a dialog to allow entry of a problem report by the user
+      about the Sierra tool as seen in <xref
+      linkend="fig-bugs-and-tips-menu-problem-report" />. The dialog
+      allows the user to control exactly what information is sent to
+      SureLogic.  In addition,
+  the user can preview and edit the exact text that will be sent. If you have no
+  Internet connection you can print or save the text of your problem report (to fax or email).</para>
+
+      <figure id="fig-bugs-and-tips-menu-problem-report">
+	<title>Dialog allowing the user to enter a problem report about Sierra</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/bugs-and-tips-menu-problem-report.png"/></imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>Messages sent from these dialogs go over HTTP to
+      SureLogic. If a proxy is used on your network then it is
+      critical to configure Eclipse to use it.  To do this open the
+      Eclipse <guilabel>Preferences</guilabel> and examine the
+      <guilabel>Network Connections</guilabel> under the
+      <guilabel>General</guilabel> preferences.  This dialog allows
+      you to configure Eclipse for your network as shown in <xref
+      linkend="fig-bugs-and-tips-network-connections" />.</para>
+
+      <figure id="fig-bugs-and-tips-network-connections">
+	<title>Eclipse preferences for network connections within the IDE</title>
+	<mediaobject>
+	  <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
+	</mediaobject>
+      </figure>
+    </section>
+
+    <section id="sec-ant-tasks">
+      <title>Ant tasks</title>
+
+      <para>Sierra provides two tasks that can be used to extend
+      <ulink url="http://ant.apache.org">Apache Ant</ulink>. The
+      Sierra Ant tasks may be downloaded from <ulink
+      url="http://www.surelogic.com/static/sierra/sierra-ant.zip">
+      http://www.surelogic.com/static/sierra/sierra-ant.zip</ulink>. Unzip
+      them to any location on your disk. The archive will create a
+      <filename>sierra-ant</filename> directory.</para>
+
+
+      <para>The below code shows and example of adding the Sierra
+      tasks into Ant.</para>
+
+	<programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="SmallWorld" default="scan" basedir="."&gt;
+  &lt;property name="sl.home" value="C:/Users/Tim/Documents/sierra-ant" /&gt;
+  &lt;property name="sl.lib"  value="${sl.home}/lib" /&gt;
+  &lt;path id="sl.classpath"&gt;&lt;fileset dir="${sl.lib}" includes="**/*.jar" /&gt;&lt;/path&gt;
+  &lt;taskdef name="sierra-scan"
+           classname="com.surelogic.ant.sierra.SierraScan"
+           classpathref="sl.classpath" /&gt;
+  &lt;taskdef name="sierra-publish"
+           classname="com.surelogic.ant.sierra.SierraPublish"
+           classpathref="sl.classpath" /&gt;
+  ...
+
+&lt;/project&gt;
+	</programlisting>
+
+	<para>You will have to modify the setting for
+	<userinput>sl.home</userinput> to reference where you located
+	the <filename>sierra-ant</filename> directory on your
+	machine.</para>
+
+      <section>
+	<title>sierra-scan</title>
+
+	<para>This task scans code and produces a scan document file
+	on the disk. This task is, for convenience, very similar to
+	the <ulink
+	url="http://ant.apache.org/manual/CoreTasks/javac.html">javac</ulink>
+	task. The new attributes are:</para>
+
+	<informaltable>
+	  <tgroup cols='3' align='left'>
+	    <thead>
+	      <row>
+		<entry>Attribute</entry>
+		<entry>Description</entry>
+		<entry>Required</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>home</entry>
+		<entry>The path to the <filename>sierra-ant</filename>
+		directory, e.g., where
+		<filename>sierra-ant.zip</filename> was
+		unzipped.</entry>
+		<entry>Yes</entry>
+	      </row>
+	      <row>
+		<entry>projectname</entry>
+		<entry>The name of the project being scanned.</entry>
+		<entry>Yes</entry>
+	      </row>
+	      <row>
+		<entry>document</entry>
+		<entry>The name of the scan document to be
+		created. Includes the path to the file, but excludes
+		the extension <filename>.sierra.gz</filename>.</entry>
+		<entry>Yes</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>Below is a partial example, described in further detail
+	in <xref linkend="sec-tutorial-ant" />, of this task.</para>
+
+	<programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="SmallWorld" default="scan" basedir="."&gt;
+  ...
+  &lt;property name="project" value="SmallWorld" /&gt;
+  &lt;tstamp /&gt;
+  
+  &lt;target name="scan"&gt;	  	  	
+    &lt;property name="document" value="${project}-${DSTAMP}${TSTAMP}" /&gt;
+
+    &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
+                 classpath="${basedir}/jdom-1.0.jar" source="1.5"
+                 home="${sl.home}" document="${document}"
+                 projectname="${project}" /&gt;
+
+    &lt;sierra-publish user="zork" password="zork" host="localhost"
+                    secure="false" port="13376" contextPath="/sl/"
+                    document="${document}" /&gt;
+  &lt;/target&gt;
+&lt;/project&gt;
+	</programlisting>
+      </section>
+
+      <section>
+	<title>sierra-publish</title>
+
+	<para>This task publishes a scan document file on the disk to
+	a Sierra team server.</para>
+
+	<informaltable>
+	  <tgroup cols='3' align='left'>
+	    <thead>
+	      <row>
+		<entry>Attribute</entry>
+		<entry>Description</entry>
+		<entry>Required</entry>
+	      </row>
+	    </thead>
+	    <tbody>
+	      <row>
+		<entry>contextPath</entry>
+		<entry>The path on the web server that the Sierra team
+		server is assigned to. This attribute defaults to
+		<userinput>/sl/</userinput> and only rarely needs to
+		be changed.</entry>
+		<entry>Yes</entry>
+	      </row>
+	      <row>
+		<entry>document</entry>
+		<entry>The name of the scan document to be
+		published. Includes the path to the file, but excludes
+		the extension <filename>.sierra.gz</filename>.</entry>
+		<entry>Yes</entry>
+	      </row>
+	      <row>
+		<entry>host</entry>
+		<entry>The name or IP address of the computer hosting
+		the Sierra team server.</entry>
+		<entry>No, defaults to
+		<filename>localhost</filename>.</entry>
+	      </row>
+	      <row>
+		<entry>password</entry>
+		<entry>The corresponding password for the given Sierra
+		team server user name.</entry>
+		<entry>Yes</entry>
+	      </row>
+	      <row>
+		<entry>port</entry>
+		<entry>The port that the Sierra team server is
+		listening on.</entry>
+		<entry>No, defaults to 13376.</entry>
+	      </row>
+	      <row>
+		<entry>secure</entry>
+		<entry>Set this attribute to
+		<userinput>true</userinput> if the server requires
+		using SSL encryption, e.g., https.</entry>
+		<entry>No, defaults to <userinput>false</userinput>,
+		e.g., using http.</entry>
+	      </row>
+	      <row>
+		<entry>user</entry>
+		<entry>The user name used to login to the Sierra team
+		server.</entry>
+		<entry>Yes</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
+
+	<para>Below is a partial example, described in further detail
+	in <xref linkend="sec-tutorial-ant" />, of this task.</para>
+
+	<programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="SmallWorld" default="scan" basedir="."&gt;
+  ...
+  &lt;property name="project" value="SmallWorld" /&gt;
+  &lt;tstamp /&gt;
+  
+  &lt;target name="scan"&gt;	  	  	
+    &lt;property name="document" value="${project}-${DSTAMP}${TSTAMP}" /&gt;
+
+    &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
+                 classpath="${basedir}/jdom-1.0.jar" source="1.5"
+                 home="${sl.home}" document="${document}"
+                 projectname="${project}" /&gt;
+
+    &lt;sierra-publish user="zork" password="zork" host="localhost"
+                    secure="false" port="13376" contextPath="/sl/"
+                    document="${document}" /&gt;
+  &lt;/target&gt;
+&lt;/project&gt;
+	</programlisting>
+      </section>
+    </section>
+
+  </chapter>
+
+  <chapter id="release-notes">
+    <title>Release notes</title>
+
+    <para>For each release of the Sierra system there are new and
+    noteworthy features to try out, and known limitations to avoid or
+    workaround. These are presented in the sections below for each
+    released version of Sierra.</para>
+    
+    <section>
+		<title>Sierra version 4.0.2</title>
+		<para>This section describes the 4.0.2 version of Sierra.</para>
+		<section>
+			<title>New and Noteworthy</title>
+
+			<para>This section describes new and noteworthy features in this
+				version of Sierra.
+			</para>
+			<orderedlist>
+				<listitem><para><emphasis>Test code can be excluded from a scan using a property file</emphasis>
+				&mdash;
+				It is now possible to exclude test code from a Sierra scan
+      by creating a <filename>surelogic-tools.properties</filename> file at the root of each project
+      that contains test code.
+      
+      <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-402-surelogic-tools-file.png" />
+				</imageobject>
+	  </mediaobject>
+      
+      For example, the screenshot above shows the use of the <filename>surelogic-tools.properties</filename>
+	  to exclude the <filename>test</filename> source folder of <application>timingframework-core</application> Java project. 
+      For more information on how to setup a <filename>surelogic-tools.properties</filename> file
+      see <xref linkend="sec-surelogic-tool-properties-file"/>.</para>
+      
+      <para>A limitation of this feature that the exclusions are not saved for each scan. This limitation
+      can make it difficult to determine
+      the exclusions used for a scan if the <filename>surelogic-tools.properties</filename> file is frequently
+      changed. It is therefore recommended that this file be kept as stable as possible.</para>
+      </listitem>
+      
+      	<listitem><para><emphasis>If a scan crashes the tool will prompt to send a scan failure report to SureLogic</emphasis>
+	&mdash; If a Sierra scan crashes or any sort of analysis problem is detected the tool will prompt the user to send
+	a scan failure report to SureLogic.
+	
+	<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-402-scan-crash.png" />
+				</imageobject>
+	  </mediaobject>
+	  
+	  This type of report includes a log of the verifying analysis scan (other problem reports typically
+	  include the Eclipse log) to help SureLogic pinpoint the problem. The log can be examined and edited before it is sent
+	  to SureLogic. Further, it can be saved to a file or printed.
+	
+	</para></listitem>
+      </orderedlist>
+      </section>
+      </section>
+    
+    <section>
+		<title>Sierra version 4.0.1</title>
+		<para>This section describes the 4.0.1 version of Sierra.</para>
+		<section>
+			<title>New and Noteworthy</title>
+
+			<para>This section describes new and noteworthy features in this
+				version of Sierra.
+			</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>The text of a Problem Report or a Tip for Improvement
+							can be printed or saved</emphasis>
+						&mdash;
+						The preview pane now allows the tool user to print or save
+						the text of a problem report or tip for improvement.
+
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-401-printorsave.png" />
+							</imageobject>
+						</mediaobject>
+
+						This is helpful to tool users who do not have an Internet
+						connection on their machine.
+					</para>
+				</listitem>
+			</orderedlist>
+		</section>
+	</section>
+    
+
+    <section id="sec-sierra-release-4-0-0">
+      <title>Sierra version 4.0.0</title>
+      <para>This section describes the 4.0.0 version of Sierra.</para>
+      <section>
+	<title>New and Noteworthy</title>
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+	<orderedlist>
+	  	   <listitem>
+	    <para><emphasis>New SureLogic license format</emphasis> &mdash; The format
+	    of SureLogic licenses has changed. You may need to contact SureLogic to obtain
+	    a new license.</para>
+	  </listitem>
+
+        </orderedlist>
+      </section>
+
+      <section>
+	<title>Known Problems</title>
+
+	<para>The known bugs and limitations in this version of Sierra is
+	unchanged from the previous release.</para>
+      </section>
+    </section>
+
+
+    <section id="sec-sierra-release-3-1-1">
+      <title>Sierra version 3.1.1</title>
+      <section>
+	<title>New and Noteworthy</title>
+	<para>
+	  Sierra is unchanged since the previous release.
+	</para>
+      </section>
+
+      <section>
+	<title>Known Problems</title>
+
+	<para>The known bugs and limitations in this version of Sierra is
+	unchanged from the previous release.</para>
+      </section>
+    </section>
+
+    <section id="sec-sierra-release-3-1-0">
+      <title>Sierra version 3.1.0</title>
+
+      <para>This section describes the 3.1.0 version of the Sierra
+      Eclipse client and the Sierra team server.</para>
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Tips and problem reports are tracked by
+	    SureLogic</emphasis> &mdash; When you submit a tip for
+	    improvement or a problem report to SureLogic it is tracked
+	    via an automatically created Bugzilla issue report at
+	    <ulink
+	    url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>. If
+	    you include your email address in the tip or problem
+	    report you will be notified when changes to the status of
+	    the Bugzilla issue are made by SureLogic engineers. The
+	    public Bugzilla may also be accessed via a browser at
+	    <ulink
+	    url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>.</para>
+	  </listitem>
+
+	  <listitem>
+	    <para><emphasis>The "Tip for Improvement" and "Problem
+	    Report" dialogs are no longer modal</emphasis> &mdash;
+	    This allows the user to cut and paste information from
+	    Eclipse that they want to send to SureLogic into the
+	    dialog.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+      <section>
+	<title>Known Problems</title>
+
+	<para>The known bugs and limitations in this version of
+	Sierra is unchanged from the previous release.</para>
+
+      </section>
+    </section>
+
+    <section id="sec-sierra-release-3-0-0">
+    	<title>Sierra version 3.0.0</title>
+    	<para>This section describes the 3.0.0 version of the Sierra
+    	Eclipse client and the Sierra team server.</para>
+	<section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Quickly create tutorial projects</emphasis> &mdash;
+	    You can now create the SmallWorld and ShowOff tutorial projects from
+	    the Eclipse main menu.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+          <section>
+	<title>Known Problems</title>
+
+	<para>This section describes known bugs and limitations in this version
+	of Sierra.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Shutdown of Eclipse while a scan is running can
+	    cause scan failure.</emphasis> &mdash; (Unchanged from 2.2) In some
+	    cases shutting down Eclipse when a scan is running in the background
+	    can cause the scan to fail.  It is recommended that Eclipse be left
+	    running until all scans are completed.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Logging out of a team server sometimes does not
+	    clear page state</emphasis> &mdash; (Unchanged from 2.2) When
+	    logging in and logging out to the team server with a browser,
+	    especially with different user names, sometimes page state is not
+	    cleared. To work around this problem simple reload the page or
+	    restart your browser when you log out.</para>
+
+	    <para>Most team server users will not encounter this issue. We
+	    believe it to be a rare problem.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Findings Quick Search view scrollbar freeze (Windows
+	    Eclipse 3.2 and Eclipse 3.3 only)</emphasis> &mdash; (Unchanged from
+	    2.2) Under Windows XP or Vista and Eclipse 3.2 or Eclipse 3.3,
+	    sometimes the horizontal scrollbars get frozen when a new selection
+	    scrolls into view. This is a bug in the Eclipse SWT library tracked
+	    as Eclipse <ulink
+	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885"> bug
+	    211885</ulink> on eclipse.org. The Eclipse.org programmer assigned
+	    to this bug reports that this bug has been fixed and the fix was
+	    released in Eclipse 3.4.</para>
+
+	    <para>If this problem occurs it is possible to get the scrollbar
+	    working again by either by (a) moving the horizontal scrollbar at
+	    the bottom of the view a little bit in any direction or (b) resizing
+	    the view.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Using the -Xshareclasses optimization flag on a IBM
+	    Java 5 VM causes Sierra to crash (Windows only)</emphasis> &mdash;
+	    (Unchanged from 2.2) Under Windows XP and Vista, Sierra fails to
+	    operate properly when the -Xshareclasses optimization flag is set on
+	    the IBM Java 5 VM. A warning dialog is shown when Sierra loads into
+	    Eclipse if this problem is detected.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
+	      </imageobject>
+	    </mediaobject>
+	    The workaround for this problem is to remove this flag from
+	    your eclipse.ini file.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+
+    <section id="sec-sierra-release-2-3-0">
+    	<title>Sierra version 2.3.0</title>
+    	<para>This section describes the 2.3.0 version of the Sierra
+    	Eclipse client and the Sierra team server.</para>
+	<section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Updated analysis tools</emphasis> &mdash; FindBugs
+	    has been updated to version 1.3.9.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Quickly create tutorial projects</emphasis> &mdash;
+	    You can now create the SmallWorld and ShowOff tutorial projects from
+	    the Findings Quick Search menu.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+          <section>
+	<title>Known Problems</title>
+
+	<para>This section describes known bugs and limitations in this version
+	of Sierra.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Shutdown of Eclipse while a scan is running can
+	    cause scan failure.</emphasis> &mdash; (Unchanged from 2.2) In some
+	    cases shutting down Eclipse when a scan is running in the background
+	    can cause the scan to fail.  It is recommended that Eclipse be left
+	    running until all scans are completed.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Logging out of a team server sometimes does not
+	    clear page state</emphasis> &mdash; (Unchanged from 2.2) When
+	    logging in and logging out to the team server with a browser,
+	    especially with different user names, sometimes page state is not
+	    cleared. To work around this problem simple reload the page or
+	    restart your browser when you log out.</para>
+
+	    <para>Most team server users will not encounter this issue. We
+	    believe it to be a rare problem.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Findings Quick Search view scrollbar freeze (Windows
+	    Eclipse 3.2 and Eclipse 3.3 only)</emphasis> &mdash; (Unchanged from
+	    2.2) Under Windows XP or Vista and Eclipse 3.2 or Eclipse 3.3,
+	    sometimes the horizontal scrollbars get frozen when a new selection
+	    scrolls into view. This is a bug in the Eclipse SWT library tracked
+	    as Eclipse <ulink
+	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885"> bug
+	    211885</ulink> on eclipse.org. The Eclipse.org programmer assigned
+	    to this bug reports that this bug has been fixed and the fix was
+	    released in Eclipse 3.4.</para>
+
+	    <para>If this problem occurs it is possible to get the scrollbar
+	    working again by either by (a) moving the horizontal scrollbar at
+	    the bottom of the view a little bit in any direction or (b) resizing
+	    the view.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Using the -Xshareclasses optimization flag on a IBM
+	    Java 5 VM causes Sierra to crash (Windows only)</emphasis> &mdash;
+	    (Unchanged from 2.2) Under Windows XP and Vista, Sierra fails to
+	    operate properly when the -Xshareclasses optimization flag is set on
+	    the IBM Java 5 VM. A warning dialog is shown when Sierra loads into
+	    Eclipse if this problem is detected.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
+	      </imageobject>
+	    </mediaobject>
+	    The workaround for this problem is to remove this flag from
+	    your eclipse.ini file.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+
+    <section id="sec-sierra-release-2-2-1">
+      <title>Sierra version 2.2.1</title>
+      <para>This section describes the 2.2.1 version of the Sierra Eclipse
+      client and the Sierra team server.</para>
+
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Default location of the Sierra data directory has
+	    changed.</emphasis> &mdash; The location of the .sierra-data
+	    directory has moved from your user's home directory to the workspace
+	    directory.  It is safe to delete the old .sierra-data directory if
+	    you so choose.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Updated analysis tools</emphasis> &mdash; FindBugs
+	    has been updated to version 1.3.8 and PMD has been updated to
+	    version 4.2.5.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+          <section>
+	<title>Known Problems</title>
+
+	<para>This section describes known bugs and limitations in this version
+	of Sierra.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Shutdown of Eclipse while a scan is running can
+	    cause scan failure.</emphasis> %mdash; (Unchanged from 2.2) In some
+	    cases shutting down Eclipse when a scan is running in the background
+	    can cause the scan to fail.  It is recommended that Eclipse be left
+	    running until all scans are completed.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Logging out of a team server sometimes does not
+	    clear page state</emphasis> &mdash; (Unchanged from 2.2) When
+	    logging in and logging out to the team server with a browser,
+	    especially with different user names, sometimes page state is not
+	    cleared. To work around this problem simple reload the page or
+	    restart your browser when you log out.</para>
+
+	    <para>Most team server users will not encounter this issue. We
+	    believe it to be a rare problem.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Findings Quick Search view scrollbar freeze (Windows
+	    Eclipse 3.2 and Eclipse 3.3 only)</emphasis> &mdash; (Unchanged from
+	    2.2) Under Windows XP or Vista and Eclipse 3.2 or Eclipse 3.3,
+	    sometimes the horizontal scrollbars get frozen when a new selection
+	    scrolls into view. This is a bug in the Eclipse SWT library tracked
+	    as Eclipse <ulink
+	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885"> bug
+	    211885</ulink> on eclipse.org. The Eclipse.org programmer assigned
+	    to this bug reports that this bug has been fixed and the fix was
+	    released in Eclipse 3.4.</para>
+
+	    <para>If this problem occurs it is possible to get the scrollbar
+	    working again by either by (a) moving the horizontal scrollbar at
+	    the bottom of the view a little bit in any direction or (b) resizing
+	    the view.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Using the -Xshareclasses optimization flag on a IBM
+	    Java 5 VM causes Sierra to crash (Windows only)</emphasis> &mdash;
+	    (Unchanged from 2.2) Under Windows XP and Vista, Sierra fails to
+	    operate properly when the -Xshareclasses optimization flag is set on
+	    the IBM Java 5 VM. A warning dialog is shown when Sierra loads into
+	    Eclipse if this problem is detected.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
+	      </imageobject>
+	    </mediaobject>
+	    The workaround for this problem is to remove this flag from
+	    your eclipse.ini file.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+
+
+    <section id="sec-sierra-release-2-2">
+      <title>Sierra version 2.2</title>
+      <para>This section describes the 2.2 version of the Sierra Eclipse
+      client and the Sierra team server.</para>
+
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Send problem reports and suggestions to
+	    SureLogic from the main menu</emphasis> &mdash; Selecting
+	    <guimenuitem>Send Tip for Improvement</guimenuitem> or
+	    <guimenuitem>Send Problem Report</guimenuitem> allows a
+	    tip or problem report to be send to SureLogic directly
+	    within Eclipse.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata
+		    fileref="images/release-notes-2-2-main-menu-service.png" />
+	      </imageobject>
+	    </mediaobject>
+	    These menu choices bring up dialogs that allow the user to
+	    control exactly what information is sent to SureLogic.  In
+	    addition, the user can preview the exact text that will be
+	    sent.
+	    </para>
+	    <para>Messages sent from these dialogs go over HTTP to
+	    SureLogic.  If a proxy is used on your network then it is
+	    critical to configure Eclipse to use it.  To do this open
+	    the Eclipse <guilabel>Preferences</guilabel> and examine
+	    the <guilabel>Network Connections</guilabel> under the
+	    <guilabel>General</guilabel> preferences.  This dialog
+	    allows you to configure Eclipse for your network.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-2-network-connections.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>New look for the Team Servers
+	    view</emphasis> &mdash; The Team Servers view has a new
+	    tree look. The view contains more information about the
+	    state of connections to one or more Sierra team servers.
+	    In addition, a significant number of preferences can be
+	    set to control interaction with team servers.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-2-team-servers-view.png" />
+	      </imageobject>
+	    </mediaobject>
+            </para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>License management added</emphasis>
+	    &mdash; Use of Sierra now requires a license from
+	    SureLogic. Lack of a license will prohibit you from
+	    running any scans.  It is still possible to examine data
+	    from prior scans (which can be useful if your license
+	    expires). Selecting <guimenuitem>Manage SureLogic
+	    Licenses</guimenuitem> from the Sierra menu brings up the
+	    license management form.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata
+		    fileref="images/release-notes-2-2-license-management.png" />
+	      </imageobject>
+	    </mediaobject>
+            For Sierra to operate properly either a Sierra or All
+            Tools license must be installed.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Updated analysis tools</emphasis> &mdash;
+	    FindBugs has been updated to version 1.3.6 and PMD has
+	    been updated to version 4.2.4.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+
+      <section>
+	<title>Known Problems</title>
+
+	<para>This section describes known bugs and limitations in this
+	version of Sierra.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Shutdown of Eclipse while a scan is
+	    running can cause scan failure.</emphasis> In some cases
+	    shutting down Eclipse when a scan is running in the
+	    background can cause the scan to fail.  It is recommended
+	    that Eclipse be left running until all scans are
+	    completed.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Logging out of a team server sometimes
+	    does not clear page state</emphasis> &mdash; (Unchanged
+	    from 2.1) When logging in and logging out to the team
+	    server with a browser, especially with different
+	    user names, sometimes page state is not cleared. To work
+	    around this problem simple reload the page or restart your
+	    browser when you log out.</para>
+
+	    <para>Most team server users will not encounter this
+	    issue. We believe it to be a rare problem.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Findings Quick Search view scrollbar
+	    freeze (Windows Eclipse 3.2 and Eclipse 3.3
+	    only)</emphasis> &mdash; (Updated from 2.1) Under Windows
+	    XP or Vista and Eclipse 3.2 or Eclipse 3.3, sometimes the
+	    horizontal scrollbars get frozen when a new selection
+	    scrolls into view. This is a bug in the Eclipse SWT
+	    library tracked as Eclipse <ulink
+	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885">
+	    bug 211885</ulink> on eclipse.org. The Eclipse.org
+	    programmer assigned to this bug reports that this bug has
+	    been fixed and the fix was released in Eclipse 3.4.</para>
+
+	    <para>If this problem occurs it is possible to get
+	    the scrollbar working again by either by (a) moving the
+	    horizontal scrollbar at the bottom of the view a little bit
+	    in any direction or (b) resizing the view.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Using the -Xshareclasses optimization flag
+	    on a IBM Java 5 VM causes Sierra to crash (Windows
+	    only)</emphasis> &mdash; (Unchanged from 2.1) Under Windows
+	    XP and Vista, Sierra fails to operate properly when the
+	    -Xshareclasses optimization flag is set on the IBM Java 5
+	    VM. A warning dialog is shown when Sierra loads into Eclipse
+	    if this problem is detected.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
+	      </imageobject>
+	    </mediaobject>
+	    The workaround for this problem is to remove this flag from
+	    your eclipse.ini file.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+
+    <section id="sec-sierra-release-2-1">
+      <title>Sierra version 2.1</title>
+
+      <para>This section describes the 2.1 version of the Sierra Eclipse
+      client and the Sierra team server.</para>
+
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>No project selection required to scan,
+	    re-scan, synchronize, publish a scan, or disconnect from the
+	    main menu</emphasis> &mdash; The Scan Project, Re-Scan
+	    Changes in Project, Synchronize Project, Publish Latest
+	    Scan, and Disconnect choices are no longer grayed out when
+	    no projects are selected in the Package Explorer.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata
+		    fileref="images/release-notes-2-1-main-menu-scan.png" />
+	      </imageobject>
+	    </mediaobject>
+	    A dialog now appears to allow you to select the set of
+	    projects you want to run the command on. This change is
+	    primarily intended to make it easier to start a scan on a set
+	    of Java projects. It also makes it easier to scan all open
+	    Java projects by using the <emphasis>Select All</emphasis>
+	    button in the dialog.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-1-main-menu-scan-dialog.png" />
+	      </imageobject>
+	    </mediaobject>
+	    If you do have a set of projects selected in the
+	    <emphasis>Package Explorer</emphasis> then the dialog will
+	    automatically open with those projects checked (non-Java
+	    projects are filtered out of the your selection). (If only
+	    one Java project is open in the workspace then that project
+	    will also be checked by default.) You may also elect to skip
+	    the dialog if you uncheck <emphasis>Show this dialog even
+	    when projects are selected in the Package
+	    Explorer</emphasis> (or the equivalent setting in the Sierra
+	    preferences dialog).</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Sortable columns about findings shown in the
+	    Findings Quick Search view</emphasis> &mdash; To make it
+	    easier to sort queried findings it is now possible to show
+	    several columns in the <emphasis>Findings Quick
+	    Search</emphasis> view.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-1-list-of-findings-columns.png" />
+	      </imageobject>
+	    </mediaobject>
+	    Columns are selected via a drop down menu.  Clicking on the
+	    column title toggles the sorting of that column. Sort order
+	    is from left to right and you may drag the columns to
+	    reorder them as you desire.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Findings Quick Search view tries harder to
+	    "keep your place"</emphasis> &mdash; When you change an
+	    attribute of a selected finding in the <emphasis>Findings
+	    Quick Search</emphasis> view which causes it to be filtered
+	    out of the list the view focuses on the next item in the
+	    list rather than moving you to the top of the list. This
+	    feature helps to resolve SureLogic bug 1391.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Local team server feature added</emphasis>
+	    &mdash; To make it easier to try out and use a Sierra team
+	    server a new optional feature has been added to make it
+	    easy to run a team server within Eclipse on your desktop.
+	    <mediaobject>
+	      <imageobject><imagedata fileref="images/release-notes-2-1-local-team-server.png"/></imageobject>
+	    </mediaobject>
+	    The feature contributes a <emphasis>Local Team
+	    Server</emphasis> view that allows you to start, stop, and
+	    (optionally) examine the logs of a Sierra team server that
+	    you run on your desktop.</para>
+
+	    <para>The team server is fully functional and can be
+	    connected to by other computers on your network using the IP
+	    address of your machine. The database and logs for this
+	    local team server appear in the
+	    <emphasis>.sierra-data/server</emphasis> subdirectory in your
+	    workspace. Three logs are available for you to examine. The
+	    first log is the Jetty web server request log which shows
+	    traffic to the local server. The second log is the Sierra
+	    portal log which shows information from the Sierra portal
+	    web site. The third log is the Sierra services log which
+	    shows information about communication between Sierra Eclipse
+	    clients and the local server.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Improved code scanning</emphasis> &mdash;
+	    Several enhancements have been made to the scan capabilities
+	    of Sierra to support diverse users of the tool.</para>
+
+	    <para>Scans run in a separate Java VM this release adds the
+	    ability to set the maximum memory used by code scan
+	    processes.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-1-scan-memory-pref.png" />
+	      </imageobject>
+	    </mediaobject>
+	    This maximum value for this Java VM setting is difficult to
+	    determine and is different on all computer configurations
+	    due to technical limitations in Java VM
+	    implementations. Sierra calculates this maximum for your
+	    computer configuration as best it can and limits your
+	    setting based upon the results of this calculation.
+	    However, it is possible, in rare cases, that too large a
+	    value for your computer configuration could be set. In this
+	    case the scan will abort right away and you should get an
+	    indication of what the problem is.  This feature helps to
+	    resolve SureLogic bug 1386.</para>
+
+	    <para>Eclipse project configuration is better considered by
+	    code scans. Sierra now uses the correct language level
+	    (e.g., Java 1.4) when performing a code scan.</para>
+
+	    <para>Cyclic dependencies between Java projects no longer
+	    cause a stack overflow when a code scan is run. This feature
+	    resolves SureLogic bug 1399.</para>
+
+	    <para>Code scans now support extremely large numbers of
+	    libraries and jars on your Eclipse Java build path. This
+	    failed in the past on Windows operating systems due to
+	    limitations on the length of command line arguments.</para>
+
+	    <para>Error reporting out of code scans is greatly
+	    improved. If something goes wrong with a scan some
+	    indication of the problem should be reported into the
+	    Eclipse log. This feature helps to resolve SureLogic bugs
+	    1378 and 1386.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>The Sierra Eclipse client creates fewer log
+	    files</emphasis> &mdash; A new log file was created in your
+	    <emphasis>.sierra-data</emphasis> directory each time
+	    Eclipse was run. This creates a lot of like
+	    <emphasis>log-eclipse-2008.03.03-at-15.07.03.143.txt</emphasis>
+	    in your <emphasis>.sierra-data</emphasis> directory. The
+	    old scheme has been replaced with one that creates only one
+	    log file per month and appends entries to the end of that
+	    file. These new log files look like
+	    <emphasis>log-eclipse-client-2008_03.txt</emphasis> in your
+	    <emphasis>.sierra-data</emphasis> directory.</para>
+
+	    <para>Once you upgrade to Sierra version 2.1 you can safely
+	    delete the old log files in your
+	    <emphasis>.sierra-data</emphasis> directory. You can also
+	    opt to keep them.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+
+      <section>
+	<title>Known Problems</title>
+
+	<para>This section describes known bugs and limitations in this
+	version of Sierra.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Scans not backwards compatible</emphasis>
+	    &mdash; For scans that are published to a Sierra team server
+	    the format of the scan document sent to the server has
+	    changed and is not backwards compatible. It is not possible
+	    to publish scans done under 2.0 to 2.1.</para>
+
+	    <para>This limitation does not impact most users because few
+	    have published a scan to a team server. However, it is
+	    starting to become interesting to use this functionality as
+	    reports and charts become available on the Sierra team
+	    server. It is important to note that only full scans (not
+	    re-scans) can be published. So it is best practice to do a
+	    full scan before publishing it to a team server.</para>
+
+	    <para>The easiest action you can take to ensure this problem
+	    will not occur is to delete your
+	    <emphasis>.sierra-data</emphasis> directory when you
+	    install 2.1. This will clear out any old scan documents in
+	    this directory (these files look like
+	    <emphasis>project.sierra.gz</emphasis> where project is the
+	    name of your project).  If you elect to keep your old log
+	    files (the only other contents of this directory) you can
+	    simply delete all the files in your
+	    <emphasis>.sierra-data</emphasis> directory with the
+	    <emphasis>.sierra.gz</emphasis> extension.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>PMD sometimes fails if the classpath of the
+	    code you are scanning clashes with its classpath</emphasis>
+	    &mdash; The current PMD implementation mixes its classpath
+	    with the classpath of the code being scanned. This causes
+	    problems if classes in these two classpaths clash. One case
+	    we have encountered is when the code being scanned has JAXB
+	    2.1 on its classpath.  (We discovered this problem trying to
+	    scan the code from the GlassFish project.)
+	    <mediaobject>
+	      <imageobject>
+		<imagedata
+		    fileref="images/release-notes-2-1-pmd-scan-failure-jaxb.png" />
+	      </imageobject>
+	    </mediaobject>
+	    If this occurs please contact SureLogic. To workaround the
+	    problem turn off PMD in the tool preferences. See <xref
+	    linkend="fig-preferences-tools" />.</para>
+
+	    <para>SureLogic is working with the PMD team to fix this
+	    problem in the near future.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Logging out of a team server sometimes does
+	    not clear page state</emphasis> &mdash; When logging in and
+	    logging out to the team server with a browser, especially
+	    with different user names, sometimes page state is not
+	    cleared. To work around this problem simple reload the page
+	    or restart your browser when you log out.</para>
+
+	    <para>Most team server users will not encounter this
+	    issue. We believe it to be a rare problem.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Findings Quick Search view scrollbar freeze
+	    (Windows only)</emphasis> &mdash; (Updated from 2.0) Under
+	    Windows XP and Vista, sometimes the horizontal scrollbars
+	    get frozen when a new selection scrolls into view. This is a
+	    bug in the Eclipse SWT library that is being tracked as
+	    Eclipse <ulink
+	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885">
+	    bug 211885</ulink> on eclipse.org. The Eclipse.org
+	    programmer assigned to this bug reports that this bug has
+	    been fixed and should be released in Eclipse
+	    3.4. Unfortunately, It is not possible for SureLogic to work
+	    around this bug in our code until the IBM fix is released
+	    with Eclipse. If this problem occurs it is possible to get
+	    the scrollbar working again by either by (a) moving the
+	    horizontal scrollbar at the bottom of the view a little bit
+	    in any direction or (b) resizing the view.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Using the -Xshareclasses optimization flag
+	    on a IBM Java 5 VM causes Sierra to crash (Windows
+	    only)</emphasis> &mdash; (Unchanged from 2.0) Under Windows
+	    XP and Vista, Sierra fails to operate properly when the
+	    -Xshareclasses optimization flag is set on the IBM Java 5
+	    VM. A warning dialog is shown when Sierra loads into Eclipse
+	    if this problem is detected.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
+	      </imageobject>
+	    </mediaobject>
+	    The workaround for this problem is to remove this flag from
+	    your eclipse.ini file.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+
+    <section id="sec-sierra-release-2-0">
+      <title>Sierra version 2.0</title>
+
+      <para>This section describes the 2.0 version of the Sierra Eclipse
+      client and the Sierra team server.</para>
+
+      <section>
+	<title>New and Noteworthy</title>
+
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Smaller Sierra download for Eclipse running
+	    on Java 6</emphasis> &mdash; The standard libraries shipped
+	    with Java 6 that are used as part of Sierra (e.g., JAXB)
+	    have been refactored into a <emphasis>Sierra Eclipse Client
+	    Java 5 Compatibility Library</emphasis> feature. This
+	    feature only needs to be installed if your Eclipse is
+	    running on a Java 5 virtual machine.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata
+		    fileref="images/release-notes-2-0-update-site.png" />
+	      </imageobject>
+	    </mediaobject>
+	    If you use a Java 6 virtual machine, not installing the
+	    compatibility library cuts the download from about 15MB to
+	    10MB.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>On-line help added to Sierra</emphasis>
+	    &mdash; Help about configuring and using Sierra has been
+	    added to the tool. In particular, a tutorial has been added
+	    as well as a description of all the preference settings for
+	    the tool.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata
+		    fileref="images/release-notes-2-0-help.png" />
+	      </imageobject>
+	    </mediaobject>
+	    The on-line help is also available at <ulink
+	    url="http://www.surelogic.com/sierra/help">surelogic.com</ulink>
+	    (this copy is easier to reference).</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Re-scan changes in your projects</emphasis>
+	    &mdash; This feature automatically determines what code
+	    needs to be re-scanned based upon changes in your Eclipse
+	    workspace. If you have changed your code and want to know if
+	    your changes fix some of the Sierra findings reported, you
+	    can use this command rather than performing a full scan of
+	    your project.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata
+		    fileref="images/release-notes-2-0-re-scan.png" />
+	      </imageobject>
+	    </mediaobject>
+	    This menu choice is also available on the context menu for a
+	    project.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Multi-select a list of findings</emphasis>
+	    &mdash; Multi-select on a list of findings is now
+	    implemented in the conventional manner for tables within the
+	    Eclipse IDE.  Because Ctrl-A will select all the findings
+	    listed, the old "All" menu choices have been removed from
+	    the context menu.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-multi-select.png" />
+	      </imageobject>
+	    </mediaobject>
+	    This feature resolves SureLogic bug 1259.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Project scans can be started from the Sierra
+	    Team Servers view</emphasis> &mdash; To make it easier to
+	    start scans or re-scans within the <emphasis>Code
+	    Review</emphasis> perspective it is now possible to start a
+	    scan on a connected project or all connected projects within
+	    the <emphasis>Sierra Team Servers</emphasis> view.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-team-server-scan.png" />
+	      </imageobject>
+	    </mediaobject>
+	    <mediaobject>
+	      <imageobject>
+		<imagedata
+		    fileref="images/release-notes-2-0-team-server-scan-all-connected.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Unlimited finding count for export to a
+	    file</emphasis> &mdash; Export of findings was limited to
+	    2000 findings. The number of findings that can be exported
+	    is now unlimited. In addition, the maximum number of
+	    findings shown in the <emphasis>Findings Quick
+	    Search</emphasis> view may be configured via the Sierra
+	    preferences page. If enough memory is available, the number
+	    may be raised above 2000. A warning dialog is presented to
+	    the user if the number of findings shown in the view is less
+	    than the number desired by the user (the user may elect to
+	    not show this dialog).
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-export.png" />
+	      </imageobject>
+	    </mediaobject>
+	    This feature resolves SureLogic bugs 1307 and 1308.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>FindBugs 1.3.2 integrated into
+	    Sierra</emphasis> &mdash; The FindBugs analysis used by
+	    Sierra has been upgraded from FindBugs release 1.3.0 to
+	    release 1.3.2.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>PMD 4.1 integrated into Sierra</emphasis>
+	    &mdash; The PMD analysis used by Sierra has been upgraded
+	    from PMD release 4.0 to release 4.1.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>PMD copy-paste detector integrated into
+	    Sierra</emphasis> &mdash; The copy-paste detector included
+	    with the PMD tool has been integrated into Sierra. This is
+	    helpful for finding code that has been "cloned" within your
+	    system and that might be worth of being refactored into a
+	    method.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-cpd.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>"Empty method in abstract class rule" from
+	    PMD improved</emphasis> &mdash; PMD's rule "Empty method in
+	    abstract class" often generated lots of high priority false
+	    positives. SureLogic has improved the analysis for this rule
+	    and the priority of its findings was lowered. The problem
+	    with the original analysis was that it did not consider if
+	    expression of the method's return statement was
+	    interesting. This resolves SureLogic bug 1306.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Fixed missing "new" findings on
+	    re-scan</emphasis> &mdash; Findings were sometimes "missing"
+	    on re-scans because all "new" findings were being
+	    ignored. This bug is now fixed. This resolves SureLogic bug
+	    1328.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Links to Sierra views</emphasis> &mdash; In
+	    the <emphasis>Code Review</emphasis> perspective, links to
+	    the Sierra views have been added from the 'Window | Show
+	    View' context menu in the Eclipse main menu. Note that to
+	    see these links, the 'Code Review' perspective needs to be
+	    reset using the 'Window | Reset Perspective' command on the
+	    Eclipse main menu. This resolves SureLogic bug 1330.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>User administration moved to Sierra team
+	    server</emphasis> &mdash; Adding, Deleting, and modifying
+	    settings for Sierra team server users has been moved to the
+	    team server's web portal.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata
+		    fileref="images/release-notes-2-0-team-server-user-mgt.png" />
+	      </imageobject>
+	    </mediaobject>
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Ad hoc query row display improved</emphasis>
+	    &mdash; The 5000 row limit on the number of rows queried by
+	    and ad hoc query had a display bug. The bug caused rows over
+	    the limit to show only the first column of data with nulls
+	    for all the other columns. This has been fixed. In addition,
+	    within Sierra, the ad hoc query tool now uses the limit set
+	    in the Sierra preference page to limit findings shown to
+	    limit the number of rows it displays from any query.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+
+      <section>
+	<title>Known Problems</title>
+	<para>This section describes known bugs and limitations in this
+	version of Sierra.</para>
+	<orderedlist>
+	  <listitem>
+	    <para><emphasis>Findings Quick Search view scrollbar freeze
+	    (Windows only)</emphasis> &mdash; Under Windows XP and
+	    Vista, sometimes the horizontal scrollbars get frozen when a
+	    new selection scrolls into view. This is a bug in the
+	    Eclipse SWT library that is being tracked as Eclipse <ulink
+	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885">bug
+	    211885</ulink> on eclipse.org. If this problem occurs it is
+	    possible to get the scrollbar working again by either by (a)
+	    moving the horizontal scrollbar at the bottom of the view a
+	    little bit in any direction or (b) resizing the view.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>Using the -Xshareclasses optimization flag
+	    on a IBM Java 5 VM causes Sierra to crash (Windows
+	    only)</emphasis> &mdash; Under Windows XP and Vista, Sierra
+	    fails to operate properly when the -Xshareclasses
+	    optimization flag is set on the IBM Java 5 VM. A warning
+	    dialog is shown when Sierra loads into Eclipse if this
+	    problem is detected.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
+	      </imageobject>
+	    </mediaobject>
+	    The workaround for this problem is to remove this flag from
+	    your eclipse.ini file.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>List of findings display bug (Linux
+	    only)</emphasis> &mdash; Under Linux the list of findings
+	    sometimes sizes the displayed table far to narrow. This
+	    problem seems to only occur when the number of findings
+	    would fit in the available vertical space available to the
+	    table, i.e., scrolling would not be required.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata 
+		    fileref="images/release-notes-2-0-linux-findings-display-bug.png" />
+	      </imageobject>
+	    </mediaobject>
+	    The workaround for this problem is to resize the view a
+	    little bit.</para>
+	  </listitem>
+	  <listitem>
+	    <para><emphasis>The Sierra team server does not email
+	    problems to system administrators</emphasis> &mdash; In this
+	    release the Sierra team server cannot be configured to email
+	    any internal errors to system administrators.
+	    Administrators need to check the logs in the 
+	    <emphasis>.sierra-data/server</emphasis> directory.</para>
+	  </listitem>
+	</orderedlist>
+      </section>
+    </section>
+  </chapter> 
+</book>

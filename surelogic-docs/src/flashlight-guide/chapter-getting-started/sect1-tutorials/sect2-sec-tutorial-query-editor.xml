@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect2 id="sec-tutorial-query-editor">
+  <title>Using the Query Editor</title>
+
+  <para>
+    The set of queries that ship with Flashlight are intended to be sufficient
+    for the task of inspecting the results.  If you have suggestions for queries
+    that you think would be useful, please submit them using the <guimenuitem>Send
+    Tip for Improvement</guimenuitem> command (see <xref
+    linkend="sec-bugs-and-tips" />) or by emailing
+    <email>support@surelogic.com</email>.  You may nevertheless encounter a
+    situation where you wish to create a custom query or modify an existing one,
+    perhaps with the intention of exporting the data to a spreadsheet.  You can
+    use the <guilabel>Query Editor</guilabel> view to accomplish this.  This
+    tutorial won't explore the editor in detail, but should give you enough
+    information to get started.
+  </para>
+
+  <para>
+    From the Flashlight perspective, add the <guilabel>Query Editor</guilabel>
+    view using <menuchoice><guimenu>Window</guimenu><guisubmenu>Show
+    View</guisubmenu><guimenuitem>Other&hellip;</guimenuitem></menuchoice> and
+    selecting <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Query
+    Editor</guimenuitem></menuchoice>.  You should see a view that contains a
+    list of queries on the left.  Click on <guilabel>What fields (non-static)
+    are shared?</guilabel> On the right side of this view, as shown in <xref
+    linkend="fig-tutorial-query-editor" />, you can see the actual SQL statement
+    that is executed whenever we run this query. <xref
+    linkend="fig-tutorial-query-editor-query-results" /> shows an example of
+    what this query looks like when run.  You can reproduce this by selecting
+    the prepared run of PlayerUI we created in the previous tutorial from the
+    <guilabel>Flashlight Runs</guilabel> view and double-clicking on the name of
+    the query in the <guilabel>Query Editor</guilabel> view.
+  </para>
+
+  <figure id="fig-tutorial-query-editor">
+    <title>What fields (non-static) are shared?</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-query-editor.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-query-editor-query-results">
+    <title>Result of running <emphasis>What fields (non-static) are shared?</emphasis></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-query-editor-query-results.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    The above figure displays a standard SQL query that displays some summary
+    information about shared fields in a Flashlight-instrumented program.  It does this by
+    selecting information from the embedded database created when a Flashlight
+    run is prepared.  For a complete reference as to what Derby&mdash;the
+    database Flashlight uses&mdash;accepts as valid SQL, see the <ulink
+    url="http://db.apache.org/derby/docs/dev/ref/ref-single.html" >Derby
+    Reference Manual</ulink>.  You may have noticed that the column labels in
+    this query are a little odd, and that they don't quite match up with what
+    the labels look like in the query results.  Flashlight allows you to provide
+    formatting clues to the <guilabel>Query Results</guilabel> view by adding
+    suffixes to your column labels.  These suffixes begin with <literal>__</literal>
+    (two underscore characters) followed by
+    any number of special tokens, including
+  </para>
+  
+  <itemizedlist>
+    <listitem>
+      <literal>(l)</literal> to left justify the text in the column.
+    </listitem>
+
+    <listitem>
+      <literal>(r)</literal> to right justify the text in the column.
+    </listitem>
+
+    <listitem>
+      <literal>(c)</literal> to center justify the text in the column.
+    </listitem>
+
+    <listitem>
+      <literal>|</literal> to make a tree-table.  Everything preceding the
+      <literal>|</literal> is considered to be part of the tree portion.  In the above example, the
+      package, class, and field names are considered part of the tree. You may
+      also place a <literal>]</literal> on any of the columns comprising the tree to tell
+      the <guilabel>Query Results</guilabel> view to keep part of the tree
+      collapsed by default when it displays the results.
+    </listitem>
+    
+    <listitem>
+      <literal>(<replaceable>op</replaceable> on <replaceable>column<subscript>1</subscript></replaceable>, &hellip;, <replaceable>column<subscript>n</subscript></replaceable>)</literal>,
+      where <replaceable>op</replaceable> is one of <literal>sum</literal>,
+      <literal>count</literal>, or <literal>max</literal>, to display
+      the sum, count, or maximum of the collapsed values in each specified column
+      in a tree-table.  For example, <literal>(count on 2,3)</literal> would display the number of rows
+      underneath each node in the second and third columns of the tree-table.
+    </listitem>
+    
+    <listitem>
+      <literal>(hide)</literal> to prevent the selected database field from being
+      displayed in the results.  
+      Sometimes the children of a query need an identifier that cannot be
+      displayed prettily.  For example, <emphasis>What are the individual instances of
+      this non-static field?</emphasis> is a sub-query of <emphasis>What fields (non-static) are
+      shared?</emphasis>, and it needs the numeric id of the field to run.  The
+      latter query displays the field name, and hides the field id using the
+      <literal>(hide)</literal> token.
+    </listitem>
+    
+    <listitem>
+      <literal>('<replaceable>image name</replaceable>')</literal> to display
+      an image next to the row's text.
+      Flashlight uses <literal>('package.gif')</literal> and <literal>('class.gif')</literal> extensively.
+    </listitem>
+  </itemizedlist>
+  <para>
+    Now that we've got a handle on what a query looks like, let's go ahead and
+    write our own.  We'll construct a query that takes a field id as input, and
+    produces a list of all of the methods that directly access the field.  We
+    will then export this list to a document.  In the <guilabel>Query
+    Editor</guilabel> view, click the <guiicon><inlinegraphic
+    fileref="images/plus.png" /></guiicon> button to create a new query.  Edit
+    the <guilabel>Description</guilabel>: We'll call this query <userinput>What methods
+    directly access this field?</userinput>  Leave the identifier as it is.  Flashlight
+    generates a new one every time you create a new query, and there isn't
+    generally a need to change it.  Go ahead and check the box to indicate that
+    we want to be able to see this in the query menu, but don't check the box to
+    show it at the root level.  Insert the following SQL code into the editor
+    box:
+  </para>
+  <programlisting><![CDATA[
+SELECT DISTINCT CO.PACKAGENAME "Package", CO.CLASSNAME "Class", S.LOCATION "Method", S.ATLINE "Line__|"
+FROM ACCESS A, TRACE T, SITE S, OBJECT CO
+WHERE A.FIELD = ?FieldId? AND
+      T.ID = A.TRACE AND
+      S.ID = T.SITE AND
+      CO.ID = S.INCLASS
+ORDER BY 1,2,3
+]]></programlisting>
+    <figure id="fig-tutorial-query-editor-new-query">
+    <title>Creating our new query</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-query-editor-new-query.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    We now have a fully working query.  We can now double-click the entry in the
+    <guilabel>Queries</guilabel> tab of the <guilabel>Query Editor</guilabel>
+    view and get a pop-up asking us to fill in a FieldId as seen in <xref
+    linkend="fig-tutorial-query-editor-choose-sub-query" />.  Manually typing in
+    a field id isn't very useful, though.  What we really want is to call this
+    from another query that can fill it in for us.  Go ahead and select <emphasis>What
+    fields (non-static) are shared?</emphasis> again and click on its
+    <guilabel>Sub-Queries</guilabel> tab.  You should see a list of two
+    queries here.  We are going to add another.  Click on the
+    <guiicon><inlinegraphic fileref="images/plus.png" /></guiicon> button in
+    this tab and check our new query, <emphasis>What methods directly access this field?</emphasis>
+    The <guilabel>Sub-Queries</guilabel> tab should now look like <xref
+    linkend="fig-tutorial-query-editor-sub-queries" />
+  </para>
+    <figure id="fig-tutorial-query-editor-choose-sub-query">
+    <title>Adding a new sub-query to <emphasis>What fields (non-static) are
+    shared?</emphasis></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-query-editor-choose-sub-query.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+    <figure id="fig-tutorial-query-editor-sub-queries">
+    <title>The sub-queries of <emphasis>What fields (non-static) are shared?</emphasis></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-query-editor-sub-queries.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <para>
+    To wrap up, let's try out our new query.  Choose the run we prepared from
+    the PlayerUI tutorial in the <guilabel>Run View</guilabel> again, and run
+    the query <emphasis>What fields (non-static) are shared?</emphasis>  Now pick a field from the
+    query results, and run <emphasis>What methods directly access this field?</emphasis>  We'll go
+    ahead and export these results to a file we can later import into a spreadsheet.
+    Choose <guimenuitem>Export&hellip;</guimenuitem> in the <guilabel>Query
+    Results</guilabel> view menu, and export a CSV file to a location of your
+    choice.  Shown in <xref
+    linkend="fig-tutorial-query-editor-new-query-results" /> is a picture of the
+    list of methods that access <structfield>m_cursorLocationLock</structfield>
+    in <classname>edu.afit.planetbaron.client.MapView</classname> being
+    exported.  You can then import the file into your favorite spreadsheet
+    editor.
+  </para>
+  <figure id="fig-tutorial-query-editor-new-query-results">
+    <title>Exporting the results of <emphasis>What methods directly access this field?</emphasis></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-query-editor-new-query-results.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-query-editor-imported-results">
+    <title>Importing the results of <emphasis>What methods directly access this
+    field?</emphasis></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-query-editor-imported-results.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+</sect2>

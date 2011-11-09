@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="sec-license-management">
+  <title>License management</title>
+
+  <para>Flashlight is commercial software and a license is required to use
+  it. Licenses are obtained from SureLogic and expire after some period of
+  time. Lack of a license will prohibit you from running queries or creating new
+  Flashlight runs. Selecting <guimenuitem>Manage SureLogic
+  Licenses</guimenuitem> from the <guimenu>Flashlight</guimenu> menu brings up
+  the license management form as seen in <xref linkend="fig-license-management"
+  />. (It is also possible to bring this dialog up from the main Flashlight
+  preferences pane by pressing the <guibutton>Manage SureLogic
+  Licenses</guibutton> button.) For Flashlight to operate properly either a
+  <emphasis>Flashlight</emphasis> or <emphasis>All Tools</emphasis> license must
+  be installed.</para>
+
+  <figure id="fig-license-management">
+    <title>The SureLogic license management dialog</title>
+    <mediaobject>
+      <imageobject><imagedata fileref="images/license-management.png"/></imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>License installation does not require internet access, but at some point
+  the license will need to be activated.  Activation does require internet
+  access.  Further use of the product does not require internet access. If a
+  manual uninstall is done before license expiration, internet access is also
+  required.  SureLogic tracks the number of times a particular license is
+  installed and uninstalled. We stress that Flashlight does not, unlike other
+  plug-ins such as MyEclipse, "talk-back" to SureLogic each time Eclipse is
+  started.</para>
+
+  <para>The installed license expires after a period of time (clearly visible to
+  the user) and a new license has to be installed to continue to use
+  Flashlight.</para>
+
+  <para>Licenses can be installed more than once.  Thus, one license can be used
+  for all of an organization or SureLogic can issue one per location or one per
+  organizational entity.</para>
+
+  <para>If the Flashlight Eclipse plug-in does not have a valid license it will
+  not affect the Eclipse installation that Flashlight is installed into. The IDE
+  will load and function normally, but when Flashlight functions are executed
+  they will fail noting the lack of a license. Serviceability functions of the
+  tool (e.g., sending problem reports to SureLogic, installing and uninstalling
+  licenses) function properly without a license.  The unlicensed Flashlight
+  plug-in can be uninstalled or disabled within Eclipse.</para>
+
+  <para>A license can be installed from a file or copy/pasted from the
+  clipboard. To install the license, click <guibutton>Install From
+  File</guibutton> and choose a file, or click <guibutton>Install From
+  Clipboard</guibutton> and, if it has not happened automatically, paste the
+  license data into the text window. Once the tool verifies that the license is
+  valid, an entry displaying information about the license is placed in the
+  license management view.  This entry also indicates whether or not the license
+  has been activated.  A license can be activated by clicking the
+  <guilabel>Activate</guilabel> button.  Most licenses must be activated within
+  a certain time limit or they will cease to work. The license file is not
+  examined by the tool after the activation is completed unless you install the
+  license again (after an uninstall).</para>
+
+  <para>To uninstall a license, select the row in the license table and press
+  the <guibutton>Uninstall License</guibutton>. You will be asked if you are
+  sure you want to uninstall the license.  If you confirm the uninstall then the
+  license is removed.  This may take a minute as SureLogic is informed that your
+  license has been uninstalled.</para>
+
+  <para>When a license is nearing expiration the tool warns the user with the
+  dialog shown in <xref linkend="fig-license-management-expiration-warning"
+  />.</para>
+
+  <figure id="fig-license-management-expiration-warning">
+    <title>Dialog warning that the installed Flashlight license is about to expire</title>
+    <mediaobject>
+      <imageobject><imagedata fileref="images/license-management-expiration-warning.png"/></imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>When a license does expire it disappears from the dialog. The tool is
+  considered unlicensed at that point. To fix this situation install a new
+  license (it is not required to install a new version of Flashlight).</para>
+</sect1>

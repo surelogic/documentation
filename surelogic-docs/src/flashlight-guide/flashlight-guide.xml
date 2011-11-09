@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<book id="flashlight-guide" lang="en-US" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title>Flashlight User Guide</title>
+  <subtitle>How to use and configure the Flashlight Eclipse client</subtitle>
+  <bookinfo>
+    <copyright>
+      <year>2011</year>
+      <holder>SureLogic Inc.</holder>
+    </copyright>
+    <legalnotice>
+      <para>The authors and publishers have taken care in the
+      preparation of this documentation, but make no expressed or
+      implied warranty of any kind and assume no responsibility for
+      errors and omissions. No liability is assumed for incidental or
+      consequential damages in connection with or arising out of the use
+      of the information or programs herein.</para>
+    </legalnotice>
+    <pubdate>Version 4.0.2&mdash;September 2011</pubdate>
+  </bookinfo>
+
+  <preface id="preface">
+    <title>Preface</title>
+    
+    <sect1>
+      <title>Audience</title>
+
+      <para>This document is intended for Java developers who want to
+      use the Flashlight tool within the Eclipse Java IDE. We assume
+      that the reader understands both the Java programming language and
+      the use of Eclipse for Java development.</para>
+    </sect1>
+    
+    <sect1>
+      <title>Contact information</title>
+      
+      <para>For technical support or other questions, please
+      contact:</para>
+      
+      <para><email>support@surelogic.com</email></para>
+      
+      <para>5808 Forbes Avenue, Pittsburgh, PA 15217-1602</para>
+    </sect1>
+  </preface>
+
+  <xi:include href="chapter-getting-started/chapter.xml"/>
+  <xi:include href="chapter-reference/chapter.xml"/>
+  <xi:include href="chapter-release-notes.xml"/>
+  <xi:include href="chapter-troubleshooting.xml"/>
+  <xi:include href="bibliography.xml"/>
+</book>

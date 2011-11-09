@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect1 id="flashlight-promises-inference">
+  <title>Inference of Promises Annotations</title>
+
+  <para>Flashlight can make it easier to get started assuring your
+  program in JSure.  The data from one or more runs can be used to
+  generate a basic set of annotations.  This can be done by selecting
+  <menuchoice><guisubmenu>Flashlight</guisubmenu> <guimenuitem>Infer
+  JSure Annotations</guimenuitem></menuchoice> from the main menu, as
+  shown in <xref linkend="fig-menu-flashlight-inference"/>.
+  Alternatively, you can select one or more runs in the
+  <guilabel>Flashlight Runs</guilabel> view and then choose
+  <menuchoice><guimenuitem>Infer JSure Annotations
+  &ellip;</guimenuitem></menuchoice> from the context menu.</para>
+
+  <figure id="fig-menu-flashlight-inference">
+    <title>Infer JSure Annotations</title>
+    <mediaobject>
+      <imageobject><imagedata fileref="images/infer-jsure-annotations-menu.png"/></imageobject>
+    </mediaobject>
+  </figure>
+
+  <para> You will then be prompted to choose a project, and one or more
+  runs belonging to that project.  Flashlight will then crawl through
+  the run, looking for regions of data that are always protected by a
+  lock.  Once it has these collected, it generates the appropriate
+  @Region and @RegionLock annotations.  The refactored code is then
+  presented as shown in <xref
+  linkend="fig-inferred-annotations"/>.</para>
+
+  <figure id="fig-inferred-annotations">
+    <title>Infer JSure Annotations</title>
+    <mediaobject>
+      <imageobject><imagedata fileref="images/infer-jsure-annotations.png"/></imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    If JSure is installed, Flashlight will also focus verification on
+    the chosen project and prompt you to add the promises jar to the
+    project, if it does not exist already.
+  </para>
+
+</sect1>

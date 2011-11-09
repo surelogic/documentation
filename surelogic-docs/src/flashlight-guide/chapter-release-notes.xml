@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<chapter id="release-notes">
+  <title>Release notes</title>
+  
+  <para>For each release of Flashlight there are new and noteworthy
+  features to try out, and known limitations to avoid or workaround.
+  These are presented in the sections below for each released version of
+  Flashlight.</para>
+
+  <sect1>
+    <title>Flashlight version 4.0.2</title>
+    <para>This section describes the 4.0.2 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <para>Flashlight is unchanged since the previous release.</para>
+    </sect2>
+    <sect2>
+      <title>Known Problems</title>
+      <para>Flashlight has no known problems at this time.</para>
+    </sect2>
+  </sect1>
+
+
+  <sect1>
+    <title>Flashlight version 4.0.1</title>
+    <para>This section describes the 4.0.1 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+      <orderedlist>
+        <listitem>
+          <para>
+            <emphasis>New checkpointing feature</emphasis>
+            &mdash;
+            The Flashlight instrumentation now checkpoints its data output
+            periodically.  This means that you will still be able to prep and
+            analyze at least part of a run even if the process is forcibly
+            killed before it can call its shutdown hooks, e.g. using 'kill -9'
+            on Linux or the Eclipse 'Terminate' feature on Windows.  If
+            Flashlight believes that it can recover data from a run it will
+            display the run in the <guilabel>Flashlight Runs</guilabel> view and
+            allow the run to be prepped normally.
+          </para>
+        </listitem>
+
+        <listitem>
+          <para>
+            <emphasis>The text of a Problem Report or a Tip for Improvement
+            can be printed or saved</emphasis>
+            &mdash;
+            The preview pane now allows the tool user to print or save
+            the text of a problem report or tip for improvement.
+
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/release-notes-401-printorsave.png" />
+              </imageobject>
+            </mediaobject>
+
+            This is helpful to tool users who do not have an Internet
+            connection on their machine.
+          </para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Flashlight version 4.0.0</title>
+    <para>This section describes the 4.0.0 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+      <orderedlist>
+	<listitem>
+	  <para><emphasis>Support for running Flashlight as an Ant
+	  task</emphasis> &mdash; Flashlight now allows you to instrument and
+	  run Java programs outside of Eclipse using Ant.  The tasks support
+	  instrumentation of class folders, Jars, Wars, and Ejb Jars.  See the
+	  <link linkend="flashlight-ant-tasks">Flashlight Ant Tasks</link>
+	  documentation for details.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>New Overview Page</emphasis> &mdash; Flashlight now
+	  displays an overview for a run after it has been prepared.  See the
+	  <link linkend="flashlight-run-overview">Run Overview</link>
+	  documentation for details.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>More Flashlight Queries</emphasis> &mdash; Flashlight
+	  has added a number of new queries that can be used on any prepared
+	  run:
+ 
+          <itemizedlist>
+            <listitem>What instances of this class are indirectly accessed by more than one thread?</listitem>
+            <listitem>What is the stack trace for this lock event?</listitem>
+            <listitem>What locks are held during this field access?</listitem>
+            <listitem>What objects are protected by this lock, and how
+            often?</listitem>
+            <listitem>What threads are blocked for the longest time?</listitem>
+            <listitem>When and where did this lock event occur?</listitem>
+          </itemizedlist>
+
+         For documentation on these queries and others, see <xref linkend="query-reference" />.
+        </para>
+	</listitem>
+        
+      <listitem>
+	    <para><emphasis>New SureLogic license format</emphasis> &mdash; The format
+	    of SureLogic licenses has changed. You may need to contact SureLogic to obtain
+	    a new license.</para>
+	  </listitem>
+      </orderedlist>
+    </sect2>
+    <sect2>
+      <title>Known Problems</title>
+      <para>Flashlight has no known problems at this time.</para>
+    </sect2>
+
+  </sect1>
+
+  <sect1>
+    <title>Flashlight version 3.2.0</title>
+    <para>This section describes the 3.2.0 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+      <orderedlist>
+	<listitem>
+	  <para><emphasis>Inference of JSure Annotations</emphasis>
+	  &mdash; Flashlight can now infer a base set of promise
+	  annotations from a run.  These can be used to get started
+	  verifying your project with JSure.  You can try this by
+	  choosing <menuchoice><guisubmenu>Flashlight</guisubmenu>
+	  <guimenuitem>Infer JSure
+	  Annotations</guimenuitem></menuchoice>.  Then choose the
+	  project you want to infer annotations for, and the run(s) that
+	  you want to use to do it.
+	  </para>
+	</listitem>
+      </orderedlist>
+    </sect2>
+
+    <sect2>
+      <title>Known Problems</title>
+
+      <para>The known bugs and limitations in this version of
+	Flashlight is unchanged from the previous release.</para>
+    </sect2>
+  </sect1>
+
+
+  <sect1>
+    <title>Flashlight version 3.1.1</title>
+    <para>This section describes the 3.1.1 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <para>
+	Flashlight is unchanged since the previous release.
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>Known Problems</title>
+
+      <para>The known bugs and limitations in this version of
+	Flashlight is unchanged from the previous release.</para>
+    </sect2>
+  </sect1>
+  <sect1>
+    <title>Flashlight version 3.1.0</title>
+    
+    <para>This section describes the 3.1.0 release of Flashlight.</para>
+    
+    <sect2>
+      <title>New and Noteworthy</title>
+
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+      <orderedlist>
+	<listitem>
+	  <para><emphasis>Instrumentation of Java 1.4 code running on
+	  a Java 1.4 VM</emphasis> &mdash; It is now possible to
+	  collect data using Flashlight about Java 1.4 code running on
+	  a Java 1.4 VM. (Note that the Eclipse that runs Flashlight
+	  must still use a Java 5, or above, VM.)</para>
+	</listitem>
+
+	<listitem>
+	  <para><emphasis>Tips and problem reports are tracked by
+	  SureLogic</emphasis> &mdash; When you submit a tip for
+	  improvement or a problem report to SureLogic it is tracked
+	  via an automatically created Bugzilla issue report at
+	  <ulink
+	      url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>. If
+	  you include your email address in the tip or problem
+	  report you will be notified when changes to the status of
+	  the Bugzilla issue are made by SureLogic engineers. The
+	  public Bugzilla may also be accessed via a browser at
+	  <ulink
+	      url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>.</para>
+	</listitem>
+
+	<listitem>
+	  <para><emphasis>The "Tip for Improvement" and "Problem
+	  Report" dialogs are no longer modal</emphasis> &mdash;
+	  This allows the user to cut and paste information from
+	  Eclipse that they want to send to SureLogic into the
+	  dialog.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis>Tool tips have been added to all
+	  queries</emphasis> &mdash; All query names in the
+	  <guilabel>Query Menu</guilabel>, <guilabel>Query Results
+	  Explorer</guilabel>, and <guilabel>Query
+	  Editor</guilabel> views will now display tooltips when hovered
+	  over.  The tool tip view is similar to the javadoc view in
+	  Eclipse's Java Editor, and can be focused and resized.
+	  </para>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/flashlight-tooltip.png" />
+	    </imageobject>
+	  </mediaobject>
+	</listitem>
+      </orderedlist>
+    </sect2>
+
+    <sect2>
+      <title>Known Problems</title>
+
+      <para>The known bugs and limitations in this version of
+	Flashlight is unchanged from the previous release.</para>
+    </sect2>
+  </sect1>
+  
+    <sect1>
+    <title>Flashlight version 3.0.0</title>
+    
+    <para>This section describes the 3.0.0 release of Flashlight.</para>
+    
+    <sect2>
+      <title>New and Noteworthy</title>
+
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <emphasis>Launch JUnit tests directly from
+	    Flashlight.</emphasis> &mdash; You can now run Flashlight on
+	    a JUnit test using the launcher.  Right click on the test
+	    class, and choose <menuchoice><guisubmenu>Flashlight
+	    As</guisubmenu> <guimenuitem>JUnit
+	    Test</guimenuitem></menuchoice>, or configure your test from
+	    the <guimenu>Flashlight Configurations</guimenu> pane.
+	  </para>
+	  <para>
+	    <emphasis>AWT Event Dispatch Thread query added.</emphasis>
+	    &mdash; The Swing and AWT libraries mandate that all
+	    modifications to their components happen in the AWT Event
+	    Dispatch Thread.  Flashlight does not currently instrument
+	    the Swing and AWT libraries, so it cannot detect all
+	    violations of this policy.  What this query provides is a
+	    synopsis of all of your program's fields that are read while
+	    in the AWT Event Dispatch Thread but modified outside it.
+	    This can give you a general idea as to what portions of the
+	    program interact with Swing and AWT and can help identify
+	    violations of the threading policy.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect2>
+    
+    <sect2>
+      <title>Known Problems</title>
+
+      <para>This section describes known bugs and limitations in this
+      version of Flashlight.</para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <emphasis>Differently instrumented versions of the same file
+	    can cause failures.</emphasis> &mdash; If two identical
+	    class files happen to be on the classpath at once, and one
+	    is instrumented while the other is not, then a VerifyError
+	    can occur at runtime.  The best way to work around this is
+	    to make sure that both classes are instrumented or not
+	    instrumented.  You can do this from the
+	    <guilabel>Instrumentation</guilabel> tab in the
+	    <guimenu>Flashlight Configurations</guimenu> view.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <emphasis>Preparing very large files will sometimes fail.</emphasis>
+	    &mdash; Due to a limitation in Flashlight's embedded database
+	    implementation, Flashlight is unable to prepare very large files.
+	    The maximum size file that can be prepared depends on
+	    characteristics of the instrumented program, but as a general rule
+	    you shouldn't encounter this problem until your raw file is &gt; 300
+	    MB in size.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Flashlight version 2.3.0</title>
+    
+    <para>This section describes the 2.3.0 release of Flashlight.</para>
+    
+    <sect2>
+      <title>New and Noteworthy</title>
+
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <emphasis>The Flashlight Status view provides a quick overview of a
+	    run's results.</emphasis> &mdash; A new view has been added to make
+	    it easier to tell if there are interesting results from a prepared
+	    run.  The Flashlight Status view indicates if the lock cycle
+	    analysis has found any potential deadlocks or if the lock set
+	    analysis has detected any possible race conditions.  You can
+	    double-click on a warning indicator to run the relevant query.
+	    <mediaobject>
+	      <imageobject>
+		<imagedata fileref="images/flashlight-status-view.png" />
+	      </imageobject>
+	    </mediaobject>
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <emphasis>Quickly create tutorial projects</emphasis>
+	    &mdash; You can now create and start the tutorials from the
+	    workspace menu by choosing
+	    <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run
+	    the Flashlight Tutorials</guimenuitem></menuchoice>.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    The Flashlight Runs view now shows the total size of each run directory.
+	  </para>
+	</listitem>
+
+      </itemizedlist>
+    </sect2>
+    
+    <sect2>
+      <title>Known Problems</title>
+
+      <para>This section describes known bugs and limitations in this
+      version of Flashlight.</para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <emphasis>Preparing very large files will sometimes fail.</emphasis>
+	    &mdash; Due to a limitation in Flashlight's embedded database
+	    implementation, Flashlight is unable to prepare very large files.
+	    The maximum size file that can be prepared depends on
+	    characteristics of the instrumented program, but as a general rule
+	    you shouldn't encounter this problem until your raw file is &gt; 300
+	    MB in size.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <sect1>
+    <title>Flashlight version 2.1.1</title>
+    
+    <para>This section describes the 2.1.1 release of Flashlight.</para>
+    
+    <sect2>
+      <title>New and Noteworthy</title>
+
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+    </sect2>
+    
+    <sect2>
+      <title>Known Problems</title>
+
+      <para>This section describes known bugs and limitations in this
+      version of Flashlight.</para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <emphasis>Preparing very large files will sometimes fail.</emphasis>
+	    &mdash; Due to a limitation in Flashlight's embedded database
+	    implementation, Flashlight is unable to prepare very large files.
+	    The maximum size file that can be prepared depends on
+	    characteristics of the instrumented program, but as a general rule
+	    you shouldn't encounter this problem until your raw file is &gt; 300
+	    MB in size.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+</chapter>

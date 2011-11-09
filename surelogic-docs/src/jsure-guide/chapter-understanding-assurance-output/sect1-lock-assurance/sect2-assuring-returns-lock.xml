@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect2 id="assuring-returns-lock">
+  <title>Assuring <classname>@ReturnsLock</classname></title>
+
+  <para>Each
+  <classname>@ReturnsLock("<replaceable>lock</replaceable>")</classname>
+  annotation creatse a result subheading under the heading for the named
+  lock <replaceable>lock</replaceable>.  The implementation of the
+  annotated method&mdash;actually each <code>return</code> expression in
+  the method&mdash;is checked to assure that it actually returns the
+  named lock.</para>
+
+  <para>The class <classname>ReturnsLockExample</classname>, below, from project 
+  <filename>Lock Output</filename>
+  demonstrates the two kinds of results (see <xref
+  linkend="returns-lock-results"/>):</para>
+
+  <programlisting linenumbering="numbered" startinglinenumber="6"><emphasis>@RegionLock("L is this protects Instance")</emphasis>
+public class ReturnsLockExample {
+  protected int v;
+  
+  <emphasis>@ReturnsLock("L")</emphasis>
+  private Object goodGetLock() {
+    return this;
+  }
+  
+  <emphasis>@ReturnsLock("L")</emphasis>
+  private Object badGetLock() {
+    return new Object();
+  }
+  
+  public void doStuff() {
+    synchronized (goodGetLock()) {
+      v = 1; 
+    }
+    synchronized (badGetLock()) {
+      v = 2;
+    }
+  }
+}</programlisting>
+  
+  <figure id="returns-lock-results">
+    <title>Assurance results for <classname>ReturnsLockExample</classname></title>
+    <mediaobject>
+      <imageobject condition="isHTML">
+        <imagedata fileref="images/lock-assurance-10.png"/>
+      </imageobject>
+      <imageobject condition="isFO">
+        <imagedata width="100%" scalefit="1" fileref="images/lock-assurance-10.png"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <sect3 id="good-return">
+    <title>return statement(s) returning the correct lock</title>
+
+    <para>All the positive assurance results for a single
+    <classname>@ReturnsLock</classname> annotation are grouped under
+    this subheading.  Each result is of the form <computeroutput>Return
+    statement correctly returns lock
+    "<replaceable>lock</replaceable>"</computeroutput>.</para>
+
+    <para>In our example, method <function>goodGetLock()</function>
+    always returns <parameter>this</parameter>, and thus is assured to
+    be correct.</para>
+  </sect3>
+  
+  <sect3 id="returns-lock-bad">
+    <title>return statement(s) possibly returning the wrong lock</title>
+
+    <para>All the negative assurance results for a single
+    <classname>@ReturnsLock</classname> annotation are grouped under
+    this subheading.  Each result is of the form <computeroutput>Return
+    statement expected to returned lock
+    "<replaceable>lock</replaceable>"</computeroutput>.</para>
+
+    <para>In our example, method <function>badGetLock()</function>
+    cannot be assured to always return the correct lock (the object
+    referenced by <parameter>this</parameter>)&mdash;in fact, it never
+    does&mdash;so it is marked as unassured.</para>
+  </sect3>
+</sect2>

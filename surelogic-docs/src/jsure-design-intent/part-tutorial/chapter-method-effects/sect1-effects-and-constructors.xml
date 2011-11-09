@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+           
+      <sect1>
+        <title>Effects and Constructors</title>
+        
+        <para>A constructor that accesses state protected by a locking
+        model may also be assured by checking whether the declared
+        write effects of the constructor are included in the effect
+        <code>@RegionEffect("writes Instance")</code>.  The
+        constructor must also be annotated with a declaration that it
+        does not start any threads: <code>@Starts("nothing")</code>.
+        Such a constructor cannot pass a reference to the new object
+        to a preexisting thread because it does not write to any
+        objects that existed prior to the invocation of the
+        constructor.  It can write a reference to the new object to
+        other objects created during execution of the constructor, but
+        because it cannot start any threads, such a reference cannot
+        be read by another thread.</para>
+        
+        <para>Here is an example of typical usage, which, for example, was
+        used to assure much of Doug Lea's
+        <application>util.concurrent</application> library (for which
+        <code>@Borrowed("this")</code> could not be used because of
+        aliasing of <parameter>this</parameter> into a
+        <code>private</code> field):
+        
+          <programlisting>
+@RegionLock("Lock is this protects Instance")
+public class C {
+  <emphasis>@RegionEffects("writes nothing")</emphasis>
+  <emphasis>@Starts("nothing")</emphasis>
+  public C() {
+    &hellip;
+  }
+  &hellip;
+}
+          </programlisting>
+        </para>
+      </sect1>
