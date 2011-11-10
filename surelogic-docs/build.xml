@@ -37,20 +37,20 @@
 	<target name="jsure-design-intent" depends="jar-up-promises,jsure-design-intent-html,jsure-design-intent-eclipse-help" />
 
 	<target name="jar-up-promises">
-		<ant antfile="build.xml" dir="../promises-x" inheritAll="false" />
+		<ant antfile="build.xml" dir="../../jsure/promises-x" inheritAll="false" />
 	</target>
 
 	<target name="jsure-design-intent-html">
 		<docbook-to-html srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.html.dir}" destfile="${di.html.file}" />
 		<copy todir="${di.html.dir}/javadoc">
-			<fileset dir="../promises-x/build/javadoc" />
+			<fileset dir="../../jsure/promises-x/build/javadoc" />
 		</copy>
 	</target>
 
 	<target name="jsure-design-intent-eclipse-help">
 		<docbook-to-eclipse-help srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.eclipse.help.dir}" />
 		<copy todir="${di.eclipse.help.dir}/javadoc">
-			<fileset dir="../promises-x/build/javadoc" />
+			<fileset dir="../../jsure/promises-x/build/javadoc" />
 		</copy>
 	</target>
 
