@@ -20,7 +20,7 @@
   <para>Much of the time, however, it is not intended that an array is
   aliased; in these cases, the array can be incorporated into the state
   of the object that references it.  We call this <emphasis>aggregating
-  state</emphasis>. In the simpliest case, an array is aggregated into
+  state</emphasis>. In the simplest case, an array is aggregated into
   the object that references it by adding a single annotation to the
   field that references the array:
       

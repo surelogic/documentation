@@ -55,6 +55,8 @@
   <xi:include href="sect2-planetbaron.xml"/>
   
   <xi:include href="sect2-util.concurrent.xml"/>
+
+  <xi:include href="sect2-effects/sect2.xml"/>
   
   <!-- xi:include href="sect2-smallworld.xml"/ -->
 </sect1>
