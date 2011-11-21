@@ -46,7 +46,7 @@
   of the receiver, <computeroutput>reads this:value</computeroutput>, at line 15,
   the <code>return</code> statement.  The field <structfield>value</structfield> 
   is a subregion of <code>Instance</code>, and thus the actual effect of the
-  method's implementation is included in the declared effects.  Simlarly, the
+  method's implementation is included in the declared effects.  Similarly, the
   implementation effect <computeroutput>writes this:value</computeroutput>
   of the assignment statement at line 10 in <function>set()</function> is
   included in the method's declared effects.</para>    
@@ -54,9 +54,7 @@
   <para>Methods that are not annotated with a <classname>@RegionEffects</classname>
   annotation are assumed to be annotated with <code>@RegionEffects("writes java.lang.Object:All")</code>,
   a declaration that means the method may read or write any field of any object
-  in the heap; that is, the method can affect anything.  The exact meaning of
-  <code>java.lang.Object:All</code> is described
-  <link linkend="regions">below</link>.  Unannotated methods are not verified
+  in the heap; that is, the method can affect anything.  Unannotated methods are not verified
   against this assumed annotation, however, because JSure only verifies 
   design intent explicitly provided by the programmer.  The assumed annotations
   are used, rather, when a call to an unannotated method is analyzed.  Instead
@@ -75,10 +73,9 @@
     
   The effect inferred for the constructor is <code>none</code>.  That is, the
   constructor has no effects on objects visible to the caller of the constructor.
-  This is described in more detail <link linkend="XXX">below</link>, but
-  the basic point is that because the caller does not receive a reference to
+  This means that the caller does not receive a reference to
   the newly created object until after the constructor returns, it is 
-  incapable of observing any effects that may have occured to that object.  
+  incapable of observing any effects that may have occurred to that object.  
   Thus a constructor does not have to declare any effects on the
   <structfield>Instance</structfield> region of the receiver.  We can make the
   effect declaration for the constructor explicit by selecting the 
@@ -120,8 +117,7 @@
   region <structfield>Instance</structfield> is used instead of the field
   <structfield>value</structfield> to preserve abstraction because the 
   field is <code>private</code> and the method is <code>public</code>.
-  (See <link linkend="regions">below</link> for more details.)  After we 
-  apply this promise, the class is as follows:
+  After we apply this promise, the class is as follows:
       
     <mediaobject>
       <imageobject>
