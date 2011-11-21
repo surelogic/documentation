@@ -12,6 +12,34 @@
   Flashlight.</para>
 
   <sect1>
+    <title>Flashlight version 4.1.0</title>
+    <para>This section describes the 4.0.2 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <para>Flashlight is unchanged since the previous release.</para>
+    </sect2>
+    <sect2>
+      <title>Known Problems</title>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <emphasis>Bad interaction with Spring's AOP libraries..</emphasis>
+	    &mdash; Applications making use of Spring's AOP facilities may
+	    encounter a <classname>LinkageError</classname> when running
+	    Flashlight.  At this point in time, we do not know exactly what
+	    causes this, but the problem occurs when both the
+	    <package>org.spring.framework.aop</package> and
+	    <package>com.springsource.org.aspectj.weaver</package> jars are
+	    instrumented.  The best workaround for thie problem is to deselect
+	    these jars from the <guilabel>Instrumentation</guilabel> tab in the
+	    <guilabel>Flashlight Configurations</guilabel> view.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+
+  <sect1>
     <title>Flashlight version 4.0.2</title>
     <para>This section describes the 4.0.2 version of Flashlight.</para>
     <sect2>
