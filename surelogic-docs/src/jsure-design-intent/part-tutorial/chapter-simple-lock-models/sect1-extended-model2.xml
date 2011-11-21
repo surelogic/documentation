@@ -42,7 +42,7 @@ private Object[] myArray;
   
       <listitem><para>Extends the state of the referencing object to
       include the elements of the array. State aggregation is not
-      automatically transitive; thus if the array elements are objects,
+      automatically transitive; thus if the array elements are object references,
       those objects are not aggregated, only the references to
       them.</para></listitem>
     </orderedlist>
@@ -118,8 +118,8 @@ public class LogExample {
 @Region("private LogData")
 public class LogExample {
   @UniqueInRegion("LogData")
-   private final Set&lt;String&gt; log = new HashSet&lt;String&gt;();
-   &hellip;
+  private final Set&lt;String&gt; log = new HashSet&lt;String&gt;();
+  &hellip;
 }
   </programlisting>
 </sect1>
