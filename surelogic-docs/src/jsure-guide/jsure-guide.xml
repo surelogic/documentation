@@ -183,7 +183,7 @@ annotations.</para></listitem>
 <listitem><para>Updates from SureLogic to the immutable/standard annotations can be merged with user
 annotations without the user losing all their work when the update overwrites their changes.</para></listitem>
 <listitem><para>Users can be notified if any of their annotations conflict after a SureLogic update to the
-immutable/standard annotations. Warning symbols will appear in the <guilabel>Library Annotation Explorer</guilabel> view after a tool update if conflicts exist.
+immutable/standard annotations. Warning symbols <inlinegraphic fileref="images/warning.gif" /> will appear in the <guilabel>Library Annotation Explorer</guilabel> view after a tool update if conflicts exist.
 Each warning can then be examined and fixed by the tool user.</para></listitem>
 </itemizedlist>
 <para>This "diff" approach to library annotation appears to be flexible enough for SureLogic to support
