@@ -82,7 +82,7 @@
 				<listitem>
 					<para><emphasis>Support for user library annotation (difference tracking)</emphasis>
 						&mdash;
-						The JSure UI enhancements to support library annotation are discussed above. This section
+						The JSure user interface enhancements to support library annotation are discussed above. This section
 						introduces the infrastructural changes that were added to JSure in this release to effectively
 						allow user library annotation over lots of tool releases and manage updates to the standard annotations
 						in the JSure release.
@@ -90,7 +90,8 @@
 					<para>Library annotation refers to the ability to place code annotations in binary libraries&mdash;typically
 					represented as JAR files in Java. The approach used by the JSure tool has been to allow creation of XML
 					files that specify the class and declaration that a particular annotation is placed on. For example, consider
-					the partial XML file for <code>java.lang.Object</code> listed below.
+					the partial XML file for <code>java.lang.Object</code> listed below. The XML version of annotations on a library class can be viewed
+					using the <emphasis>Source</emphasis>tab in the XML annotation editor.
 					<programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;package name="java.lang"&gt;
@@ -112,15 +113,16 @@ equivalent to the following source code annotations on the notify method.
 @RequiresLock("MUTEX")
 @Starts("nothing")
 public final native void notify();</programlisting>
-The XML file released with JSure is immutable in the sense that it cannot be changed by the tool user.
+The XML file released with JSure for the <code>java.lang.Object</code>is immutable in the sense that it cannot be changed by the tool user.
 However, if the tool user uses the XML library annotation editor to</para>
-<orderedlist>
+<itemizedlist>
 <listitem><para>Delete the <code>@Starts("nothing")</code> promise on the notify method</para></listitem>
 <listitem><para>Add an <code>@Vouch("Immutable")</code> promise to the notify method</para></listitem>
-</orderedlist>
+</itemizedlist>
 		<para>A "delta" or "diff" approach is taken to track the changes made by the tool user.
 		The original XML file for <code>java.lang.Object</code> remains unchanged but a new XML file is created in the
-		user's workspace that contains the following XML that tracks what has been changed.
+		user's workspace that contains the following XML that tracks what has been changed. This file can be viewed using the <emphasis>Diffs</emphasis>
+		tab in the XML annotation editor.
 		<programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;package name="java.lang" revision="0"&gt;
@@ -132,12 +134,20 @@ However, if the tool user uses the XML library annotation editor to</para>
   &lt;/class&gt;
 &lt;/package&gt;</programlisting>
 The deletion of the <code>@Starts</code> annotation is noted as well as the new <code>@Vouch</code> annotation. The <code>@Vouch</code>
-annotation is "dirty" in the sense that it isn't in the immutable/standard XML.</para>
+annotation is "dirty" in the sense that it isn't in the immutable/standard XML. A '&gt;' symbol in the <guilabel>Library Annotation Explorer</guilabel>
+view is used to point out to the user that a change has been made to the set of standard library annotations released with the JSure tool.</para>
+
+   <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-410-explorerObjectNotify.png" />
+				</imageobject>
+	  </mediaobject>
+
 <para>The JSure analysis reads in both the standard/immutable XML as well as any user diff-XML files when it
 performs a verifying analysis of a Java project.</para>
 <para>Tracking change to library annotation in this manner has several advantages:</para>
 <itemizedlist>
-<listitem><para>It is simple to see (in the JSure user interface) what has been changed from the standard set of
+<listitem><para>It is simple to see (as shown in the screenshot above) what has been changed from the standard set of
 annotations.</para></listitem>
 <listitem><para>User annotations can be sent to SureLogic for possible inclusion in the standard set of
 annotations.</para></listitem>
@@ -145,12 +155,13 @@ annotations.</para></listitem>
 <listitem><para>Updates from SureLogic to the immutable/standard annotations can be merged with user
 annotations without the user losing all their work when the update overwrites their changes.</para></listitem>
 <listitem><para>Users can be notified if any of their annotations conflict after a SureLogic update to the
-immutable/standard annotations.</para></listitem>
+immutable/standard annotations. Warning symbols will appear in the <guilabel>Library Annotation Explorer</guilabel> view after a tool update if conflicts exist.
+Each warning can then be examined and fixed by the tool user.</para></listitem>
 </itemizedlist>
 <para>This "diff" approach to library annotation appears to be flexible enough for SureLogic to support
 "annotation packs" for specific JRE releases in a future JSure release. Currently OpenJDK and the
 OracleJDK are implemented differently requiring some changes to annotations on the standard library.
-We are considering JRE-specific "annotation packs" that use this delta/diff approach.</para>
+We are considering JRE-specific "annotation packs" that use this delta/diff approach in a future tool release.</para>
 				</listitem>
 
 				<listitem>
