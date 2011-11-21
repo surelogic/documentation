@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect3 id="simplevar">
+  <title>A Simple Variable Class</title>
+  
+  <para>Class <classname>Var</classname> in project <application>SimpleVariable</application> in the 
+  <filename>SimpleVariable.zip</filename> tutorial archive declares a simple class
+  that implements an integer variable:
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/simplevar1.png" />
+      </imageobject>
+    </mediaobject>
+    
+  The methods <function>set()</function> and <function>get()</function> are
+  annotated with <classname>@RegionEffects</classname> annotations.  The
+  methods <function>getAndSet()</function> and <function>swap()</function>
+  are not yet annotated.  The 
+  annotation on <function>set()</function> declares that the method 
+  writes the <structfield>Instance</structfield> region of the object
+  referenced by <parameter>this</parameter>.  The <structfield>Instance</structfield>
+  region always contains all the non-<code>final</code> fields in an object.
+  The declaration says that the method may read or write any mutable field 
+  of the object referenced by the method's receiver.  In this implementation, the method 
+  simply assigns a value to the one-and-only field <structfield>value</structfield>.
+  Similarly, the annotation on <function>get()</function> declares that the 
+  method may read any mutable field of the object referenced by the method's
+  receiver.</para>
+ 
+  <para>Verify the project and switch to the <guilabel>Code Verification</guilabel>
+  perspective.  The <guilabel>Verification Status</guilabel> and
+  <guilabel>Proposed Promises</guilabel> views should look like the following:
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/simplevar_results1.png" />
+      </imageobject>
+    </mediaobject>
+    
+  We see that the annotation on <function>get()</function> assures because
+  the only effect in the method is a read of the field <structfield>value</structfield>
+  of the receiver, <computeroutput>reads this:value</computeroutput>, at line 15,
+  the <code>return</code> statement.  The field <structfield>value</structfield> 
+  is a subregion of <code>Instance</code>, and thus the actual effect of the
+  method's implementation is included in the declared effects.  Simlarly, the
+  implementation effect <computeroutput>writes this:value</computeroutput>
+  of the assignment statement at line 10 in <function>set()</function> is
+  included in the method's declared effects.</para>    
+ 
+  <para>Methods that are not annotated with a <classname>@RegionEffects</classname>
+  annotation are assumed to be annotated with <code>@RegionEffects("writes java.lang.Object:All")</code>,
+  a declaration that means the method may read or write any field of any object
+  in the heap; that is, the method can affect anything.  The exact meaning of
+  <code>java.lang.Object:All</code> is described
+  <link linkend="regions">below</link>.  Unannotated methods are not verified
+  against this assumed annotation, however, because JSure only verifies 
+  design intent explicitly provided by the programmer.  The assumed annotations
+  are used, rather, when a call to an unannotated method is analyzed.  Instead
+  of verifying unannotated methods, JSure infers a legal 
+  <classname>@RegionEffects</classname> annotation for each unannotated
+  method.  These can be seen in the <guilabel>Proposed Promises</guilabel>
+  view.</para>
+  
+  <para>In the case of our example, there are three proposals:
+  
+    <itemizedlist>
+      <listitem><para>One at line 6 for the implicit constructor <function>Var()</function>.</para></listitem>
+      <listitem><para>One at line 18 for the method <function>getAndSet()</function>.</para></listitem>
+      <listitem><para>One at line 24 for the method <function>swap()</function>.</para></listitem>
+    </itemizedlist>
+    
+  The effect inferred for the constructor is <code>none</code>.  That is, the
+  constructor has no effects on objects visible to the caller of the constructor.
+  This is described in more detail <link linkend="XXX">below</link>, but
+  the basic point is that because the caller does not receive a reference to
+  the newly created object until after the constructor returns, it is 
+  incapable of observing any effects that may have occured to that object.  
+  Thus a constructor does not have to declare any effects on the
+  <structfield>Instance</structfield> region of the receiver.  We can make the
+  effect declaration for the constructor explicit by selecting the 
+  proposal <computeroutput>RegionEffects("none")</computeroutput> in the view
+  and choosing <menuchoice><guimenuitem>Add promises to code&hellip;</guimenuitem></menuchoice> in the
+  contextual menu:
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/simplevar_promises1.png" />
+      </imageobject>
+    </mediaobject>
+  
+  Because the constructor was originally implicit, it needs to be made 
+  explicit to be annotated.  The refactoring applied in insert the annotation
+  inserts the constructor declaration as well in this case:
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/simplevar2.png" />
+      </imageobject>
+    </mediaobject>    
+  </para>
+  
+  <para>We skip ahead momentarily to the proposal on line 24 for <function>swap()</function>: 
+  <code>writes java.lang.Object:All</code>.  This proposal derives principally 
+  from the method call <code>other.getAndSet(this.value)</code>.  Because the
+  called method <function>getAndSet()</function> is unannotated, it is
+  considered to have the effect <code>writes java.lang.Object:All</code>, and 
+  this becomes the proposed effect declaration for <function>swap()</function>;
+  the effect <code>writes this:Instance</code> from the method call
+  <code>this.set(otherVal)</code> is subsumed by this effect.</para>
+  
+  <para>JSure proposes the effect <code>writes this:Instance</code> for the
+  method <function>getAndSet()</function>.  This inference is very 
+  straightforward: the method reads and writes the field <structfield>value</structfield>
+  of the object referenced by the receiver.  Because a write effect includes
+  the possibility of reading, only a write effect needs to be declared.  The
+  region <structfield>Instance</structfield> is used instead of the field
+  <structfield>value</structfield> to preserve abstraction because the 
+  field is <code>private</code> and the method is <code>public</code>.
+  (See <link linkend="regions">below</link> for more details.)  After we 
+  apply this promise, the class is as follows:
+      
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/simplevar3.png" />
+      </imageobject>
+    </mediaobject>    
+  </para>
+  
+  <para>Reverify the project to get the results
+      
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/simplevar_results2.png" />
+      </imageobject>
+    </mediaobject>    
+  
+  Of particular interest are the results for the constructor at line 6:
+  
+    <itemizedlist>
+      <listitem><para>First we see that <computeroutput>"nothing" is checked
+      by "nothing" at line 6</computeroutput>.  This refers to the fact that
+      the effects, <code>nothing</code>, of the implicit super constructor
+      call are consistent with the declared effects of <code>nothing</code>.
+      The prerequisite assertion for this result is the declared effects of
+      the constructor <function>Object()</function> of class
+      <classname>java.lang.Object</classname>.</para></listitem>
+      
+      <listitem><para>Second, the effect <code>writes this:value</code> that
+      originates from the field initialization at line 8 is ignored (as
+      described above) because the affected region is part of the object
+      being constructed.</para></listitem>
+    </itemizedlist>
+  </para>
+  
+  <para>We also see that the newly declared effects for <function>getAndSet()</function>
+  easily assure.  Furthermore, JSure uses the annotation on
+  <function>getAndSet()</function> when proposing a promise for the 
+  still unannotated <function>swap()</function>.  The <guilabel>Proposed
+  Promises</guilabel> view now shows
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/simplevar_promises2.png" />
+      </imageobject>
+    </mediaobject>
+    
+  The effect <code>writes other:Instance, this:Instance</code> means that the
+  method may write the <structfield>Instance</structfield> region of the
+  object referenced by the <parameter>other</parameter> at the start of the
+  method, as well as the <structfield>Instance</structfield> region of the
+  object referenced by the receiver.  Add the promise to the code, and
+  reverify the project.  The annotation on <function>swap()</function> assures:
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/simplevar_results3.png" />
+      </imageobject>
+    </mediaobject>
+          
+    <itemizedlist>
+      <listitem><para>The method call <code>other.getAndSet(&hellip;)</code>
+      at line 29 has the effect <code>writes other:Instance</code>.  This
+      effect assures against the declared effect <code>writes other:Instance</code>.
+      The results also show the origin of this effect:
+        <orderedlist>
+          <listitem><para>The method <function>getAndSet()</function> is
+          annotated with <code>writes this:Instance</code>.</para></listitem>
+          
+          <listitem><para>In the method call, the formal parameter
+          <parameter>this</parameter> is bound to the variable
+          <parameter>other</parameter>.</para></listitem>
+          
+          <listitem><para>At the point of the method call, the variable
+          <parameter>other</parameter> still refers to the object it refers to
+          at the start of the method call.</para></listitem>
+        </orderedlist>
+      </para></listitem>
+      
+      <listitem><para>The field read <code>this.value</code> at line 29 has
+      the effect <code>reads this:Instance</code> that is assured by the
+      declared effect <code>writes this:Instance</code>.</para></listitem>
+      
+      <listitem><para>The method call <code>this.set(&hellip;)</code>
+      at line 30 has the effect <code>writes this:Instance</code> that also
+      assures against the declared effect <code>writes this:Instance</code>.
+      Again, because this is a method call, the results show the origin
+      of the actual effect:
+        <orderedlist>
+          <listitem><para>The method <function>set()</function> is
+          annotated with <code>writes this:Instance</code>.</para></listitem>
+          
+          <listitem><para>In the method call, the formal parameter
+          <parameter>this</parameter> is bound to the receiver <parameter>this</parameter>
+          of the calling method.</para></listitem>
+        </orderedlist>
+      </para></listitem>
+    </itemizedlist>
+  </para>
+  
+  <para>The class <classname>Var</classname> is now fully annotated with
+  effects declarations and verified against them.  What remains to be 
+  demonstrated is what a <classname>@RegionEffects</classname> assurance
+  failure looks like.  Change the effects annotation on <function>set()</function>
+  to be <code>reads this:Instance</code>:
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/simplevar4.png" />
+      </imageobject>
+    </mediaobject>
+    
+  After reverifying the project, the results will show assurance failures:
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/simplevar_results4.png" />
+      </imageobject>
+    </mediaobject>
+  
+  The method <classname>@RegionEffects</classname> annotation on 
+  <function>set()</function> does not assure because the 
+  effect <code>writes this:Instance</code> is not accounted for by any of
+  the effects in the annotation.  The annotation on method <function>swap()</function>
+  is also marked as unverified, because its assurance depends on the 
+  assurance of <function>set()</function>.  As in the case of unannotated
+  methods, JSure infers a legal, assurable <classname>@RegionEffects</classname>
+  annotation for methods with unverified annotations.  Select the 
+  <guilabel>proposed promise</guilabel> under the unaccounted for effect
+  and select <menuchoice><guimenuitem>Add promise to code&hellip;</guimenuitem></menuchoice> in the
+  contextual menu to replace the annotation with the correct one infered by
+  JSure.
+  </para>
+</sect3>
