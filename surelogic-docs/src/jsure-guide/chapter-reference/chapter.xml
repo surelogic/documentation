@@ -325,9 +325,7 @@
       <guilabel>Uniqueness</guilabel>, and <guilabel>Thread
       effects</guilabel>. There is also a special category for
       warnings and informational results <guilabel>Suggestions and
-      warnings</guilabel>. The specific results are described in
-      detail in <xref
-      linkend="understanding-assurance-output"/>.</para>
+      warnings</guilabel>.</para>
       
       <figure id="fig-status-view">
         <title>The <guilabel>Verification Status</guilabel> view</title>

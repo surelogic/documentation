@@ -73,13 +73,42 @@
 				<listitem>
 					<para><emphasis>New user interface to view library annotations</emphasis>
 						&mdash;
-						TODO</para>
+						The <guilabel>Library Annotation Explorer</guilabel> view has been added to the tool to allow tool users to browse annotations made in XML files about
+						binary libraries&mdash;typically represented as JAR files in Java.</para>
+
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-410-explorer.png" />
+							</imageobject>
+						</mediaobject>
+						
+						<para>The view uses the '&gt;' symbol (similar to source code control systems in Eclipse) to track user changes/additions to the standard annotations that ship
+						with JSure from SureLogic. It is possible to only show user modified annotations by pressing the <emphasis>Show only user-added/modified
+						library annotations</emphasis> toolbar button: <inlinegraphic fileref="images/annotation_delta.gif"/> (shown to the upper-right of the screenshot above).</para>
+						
+						<para>This view appears in the <guilabel>Code Verification</guilabel> perspective, however, tool users may need to reset the perspective
+						or open the view to have it appear when upgrading from a prior release of JSure.</para>
 				</listitem>
 				
 				<listitem>
 					<para><emphasis>New user interface to add/edit library annotations</emphasis>
 						&mdash;
-						TODO</para>
+						A structure editor has been added to the JSure tool to allow the user to
+						edit annotations in XML files about
+						binary libraries&mdash;typically represented as JAR files in Java.</para>
+
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-410-editorObject.png" />
+							</imageobject>
+						</mediaobject>
+						
+						<para>The <emphasis>Editor</emphasis> tab shows a tree of the declarations in the Java type. The
+						user can select an element and right-click to add an annotation. The two other tabs do not
+						allow editing (in this release&mdash;this may change in a future release). When annotations are added to an element the proper
+						XML is automatically created by the editor (this is complex due to the "diff" approach used by JSure for library annotations as discussed below). The <emphasis>Source</emphasis>
+						tab shows the XML file about this type that shipped with JSure from Surelogic. The <emphasis>Diffs</emphasis> tab
+						shows any user changes to the annotations about this type.</para>
 				</listitem>
 				
 				<listitem>
@@ -87,8 +116,7 @@
 						&mdash;
 						The JSure user interface enhancements to support library annotation are discussed above. This section
 						introduces the infrastructural changes that were added to JSure in this release to effectively
-						allow user library annotation over lots of tool releases and manage updates to the standard annotations
-						in the JSure release.
+						allow user library annotation across a series of tool releases and manage updates to the standard annotations.
 					</para>
 					<para>Library annotation refers to the ability to place code annotations in binary libraries&mdash;typically
 					represented as JAR files in Java. The approach used by the JSure tool has been to allow creation of XML
@@ -126,25 +154,22 @@ However, if the tool user uses the XML library annotation editor to</para>
 		The original XML file for <code>java.lang.Object</code> remains unchanged but a new XML file is created in the
 		user's workspace that contains the following XML that tracks what has been changed. This file can be viewed using the <emphasis>Diffs</emphasis>
 		tab in the XML annotation editor.
-		<programlisting>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;package name="java.lang" revision="0"&gt;
-  &lt;class name="Object"&gt;
-    &lt;method name="notify"&gt;
-      &lt;Starts delete="true" dirty="true"&gt;nothing&lt;/Starts&gt;
-      &lt;Vouch dirty="true"&gt;Immutable&lt;/Vouch&gt;
-    &lt;/method&gt;
-  &lt;/class&gt;
-&lt;/package&gt;</programlisting>
+		
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/release-notes-410-diffs.png" />
+		</imageobject>
+	</mediaobject>
+		
 The deletion of the <code>@Starts</code> annotation is noted as well as the new <code>@Vouch</code> annotation. The <code>@Vouch</code>
 annotation is "dirty" in the sense that it isn't in the immutable/standard XML. A '&gt;' symbol in the <guilabel>Library Annotation Explorer</guilabel>
 view is used to point out to the user that a change has been made to the set of standard library annotations released with the JSure tool.</para>
 
-   <mediaobject>
-				<imageobject>
-					<imagedata fileref="images/release-notes-410-explorerObjectNotify.png" />
-				</imageobject>
-	  </mediaobject>
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/release-notes-410-explorerObjectNotify.png" />
+		</imageobject>
+	</mediaobject>
 
 <para>The JSure analysis reads in both the standard/immutable XML as well as any user diff-XML files when it
 performs a verifying analysis of a Java project.</para>
