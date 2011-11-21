@@ -34,5 +34,14 @@
   below, after a brief introduction to declaring simple effects.
   </para>
 
+  <note>
+    <title>This tutorial is incomplete</title>
+
+    <para>This tutorial is a work in progress.  The following section
+    is meant describe the basics of using effects with JSure.  Future
+    sections will describe the rest of the topics listed above, as well
+    as the relationship between effects and the uniqueness analysis.</para>
+  </note>
+  
   <xi:include href="sect3-simplevar.xml"/>
 </sect2>

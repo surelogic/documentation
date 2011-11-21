@@ -7,7 +7,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Understanding JSure Assurance Output</title>
     
-  <para>This chapter descibes using examples the wide variety of
+  <para>This chapter describes using examples the wide variety of
   messages that appear in the JSure assurance output.  The examples used
   in this chapter can be found in the Eclipse projects contained in
   <filename>ResultsExamples.zip</filename> available from the SureLogic

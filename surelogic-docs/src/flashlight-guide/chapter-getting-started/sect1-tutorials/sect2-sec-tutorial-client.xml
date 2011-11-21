@@ -231,11 +231,21 @@
   <para>We can also run queries on the run now.  Double-click on the
   <emphasis>What fields are read by the AWT Event Dispatch Thread and written in
   others?</emphasis> query from the <guilabel>Query Menu</guilabel>.  The
-  results will appear in the <guilabel>Query Results</guilabel> view.  Your
-  screen should appear as shown in <xref
+  results will appear in the <guilabel>Query Results</guilabel> view.  Go ahead
+  and click on the <structfield>f_connectDisconnectButton</structfield> entry.
+  Your screen should appear as shown in <xref
   linkend="fig-tutorial-planetbaron-perspective-ctc1" />.  Query results are
   presented as a table, tree, or tree-table.  This result is a tree-table. The
   result reports the shared non-static fields noted in the run.</para>
+
+  <para>Selecting fields in the query result causes these fields to be
+  highlighted in two views at the bottom of the Flashlight perspective.  The
+  view to the left is the normal Java editor and represents the current state of
+  the source code. The view to the right is an <guilabel>Historical Source
+  Snapshot</guilabel> view that shows you the code as it existed when the
+  program was executed.  This view helps you to understand if the code has
+  evolved since the run you are querying was made.</para>
+
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc1">
     <title>Non-static fields that were observed to be shared in a ChatTestClient run</title>
@@ -246,13 +256,6 @@
     </mediaobject>
   </figure>
 
-  <para>Selecting fields in the query result causes these fields to be
-  highlighted in two views at the bottom of the Flashlight perspective.  The
-  view to the left is the normal Java editor and represents the current state of
-  the source code. The view to the right is an <guilabel>Historical Source
-  Snapshot</guilabel> view that shows you the code as it existed when the
-  program was executed.  This view helps you to understand if the code has
-  evolved since the run you are querying was made.</para>
 
   <para>Select the <structfield>f_connectDisconnectButton</structfield> and
   right-click. This brings up a menu of queries that can be run on this
@@ -261,7 +264,11 @@
   linkend="fig-tutorial-planetbaron-perspective-ctc7" />.  If any other
   ChatTestClient objects had been created and shared their
   <structfield>f_connectDisconnectButton</structfield> with more than one
-  thread, we would see entries for them here as well.
+  thread, we would see entries for them here as well.  Note that while our
+  object is called <code>ChatTestClient-10</code>, the number after the dash may
+  be different for you. In general, the suffix of an object will be different
+  from run to run, as it is randomly assigned at runtime when the object is
+  instantiated.
   </para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc7">
@@ -434,11 +441,9 @@ public static void main(String[] args) {
     </mediaobject>
   </figure>
 
-  <para>You will be prompted once per run to ensure that you really want to
-  delete this Flashlight run data. In both cases check the <guilabel>Delete raw
-  data files from the disk</guilabel> option and press
-  <guibutton>OK</guibutton>. After a short delay the <guilabel>Flashlight
-  Runs</guilabel> view should be empty. It is important to delete old runs to
-  ensure that you free up disk space on your computer.</para>
+  <para>You will be prompted to ensure that you really want to delete this
+  Flashlight run data. Press <guibutton>OK</guibutton>. After a short delay the
+  <guilabel>Flashlight Runs</guilabel> view should be empty. It is important to
+  delete old runs to ensure that you free up disk space on your computer.</para>
 
 </sect2>
