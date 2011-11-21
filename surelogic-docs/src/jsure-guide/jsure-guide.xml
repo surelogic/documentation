@@ -53,6 +53,140 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+    
+    	<section id="sec-jsure-release-4-1-0">
+		<title>JSure version 4.1.0</title>
+		<para>This section describes the 4.1.0 version of the JSure Eclipse
+			client.
+		</para>
+		<section>
+			<title>New and Noteworthy</title>
+
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+
+			<orderedlist>
+				<listitem>
+					<para><emphasis>New user interface to view library annotations</emphasis>
+						&mdash;
+						TODO</para>
+				</listitem>
+				
+				<listitem>
+					<para><emphasis>New user interface to add/edit library annotations</emphasis>
+						&mdash;
+						TODO</para>
+				</listitem>
+				
+				<listitem>
+					<para><emphasis>A "diff" approach to user-provided library annotations</emphasis>
+						&mdash;
+						TODO
+					</para>
+				</listitem>
+
+				<listitem>
+				<para><emphasis>Changes to the upper-bound effects verifying analysis to support uniqueness+from</emphasis>
+					&mdash;
+					The upper-bound effects analysis has been changed to support the
+					<emphasis>uniqueness+from</emphasis>
+					analysis that is under development by SureLogic (this analysis helps JSure better support Java constructs such as iterators).
+					In particular, the following changes to the analysis were made:
+				</para>
+				<orderedlist>
+					<listitem>
+						<para>Effects on a <code>@Borrowed</code> (or <code>@BorrowedInRegion</code>) field are
+							aggregated just as we have always
+							done with <code>@Unique</code> and <code>@UniqueInRegion</code> fields. That is when we have an
+							effect on a region
+							<code>R</code> of an object referenced by the expression <code>e.f</code>, where <code>f</code> is a
+							<code>@Borrowed</code> field, we convert it to an
+							effect on a region <code>Q</code> of the object referenced by the expression <code>e</code>, where <code>Q</code>
+							is determined based on
+							the region mapping associated with the <code>@Borrowed</code> or <code>@BorrowedInRegion</code>
+							annotation.
+						</para>
+					</listitem>
+					<listitem>
+						<para>An error is reported when there is an effect on a region of an
+							object referenced by the expression
+							<code>e.f</code>, where <code>f</code> is <code>@ReadOnly</code> and <code>@Borrowed</code> (or <code>@BorrowedInRegion</code>). This is
+							because a
+							<code>@ReadOnly</code> field cannot be used to mutate the referenced object. Normally the
+							uniqueness flow
+							analysis checks that <code>@ReadOnly</code> references are used correctly, but the
+							uniqueness analysis does
+							not actually model <code>@ReadOnly</code> <code>@Borrowed</code> fields (it would further
+							complicate the state lattice
+							described last month), so the effects assurance must check for this.
+						</para>
+					</listitem>
+					<listitem>
+						<para>A read effect on a region of an object referenced by the
+							expression <code>e.f</code> where <code>f</code> is <code>@Immutable</code> is
+							ignored and not reported; an empty effect is reported instead (see the
+							section below on reporting
+							empty effects). It is not possible to have a write effect via an
+							<code>@Immutable</code> field because that is
+							an erroneous use of the field that is reported by the uniqueness flow
+							analysis.
+						</para>
+					</listitem>
+					<listitem>
+						<para>A read effect on a region of an object referenced by the
+							expression <code>e.f</code> where <code>f</code> is <code>@ReadOnly</code> are
+							degraded to a read effect on the global region <code>Object:All</code>. This is necessary
+							because a
+							<code>@ReadOnly</code> field possibly refers to an object that is also referenced by a
+							<code>@Unique(allowReads=true)</code> field. This object would be aggregated into
+							the state of the
+							object with the <code>@Unique(allowReads=true)</code> field. We do not have knowledge
+							of which
+							object this is, so we must be pessimistic and report that it may read from
+							any object.
+						</para>
+					</listitem>
+				</orderedlist>
+				</listitem>
+				
+				<listitem>
+					<para><emphasis>Improved upper-bound effects verifying analysis results too the tool users (reporting empty effects)</emphasis>
+						&mdash;
+						The effects analysis has been improved so the analysis results report some expressions where "nothing" was affected.
+						These seemingly odd "nothing" reports are necessary because there are many expressions that look to the
+						tool user like they should have an effect&mdash;but that do not.
+						In particular, tool users have often been confused about why a read of a field is not shown to have an
+						effect, only to realize later (or be told by someone else) that the field is declared to be <code>final</code>. Prior to the
+						changes made for this release the effects analysis did not generated a result in a situation like
+						this. Now instead, it generates an explicit effect on "nothing". Furthermore, results showing such an
+						effect report additional evidence as to why there is no effect. Effects on "nothing" are reported in the
+						following situations:</para>
+						<itemizedlist>
+						<listitem><para>When the reference to the object being affected is <code>null</code>. This situation usually comes about
+						when <code>null</code> is used as the actual parameter in a method call, and that method is declared to affect
+						the corresponding formal parameter in some way.</para></listitem>
+						<listitem><para>When the region being affected is a <code>final</code> field.</para></listitem>
+						<listitem><para>When the reference to the object being affected is <code>@Immutable</code>.</para></listitem>
+						<listitem><para>When an effect of the actual implementation of a method is being compared to the declared
+						effects of the method and the effect is on an object created within in the method body. Such
+						effects used to be silently ignored. They are not "interesting" to the verifying analysis because
+						objects created during the method's execution are not visible to the method's caller.</para></listitem>
+						</itemizedlist>
+ 					<para>When a type hierarchy spans multiple Eclipse projects annotation
+						consistency checks were not properly performed in the previous release.
+						This limitation has been fixed in this release.
+					</para>
+					<para>This problem in the previous release was tracked <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=75">here</ulink>.</para>
+				</listitem>
+			</orderedlist>
+		</section>
+		
+		<section>
+			<title>Known Problems</title>
+			<para>The know problems are unchanged from JSure version 4.0.2.</para>
+		</section>
+	</section>
 
 	<section id="sec-jsure-release-4-0-2">
 		<title>JSure version 4.0.2</title>
