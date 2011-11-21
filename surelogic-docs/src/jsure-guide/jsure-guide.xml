@@ -43,7 +43,10 @@
 
   <xi:include href="chapter-getting-started/chapter.xml"/>
 
-  <xi:include href="chapter-understanding-assurance-output/chapter.xml"/>
+  <!-- ************************************************************ /-->
+  <!-- Out of date: Not sure what to replace this with right now. -->
+  <!--xi:include href="chapter-understanding-assurance-output/chapter.xml"/-->
+  <!-- ************************************************************ /-->
 
   <xi:include href="chapter-reference/chapter.xml"/>
 
