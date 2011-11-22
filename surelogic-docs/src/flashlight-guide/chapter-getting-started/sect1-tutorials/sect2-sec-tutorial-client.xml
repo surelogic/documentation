@@ -345,16 +345,21 @@
   <citetitle pubwork="book">Filthy Rich Clients</citetitle><biblioref
   linkend="HaaseGuy07"/>:</para>
 
-  <blockquote><para>Swing's threading model is based on a single rule: The EDT
+  <blockquote><para>Swing's threading model is based on a single rule: The EDT 
   is responsible for executing any method that modifies a component's
   state. This includes any component's constructor.  According to this rule, and
   despite what you can read in many books and tutorials about Swing, the
   <function>main()</function> method in the previous code example is invalid and
   can cause deadlock.</para></blockquote>
 
-  <para>To fix this problem we need to call the ChatTestClient constructor on
-  the EDT. We can do this by changing the <function>main()</function> method to
-  look like the code below.</para>
+  <para>The concurrency policy that Swing uses is called 'thread confinement.'
+  A thread confinement policy doesn't use any sort of explicit locking, but
+  instead demands that all modifications made to the library's internal state
+  happen in the same thread.  Because Swing component constructors can and do
+  make modifications to Swing's internal state, they must be created from the
+  Swing Event Dispatch Thread (EDT).  To fix this problem we need to call the
+  ChatTestClient constructor from the EDT. We can do this by changing the
+  <function>main()</function> method to look like the code below.</para>
 
   <programlisting>
 <![CDATA[

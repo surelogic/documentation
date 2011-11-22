@@ -26,42 +26,25 @@
   <itemizedlist>
     <listitem>
       <formalpara>
-        <title><guimenuitem>Open Flashlight Perspective</guimenuitem></title>
-        <para>This menu choice opens the <guilabel>Flashlight</guilabel>
-        perspective. This perspective is useful for examining and querying
-        collected run data. This perspective may also be opened via the normal
-        Eclipse menus and toolbars for perspectives.</para>
+        <title><guimenuitem>Flashlight</guimenuitem></title>
+        <para>Lets a user rerun a recent Flashlight run configuration or create
+        a new one using the <guilabel>Flashlight Configurations</guilabel>
+        view.</para>
       </formalpara>
     </listitem>
     <listitem>
       <formalpara>
-        <title><guimenuitem>Send Tip for Improvement</guimenuitem></title>
-        <para>This command opens a dialog to allow entry of a suggestion by the
-        user to improve Flashlight. For more information please see <xref
-        linkend="sec-bugs-and-tips"/>.</para>
+        <title><guimenuitem>Import Ant run...</guimenuitem></title>
+        <para>Helps the user to copy a Flashlight run created from one of the
+        Flashlight ant tasks into the data directory, which allows the run to be
+        prepped and inspected.  For more information please see <xref
+        linkend="flashlight-ant-tasks" />.</para>
       </formalpara>
     </listitem>
     <listitem>
       <formalpara>
-        <title><guimenuitem>Send Problem Report</guimenuitem></title>
-        <para>This command opens a dialog to allow entry of a problem report by
-        the user about Flashlight. For more information please see <xref
-        linkend="sec-bugs-and-tips"/>.</para>
-      </formalpara>
-    </listitem>
-    <listitem>
-      <formalpara>
-	<title><guimenuitem>Run Flashlight Tutorials</guimenuitem></title>
-	<para>This command opens a dialog to allow the user to import tutorial
-	projects into their workspace and open the Flashlight help to the step
-	by step tutorials.  For more information please see <xref
-	linkend="sec-tutorial"/>.</para>
-      </formalpara>
-    </listitem>
-    <listitem>
-      <formalpara>
-	<title><guimenuitem>Install Flashlight Ant</guimenuitem></title>
-	<para>Installs the Flashlight Ant tasks to a directory of your choice.
+	<title><guimenuitem>Save Ant Task As...</guimenuitem></title>
+	<para>Saves the Flashlight Ant tasks to a directory of your choice.
 	These tasks are primarily used to collect Flashlight data when a program
 	cannot be launched directly from Eclipse.  For more information please
 	see <xref linkend="flashlight-ant-tasks" />.</para>
@@ -69,12 +52,57 @@
     </listitem>
     <listitem>
       <formalpara>
+        <title><guimenuitem>Open Flashlight Perspective</guimenuitem></title>
+        <para>Opens the <guilabel>Flashlight</guilabel> perspective. This
+        perspective is useful for examining and querying collected run
+        data. This perspective may also be opened via the normal Eclipse menus
+        and toolbars for perspectives.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title><guimenuitem>Infer JSure Annotations...</guimenuitem></title>
+        <para>Opens a dialog that allows the user to infer JSure annotations for
+        a project, based on a completed Flashlight run.  For more information
+        see <xref linkend="flashlight-promises-inference" />.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title><guimenuitem>Send Tip for Improvement</guimenuitem></title>
+        <para>Opens a dialog to allow entry of a suggestion by the user to
+        improve Flashlight. For more information please see <xref
+        linkend="sec-bugs-and-tips"/>.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+        <title><guimenuitem>Send Problem Report</guimenuitem></title>
+        <para>Opens a dialog to allow entry of a problem report by the user
+        about Flashlight. For more information please see <xref
+        linkend="sec-bugs-and-tips"/>.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
+	<title><guimenuitem>Run Flashlight Tutorials</guimenuitem></title>
+	<para>Opens a dialog to allow the user to import tutorial projects into
+	their workspace and open the Flashlight help to the step by step
+	tutorials.  For more information please see <xref
+	linkend="sec-tutorial"/>.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
         <title><guimenuitem>Manage SureLogic Licenses</guimenuitem></title>
-        <para>This command opens the SureLogic license management dialog. This
-        dialog allows the user to install, view, and uninstall licenses for
-        Flashlight and other SureLogic tools. For more information see <xref
+        <para>Opens the SureLogic license management dialog. This dialog allows
+        the user to install, view, and uninstall licenses for Flashlight and
+        other SureLogic tools. For more information see <xref
         linkend="sec-license-management" />.</para>
       </formalpara>
     </listitem>
+  </itemizedlist>
+
+  <itemizedlist>
   </itemizedlist>
 </sect1>
