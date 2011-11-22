@@ -21,8 +21,8 @@
       <orderedlist>
 	<listitem>
 	  <para><emphasis>More Flashlight Queries</emphasis> &mdash; Flashlight
-	  has added a number of new queries that can be used on any prepared
-	  run: </para>
+	  has added two new queries that can be used on any prepared run:
+	  </para>
           <itemizedlist>
             <listitem><para>What fields (non-static) are shared after object
             construction?</para></listitem>
