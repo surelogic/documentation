@@ -37,7 +37,7 @@
   workspace as displayed in <xref
   linkend="fig-tutorial-installing-projects" /> and <xref
   linkend="fig-tutorial-jsure-install" />. Note that the
-  PlanetBaronJSure project will <emphasis>not</emphasis> compile
+  PlanetBaronJSure and SimpleVariable projects will <emphasis>not</emphasis> compile
   without errors until you add the promises JAR file to the project's
   build path (as described below).</para>
 

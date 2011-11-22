@@ -6,8 +6,30 @@
 <sect3 id="simplevar">
   <title>A Simple Variable Class</title>
   
-  <para>Class <classname>Var</classname> in project <application>SimpleVariable</application> in the 
-  <filename>SimpleVariable.zip</filename> tutorial archive declares a simple class
+  <para>In this example we examine <package>SimpleVariable</package>
+  project which was previously loaded into your workspace. To get this project
+  to compile without errors we need to add the promises library to it.</para>
+
+  <para>Add the JSure annotation library to the
+  <application>SimpleVariable</application> project by
+  selecting
+  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
+  Promises Library In Project...</guimenuitem></menuchoice> from the
+  Eclipse main menu.</para>
+
+  <para>In the dialog that appears check the
+  <application>SimpleVariable</application> project and press
+  <guimenuitem>OK</guimenuitem>.</para>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata fileref="images/simplevar-add-jar-dialog.png" />
+      </imageobject>
+    </mediaobject>
+
+   <para>At this point the project is ready to use with JSure.</para>
+  
+  <para>Class <classname>Var</classname> in project <application>SimpleVariable</application> declares a simple class
   that implements an integer variable:
   
     <mediaobject>
@@ -153,7 +175,7 @@
   </para>
   
   <para>We also see that the newly declared effects for <function>getAndSet()</function>
-  easily assure.  Furthermore, JSure uses the annotation on
+  assure.  Furthermore, JSure uses the annotation on
   <function>getAndSet()</function> when proposing a promise for the 
   still unannotated <function>swap()</function>.  The <guilabel>Proposed
   Promises</guilabel> view now shows

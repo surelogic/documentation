@@ -433,14 +433,112 @@
         </mediaobject>
       </figure>
 	</sect2>
+
+	<sect2>
+		<title>The Library Annotation Explorer view</title>
+
+		<para>
+			The
+			<guilabel>Library Annotation Explorer</guilabel>
+			view, as shown in <xref linkend="fig-library-annotation-explorer-view" />, shows any annotations
+			that have been made in an XML file about a binary library&mdash;typically represented as JAR files in Java.
+		</para>
+
+		<figure id="fig-library-annotation-explorer-view">
+			<title>The <guilabel>Library Annotation Explorer</guilabel> view</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/library-annotation-explorer-view.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+
+	<para>The
+		view uses the '&gt;' symbol (similar to source code control systems in
+		Eclipse) to track user changes/additions to the standard annotations
+		that ship
+		with JSure from SureLogic. It is possible to only show user modified
+		annotations by pressing the
+		<emphasis>Show only user-added/modified
+			library annotations</emphasis>
+		toolbar button:
+		<inlinegraphic fileref="images/annotation_delta.gif" />. The view with this filter pressed is shown in
+		<xref linkend="fig-library-annotation-explorer-view-changes-only" />.
+	</para>
+
+		<figure id="fig-library-annotation-explorer-view-changes-only">
+			<title>The <guilabel>Library Annotation Explorer</guilabel> view showing only user-added/modified library annotations</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/library-annotation-explorer-view-changes-only.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<para>Double-clicking on a type or an annotation in this view brings up the XML library annotation editor (described below). Any changes to library annotations are made in this editor&mdash;the
+		<guilabel>Library Annotation Explorer</guilabel> view does not allow the user to perform edits.</para>
+		
+		<para>JSure tracks user library annotation differences across a series of tool releases and manage updates
+		to the standard annotations shipped with each tool release. Users are notified if any of their annotations conflict with the
+		standard library annotations. Warning symbols <inlinegraphic fileref="images/warning.gif" /> will appear in the <guilabel>Library Annotation Explorer</guilabel> view after a tool
+		update if conflicts exist. Each warning can then be examined and fixed by the tool user.</para>
+
+	</sect2>
+	
+	<sect2>
+		<title>The XML Library Annotation editor</title>
+		
+				<para>The <guilabel>XML Library Annotation</guilabel> editor, as shown in <xref
+      linkend="fig-jsure-xml-editor-object"/>, allows the tool user to edit annotations about a binary
+      library&mdash;typically represented as JAR files in Java.</para>
+		
+	  <figure id="fig-jsure-xml-editor-object">
+        <title>The <guilabel>XML Library Annotation</guilabel> editor examining the annotations on java.lang.Objects</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-xml-editor-object.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The editor contains three tabs: <emphasis>Editor</emphasis>, <emphasis>Source</emphasis>, and <emphasis>Diffs</emphasis>.
+      Each of these tab is described below.</para>
+      
+      <itemizedlist>
+	      <listitem><para><emphasis>Editor</emphasis> &mdash; The <emphasis>Editor</emphasis> tab shows a tree of the declarations in the Java type. The
+						user can select an element and right-click to add an annotation. The two other tabs do not
+						allow editing (in this release&mdash;this may change in a future release). When annotations are added to an element the proper
+						XML is automatically created by the editor (this is complex due to the "diff" approach used by JSure for library annotations as discussed below). The <emphasis>Source</emphasis>
+						tab shows the XML file about this type that shipped with JSure from Surelogic. The <emphasis>Diffs</emphasis> tab
+						shows any user changes to the annotations about this type.</para>
+						<para>The user must type in portions of many annotations. If the syntax is obviously wrong the editor with make the text that the user typed red to highlight the problem.
+						Edits can be saved, however, it is likely that saving "red" annotations will result in modeling errors being reported when the next JSure scan is run.</para>
+						<para>A useful menu item on in the editor is to delete all changes to the standard annotations. This allows you to quickly undo any changes you have made
+						to the standard annotations that shipped with JSure.</para>
+						<mediaobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-delete-all.png"/></imageobject>
+        				</mediaobject>
+						</listitem>
+	      <listitem><para><emphasis>Source</emphasis> &mdash; The <emphasis>Source</emphasis> tab displays the XML that represents the standard library annotations
+	      that shipped with JSure. This tab does not allow editing (in this release&mdash;this may change in a future release).</para>
+	      				<mediaobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-source.png"/></imageobject>
+        				</mediaobject>
+        				</listitem>
+	      <listitem><para><emphasis>Diffs</emphasis> &mdash;  The <emphasis>Diffs</emphasis> tab displays the XML that represents the user's edits to the standard library annotations
+	      that shipped with JSure. This tab does not allow editing (in this release&mdash;this may change in a future release).</para>
+	      				<mediaobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-diffs.png"/></imageobject>
+        				</mediaobject>
+        				</listitem>
+      </itemizedlist>
+	</sect2>
 	
 	<sect2>
 		<title>The JSure Quick Search view</title>
 
 		<para>The <guilabel>JSure Quick Search</guilabel> view, as shown in <xref
-      linkend="fig-jsure-quick-search-view.png"/>, shows</para>
+      linkend="fig-jsure-quick-search-view"/>, shows tool results to the tool ueser in a flexible, query-oriented, manner.</para>
 		
-	  <figure id="fig-jsure-quick-search-view.png">
+	  <figure id="fig-jsure-quick-search-view">
         <title>The <guilabel>JSure Quick Search</guilabel> view</title>
         <mediaobject>
           <imageobject><imagedata fileref="images/jsure-quick-search-view.png"/></imageobject>
