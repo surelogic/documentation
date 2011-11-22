@@ -45,6 +45,13 @@
           <para>For documentation on these queries and others, see <xref
           linkend="query-reference" />.</para>
 	</listitem>
+        <listitem>
+          <para><emphasis>Support for Hibernate</emphasis> &mdash; Prior to this
+          release, JPA/Hibernate entities had to be manually excluded from
+          instrumentation in any Flashlight run configuration.  Flashlight now
+          works correctly with applications that make use of Hibernate even when
+          all classes are instrumented by Flashlight.</para>
+        </listitem>
       </orderedlist>
     </sect2>
     <sect2>
