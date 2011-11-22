@@ -6,7 +6,7 @@
 <sect3 id="simplevar">
   <title>A Simple Variable Class</title>
   
-  <para>In this example we examine <package>SimpleVariable</package>
+  <para>In this example we examine <application>SimpleVariable</application>
   project which was previously loaded into your workspace. To get this project
   to compile without errors we need to add the promises library to it.</para>
 

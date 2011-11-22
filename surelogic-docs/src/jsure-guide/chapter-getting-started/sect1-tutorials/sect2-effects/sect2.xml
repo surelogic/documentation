@@ -38,10 +38,28 @@
     <title>This tutorial is incomplete</title>
 
     <para>This tutorial is a work in progress.  The following section
-    is meant describe the basics of using effects with JSure.  Future
+    is meant to describe the basics of using effects with JSure.  Future
     sections will describe the rest of the topics listed above, as well
     as the relationship between effects and the uniqueness analysis.</para>
   </note>
   
   <xi:include href="sect3-simplevar.xml"/>
+  
+  <sect3 id="advanced">
+    <title>Advanced Effects Examples</title>
+    
+    <para>The tutorial archive <application>AdvancedEffectsExamples</application>
+    contains examples of using <code>@RegionEffect</code> annotations in more
+    advanced situations:
+    
+      <itemizedlist>
+        <listitem><para>Methods with read and write effects.</para></listitem>
+        <listitem><para>Effects on static fields.</para></listitem>
+        <listitem><para>Effects on referenced objects, including arrays.</para></listitem>
+        <listitem><para>Effects on inner class objects.</para></listitem>
+        <listitem><para>Declaring abstract regions.</para></listitem>
+        <listitem><para>Effect declarations and method overriding.</para></listitem>
+      </itemizedlist>
+    </para>
+  </sect3>
 </sect2>
