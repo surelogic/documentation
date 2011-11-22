@@ -215,7 +215,9 @@
     </figure>
 
     <para>A modeling problem indicates a syntactic or semantic problem
-    with an annotation that has been added to the code. This modeling
+    with an annotation that has been added to the code. Double-clicking
+    on the one modeling problem will open the <classname>Thing</classname> class in the
+    Java editor. This modeling
     problem is related to the visibility of <code>f_lock</code>, the
     lock specified in the <structfield>ThingLock</structfield> locking
     model. That is, the visibility of the field that references the lock
@@ -289,6 +291,11 @@ public abstract class Thing {
    * Protects the state of this object including state added by subclasses.
    */
   <emphasis>protected final ReadWriteLock f_lock = new ReentrantReadWriteLock();</emphasis>
+
+  @ReturnsLock("ThingLock")
+  public final ReadWriteLock getThingLock() {
+    return f_lock;
+  }
 }</programlisting>
 
     The lock <structfield>ThingLock</structfield> associates the lock
