@@ -9,12 +9,11 @@
   
   <para>In this tutorial we walk through the complete assurance of the
   <application>BoundedFIFOJSure</application> project using JSure.
-  Specifically, we assure both the implementation and
-  <emphasis>usage</emphasis> of a simple class.  That is, we
-  demonstrate that is not always enough to assure the implementation
-  of a class: <emphasis>sometimes the clients of a class must conform
-  to a specific behavior as well</emphasis>. This example focuses on
-  two classes (plus one auxiliary class):
+  Specifically, we assure both the implementation and <emphasis>usage</emphasis>
+  of a simple class.  That is, we demonstrate that it's not always enough to
+  assure the implementation of a class: <emphasis>sometimes the clients of a
+  class must conform to a specific behavior as well</emphasis>. This example
+  focuses on two classes (plus one auxiliary class):
   
     <itemizedlist>
       <listitem>
