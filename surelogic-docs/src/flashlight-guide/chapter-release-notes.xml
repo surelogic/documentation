@@ -13,13 +13,44 @@
 
   <sect1>
     <title>Flashlight version 4.1.0</title>
-    <para>This section describes the 4.0.2 version of Flashlight.</para>
+    <para>This section describes the 4.1.0 version of Flashlight.</para>
     <sect2>
       <title>New and Noteworthy</title>
-      <para>Flashlight is unchanged since the previous release.</para>
+      <para>This section describes new and noteworthy features in this
+      version of Flashlight.</para>
+      <orderedlist>
+	<listitem>
+	  <para><emphasis>More Flashlight Queries</emphasis> &mdash; Flashlight
+	  has added a number of new queries that can be used on any prepared
+	  run: </para>
+          <itemizedlist>
+            <listitem><para>What fields (non-static) are shared after object
+            construction?</para></listitem>
+            <listitem><para>What individual instances of this non-static field
+            are shared after object construction?</para></listitem>
+          </itemizedlist>
+          <para>These queries consider only fields that are shared between more
+          than one thread and are modified after object construction.  A common
+          thread-safe pattern is to construct an object in one thread and then
+          pass it safely to one or more threads that only read the object.
+          These new queries are often more useful to the user than the 'What
+          fields (non-static) are shared?' query because they exclude object
+          created in this fashion.  It is worth mentioning that not all fields
+          excluded from the new queries are safely published.  The queries also
+          excludes potentially dangerous fields that are only read after object
+          construction, but were written and read by multiple threads during
+          object construction.  To view these fields, users should continue
+          using the query 'What fields are accessed by multiple threads during
+          object construction?'</para>
+          <para>For documentation on these queries and others, see <xref
+          linkend="query-reference" />.</para>
+	</listitem>
+      </orderedlist>
     </sect2>
     <sect2>
       <title>Known Problems</title>
+      <para>This section describes known bugs and limitations in this
+      version of Flashlight.</para>
       <itemizedlist>
 	<listitem>
 	  <para>
