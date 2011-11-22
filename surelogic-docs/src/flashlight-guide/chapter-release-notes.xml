@@ -37,7 +37,7 @@
           fields (non-static) are shared?' query because they exclude object
           created in this fashion.  It is worth mentioning that not all fields
           excluded from the new queries are safely published.  The queries also
-          excludes potentially dangerous fields that are only read after object
+          exclude potentially dangerous fields that are only read after object
           construction, but were written and read by multiple threads during
           object construction.  To view these fields, users should continue
           using the query 'What fields are accessed by multiple threads during
