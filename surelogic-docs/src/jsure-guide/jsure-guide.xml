@@ -62,6 +62,10 @@
 		<para>This section describes the 4.1.1 version of the JSure Eclipse
 			client.</para>
 			
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.</para>
 			<orderedlist>
 				<listitem>
 					<para><emphasis>Fixed view to examine library annotations</emphasis>
@@ -77,10 +81,6 @@
 						<para>This problem in the previous release was tracked <ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=78">here</ulink>.</para>
 				</listitem>
 				</orderedlist>
-		<section>
-			<title>New and Noteworthy</title>
-			<para>This section describes new and noteworthy features in this
-				version of JSure.</para>
 		</section>
 
 		<section>
