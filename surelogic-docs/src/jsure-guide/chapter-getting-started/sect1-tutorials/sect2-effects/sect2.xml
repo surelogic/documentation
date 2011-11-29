@@ -44,6 +44,8 @@
   </note>
   
   <xi:include href="sect3-simplevar.xml"/>
+
+  <xi:include href="sect3-unique.xml"/>
   
   <sect3 id="advanced">
     <title>Advanced Effects Examples</title>

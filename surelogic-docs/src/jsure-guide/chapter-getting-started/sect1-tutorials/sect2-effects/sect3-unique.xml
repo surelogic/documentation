@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect3 id="unique">
+  <title>Effects and Uniqueness</title>
+  
+  <para>While annotating effects on classes documents worthwhile design intent
+  in its own right, the most immediate reason you may need to add 
+  <classname>@RegionEffects</classname> annotations to a class is because of 
+  <classname>@Unique</classname> fields.  Consider the classes in the 
+  <application>UniqueAndEffects</application> tutorial project.  (Add this
+  project to your workspace and add the promises library to it.)  The main 
+  class <classname>Example</classname> contains a single uniquely referenced
+  integer array.  The need for effects arises when the reference in the array
+  is passed as an actual parameter in a method call, as in the method 
+  <function>doStuff1()</function>:
+  
+    <programlisting>public class Example {
+  @Unique
+  private int[] values;
+  
+  // ...
+  
+  public int doStuff1() {
+    return Util.sum(values);
+  }
+}</programlisting>
+  
+  where the method <function>Util.sum()</function> has a
+  <classname>@Borrowed</classname> parameter:
+  
+    <programlisting>public class Util {
+  public static int sum(@Borrowed final int[] array) {
+    int sum = 0;
+    for (final int v : array) {
+      sum += v;
+    }
+    return sum;
+  }
+  
+  // ...
+}</programlisting>
+  </para>
+  
+  <para>When these classes are assured, the method <function>doStuff1()</function>
+  fails to assure:
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/effects_unique_result1.png" />
+      </imageobject>
+    </mediaobject>
+  
+  We have the error message <computeroutput>Unique field values, made
+  undefined by evaluating the actual arguments, may be read as an effect of 
+  the call unique.Util.sum(this.values)</computeroutput>.  Basically, analysis
+  determines that it is possible that executing the method call will cause
+  the field <structfield>values</structfield> to be read.  But how does it 
+  determine this, and why does it matter?</para>
+  
+  <para>The field <structfield>values</structfield> is declared to be unique.  
+  Unique assurance thus requires that the object referenced by the field is
+  never accessible by another reference.  When the field is passed as an actual
+  parameter to a method, the field becomes <emphasis>aliased</emphasis> if the 
+  formal parameter is <classname>@Borrowed</classname>; otherwise it becomes
+  <emphasis>undefined</emphasis> according to the normal rules of using a unique field.  
+  In either case, assurance needs to determine if the called method may read 
+  from the field whose reference was passed as a formal parameter.  In the case
+  of a <classname>@Borrowed</classname> parameter, the field would be
+  aliased during the method call because the object it referenced would be
+  used by the method under two names: that of the field and that of the
+  formal parameter.  In the non-<classname>@Borrowed</classname> case, the 
+  method would end of reading from an undefined field because there is no
+  way to assign the field a new value after it is read as an actual parameter
+  but before the method is invoked.  Analysis uses the declared effects of the
+  called method to determine if it may read the unique field.  Because the
+  method <function>sum()</function> is unannotated, it is treated as being
+  able to read or write any object, and thus it is possible it could read the
+  field <structfield>values</structfield> of the receiver.</para>
+  
+  <para>It is obvious by looking at the body of the method <function>sum()</function>
+  that the only state it reads is the contents of the array referenced by
+  its argument <parameter>array</parameter>.  We can eliminate the uniqueness assurance
+  failure by annotating the method with
+  <code>@RegionEffects("reads array:Instance")</code>.  You can do this manually
+  or by adding the proposed promise from the <guilabel>Proposed Promises</guilabel> 
+  view.  The classes should look like the following
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/effects_unique_code1.png" />
+      </imageobject>
+    </mediaobject>  
+  
+  After reverifying the project, the method <function>doStuff1()</function>
+  assures:  
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/effects_unique_result2.png" />
+      </imageobject>
+    </mediaobject>
+  </para>
+  
+  <para>The method <function>doStuff2()</function> exists to demonstrate the 
+  same issue but with a non-<classname>@Borrowed</classname> formal parameter:
+  it calls the method <function>nonBorrowedSum()</function>.  The try&ndash;finally
+  block is necessary to make sure that the field <structfield>values</structfield>
+  is made defined in the case that calling the method <function>nonBorrowedSum()</function>
+  causes an exception to be thrown.  The field must be defined on exit of
+  <function>doStuff2()</function>, or else uniqueness analysis will raise an
+  error.  In this case, we still see that we have the same error invoking
+  <function>nonBorrowedSum()</function> as we did invoking
+  <function>sum()</function>:
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/effects_unique_result3.png" />
+      </imageobject>
+    </mediaobject>
+  
+  This can be fixed the same way: by adding <code>@RegionEffects("reads array:Instance")</code>
+  to the method <function>nonBorrowedSum()</function>.  It can also be fixed 
+  by rewriting the <function>doStuff2()</function> to reassign a value to
+  <structfield>values</structfield> <emphasis>before</emphasis> the method call
+  is made.  This also elimates the need for the unsightly try&ndash;finally:
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/effects_unique_code2.png" />
+      </imageobject>
+    </mediaobject>  
+  
+  After making the above change, the verification results are
+  
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/effects_unique_result4.png" />
+      </imageobject>
+    </mediaobject>
+  </para>
+</sect3>
