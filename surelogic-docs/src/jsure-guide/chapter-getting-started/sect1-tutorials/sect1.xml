@@ -50,6 +50,44 @@
     </mediaobject>
   </figure>
 
+	<note>
+		<title>Several of the imported projects will not compile in Eclipse</title>
+
+		<para>The projects will not compile without errors until you add the Promises
+		Library JAR into the build path of each project. A few of the tutorial projects, such as BoundedFIFOJSure,
+		compile without errors because no annotations have been placed into the projects yet.</para>
+	</note>
+    
+    <para>Next, we need to add the
+    SureLogic annotation types in the package <package>com.surelogic</package>
+    to each tutorial project's class path.  This is most easily done
+    by allowing JSure to do it for us:
+    
+    <orderedlist>
+      <listitem>
+	<para>Select
+	<menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
+	Promises Library in Project...</guimenuitem></menuchoice> from
+	the Eclipse menu.</para>
+      </listitem>
+      <listitem>
+	<para>Press <application>Select All</application> in the
+	dialog which appears. If you did not start with an empty Eclipse
+	workspace, you may want to uncheck any of your own projects that appear in this dialog.
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/tutorial-add-promises-jar.png" />
+	  </imageobject>
+	</mediaobject>
+
+	Then press <guilabel>OK</guilabel> to add the promises JAR to
+	each project's classpath.</para>
+      </listitem>
+    </orderedlist>
+
+    All the tutorial projects should now compile without errors.</para>
+
   <xi:include href="sect2-boundedfifo.xml"/>
   
   <xi:include href="sect2-planetbaron.xml"/>

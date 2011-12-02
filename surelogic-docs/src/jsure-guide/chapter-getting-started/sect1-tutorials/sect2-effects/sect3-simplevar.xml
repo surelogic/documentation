@@ -7,28 +7,8 @@
   <title>A Simple Variable Class</title>
   
   <para>In this example we examine <application>SimpleVariable</application>
-  project which was previously loaded into your workspace. To get this project
-  to compile without errors we need to add the promises library to it.</para>
+  project which was previously loaded into your workspace.</para>
 
-  <para>Add the JSure annotation library to the
-  <application>SimpleVariable</application> project by
-  selecting
-  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
-  Promises Library In Project...</guimenuitem></menuchoice> from the
-  Eclipse main menu.</para>
-
-  <para>In the dialog that appears check the
-  <application>SimpleVariable</application> project and press
-  <guimenuitem>OK</guimenuitem>.</para>
-
-    <mediaobject>
-      <imageobject>
-	<imagedata fileref="images/simplevar-add-jar-dialog.png" />
-      </imageobject>
-    </mediaobject>
-
-   <para>At this point the project is ready to use with JSure.</para>
-  
   <para>Class <classname>Var</classname> in project <application>SimpleVariable</application> declares a simple class
   that implements an integer variable:
   

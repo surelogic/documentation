@@ -12,35 +12,10 @@
   current <package>java.util.concurrent</package> library. This code
   is located in the <application>oswego.util.concurrent</application>
   project which was previously loaded into your workspace.</para>
-
-  <para>Add the JSure annotation library to the
-  <application>oswego.util.concurrent</application> project by
-  selecting
-  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
-  Promises Library In Project...</guimenuitem></menuchoice> from the
-  Eclipse main menu.</para>
-
-    <mediaobject>
-      <imageobject>
-	<imagedata fileref="images/util-concurrent-add-jar.png" />
-      </imageobject>
-    </mediaobject>
-
-  <para>In the dialog that appears check the
-  <application>oswego.util.concurrent</application> project and press
-  <guimenuitem>OK</guimenuitem>.</para>
-
-    <mediaobject>
-      <imageobject>
-	<imagedata fileref="images/util-concurrent-add-jar-dialog.png" />
-      </imageobject>
-    </mediaobject>
-
-   <para>At this point the project is ready to use with JSure.</para>
   
   <para>The class <classname>SynchronizedVariable</classname> is the
   parent class of several thread-safe wrapper classes.  We can view
-  this hierachy in Eclipse by
+  this hierarchy in Eclipse by
   
     <orderedlist>
       <listitem>
@@ -66,6 +41,9 @@
       </imageobject>
     </mediaobject>
   </figure>
+  
+  <sect3>
+    <title>Declaring Protected State For Type Hierarchy</title>
 
   <para>In this example we model the locking policy of
   <classname>SynchronizedVariable</classname> and its subclasses. Open
@@ -164,7 +142,12 @@ public class SynchronizedVariable implements Executor {
   
   to <function>SynchronizedVariable()</function> and 
   <function>SynchronizedLong(long)</function>.</para>
+  
+  <para>Scan the project with JSure.</para>
+  </sect3>
 
+	<sect3>
+	<title>An Implementation Bug</title>
   <para>Scan the project with JSure. It is curious that there is still one
   unprotected field access. Note that the <guilabel>JSure Quick
   Search</guilabel> immediately updates to show the remaining
@@ -259,6 +242,7 @@ public class SynchronizedVariable implements Executor {
       </imageobject>
     </mediaobject>
   </para>   
+  </sect3>
 
-  <para>You are now finished with this tutorial. Good luck using JSure on your own code.</para>
+  <para>You are now finished with this tutorial.</para>
 </sect2>

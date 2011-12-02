@@ -58,40 +58,6 @@
   of state using the annotations <classname>@Region</classname>,
   <classname>@InRegion</classname>, and <classname>@UniqueInRegion</classname>.</para>
   
-  <sect3>
-    <title>Adding the SureLogic Annotation Types to the Project</title>
-    
-    <para>Before we can add annotations to the project's code, we need to add the
-    SureLogic annotation types in the package <package>com.surelogic</package>
-    to the project's class path.  This is most easily done
-    by allowing JSure to do it for us:
-    
-    <orderedlist>
-      <listitem>
-	<para>Select
-	<menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
-	Promises Library in Project...</guimenuitem></menuchoice> from
-	the Eclipse menu.</para>
-      </listitem>
-      <listitem>
-	<para>Check <application>BoundedFIFOJSure</application> in the
-	dialog which appears.
-
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/add-promises-to-boundedfifo.png" />
-	  </imageobject>
-	</mediaobject>
-
-	Then press <guilabel>OK</guilabel> to add the promises JAR to
-	the <application>BoundedFIFOJSure</application> project's
-	classpath.</para>
-      </listitem>
-    </orderedlist>
-
-    We do not need to scan the project with JSure at this time.</para>
-  </sect3>
-  
   <sect3 id="declaring-protected-state">
     <title>Declaring Protected State</title>
     

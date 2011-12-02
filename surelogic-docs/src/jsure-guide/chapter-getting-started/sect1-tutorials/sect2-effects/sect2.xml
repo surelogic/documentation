@@ -63,18 +63,6 @@
         <listitem><para>Effect declarations and method overriding.</para></listitem>
       </itemizedlist>
       
-      Add the JSure annotation library to the
-      <application>AdvancedEffectsExamples</application> project by
-       selecting
-      <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
-       Promises Library In Project...</guimenuitem></menuchoice> from the
-        Eclipse main menu.</para>
-
-	  <para>In the dialog that appears check the
-	  <application>AdvancedEffectsExamples</application> project and press
-	  <guimenuitem>OK</guimenuitem>.</para>
-	  
-	<para>
 	The listing below contains the only class, <classname>Examples</classname>, in the project.
 	
 	<programlisting>

@@ -12,31 +12,7 @@
   <application>PlanetBaron</application>.  It will use the tutorial
   project <application>PlanetBaronJSure</application>.</para>
 
-  <para>The <application>PlanetBaronJSure</application> does not
-  compile because it already contains JSure annotations. Add the
-  needed annotation library by selecting
-  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
-  Promises Library In Project...</guimenuitem></menuchoice> from the Eclipse main menu.</para>
-
-    <mediaobject>
-      <imageobject>
-	<imagedata fileref="images/planetbaron-add-jar.png" />
-      </imageobject>
-    </mediaobject>
-
-  <para>In the dialog that appears check only the
-  <application>PlanetBaronJSure</application> project and press
-  <guimenuitem>OK</guimenuitem>.</para>
-
-    <mediaobject>
-      <imageobject>
-	<imagedata fileref="images/tutorial-add-jar-dialog.png" />
-      </imageobject>
-    </mediaobject>
-
-   <para>At this point the project should compile without errors.</para>
-
-  <para>Next, scan the <application>PlanetBaronJSure</application>
+  <para>Scan the <application>PlanetBaronJSure</application>
   project with JSure. To do this choose
   <menuchoice><guimenu>JSure</guimenu> <guisubmenu>Verify
   Project</guisubmenu></menuchoice> from the Eclipse main menu. You
