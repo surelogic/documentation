@@ -24,7 +24,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 4.1.1&mdash;December 2011</pubdate>
+    <pubdate>Version 4.2.0&mdash;December 2011</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -3103,56 +3103,61 @@ if (o == null) {
     released version of Sierra.</para>
     
     <section>
-		<title>Sierra version 4.0.2</title>
-		<para>This section describes the 4.0.2 version of Sierra.</para>
-		<section>
-			<title>New and Noteworthy</title>
+      <title>Sierra version 4.0.2</title>
+      <para>This section describes the 4.0.2 version of Sierra.</para>
+      <section>
+	<title>New and Noteworthy</title>
 
-			<para>This section describes new and noteworthy features in this
-				version of Sierra.
-			</para>
-			<orderedlist>
-				<listitem><para><emphasis>Test code can be excluded from a scan using a property file</emphasis>
-				&mdash;
-				It is now possible to exclude test code from a Sierra scan
-      by creating a <filename>surelogic-tools.properties</filename> file at the root of each project
-      that contains test code.
-      
-      <mediaobject>
-				<imageobject>
-					<imagedata fileref="images/release-notes-402-surelogic-tools-file.png" />
-				</imageobject>
+	<para>This section describes new and noteworthy features in this version
+	of Sierra.
+	</para>
+	<orderedlist>
+	  <listitem><para><emphasis>Test code can be excluded from a scan using a property file</emphasis>
+	  &mdash;
+	  It is now possible to exclude test code from a Sierra scan by creating
+	  a <filename>surelogic-tools.properties</filename> file at the root of
+	  each project that contains test code.
+          
+          <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/release-notes-402-surelogic-tools-file.png" />
+	    </imageobject>
 	  </mediaobject>
-      
-      For example, the screenshot above shows the use of the <filename>surelogic-tools.properties</filename>
+          
+          For example, the screenshot above shows the use of the <filename>surelogic-tools.properties</filename>
 	  to exclude the <filename>test</filename> source folder of <application>timingframework-core</application> Java project. 
-      For more information on how to setup a <filename>surelogic-tools.properties</filename> file
-      see <xref linkend="sec-surelogic-tool-properties-file"/>.</para>
-      
-      <para>A limitation of this feature that the exclusions are not saved for each scan. This limitation
-      can make it difficult to determine
-      the exclusions used for a scan if the <filename>surelogic-tools.properties</filename> file is frequently
-      changed. It is therefore recommended that this file be kept as stable as possible.</para>
-      </listitem>
-      
-      	<listitem><para><emphasis>If a scan crashes the tool will prompt to send a scan failure report to SureLogic</emphasis>
-	&mdash; If a Sierra scan crashes or any sort of analysis problem is detected the tool will prompt the user to send
-	a scan failure report to SureLogic.
-	
-	<mediaobject>
-				<imageobject>
-					<imagedata fileref="images/release-notes-402-scan-crash.png" />
-				</imageobject>
+          For more information on how to setup a <filename>surelogic-tools.properties</filename> file
+          see <xref linkend="sec-surelogic-tool-properties-file"/>.</para>
+          
+          <para>A limitation of this feature that the exclusions are not saved
+          for each scan. This limitation can make it difficult to determine the
+          exclusions used for a scan if the
+          <filename>surelogic-tools.properties</filename> file is frequently
+          changed. It is therefore recommended that this file be kept as stable
+          as possible.</para>
+          </listitem>
+          
+      	  <listitem><para><emphasis>If a scan crashes the tool will prompt to
+      	  send a scan failure report to SureLogic</emphasis> &mdash; If a Sierra
+      	  scan crashes or any sort of analysis problem is detected the tool will
+      	  prompt the user to send a scan failure report to SureLogic.
+	  
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/release-notes-402-scan-crash.png" />
+	    </imageobject>
 	  </mediaobject>
 	  
-	  This type of report includes a log of the verifying analysis scan (other problem reports typically
-	  include the Eclipse log) to help SureLogic pinpoint the problem. The log can be examined and edited before it is sent
-	  to SureLogic. Further, it can be saved to a file or printed.
-	
-	</para></listitem>
-      </orderedlist>
+	  This type of report includes a log of the verifying analysis scan
+	  (other problem reports typically include the Eclipse log) to help
+	  SureLogic pinpoint the problem. The log can be examined and edited
+	  before it is sent to SureLogic. Further, it can be saved to a file or
+	  printed.
+	  
+	  </para></listitem>
+        </orderedlist>
       </section>
-      </section>
+    </section>
     
     <section>
 		<title>Sierra version 4.0.1</title>
