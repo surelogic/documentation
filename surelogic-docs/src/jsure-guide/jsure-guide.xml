@@ -56,6 +56,70 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+    
+    	<section id="sec-jsure-release-4-2-0">
+		<title>JSure version 4.2.0</title>
+		<para>This section describes the 4.2.0 version of the JSure Eclipse
+			client.</para>
+			
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.</para>
+			<orderedlist>
+				<listitem>
+					<para><emphasis>Enhanced library annotation editor</emphasis>
+						&mdash;
+						The library annotation editor was added to the tool in JSure 4.1.0
+						to allow tool users to browse annotations made in XML files about
+						binary libraries&mdash;typically represented as JAR files in Java.</para>
+						
+						<para>The editor has been enhanced in this release. The textual labels on annotations
+						now more closely match the annotation in Java code. In addition, a dialog editor, shown in the screenshot below, replaces
+						the complex in-place editing.</para>
+						
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-420-editUnique.png" />
+							</imageobject>
+						</mediaobject>
+						
+						<para>The new dialog-based editing is more flexible and allows full control of all attributes 
+						of the annotation. The previous in-place editing approach did not allow modification of boolean
+						attributes on the annotation, such as the <guilabel>allowRead</guilabel> attribute shown in the dialog above).</para>
+						
+						<para>We have also added the ability to revert edits on a single annotation to the
+						baseline shipped from SureLogic.</para>
+				</listitem>
+				
+				<listitem>
+					<para><emphasis>Search dialog added to open the Library Annotation Editor on any type</emphasis>
+						&mdash;
+						Selecting the <inlinegraphic fileref="images/open_xml_type.gif"/> <guilabel>Open Library Annotations...</guilabel> option from the
+						JSure main menu or the view menu (or toolbar) of the <guilabel>Library Annotation Explorer</guilabel> opens a dialog similar to the Eclipse
+						<guilabel>Open Type</guilabel> dialog. This allows you to search all the types known to Eclipse and open one of them in the library
+						annotation editor.</para>
+						
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-420-openXML.png" />
+							</imageobject>
+						</mediaobject>
+						
+						<para>This capability makes it easy to get into the library annotation editor on any
+						type. This was difficult to do in the previous release because the <guilabel>Library Annotation Explorer</guilabel>
+						view only shows	types that currently have annotations. It is also possible to open the library annotation editor from the
+						<guilabel>JSure</guilabel> context menu on class files and types in many standard Eclipse Java views, however, this new
+						search dialog is far more discoverable by tool users.</para>
+				</listitem>
+				</orderedlist>
+		</section>
+
+		<section>
+			<title>Known Problems</title>
+			<para>There are no know problems in this JSure version.</para>
+		</section>
+	</section>
 
 	<section id="sec-jsure-release-4-1-1">
 		<title>JSure version 4.1.1</title>
