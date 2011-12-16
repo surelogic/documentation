@@ -317,12 +317,13 @@ public class BoundedFIFO {
     methods in the class, so we could quickly add the annotations
     without too much work.  We can also take advantage of the
     <guilabel>Proposed Promises</guilabel> view to have JSure add
-    these promises for us.  If we sort the view by its first column
+    these promises for us.  First, we would put the view in table mode by unpressing the <inlinegraphic fileref="images/java_decls_tree.gif"/> icon
+    in the view's tool bar (or unselecting <inlinegraphic fileref="images/java_decls_tree.gif"/> <guilabel>Show Proposals
+    In Java Declaration Tree</guilabel> in the view's menu). In the table view of the proposed promises, if we sort the view by its first column
     (by clicking on the column header) we can see that the view
     proposes seven <classname>RequiresLock</classname> annotations.
     We can have JSure add these to the code by selecting them all and
-    choosing <menuchoice><guimenuitem>Add promises to
-    code&hellip;</guimenuitem></menuchoice>:
+    choosing <menuchoice><guimenuitem>Annotate Code&hellip;</guimenuitem></menuchoice>:
     
       <mediaobject>
         <imageobject>
@@ -543,8 +544,8 @@ public void put(LoggingEvent e) {
     </para>
 
     <para>Select the <classname>@Unique("return")</classname> annotation
-    in the view and choose <menuchoice><guimenuitem>Add promises to
-    code&hellip;</guimenuitem></menuchoice> from the context menu.  An Eclipse
+    in the view and choose <menuchoice><guimenuitem>Annotate
+    Code&hellip;</guimenuitem></menuchoice> from the context menu.  An Eclipse
     refactoring dialog appears:
     
       <mediaobject>
