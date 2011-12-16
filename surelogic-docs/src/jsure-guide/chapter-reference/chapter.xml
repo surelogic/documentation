@@ -762,7 +762,25 @@
 						<para>The user must type in portions of many annotations. If the syntax is obviously wrong the editor with make the text that the user typed red to highlight the problem.
 						Edits can be saved, however, it is likely that saving "red" annotations will result in modeling errors being reported when the next JSure scan is run.</para>
 						
-						<para>To add an annotation bring up the context menu on any Java declaration and select <guilabel>Add Annotation...</guilabel>.</para>
+						<para>To add an annotation bring up the context menu on any Java declaration and select <guilabel>Add Annotation...</guilabel>.
+						Note that if you want to add an annotation to a method or constructor parameter you
+						must expand the tree and select the paramenter (a sub-item of the method or constructor).</para>
+						<mediaobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-add-annotation.png"/></imageobject>
+        				</mediaobject>
+        				<para>This will bring up a dialog, shown below, to allow you to select the annotation you want add to the declaration.</para>
+        				<mediaobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-add-annotation-dialog.png"/></imageobject>
+        				</mediaobject>
+        				
+        				<para>To edit the attributes on an annotation bring up the context menu and select <guilabel>Edit Annotation...</guilabel> or
+        				double-click on the annotation. This will bring up a dialog that allows you to edit all
+        				attributes of the annotation. This dialog for a <code>@Unique</code>
+        				annotation is shown below</para>
+        				<mediaobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-attributes-dialog.png"/></imageobject>
+        				</mediaobject>
+        				
 						<para>A useful context menu item on in the editor is to <guilabel>Revert All Changes</guilabel> to the standard annotations. This allows you to quickly undo any changes you have made
 						to the standard baseline annotations that shipped with JSure.</para>
 						<mediaobject>
