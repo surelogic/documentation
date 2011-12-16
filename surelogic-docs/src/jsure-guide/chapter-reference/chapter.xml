@@ -521,7 +521,7 @@
         </mediaobject>
       </figure>
       
-            <para>The view&rsquo;s toolbar has three command icons:
+            <para>The view&rsquo;s toolbar has four command icons:
         <itemizedlist>
 
           <listitem>
@@ -570,7 +570,7 @@
         </mediaobject>
       </figure>
       
-      <para>The view&rsquo;s menu has three commands; see <xref
+      <para>The view&rsquo;s menu has four commands; see <xref
       linkend="fig-proposed-promises-menu"/>:
       <itemizedlist>
 	<listitem>
@@ -659,6 +659,78 @@
 		to the standard annotations shipped with each tool release. Users are notified if any of their annotations conflict with the
 		standard library annotations. Warning symbols <inlinegraphic fileref="images/warning.gif" /> will appear in the <guilabel>Library Annotation Explorer</guilabel> view after a tool
 		update if conflicts exist. Each warning can then be examined and fixed by the tool user.</para>
+		
+		            <para>The view&rsquo;s toolbar has three command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
+              <para>This button collapses all the nodes in the Java declaration tree.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/annotation_delta.gif"/></guiicon></title>
+              <para>Toggling this button controls if the view is filtered to shown only types that the user has added
+	    annotations to or modified baseline annotations. Basline or
+	    standard annotaions are shipped with JSure from SureLogic. JSure explicitly tracks changes to the baseline annotations.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/open_xml_type.gif"/></guiicon></title>
+              <para>Selecting this button opens a search dialog, shown in
+            <xref linkend="fig-save-promises-library-as-dialog"/>, to let the user
+            search for the type that they want to open in the library annotation editor. This command is
+            most useful for opening types that have no annotations and, therefore, are not listed in
+            the <guilabel>Library Annotation Explorer</guilabel> view. This menu item is also on the JSure main menu.</para>
+            </formalpara>            
+          </listitem>
+        </itemizedlist>
+      </para>
+
+      <figure id="fig-library-annotation-explorer-menu">
+        <title>The <guilabel>Library Annotation Explorer</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/library-annotation-explorer-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has three commands; see <xref
+      linkend="fig-library-annotation-explorer-menu"/>:
+      <itemizedlist>
+	<listitem>
+	  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/> Collapse All</guiicon></title>
+	    <para>Selecting this menu item collapses all the nodes in the Java declaration tree.</para>
+	  </formalpara>            
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/annotation_delta.gif"/> Show Only User-Added/Modified Library Annotations</guiicon></title>
+	    <para>Toggling this menu item controls if the view is filtered to shown only types that the user has added
+	    annotations to or modified baseline annotations. Basline or
+	    standard annotaions are shipped with JSure from SureLogic. JSure explicitly tracks changes to the baseline annotations.</para>
+	  </formalpara>
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/open_xml_type.gif"/> Open Library Annotations...</guiicon></title>
+	    <para>Selecting this menu item opens a search dialog, shown in
+            <xref linkend="fig-save-promises-library-as-dialog"/>, to let the user
+            search for the type that they want to open in the library annotation editor. This command is
+            most useful for opening types that have no annotations and, therefore, are not listed in
+            the <guilabel>Library Annotation Explorer</guilabel> view. This menu item is also on the JSure main menu.</para>
+	  </formalpara>
+	</listitem>
+	
+      </itemizedlist>
+      </para>      
+		
 
 	</sect2>
 	
@@ -670,34 +742,37 @@
       library&mdash;typically represented as JAR files in Java.</para>
 		
 	  <figure id="fig-jsure-xml-editor-object">
-        <title>The <guilabel>XML Library Annotation</guilabel> editor examining the annotations on java.lang.Objects</title>
+        <title>The <guilabel>XML Library Annotation</guilabel> editor showing the annotations on java.lang.Object</title>
         <mediaobject>
           <imageobject><imagedata fileref="images/jsure-xml-editor-object.png"/></imageobject>
         </mediaobject>
       </figure>
       
-      <para>The editor contains three tabs: <emphasis>Editor</emphasis>, <emphasis>Source</emphasis>, and <emphasis>Diffs</emphasis>.
+      <para>The editor contains three tabs: <emphasis>Editor</emphasis>, <emphasis>Baseline</emphasis>, and <emphasis>Diffs</emphasis>.
       Each of these tab is described below.</para>
       
       <itemizedlist>
 	      <listitem><para><emphasis>Editor</emphasis> &mdash; The <emphasis>Editor</emphasis> tab shows a tree of the declarations in the Java type. The
 						user can select an element and right-click to add an annotation. The two other tabs do not
 						allow editing (in this release&mdash;this may change in a future release). When annotations are added to an element the proper
-						XML is automatically created by the editor (this is complex due to the "diff" approach used by JSure for library annotations as discussed below). The <emphasis>Source</emphasis>
+						XML is automatically created by the editor (this is complex due to the "diff" approach used by JSure for library annotations as discussed below). The <emphasis>Baseline</emphasis>
 						tab shows the XML file about this type that shipped with JSure from Surelogic. The <emphasis>Diffs</emphasis> tab
 						shows any user changes to the annotations about this type.</para>
+						
 						<para>The user must type in portions of many annotations. If the syntax is obviously wrong the editor with make the text that the user typed red to highlight the problem.
 						Edits can be saved, however, it is likely that saving "red" annotations will result in modeling errors being reported when the next JSure scan is run.</para>
-						<para>A useful menu item on in the editor is to delete all changes to the standard annotations. This allows you to quickly undo any changes you have made
-						to the standard annotations that shipped with JSure.</para>
+						
+						<para>To add an annotation bring up the context menu on any Java declaration and select <guilabel>Add Annotation...</guilabel>.</para>
+						<para>A useful context menu item on in the editor is to <guilabel>Revert All Changes</guilabel> to the standard annotations. This allows you to quickly undo any changes you have made
+						to the standard baseline annotations that shipped with JSure.</para>
 						<mediaobject>
-          					<imageobject><imagedata fileref="images/jsure-xml-editor-delete-all.png"/></imageobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-revert-all-changes.png"/></imageobject>
         				</mediaobject>
 						</listitem>
-	      <listitem><para><emphasis>Source</emphasis> &mdash; The <emphasis>Source</emphasis> tab displays the XML that represents the standard library annotations
+	      <listitem><para><emphasis>Baseline</emphasis> &mdash; The <emphasis>Baseline</emphasis> tab displays the XML that represents the standard library annotations
 	      that shipped with JSure. This tab does not allow editing (in this release&mdash;this may change in a future release).</para>
 	      				<mediaobject>
-          					<imageobject><imagedata fileref="images/jsure-xml-editor-source.png"/></imageobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-baseline.png"/></imageobject>
         				</mediaobject>
         				</listitem>
 	      <listitem><para><emphasis>Diffs</emphasis> &mdash;  The <emphasis>Diffs</emphasis> tab displays the XML that represents the user's edits to the standard library annotations
