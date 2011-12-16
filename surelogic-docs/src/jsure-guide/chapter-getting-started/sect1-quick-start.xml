@@ -235,7 +235,7 @@
       sense to JSure. This view lists each bad annotation so that the
       programmer can fix them. If the icon for a report in the view is <inlinegraphic fileref="images/annotation_error_proposed.gif"/>
       (note the + to the upper-right) then JSure "thinks" it can resolve the modeling problem with an automatic edit. Select the
-      problem and select <menuchoice><guimenu>Annotate
+      problem and choose <menuchoice><guimenu>Annotate
       Code To Fix...</guimenu></menuchoice> from the view's context
       menu and the tool will automatically fix the modeling problem. The edit is previewed before it is made to the code.</para>
 

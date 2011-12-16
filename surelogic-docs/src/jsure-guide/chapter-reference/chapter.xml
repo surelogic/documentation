@@ -482,7 +482,7 @@
       </para>      
     </sect2>
 
-	<sect2>
+	<sect2 id="ref-proposed-promise-view">
 		<title>The Proposed Promises view</title>
 
 		<para>The <guilabel>Proposed Promises</guilabel> view, as shown in <xref

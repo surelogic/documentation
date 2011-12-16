@@ -112,6 +112,45 @@
 						<guilabel>JSure</guilabel> context menu on class files and types in many standard Eclipse Java views, however, this new
 						search dialog is far more discoverable by tool users.</para>
 				</listitem>
+				
+				<listitem>
+					<para><emphasis>Tool proposals to fix modeling problems</emphasis>
+						&mdash;
+						Modeling problems in the <guilabel>Modeling Problems</guilabel> view identified
+						by <inlinegraphic fileref="images/annotation_error_proposed.gif"/>
+						(note the + to the upper-right) now can be resolved with an automatic edit. Select the
+					    problem and choose <menuchoice><guimenu>Annotate
+					    Code To Fix...</guimenu></menuchoice> from the view's context
+					    menu and the tool will automatically fix the modeling problem. The edit is previewed before it is made to the code.</para>
+						
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-420-fixProblem.png" />
+							</imageobject>
+						</mediaobject>
+						
+						<para>This capability was driven by modeling problems introduced by adding library annotations that cause annotation
+						consistency problems in the source code. Typically, the tool wants a consistent annnotation placed in the source code
+						but the problem description does not convey this requirement clearly. By proposing the fix as an automatic edit
+						to the source code it makes the tool's desire clear to the tool user.</para>
+				</listitem>
+				
+				<listitem>
+					<para><emphasis>The Proposed Promise view can display proposals in the context of a Java declaration tree</emphasis>
+						&mdash;
+						The tabular view used by the  <guilabel>Proposed promise</guilabel> view did not scale well to large numbers of proposals.
+						A tree mode has been added to this view to allow the user to view the propoals in the context of the targeted Java declarations. This new
+						tree mode is the default view, however, the tool user can toggle between this mode and the older tabular mode.</para>
+						
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-420-treeProposedPromises.png" />
+							</imageobject>
+						</mediaobject>
+						
+						<para>This capability was driven to help "scale up" the view to manage large numbers of proposals by JSure. In addition, filtering capabilities
+						have been added to the view. These capabilities are described fully in <xref linkend="ref-proposed-promise-view"/>.</para>
+				</listitem>
 				</orderedlist>
 		</section>
 
