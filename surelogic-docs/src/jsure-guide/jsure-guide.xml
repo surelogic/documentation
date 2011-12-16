@@ -139,7 +139,7 @@
 					<para><emphasis>The Proposed Promise view can display proposals in the context of a Java declaration tree</emphasis>
 						&mdash;
 						The tabular view used by the  <guilabel>Proposed promise</guilabel> view did not scale well to large numbers of proposals.
-						A tree mode has been added to this view to allow the user to view the propoals in the context of the targeted Java declarations. This new
+						A tree mode has been added to this view to allow the user to view the proposals in the context of the targeted Java declarations. This new
 						tree mode is the default view, however, the tool user can toggle between this mode and the older tabular mode.</para>
 						
 						<mediaobject>
