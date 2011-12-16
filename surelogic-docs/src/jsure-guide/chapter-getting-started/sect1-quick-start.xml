@@ -237,7 +237,7 @@
       (note the + to the upper-right) then JSure "thinks" it can resolve the modeling problem with an automatic edit. Select the
       problem and select <menuchoice><guimenu>Annotate
       Code To Fix...</guimenu></menuchoice> from the view's context
-      menu and the tool will automatically fix the modeling problem.</para>
+      menu and the tool will automatically fix the modeling problem. The edit is previewed before it is made to the code.</para>
 
       <para>The <guilabel>Verification Status</guilabel> view is
       divided into sections to show the results of assuring different
@@ -327,7 +327,7 @@
       tool will automatically add these to the code if you select the
       proposal and select <menuchoice><guimenu>Annotate
       Code...</guimenu></menuchoice> from the view's context
-      menu. The view presents its proposals in either a tree, showing
+      menu. The edit is previewed before it is made to the code. The view presents its proposals in either a tree, showing
       the proposal in the contex of the Java declaration it will annotate,
       or a simple table. The proposals listed in this view can save time in modeling,
       however, you should double

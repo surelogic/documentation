@@ -76,6 +76,26 @@
             </mediaobject>
           </figure>
         </listitem>
+        
+         <listitem>
+          <formalpara>
+            <title><guimenuitem>Open Library Annotations...</guimenuitem></title>
+            <para>This command, similar to the Java <guilabel>Open Type</guilabel> search, allows the
+            tool user to open any type in the JSure library annotation editor. 
+            A dialog, shown in
+            <xref linkend="fig-save-promises-library-as-dialog"/>, is opened to let the user to
+            search for the type that they want to open in the library annotation editor. This command is
+            most useful for opening types that have no annotations and, therefore, are not listed in
+            the <guilabel>Library Annotation Explorer</guilabel> view.</para>
+          </formalpara>
+          
+          <figure id="fig-open-library-annotations-dialog">
+            <title><guimenuitem>The Open Library Annotations search dialog</guimenuitem></title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/open-library-annotations-dialog.png"/></imageobject>
+            </mediaobject>
+          </figure>
+        </listitem>
   
         <listitem>
           <formalpara>
@@ -311,7 +331,63 @@
 	
 	<para>Double-clicking on a modeling problem will open the Java editor and
 	the <guilabel>JSure Historical Source</guilabel> view to the problem annotation.</para>
+	
+	<para>If the icon for a reported modeling problem is <inlinegraphic fileref="images/annotation_error_proposed.gif"/>
+      (note the + to the upper-right) then JSure "thinks" it can resolve the modeling problem with an automatic edit. Select the
+      problem and select <menuchoice><guimenu>Annotate
+      Code To Fix...</guimenu></menuchoice> from the view's context (or press <inlinegraphic fileref="images/annotation_proposed.gif"/> on the view's toolbar)
+      menu and the tool will automatically fix the modeling problem as shown in <xref
+      linkend="fig-modeling-problems-view-context-menu"/>. The edit is previewed before it is made to the code.</para>
+      
+      <figure id="fig-modeling-problems-view-context-menu">
+        <title>The <guilabel>Modeling Problems</guilabel> view context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/modeling-problems-view-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>Selecting a
+      problem and choosing <menuchoice><guimenu>Copy</guimenu></menuchoice> from the view's context
+      menu will copy the text of the problem to the clipboard so that it can be pasted into an email or any other program.</para>
 
+       <para>The view&rsquo;s toolbar has one command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/annotation_proposed.gif"/></guiicon></title>
+              <para>This button automatically edits the code to try and resolve the selected modeling problem.
+              The edit is previewed before it is made to the code. Not all modeling problems have
+              automatic fixes. If the problem's icon is <inlinegraphic fileref="images/annotation_error_proposed.gif"/> it has an automatic fix. If
+              the problem's icon is <inlinegraphic fileref="images/annotation_error.gif"/> it must be fixed manually.</para>
+            </formalpara>            
+          </listitem>
+
+        </itemizedlist>
+      </para>
+      
+       <figure id="fig-modeling-problems-view-menu">
+        <title>The <guilabel>Modeling Problems</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/modeling-problems-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+            <para>The view&rsquo;s menu has one command; see <xref
+      linkend="fig-jsure-scans-view-menu"/>:
+      <itemizedlist>
+	<listitem>
+	  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/annotation_proposed.gif"/> Annotate Code To Fix...</guiicon></title>
+	    <para>Selecting this menu item automatically edits the code to try and resolve the selected modeling problem.
+	    The edit is previewed before it is made to the code. Not all modeling problems have
+              automatic fixes. If the problem's icon is <inlinegraphic fileref="images/annotation_error_proposed.gif"/> it has an automatic fix. If
+              the problem's icon is <inlinegraphic fileref="images/annotation_error.gif"/> it must be fixed manually.</para>
+	  </formalpara>            
+	</listitem>
+      </itemizedlist>
+      </para> 
     </sect2>
     
     <sect2>
@@ -415,23 +491,124 @@
       proposed annotations are inferred from other annotations in the code.</para>
 		
 	  <figure id="fig-proposed-promises-view">
-        <title>The <guilabel>Proposed Promises</guilabel> view</title>
+        <title>The <guilabel>Proposed Promises</guilabel> view in tree mode</title>
         <mediaobject>
           <imageobject><imagedata fileref="images/proposed-promises-view.png"/></imageobject>
         </mediaobject>
       </figure>
       
-      <para>To add a proposed annotation to the code select one or more
-      rows in the view and select <guilabel>Add Promises To Code&hellip;</guilabel>
+      <para>The proposals can be displayed as a tree or as a table using the <inlinegraphic fileref="images/java_decls_tree.gif"/> button on
+      the toolbar (or view menu) to toggle between the two views. The tree view is shown in
+      <xref linkend="fig-proposed-promises-view"/> and is more scalable to very large numbers of proposals. The
+      table view is shown in <xref linkend="fig-proposed-promises-view-table"/> and can be useful for sorting proposals by type of annotations.</para>
+      
+      <figure id="fig-proposed-promises-view-table">
+        <title>The <guilabel>Proposed Promises</guilabel> view in table mode</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/proposed-promises-view-table.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>To add a proposed annotation to the code select one or more <inlinegraphic fileref="images/annotation_proposed.gif"/>
+      proposals in the view and select <guilabel>Annotate Code&hellip;</guilabel>
       as shown in <xref
       linkend="fig-proposed-promises-context-menu"/>. The edit is previewed before it is made to the code.</para>
       
       <figure id="fig-proposed-promises-context-menu">
-        <title>The <guilabel>Proposed Promises</guilabel> view context menu</title>
+        <title>The <guilabel>Proposed Promises</guilabel> view context menu adding two proposals to the code</title>
         <mediaobject>
           <imageobject><imagedata fileref="images/proposed-promises-context-menu.png"/></imageobject>
         </mediaobject>
       </figure>
+      
+            <para>The view&rsquo;s toolbar has three command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
+              <para>This button collapses all the nodes in the Java declaration tree. It is not
+              selectable if the view is showing the tabular view of the proposals.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/annotation_proposed.gif"/></guiicon></title>
+              <para>This button automatically annotates all the selected proposals into the code.
+              The edit is previewed before it is made to the code.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/java_decls_tree.gif"/></guiicon></title>
+              <para>Toggling this button controls if the view is shown as a tree or a table. When pressed the
+              proposals are shown in the context of a Java declaration tree. When unpressed the proposals are shown in a
+              table.</para>
+            </formalpara>            
+          </listitem>
+          
+           <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/annotation_abductive.gif"/></guiicon></title>
+              <para>Toggling this button filters the proposals shown in this view. When pressed the view
+              only displays proposals inferred from other annotations or proposals that resolve a modeling problem.
+              For example, proposals for <code>@RegionEffects</code> annotations from unannotated code are filtered out. When
+              unpressed all proposals from the scan are shown in the view.</para>
+            </formalpara>            
+          </listitem>
+
+
+        </itemizedlist>
+      </para>
+
+      <figure id="fig-proposed-promises-menu">
+        <title>The <guilabel>Proposed Promises</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/proposed-promises-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has three commands; see <xref
+      linkend="fig-proposed-promises-menu"/>:
+      <itemizedlist>
+	<listitem>
+	  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/> Collapse All</guiicon></title>
+	    <para>Selecting this menu item collapses all the nodes in the Java declaration tree. It is not
+              selectable if the view is showing the tabular view of the proposals.</para>
+	  </formalpara>            
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/annotation_proposed.gif"/> Annotate Code...</guiicon></title>
+	    <para>Selecting this menu item automatically annotates all the selected proposals into the code.
+              The edit is previewed before it is made to the code.</para>
+	  </formalpara>
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/java_decls_tree.gif"/> Show Proposals In Java Declaration Tree</guiicon></title>
+	    <para>Toggling this menu item controls if the view is shown as a tree or a table. When pressed the
+              proposals are shown in the context of a Java declaration tree. When unpressed the proposals are shown in a
+              table.</para>
+	  </formalpara>
+	</listitem>
+	
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/annotation_abductive.gif"/> Show Only Proposals Inferred From Other Promises</guiicon></title>
+	    <para>Toggling this menu item filters the proposals shown in this view. When pressed the view
+              only displays proposals inferred from other annotations or proposals that resolve a modeling problem.
+              For example, proposals for <code>@RegionEffects</code> annotations from unannotated code are filtered out. When
+              unpressed all proposals from the scan are shown in the view.</para>
+	  </formalpara>
+	</listitem>
+      </itemizedlist>
+      </para>      
+      
 	</sect2>
 
 	<sect2>
