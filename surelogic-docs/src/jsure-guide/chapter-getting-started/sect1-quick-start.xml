@@ -233,7 +233,11 @@
       <para>The <guilabel>Modeling Problems</guilabel> view which
       tells you if any of the annotations in your code do not make
       sense to JSure. This view lists each bad annotation so that the
-      programmer can fix them.</para>
+      programmer can fix them. If the icon for a report in the view is <inlinegraphic fileref="images/annotation_error_proposed.gif"/>
+      (note the + to the upper-right) then JSure "thinks" it can resolve the modeling problem with an automatic edit. Select the
+      problem and select <menuchoice><guimenu>Annotate
+      Code To Fix...</guimenu></menuchoice> from the view's context
+      menu and the tool will automatically fix the modeling problem.</para>
 
       <para>The <guilabel>Verification Status</guilabel> view is
       divided into sections to show the results of assuring different
@@ -321,11 +325,20 @@
       code. The tool uses your existing annotations and the
       verification results to generate this list of proposals. The
       tool will automatically add these to the code if you select the
-      proposal and select <menuchoice><guimenu>Add Promises to
+      proposal and select <menuchoice><guimenu>Annotate
       Code...</guimenu></menuchoice> from the view's context
-      menu. This can save time in modeling, however, you should double
+      menu. The view presents its proposals in either a tree, showing
+      the proposal in the contex of the Java declaration it will annotate,
+      or a simple table. The proposals listed in this view can save time in modeling,
+      however, you should double
       check that the proposed promise represents actual design intent
       about your code.</para>
+      
+      <para>The <guilabel>Library Annotation Explorer</guilabel> view shows
+      all the annotations made on library code, binary code in Jar files, via special JSure XML files that indirectly
+      annotate this code.
+      You can examine these annotations and use them to open the library annotation editor (an editor
+      provided by JSure) to add/modify annotations on Jar files.</para>
 
       <para>The <guilabel>JSure Quick Search</guilabel> view allows
       you to query the scan results in an ad hoc manner. You can setup
