@@ -20,7 +20,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 4.2.0&mdash;December 2011</pubdate>
+    <pubdate>Version 4.2.1&mdash;January 2012</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -56,6 +56,36 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+
+	<section id="sec-jsure-release-4-2-1">
+		<title>JSure version 4.2.1</title>
+		<para>This section describes the 4.2.1 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Scan crash on multiple proposals on a declaration fixed</emphasis>
+						&mdash;
+						The 4.2.0 release could crash on a scan of code that resulted in
+						multiple proposed promises
+						on a single Java declaration. This problem has been fixed in this release.</para>
+
+					<para>This problem in the previous release was tracked
+						<ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=81">here</ulink>.</para>
+				</listitem>
+			</orderedlist>
+		</section>
+		<section>
+			<title>Known Problems</title>
+			<para>There are no know problems in this JSure version.</para>
+		</section>
+	</section>
     
     	<section id="sec-jsure-release-4-2-0">
 		<title>JSure version 4.2.0</title>
@@ -156,7 +186,25 @@
 
 		<section>
 			<title>Known Problems</title>
-			<para>There are no know problems in this JSure version.</para>
+			<para>This section describes known problems in this
+				version of JSure.</para>
+			
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Scan crash may occur if multiple proposals are made to a declaration</emphasis>
+						&mdash;
+						This release could crash on a scan of code that resulted in
+						multiple proposed promises
+						on a single Java declaration. These proposals are made by the tool and
+						cannot be controlled by the user. In some cases the scan will complete but the
+						<guilabel>Proposed Promises</guilabel> view will report a sorting exception and fail.
+						Upgrade to the 4.2.1 release to resolve this problem.</para>
+
+					<para>This problem in this release was tracked
+						<ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=81">here</ulink>.</para>
+				</listitem>
+			</orderedlist>
 		</section>
 	</section>
 
