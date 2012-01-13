@@ -1007,6 +1007,16 @@
 	</formalpara>
       </listitem>
       
+      <listitem>
+	<formalpara>
+	  <title><guibutton>Allow the user to select the set of projects to update the promises library even when projects are selected in the Package Explorer</guibutton></title>
+
+	  <para>If this is checked then the project selection dialog is always shown when <guilabel>Add/Update Promises Library in Project</guilabel> is selected in the
+	  <guilabel>JSure</guilabel> menu. If it is not checked it is only displayed
+	  if no projects are selected in the <guilabel>Package Explorer</guilabel> view.</para>
+	</formalpara>
+      </listitem>
+      
             <listitem>
 	<formalpara>
 	  <title><guibutton>Always save editors before verifying</guibutton></title>
