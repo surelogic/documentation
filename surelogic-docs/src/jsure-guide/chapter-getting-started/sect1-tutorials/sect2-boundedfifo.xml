@@ -187,9 +187,19 @@ public class BoundedFIFO {
     build a verification judgment (consistent or inconsistent) about
     each of your annotations.</para>
     
-    <para>By digging into the <guilabel>Concurrency</guilabel> results, we
-    find that with this single annotation, assurance by JSure produces
-    two main concurrency results, mostly indicating that the
+    <para>By digging into the <guilabel>Concurrency</guilabel> results, we see
+        two results. First, notice that the lock model <computeroutput>java.lang.Object.MUTEX</computeroutput> is initially unassured.
+        This intrinsic lock model is declared on <classname>java.lang.Object</classname> and
+        defines to the need to hold a lock when invoking the <code>wait()</code> and <code>notify()</code>
+        methods on any Java object.  The lock model declares <code>this</code>, the object itself, as the
+        lock that protects the wait–notify queue, and requires that the lock be held before the
+        <code>wait()</code> and <code>notify()</code> methods may be invoked.  The fact that this model is unassured
+        indicates that somewhere in the code JSure is unable to prove that a lock is held on an object that either
+        <code>wait()</code> or <code>notify()</code> is invoked on. We will discover this finding to be accurate later in this tutorial.</para>
+    
+    <para>Second, we note the
+    single annotation we added to the code. Verification of this annotation by JSure produces
+    a concurrency result indicating that the
     annotation is <emphasis>not</emphasis> assured, and a few
     warnings.  There are 27 unprotected field accesses for
     <structfield>BufLock</structfield>, and no protected field
@@ -429,6 +439,13 @@ public void put(LoggingEvent e) {
 }
       </programlisting>
     </para>
+    
+    <para>Indeed, this problem is why the <computeroutput>java.lang.Object.MUTEX</computeroutput> lock model has remained unassured.
+        Notice that <code>fifo.notify()</code>  is called within the synchronized block.
+        The <computeroutput>java.lang.Object.MUTEX</computeroutput> lock model declares the object itself (in this case <code>fifo</code>) as the
+        lock that protects the wait–notify queue, and requires that the lock be held before the
+        <code>wait()</code> and <code>notify()</code> methods may be invoked.  The verification state of this model
+        also hinted that the wrong lock was being acquired in the code. This code change will allow the <computeroutput>java.lang.Object.MUTEX</computeroutput> lock model to assure.</para>
     
     <para>Make this change to <filename>BlockingFIFO.java</filename>
     and run another JSure scan using the keyboard shortcut
