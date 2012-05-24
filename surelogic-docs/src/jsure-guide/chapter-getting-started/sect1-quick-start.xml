@@ -319,7 +319,13 @@
 	</tgroup>
       </informaltable>
 
-      <para>The <guilabel>Proposed Promises</guilabel> view lists
+      <para>The <guilabel>Library Annotation Explorer</guilabel> view shows
+      all the annotations made on library code, binary code in Jar files, via special JSure XML files that indirectly
+      annotate this code.
+      You can examine these annotations and use them to open the library annotation editor (an editor
+      provided by JSure) to add/modify annotations on Jar files.</para>
+      
+      <para>The <guilabel>Proposed Annotations</guilabel> view lists
       annotations, also called <emphasis>promises</emphasis> about
       your code, that the tool has inferred you may want to add to your
       code. The tool uses your existing annotations and the
@@ -334,12 +340,11 @@
       check that the proposed promise represents actual design intent
       about your code.</para>
       
-      <para>The <guilabel>Library Annotation Explorer</guilabel> view shows
-      all the annotations made on library code, binary code in Jar files, via special JSure XML files that indirectly
-      annotate this code.
-      You can examine these annotations and use them to open the library annotation editor (an editor
-      provided by JSure) to add/modify annotations on Jar files.</para>
-
+      <para>The <guilabel>Library Annotation</guilabel> view shows
+      all the annotations the tool acknowledged during a scan. This includes all annotations directly on the source code as
+      well as annotations indriectly made on library code via special JSure XML files. This view changes to reflect the
+      selected scan. This view is helpful to ensure that an annotation you expect to exist was, in fact, seen by the tool.</para>
+      
       <para>The <guilabel>JSure Quick Search</guilabel> view allows
       you to query the scan results in an ad hoc manner. You can setup
       a series of filters on the results to focus on the particular

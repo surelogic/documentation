@@ -29,9 +29,8 @@
   <para>These tutorials assume that you have installed JSure. If you
   see a <guimenu>JSure</guimenu> menu item on your Eclipse main menu
   than you can assume it has been installed properly.  To follow along
-  with the tutorials you will also need to add the BoundedFIFOJsure
-  and PlanetBaronJSure projects to your workspace.  From the Eclipse
-  main menu, choose
+  with the tutorials you will also need to add the tutorial projects to
+  your workspace.  From the Eclipse main menu, choose
   <menuchoice><guimenu>JSure</guimenu><guimenuitem>Run JSure
   Tutorials</guimenuitem></menuchoice> and add the projects to your
   workspace as displayed in <xref
@@ -54,7 +53,7 @@
 		<title>Several of the imported projects will not compile in Eclipse</title>
 
 		<para>The projects will not compile without errors until you add the Promises
-		Library JAR into the build path of each project. A few of the tutorial projects, such as BoundedFIFOJSure,
+		Library JAR into the build path of each project. A few of the tutorial projects, such as <classname>JSureTutorial_BoundedFIFO</classname>,
 		compile without errors because no annotations have been placed into the projects yet.</para>
 	</note>
     
