@@ -751,14 +751,27 @@ public class BoundedFIFO {
     the minimum visibility necessary for this region because the fields
     we have populated it with have that same visibility.  If we tried to
     declare the region to be <code>private</code>, JSure would report a
-    modeling error.  It would make more sense, however, for the
-    region and fields to be declared as <code>private</code>; in this
+    modeling error because all the fields are of &ldquo;default&rdquo; visibility.
+    To see this change the <classname>@Region</classname> annotation to
+    <classname>@Region("<emphasis>private</emphasis> BufState")</classname> and scan
+    the project again. The expected modeling errors about field visibility will
+    appear to the upper-right as shown below.
+       <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo13.png"/>
+        </imageobject>
+      </mediaobject>
+    </para>
+    
+    <para>It would make more sense, however, for the
+    region and fields in <classname>BoundedFIFO</classname> to be
+    declared <code>private</code>; in this
     case there is no reason for them to be visible to other classes. 
     This prevents, for example, a subclass from adding additional fields
     to the region&mdash;because the region is not visible to
     subclasses&mdash;and interfering with the design intent.
     
-      <programlisting>@Region("<emphasis>private</emphasis> BufState")
+      <programlisting>@Region("private BufState")
 @RegionLock("BufLock is this protects BufState")
 @Promise("@RequiresLock(BufLock) for *(**)")
 public class BoundedFIFO {
