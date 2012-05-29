@@ -13,6 +13,44 @@
 
 
   <sect1>
+    <title>Flashlight version 4.3.0</title>
+    <para>This section describes the 4.3.0 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <orderedlist>
+        <listitem>
+          <para>
+            <emphasis>Support for Android</emphasis> &mdash; Flashlight can now
+            instrument and launch Android applications from Eclipse.  See <xref
+            linkend="flashlight-android" /> for more details.
+          </para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+    <sect2>
+      <title>Known Problems</title>
+      <para>This section describes known bugs and limitations in this
+      version of Flashlight.</para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <emphasis>Bad interaction with Spring's AOP libraries..</emphasis>
+	    &mdash; Applications making use of Spring's AOP facilities may
+	    encounter a <classname>LinkageError</classname> when running
+	    Flashlight.  At this point in time, we do not know exactly what
+	    causes this, but the problem occurs when both the
+	    <package>org.spring.framework.aop</package> and
+	    <package>com.springsource.org.aspectj.weaver</package> jars are
+	    instrumented.  The best workaround for thie problem is to deselect
+	    these jars from the <guilabel>Instrumentation</guilabel> tab in the
+	    <guilabel>Flashlight Configurations</guilabel> view.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+
+  <sect1>
     <title>Flashlight version 4.2.0</title>
     <para>This section describes the 4.2.0 version of Flashlight.</para>
     <sect2>
@@ -33,7 +71,7 @@
 	    causes this, but the problem occurs when both the
 	    <package>org.spring.framework.aop</package> and
 	    <package>com.springsource.org.aspectj.weaver</package> jars are
-	    instrumented.  The best workaround for thie problem is to deselect
+	    instrumented.  The best workaround for this problem is to deselect
 	    these jars from the <guilabel>Instrumentation</guilabel> tab in the
 	    <guilabel>Flashlight Configurations</guilabel> view.
 	  </para>

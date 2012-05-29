@@ -22,6 +22,12 @@
       <programlisting><![CDATA[<uses-permission android:name="android.permission.INTERNET"/>]]></programlisting>
       <para>The <guilabel>Android Manifest Editor</guilabel> also allows you to
       add this permession in the <guilabel>Permissions</guilabel> tab.</para>
+      <figure id="fig-android-permissions">
+        <title>Configure the application's permissions</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/android-permissions.png"/></imageobject>
+        </mediaobject>
+      </figure>
     </formalpara>
     <formalpara>
       <title>Launch The Application</title>
@@ -60,6 +66,12 @@
       the program running and manually terminate the instrumentation using the
       runtime console.
     </para>
+      <figure id="fig-android-app-manager">
+        <title>Terminating the application from the Application Monitor</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/android-app-manager.png"/></imageobject>
+        </mediaobject>
+      </figure>
 
     <figure id="fig-android-stop">
       <title>Terminating Flashlight Instrumentation from the Runtime Console</title>
