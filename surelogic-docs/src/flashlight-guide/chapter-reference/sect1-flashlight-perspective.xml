@@ -302,19 +302,28 @@
       </informalfigure>
     </sect3>
     <sect3>
-      <title>Flashlight Monitor View</title>
+      <title>Monitor</title>
       <para>
-        The Monitor View provides access to the an instrumented program'sn
-        runtime monitoring data.
+        The <guilabel>Monitor View</guilabel> provides access to the an
+        instrumented program's runtime monitoring data.  It is not open in the
+        Flashlight perspective by default.
       </para>
+      <informalfigure id="fig-flashlight-monitor-view">
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/flashlight-monitor-view.png" />
+	  </imageobject>
+	</mediaobject>
+      </informalfigure>
       <para>
-        The Fields tab displays all of the fields in the program known to
-        Flashlight, and their current status in the monitor.  The status of a
-        field is indicated by its color.  In order to make it easier to sift
-        through the data, packages and classes that contain only unobserved
-        fields are displayed with a gray background.  Packages and classes
-        containing any other type of fields are displayed with the default white
-        background.  Currently, fields may have the following status:        
+        The <emphasis><guilabel>Fields</guilabel> tab</emphasis> displays all of
+        the fields in the program known to Flashlight, and their current status
+        in the monitor.  The status of a field is indicated by its color.  In
+        order to make it easier to sift through the data, packages and classes
+        that contain only unobserved fields are displayed with a gray
+        background.  Packages and classes containing any other type of fields
+        are displayed with the default white background.  Currently, fields may
+        have the following status:
       </para>
       <orderedlist>
         <listitem>Potential Data Race</listitem>
@@ -324,28 +333,20 @@
         <listitem>Not Observed</listitem>
       </orderedlist>
       <para>
-        The Locks Tab displays all current locks in the program.  Garbage
-        collected locks are not displayed, as this could potentially cause the
-        instrumentation to be unbounded in memory size.  Any locks that the
-        runtime monitoring believes could potentially deadlock (or that are
-        currently deadlocked) are displayed in red font.
+        The <emphasis><guilabel>Locks</guilabel> tab</emphasis> displays all
+        current locks in the program.  Garbage collected locks are not
+        displayed, as this could potentially cause the instrumentation to be
+        unbounded in memory size.  Any locks that the runtime monitoring
+        believes could potentially deadlock (or that are currently deadlocked)
+        are displayed in red font.
       </para>
       <para>
-        Finally, the EDT tab displays all of the fields in the program known to
-        Flashlight, just as the Fields tab does.  Any fields that have been
-        accessed both inside and outside of a Swing Event Dispatch Thread are
-        highlighted.  This feature can be used to detect violations of the Swing
-        threading model.
+        The <emphasis><guilabel>EDT</guilabel> tab</emphasis> displays all of
+        the fields in the program known to Flashlight, just as the Fields tab
+        does.  Any fields that have been accessed both inside and outside of a
+        Swing Event Dispatch Thread are highlighted.  This feature can be used
+        to detect violations of the Swing threading model.
       </para>
-      <informalfigure id="fig-flashlight-historical-source-view">
-	<!--title>The Historical Source Snapshot View</title-->
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/flashlight-historical-source-view.png" />
-	  </imageobject>
-	</mediaobject>
-      </informalfigure>
-
     </sect3>
 
   </sect2>
