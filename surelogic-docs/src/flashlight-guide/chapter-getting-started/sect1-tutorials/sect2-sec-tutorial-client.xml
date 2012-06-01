@@ -132,14 +132,14 @@
     </mediaobject>
   </figure>
 
-  <para>The ChatTestClient window will appear on your screen. Select the
-  <guibutton>Connect</guibutton> to try an connect to a game server.  This will
-  fail and the application will show a dialog to you which you may dismiss. The
-  reason it fails is that we did not start a game server. At this point we have
-  exercised the ChatTestClient enough to see some Flashlight results. Go ahead
-  and close the application window to terminate the program. At this point
-  Eclipse, which knows that this launch was instrumented, will prompt you to
-  switch to the Flashlight perspective as shown in <xref
+  <para>The ChatTestClient window will appear on your screen. Click the
+  <guibutton>Connect</guibutton> buttonto try an connect to a game server.  This
+  will fail and the application will show a dialog to you which you may
+  dismiss. The reason it fails is that we did not start a game server. At this
+  point we have exercised the ChatTestClient enough to see some Flashlight
+  results. Go ahead and close the application window to terminate the
+  program. At this point Eclipse, which knows that this launch was instrumented,
+  will prompt you to switch to the Flashlight perspective as shown in <xref
   linkend="fig-tutorial-planetbaron-perspective-switch-dialog" />.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-switch-dialog">
