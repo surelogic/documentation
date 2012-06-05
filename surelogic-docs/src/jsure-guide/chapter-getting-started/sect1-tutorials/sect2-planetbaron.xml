@@ -170,10 +170,7 @@
     <para>The lock model for lock <structfield>ThingLock</structfield>
     in class
     <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>
-    fails to assure. The <classname>ThreadSafe</classname> on the
-    class
-    <classname>com.surelogic.jsure.planetbaron.game.Location</classname>
-    also fails to assure.</para>
+    fails to assure.</para>
 
     <para id="lock-viz-problems">We also note, primarily because a view is painted in bright
     yellow, that the project has a modeling problem. This view is
@@ -230,7 +227,8 @@
     </para>
     
      <para>Now that we have fixed the modeling problem, we examine the lock model
-     for <structfield>ThingLock</structfield> in more detail.</para>
+     for <structfield>ThingLock</structfield> in more detail with an aim fixing the model or the
+     code to allow verification.</para>
   </sect3>
   
   <sect3>
@@ -505,11 +503,11 @@ public abstract class Thing {
     <function>MapView.paintComponent()</function>, we see that it draws
     the basic game map, and then iterates over all the ships and
     planets to draw them individually by calling the methods
-    <function>drawShipMovementTrail()</function> (line 131),
-    <function>drawPlanet()</function> (line 136), and
-    <function>drawShip()</function> (line 142):
+    <function>drawShipMovementTrail()</function> (line 157),
+    <function>drawPlanet()</function> (line 162), and
+    <function>drawShip()</function> (line 168):
 
-      <programlisting linenumbering="numbered" startinglinenumber="116">  @Override
+      <programlisting linenumbering="numbered" startinglinenumber="142">  @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
@@ -693,7 +691,7 @@ public abstract class Thing {
     We can fix this by declaring <varname>s</varname> (at lines 129 and 146) and
     <varname>p</varname> (at line 137) to be <code>final</code>:
 
-      <programlisting linenumbering="numbered" startinglinenumber="116">  @Override
+      <programlisting linenumbering="numbered" startinglinenumber="142">  @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
