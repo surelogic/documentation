@@ -8,7 +8,7 @@
   <title>Verifying BoundedFIFO</title>
   
   <para>In this tutorial we walk through the complete assurance of the
-  <application>BoundedFIFOJSure</application> project using JSure.
+  <application>JSureTutorial_BoundedFIFO</application> project using JSure.
   Specifically, we assure both the implementation and <emphasis>usage</emphasis>
   of a simple class.  That is, we demonstrate that it's not always enough to
   assure the implementation of a class: <emphasis>sometimes the clients of a
@@ -112,7 +112,7 @@ public class BoundedFIFO {
     </note>
 
     <para>Adding annotations is not enough to see assurance
-    results. To scan the project
+    results&mdash;you need to scan the project. To scan the project
 
     <itemizedlist>
       <listitem>
@@ -140,7 +140,7 @@ public class BoundedFIFO {
 	  </imageobject>
 	</mediaobject>  
 
-	Check <application>BoundedFIFOJSure</application> and press
+	Check <application>JSureTutorial_BoundedFIFO</application> and press
 	<guilabel>OK</guilabel> to start a scan. A balloon
 	notification will appear telling you that the scan has been
 	started in the background and that you will be notified when
@@ -456,7 +456,7 @@ public void put(LoggingEvent e) {
     <title>Declaring a Thread-Confined Constructor</title>
 
     <para>After analysis of the
-    <application>BoundedFIFOJSure</application> code completes, all
+    <application>JSureTutorial_BoundedFIFO</application> code completes, all
     the lock preconditions are assured, but there are still five
     unprotected field accesses:
     
@@ -641,7 +641,7 @@ public class BoundedFIFO {
 
     <para>After adding the annotations to the field
     <structfield>buf</structfield> and performing a scan of the
-    <application>BoundedFIFOJSure</application> project again we can
+    <application>JSureTutorial_BoundedFIFO</application> project again we can
     see the effects of this annotation: there are now 29 protected
     field accesses, up from 27. This is because the two array
     dereferences are now counted as protected accesses (lines 59 and
@@ -654,7 +654,7 @@ public class BoundedFIFO {
       </mediaobject>      
       
       The models and code in the
-      <application>BoundedFIFOJSure</application> project are now
+      <application>JSureTutorial_BoundedFIFO</application> project are now
       consistent with no warnings.
     </para>
   </sect3>
@@ -811,7 +811,7 @@ verification results should not change.
     context menu.</para>
 
     <para>We are done with the scans we performed on
-    <application>BoundedFIFOJSure</application> so select all the
+    <application>JSureTutorial_BoundedFIFO</application> so select all the
     scans in the view (with the mouse or using
     <keysym>Ctrl</keysym>+<keysym>A</keysym>) and delete them with the
     view's context menu as shown below.
