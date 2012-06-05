@@ -754,7 +754,7 @@ public class BoundedFIFO {
     modeling error because all the fields are of &ldquo;default&rdquo; visibility.
     To see this change the <classname>@Region</classname> annotation to
     <classname>@Region("<emphasis>private</emphasis> BufState")</classname> and scan
-    the project again. The expected modeling errors about field visibility will
+    the project again. The expected modeling problems about field visibility will
     appear to the upper-right as shown below.
        <mediaobject>
         <imageobject>
@@ -790,7 +790,7 @@ public class BoundedFIFO {
 }</programlisting>
 
 Go ahead and make these changes and scan the project again. The
-verification results should not change.
+verification results should not change but the modeling problems will go away.
     </para>
   </sect3>
 
