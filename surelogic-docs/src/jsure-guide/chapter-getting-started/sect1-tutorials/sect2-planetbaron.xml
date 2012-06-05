@@ -10,9 +10,9 @@
   <para>This example demonstrates more sophisticated annotations and
   analysis results using a simple network capture the planet game:
   <application>PlanetBaron</application>.  It will use the tutorial
-  project <application>PlanetBaronJSure</application>.</para>
+  project <application>JSureTutorial_PlanetBaron</application>.</para>
 
-  <para>Scan the <application>PlanetBaronJSure</application>
+  <para>Scan the <application>JSureTutorial_PlanetBaron</application>
   project with JSure. To do this choose
   <menuchoice><guimenu>JSure</guimenu> <guisubmenu>Verify
   Project</guisubmenu></menuchoice> from the Eclipse main menu. You
@@ -153,7 +153,7 @@
   <sect3 id="init-results">
     <title>Initial Assurance Results</title>
     
-    <para>The initial assurance results for the PlanetBaronJSure
+    <para>The initial assurance results for the <application>JSureTutorial_PlanetBaron</application>
     project are shown in <xref
     linkend="fig-pb-initial-state"/>.</para>
     
