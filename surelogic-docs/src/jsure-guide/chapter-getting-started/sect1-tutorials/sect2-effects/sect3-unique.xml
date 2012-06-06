@@ -10,14 +10,13 @@
   in its own right, the most immediate reason you may need to add 
   <classname>@RegionEffects</classname> annotations to a class is because of 
   <classname>@Unique</classname> fields.  Consider the classes in the 
-  <application>UniqueAndEffects</application> tutorial project.  (Add this
-  project to your workspace and add the promises library to it.)  The main 
-  class <classname>Example</classname> contains a single uniquely referenced
+  <application>com.surelogic.unique</application> package.  The main 
+  class <classname>EffectsAndUniqueness</classname> contains a single uniquely referenced
   integer array.  The need for effects arises when the reference in the array
   is passed as an actual parameter in a method call, as in the method 
   <function>doStuff1()</function>:
   
-    <programlisting>public class Example {
+    <programlisting>public class EffectsAndUniqueness {
   @Unique
   private int[] values;
   
@@ -55,7 +54,8 @@
   
   We have the error message <computeroutput>Unique field values, made
   undefined by evaluating the actual arguments, may be read as an effect of 
-  the call unique.Util.sum(this.values)</computeroutput>.  Basically, analysis
+  the call unique.Util.sum(this.values)</computeroutput>. (Note this message does
+  not match in initial unique+from implementation.)  Basically, analysis
   determines that it is possible that executing the method call will cause
   the field <structfield>values</structfield> to be read.  But how does it 
   determine this, and why does it matter?</para>

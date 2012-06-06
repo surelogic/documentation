@@ -33,6 +33,9 @@
   support the assurance of the unique field.  The reason for this is described
   below, after a brief introduction to declaring simple effects.
   </para>
+  
+  <para>All the code used for this tutorial is contained in
+      the <application>JSureTutorial_EffectiveEffects</application> project.</para>
 
   <note>
     <title>This tutorial is incomplete</title>
@@ -50,7 +53,7 @@
   <sect3 id="advanced">
     <title>Advanced Effects Examples</title>
     
-    <para>The tutorial archive <application>AdvancedEffectsExamples</application>
+    <para>The package <application>com.surelogic.advanced</application>
     contains examples of using <code>@RegionEffect</code> annotations in more
     advanced situations:
     
@@ -63,88 +66,89 @@
         <listitem><para>Effect declarations and method overriding.</para></listitem>
       </itemizedlist>
       
-	The listing below contains the only class, <classname>Examples</classname>, in the project.
-	
-	<programlisting>
-package example;
+	The listing below contains the classes in the package.
 
-import com.surelogic.Borrowed;
-import com.surelogic.InRegion;
-import com.surelogic.Region;
+<programlisting>
+package com.surelogic.advanced;
+
 import com.surelogic.RegionEffects;
 import com.surelogic.Unique;
 
+@SuppressWarnings("unused")
 public class Examples {
   public static int staticField = 0;
-  
+
   public int i;
-  
-  private Var var;
-  
+
+  private AdvancedVar var;
+
   @Unique
-  private Var uniqueVar;
-  
+  private AdvancedVar uniqueVar;
+
   private int[] array;
-  
+
   @Unique
   private final int[] uniqueArray = new int[10];
-  
-  
+
   @RegionEffects("none")
   public Examples() {
     super();
   }
-  
-  /* Effects on primitive types are not reported. So we don't care that
-   * 'a' and 'b' are used, but we do report that the field 'i' of 
-   * the receiver is affected.  Furthermore, 'i' is a public field, so
-   * we can explicit mention it in the annotation on a public method.
+
+  /*
+   * Effects on primitive types are not reported. So we don't care that 'a' and
+   * 'b' are used, but we do report that the field 'i' of the receiver is
+   * affected. Furthermore, 'i' is a public field, so we can explicit mention it
+   * in the annotation on a public method.
    */
   @RegionEffects("reads i")
   public int m1(int a, int b) {
     return a * (this.i + b);
   }
-  
-  /* Effects on newly created objects are not interesting to the caller
-   * of the method, and do not need to be reported.
+
+  /*
+   * Effects on newly created objects are not interesting to the caller of the
+   * method, and do not need to be reported.
    */
   @RegionEffects("reads inVar:Instance")
-  public static Var m2(final Var inVar, final int delta) {
-    final Var outVar = new Var(inVar.get());
+  public static AdvancedVar m2(final AdvancedVar inVar, final int delta) {
+    final AdvancedVar outVar = new AdvancedVar(inVar.get());
     outVar.inc(delta);
     return outVar;
   }
-  
-  /* Declaring both read and write clauses.  The object referenced by
-   * 'this.var' is unknown to the caller, so we have to declare that the
-   * method could write the 'Instance' region of any Var object. 
+
+  /*
+   * Declaring both read and write clauses. The object referenced by 'this.var'
+   * is unknown to the caller, so we have to declare that the method could write
+   * the 'Instance' region of any Var object.
    */
-  @RegionEffects("reads Instance; writes any(example.Var):Instance")
+  @RegionEffects("reads Instance; writes any(AdvancedVar):Instance")
   public void m3(final int delta) {
     this.var.inc(delta);
   }
-  
-  /* Looks like the above, but the in this case the field 'uniqueVar' is
+
+  /*
+   * Looks like the above, but the in this case the field 'uniqueVar' is
    * annotated with @Unique: the field is known declared to (and separately
-   * assured to) be the only field that refers to the object that it 
-   * references.  In this case, the state of the referenced Var object is 
-   * considered to be part of the 'uniqueVar' field itself.  So writing to the
-   * Var object via the inc() method creates the effect "writes this:uniqueVar".
+   * assured to) be the only field that refers to the object that it references.
+   * In this case, the state of the referenced Var object is considered to be
+   * part of the 'uniqueVar' field itself. So writing to the Var object via the
+   * inc() method creates the effect "writes this:uniqueVar".
    * 
-   * Also, in this case we can use a private field in the annotation because
-   * the method is declared to be private.
+   * Also, in this case we can use a private field in the annotation because the
+   * method is declared to be private.
    */
   @RegionEffects("writes this:uniqueVar")
   private void m4(final int delta) {
     this.uniqueVar.inc(delta);
   }
-  
-  /* Arrays are objects, and accessing their elements is like accessing the
-   * fields of objects.  Like m5(), we have to declare that we don't know which
-   * object is being modified by the method.  
+
+  /*
+   * Arrays are objects, and accessing their elements is like accessing the
+   * fields of objects. Like m5(), we have to declare that we don't know which
+   * object is being modified by the method.
    * 
-   * Also, it doesn't matter whether the "writes" or "reads" clause
-   * comes first.
+   * Also, it doesn't matter whether the "writes" or "reads" clause comes first.
    */
   @RegionEffects("writes any(java.lang.Object):Instance; reads Instance")
   public void m5(final int v) {
@@ -152,10 +156,11 @@ public class Examples {
       array[i] = v;
     }
   }
-  
-  /* The array is uniquely referenced, and thus aggregated.  In this case,
-   * the field 'uniqueArray' is final, so the regions of the array object
-   * are aggregated directly into the 'Instance' region of the receiver.
+
+  /*
+   * The array is uniquely referenced, and thus aggregated. In this case, the
+   * field 'uniqueArray' is final, so the regions of the array object are
+   * aggregated directly into the 'Instance' region of the receiver.
    */
   @RegionEffects("writes Instance")
   public void m6(final int v) {
@@ -163,110 +168,139 @@ public class Examples {
       uniqueArray[i] = v;
     }
   }
-  
-  /* Effects on static fields must also be declared.  This method affects two
-   * static fields, the field 'staticField' of the class Examples, and the
-   * field 'staticField' of the class Other.  Both have the same name, but are
-   * distinct regions in the effects system. 
+
+  /*
+   * Effects on static fields must also be declared. This method affects two
+   * static fields, the field 'staticField' of the class Examples, and the field
+   * 'staticField' of the class StaticState. Both have the same name, but are
+   * distinct regions in the effects system.
    */
-  @RegionEffects("reads staticField, example.Other:staticField")
+  @RegionEffects("reads staticField, com.surelogic.advanced.StaticState:staticField")
   public static int m7() {
-    return staticField + Other.staticField;
+    return staticField + StaticState.staticField;
   }
-  
-  /* Like the above, but with a different annotation.  The field 'staticField'
-   * in the class Other, is declared to be a subregion of the abstract region
-   * 'S'.  So we can make a more general effect declaration.
+
+  /*
+   * Like the above, but with a different annotation. The field 'staticField' in
+   * the class StaticState, is declared to be a subregion of the abstract region
+   * 'S'. So we can make a more general effect declaration.
    */
-  @RegionEffects("reads staticField, example.Other:S")
+  @RegionEffects("reads staticField, com.surelogic.advanced.StaticState:S")
   public static int m8() {
-    return staticField + Other.staticField;
+    return staticField + StaticState.staticField;
   }
-  
+
+  /*
+   * Like the above, but with a different annotation. The field 'staticField' in
+   * the class StaticState, is defined to be within the predefined 'Static'
+   * region. So we can make a more general effect declaration.
+   */
+  @RegionEffects("reads staticField, com.surelogic.advanced.StaticState:Static")
+  public static int m9() {
+    return staticField + StaticState.staticField;
+  }
+
   protected class Inner {
     private int vv;
-    
+
     @RegionEffects("none")
     public Inner(int v) {
       this.vv = v;
     }
-    
-    /* Effects on outer objects (referenced by qualified receivers) must be
+
+    /*
+     * Effects on outer objects (referenced by qualified receivers) must be
      * declared.
      */
-    @RegionEffects("reads example.Examples.this:i, this:Instance")
+    @RegionEffects("reads com.surelogic.advanced.Examples.this:i, this:Instance")
     public int sum() {
       return Examples.this.i + this.vv;
     }
   }
-  
-  /* Although methods can be specific in describing their effects on outer
-   * objects, it is hard to make use of these effects at the call site.  Here
-   * we have to declare that this method may read from any Example object
-   * because given a reference to an object that is an instance of a nested
-   * class, we have no way to know what are the outer objects of the instance.
-   * We do not have to report the effect on the instance of Inner because
-   * that object is known to be created local to the annotated method.
+
+  /*
+   * Although methods can be specific in describing their effects on outer
+   * objects, it is hard to make use of these effects at the call site. Here we
+   * have to declare that this method may read from any Example object because
+   * given a reference to an object that is an instance of a nested class, we
+   * have no way to know what are the outer objects of the instance. We do not
+   * have to report the effect on the instance of Inner because that object is
+   * known to be created local to the annotated method.
    * 
-   * This lack of precision hasn't been a problem yet.  If it becomes one,
-   * it is possible to use a local data flow analysis to sometimes recover 
-   * some of the outer object information.  For example, in this case, it is
-   * not difficult to use flow analysis to discover that 'i' refers to an
-   * object created by the expression "e. new Inner(0)", then recursively
-   * discover that 'e' originates from "new Examples()", and deduce that the
-   * "Examples.this" argument of the sum() method is really the object
-   * returned by "new Examples()".  In this case, we would also ignore any
-   * effects on this locally created object.
+   * This lack of precision hasn't been a problem yet. If it becomes one, it is
+   * possible to use a local data flow analysis to sometimes recover some of the
+   * outer object information. For example, in this case, it is not difficult to
+   * use flow analysis to discover that 'i' refers to an object created by the
+   * expression "e. new Inner(0)", then recursively discover that 'e' originates
+   * from "new Examples()", and deduce that the "Examples.this" argument of the
+   * sum() method is really the object returned by "new Examples()". In this
+   * case, we would also ignore any effects on this locally created object.
    */
-  @RegionEffects("reads any(example.Examples):i")
+  @RegionEffects("reads any(com.surelogic.advanced.Examples):i")
   public static int useInnerClass() {
     Examples e = new Examples();
-    Inner i = e. new Inner(0);
+    Inner i = e.new Inner(0);
     return i.sum();
   }
 }
+</programlisting>
+
+<programlisting>
+package com.surelogic.advanced;
+
+import com.surelogic.Borrowed;
+import com.surelogic.RegionEffects;
+import com.surelogic.Unique;
 
 /* Basically like SimpleVariable, so nothing new to say here. */
-class Var {
+public class AdvancedVar {
   protected int value;
-  
+
   @RegionEffects("none")
   @Unique("return")
-  public Var(final int v) {
+  public AdvancedVar(final int v) {
     value = v;
   }
-  
+
   @RegionEffects("reads Instance")
   @Borrowed("this")
   public int get() {
     return value;
   }
-  
+
   @RegionEffects("writes Instance")
   @Borrowed("this")
   public void set(final int v) {
     value = v;
   }
-  
+
   @RegionEffects("writes Instance")
   @Borrowed("this")
   public void inc(final int v) {
     set(value + v);
   }
-}
+}</programlisting>
 
-class UndoableVar extends Var {
+<programlisting>
+package com.surelogic.advanced;
+
+import com.surelogic.Borrowed;
+import com.surelogic.RegionEffects;
+import com.surelogic.Unique;
+
+public class UndoableAdvancedVar extends AdvancedVar {
   /* This field is implicitly a subregion of Instance */
   private int lastValue = 0;
-  
+
   @RegionEffects("none")
   @Unique("return")
-  public UndoableVar(final int v) {
+  public UndoableAdvancedVar(final int v) {
     super(v);
   }
 
-  /* The declared effects can be no greater than the declared effects of the
-   * overridden method.  But because we have added an additional field to the
+  /*
+   * The declared effects can be no greater than the declared effects of the
+   * overridden method. But because we have added an additional field to the
    * Instance region, we can modify it too.
    */
   @RegionEffects("writes Instance")
@@ -275,9 +309,10 @@ class UndoableVar extends Var {
     lastValue = value;
     value = v;
   }
-  
-  /* This is a new method not present in the super class so it may be
-   * freely annotated.
+
+  /*
+   * This is a new method not present in the super class so it may be freely
+   * annotated.
    */
   @RegionEffects("writes Instance")
   @Borrowed("this")
@@ -287,15 +322,34 @@ class UndoableVar extends Var {
     lastValue = temp;
   }
 }
+</programlisting>
+
+<programlisting>
+package com.surelogic.advanced;
+
+import com.surelogic.InRegion;
+import com.surelogic.Region;
+import com.surelogic.RegionEffects;
 
 /* Declare a new public static abstract region S */
 @Region("public static S")
-class Other {
+public class StaticState {
   /* Declare that the field is a subregion of the abstract region S */
   @InRegion("S")
   public static int staticField = 1;
+
+  @RegionEffects("reads S")
+  public static int getStaticField() {
+    return staticField;
+  }
+
+  @RegionEffects("reads Static")
+  public static int getStaticFieldAnotherWay() {
+    return staticField;
+  }
 }
 </programlisting>
+
     </para>
   </sect3>
 </sect2>
