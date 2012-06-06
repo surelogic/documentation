@@ -73,7 +73,7 @@
 						<emphasis>Unique+From analysis replaces old Uniqueness analysis</emphasis>
 						&mdash;
 						This release contains an initial release of the <emphasis>unique+from</emphasis> analysis that
-						provides improved performance and precision compaired to the old uniqueness analysis.
+						provides improved performance and precision compared to the old uniqueness analysis.
 						In particular iterators are handled more precisely and checks are made to ensure
 						that methods called within an iterator block do not read the collection&mdash;except, of course, through the iterator.
 						The new analysis outputs cryptic messages in many cases and an update is under development to add "side-effecting"
@@ -112,9 +112,9 @@
 					<para>
 						<emphasis>Tool option added to check if library annotations are consistent</emphasis>
 						&mdash;
-						One particular issue when working on library annotations is to ensure that annotations are consistent across classes.
+						One issue when working on library annotations is to ensure that annotations are consistent across classes.
 						JSure makes this a particular challenge because it avoids loading binary classes if they are not referenced by the
-						project being scanned. Therefore, several classes that should have annotations may be skiped during any paricular scan.
+						project being scanned. Therefore, several classes that should have annotations may be skipped during a scan.
 						To assist with this problem a new preference has been added that forces JSure to load the entire classpath of a project during
 						a scan. This greatly slows performance and uses additional memory, but is very helpful for testing that library annotations
 						are consistent.  This preference is shown in the image below.
@@ -132,7 +132,7 @@
 						<emphasis>Library Annotation changes can be sent to SureLogic</emphasis>
 						&mdash;
 						If you make changes or additions to the annotations on the Java standard library. It is now possible to send
-						these as inputs to SureLogic so that they can be included in furture JSure releases. A main menu choice selects
+						these as inputs to SureLogic so that they can be included in future JSure releases. A main menu choice selects
 						this feature as shown below.
 						</para>
 						
