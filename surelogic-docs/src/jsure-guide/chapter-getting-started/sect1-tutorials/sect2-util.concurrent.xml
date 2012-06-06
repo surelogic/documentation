@@ -10,7 +10,7 @@
   <para>In this example we examine <package>util.concurrent</package>
   from Doug Lea, a concurrency library that eventually grew into the
   current <package>java.util.concurrent</package> library. This code
-  is located in the <application>oswego.util.concurrent</application>
+  is located in the <application>JSureTutorial_util.concurrent.SynchronizedVariable</application>
   project which was previously loaded into your workspace.</para>
   
   <para>The class <classname>SynchronizedVariable</classname> is the
