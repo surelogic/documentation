@@ -56,6 +56,169 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+    
+    	<section id="sec-jsure-release-4-3-0">
+		<title>JSure version 4.3.0</title>
+		<para>This section describes the 4.3.0 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Unique+From analysis replaces old Uniqueness analysis</emphasis>
+						&mdash;
+						This release contains an initial release of the <emphasis>unique+from</emphasis> analysis that
+						provides improved performance and precision compaired to the old uniqueness analysis.
+						In particular iterators are handled more precisely and checks are made to ensure
+						that methods called within an iterator block do not read the collection&mdash;except, of course, through the iterator.
+						The new analysis outputs cryptic messages in many cases and an update is under development to add "side-effecting"
+						output to this analysis in the next release. This approach to output will improve user messages, especially for
+						inconsistent results.</para>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>Thousands of annotations made on the Java standard library</emphasis>
+						&mdash;
+						This release contains thousands of new annotations on the Java standard library. This work focused on <classname>java.lang</classname>,
+						<classname>java.util</classname>, and <classname>java.util.concurrent</classname>. Work is ongoing to improve Java standard library annotation,
+						but this release completes the collections framework and much of util.concurrent. We plan to continue this work over the next several release.
+						</para>
+						
+					<para>We only used the JSure library annotation editor and tools to perform this annotation work,
+					    which has improved the features supported by these tools (as discussed below). Also, the format of the
+					    XML files stored on the disk was changed to make it much easier to inspect (these files can be viewed in the library
+					    annotation editor). This can be useful when checking if a particular annotation exists.</para>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>Library Annotation system improved</emphasis>
+						&mdash;
+						This release contains several minor updates to the library annotation system that make it more usable. First, the editor
+						implements copy and paste on elements or whole types. This greatly aids annotation of class hierarchies where the
+						tool mandates annotation consistency (or it reports modeling problems). An <guilabel>Annotation Explorer</guilabel>
+						has been added to the tool. It changes during each scan and shows what annotations the tool saw on libraries and source code
+						during a particular scan. It can be helpful to track down if a particular annotation ended up where the user wanted it to.
+						</para>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>Tool option added to check if library annotations are consistent</emphasis>
+						&mdash;
+						One particular issue when working on library annotations is to ensure that annotations are consistent across classes.
+						JSure makes this a particular challenge because it avoids loading binary classes if they are not referenced by the
+						project being scanned. Therefore, several classes that should have annotations may be skiped during any paricular scan.
+						To assist with this problem a new preference has been added that forces JSure to load the entire classpath of a project during
+						a scan. This greatly slows performance and uses additional memory, but is very helpful for testing that library annotations
+						are consistent.  This preference is shown in the image below.
+						</para>
+						
+					    <mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-430-loadEntireClasspath.png" />
+							</imageobject>
+						</mediaobject>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>Library Annotation changes can be sent to SureLogic</emphasis>
+						&mdash;
+						If you make changes or additions to the annotations on the Java standard library. It is now possible to send
+						these as inputs to SureLogic so that they can be included in furture JSure releases. A main menu choice selects
+						this feature as shown below.
+						</para>
+						
+					     <mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-430-sendAnnotations.png" />
+							</imageobject>
+						</mediaobject>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>Static added as a predefined region</emphasis>
+						&mdash;
+						This release contains a new predefined region named 'Static'. This region refers to all the static state within a class
+						(it is like a static version of the predefined 'Instance' region). This new predefined region is most useful for library
+						annotations where it is undesirable to name static fields directly (especially if they are not public), but can be used
+						in any code. An example of using 'Static' is shown on the last method in the listing below.
+						</para>
+						<programlisting>
+package com.surelogic.advanced;
+
+import com.surelogic.InRegion;
+import com.surelogic.Region;
+import com.surelogic.RegionEffects;
+
+/* Declare a new public static abstract region S */
+@Region("public static S")
+public class StaticState {
+  /* Declare that the field is a subregion of the abstract region S */
+  @InRegion("S")
+  public static int staticField = 1;
+
+  @RegionEffects("reads S")
+  public static int getStaticField() {
+    return staticField;
+  }
+
+  @RegionEffects("reads Static") // NEW -- a predefined region 'Static'
+  public static int getStaticFieldAnotherWay() {
+    return staticField;
+  }
+}
+</programlisting>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>Nullable annotations added</emphasis>
+						&mdash;
+						This release contains annotations for constraining the use of null values in a Java program. These annotations include
+						<code>@NonNull</code>, <code>@Nullable</code>, and <code>@Raw</code>. These are included for initial use in user code.
+						This version of JSure, however, does not verify these annotations. This engineering is underway and full support is
+						expected in a future release.
+						</para>
+				</listitem>
+			</orderedlist>
+		</section>
+		<section>
+			<title>Known Problems</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Output from Unique+From analysis can be difficult to understand</emphasis>
+						&mdash;
+						The new <emphasis>unique+from</emphasis> analysis outputs cryptic messages in many cases and an update
+						is under development to add "side-effecting"
+						output to this analysis in the next release. This approach to output will improve user messages, especially for
+						inconsistent results.</para>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>Nullable annotations are not verified</emphasis>
+						&mdash;
+						This release contains annotations for constraining the use of null values in a Java program. These annotations include
+						<code>@NonNull</code>, <code>@Nullable</code>, and <code>@Raw</code>. These are included for initial use in user code.
+						This version of JSure, however, does not verify these annotations. This engineering is underway and full support is
+						expected in a future release.</para>
+				</listitem>
+				
+			</orderedlist>
+		</section>
+	</section>
 
 	<section id="sec-jsure-release-4-2-1">
 		<title>JSure version 4.2.1</title>
@@ -83,7 +246,7 @@
 		</section>
 		<section>
 			<title>Known Problems</title>
-			<para>There are no know problems in this JSure version.</para>
+			<para>There are no known problems in this JSure version.</para>
 		</section>
 	</section>
     
