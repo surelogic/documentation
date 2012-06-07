@@ -127,6 +127,18 @@
             please see <xref linkend="sec-bugs-and-tips"/>.</para>
           </formalpara>
         </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Send Library Annotation Changes</guimenuitem></title>
+            <para>This command opens a dialog to allow you to send any changes to
+            library annotations you have made to SureLogic. The dialog allows you
+            to preview and edit what is being sent to SureLogic. This menu item is
+            the best way to propose changes to the shipped set of Java standard library
+            annotations. If you do not have an Internet connection you can print the message
+            and fax it to SureLogic or save the message as a file and email it.</para>
+          </formalpara>
+        </listitem>
 
 	<listitem>
 	  <formalpara>
@@ -610,6 +622,79 @@
       </para>      
       
 	</sect2>
+	
+	<sect2>
+	    <title>The Annotation Explorer view</title>
+	    
+	    <para>The <guilabel>Annotation Explorer</guilabel>
+			view, as shown in <xref linkend="fig-annotation-explorer-view" />, shows all annotations
+			that the current scan found in the source code or in XML about libraries and frameworks.
+			The view contents change when the selected scan changes. This view is useful to determine
+			if an annotation existed and was recoginized by the tool during a particular scan.
+		</para>
+
+		<figure id="fig-annotation-explorer-view">
+			<title>The <guilabel>Annotation Explorer</guilabel> view</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/annotation-explorer-view.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		 <para>The view&rsquo;s toolbar has two command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
+              <para>This button collapses all the nodes in the Java declaration tree.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/open_xml_type.gif"/></guiicon></title>
+              <para>Selecting this button opens a search dialog, similar to the one shown in
+            <xref linkend="fig-save-promises-library-as-dialog"/>, to let the user
+            search for the type that they want to find in this view. This command is
+            most useful for selecting types that you want to examine in this view.</para>
+            </formalpara>            
+          </listitem>
+        </itemizedlist>
+      </para>
+
+      <figure id="fig-annotation-explorer-menu">
+        <title>The <guilabel>Annotation Explorer</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/annotation-explorer-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has three commands; see <xref
+      linkend="fig-annotation-explorer-menu"/>:
+      <itemizedlist>
+	<listitem>
+	  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/> Collapse All</guiicon></title>
+	    <para>Selecting this menu item collapses all the nodes in the Java declaration tree.</para>
+	  </formalpara>            
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/open_xml_type.gif"/> Open Library Annotations...</guiicon></title>
+	    <para>Selecting this button opens a search dialog, similar to the one shown in
+            <xref linkend="fig-save-promises-library-as-dialog"/>, to let the user
+            search for the type that they want to find in this view. This command is
+            most useful for selecting types that you want to examine in this view.</para>
+	  </formalpara>
+	</listitem>
+	
+      </itemizedlist>
+      </para>
+	    
+	</sect2>
 
 	<sect2>
 		<title>The Library Annotation Explorer view</title>
@@ -781,11 +866,39 @@
           					<imageobject><imagedata fileref="images/jsure-xml-editor-attributes-dialog.png"/></imageobject>
         				</mediaobject>
         				
-						<para>A useful context menu item on in the editor is to <guilabel>Revert All Changes</guilabel> to the standard annotations. This allows you to quickly undo any changes you have made
+						<para>A useful context menu item in the editor is <guilabel>Revert All Changes</guilabel>. This allows you to quickly undo any changes you have made
 						to the standard baseline annotations that shipped with JSure.</para>
 						<mediaobject>
           					<imageobject><imagedata fileref="images/jsure-xml-editor-revert-all-changes.png"/></imageobject>
         				</mediaobject>
+        				
+        				<para>It is possible to copy and paste annotations from one type to another. You can copy a single annotation, all annotations on a declaration, or all annotations on all
+        				declarations within a type. The paste operation will not change an existing annotation, therefore it is
+        				best to paste onto unannotated declarations. This feature is useful for copying a set of annotation from a
+        				parent type to one of its subtypes.</para>
+        				
+        				<mediaobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-copytype.png"/></imageobject>
+        				</mediaobject>
+        				
+        				<para>By default, unannotated methods in the editor are marked with a small red-dot. This is helpful
+        				to find a method that might have been skipped by a copy/paste or is new in a library release.
+        				This marking can be turned off by unchecking <guilabel>Mark Unannotated Methods</guilabel> in the
+        				context menu.</para>
+        				
+        				<mediaobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-markunannotated.png"/></imageobject>
+        				</mediaobject>
+        				
+        				<para>Two useful context menu items in the editor are <guilabel>Open</guilabel> and <guilabel>Open Type Hierarchy</guilabel>
+        				which open the type in the Eclipse Java editor or the Eclipse Java Type Hierarchy view, respectively. These can help examine
+        				the code you are annotating as well as its parent and child types.</para>
+        				
+        				<mediaobject>
+          					<imageobject><imagedata fileref="images/jsure-xml-editor-opentype.png"/></imageobject>
+        				</mediaobject>
+        			
+        				
 						</listitem>
 	      <listitem><para><emphasis>Baseline</emphasis> &mdash; The <emphasis>Baseline</emphasis> tab displays the XML that represents the standard library annotations
 	      that shipped with JSure. This tab does not allow editing (in this release&mdash;this may change in a future release).</para>
@@ -1009,7 +1122,7 @@
       
       <listitem>
 	<formalpara>
-	  <title><guibutton>Allow the user to select the set of projects to update the promises library even when projects are selected in the Package Explorer</guibutton></title>
+	  <title><guibutton>Allow the user to select the set of projects to update the promises library even when projects are selected</guibutton></title>
 
 	  <para>If this is checked then the project selection dialog is always shown when <guilabel>Add/Update Promises Library in Project</guilabel> is selected in the
 	  <guilabel>JSure</guilabel> menu. If it is not checked it is only displayed
@@ -1046,7 +1159,7 @@
       </listitem>
     </itemizedlist>
 
-    It has five options under the <guilabel>Scan/Verifying Analysis Settings</guilabel> heading:
+    It has five options under the <guilabel>Verifying Scan Settings</guilabel> heading:
 
     <itemizedlist>
       <listitem>
@@ -1090,6 +1203,17 @@
 	  <title><guibutton>Timeout when analysis execution time exceeds</guibutton></title>
 	  <para>Sets a time limit for analysis of a method or constructor. For this time to stop
 	  the analysis <guilabel>Enable timeout of analysis execution</guilabel> must be checked.</para>
+	</formalpara>
+      </listitem>
+      
+              <listitem>
+	<formalpara>
+	  <title><guibutton>Load entire classpath into memory (used for testing library annotation consistency)</guibutton></title>
+	  <para>To save memory and time, JSure only loads classes from JAR files into memory during a scan
+	  if they are referenced, directly or indirectly, by code in the project. This selection directs JSure
+	  to load the entire project classpath into memory. This is not recommened for normal tool use, however,
+	  it is very helpful when annotating binary libraries with the <guibutton>Library Annotation Explorer</guibutton> and editor.
+	  This is because it can help check that all subtypes of an annotated binary class are properly annotated.</para>
 	</formalpara>
       </listitem>
       
