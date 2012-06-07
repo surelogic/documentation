@@ -21,7 +21,7 @@
       AndroidManifest.xml:</para> 
       <programlisting><![CDATA[<uses-permission android:name="android.permission.INTERNET"/>]]></programlisting>
       <para>The <guilabel>Android Manifest Editor</guilabel> also allows you to
-      add this permession in the <guilabel>Permissions</guilabel> tab.</para>
+      add this permission in the <guilabel>Permissions</guilabel> tab.</para>
       <figure id="fig-android-permissions">
         <title>Configure the application's permissions</title>
         <mediaobject>
