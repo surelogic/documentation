@@ -193,7 +193,7 @@ public class StaticState {
 		</section>
 		<section>
 			<title>Known Problems</title>
-			<para>This section describes new and noteworthy features in this
+			<para>This section describes known limitations in this
 				version of JSure.</para>
 			<orderedlist>
 				<listitem>
