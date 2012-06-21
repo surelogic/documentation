@@ -69,6 +69,14 @@
 			<para>This section describes new and noteworthy features in this
 				version of JSure.</para>
 			<orderedlist>
+			    <listitem>
+					<para>
+						<emphasis>The retention of all promises was changed to <code>RUNTIME</code></emphasis>
+						&mdash;
+						The SureLogic annotations now have a retention of <code>RUNTIME</code>. This allows (1) annotations
+						to be read from binary libraries, and (2) the annotations to be accessed at runtime by Flashlight.</para>
+				</listitem>
+			    
 				<listitem>
 					<para>
 						<emphasis>Fixed Unique+From analysis crash examining some <code>enum</code> constants</emphasis>
