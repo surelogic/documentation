@@ -24,7 +24,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 4.3.0&mdash;June 2012</pubdate>
+    <pubdate>Version 4.3.1&mdash;June 2012</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -3207,24 +3207,6 @@ if (o == null) {
 	  </listitem>
 
         </orderedlist>
-      </section>
-
-      <section>
-	<title>Known Problems</title>
-
-	<para>The known bugs and limitations in this version of Sierra is
-	unchanged from the previous release.</para>
-      </section>
-    </section>
-
-
-    <section id="sec-sierra-release-3-1-1">
-      <title>Sierra version 3.1.1</title>
-      <section>
-	<title>New and Noteworthy</title>
-	<para>
-	  Sierra is unchanged since the previous release.
-	</para>
       </section>
 
       <section>
