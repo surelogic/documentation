@@ -6,7 +6,7 @@
 <sect1 id="flashlight-android"  xmlns:xlink="http://www.w3.org/1999/xlink">
   <title>Using Flashlight With Android</title>
   
-  <para>You can use Flashlight in collaboration with version 18.0.0 of Google's
+  <para>You can use Flashlight in collaboration with version 20.0.0 of Google's
   Android Development Tools (ADT).  If you do not have the Android SDK and ADT
   installed, you can get it by following the instructions <link
   xlink:href="http://developer.android.com/sdk/installing.html">here.</link></para>
