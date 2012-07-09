@@ -1086,14 +1086,14 @@
     <sect2>
     <title>JSure</title>
      
-    <figure id="fig-jsure-prefs-1">
+    <figure id="fig-jsure-prefs-jsure">
       <title>The JSure Eclipse preferences pane</title>
       <mediaobject>
-        <imageobject><imagedata fileref="images/jsure-prefs-1.png"/></imageobject>
+        <imageobject><imagedata fileref="images/jsure-prefs-jsure.png"/></imageobject>
       </mediaobject>
     </figure>
     
-    <para>The <guilabel>JSure</guilabel> pane, see <xref linkend="fig-jsure-prefs-1"/>,
+    <para>The <guilabel>JSure</guilabel> pane, see <xref linkend="fig-jsure-prefs-jsure"/>,
     allows you to control the tool's appearance and operation.</para>
     
     <para>The <guibutton>Data directory</guibutton> shows where the tool stores scans. This location
@@ -1287,10 +1287,10 @@
     is a good idea to exit and restart Eclipse/JSure: see <xref
     linkend="fig-analysis-change-warning"/>.</para>
     
-    <figure id="fig-jsure-prefs-2">
-      <title>The JSure analyses preferences pane</title>
+    <figure id="fig-jsure-prefs-analyses">
+      <title>The JSure verifying analysis selection preferences pane</title>
       <mediaobject>
-        <imageobject><imagedata fileref="images/jsure-prefs-2.png"/></imageobject>
+        <imageobject><imagedata fileref="images/jsure-prefs-analyses.png"/></imageobject>
       </mediaobject>
     </figure>
 
