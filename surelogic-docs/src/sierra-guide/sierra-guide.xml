@@ -2277,7 +2277,7 @@ if (o == null) {
 	is used to store all data for the Local Team Server. All
 	Sierra data goes into the data directory except the local
 	Database which is stored under the current Eclipse
-	workspace.</para>
+	workspace. This location is relative to your workspace and cannot be changed.</para>
 
 	<para>The <emphasis>Appearance</emphasis> group contains the
 	following settings:</para>

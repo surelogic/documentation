@@ -25,10 +25,8 @@
       The directory where flashlight places all recorded and prepared
       data.  All data for a run is placed under a folder in this
       directory; see <xref linkend="flashlight-data-directory"/> for a 
-      description of the contents of this directory.  The default name of
-      this directory is <filename>.flashlight-data</filename>, and the 
-      default location for it is at the root of the current Eclipse
-      workspace directory.
+      description of the contents of this directory.
+      This location is relative to your workspace and cannot be changed.
     </para>
   </formalpara>
   

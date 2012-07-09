@@ -8,13 +8,10 @@
 
   <para>The Flashlight Eclipse plug-in writes the flashlight profile data
   files and other information in a location known as the "Flashlight
-  Data Directory."  This directory is set in the Flashlight preferences
+  Data Directory."  This directory location is shown in the Flashlight preferences
   pane, as described in <xref linkend="flashlight-preferences"/>.  The
-  default location for this directory is as
-  <filename><replaceable>workspace
-  directory</replaceable>/.flashlight-data</filename> where
-  <replaceable>workspace directory</replaceable> is the path to the
-  current Eclipse workspace.</para>
+  directory is called <filename>.flashlight-data</filename> and is located in the root
+  of your current Eclipse workspace.</para>
 
   <sect2 id="per-run-directory">
     <title>Per-Run Directories</title>
