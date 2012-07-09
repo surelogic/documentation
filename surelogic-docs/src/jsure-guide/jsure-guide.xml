@@ -57,6 +57,47 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
     
+        <section id="sec-jsure-release-4-3-2">
+		<title>JSure version 4.3.2</title>
+		<para>This section describes the 4.3.2 version of the JSure Eclipse
+			client.
+		</para>
+		
+		
+			<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.</para>
+			<orderedlist>
+			    <listitem>
+					<para>
+						<emphasis>The location of XML "diff" library annotations can be changed</emphasis>
+						&mdash;
+						A new preference allows the directory where changes and additions to library
+						annotations are stored to be changed</para>
+						
+					 	<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-432-xmlpromisespath.png" />
+							</imageobject>
+						</mediaobject>
+						
+					 	<para>This allows the library annotation files to be, for example, placed under
+					 	    a source code control system and shared between all programmers in a team.
+					 	    This change is not yet well integrated into the views and editors that support
+					 	    library annotation. Therefore, it is recommened that you close all editors before,
+					 	    and restart Eclipse after, changing this setting.</para>
+				</listitem>				
+			</orderedlist>
+		</section>
+		
+		<section>
+			<title>Known Problems</title>
+			<para>The known problems are unchanged from JSure version 4.3.1.</para>
+		</section>
+	</section>
+    
+    
     <section id="sec-jsure-release-4-3-1">
 		<title>JSure version 4.3.1</title>
 		<para>This section describes the 4.3.1 version of the JSure Eclipse

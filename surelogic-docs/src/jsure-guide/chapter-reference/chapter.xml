@@ -1087,7 +1087,7 @@
     <title>JSure</title>
      
     <figure id="fig-jsure-prefs-jsure">
-      <title>The JSure Eclipse preferences pane</title>
+      <title>The JSure preferences pane</title>
       <mediaobject>
         <imageobject><imagedata fileref="images/jsure-prefs-jsure.png"/></imageobject>
       </mediaobject>
@@ -1103,7 +1103,9 @@
     additions made to the standard library annotations are stored. This location can be changed,
     for example, to be placed under version control and shared by all members of a programming team.
     If this location is changed, Eclipse should be restarted. In addition, it is not recommended to have
-    any library annotation editors opened because data could be lost.</para>
+    any library annotation editors opened because data could be lost. Files are not copied from the old
+    location to the new location. Therefore, a manual copy of files is required if the old location had
+    data that you want to continue to use.</para>
     
     <para>It has five options under the <guilabel>Appearance</guilabel> heading:
     <itemizedlist>
@@ -1254,9 +1256,7 @@
     Typically methods that are very large can be broken up into smaller methods or refactored to
     call a series of new methods extracted from the larger method. Doing this will also speed analysis.
     </para>
-    
-	<para>The <guilabel>Model Naming</guilabel> section controls inferred models from the Surelogic <application>Flashlight</application> tool.</para>
-    
+        
     <para>The pane also has a <guibutton>Manage SureLogic Licenses</guibutton> button 
     that brings up the dialog box for installing and removing licenses; see
     <xref linkend="sec-license-management"/>.</para>
@@ -1272,7 +1272,12 @@
           <imageobject><imagedata fileref="images/jsure-prefs-flgen.png"/></imageobject>
         </mediaobject>
         </figure>
-    
+        
+        <para>The <guilabel>Model Naming</guilabel> pane,
+        see <xref linkend="fig-jsure-prefs-flgen"/>,
+        controls inferred models from the Surelogic
+        <application>Flashlight</application> tool.</para>
+            
     </sect2>
     
     <sect2>
@@ -1284,6 +1289,14 @@
           <imageobject><imagedata fileref="images/jsure-prefs-filter.png"/></imageobject>
         </mediaobject>
         </figure>
+        
+        <para>The <guilabel>Modeling Problem Filtering</guilabel> pane,
+        see <xref linkend="fig-jsure-prefs-filter"/>,
+        controls what modeling problems (and proposed promises) are shown to the tool user.</para>
+        
+        <para>If any of the filters match the resource that the modeling problem is
+        reported about, that problem is not shown.
+        The filters are defined using Java regular expressions.</para>
     
     </sect2>
     
@@ -1300,22 +1313,7 @@
     
     <para>The <guilabel>Verifying Analysis Selection</guilabel> pane allows you to choose
     which assurance analyses are actually executed by JSure.  Most of
-    the time you do not need to change these settings.  Each analysis
-    knows which other analyses it depends on: you can see this by
-    opening the tree rooted at each analysis.  Selecting an analysis
-    also transitively selects any analyses that it depends on.
-    Deselecting an analysis transitively deselects any analyses that
-    depend on it.  If you change the settings, JSure warns you that it
-    is a good idea to exit and restart Eclipse/JSure: see <xref
-    linkend="fig-analysis-change-warning"/>.</para>
-    
-
-    <figure id="fig-analysis-change-warning">
-      <title>Dialog box advising a restart after changing the analysis settings</title>
-      <mediaobject>
-        <imageobject><imagedata fileref="images/analysis-change-warning.png"/></imageobject>
-      </mediaobject>
-    </figure>
+    the time you do not need to change these settings.</para>
     
     </sect2>
     
