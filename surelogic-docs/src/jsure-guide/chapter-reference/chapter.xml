@@ -1055,17 +1055,36 @@
   <sect1 id="sec-preferences">
     <title>JSure Preferences</title>
     
-    <para>JSure adds two panes to the Eclipse Preferences window:
+    <para>JSure adds four panes to the Eclipse Preferences window:
       <itemizedlist>
         <listitem>
           <para><menuchoice><guisubmenu>JSure</guisubmenu></menuchoice></para>
         </listitem>
         <listitem>
           <para><menuchoice><guisubmenu>JSure</guisubmenu> 
-          <guimenuitem>Analyses</guimenuitem></menuchoice></para>
+          <guimenuitem>Flashlight Generated Lock Models</guimenuitem></menuchoice></para>
+        </listitem>
+        <listitem>
+          <para><menuchoice><guisubmenu>JSure</guisubmenu> 
+          <guimenuitem>Modeling Problem Filtering</guimenuitem></menuchoice></para>
+        </listitem>
+        <listitem>
+          <para><menuchoice><guisubmenu>JSure</guisubmenu> 
+          <guimenuitem>Verifying Analysis Selection</guimenuitem></menuchoice></para>
         </listitem>
       </itemizedlist>
     </para>
+    
+	<para>To open the Eclipse preferences select
+      <emphasis>Window</emphasis> | <emphasis>Preferences...</emphasis>
+      from the Eclipse main menu. JSure should be visible in the
+      outline on the left of the dialog that appears. If you type
+      <emphasis>JSure</emphasis> in the text box to the upper-left of
+      the dialog then the outline will be filtered to only shown the
+      JSure preference pages.</para>
+    
+    <sect2>
+    <title>JSure</title>
      
     <figure id="fig-jsure-prefs-1">
       <title>The JSure Eclipse preferences pane</title>
@@ -1075,8 +1094,18 @@
     </figure>
     
     <para>The <guilabel>JSure</guilabel> pane, see <xref linkend="fig-jsure-prefs-1"/>,
-    allows you to reset settings for switching to the <guilabel>Code Verification</guilabel>
-    perspective.  It has five options under the <guilabel>Appearance</guilabel> heading:
+    allows you to control the tool's appearance and operation.</para>
+    
+    <para>The <guibutton>Data directory</guibutton> shows where the tool stores scans. This location
+    is relative to your workspace and cannot be changed.</para>
+    
+    <para>The <guibutton>XML library annotation "diffs" directory</guibutton> shows where the changes and
+    additions made to the standard library annotations are stored. This location can be changed,
+    for example, to be placed under version control and shared by all members of a programming team.
+    If this location is changed, Eclipse should be restarted. In addition, it is not recommended to have
+    any library annotation editors opened because data could be lost.</para>
+    
+    <para>It has five options under the <guilabel>Appearance</guilabel> heading:
     <itemizedlist>
      <listitem>
 	<formalpara>
@@ -1231,9 +1260,23 @@
     <para>The pane also has a <guibutton>Manage SureLogic Licenses</guibutton> button 
     that brings up the dialog box for installing and removing licenses; see
     <xref linkend="sec-license-management"/>.</para>
-
     
-    <para>The <guilabel>Analyses</guilabel> pane allows you to choose
+    </sect2>
+
+    <sect2>
+    <title>Flashlight Generated Lock Models</title>
+    
+    </sect2>
+    
+    <sect2>
+    <title>Modeling Problem Filtering</title>
+    
+    </sect2>
+    
+    <sect2>
+    <title>Verifying Analysis Selection</title>
+    
+    <para>The <guilabel>Verifying Analysis Selection</guilabel> pane allows you to choose
     which assurance analyses are actually executed by JSure.  Most of
     the time you do not need to change these settings.  Each analysis
     knows which other analyses it depends on: you can see this by
@@ -1257,6 +1300,9 @@
         <imageobject><imagedata fileref="images/analysis-change-warning.png"/></imageobject>
       </mediaobject>
     </figure>
+    
+    </sect2>
+    
   </sect1>
 
 	<sect1 id="sec-surelogic-tool-properties-file">
