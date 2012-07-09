@@ -1266,15 +1266,37 @@
     <sect2>
     <title>Flashlight Generated Lock Models</title>
     
+        <figure id="fig-jsure-prefs-flgen">
+        <title>The Flashlight Generated Lock Models preferences pane</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-prefs-flgen.png"/></imageobject>
+        </mediaobject>
+        </figure>
+    
     </sect2>
     
     <sect2>
     <title>Modeling Problem Filtering</title>
     
+        <figure id="fig-jsure-prefs-filter">
+        <title>The Modeling Problem Filtering preferences pane</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-prefs-filter.png"/></imageobject>
+        </mediaobject>
+        </figure>
+    
     </sect2>
     
     <sect2>
     <title>Verifying Analysis Selection</title>
+    
+        <figure id="fig-jsure-prefs-analyses">
+        <title>The Verifying Analysis Selection preferences pane</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-prefs-analyses.png"/></imageobject>
+        </mediaobject>
+        </figure>
+    
     
     <para>The <guilabel>Verifying Analysis Selection</guilabel> pane allows you to choose
     which assurance analyses are actually executed by JSure.  Most of
@@ -1287,12 +1309,6 @@
     is a good idea to exit and restart Eclipse/JSure: see <xref
     linkend="fig-analysis-change-warning"/>.</para>
     
-    <figure id="fig-jsure-prefs-analyses">
-      <title>The JSure verifying analysis selection preferences pane</title>
-      <mediaobject>
-        <imageobject><imagedata fileref="images/jsure-prefs-analyses.png"/></imageobject>
-      </mediaobject>
-    </figure>
 
     <figure id="fig-analysis-change-warning">
       <title>Dialog box advising a restart after changing the analysis settings</title>
