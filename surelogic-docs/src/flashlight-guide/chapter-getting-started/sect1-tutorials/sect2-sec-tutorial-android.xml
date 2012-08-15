@@ -6,11 +6,21 @@
 <sect2 id="sec-tutorial-android" xmlns:xlink="http://www.w3.org/1999/xlink">
   <title>Running Flashlight with Android</title>
 
+  <para>The following tutorial is intended to get you up and running with
+  Android.  You can try this on your Android smartphone or tablet if you have
+  one.  If you don't, you can still do this tutorial using the emulator provided
+  by Google's Android Development Tools (ADT).  If you do not have the Android
+  SDK and ADT installed, you should do so at this time by following the
+  instructions at <link
+  xlink:href="http://developer.android.com/sdk/installing.html">here.</link>.
+  Once you have installed ADT in Eclipse, go ahead and add the
+  <application>CounterRace</application> tutorial to your workspace.  You can do
+  this by Choosing <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run
+  Flashlight Tutorials</guimenuitem></menuchoice>.  Make sure that
+  <application>FlashlightTutorial_CounterRace</application> is checked and click
+  OK.</para>
 
-  <para>You can use Flashlight in collaboration with version 20.0.0 of Google's
-  Android Development Tools (ADT).  If you do not have the Android SDK and ADT
-  installed, you can get it by following the instructions <link
-  xlink:href="http://developer.android.com/sdk/installing.html">here.</link></para>
+  <para>  </para>
 
   <sect2>
     <title>Running Flashlight</title>
