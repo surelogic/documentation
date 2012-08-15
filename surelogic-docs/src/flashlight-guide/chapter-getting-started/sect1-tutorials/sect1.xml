@@ -47,4 +47,5 @@
   <xi:include href="sect2-sec-tutorial-server.xml"/>
   <xi:include href="sect2-sec-tutorial-playerui.xml"/>
   <xi:include href="sect2-sec-tutorial-query-editor.xml"/>
+  <xi:include href="sect2-sec-tutorial-android.xml"/>
 </sect1>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect2 id="sec-tutorial-android" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Running Flashlight with Android</title>
+
+
+  <para>You can use Flashlight in collaboration with version 20.0.0 of Google's
+  Android Development Tools (ADT).  If you do not have the Android SDK and ADT
+  installed, you can get it by following the instructions <link
+  xlink:href="http://developer.android.com/sdk/installing.html">here.</link></para>
+
+  <sect2>
+    <title>Running Flashlight</title>
+    <formalpara>
+      <title>Enable Network Access</title>
+      <para>In order for Flashlight to collect data from your Android application,
+      you will need to give your application permission to access your phone's
+      network.  You can do this by adding the following to your
+      AndroidManifest.xml:</para> 
+      <programlisting><![CDATA[<uses-permission android:name="android.permission.INTERNET"/>]]></programlisting>
+      <para>The <guilabel>Android Manifest Editor</guilabel> also allows you to
+      add this permission in the <guilabel>Permissions</guilabel> tab.</para>
+      <figure id="fig-android-permissions">
+        <title>Configure the application's permissions</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/android-permissions.png"/></imageobject>
+        </mediaobject>
+      </figure>
+    </formalpara>
+    <formalpara>
+      <title>Launch The Application</title>
+      <para> The simplest way to launch the application is to right-click on the
+      project and choose <menuchoice><guisubmenu>Flashlight As</guisubmenu>
+      <guisubmenu>Android Application</guisubmenu></menuchoice>. Launch Android
+      Application.</para>
+      <figure id="fig-launch-android">
+        <title>Launch Flashlight from the <menuchoice><guisubmenu>Flashlight
+        As</guisubmenu></menuchoice> menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/launch-android.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      <para>You can also use the create, configure, and run Android Applications
+      from the <guilabel>Flashlight Launch Configuration</guilabel> view. See
+      <xref linkend="flashlight-launch" /> for more details.</para>
+      <figure id="fig-android-configuration">
+        <title>Create and manage a run configuration from the
+        <guilabel>Flashlight Configuration View</guilabel></title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/android-configuration.png"/></imageobject>
+        </mediaobject>
+      </figure>
+    </formalpara>
+
+  </sect2>
+
+  <sect2>
+    <title>Stopping Flashlight</title>
+    <para>
+      Depending on your application, you may need to close the program yourself.
+      How you do this depends on the and version of Android that you are using.
+      Later versions of Android have a <guilabel>Application Monitor</guilabel>
+      widget that is suitable for this purpose.  Alternatively, you can leave
+      the program running and manually terminate the instrumentation using the
+      runtime console.
+    </para>
+      <figure id="fig-android-app-manager">
+        <title>Terminating the application from the Application Monitor</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/android-app-manager.png"/></imageobject>
+        </mediaobject>
+      </figure>
+
+    <figure id="fig-android-stop">
+      <title>Terminating Flashlight Instrumentation from the Runtime Console</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/android-console.png"/></imageobject>
+      </mediaobject>
+    </figure>
+
+  </sect2>
+
+
+</sect2>
