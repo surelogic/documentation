@@ -14,84 +14,158 @@
   instructions at <link
   xlink:href="http://developer.android.com/sdk/installing.html">here.</link>.
   Once you have installed ADT in Eclipse, go ahead and add the
-  <application>CounterRace</application> tutorial to your workspace.  You can do
-  this by Choosing <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run
+  <application>Counter Race</application> tutorial to your workspace.  You can
+  do this by Choosing <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run
   Flashlight Tutorials</guimenuitem></menuchoice>.  Make sure that
   <application>FlashlightTutorial_CounterRace</application> is checked and click
-  OK.</para>
+  OK.  If you have an Android device connected to your computer by USB,
+  <application>Counter Race</application> will likely launch on your device.  If
+  you don't, then you will need to set up an emulator.  See Android's
+  documentation on <link
+  xlink:href="http://developer.android.com/tools/devices/index.html">Managing
+  Virtual Devices</link> to set this up.</para>
 
-  <para>  </para>
+  <para><application>Counter Race</application> is a simple program we developed
+  to demonstrate that, despite being less powerful than today's generation of
+  desktop processors, concurrency remains an issue that must be dealt with
+  correctly on Android devices.  <application>Counter Race</application>
+  demonstrates this by running several threads, all of which increment two
+  shared counters.  The first counter is a static field that is incremented
+  without any protection from locking or volatile.  The second counter is
+  actually a collection of thread-local counters.  Once the threads are finished
+  incrementing their counters, the values are safely added up and presented as
+  the total count.  We'll go ahead and demonstrate this by running the program
+  withFlashlight now.  Right-click on the project and choose
+  <menuchoice><guimenu>Flashlight As</guimenu><guimenuitem>Android
+  Application</guimenuitem></menuchoice>.</para>
 
-  <sect2>
-    <title>Running Flashlight</title>
-    <formalpara>
-      <title>Enable Network Access</title>
-      <para>In order for Flashlight to collect data from your Android application,
-      you will need to give your application permission to access your phone's
-      network.  You can do this by adding the following to your
-      AndroidManifest.xml:</para> 
-      <programlisting><![CDATA[<uses-permission android:name="android.permission.INTERNET"/>]]></programlisting>
-      <para>The <guilabel>Android Manifest Editor</guilabel> also allows you to
-      add this permission in the <guilabel>Permissions</guilabel> tab.</para>
-      <figure id="fig-android-permissions">
-        <title>Configure the application's permissions</title>
-        <mediaobject>
-          <imageobject><imagedata fileref="images/android-permissions.png"/></imageobject>
-        </mediaobject>
-      </figure>
-    </formalpara>
-    <formalpara>
-      <title>Launch The Application</title>
-      <para> The simplest way to launch the application is to right-click on the
-      project and choose <menuchoice><guisubmenu>Flashlight As</guisubmenu>
-      <guisubmenu>Android Application</guisubmenu></menuchoice>. Launch Android
-      Application.</para>
-      <figure id="fig-launch-android">
-        <title>Launch Flashlight from the <menuchoice><guisubmenu>Flashlight
-        As</guisubmenu></menuchoice> menu</title>
-        <mediaobject>
-          <imageobject><imagedata fileref="images/launch-android.png"/></imageobject>
-        </mediaobject>
-      </figure>
-      <para>You can also use the create, configure, and run Android Applications
-      from the <guilabel>Flashlight Launch Configuration</guilabel> view. See
-      <xref linkend="flashlight-launch" /> for more details.</para>
-      <figure id="fig-android-configuration">
-        <title>Create and manage a run configuration from the
-        <guilabel>Flashlight Configuration View</guilabel></title>
-        <mediaobject>
-          <imageobject><imagedata fileref="images/android-configuration.png"/></imageobject>
-        </mediaobject>
-      </figure>
-    </formalpara>
+  <figure id="fig-tutorial-android-launch">
+    <title>Launching Counter Race</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-launch.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
-  </sect2>
+  <para>If you are using an emulator, the emulator will take a while to start
+  up.  Once <application>Counter Race</application> has been deployed on the
+  phone, the application should launch automatically.  You should see the
+  following:</para>
+  <figure id="fig-tutorial-android-phone-1">
+    <title>The Counter Race application</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-phone-1.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>To start the threads, tap the checkbox once.  After allowing it to run
+  for a few seconds, you can tap the checkbox again to see the results.  Your
+  results should look something like this:</para>
 
-  <sect2>
-    <title>Stopping Flashlight</title>
-    <para>
-      Depending on your application, you may need to close the program yourself.
-      How you do this depends on the and version of Android that you are using.
-      Later versions of Android have a <guilabel>Application Monitor</guilabel>
-      widget that is suitable for this purpose.  Alternatively, you can leave
-      the program running and manually terminate the instrumentation using the
-      runtime console.
-    </para>
-      <figure id="fig-android-app-manager">
-        <title>Terminating the application from the Application Monitor</title>
-        <mediaobject>
-          <imageobject><imagedata fileref="images/android-app-manager.png"/></imageobject>
-        </mediaobject>
-      </figure>
+  <figure id="fig-tutorial-android-phone-2">
+    <title>Tap the checkbox to start and stop the counters</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-phone-2.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
-    <figure id="fig-android-stop">
-      <title>Terminating Flashlight Instrumentation from the Runtime Console</title>
-      <mediaobject>
-        <imageobject><imagedata fileref="images/android-console.png"/></imageobject>
-      </mediaobject>
-    </figure>
+  <para>Once you have exercised the program, you can go ahead and stop it in
+  order to look at your data.  Pressing the <guilabel>Home</guilabel> or
+  <guilabel>Back</guilabel> buttons on your phone will close the
+  <application>Counter Race</application> application, but most devices will
+  keep the process running in the background.  In order to stop the
+  instrumentation so that we can collect our data, we can do one of two things:
+  connect to the runtime monitor and stop the instrumentation, or manually stop
+  the background process.  For the purposes of this tutorial, we will do the
+  latter.  On your device or emulator open up the running applications tab by
+  choosing
+  <menuchoice><guimenu>Applications</guimenu><guimenuitem>Settings</guimenuitem><guimenuitem>Applications</guimenuitem></menuchoice>
+  and selecting the <guilabel>Running</guilabel> tab.  You will likely need to
+  click on <guilabel>Show cached processes</guilabel> as well, which should be
+  displayed at the bottom of your screen.  Then navigate through the list of
+  processes until you find Counter Race.  Select Counter Race, and then click
+  <guilabel>Stop</guilabel> to terminate the running process.</para>
+  <figure id="fig-tutorial-android-phone-3">
+    <title>The cached Counter Race process</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-phone-3.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-android-phone-4">
+    <title>Stopping the background process.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-phone-4.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
-  </sect2>
+  
+  <figure id="fig-tutorial-android-raceconditions">
+    <title>Potential Race Conditions in CounterRace</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-raceconditions.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-tutorial-android-sharedcounter-1">
+    <title>Looking at f_sharedCounter</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-sharedcounter-1.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-android-sharedcounter-2">
+    <title>What threads read and write f_sharedCounter?</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-sharedcounter-2.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-tutorial-android-threadlocal-1">
+    <title>Looking at f_threadLocalCounts</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-threadlocal-1.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-android-threadlocal-2">
+    <title>Four instances of f_threadLocalCounts</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-threadlocal-2.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-android-threadlocal-3">
+    <title>When and by what threads was f_threadLocalCounts accessed?</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-threadlocal-3.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-android-threadlocal-4">
+    <title>f_threadLocalCounts </title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-threadlocal-4.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
 
 </sect2>
