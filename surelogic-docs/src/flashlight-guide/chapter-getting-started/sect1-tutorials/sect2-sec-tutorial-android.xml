@@ -35,7 +35,7 @@
   actually a collection of thread-local counters.  Once the threads are finished
   incrementing their counters, the values are safely added up and presented as
   the total count.  We'll go ahead and demonstrate this by running the program
-  withFlashlight now.  Right-click on the project and choose
+  with Flashlight now.  Right-click on the project and choose
   <menuchoice><guimenu>Flashlight As</guimenu><guimenuitem>Android
   Application</guimenuitem></menuchoice>.</para>
 
@@ -107,6 +107,16 @@
     </mediaobject>
   </figure>
 
+  <para>Once you terminate the running process, a notification window should pop
+  up asking if you want to switch to the Flashlight perspective and if you would
+  like to prep the run.  Go ahead and prep the run now.  Once you do so, you
+  should have access to the Run Overview.  Clicking on the <guilabel>Race
+  Conditions</guilabel> tab, we can see that we have detected potential race
+  conditions on two fields: <structfield>f_sharedCounter</structfield> and
+  <structfield>f_threadLocalCounts</structfield>.  Note that by clicking on the
+  fields in the overview, we see that neither field was accessed when any locks
+  where held in the program, so we know that neither field was protected by any
+  sort of locking strategy.</para>
   
   <figure id="fig-tutorial-android-raceconditions">
     <title>Potential Race Conditions in CounterRace</title>
@@ -117,6 +127,14 @@
     </mediaobject>
   </figure>
 
+  <para>We will look at f_sharedCounter first.  Clicking on
+  <structfield>f_sharedCounter</structfield>, we can see that it is a static,
+  non-volatile field in the <classname>CounterThread</classname> class.  To
+  investigate this further, double click on <emphasis>What fields (static) have
+  an empty lock set?</emphasis> in the <guilabel>Query Menu</guilabel>.  The
+  <guilabel>Query Results</guilabel> view should display one such field -
+  <structfield>f_sharedCounter</structfield>.</para>
+
   <figure id="fig-tutorial-android-sharedcounter-1">
     <title>Looking at f_sharedCounter</title>
     <mediaobject>
@@ -125,6 +143,12 @@
       </imageobject>
     </mediaobject>
   </figure>
+
+  <para>Click on <structfield>f_sharedCounter</structfield> and run
+  <emphasis>What threads read and write this field?</emphasis> from the
+  <guilabel>Query Menu</guilabel>.  The results should resemble the figure
+  below:</para>
+
   <figure id="fig-tutorial-android-sharedcounter-2">
     <title>What threads read and write f_sharedCounter?</title>
     <mediaobject>
@@ -134,6 +158,22 @@
     </mediaobject>
   </figure>
 
+  <para>We can see from the above query that f_sharedCounter is indeed read from
+  and written to by multiple threads.  From this and our knowledge of the
+  program, we can convince our self that there is a race condition on
+  <structfield>f_sharedCounter</structfield>.  The detected race condition on
+  <structfield>f_sharedCounter</structfield> was expected, however.  What was
+  not expected was a detected race condition on
+  <structfield>f_threadLocalCounts</structfield>.  What might be going on?  Get
+  ready to start a new line of inquiry by clearing the results out of the
+  <guilabel>Query Results Explorer</guilabel> view, and/or click on the run of
+  <application>Counter Race</application> in the <guilabel>Flashlight
+  Runs</guilabel> view again.  Now double click on <emphasis>What fields
+  (non-static) have an empty lock set after object construction?</emphasis> in
+  the <guilabel>Query Menu</guilabel>.  The <guilabel>Query Results</guilabel>
+  view should display the <structfield>f_threadLocalCounts</structfield>
+  field.</para>
+
   <figure id="fig-tutorial-android-threadlocal-1">
     <title>Looking at f_threadLocalCounts</title>
     <mediaobject>
@@ -142,6 +182,12 @@
       </imageobject>
     </mediaobject>
   </figure>
+
+  <para>There should be four instances of
+  <structfield>f_threadLocalCounts</structfield> in the program &mdash; one for
+  each counter thread.  Select <structfield>f_threadLocalCounts</structfield>
+  and run <emphasis>What instances of this field have an empty lock
+  set?</emphasis></para>
   <figure id="fig-tutorial-android-threadlocal-2">
     <title>Four instances of f_threadLocalCounts</title>
     <mediaobject>
@@ -150,6 +196,37 @@
       </imageobject>
     </mediaobject>
   </figure>
+  
+  <para>Now select an instances of
+  <structfield>f_threadLocalCounts</structfield> for us to investigate more
+  closely and run <emphasis>What threads read and write
+  this field?</emphasis>
+  </para>
+  <figure id="fig-tutorial-android-threadlocal-4">
+    <title>What threads read and write f_threadLocalCounts</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-threadlocal-5.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>We can see that all but one access of
+  <structfield>f_threadLocalCounts</structfield> is in the counter thread, as
+  should be the case for a thread confined field.  In our case, the counter
+  thread is Thread-1940.  There is one access made from the main thread while
+  the object is under construction, however.  It is common for fields that are
+  thread confined, such as <structfield>f_threadLocalCounts</structfield>, to be
+  written to during construction in a parent thread, but subsequently accessed
+  solely by another thread created by that parent.  As long as a happens-before
+  relationship is established between the parent thread and its child thread on
+  creation, this is thread-safe.  Flashlight cannot detect this happens-before
+  relationship yet, so the best we can do is verify for our self that it exists.
+  Let's do that by taking a look at where in the main thread
+  <structfield>f_threadLocalCounts</structfield> is initialized.  Start by
+  running <emphasis>When and by what threads was this field
+  accessed?</emphasis></para>
+
   <figure id="fig-tutorial-android-threadlocal-3">
     <title>When and by what threads was f_threadLocalCounts accessed?</title>
     <mediaobject>
@@ -158,8 +235,15 @@
       </imageobject>
     </mediaobject>
   </figure>
+
+  <para>Here we can see that the write to
+  <structfield>f_threadLocalcounts</structfield> by the main thread was the very
+  access of the field.  Go ahead and select it, then run <emphasis>What is the
+  stack trace for this access?</emphasis> 
+  </para>
+
   <figure id="fig-tutorial-android-threadlocal-4">
-    <title>f_threadLocalCounts </title>
+    <title>What is the stack trace for this access?</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-android-threadlocal-4.png" />
@@ -167,5 +251,30 @@
     </mediaobject>
   </figure>
 
+  <para>We can see from the figure above that
+  <structfield>f_threadLocalCounts</structfield> is written to during the
+  construction of <classname>CounterThread</classname>.  If we click on the
+  middle row, where the <methodname>go</methodname> method of class
+  <classname>CounterRaceActivity</classname> is called, we jump to that line of
+  code in the source code and can see the context where
+  <classname>CounterThread</classname> is initialized.  Following along with the
+  code, we can see that all of the <classname>CounterThread</classname> objects
+  are constructed first, then started from the main thread.  When
+  <methodname>Thread.start</methodname> is called, a happens-before relationship
+  is created between the main thread and the counter threads.  Because we can
+  see that there is a happens-before relationship in between the write to
+  <structfield>f_threadLocalCounts</structfield> from the main thread and the
+  read/writes occurring in the counter thread, we can be satisfied that there is
+  no race condition here.  This concludes the Android tutorial.</para>
+
+  <figure id="fig-tutorial-android-threadlocal-6">
+    <title>Initialization of <structfield>f_threadLocalCounts</structfield> in
+    <classname>CounterRaceActivity</classname></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-threadlocal-6.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
 </sect2>
