@@ -57,6 +57,85 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
     
+            <section id="sec-jsure-release-4-3-3">
+		<title>JSure version 4.3.3</title>
+		<para>This section describes the 4.3.3 version of the JSure Eclipse	client.</para>
+				
+			<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.</para>
+			<orderedlist>
+			    <listitem>
+					<para>
+						<emphasis>An Eclipse toolbar icon to launch a JSure scan</emphasis>
+						&mdash;
+						The Eclipse toolbar has been augmented, as shown in the screenshot
+						below, to include an icon that can launch a scan.</para>
+						
+					 	<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-433-toolbar.png" />
+							</imageobject>
+						</mediaobject>
+						
+					 	<para>This enhancement was tracked
+						<ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=103">here</ulink>.</para>
+				</listitem>		
+				<listitem>
+					<para>
+						<emphasis>Indicator of modeling problems added to the Verification Status view</emphasis>
+						&mdash;
+						JSure now gives an indication of modeling problems in the <guilabel>Verification Status</guilabel> view via a toolbar icon.
+						Several JSure users open the <guilabel>Verification Status</guilabel> view in non-JSure perspectives, such as the Java
+						perspective, and previously it was difficult to know if any modeling problems exist in scanned projects
+						if only this view is opened. Modeling problems are listed in the <guilabel>Modeling Problem</guilabel> view not in the <guilabel>Verification
+						Status</guilabel> view&mdash;which only reports consistency results on valid models.</para>
+						
+					 	<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-433-indicator.png" />
+							</imageobject>
+						</mediaobject>
+						
+					 	<para>The image above shows the new indicator icon when modeling problems exist in the
+					 	project (top) and when they don’t (bottom).</para>
+					 	
+					 	<para>This enhancement was tracked
+						<ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=104">here</ulink>.</para>
+				</listitem>				
+			</orderedlist>
+		</section>
+		
+		<section>
+			<title>Known Problems</title>
+			<para>This section describes known limitations in this
+				version of JSure.</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Output from Unique+From analysis can be difficult to understand</emphasis>
+						&mdash;
+						The new <emphasis>unique+from</emphasis> analysis outputs cryptic messages in many cases and an update
+						is under development to add "side-effecting"
+						output to this analysis in the next release. This approach to output will improve user messages, especially for
+						inconsistent results.</para>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>Nullable annotations are not verified</emphasis>
+						&mdash;
+						This release contains annotations for constraining the use of null values in a Java program. These annotations include
+						<code>@NonNull</code>, <code>@Nullable</code>, and <code>@Raw</code>. These are included for initial use in user code.
+						This version of JSure, however, does not verify these annotations. This engineering is underway and full support is
+						expected in a future release.</para>
+				</listitem>
+				
+			</orderedlist>
+		</section>
+	</section>
+    
         <section id="sec-jsure-release-4-3-2">
 		<title>JSure version 4.3.2</title>
 		<para>This section describes the 4.3.2 version of the JSure Eclipse
@@ -85,7 +164,7 @@
 					 	<para>This allows the library annotation files to be, for example, placed under
 					 	    a source code control system and shared between all programmers in a team.
 					 	    This change is not yet well integrated into the views and editors that support
-					 	    library annotation. Therefore, it is recommened that you close all editors before,
+					 	    library annotation. Therefore, it is recommended that you close all editors before,
 					 	    and restart Eclipse after, changing this setting.</para>
 				</listitem>				
 			</orderedlist>
