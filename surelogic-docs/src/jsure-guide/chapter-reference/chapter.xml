@@ -27,7 +27,9 @@
           <formalpara>
             <title><guimenuitem>Verify Project</guimenuitem></title>
             <para>This command allows the user to choose which project
-            should be assured by JSure.  A dialog is opened to allow the
+            should be assured by JSure. It is also available by pressing the
+            <inlinegraphic fileref="images/jsure_verify.gif"/> icon on the Eclipse 
+            toolbar. A dialog is opened to allow the
             user to select which projects to analyze, as seen in <xref
             linkend="fig-verify-project-dialog"/>. This dialog remembers your prior selection and includes
             projects selected in the <guilabel>Package Explorer</guilabel>.</para>

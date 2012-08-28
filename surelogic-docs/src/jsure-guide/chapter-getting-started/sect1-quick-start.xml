@@ -119,7 +119,8 @@
       this command is associated with the keyboard shortcut
       <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>. This
       keyboard shortcut is worth remembering to make JSure easier to
-      use.
+      use. In addition, the <inlinegraphic fileref="images/jsure_verify.gif"/> icon on the Eclipse
+      toolbar can be used to start a JSure scan.
 
       <mediaobject>
 	<imageobject>
