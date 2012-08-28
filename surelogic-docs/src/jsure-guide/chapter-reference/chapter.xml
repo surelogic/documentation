@@ -427,7 +427,7 @@
       <para>Double-clicking on a result in the <guilabel>Verification Status</guilabel> view highlights
       the code associated with that result in the Java editor and the <guilabel>JSure Historical Source</guilabel> view.</para>
       
-      <para>The view&rsquo;s toolbar has three command icons:
+      <para>The view&rsquo;s toolbar has four command icons:
         <itemizedlist>
 
           <listitem>
@@ -454,7 +454,19 @@
               means.</para>
             </formalpara>            
           </listitem>
-
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/jsure_model_problems_exist.gif"/></guiicon></title>
+              <para>This button gives an indication in the
+              <guilabel>Verification Status</guilabel> view
+              that modeling problems exist in the project. It is intended to be helpful when the user is using non-JSure
+              prespectives, such as the Java perspective, where it can be difficult to know if any modeling problems
+              exist in scanned projects if only this view is opened. The icon is disabled if no modeling problems
+              exist&mdash;as shown in the screenshot above.
+              It is bright yellow when modeling problems do exist&dash;as shown at the start of this paragraph.</para>
+            </formalpara>            
+          </listitem>
 
         </itemizedlist>
       </para>
