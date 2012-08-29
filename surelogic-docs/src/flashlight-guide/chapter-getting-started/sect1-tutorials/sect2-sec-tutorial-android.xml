@@ -7,24 +7,26 @@
   <title>Running Flashlight with Android</title>
 
   <para>The following tutorial is intended to get you up and running with
-  Android.  You can try this on your Android smartphone or tablet if you have
+  Android.  You can try this on your Android phone or tablet if you have
   one.  If you don't, you can still do this tutorial using the emulator provided
-  by Google's Android Development Tools (ADT).  If you do not have the Android
-  SDK and ADT installed, you should do so at this time by following the
-  instructions at <link
-  xlink:href="http://developer.android.com/sdk/installing.html">here</link>.
-  Once you have installed ADT in Eclipse, go ahead and add the
-  <application>Counter Race</application> tutorial to your workspace.  You can
-  do this by Choosing <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run
-  Flashlight Tutorials</guimenuitem></menuchoice>.  Make sure that
-  <application>FlashlightTutorial_CounterRace</application> is checked and click
-  OK.  If you have an Android device connected to your computer by USB,
-  <application>Counter Race</application> will likely launch on your device.  If
-  you don't, then you will need to set up an emulator.  See Android's
+  by Google's Android Development Tools (ADT) &mdash; See Android's
   documentation on <link
   xlink:href="http://developer.android.com/tools/devices/index.html">Managing
-  Virtual Devices</link> to set this up.</para>
-
+  Virtual Devices</link> if you need to setup an emulator.  If you do not have the Android
+  SDK and ADT installed, you should do so at this time by following the
+  instructions <link
+  xlink:href="http://developer.android.com/sdk/installing.html">here</link>. The tutorial project
+  references the Android 2.3.3 libraries, so you may need to install them (or if you are an
+  advanced Android developer, modify the project's <filename>AndroidManifest.xml</filename>).</para>
+  
+  <para>After you have installed ADT in Eclipse, go ahead and add the
+  tutorial project, called <application>FlashlightTutorial_CounterRace</application>, to your workspace.  To do this
+  choose <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run
+  Flashlight Tutorials</guimenuitem></menuchoice> from the Eclipse main menu.
+  In the dialog that opens, ensure that
+  <application>FlashlightTutorial_CounterRace</application> is checked and click
+  OK. This will install the project into your workspace.</para>
+  
   <para><application>Counter Race</application> is a simple program we developed
   to demonstrate that, despite being less powerful than today's generation of
   desktop processors, concurrency remains an issue that must be dealt with
@@ -37,11 +39,13 @@
   the static counter and its own thread-local counter.  Once the box is
   unchecked and the threads finish, the values of the thread-local counters are
   safely added up and presented as the total count.  This count is compared to
-  the value of the static counter and the results are displayed to the user.
-  We'll go ahead and demonstrate this by running the program with Flashlight
-  now.  Right-click on the project and choose <menuchoice><guimenu>Flashlight
+  the value of the static counter and the results are displayed to the user.</para>
+  
+  <para>Now let's run the <application>Counter Race</application> using with Flashlight.
+  Right-click on the <application>FlashlightTutorial_CounterRace</application> project
+  in the <guilabel>Package Explorer</guilabel> and choose <menuchoice><guimenu>Flashlight
   As</guimenu><guimenuitem>Android
-  Application</guimenuitem></menuchoice>.</para>
+  Application</guimenuitem></menuchoice>. This is shown in the image below.</para>
 
   <figure id="fig-tutorial-android-launch">
     <title>Launching Counter Race</title>
@@ -54,8 +58,7 @@
 
   <para>If you are using an emulator, the emulator will take a while to start
   up.  Once <application>Counter Race</application> has been deployed on the
-  phone, the application should launch automatically.  You should see the
-  following:</para>
+  phone, the application should launch automatically.  You should see a screen on the phone similar to the image below.</para>
   <figure id="fig-tutorial-android-phone-1">
     <title>The Counter Race application</title>
     <mediaobject>
@@ -67,7 +70,7 @@
   
   <para>To start the threads, tap the checkbox once.  After allowing it to run
   for a few seconds, you can tap the checkbox again to see the results.  Your
-  results should look something like this:</para>
+  results should look similar to the image below.</para>
 
   <figure id="fig-tutorial-android-phone-2">
     <title>Tap the checkbox to start and stop the counters</title>
@@ -86,14 +89,19 @@
   instrumentation so that we can collect our data, we can do one of two things:
   connect to the runtime monitor and stop the instrumentation, or manually stop
   the background process.  For the purposes of this tutorial, we will do the
-  latter.  On your device or emulator open up the running applications tab by
-  choosing
-  <menuchoice><guimenu>Applications</guimenu><guimenuitem>Settings</guimenuitem><guimenuitem>Apps</guimenuitem></menuchoice>
-  and selecting the <guilabel>Running</guilabel> tab.  You will likely need to
-  click on <guilabel>Show cached processes</guilabel> as well, if your version
+  latter.</para>
+  
+  <para>On your device or emulator open up the phone setting&mdash;how to to this varies on each
+  phone (try <menuchoice><guimenu>menu-button</guimenu><guimenuitem>SystemsSettings</guimenuitem></menuchoice> or perhaps
+  <menuchoice><guimenu>Applications</guimenu><guimenuitem>Settings</guimenuitem></menuchoice>).
+  Once in the system settings open the <guilabel>Applications</guilabel>
+  activity and select the <guilabel>Running</guilabel> tab (shown in the image below).</para>
+  
+  <para>Next, click on <guilabel>Show cached processes</guilabel> at the bottom of the
+  activity (which will toggle to <guilabel>Show services in use</guilabel>), if your version
   of the phone has this option.  Then navigate through the list of processes
   until you find Counter Race.  Select Counter Race, and then click
-  <guilabel>Stop</guilabel> to terminate the running process.</para>
+  <guilabel>Stop</guilabel> to terminate the process.</para>
   <figure id="fig-tutorial-android-phone-3">
     <title>The cached Counter Race process</title>
     <mediaobject>
@@ -111,19 +119,25 @@
     </mediaobject>
   </figure>
 
-  <para>Once you terminate the running process, a notification window should pop
-  up asking if you want to switch to the Flashlight perspective and if you would
-  like to prep the run.  Go ahead and prep the run now.  Once you do so, you
-  should have access to the Run Overview.  Clicking on the <guilabel>Race
-  Conditions</guilabel> tab, we can see that we have detected potential race
+  <para>Once you terminate the process, back in Eclipse, a notification window should pop
+  up asking if you want to switch to the Flashlight perspective. Select
+  <guilabel>Yes</guilabel> to move into the Flashlight perspective.</para>
+  
+  <para>Another dialog will ask you if you want to prepare the collected data for
+  querying. Select <guilabel>Yes</guilabel> again to
+  start preparing the data. This will take a minute or two to accomplish.</para>
+  
+  <para>After the data preparation completes you should see the Run Overview for the run of Counter Race.  Click on the <guilabel>Race
+  Conditions</guilabel> tab and open up the package and class to see that we have detected potential race
   conditions on two fields: <structfield>f_sharedCounter</structfield> and
-  <structfield>f_threadLocalCounts</structfield>.  Note that by clicking on the
-  fields in the overview, we see that neither field was accessed when any locks
-  where held in the program, so we know that neither field was protected by any
+  <structfield>f_threadLocalCounts</structfield>.  Next click on each
+  fields in the overview. We are informed (via the <emphasis>No locks were held when this field was accessed</emphasis> message)
+  that neither field was accessed when any locks
+  where held by the program. Hence, it is unlikely that either field is intended to be protected by any
   sort of locking strategy.</para>
   
   <figure id="fig-tutorial-android-raceconditions">
-    <title>Potential Race Conditions in CounterRace</title>
+    <title>Potential Race Conditions in Counter Race</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-android-raceconditions.png" />
