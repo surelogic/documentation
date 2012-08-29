@@ -13,7 +13,12 @@
   SDK and ADT installed, you should do so at this time by following the
   instructions at <link
   xlink:href="http://developer.android.com/sdk/installing.html">here</link>.
-  Once you have installed ADT in Eclipse, go ahead and add the
+  You will also need to install the Android 2.3.3 SDK Platform.  You can do this
+  by choosing <menuchoice><guimenu>Window</guimenu><guimenuitem>Android SDK
+  Manager</guimenuitem></menuchoice> from Eclipse's main menu, checking the box
+  for the <guilabel>Android 2.3.3 (API 10) SDK Platform</guilabel>, and then
+  clicking <guilabel>Install packages...</guilabel>.  Once you have installed
+  ADT in Eclipse and installed the SDK, go ahead and add the
   <application>Counter Race</application> tutorial to your workspace.  You can
   do this by Choosing <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run
   Flashlight Tutorials</guimenuitem></menuchoice>.  Make sure that
@@ -86,8 +91,10 @@
   instrumentation so that we can collect our data, we can do one of two things:
   connect to the runtime monitor and stop the instrumentation, or manually stop
   the background process.  For the purposes of this tutorial, we will do the
-  latter.  On your device or emulator open up the running applications tab by
-  choosing
+  latter.  Open up the <application>Settings</application> application on your
+  phone, and then select the <guilabel>Applications</guilabel> label.  The way
+  you do this is specific to your phone.  On my device you open up the running
+  applications tab by choosing
   <menuchoice><guimenu>Applications</guimenu><guimenuitem>Settings</guimenuitem><guimenuitem>Apps</guimenuitem></menuchoice>
   and selecting the <guilabel>Running</guilabel> tab.  You will likely need to
   click on <guilabel>Show cached processes</guilabel> as well, if your version
@@ -112,11 +119,12 @@
   </figure>
 
   <para>Once you terminate the running process, a notification window should pop
-  up asking if you want to switch to the Flashlight perspective and if you would
-  like to prep the run.  Go ahead and prep the run now.  Once you do so, you
-  should have access to the Run Overview.  Clicking on the <guilabel>Race
-  Conditions</guilabel> tab, we can see that we have detected potential race
-  conditions on two fields: <structfield>f_sharedCounter</structfield> and
+  up back in Eclipse asking if you want to switch to the Flashlight perspective
+  and if you would like to prep the run.  Go ahead and prep the run now.  Once
+  you do so, you should have access to the Run Overview.  Clicking on the
+  <guilabel>Race Conditions</guilabel> tab, we can see that we have detected
+  potential race conditions on two fields:
+  <structfield>f_sharedCounter</structfield> and
   <structfield>f_threadLocalCounts</structfield>.  Note that by clicking on the
   fields in the overview, we see that neither field was accessed when any locks
   where held in the program, so we know that neither field was protected by any
