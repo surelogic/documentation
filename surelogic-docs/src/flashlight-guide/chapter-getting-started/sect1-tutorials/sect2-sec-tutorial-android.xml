@@ -7,17 +7,18 @@
   <title>Running Flashlight with Android</title>
 
   <para>The following tutorial is intended to get you up and running with
-  Android.  You can try this on your Android phone or tablet if you have
-  one.  If you don't, you can still do this tutorial using the emulator provided
-  by Google's Android Development Tools (ADT) &mdash; See Android's
-  documentation on <link
+  Android.  You can try this on your Android phone or tablet if you have one.
+  If you don't, you can still do this tutorial using the emulator provided by
+  Google's Android Development Tools (ADT) &mdash; See Android's documentation
+  on <link
   xlink:href="http://developer.android.com/tools/devices/index.html">Managing
-  Virtual Devices</link> if you need to setup an emulator.  If you do not have the Android
-  SDK and ADT installed, you should do so at this time by following the
-  instructions <link
-  xlink:href="http://developer.android.com/sdk/installing.html">here</link>. The tutorial project
-  references the Android 2.3.3 libraries, so you may need to install them (or if you are an
-  advanced Android developer, modify the project's <filename>AndroidManifest.xml</filename>).</para>
+  Virtual Devices</link> if you need to setup an emulator.  If you do not have
+  the Android SDK and ADT installed, you should do so at this time by following
+  the instructions <link
+  xlink:href="http://developer.android.com/sdk/installing.html">here</link>. The
+  tutorial project references the Android 2.3.3 libraries, so you may need to
+  install them (or if you are an advanced Android developer, modify the
+  project's <filename>AndroidManifest.xml</filename>).</para>
   
   <para>After you have installed ADT in Eclipse, go ahead and add the
   tutorial project, called <application>FlashlightTutorial_CounterRace</application>, to your workspace.  To do this
@@ -91,17 +92,21 @@
   the background process.  For the purposes of this tutorial, we will do the
   latter.</para>
   
-  <para>On your device or emulator open up the phone setting&mdash;how to to this varies on each
-  phone (try <menuchoice><guimenu>menu-button</guimenu><guimenuitem>SystemsSettings</guimenuitem></menuchoice> or perhaps
+  <para>On your device or emulator open up the phone setting&mdash;how to to
+  this varies on each phone (try
+  <menuchoice><guimenu>menu-button</guimenu><guimenuitem>SystemsSettings</guimenuitem></menuchoice>
+  or perhaps
   <menuchoice><guimenu>Applications</guimenu><guimenuitem>Settings</guimenuitem></menuchoice>).
   Once in the system settings open the <guilabel>Applications</guilabel>
-  activity and select the <guilabel>Running</guilabel> tab (shown in the image below).</para>
+  activity and select the <guilabel>Running</guilabel> tab (shown in the image
+  below).</para>
   
-  <para>Next, click on <guilabel>Show cached processes</guilabel> at the bottom of the
-  activity (which will toggle to <guilabel>Show services in use</guilabel>), if your version
-  of the phone has this option.  Then navigate through the list of processes
-  until you find Counter Race.  Select Counter Race, and then click
-  <guilabel>Stop</guilabel> to terminate the process.</para>
+  <para>Next, click on <guilabel>Show cached processes</guilabel> at the bottom
+  of the activity (which will toggle to <guilabel>Show services in
+  use</guilabel>), if your version of the phone has this option.  Then navigate
+  through the list of processes until you find Counter Race.  Select Counter
+  Race, and then click <guilabel>Stop</guilabel> to terminate the
+  process.</para>
   <figure id="fig-tutorial-android-phone-3">
     <title>The cached Counter Race process</title>
     <mediaobject>
@@ -119,22 +124,24 @@
     </mediaobject>
   </figure>
 
-  <para>Once you terminate the process, back in Eclipse, a notification window should pop
-  up asking if you want to switch to the Flashlight perspective. Select
-  <guilabel>Yes</guilabel> to move into the Flashlight perspective.</para>
+  <para>Once you terminate the process, back in Eclipse, a notification window
+  should pop up asking if you want to switch to the Flashlight
+  perspective. Select <guilabel>Yes</guilabel> to move into the Flashlight
+  perspective.</para>
   
-  <para>Another dialog will ask you if you want to prepare the collected data for
-  querying. Select <guilabel>Yes</guilabel> again to
-  start preparing the data. This will take a minute or two to accomplish.</para>
+  <para>Another dialog will ask you if you want to prepare the collected data
+  for querying. Select <guilabel>Yes</guilabel> again to start preparing the
+  data. This will take a minute or two to accomplish.</para>
   
-  <para>After the data preparation completes you should see the Run Overview for the run of Counter Race.  Click on the <guilabel>Race
-  Conditions</guilabel> tab and open up the package and class to see that we have detected potential race
-  conditions on two fields: <structfield>f_sharedCounter</structfield> and
-  <structfield>f_threadLocalCounts</structfield>.  Next click on each
-  fields in the overview. We are informed (via the <emphasis>No locks were held when this field was accessed</emphasis> message)
-  that neither field was accessed when any locks
-  where held by the program. Hence, it is unlikely that either field is intended to be protected by any
-  sort of locking strategy.</para>
+  <para>After the data preparation completes you should see the Run Overview for
+  the run of Counter Race.  Click on the <guilabel>Race Conditions</guilabel>
+  tab and open up the package and class to see that we have detected potential
+  race conditions on two fields: <structfield>f_sharedCounter</structfield> and
+  <structfield>f_threadLocalCounts</structfield>.  Next click on each fields in
+  the overview. We are informed (via the <emphasis>No locks were held when this
+  field was accessed</emphasis> message) that neither field was accessed when
+  any locks where held by the program. Hence, it is unlikely that either field
+  is intended to be protected by any sort of locking strategy.</para>
   
   <figure id="fig-tutorial-android-raceconditions">
     <title>Potential Race Conditions in Counter Race</title>
