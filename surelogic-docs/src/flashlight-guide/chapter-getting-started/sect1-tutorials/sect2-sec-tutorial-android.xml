@@ -145,13 +145,14 @@
     </mediaobject>
   </figure>
 
-  <para>We will look at f_sharedCounter first.  Clicking on
-  <structfield>f_sharedCounter</structfield>, we can see from the source code
-  that it is a static, non-volatile field in the
-  <classname>CounterThread</classname> class.  To investigate this further,
-  double click on <emphasis>What fields (static) have an empty lock
-  set?</emphasis> in the <guilabel>Query Menu</guilabel>.  The <guilabel>Query
-  Results</guilabel> view should display one such field -
+  <para>Let's examine the <structfield>f_sharedCounter</structfield> field to detrmine how it is shared by threads in the program.  Click on
+  <structfield>f_sharedCounter</structfield> in the view. This opens the code to the declaration of the field.
+  We can see from the code
+  that <structfield>f_sharedCounter</structfield> is a static, non-volatile field in the
+  <classname>CounterThread</classname> class.  To investigate this further let's run a detailed query.
+  Double click on <emphasis>What fields (static) have an empty lock
+  set?</emphasis> in the <guilabel>Query Menu</guilabel>. An empty lock set indicates this field is not consistently protected by a lock. The <guilabel>Query
+  Results</guilabel> view should display one such field:
   <structfield>f_sharedCounter</structfield>.</para>
 
   <figure id="fig-tutorial-android-sharedcounter-1">
@@ -163,10 +164,9 @@
     </mediaobject>
   </figure>
 
-  <para>Click on <structfield>f_sharedCounter</structfield> and run
-  <emphasis>What threads read and write this field?</emphasis> from the
-  <guilabel>Query Menu</guilabel>.  The results should resemble the figure
-  below:</para>
+  <para>Select the <structfield>f_sharedCounter</structfield> in the <guilabel>Query Results</guilabel> and then double-click on the
+  <emphasis>What threads read and write this field?</emphasis> query in the
+  <guilabel>Query Menu</guilabel>. The results should resemble the image below.</para>
 
   <figure id="fig-tutorial-android-sharedcounter-2">
     <title>What threads read and write f_sharedCounter?</title>
@@ -177,21 +177,21 @@
     </mediaobject>
   </figure>
 
-  <para>We can see from the above query that f_sharedCounter is indeed read from
+  <para>We can see from the query results that <structfield>f_sharedCounter</structfield> is
+  indeed read from
   and written to by multiple threads.  From this and our knowledge of the
-  program, we can convince our self that there is a race condition on
+  program, we can conclude that there is a race condition on
   <structfield>f_sharedCounter</structfield>.  The detected race condition on
-  <structfield>f_sharedCounter</structfield> was expected, however.  What was
-  not expected was a detected race condition on
-  <structfield>f_threadLocalCounts</structfield>.  What might be going on?  Get
-  ready to start a new line of inquiry by clearing the results out of the
-  <guilabel>Query Results Explorer</guilabel> view, or just click on the run of
-  <application>Counter Race</application> in the <guilabel>Flashlight
-  Runs</guilabel> view to return the <guilabel>Query Menu</guilabel> to the top
-  level menu.  Now double click on <emphasis>What fields (non-static) have an
+  <structfield>f_sharedCounter</structfield> was expected&mdash;it was engineered into the tutorial.</para>
+  
+  <para>What about the detected race condition on
+  <structfield>f_threadLocalCounts</structfield>?  What might be going on?  Get
+  ready to start a new line of inquiry by clearing out our previous query results. To do this press the <guiicon><inlinegraphic
+    fileref="images/gray_x_double.png" /></guiicon> icon in the toolbar of
+  <guilabel>Query Results</guilabel> view. Next, double click on <emphasis>What fields (non-static) have an
   empty lock set after object construction?</emphasis> in the <guilabel>Query
   Menu</guilabel>.  The <guilabel>Query Results</guilabel> view should display
-  the <structfield>f_threadLocalCounts</structfield> field.</para>
+  the <structfield>f_threadLocalCounts</structfield> field, similar to the image below.</para>
 
   <figure id="fig-tutorial-android-threadlocal-1">
     <title>Looking at f_threadLocalCounts</title>
@@ -202,11 +202,12 @@
     </mediaobject>
   </figure>
 
-  <para>There should be four instances of
-  <structfield>f_threadLocalCounts</structfield> in the program &mdash; one for
-  each counter thread.  Select <structfield>f_threadLocalCounts</structfield>
-  and run <emphasis>What instances of this field have an empty lock
-  set?</emphasis></para>
+  <para>As this query result reports, there should be four instances of
+  <structfield>f_threadLocalCounts</structfield> in the program&mdash;one for
+  each counter thread.  Select <structfield>f_threadLocalCounts</structfield> in the <guilabel>Query Results</guilabel> view
+  and run (by double click or right click) the <emphasis>What instances of this field have an empty lock
+  set?</emphasis> query.</para>
+  
   <figure id="fig-tutorial-android-threadlocal-2">
     <title>Four instances of f_threadLocalCounts</title>
     <mediaobject>
@@ -216,11 +217,11 @@
     </mediaobject>
   </figure>
   
-  <para>Now select an instances of
-  <structfield>f_threadLocalCounts</structfield> for us to investigate more
-  closely and run <emphasis>What threads read and write
-  this field?</emphasis>
-  </para>
+  <para>Now select the first instance of
+  <structfield>f_threadLocalCounts</structfield> to investigate more
+  closely. Right click and select (run) the <emphasis>What threads read and write
+  this field?</emphasis> query.</para>
+  
   <figure id="fig-tutorial-android-threadlocal-4">
     <title>What threads read and write f_threadLocalCounts</title>
     <mediaobject>
@@ -230,10 +231,12 @@
     </mediaobject>
   </figure>
 
-  <para>We can see that all but one access of
-  <structfield>f_threadLocalCounts</structfield> is in the counter thread, as
-  should be the case for a thread confined field.  In our case, the counter
-  thread is Thread-1940.  There is one access made from the main thread while
+  <para>We can see from the query result that most accesses of
+  <structfield>f_threadLocalCounts</structfield> by the program are in one thread, as
+  should be the case for a thread-confined field. In our case, the thread is Thread-TODO, which
+  is the <emphasis>counter thread</emphasis> for that counter.</para>
+  
+  <para>There is one access made from the main thread while
   the object is under construction, however.  It is common for fields that are
   thread confined, such as <structfield>f_threadLocalCounts</structfield>, to be
   written to during construction in a parent thread, but subsequently accessed
