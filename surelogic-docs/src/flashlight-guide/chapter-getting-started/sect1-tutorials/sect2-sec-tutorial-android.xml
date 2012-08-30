@@ -368,9 +368,9 @@
   to it.  The <classname>Thread</classname>.<methodname>join</methodname> method
   creates a happens-before relationship from the termination of each counter
   thread to the main thread.  Because we can see that
-  <structfield>f_threadLocalCounts</structfield> is accessed after the
-  happens-before relationship is established with its counter thread, we can be
-  certain that the access is free of any race conditions.
+  <structfield>f_threadLocalCounts</structfield> is read by the main thread
+  after the happens-before relationship is established with its counter thread,
+  we can be certain that the access is free of any race conditions.
   </para>
   <figure id="fig-tutorial-android-threadlocal-9">
     <title>Access of <structfield>f_threadLocalCounts</structfield> by the main thread after Thread-4574 has ended</title>
