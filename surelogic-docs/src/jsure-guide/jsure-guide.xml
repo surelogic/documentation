@@ -127,6 +127,31 @@ public class C&lt;T&gt; {
 						<code>&#064;Containable</code>, meaning that it can only be instantiated with
 						a type actual <emphasis>A</emphasis> such that the implementation of
 						<emphasis>A</emphasis> is containable.</para>
+						
+						<para><emphasis>Why is this annotation needed? What motivates its inclusion in the set
+						of constraints that JSure verifies?</emphasis> Collection classes pose a challenge for concurrency.  It is not enough
+						for the collection implementation, such as <code>CopyOnWriteArrayList</code>, to be thread safe:
+						the objects places in the collection must also be thread safe.  Because the collection may be
+						manipulated by more than one thread, the contents of the collection may be manipulated by multiple
+						threads as well.  Thus the safety of a "thread safe" collection really depends on the thread safety
+						of the elements placed into it.  This leads to the requirement that a thread safe collection is
+						thread safe only if the type of the elements places in the collection is thread safe.  Rather than
+						treat collections specially, JSure uses a new annotation on type declarations, <code>@AnnotationBounds</code>, that is used to place
+						annotations on the formal type parameters of the declared type.  This provides a generic
+						technique for requiring that a type formal be passed an actual type
+						that is <code>@Immutable</code>, <code>@Containable</code>, or <code>@ThreadSafe</code>.
+						For example, JSure's libraries annotate <code>java.util.concurrent.CopyOnWriteArrayList</code> as follows:
+
+<programlisting>
+&#64;ThreadSafe
+&#64;AnnotationBounds(threadSafe="E")
+public class CopyOnWriteArrayList&lt;E&gt; implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable {
+  &hellip;
+}
+</programlisting>
+
+This effort is still very much a work in progress and this annotation should be for trial use only.
+    </para>
 				</listitem>				
 			</orderedlist>
 		</section>
