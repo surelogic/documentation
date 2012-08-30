@@ -20,11 +20,12 @@
   install them (or if you are an advanced Android developer, modify the
   project's <filename>AndroidManifest.xml</filename>).</para>
   
-  <para>After you have installed ADT in Eclipse, go ahead and add the
-  tutorial project, called <application>FlashlightTutorial_CounterRace</application>, to your workspace.  To do this
-  choose <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run
-  Flashlight Tutorials</guimenuitem></menuchoice> from the Eclipse main menu.
-  In the dialog that opens, ensure that
+  <para>After you have installed ADT in Eclipse, go ahead and add the tutorial
+  project, called <application>FlashlightTutorial_CounterRace</application>, to
+  your workspace.  To do this choose
+  <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run Flashlight
+  Tutorials</guimenuitem></menuchoice> from the Eclipse main menu.  In the
+  dialog that opens, ensure that
   <application>FlashlightTutorial_CounterRace</application> is checked and click
   OK. This will install the project into your workspace.</para>
   
@@ -59,7 +60,8 @@
 
   <para>If you are using an emulator, the emulator will take a while to start
   up.  Once <application>Counter Race</application> has been deployed on the
-  phone, the application should launch automatically.  You should see a screen on the phone similar to the image below.</para>
+  phone, the application should launch automatically.  You should see a screen
+  on the phone similar to the image below.</para>
   <figure id="fig-tutorial-android-phone-1">
     <title>The Counter Race application</title>
     <mediaobject>
