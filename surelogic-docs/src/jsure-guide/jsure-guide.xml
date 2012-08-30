@@ -103,6 +103,30 @@
 					 	
 					 	<para>This enhancement was tracked
 						<ulink url="http://surelogic.com/bugzilla/show_bug.cgi?id=104">here</ulink>.</para>
+				</listitem>		
+				<listitem>
+					<para>
+						<emphasis>Verification of @AnnotationBounds annotation</emphasis>
+						&mdash;
+						This annotation is used to add constraints to the formal type parameters of
+						the annotated type. Essentially, it is a way to add
+						<code>@Containable</code>, <code>@Immutable</code>, and
+						<code>@ThreadSafe</code> annotations to the formal type parameters.
+						Annotating a type formal this way establishes a bound on the type actual that
+						may be passed to the type when the generic type is instantiated. For example,
+						consider the generic class <code>C</code>
+
+<programlisting>
+&#64;AnnotationBounds(containable="T")
+public class C&lt;T&gt; {
+  &hellip;
+}
+</programlisting>
+
+						The type formal <code>T</code> has the annotation bound
+						<code>&#064;Containable</code>, meaning that it can only be instantiated with
+						a type actual <emphasis>A</emphasis> such that the implementation of
+						<emphasis>A</emphasis> is containable.</para>
 				</listitem>				
 			</orderedlist>
 		</section>
