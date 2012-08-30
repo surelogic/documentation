@@ -12,8 +12,8 @@
   Flashlight.</para>
 
   <sect1>
-    <title>Flashlight version 4.3.1</title>
-    <para>This section describes the 4.3.1 version of Flashlight.</para>
+    <title>Flashlight version 4.3.3</title>
+    <para>This section describes the 4.3.3 version of Flashlight.</para>
     <sect2>
       <title>New and Noteworthy</title>
       <orderedlist>
@@ -38,8 +38,8 @@
 	    encounter a <classname>LinkageError</classname> when running
 	    Flashlight.  At this point in time, we do not know exactly what
 	    causes this, but the problem occurs when both the
-	    <package>org.spring.framework.aop</package> and
-	    <package>com.springsource.org.aspectj.weaver</package> jars are
+	    <literal>org.spring.framework.aop</literal> and
+	    <literal>com.springsource.org.aspectj.weaver</literal> jars are
 	    instrumented.  The best workaround for thie problem is to deselect
 	    these jars from the <guilabel>Instrumentation</guilabel> tab in the
 	    <guilabel>Flashlight Configurations</guilabel> view.
@@ -47,8 +47,7 @@
 	</listitem>
       </itemizedlist>
     </sect2>
-  </sect1
->
+  </sect1>
   <sect1>
     <title>Flashlight version 4.3.1</title>
     <para>This section describes the 4.3.1 version of Flashlight.</para>
@@ -81,8 +80,8 @@
 	    encounter a <classname>LinkageError</classname> when running
 	    Flashlight.  At this point in time, we do not know exactly what
 	    causes this, but the problem occurs when both the
-	    <package>org.spring.framework.aop</package> and
-	    <package>com.springsource.org.aspectj.weaver</package> jars are
+	    <literal>org.spring.framework.aop</literal> and
+	    <literal>com.springsource.org.aspectj.weaver</literal> jars are
 	    instrumented.  The best workaround for thie problem is to deselect
 	    these jars from the <guilabel>Instrumentation</guilabel> tab in the
 	    <guilabel>Flashlight Configurations</guilabel> view.
@@ -119,8 +118,8 @@
 	    encounter a <classname>LinkageError</classname> when running
 	    Flashlight.  At this point in time, we do not know exactly what
 	    causes this, but the problem occurs when both the
-	    <package>org.spring.framework.aop</package> and
-	    <package>com.springsource.org.aspectj.weaver</package> jars are
+	    <literal>org.spring.framework.aop</literal> and
+	    <literal>com.springsource.org.aspectj.weaver</literal> jars are
 	    instrumented.  The best workaround for thie problem is to deselect
 	    these jars from the <guilabel>Instrumentation</guilabel> tab in the
 	    <guilabel>Flashlight Configurations</guilabel> view.
@@ -149,8 +148,8 @@
 	    encounter a <classname>LinkageError</classname> when running
 	    Flashlight.  At this point in time, we do not know exactly what
 	    causes this, but the problem occurs when both the
-	    <package>org.spring.framework.aop</package> and
-	    <package>com.springsource.org.aspectj.weaver</package> jars are
+	    <literal>org.spring.framework.aop</literal> and
+	    <literal>com.springsource.org.aspectj.weaver</literal> jars are
 	    instrumented.  The best workaround for this problem is to deselect
 	    these jars from the <guilabel>Instrumentation</guilabel> tab in the
 	    <guilabel>Flashlight Configurations</guilabel> view.
@@ -216,8 +215,8 @@
 	    encounter a <classname>LinkageError</classname> when running
 	    Flashlight.  At this point in time, we do not know exactly what
 	    causes this, but the problem occurs when both the
-	    <package>org.spring.framework.aop</package> and
-	    <package>com.springsource.org.aspectj.weaver</package> jars are
+	    <literal>org.spring.framework.aop</literal> and
+	    <literal>com.springsource.org.aspectj.weaver</literal> jars are
 	    instrumented.  The best workaround for thie problem is to deselect
 	    these jars from the <guilabel>Instrumentation</guilabel> tab in the
 	    <guilabel>Flashlight Configurations</guilabel> view.
