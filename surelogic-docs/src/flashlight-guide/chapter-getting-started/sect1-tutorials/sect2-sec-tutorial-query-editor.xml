@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <sect2 id="sec-tutorial-query-editor">
-  <title>Using the Query Editor</title>
+  <title>Using the Query Editor (Advanced)</title>
 
   <para>
     The set of queries that ship with Flashlight are intended to be sufficient
@@ -19,6 +19,14 @@
     tutorial won't explore the editor in detail, but should give you enough
     information to get started.
   </para>
+  
+    	<note>
+		<title>This tutorial assumes knowledge of SQL</title>
+
+		<para>Understanding the material in this tutorial is not critical for typical
+		use of Flashlight. It covers an advanced approach to change or add to the tools
+		capabilities. To use this approach, a non-trivial understanding of SQL is required.</para>
+	</note>
 
   <para>
     From the Flashlight perspective, add the <guilabel>Query Editor</guilabel>

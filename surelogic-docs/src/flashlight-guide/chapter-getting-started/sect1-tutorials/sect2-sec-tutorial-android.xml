@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <sect2 id="sec-tutorial-android" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>Running Flashlight with Android</title>
+  <title>Using Flashlight on an Android project</title>
 
   <para>The following tutorial is intended to get you up and running with
   Android.  You can try this on your Android phone or tablet if you have one.
@@ -19,6 +19,16 @@
   tutorial project references the Android 2.3.3 libraries, so you may need to
   install them (or if you are an advanced Android developer, modify the
   project's <filename>AndroidManifest.xml</filename>).</para>
+  
+  	<note>
+		<title>This tutorial assumes you are an experienced Android developer</title>
+
+		<para>This tutorial is not intended to teach Android development. It assumes you have
+		some experience developing software for an Android device. In particular, it
+		focuses on Flashlight use within the ADT and doesn't explain in any detail
+		how the code in the tutorial
+		project interacts with the Android device and its operating system.</para>
+	</note>
   
   <para>After you have installed ADT in Eclipse, go ahead and add the tutorial
   project, called <application>FlashlightTutorial_CounterRace</application>, to

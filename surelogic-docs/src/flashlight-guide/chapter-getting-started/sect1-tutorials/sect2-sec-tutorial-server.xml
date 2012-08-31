@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <sect2 id="sec-tutorial-server">
-  <title>Finding a race condition with the lock set analysis</title>
+  <title>Finding a race condition in the PlanetBaron server with lock set analysis</title>
   
   <para>ChatTestClient was a simple Swing application that let us try out the
   <guilabel>Run Overview</guilabel> and some of Flashlight's queries.  From this

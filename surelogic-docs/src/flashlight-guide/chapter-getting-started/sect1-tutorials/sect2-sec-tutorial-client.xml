@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <sect2 id="sec-tutorial-client">
-  <title>Using the Flashlight Eclipse client on PlanetBaron</title>
+  <title>Using Flashlight on the PlanetBaron project</title>
 
   <para>PlanetBaron is a network-based real-time strategy game. It contains
   three programs that we will run during this tutorial. The first is a server
