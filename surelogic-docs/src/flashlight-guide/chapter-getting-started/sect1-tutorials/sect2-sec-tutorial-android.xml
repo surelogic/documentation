@@ -104,6 +104,16 @@
   the background process.  For the purposes of this tutorial, we will do the
   latter.</para>
   
+    <note>
+		<title>Do not terminated the tutorial application too quickly</title>
+
+		<para>The data collection infrastructure flushes data off the Android device
+		roughly every three seconds. Therefore, it is a good idea to let the application
+		sit for several seconds before you close it on the phone and then terminate it.
+		Note that if <code>f_threadLocalCounts</code> does not appear as described below
+		you may have terminated the application too quickly. Try running it again.</para>
+	</note>
+  
   <para>On your device or emulator open up the phone setting&mdash;how to to
   this varies on each phone (try
   <menuchoice><guimenu>menu-button</guimenu><guimenuitem>SystemsSettings</guimenuitem></menuchoice>

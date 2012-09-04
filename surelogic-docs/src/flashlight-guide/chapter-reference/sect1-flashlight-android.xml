@@ -10,6 +10,14 @@
   Android Development Tools (ADT).  If you do not have the Android SDK and ADT
   installed, you can get it by following the instructions <link
   xlink:href="http://developer.android.com/sdk/installing.html">here.</link></para>
+  
+      <note>
+		<title>Do not terminate Android applications too quickly</title>
+
+		<para>The data collection infrastructure flushes data off the Android device
+		roughly every three seconds. Therefore, it is a good idea to let the application
+		sit for several seconds before you close it on the phone and then terminate it.</para>
+	</note>
 
   <sect2>
     <title>Running Flashlight</title>
