@@ -243,17 +243,15 @@
     </mediaobject>
   </figure>
 
-  <para>As this query result reports, there should be eight instances of
+  <para>As this query result reports, there should be four instances of
   <structfield>f_threadLocalCounts</structfield> in the program&mdash;one for
-  each counter thread.  If you have a phone or emulator with only one core, you
-  may only see four instances here.  Select
-  <structfield>f_threadLocalCounts</structfield> in the <guilabel>Query
-  Results</guilabel> view and run (by double click or right click) the
-  <emphasis>What instances of this field have an empty lock set?</emphasis>
-  query.</para>
+  each counter thread.  Select <structfield>f_threadLocalCounts</structfield> in
+  the <guilabel>Query Results</guilabel> view and run (by double click or right
+  click) the <emphasis>What instances of this field have an empty lock
+  set?</emphasis> query.</para>
   
   <figure id="fig-tutorial-android-threadlocal-2">
-    <title>Eight instances of f_threadLocalCounts</title>
+    <title>Four instances of f_threadLocalCounts</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-android-threadlocal-2.png" />
@@ -309,11 +307,25 @@
     </mediaobject>
   </figure>
 
-  <para>Here we see that the write to
-  <structfield>f_threadLocalcounts</structfield> by the main thread was the very
-  first access of the field.  Go ahead and select it, then run <emphasis>What is
-  the stack trace for this access?</emphasis>
+  <para>Here we see that the main thread was the very first thread to access
+  <structfield>f_threadLocalCounts</structfield> Go ahead and select the first
+  entry, then run <emphasis>Show every access of this field in this time
+  range.</emphasis> Note that the first access is a write that occurs while the
+  <classname>CounteThread</classname> object is under construction.  Click on
+  this access and run <emphasis>What is the stack trace for this
+  access?</emphasis>
   </para>
+
+
+  <figure id="fig-tutorial-android-threadlocal-10">
+    <title>The access of <structfield>f_threadLocalCounts</structfield> by the main thread.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-android-threadlocal-10.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
 
   <figure id="fig-tutorial-android-threadlocal-4">
     <title>What is the stack trace for this access?</title>
@@ -354,9 +366,9 @@
   counter thread &mdash; the read of
   <structfield>f_threadLocalCounts</structfield> by the main thread.  In the
   <guilabel>Query Results Explorer</guilabel> view, click on <emphasis>When and
-  by what threads was this field accessed?</emphasis> and scroll down to the
-  bottom of the query results.  You should see something similar to the figure
-  below.</para>
+  by what threads was this field accessed?</emphasis> and select the final row.
+  Run <emphasis>Show every access of this field in this time range.</emphasis>
+  You should see something similar to the figure below.</para>
 
   <figure id="fig-tutorial-android-threadlocal-7">
     <title>When and by what threads was <structfield>f_threadLocalCounts</structfield> accessed?</title>
