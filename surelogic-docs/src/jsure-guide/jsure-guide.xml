@@ -20,7 +20,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 4.3.3&mdash;August 2012</pubdate>
+    <pubdate>Version 4.3.4&mdash;November 2012</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -56,6 +56,93 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+
+	<section id="sec-jsure-release-4-3-4">
+		<title>JSure version 4.3.4</title>
+		<para>This section describes the 4.3.4 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Major scan file format changes</emphasis>
+						&mdash;
+						A large number of changes to the data file formats that
+						communicate JSure scan results
+						to the Eclipse tool user interface
+						have been made. It is recommended to delete your old
+						scans and
+						reset the JSure perspective after upgrading to this tool release.
+						Also please read
+						<emphasis>Old scans may or may not work properly</emphasis> in the
+						list of known problems below.
+					</para>
+				</listitem>
+			</orderedlist>
+		</section>
+
+	<section>
+		<title>Known Problems</title>
+		<para>This section describes known limitations in this
+			version of
+			JSure.
+		</para>
+		<orderedlist>
+			<listitem>
+				<para>
+					<emphasis>JSure views missing or Verify Project keyboard shortcut
+						not working properly
+					</emphasis>
+					&mdash;
+					Many of the JSure views have changed. You may get exceptions
+					or missing
+					views on Eclipse startup after installing this version of
+					JSure. You should reset the JSure perspective to fix this problem.
+				</para>
+				<para>
+					If problems persist, or your
+					<guilabel>Verify Project</guilabel>
+					keyboard shortcut is not working properly this is because
+					Eclipse is
+					caching information about the old JSure version. You need to
+					delete
+					the Eclipse cache file. In Eclipse 4.2 delete the file in your
+					workspace called
+					<guilabel>.metadata\.plugins\org.eclipse.e4.workbench\workbench.xmi
+					</guilabel>
+					. In earlier versions of Eclipse delete
+					<guilabel>.metadata\.plugins\org.eclipse.workbench\workbench.xml
+					</guilabel>.
+					This removes all cache information about your Eclipse perspective
+					layout, note that it doesn't touch your project setup or files&mdash;just
+					user interface layout preferences such as where a view is placed.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					<emphasis>Old scans may or may not work properly</emphasis>
+					&mdash;
+					The changes to the data file formats that communicate JSure
+					scan results to the Eclipse tool user interface
+					are not as backwards compatible as we had hoped. Please do not upgrade to this
+					release until you can clear out old scans.
+					 It is suggested that you delete all old
+					scans by removing <guilabel>.jsure-data</guilabel> from your workspace
+					directory. Some older scans may load fine, but we have noted problems with
+					the new scan-difference features and user interface improvements that
+					this JSure release includes.
+				</para>
+			</listitem>
+
+		</orderedlist>
+	</section>
+	</section>
     
             <section id="sec-jsure-release-4-3-3">
 		<title>JSure version 4.3.3</title>
