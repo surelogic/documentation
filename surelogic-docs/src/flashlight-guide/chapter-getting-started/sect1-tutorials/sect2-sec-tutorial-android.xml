@@ -307,9 +307,22 @@
     </mediaobject>
   </figure>
 
-  <para>Here we see that the main thread was the very first thread to access
-  <structfield>f_threadLocalCounts</structfield> Go ahead and select the first
-  entry, then run <emphasis>Show every access of this field in this time
+  <para>Your results should resemble the image above.  This query tells us that
+  the main thread first wrote to <structfield>f_threadLocalCounts</structfield>,
+  then Thread-86 wrote and read from it repeatedly while incrementing
+  <structfield>f_threadLocalCounts</structfield>, for several seconds, and
+  finally the main thread accessed
+  <structfield>f_threadLocalCounts</structfield> again to read the result.  The
+  Happens-Before column indicates that there was indeed a Happens-Before
+  relationship in between every time that
+  <structfield>f_threadLocalCounts</structfield> was accessed by two different
+  threads.  This means that we can be assured that this field was accessed in a
+  thread-safe manner.</para>
+
+
+  <para>If we want, we can drill in even further and look at where this field
+  was accessed to get a better idea of its behavior.  Go ahead and select the
+  first entry, then run <emphasis>Show every access of this field in this time
   range.</emphasis> Note that the first access is a write that occurs while the
   <classname>CounteThread</classname> object is under construction.  Click on
   this access and run <emphasis>What is the stack trace for this
@@ -318,7 +331,7 @@
 
 
   <figure id="fig-tutorial-android-threadlocal-10">
-    <title>The access of <structfield>f_threadLocalCounts</structfield> by the main thread.</title>
+    <title>The write of <structfield>f_threadLocalCounts</structfield> by the main thread.</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-android-threadlocal-10.png" />
@@ -346,11 +359,11 @@
   code, we can see that all of the <classname>CounterThread</classname> objects
   are constructed first, then started from the main thread.  When
   <methodname>Thread.start</methodname> is called, a happens-before relationship
-  is created between the main thread and the counter threads.  Because we can
-  see that there is a happens-before relationship in between the write to
-  <structfield>f_threadLocalCounts</structfield> from the main thread and the
-  read/writes occurring in the counter thread, we can be satisfied that there is
-  no race condition here.</para>
+  is created between the main thread and the counter threads.  Because
+  Flashlight observed that there is a happens-before relationship in between the
+  write to <structfield>f_threadLocalCounts</structfield> from the main thread
+  and the read/writes occurring in the counter thread, we can be satisfied that
+  there is no race condition here.</para>
 
   <figure id="fig-tutorial-android-threadlocal-6">
     <title>Initialization of <structfield>f_threadLocalCounts</structfield> in
@@ -371,7 +384,7 @@
   You should see something similar to the figure below.</para>
 
   <figure id="fig-tutorial-android-threadlocal-7">
-    <title>When and by what threads was <structfield>f_threadLocalCounts</structfield> accessed?</title>
+    <title>The read of <structfield>f_threadLocalCounts</structfield> by the main thread.</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-android-threadlocal-7.png" />
@@ -399,7 +412,7 @@
   the program iterates over each <classname>CounterThread</classname> and joins
   to it.  The <classname>Thread</classname>.<methodname>join</methodname> method
   creates a happens-before relationship from the termination of each counter
-  thread to the main thread.  Because we can see that
+  thread to the main thread.  Because Flashlight observed that
   <structfield>f_threadLocalCounts</structfield> is read by the main thread
   after the happens-before relationship is established with its counter thread,
   we can be certain that the access is free of any race conditions.
