@@ -238,15 +238,20 @@
       (note the + to the upper-right) then JSure "thinks" it can resolve the modeling problem with an automatic edit. Select the
       problem and choose <menuchoice><guimenu>Annotate
       Code To Fix...</guimenu></menuchoice> from the view's context
-      menu and the tool will automatically fix the modeling problem. The edit is previewed before it is made to the code.</para>
+      menu and the tool will automatically fix the modeling problem.
+      Multiple problems can be selected at one time. The edit is
+      previewed before it is made to the code.</para>
 
       <para>The <guilabel>Verification Status</guilabel> view is
       divided into sections to show the results of assuring different
       classes of design intent, such as effects, and concurrency, as
-      well as showing less specific suggestions and warnings.</para>
+      well as showing less specific suggestions and warnings. The <guilabel>Verification
+      Explorer</guilabel> view shows similar information but displays results
+      in the context of Java declarations, e.g., by project, class, field, etc.</para>
 
       <para>The icons shown in the <guilabel>Verification
-      Status</guilabel> view have meaning. The table below is a quick
+      Status</guilabel> and <guilabel>Verification
+      Explorer</guilabel> views have meaning. The table below is a quick
       reference about what each icon and decorator indicates to the
       tool user. This table can be brought up as a dialog in JSure by
       pressing the
@@ -286,11 +291,19 @@
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/consistent_decr.gif"/></entry>
-	      <entry>Consistent verification judgment decorator</entry>
+	      <entry>Consistent verification judgment</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/unused_consistent_decr.gif"/></entry>
+	      <entry>Unused choice with consistent verification judgment</entry>
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/inconsistent_decr.gif"/></entry>
-	      <entry>Inconsistent verification judgment decorator</entry>
+	      <entry>Inconsistent verification judgment</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/unused_inconsistent_decr.gif"/></entry>
+	      <entry>Unused choice with inconsistent verification judgment</entry>
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/trusted_decr.gif"/></entry>
@@ -302,7 +315,7 @@
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/virtual_decr.gif"/></entry>
-	      <entry>Virtual promise decorator &ndash; created by @Promise</entry>
+	      <entry>Virtual promise &ndash; created by @Promise</entry>
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/info.gif"/></entry>
@@ -313,19 +326,29 @@
 	      <entry>Warning message &ndash; a possible next modeling step</entry>
 	    </row>
 	    <row>
-	      <entry><inlinegraphic fileref="images/annotation_error.gif"/></entry>
-	      <entry>Modeling problem &ndash; check the syntax of your annotations</entry>
+	      <entry><inlinegraphic fileref="images/folder.gif"/></entry>
+	      <entry>Folder of results</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/delta_decr.gif"/></entry>
+	      <entry>Delta &ndash; something in the tree has changed since the last scan</entry>
+	    </row>
+	    <row>
+	      <entry><?dbhtml bgcolor="#FFFFBE" ?><?dbfo bgcolor="#FFFFBE" ?></entry>
+	      <entry>Highlights something new or changed since the last scan</entry>
+	    </row>
+	    <row>
+	      <entry><?dbhtml bgcolor="#FFBEBE" ?><?dbfo bgcolor="#FFBEBE" ?></entry>
+	      <entry>Highlights an obsolete result only in the last scan</entry>
+	    </row>
+	    <row>
+	      <entry></entry>
+	      <entry>Standard Eclipse images are used to represent Java declarations</entry>
 	    </row>
 	  </tbody>
 	</tgroup>
       </informaltable>
 
-      <para>The <guilabel>Library Annotation Explorer</guilabel> view shows
-      all the annotations made on library code, binary code in Jar files, via special JSure XML files that indirectly
-      annotate this code.
-      You can examine these annotations and use them to open the library annotation editor (an editor
-      provided by JSure) to add/modify annotations on Jar files.</para>
-      
       <para>The <guilabel>Proposed Annotations</guilabel> view lists
       annotations, also called <emphasis>promises</emphasis> about
       your code, that the tool has inferred you may want to add to your
@@ -335,16 +358,16 @@
       proposal and select <menuchoice><guimenu>Annotate
       Code...</guimenu></menuchoice> from the view's context
       menu. The edit is previewed before it is made to the code. The view presents its proposals in either a tree, showing
-      the proposal in the contex of the Java declaration it will annotate,
-      or a simple table. The proposals listed in this view can save time in modeling,
+      the proposal in the contex of the Java declaration it will annotate. The proposals listed in this view can save time in modeling,
       however, you should double
       check that the proposed promise represents actual design intent
       about your code.</para>
       
-      <para>The <guilabel>Library Annotation</guilabel> view shows
-      all the annotations the tool acknowledged during a scan. This includes all annotations directly on the source code as
-      well as annotations indriectly made on library code via special JSure XML files. This view changes to reflect the
-      selected scan. This view is helpful to ensure that an annotation you expect to exist was, in fact, seen by the tool.</para>
+      <para>The <guilabel>Library Annotation Explorer</guilabel> view shows
+      all the annotations made on library code, binary code in Jar files, via
+      special JSure XML files that indirectly annotate this code.
+      You can examine these annotations and use them to open the library annotation
+      editor (an editor provided by JSure) to add/modify annotations on Jar files.</para>
       
       <para>The <guilabel>JSure Quick Search</guilabel> view allows
       you to query the scan results in an ad hoc manner. You can setup
@@ -384,12 +407,12 @@
 	      your code.</entry>
 	    </row>
 	    <row>
-	      <entry><inlinegraphic fileref="images/class.gif"/> Java Class</entry>
-	      <entry>Allows you to filter the results to a particular set of Java classes.</entry>
-	    </row>
-	    <row>
 	      <entry><inlinegraphic fileref="images/package.gif"/> Java Package</entry>
 	      <entry>Allows you to filter the results to a particular set of Java packages.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/class.gif"/> Java Type</entry>
+	      <entry>Allows you to filter the results to a particular set of Java types, e.g., class, interface, enum.</entry>
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/project.gif"/> Project</entry>

@@ -35,11 +35,18 @@
   Tutorials</guimenuitem></menuchoice> and add the projects to your
   workspace as displayed in <xref
   linkend="fig-tutorial-installing-projects" /> and <xref
-  linkend="fig-tutorial-jsure-install" />. Note that the
-  PlanetBaronJSure and SimpleVariable projects will <emphasis>not</emphasis> compile
-  without errors until you add the promises JAR file to the project's
-  build path (as described below).</para>
+  linkend="fig-tutorial-jsure-install" />.</para>
+  
+  	<note>
+		<title>Do not use the Uniqueness Verifying Analysis</title>
 
+		<para>Please ensure that <guilabel>Use Uniqueness Verifying Analysis</guilabel> is
+		<emphasis>not checked</emphasis> as shown in <xref linkend="fig-tutorial-installing-projects" />.
+		This analysis is not recommended for use in the current release and is not used in the following
+		tutorials. The tool default is that it is not checked, but please double-check this setting
+		before you start working through a tutorial.</para>
+	</note>
+  
   <figure id="fig-tutorial-jsure-install">
     <title>Adding tutorial projects to your workspace</title>
     <mediaobject>
@@ -52,7 +59,7 @@
 	<note>
 		<title>Several of the imported projects will not compile in Eclipse</title>
 
-		<para>The projects will not compile without errors until you add the Promises
+		<para>The JSureTutorial_PlanetBaron and JSureTutorial_EffectiveEffects projects will <emphasis>not</emphasis> compile without errors until you add the Promises
 		Library JAR into the build path of each project. A few of the tutorial projects, such as <classname>JSureTutorial_BoundedFIFO</classname>,
 		compile without errors because no annotations have been placed into the projects yet.</para>
 	</note>
