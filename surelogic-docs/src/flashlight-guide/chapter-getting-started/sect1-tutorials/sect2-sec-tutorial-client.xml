@@ -259,7 +259,7 @@
 
   <para>Select the <structfield>f_connectDisconnectButton</structfield> and
   right-click. This brings up a menu of queries that can be run on this
-  result. Select <emphasis>What are the individual instances of this non-static
+  result. Select <emphasis>What are the instances of this non-static
   field?</emphasis> You should see a table with a single entry, as in <xref
   linkend="fig-tutorial-planetbaron-perspective-ctc7" />.  If any other
   ChatTestClient objects had been created and shared their
@@ -300,11 +300,32 @@
   
   <para>We will zoom in a little more and look at the actual accesses of this
   field.  Right click on the table, and run <emphasis>When and by what threads
-  was this field accessed?</emphasis> The result of this query should look like
-  <xref linkend="fig-tutorial-planetbaron-perspective-ctc3" /> and will show you
-  each read and write of the field that was observed by the instrumentation as
-  the program executed. It shows the time at which the event occurred and the
-  thread it happened within. Select the second access by the main thread and
+  was this field accessed?</emphasis> Your results should resemble <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc9" />. Each entry in this
+  query represents a series of contiguous accesses made in a single thread. This
+  query tells us that the <structfield>f_connectDisconnectButton</structfield>
+  was written to by the main thread several times, and then read from in the AWT
+  thread afterward.</para>
+
+
+  <figure id="fig-tutorial-planetbaron-perspective-ctc9">
+    <title>When and by what threads was this field accessed?</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc9.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>We can get a better idea of when we are writing to
+  <structfield>f_connectDisconnectButton</structfield> by drilling in and
+  looking at each access that was made.  Right click on the main entry, and run
+  <emphasis>Show every access of this field in this time range.</emphasis> The
+  result of this query should look like <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc3" /> and will show you each
+  read and write of the field that was observed by the instrumentation as the
+  program executed. It shows the time at which the event occurred and the thread
+  it happened within. Select the second access by the main thread and
   right-click. Drill-in again by selecting <emphasis>What is the stack trace for
   this access?</emphasis> as shown in <xref
   linkend="fig-tutorial-planetbaron-perspective-ctc8" />.</para>
