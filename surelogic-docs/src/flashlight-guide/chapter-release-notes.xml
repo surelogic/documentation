@@ -12,6 +12,77 @@
   Flashlight.</para>
 
   <sect1>
+    <title>Flashlight version 4.3.4</title>
+    <para>This section describes the 4.3.4 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <orderedlist>
+        <listitem>
+          <para>
+            <emphasis>New Version of Android</emphasis> &mdash; We now only
+            support versions 21.0.0 and higher of the Android Development Tools
+            (ADT).  If you are using an earlier version of ADT, you will have to
+            upgrade before installing the 'Flashlight Client Android' feature.
+            You can, of course, use Flashlight without support for Android by
+            only installing the 'Flashlight Client' feature.  See <xref
+            linkend="flashlight-android" /> for more details on how to use
+            Flashlight with Android..
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis>Happens-Before Detection</emphasis> &mdash; Support for
+            detecting happens-before events was added to Flashlight.  This is
+            still a work in progress, and we will be adding more extensive
+            support for happens-before events in future releases.  While we
+            don't currently detect all possible happens-before events, the
+            following methods will trigger happens-before events when called:
+          </para>
+          <orderedlist>
+            <listitem><para>java.lang.Object wait and notify</para></listitem>
+            <listitem><para>java.lang.Thread start and join</para></listitem>
+            <listitem><para>java.util.concurrent.CountDownLatch countDown and await</para></listitem>
+            <listitem><para>java.util.concurrent.CyclicBarrier await</para></listitem>
+            <listitem><para>java.util.concurrent.Exchanger exchange</para></listitem>
+            <listitem><para>java.util.concurrent.Semaphore release, acquire, and acquireInterruptibly</para></listitem>
+            <listitem><para>java.util.concurrent.atomic get, getAndSet, and set
+            methods</para></listitem>
+          </orderedlist>
+          <para>
+            The <emphasis>When and by what threads was this field
+            accessed?</emphasis> query was updated as a part of this
+            enhancement.  It now displays a summary of all accesses in the
+            program, as well as whether or not happens-before relationships
+            exist between accesses in different threads. For more information
+            please refer to the documentation in the tool or <link
+            linkend="when-and-by-what-threads-query">here</link>.
+          </para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+    <sect2>
+      <title>Known Problems</title>
+      <para>This section describes known bugs and limitations in this
+      version of Flashlight.</para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <emphasis>Bad interaction with Spring's AOP libraries..</emphasis>
+	    &mdash; Applications making use of Spring's AOP facilities may
+	    encounter a <classname>LinkageError</classname> when running
+	    Flashlight.  At this point in time, we do not know exactly what
+	    causes this, but the problem occurs when both the
+	    <literal>org.spring.framework.aop</literal> and
+	    <literal>com.springsource.org.aspectj.weaver</literal> jars are
+	    instrumented.  The best workaround for thie problem is to deselect
+	    these jars from the <guilabel>Instrumentation</guilabel> tab in the
+	    <guilabel>Flashlight Configurations</guilabel> view.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <sect1>
     <title>Flashlight version 4.3.3</title>
     <para>This section describes the 4.3.3 version of Flashlight.</para>
     <sect2>
