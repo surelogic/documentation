@@ -71,6 +71,26 @@
 			<orderedlist>
 				<listitem>
 					<para>
+						<emphasis>Re-verify a scan in the JSure Scans view</emphasis>
+						&mdash;
+						It is now possible to start a new scan by selecting a previous scan in the
+						JSure scans view. This avoids having to check that you have the correct set
+						of projects selected when you start a new scan. You select a scan and press the
+						<inlinegraphic fileref="images/jsure_re_verify.gif"/> icon on
+						the view toolbar or choose <guilabel>Re-Verify</guilabel> on the context menu.
+						The image below highlights these new commands in the <guilabel>JSure Scans</guilabel>
+						view.
+					</para>
+					
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-434-re-verify.png" />
+							</imageobject>
+					</mediaobject>
+				</listitem>
+				
+				<listitem>
+					<para>
 						<emphasis>Major scan file format changes</emphasis>
 						&mdash;
 						A large number of changes to the data file formats that

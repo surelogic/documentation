@@ -133,7 +133,7 @@
 			we are still working to make its use feasible on large Java codebases. In particular, the analysis currently
 			complains about most uses of iterators, due to aliasing of the collection into the iterator, unless
 			effects upper bounds annotations exist for all methods called within the scope of the iteration.
-			It is included in this realease for experimental use by customers on small codebases.</para>
+			It is included in this release for experimental use by customers on small codebases.</para>
 	    </note>
         </listitem>
   
@@ -245,7 +245,7 @@
             <guimenuitem>Other&hellip;</guimenuitem></menuchoice>, and
             then choosing <guilabel>Code Verification</guilabel> from
             the <guilabel>Open Perspective</guilabel> dialog box.  Or by
-            using any other standard Ecilpse mechanism to switch
+            using any other standard Eclipse mechanism to switch
             perspectives, such as clicking the the perspective&rsquo;s
             icon (<guiicon><inlinegraphic
             fileref="images/jsure_logo.gif"/></guiicon>) in the shortcut
@@ -302,6 +302,14 @@
               useful if an Ant scan was added to the JSure scan directory.</para>
             </formalpara>            
           </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/jsure_re_verify.gif"/></guiicon></title>
+              <para>This button "re-verifies" selected (not the checked) scan. This
+              allows you to easily start a new scan on a set of projects that you have previously scanned.</para>
+            </formalpara>            
+          </listitem>
 
           <listitem>
             <formalpara>
@@ -320,32 +328,42 @@
         </mediaobject>
       </figure>
       
-            <para>The view&rsquo;s menu has three commands; see <xref
-      linkend="fig-jsure-scans-view-menu"/>:
-      <itemizedlist>
-	<listitem>
-	  
-	  <formalpara>
-	    <title><guiicon><inlinegraphic fileref="images/refresh.gif"/> Refresh</guiicon></title>
-	    <para>Selecting this menu item scans the disk and refreshes the list of JSure scans. This can be
-              useful if an Ant scan was added to the JSure scan directory.</para>
-	  </formalpara>            
-	</listitem>
+      <para>The view&rsquo;s menu has three commands; see <xref
+      linkend="fig-jsure-scans-view-menu"/>. These commands match the toolbar commands described above.</para>
+      
+      <figure id="fig-jsure-scans-view-context-menu">
+        <title>The <guilabel>JSure Scans</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/jsure-scans-view-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+    <para>The view&rsquo;s context menu has three commands; see <xref
+      linkend="fig-jsure-scans-view-context-menu"/>:
+    <itemizedlist>
 	<listitem>
 	  <formalpara>
 	    <title><guiicon>Select to View Results</guiicon></title>
-	    <para>Selecting this menu item causes the selected scan to become checked.
-	    This menu choice is only enabled when a single project is selected and it is
+	    <para>Selecting this menu item causes the selected scan to be checked and become the <emphasis>scan of focus</emphasis>.
+	    This menu choice is only enabled when a single scan is selected and it is
 	    not the scan of focus.</para>
 	  </formalpara>
 	</listitem>
+    <listitem>
+      <formalpara>
+        <title><guiicon><inlinegraphic fileref="images/jsure_re_verify.gif"/> Re-Verify</guiicon></title>
+        <para>This button "re-verifies" selected (not the checked) scan. This
+        allows you to easily start a new scan on a set of projects that you have previously scanned.
+        This menu choice is only enabled when a single scan is selected.</para>
+      </formalpara>            
+     </listitem>
 	<listitem>
 	  <formalpara>
 	    <title><guiicon><inlinegraphic fileref="images/red_x.gif"/> Delete</guiicon></title>
 	    <para>Selecting this menu item deletes the selected scans from the disk.</para>
 	  </formalpara>
 	</listitem>
-      </itemizedlist>
+    </itemizedlist>
       </para>      
 	</sect2>
 	
@@ -356,7 +374,7 @@
       linkend="fig-modeling-problems-view"/>, shows any annotations
       that are not well-formed. This means that they have syntax
       errors or other problems such as referencing models that are not
-      defined or enscapulation/visibility issues.</para>
+      defined or encapsulation/visibility issues.</para>
       
       <figure id="fig-modeling-problems-view">
         <title>The <guilabel>Modeling Problems</guilabel> view</title>
@@ -373,11 +391,13 @@
 	the <guilabel>JSure Historical Source</guilabel> view to the problem annotation.</para>
 	
 	<para>If the icon for a reported modeling problem is <inlinegraphic fileref="images/annotation_error_proposed.gif"/>
-      (note the + to the upper-right) then JSure "thinks" it can resolve the modeling problem with an automatic edit. Select the
-      problem and select <menuchoice><guimenu>Annotate
-      Code To Fix...</guimenu></menuchoice> from the view's context (or press <inlinegraphic fileref="images/annotation_proposed.gif"/> on the view's toolbar)
-      menu and the tool will automatically fix the modeling problem as shown in <xref
-      linkend="fig-modeling-problems-view-context-menu"/>. The edit is previewed before it is made to the code.</para>
+      (note the + to the upper-right) then JSure "thinks" it can resolve the modeling problem
+      with an automatic edit. Select one or more modeling problems and choose
+      <menuchoice><guimenu>Annotate Code To Fix...</guimenu></menuchoice> from the view's
+      context menu (or press <inlinegraphic fileref="images/annotation_proposed.gif"/> on the view's toolbar)
+      and the tool will automatically fix the modeling problem as shown in <xref
+      linkend="fig-modeling-problems-view-context-menu"/>. The edit is previewed before
+      it is made to the code. Carefully examine the proposed edit to your code to ensure it reflects your design.</para>
       
       <figure id="fig-modeling-problems-view-context-menu">
         <title>The <guilabel>Modeling Problems</guilabel> view context menu</title>
@@ -386,20 +406,31 @@
         </mediaobject>
       </figure>
       
-      <para>Selecting a
-      problem and choosing <menuchoice><guimenu>Copy</guimenu></menuchoice> from the view's context
-      menu will copy the text of the problem to the clipboard so that it can be pasted into an email or any other program.</para>
+      <para>Selecting a problem and choosing <menuchoice><guimenu>Copy</guimenu></menuchoice>
+      from the view's context menu will copy the text of the problem to the clipboard so
+      that it can be pasted into an email or any other program.</para>
 
-       <para>The view&rsquo;s toolbar has one command icons:
+       <para>The view&rsquo;s toolbar has two command icons:
         <itemizedlist>
 
           <listitem>
             <formalpara>
               <title><guiicon><inlinegraphic fileref="images/annotation_proposed.gif"/></guiicon></title>
-              <para>This button automatically edits the code to try and resolve the selected modeling problem.
+              <para>This button automatically edits the code to try and resolve the selected modeling problems.
               The edit is previewed before it is made to the code. Not all modeling problems have
-              automatic fixes. If the problem's icon is <inlinegraphic fileref="images/annotation_error_proposed.gif"/> it has an automatic fix. If
-              the problem's icon is <inlinegraphic fileref="images/annotation_error.gif"/> it must be fixed manually.</para>
+              automatic fixes. If the problem's icon is <inlinegraphic fileref="images/annotation_error_proposed.gif"/> it
+              has an automatic fix. If the problem's icon is <inlinegraphic fileref="images/annotation_error.gif"/>
+              it must be fixed manually.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/filter.gif"/></guiicon></title>
+              <para>This button opens the <guilabel>Uninteresting Package Filtering</guilabel> preference page. The filters defined by this
+              preference filter modeling problems from this view. This can be used to filter out problems that you do not
+              care to have reported, for example, about a library that you include in your codebase. For more information
+              about this preference page see <xref linkend="prefs-uninteresting-package-filtering"/>.</para>
             </formalpara>            
           </listitem>
 
@@ -413,7 +444,7 @@
         </mediaobject>
       </figure>
       
-            <para>The view&rsquo;s menu has one command; see <xref
+            <para>The view&rsquo;s menu has two commands; see <xref
       linkend="fig-jsure-scans-view-menu"/>:
       <itemizedlist>
 	<listitem>
@@ -426,6 +457,16 @@
               the problem's icon is <inlinegraphic fileref="images/annotation_error.gif"/> it must be fixed manually.</para>
 	  </formalpara>            
 	</listitem>
+	 <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/filter.gif"/> Modeling Problem Filtering...</guiicon></title>
+              <para>Selecting this menu item opens the <guilabel>Uninteresting Package Filtering</guilabel>
+              preference page. The filters defined by this
+              preference filter modeling problems from this view. This can be used to filter out problems that you do not
+              care to have reported, for example, about a library that you include in your codebase. For more information
+              about this preference page see <xref linkend="prefs-uninteresting-package-filtering"/>.</para>
+            </formalpara>            
+          </listitem>
       </itemizedlist>
       </para> 
     </sect2>
@@ -487,7 +528,7 @@
               <para>This button gives an indication in the
               <guilabel>Verification Status</guilabel> view
               that modeling problems exist in the project. It is intended to be helpful when the user is using non-JSure
-              prespectives, such as the Java perspective, where it can be difficult to know if any modeling problems
+              perspectives, such as the Java perspective, where it can be difficult to know if any modeling problems
               exist in scanned projects if only this view is opened. The icon is disabled if no modeling problems
               exist&mdash;as shown in the screenshot above.
               It is bright yellow when modeling problems do exist&dash;as shown at the start of this paragraph.</para>
@@ -517,7 +558,7 @@
 	<listitem>
 	  <formalpara>
 	    <title><guiicon><inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/> Show Iconography Quick Reference Card</guiicon></title>
-	    <para>Selecting this menu item displays a quick refence
+	    <para>Selecting this menu item displays a quick reference
 	    card to the user about what the iconography used in the
 	    <guilabel>Verification Status</guilabel> view
 	    means.</para>
@@ -670,7 +711,7 @@
 			view, as shown in <xref linkend="fig-annotation-explorer-view" />, shows all annotations
 			that the current scan found in the source code or in XML about libraries and frameworks.
 			The view contents change when the selected scan changes. This view is useful to determine
-			if an annotation existed and was recoginized by the tool during a particular scan.
+			if an annotation existed and was recognized by the tool during a particular scan.
 		</para>
 
 		<figure id="fig-annotation-explorer-view">
@@ -798,9 +839,10 @@
           <listitem>
             <formalpara>
               <title><guiicon><inlinegraphic fileref="images/annotation_delta.gif"/></guiicon></title>
-              <para>Toggling this button controls if the view is filtered to shown only types that the user has added
-	    annotations to or modified baseline annotations. Basline or
-	    standard annotaions are shipped with JSure from SureLogic. JSure explicitly tracks changes to the baseline annotations.</para>
+              <para>Toggling this button controls if the view is filtered to shown only types that the
+              user has added annotations to or modified baseline annotations. Baseline or
+	          standard annotations are shipped with JSure from SureLogic. JSure explicitly tracks changes
+	          to the baseline annotations.</para>
             </formalpara>            
           </listitem>
 
@@ -811,7 +853,8 @@
             <xref linkend="fig-save-promises-library-as-dialog"/>, to let the user
             search for the type that they want to open in the library annotation editor. This command is
             most useful for opening types that have no annotations and, therefore, are not listed in
-            the <guilabel>Library Annotation Explorer</guilabel> view. This menu item is also on the JSure main menu.</para>
+            the <guilabel>Library Annotation Explorer</guilabel> view. This menu item is also on
+            the JSure main menu.</para>
             </formalpara>            
           </listitem>
         </itemizedlist>
@@ -838,8 +881,9 @@
 	  <formalpara>
 	    <title><guiicon><inlinegraphic fileref="images/annotation_delta.gif"/> Show Only User-Added/Modified Library Annotations</guiicon></title>
 	    <para>Toggling this menu item controls if the view is filtered to shown only types that the user has added
-	    annotations to or modified baseline annotations. Basline or
-	    standard annotaions are shipped with JSure from SureLogic. JSure explicitly tracks changes to the baseline annotations.</para>
+	    annotations to or modified baseline annotations. Baseline or
+	    standard annotations are shipped with JSure from SureLogic. JSure explicitly tracks changes
+	    to the baseline annotations.</para>
 	  </formalpara>
 	</listitem>
 	<listitem>
@@ -889,7 +933,7 @@
 						
 						<para>To add an annotation bring up the context menu on any Java declaration and select <guilabel>Add Annotation...</guilabel>.
 						Note that if you want to add an annotation to a method or constructor parameter you
-						must expand the tree and select the paramenter (a sub-item of the method or constructor).</para>
+						must expand the tree and select the parameter (a sub-item of the method or constructor).</para>
 						<mediaobject>
           					<imageobject><imagedata fileref="images/jsure-xml-editor-add-annotation.png"/></imageobject>
         				</mediaobject>
@@ -1106,7 +1150,7 @@
         </listitem>
         <listitem>
           <para><menuchoice><guisubmenu>JSure</guisubmenu> 
-          <guimenuitem>Modeling Problem Filtering</guimenuitem></menuchoice></para>
+          <guimenuitem>Uninteresting Package Filtering</guimenuitem></menuchoice></para>
         </listitem>
         <listitem>
           <para><menuchoice><guisubmenu>JSure</guisubmenu> 
@@ -1320,23 +1364,29 @@
             
     </sect2>
     
-    <sect2>
-    <title>Modeling Problem Filtering</title>
+    <sect2 id="prefs-uninteresting-package-filtering">
+    <title>Uninteresting Package Filtering</title>
     
         <figure id="fig-jsure-prefs-filter">
-        <title>The Modeling Problem Filtering preferences pane</title>
+        <title>The Uninteresting Package Filtering preferences pane</title>
         <mediaobject>
           <imageobject><imagedata fileref="images/jsure-prefs-filter.png"/></imageobject>
         </mediaobject>
         </figure>
         
-        <para>The <guilabel>Modeling Problem Filtering</guilabel> pane,
+        <para>The <guilabel>Uninteresting Package Filtering</guilabel> pane,
         see <xref linkend="fig-jsure-prefs-filter"/>,
-        controls what modeling problems (and proposed promises) are shown to the tool user.</para>
+        controls what modeling problems and proposed promises are not shown to
+        the tool user by defining a set of filters
+        on the package and type names a result is within.</para>
         
-        <para>If any of the filters match the resource that the modeling problem is
-        reported about, that problem is not shown.
+        <para>If any of the filters match the resource that the modeling problem or proposed promise is
+        within, then the problem or proposa. is not shown.
         The filters are defined using Java regular expressions.</para>
+        
+        <para>This preference pane has a set of reasonable defaults that cover the Java standard library.
+        Filters can be added to avoid reports about code that you are not interested in, for example, modeling problems
+        about a library included in your code that you do not maintain.</para>
     
     </sect2>
     
