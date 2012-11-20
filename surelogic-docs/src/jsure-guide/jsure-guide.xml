@@ -124,6 +124,38 @@
 				
 				<listitem>
 					<para>
+						<emphasis>A new Java code-oriented view of scan results has been added to JSure</emphasis>
+						&mdash;
+						A new view has been added to JSure. The <guilabel>Verification Explorer</guilabel> view was added in this
+						release. It replaces the (removed) <guilabel>Annotation Explorer</guilabel> view. It displays promises and
+						verification results in a Java code-oriented context. This view, similar to
+						the <guilabel>Verification Status</guilabel> view,
+						notes differences from the last scan. This view has many settings to filter what is shown that are described in
+						<xref linkend="sect-verification-explorer"/>. The image below shows
+						the new <guilabel>Verification Explorer</guilabel> view.
+					</para>
+					
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-434-verification-explorer.png" />
+							</imageobject>
+					</mediaobject>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>Table view of proposed annotations removed</emphasis>
+						&mdash;
+						The table display of proposed annotations shown in the <guilabel>Proposed Annotation</guilabel> view
+						has been removed. This display was confusing and did not scale well. The tree view has been augmented to
+					    (a) better reflect standard Eclipse Java declaration iconography and (b) allow any node to be selected
+					    and all edits under that node to be edited into the code. In particular, Java declarations can be
+					    selected and all proposals within them are edited into the code&mdash;this was not allowed previously.
+					</para>
+				</listitem>
+
+				<listitem>
+					<para>
 						<emphasis>Major scan file format changes</emphasis>
 						&mdash;
 						A large number of changes to the data file formats that
@@ -711,7 +743,7 @@ public class StaticState {
 						</mediaobject>
 						
 						<para>This capability was driven to help "scale up" the view to manage large numbers of proposals by JSure. In addition, filtering capabilities
-						have been added to the view. These capabilities are described fully in <xref linkend="ref-proposed-promise-view"/>.</para>
+						have been added to the view. These capabilities are described fully in <xref linkend="ref-proposed-annotation-view"/>.</para>
 				</listitem>
 				</orderedlist>
 		</section>

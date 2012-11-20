@@ -623,47 +623,235 @@
       </itemizedlist>
       </para>      
     </sect2>
+    
+	<sect2 id="sect-verification-explorer">
+	    <title>The Verification Explorer view</title>
+	    
+	    <para>The <guilabel>Verification Explorer</guilabel>
+			view, as shown in <xref linkend="fig-verification-explorer-view" />, shows all annotations
+			that the current scan found in the source code or in XML about libraries and frameworks.
+			It can also show analysis results. The major difference between this view and the <guilabel>Verification Status</guilabel>
+			view is that this view shows results in the context of the code, while the <guilabel>Verification Status</guilabel>
+			displays results by their verification proof context.
+			The view contents change when the selected scan changes. This view is useful to determine
+			if an annotation existed and was recognized by the tool during a particular scan.
+			The iconography used in this view is summarized in <xref linkend="fig-iconography"/>.
+		</para>
 
-	<sect2 id="ref-proposed-promise-view">
-		<title>The Proposed Promises view</title>
-
-		<para>The <guilabel>Proposed Promises</guilabel> view, as shown in <xref
-      linkend="fig-proposed-promises-view"/>, shows any annotations
-      that have been proposed by the analysis for inclusion in the program's source code. The
-      proposed annotations are inferred from other annotations in the code.</para>
+		<figure id="fig-verification-explorer-view">
+			<title>The <guilabel>Verification Explorer</guilabel> view</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/verification-explorer-view.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
 		
-	  <figure id="fig-proposed-promises-view">
-        <title>The <guilabel>Proposed Promises</guilabel> view in tree mode</title>
+		 <para>The view&rsquo;s toolbar has nine command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
+              <para>This button collapses all the nodes in the Java declaration tree.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/></guiicon></title>
+              <para>This button displays a quick reference card to the
+              user about what the iconography used in the
+              <guilabel>Verification Explorer</guilabel> view
+              means.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/jsure_model_problems_exist.gif"/></guiicon></title>
+              <para>This button gives an indication in the
+              <guilabel>Verification Explorer</guilabel> view
+              that modeling problems exist in the project. It is intended to be helpful when the user is using non-JSure
+              perspectives, such as the Java perspective, where it can be difficult to know if any modeling problems
+              exist in scanned projects if only this view is opened. The icon is disabled if no modeling problems
+              exist&mdash;as shown in the screenshot above.
+              It is bright yellow when modeling problems do exist&dash;as shown at the start of this paragraph.</para>
+            </formalpara>    
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/changelog.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not differences are highlighted in the view. If a
+              result has changed its background is painted in light yellow (as shown in the image above). If a
+              result is obsolete its background is painted in light red.
+              In addition, a trail of <inlinegraphic fileref="images/delta_decr.gif"/> images appear from the root of the
+              tree to any result that has changed.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/changelog_only.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not unchanged results are displayed in this view. When this button is
+              selected only results with differences are displayed in the view. By default this is not selected.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/changelog_old_scan_only.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not obsolete results only in the prior scan are displayed. When this button is
+              selected obsolete results from the last scan are displayed in the view. By default this is not selected.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/java_comp_unit.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not results not directly or indirectly derived from
+              Java source code are displayed in this view. When this button is
+              selected only results directly or indirectly related to source code are displayed. By default this is selected.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/analysis_result.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not analysis results are displayed in this view. When this button is
+              selected analysis results, as well as annotations, are displayed. By default this is not selected.</para>
+            </formalpara>            
+          </listitem>
+        
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not information and warning hints are 
+              displayed in the view.</para>
+            </formalpara>            
+          </listitem>
+        </itemizedlist>
+      </para>
+
+      <figure id="fig-verification-explorer-menu">
+        <title>The <guilabel>Verification Explorer</guilabel> view menu</title>
         <mediaobject>
-          <imageobject><imagedata fileref="images/proposed-promises-view.png"/></imageobject>
+          <imageobject><imagedata fileref="images/verification-explorer-view-menu.png"/></imageobject>
         </mediaobject>
       </figure>
       
-      <para>The proposals can be displayed as a tree or as a table using the <inlinegraphic fileref="images/java_decls_tree.gif"/> button on
-      the toolbar (or view menu) to toggle between the two views. The tree view is shown in
-      <xref linkend="fig-proposed-promises-view"/> and is more scalable to very large numbers of proposals. The
-      table view is shown in <xref linkend="fig-proposed-promises-view-table"/> and can be useful for sorting proposals by type of annotations.</para>
-      
-      <figure id="fig-proposed-promises-view-table">
-        <title>The <guilabel>Proposed Promises</guilabel> view in table mode</title>
+      <para>The view&rsquo;s menu has eight commands; see <xref
+      linkend="fig-verification-explorer-menu"/>:
+      <itemizedlist>
+	<listitem>
+	  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/> Collapse All</guiicon></title>
+	    <para>Selecting this menu item collapses all the nodes in the Java declaration tree.</para>
+	  </formalpara>            
+	</listitem>
+	
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/> Show Iconography Quick Reference Card</guiicon></title>
+	    <para>Selecting this menu item displays a quick reference
+	    card to the user about what the iconography used in the
+	    <guilabel>Verification Explorer</guilabel> view
+	    means.</para>
+	  </formalpara>
+	</listitem>
+
+     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/changelog.gif"/> Highlight Differences</guiicon></title>
+         <para>Toggling this menu item controls whether or not differences are highlighted in the view. If a
+         result has changed its background is painted in light yellow (as shown in the image above). If a
+         result is obsolete its background is painted in light red.
+         In addition, a trail of <inlinegraphic fileref="images/delta_decr.gif"/> images appear from the root of the
+         tree to any result that has changed.</para>
+       </formalpara>            
+     </listitem>
+
+     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/changelog_only.gif"/> Show Only Differences</guiicon></title>
+         <para>Toggling this menu item controls whether or not unchanged results are displayed in this view. When this menu item is
+         checked only results with differences are displayed in the view. By default this is not selected.</para>
+       </formalpara>            
+     </listitem>
+
+     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/changelog_old_scan_only.gif"/> Show Obsolete Results</guiicon></title>
+         <para>Toggling this menu item controls whether or not obsolete results only in the prior scan are displayed. When this menu item is
+         checked obsolete results from the last scan are displayed in the view. By default this is not selected.</para>
+       </formalpara>            
+     </listitem>
+     
+     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/java_comp_unit.gif"/> Show Only Results Derived From Source</guiicon></title>
+         <para>Toggling this menu item controls whether or not results not directly or indirectly derived from
+         Java source code are displayed in this view. When this menu item is
+         checked only results directly or indirectly related to source code are displayed. By default this is selected.</para>
+       </formalpara>            
+     </listitem>
+     
+     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/analysis_result.gif"/> Show Analysis Results</guiicon></title>
+         <para>Toggling this menu item controls whether or not analysis results are displayed in this view. When this menu item is
+         checked analysis results, as well as annotations, are displayed. By default this is not selected.</para>
+       </formalpara>            
+     </listitem>
+
+	
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/> Show Information/Warning Hints</guiicon></title>
+	    <para>Toggling this menu item controls whether or not information and warning hints are 
+	    displayed in the view.</para>
+	  </formalpara>
+	</listitem>
+	
+      </itemizedlist>
+      </para>
+	    
+	</sect2>
+
+
+	<sect2 id="ref-proposed-annotation-view">
+		<title>The Proposed Annotation view</title>
+
+		<para>The <guilabel>Proposed Annotation</guilabel> view, as shown in <xref
+      linkend="fig-proposed-annotation-view"/>, shows any annotations
+      that have been proposed by the analysis for inclusion in the program's source code. The
+      proposed annotations are inferred from other annotations in the code.</para>
+		
+	  <figure id="fig-proposed-annotation-view">
+        <title>The <guilabel>Proposed Annotation</guilabel> view</title>
         <mediaobject>
-          <imageobject><imagedata fileref="images/proposed-promises-view-table.png"/></imageobject>
+          <imageobject><imagedata fileref="images/proposed-annotation-view.png"/></imageobject>
         </mediaobject>
       </figure>
       
       <para>To add a proposed annotation to the code select one or more <inlinegraphic fileref="images/annotation_proposed.gif"/>
       proposals in the view and select <guilabel>Annotate Code&hellip;</guilabel>
       as shown in <xref
-      linkend="fig-proposed-promises-context-menu"/>. The edit is previewed before it is made to the code.</para>
+      linkend="fig-proposed-annotation-context-menu"/>. The edit is previewed before it is made to the code. You can
+      also select one or more Java declaration elements, including projects, to include all proposals within that declaration element.
+      Proposals on binary code (the standard library, JAR files, or class files) do not (yet) edit XML files, however, in some
+      cases <code>@Assume</code> annotations about binaries will be included as part of an edit to your source code.</para>
       
-      <figure id="fig-proposed-promises-context-menu">
-        <title>The <guilabel>Proposed Promises</guilabel> view context menu adding two proposals to the code</title>
+      <figure id="fig-proposed-annotation-context-menu">
+        <title>The <guilabel>Proposed Annotation</guilabel> view context menu adding two proposals to the code</title>
         <mediaobject>
-          <imageobject><imagedata fileref="images/proposed-promises-context-menu.png"/></imageobject>
+          <imageobject><imagedata fileref="images/proposed-annotation-context-menu.png"/></imageobject>
         </mediaobject>
       </figure>
       
-            <para>The view&rsquo;s toolbar has four command icons:
+            <para>The view&rsquo;s toolbar has three command icons:
         <itemizedlist>
 
           <listitem>
@@ -681,16 +869,7 @@
               The edit is previewed before it is made to the code.</para>
             </formalpara>            
           </listitem>
-
-          <listitem>
-            <formalpara>
-              <title><guiicon><inlinegraphic fileref="images/java_decls_tree.gif"/></guiicon></title>
-              <para>Toggling this button controls if the view is shown as a tree or a table. When pressed the
-              proposals are shown in the context of a Java declaration tree. When unpressed the proposals are shown in a
-              table.</para>
-            </formalpara>            
-          </listitem>
-          
+         
            <listitem>
             <formalpara>
               <title><guiicon><inlinegraphic fileref="images/annotation_abductive.gif"/></guiicon></title>
@@ -706,13 +885,13 @@
       </para>
 
       <figure id="fig-proposed-promises-menu">
-        <title>The <guilabel>Proposed Promises</guilabel> view menu</title>
+        <title>The <guilabel>Proposed Annotation</guilabel> view menu</title>
         <mediaobject>
-          <imageobject><imagedata fileref="images/proposed-promises-menu.png"/></imageobject>
+          <imageobject><imagedata fileref="images/proposed-annotation-menu.png"/></imageobject>
         </mediaobject>
       </figure>
       
-      <para>The view&rsquo;s menu has four commands; see <xref
+      <para>The view&rsquo;s menu has three commands; see <xref
       linkend="fig-proposed-promises-menu"/>:
       <itemizedlist>
 	<listitem>
@@ -730,14 +909,6 @@
               The edit is previewed before it is made to the code.</para>
 	  </formalpara>
 	</listitem>
-	<listitem>
-	  <formalpara>
-	    <title><guiicon><inlinegraphic fileref="images/java_decls_tree.gif"/> Show Proposals In Java Declaration Tree</guiicon></title>
-	    <para>Toggling this menu item controls if the view is shown as a tree or a table. When pressed the
-              proposals are shown in the context of a Java declaration tree. When unpressed the proposals are shown in a
-              table.</para>
-	  </formalpara>
-	</listitem>
 	
 	<listitem>
 	  <formalpara>
@@ -753,78 +924,6 @@
       
 	</sect2>
 	
-	<sect2>
-	    <title>The Annotation Explorer view</title>
-	    
-	    <para>The <guilabel>Annotation Explorer</guilabel>
-			view, as shown in <xref linkend="fig-annotation-explorer-view" />, shows all annotations
-			that the current scan found in the source code or in XML about libraries and frameworks.
-			The view contents change when the selected scan changes. This view is useful to determine
-			if an annotation existed and was recognized by the tool during a particular scan.
-		</para>
-
-		<figure id="fig-annotation-explorer-view">
-			<title>The <guilabel>Annotation Explorer</guilabel> view</title>
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="images/annotation-explorer-view.png" />
-				</imageobject>
-			</mediaobject>
-		</figure>
-		
-		 <para>The view&rsquo;s toolbar has two command icons:
-        <itemizedlist>
-
-          <listitem>
-            <formalpara>
-              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
-              <para>This button collapses all the nodes in the Java declaration tree.</para>
-            </formalpara>            
-          </listitem>
-
-          <listitem>
-            <formalpara>
-              <title><guiicon><inlinegraphic fileref="images/open_xml_type.gif"/></guiicon></title>
-              <para>Selecting this button opens a search dialog, similar to the one shown in
-            <xref linkend="fig-save-promises-library-as-dialog"/>, to let the user
-            search for the type that they want to find in this view. This command is
-            most useful for selecting types that you want to examine in this view.</para>
-            </formalpara>            
-          </listitem>
-        </itemizedlist>
-      </para>
-
-      <figure id="fig-annotation-explorer-menu">
-        <title>The <guilabel>Annotation Explorer</guilabel> view menu</title>
-        <mediaobject>
-          <imageobject><imagedata fileref="images/annotation-explorer-menu.png"/></imageobject>
-        </mediaobject>
-      </figure>
-      
-      <para>The view&rsquo;s menu has three commands; see <xref
-      linkend="fig-annotation-explorer-menu"/>:
-      <itemizedlist>
-	<listitem>
-	  
-	  <formalpara>
-	    <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/> Collapse All</guiicon></title>
-	    <para>Selecting this menu item collapses all the nodes in the Java declaration tree.</para>
-	  </formalpara>            
-	</listitem>
-	<listitem>
-	  <formalpara>
-	    <title><guiicon><inlinegraphic fileref="images/open_xml_type.gif"/> Open Library Annotations...</guiicon></title>
-	    <para>Selecting this button opens a search dialog, similar to the one shown in
-            <xref linkend="fig-save-promises-library-as-dialog"/>, to let the user
-            search for the type that they want to find in this view. This command is
-            most useful for selecting types that you want to examine in this view.</para>
-	  </formalpara>
-	</listitem>
-	
-      </itemizedlist>
-      </para>
-	    
-	</sect2>
 
 	<sect2>
 		<title>The Library Annotation Explorer view</title>
