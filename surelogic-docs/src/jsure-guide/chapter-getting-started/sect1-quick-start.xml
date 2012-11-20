@@ -253,14 +253,17 @@
 
       <para>The icons shown in the <guilabel>Verification
       Status</guilabel> and <guilabel>Verification
-      Explorer</guilabel> views have meaning. The table below is a quick
-      reference about what each icon and decorator indicates to the
-      tool user. This table can be brought up as a dialog in JSure by
+      Explorer</guilabel> views have meaning. The table shown in <xref
+      linkend="fig-iconography"/>. is a quick
+      reference about what each icon and decorator means.
+      This table can be brought up as a dialog in JSure by
       pressing the
       <inlinegraphic fileref="images/jsure_quick_ref_icon.gif"/>
       toolbar button in the <guilabel>Verification Status</guilabel>
-      view.</para>
-
+      and <guilabel>Verification Explorer</guilabel> views.</para>
+      
+ <figure id="fig-iconography">
+        <title>Iconography used for reporting JSure results</title>
       <informaltable frame='none'>
 	<tgroup cols='2' align='left'>
 	<colspec colwidth='1in' align='center'/>
@@ -350,6 +353,7 @@
 	  </tbody>
 	</tgroup>
       </informaltable>
+      </figure>
 
       <para>The <guilabel>Proposed Annotations</guilabel> view lists
       annotations, also called <emphasis>promises</emphasis> about

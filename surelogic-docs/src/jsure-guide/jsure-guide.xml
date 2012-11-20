@@ -91,6 +91,39 @@
 				
 				<listitem>
 					<para>
+						<emphasis>Multiple modeling problems can be selected and fixed in the Modeling Problems view</emphasis>
+						&mdash;
+						It is now possible to select as multiple modeling problems in the <guilabel>Modeling Problems</guilabel> view
+						and choose <guilabel>Annotate Code to Fix...</guilabel> on the context menu. This avoids having to tediously
+						select one problem after another to fix the code.  The image below shows a user fixing two problems at the same time.
+					</para>
+					
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-434-problems-multi-fix.png" />
+							</imageobject>
+					</mediaobject>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>The Verification Status view has columns and displays differences from the last scan</emphasis>
+						&mdash;
+						A major rework of the <guilabel>Verification Status</guilabel> view was done for this release. First, columns have been
+						added to better convey the location of a finding within the codebase. Second, the results can be sorted
+						alphabetically or by their code location. Third, differences from the last scan are explained, in the view's
+						right-most column, and are (optionally) highlighted. The image below shows several of these changes.
+					</para>
+					
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-434-status-view.png" />
+							</imageobject>
+					</mediaobject>
+				</listitem>
+				
+				<listitem>
+					<para>
 						<emphasis>Major scan file format changes</emphasis>
 						&mdash;
 						A large number of changes to the data file formats that

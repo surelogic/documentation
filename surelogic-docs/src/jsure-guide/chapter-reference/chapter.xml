@@ -482,7 +482,8 @@
       <guilabel>Uniqueness</guilabel>, and <guilabel>Thread
       effects</guilabel>. There is also a special category for
       warnings and informational results <guilabel>Suggestions and
-      warnings</guilabel>.</para>
+      warnings</guilabel>. The iconography used in this view is summarized in <xref
+      linkend="fig-iconography"/>.</para>
       
       <figure id="fig-status-view">
         <title>The <guilabel>Verification Status</guilabel> view</title>
@@ -492,23 +493,16 @@
       </figure>
       
       <para>Double-clicking on a result in the <guilabel>Verification Status</guilabel> view highlights
-      the code associated with that result in the Java editor and the <guilabel>JSure Historical Source</guilabel> view.</para>
+      the code associated with that result in the Java editor and the <guilabel>JSure Historical Source</guilabel> view.
+      This view also notes the differences between the current scan and the previous scan (in its far right column).</para>
       
-      <para>The view&rsquo;s toolbar has four command icons:
+      <para>The view&rsquo;s toolbar has seven command icons:
         <itemizedlist>
 
           <listitem>
             <formalpara>
               <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
               <para>This button collapses all the nodes in the result trees.</para>
-            </formalpara>            
-          </listitem>
-
-          <listitem>
-            <formalpara>
-              <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/></guiicon></title>
-              <para>Toggling this button controls whether or not the warning results are 
-              displayed in the view.</para>
             </formalpara>            
           </listitem>
 
@@ -532,6 +526,38 @@
               exist in scanned projects if only this view is opened. The icon is disabled if no modeling problems
               exist&mdash;as shown in the screenshot above.
               It is bright yellow when modeling problems do exist&dash;as shown at the start of this paragraph.</para>
+            </formalpara>    
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/java_sort.gif"/></guiicon></title>
+              <para>Toggling this on sorts leaf nodes of the tree by project name, package name, type name, and line number.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/alpha_sort.gif"/></guiicon></title>
+              <para>Toggling this button on sorts leaf nodes of the tree alphabetically by their message.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/changelog.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not differences are highlighted in the view. If a
+              result has changed its background is painted in light yellow (as shown in the image above).
+              In addition, a trail of <inlinegraphic fileref="images/delta_decr.gif"/> images appear from the root of the
+              tree to any result that has changed.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not information and warning hints are 
+              displayed in the view.</para>
             </formalpara>            
           </listitem>
 
@@ -545,7 +571,7 @@
         </mediaobject>
       </figure>
       
-      <para>The view&rsquo;s menu has three commands; see <xref
+      <para>The view&rsquo;s menu has six commands; see <xref
       linkend="fig-status-view-menu"/>:
       <itemizedlist>
 	<listitem>
@@ -565,9 +591,32 @@
 	  </formalpara>
 	</listitem>
 	<listitem>
+         <formalpara>
+           <title><guiicon><inlinegraphic fileref="images/java_sort.gif"/> Sort Contents By Java Location</guiicon></title>
+           <para>Selecting this menu item sorts leaf nodes of the tree by project name, package name, type name, and line number.</para>
+         </formalpara>            
+       </listitem>
+
+       <listitem>
+         <formalpara>
+           <title><guiicon><inlinegraphic fileref="images/alpha_sort.gif"/> Sort Contents Alphabetically</guiicon></title>
+           <para>Selecting this menu item sorts leaf nodes of the tree alphabetically by their message.</para>
+         </formalpara>            
+       </listitem>
+       
+       <listitem>
+         <formalpara>
+           <title><guiicon><inlinegraphic fileref="images/changelog.gif"/> Highlight Differences</guiicon></title>
+           <para>Toggling this menu item controls whether or not differences are highlighted in the view. If a
+           result has changed its background is painted in light yellow (as shown in the image above).
+           In addition, a trail of <inlinegraphic fileref="images/delta_decr.gif"/> images appear from the root of the
+           tree to any result that has changed.</para>
+         </formalpara>            
+       </listitem>
+	<listitem>
 	  <formalpara>
-	    <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/> Show Information/Warning Results</guiicon></title>
-	    <para>Toggling this menu item controls whether or not the warning results are 
+	    <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/> Show Information/Warning Hints</guiicon></title>
+	    <para>Toggling this menu item controls whether or not information and warning hints are 
 	    displayed in the view.</para>
 	  </formalpara>
 	</listitem>
