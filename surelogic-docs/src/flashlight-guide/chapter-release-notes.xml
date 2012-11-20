@@ -26,7 +26,7 @@
             You can, of course, use Flashlight without support for Android by
             only installing the 'Flashlight Client' feature.  See <xref
             linkend="flashlight-android" /> for more details on how to use
-            Flashlight with Android..
+            Flashlight with Android.
           </para>
         </listitem>
         <listitem>
@@ -55,7 +55,7 @@
             program, as well as whether or not happens-before relationships
             exist between accesses in different threads. For more information
             please refer to the documentation in the tool or <link
-            linkend="when-and-by-what-threads-query">here</link>.
+            linkend="query-reference">here</link>.
           </para>
         </listitem>
       </orderedlist>
