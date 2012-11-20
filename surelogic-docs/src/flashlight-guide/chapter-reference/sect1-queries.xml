@@ -2084,7 +2084,7 @@ public class Foo {
 	  </informaltable>
 	</answer>
       </qandaentry>
-      <qandaentry id="when-and-by-what-threads-query">
+      <qandaentry>
 	<question>
 	  <para>
 	    When and by what threads was this field accessed?
