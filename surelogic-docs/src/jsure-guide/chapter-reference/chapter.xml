@@ -1468,8 +1468,18 @@
 	  the analysis <guilabel>Enable timeout of analysis execution</guilabel> must be checked.</para>
 	</formalpara>
       </listitem>
+
+    <listitem>
+	<formalpara>
+	  <title><guibutton>Compression may be used to reduce output size (may slow scan execution)</guibutton></title>
+	  <para>To save space on your disk, JSure compresses the snapshot of the verification proof results output at the end of
+	  each scan. This is enabled by default and should really not be changed unless suggested
+	  by SureLogic technical support. Not checking this preference can result in enormous scan directories that take
+	  long periods of time to load, the only benefit being only a small improvement in scan execution time.</para>
+	</formalpara>
+    </listitem>
       
-              <listitem>
+    <listitem>
 	<formalpara>
 	  <title><guibutton>Load entire classpath into memory (used for testing library annotation consistency)</guibutton></title>
 	  <para>To save memory and time, JSure only loads classes from JAR files into memory during a scan
@@ -1551,7 +1561,7 @@
     
     <para>The <guilabel>Verifying Analysis Selection</guilabel> pane allows you to choose
     which assurance analyses are actually executed by JSure.  Most of
-    the time you do not need to change these settings.</para>
+    the time you do not need to change these settings unless directed by SureLogic technical support.</para>
     
     </sect2>
     
@@ -1839,21 +1849,31 @@
         <imageobject><imagedata fileref="images/bugs-and-tips-menu-problem-report.png"/></imageobject>
       </mediaobject>
     </figure>
+    
+        <para>The <guimenuitem>Send Library Annotation Changes</guimenuitem> command
+    opens a dialog to allow the user to send any library annotation changes that they
+    have made to SureLogic to be added into the standard set of annotations shiped with the
+    JSure tool. The dialog that opens is seen in <xref
+    linkend="fig-bugs-and-tips-menu-library-annotations" /> The dialog
+    allows the user to control exactly what information is sent to
+    SureLogic.  In addition, the user can preview and edit the exact text
+    that will be sent. If you have no Internet connection you can
+    print or save the text of your annotation changes (to fax or email).</para>
+
+    <figure id="fig-bugs-and-tips-menu-library-annotations">
+      <title>Dialog allowing the user to enter a problem report about JSure</title>
+      <mediaobject>
+        <imageobject><imagedata fileref="images/bugs-and-tips-menu-library-annotations.png"/></imageobject>
+      </mediaobject>
+    </figure>
 
     <para>Messages sent from these dialogs go over HTTP to
-    SureLogic. If a proxy is used on your network then it is
-    critical to configure Eclipse to use it.  To do this open the
+    SureLogic. If a proxy is used on your network then you may need
+    to configure Eclipse to use it.  To do this open the
     Eclipse <guilabel>Preferences</guilabel> and examine the
     <guilabel>Network Connections</guilabel> under the
     <guilabel>General</guilabel> preferences.  This dialog allows
-    you to configure Eclipse for your network as shown in <xref
-    linkend="fig-bugs-and-tips-network-connections" /></para>
+    you to configure Eclipse for your network.</para>
 
-    <figure id="fig-bugs-and-tips-network-connections">
-      <title>Eclipse preferences for network connections within the IDE.</title>
-      <mediaobject>
-        <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
-      </mediaobject>
-    </figure>
   </sect1>
 </chapter>
