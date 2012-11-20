@@ -50,7 +50,7 @@
             promises library for a project. The dialog shown in <xref
             linkend="fig-add-update-promises-library-window"/> is opened to
             allow the user to select the set of projects to update.
-            For each selected project, this command copies the <code>promises-4.0.1.jar</code>
+            For each selected project, this command copies the <code>promises-</code><emphasis>version</emphasis><code>.jar</code>
             into the root of the project and adds the JAR to the project's classpath.</para>
           </formalpara>
 
@@ -65,7 +65,7 @@
         <listitem>
           <formalpara>
             <title><guimenuitem>Save Promises Library As&hellip;</guimenuitem></title>
-            <para>This command copies the <code>promises-4.0.1.jar</code> to the disk. A dialog, shown in
+            <para>This command copies the <code>promises-</code><emphasis>version</emphasis><code>.jar</code> to the disk. A dialog, shown in
             <xref linkend="fig-save-promises-library-as-dialog"/>, is opened to let the user to
             specify the directory the JAR file should be placed within. This command is useful if you need, for any reason,
             to manually add the JSure annotation JAR file to a codebase.</para>
@@ -82,7 +82,7 @@
          <listitem>
           <formalpara>
             <title><guimenuitem>Open Library Annotations...</guimenuitem></title>
-            <para>This command, similar to the Java <guilabel>Open Type</guilabel> search, allows the
+            <para>This command, similar to the Eclipse Java <guilabel>Open Type</guilabel> search, allows the
             tool user to open any type in the JSure library annotation editor. 
             A dialog, shown in
             <xref linkend="fig-save-promises-library-as-dialog"/>, is opened to let the user to
@@ -98,7 +98,7 @@
             </mediaobject>
           </figure>
         </listitem>
-  
+        
         <listitem>
           <formalpara>
             <title><guimenuitem>Open Code Verification Perspective</guimenuitem></title>
@@ -109,6 +109,32 @@
             perspective may also be opened via the normal Eclipse menus
             and toolbars for perspectives.</para>
           </formalpara>
+        </listitem>
+  
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Use Uniqueness Verifying Analysis</guimenuitem></title>
+             <para>This menu choice controls if the JSure alias analysis is executed during a scan.
+            This preference is off by default, but can be checked as shown in
+            <xref linkend="fig-uniqueness-turned-on"/>.</para>
+          </formalpara>
+          
+          <figure id="fig-uniqueness-turned-on">
+            <title><guimenuitem>The JSure main menu with uniqueness allowed to run</guimenuitem></title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/uniqueness-turned-on.png"/></imageobject>
+            </mediaobject>
+          </figure>
+          
+        <note>
+			<title>The Uniqueness Verifying Analysis is not recommended for most uses of JSure</title>
+
+			<para>The uniqueness alias analysis built into JSure is not recommended for use in this release because
+			we are still working to make its use feasible on large Java codebases. In particular, the analysis currently
+			complains about most uses of iterators, due to aliasing of the collection into the iterator, unless
+			effects upper bounds annotations exist for all methods called within the scope of the iteration.
+			It is included in this realease for experimental use by customers on small codebases.</para>
+	    </note>
         </listitem>
   
         <listitem>
