@@ -80,7 +80,7 @@ public class BoundedFIFO {
       <title>Don't forget to <code>import</code> the annotation type</title>
       
       <para>The annotation type <classname>RegionLock</classname> (and any other
-      JSure annotation used in these examples) must be imported by the sourcefile
+      JSure annotation used in these examples) must be imported
       before the class name can be resolved by the compiler.  There are a number of ways
       you can do this:
       

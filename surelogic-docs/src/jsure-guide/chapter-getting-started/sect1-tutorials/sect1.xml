@@ -7,13 +7,13 @@
        xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Tutorials</title>
 
-  <para>This section contains three tutorials demonstrating the use of
-  JSure and SureLogic program annotations to assure the correct use of
-  locks in three concurrent programs.  The first tutorial uses a small
+  <para>This section contains tutorials demonstrating the use of
+  JSure and its program annotations to assure the correct use of
+  locks in concurrent Java programs.  The first tutorial uses a small
   closed-world example to demonstrate the complete assurance of a
   class and its usage, starting with no annotations at all.  The
   second and third examples begin with a partially annotated program,
-  and demonstrates more sophisticated concepts such as support for
+  and demonstrate more sophisticated concepts such as support for
   <package>java.util.concurrent</package> reader&ndash;writer
   locks.</para>
 
