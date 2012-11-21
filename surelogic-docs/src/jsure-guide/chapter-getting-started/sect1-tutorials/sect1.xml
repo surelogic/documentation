@@ -96,9 +96,9 @@
 
     All the tutorial projects should now compile in your Eclipse workspace without errors.</para>
 
-  <xi:include href="sect2-jcip.xml"/>
-  
   <xi:include href="sect2-boundedfifo.xml"/>
+  
+  <xi:include href="sect2-jcip.xml"/>
   
   <xi:include href="sect2-planetbaron.xml"/>
   

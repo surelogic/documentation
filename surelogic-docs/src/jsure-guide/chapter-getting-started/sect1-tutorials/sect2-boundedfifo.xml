@@ -835,6 +835,73 @@ verification results should not change but the modeling problems will go away.
     </para>
   </sect3>
 
+<!--
+	<sect3>
+		<title>Stating that BoundedFIFO @ThreadSafe</title>
+		
+		<para>We can now apply the <code>@ThreadSafe</code>
+		annotations from
+		<emphasis>Java Concurrency In Practice</emphasis>
+		by Goetz, et. al. (Addison-Wesley 2006) to the <code>BoundedFIFO</code> class.
+		
+		<programlisting><emphasis>@ThreadSafe</emphasis>
+@Region("private BufState")
+@RegionLock("BufLock is this protects BufState")
+@Promise("@RequiresLock(BufLock) for *(**)")
+public class BoundedFIFO {
+  &hellip;
+}</programlisting>
+		
+		If we rescan the project with JSure we find that this does not assure. What is the problem?
+		</para>
+		
+	  <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo-threadsafe1.png"/>
+        </imageobject>
+      </mediaobject>
+		
+		<para>While the <code>BufLock</code> lock model checked its protected state, placing an
+		<code>@ThreadSafe</code> annotation on the class requires that all its state be
+		thread safe. By being immutable, protected by a lock, and so on.  The results
+		show that the field <code>buf</code> cannot be assured as thread safe. This
+		field is not currently part of the <code>BufLock</code> lock model&mdash;the state it
+		references is protected by the lock, but the field itself is not.  We have two options:</para>
+		
+	<itemizedlist>
+      <listitem>
+        <formalpara>
+          <title>Include the field in the BufLock locking model</title>
+          
+          <para>To do this we would annotate the field as follows. The annotations below place the
+          field as well as the state referenced by the field into the <code>BufState</code> region
+          that is protected by the <code>BufLock</code> locking model.
+
+          <programlisting><emphasis>@InRegion("BufState")</emphasis>
+@UniqueInRegion("BufState")
+private LoggingEvent[] buf;</programlisting></para>
+        </formalpara>
+      </listitem>
+    
+      <listitem>
+        <formalpara>
+          <title>Declare the field final</title>
+        
+          <para>The <code>@ThreadSafe</code> verifying analysis knows if something is immutable.
+          by declaring the field to be <code>final</code> it does not require that it be
+          protected by a lock.
+          
+  
+            <programlisting>@UniqueInRegion("BufState")
+private <emphasis>final</emphasis> LoggingEvent[] buf;</programlisting></para>
+        </formalpara>
+      </listitem>
+    </itemizedlist>
+    
+    <para>Either approach will work in this case. </para>
+
+	</sect3>
+-->
   <sect3 id="named-region">
     <title>Deleting Old Scans</title>
 
