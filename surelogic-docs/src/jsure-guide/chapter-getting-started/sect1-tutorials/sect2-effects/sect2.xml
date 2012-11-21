@@ -5,7 +5,7 @@
 
 <sect2 id="effects"
        xmlns:xi="http://www.w3.org/2001/XInclude">
-  <title>Effective Effects</title>
+  <title>Effective effects</title>
 
   <para>One of the kinds of design intent that a programmer can declare 
   and assure with JSure is method effects that describe program state that

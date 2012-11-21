@@ -9,10 +9,10 @@
 
   <para>This section contains tutorials demonstrating the use of
   JSure and its program annotations to assure the correct use of
-  locks in concurrent Java programs.  The first tutorial uses a small
-  closed-world example to demonstrate the complete assurance of a
-  class and its usage, starting with no annotations at all.  The
-  second and third examples begin with a partially annotated program,
+  locks in concurrent Java programs.  The first two tutorials use small
+  closed-world examples to demonstrate annotating code and using JSure, starting
+  with no annotations at all.  The
+  remaining turorials begin with a partially annotated program,
   and demonstrate more sophisticated concepts such as support for
   <package>java.util.concurrent</package> reader&ndash;writer
   locks.</para>
@@ -59,8 +59,10 @@
 	<note>
 		<title>Several of the imported projects will not compile in Eclipse</title>
 
-		<para>The JSureTutorial_PlanetBaron and JSureTutorial_EffectiveEffects projects will <emphasis>not</emphasis> compile without errors until you add the Promises
-		Library JAR into the build path of each project. A few of the tutorial projects, such as <classname>JSureTutorial_BoundedFIFO</classname>,
+		<para>The JSureTutorial_PlanetBaron and JSureTutorial_EffectiveEffects
+		projects will <emphasis>not</emphasis> compile without errors until you add the Promises
+		Library JAR into the build path of each project. A few of the tutorial
+		projects, such as <classname>JSureTutorial_ThreadSafeAndImmutable</classname>,
 		compile without errors because no annotations have been placed into the projects yet.</para>
 	</note>
     
@@ -92,8 +94,10 @@
       </listitem>
     </orderedlist>
 
-    All the tutorial projects should now compile without errors.</para>
+    All the tutorial projects should now compile in your Eclipse workspace without errors.</para>
 
+  <xi:include href="sect2-jcip.xml"/>
+  
   <xi:include href="sect2-boundedfifo.xml"/>
   
   <xi:include href="sect2-planetbaron.xml"/>

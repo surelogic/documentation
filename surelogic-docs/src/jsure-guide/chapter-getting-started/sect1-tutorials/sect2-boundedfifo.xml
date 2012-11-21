@@ -8,7 +8,7 @@
   <title>Verifying BoundedFIFO</title>
   
   <para>In this tutorial we walk through the complete assurance of the
-  <application>JSureTutorial_BoundedFIFO</application> project using JSure.
+  <classname>JSureTutorial_BoundedFIFO</classname> project using JSure.
   Specifically, we assure both the implementation and <emphasis>usage</emphasis>
   of a simple class.  That is, we demonstrate that it's not always enough to
   assure the implementation of a class: <emphasis>sometimes the clients of a
@@ -184,7 +184,7 @@ public class BoundedFIFO {
     the results of assuring model&ndash;code consistency. It is
     similar to a file system explorer, but instead of showing
     directories and files, it shows the chain of evidence used to
-    build a verification judgment (consistent or inconsistent) about
+    build a verification judgment&mdash;consistent or inconsistent&mdash;about
     each of your annotations.</para>
     
     <para>By digging into the <guilabel>Concurrency</guilabel> results, we see
@@ -228,15 +228,23 @@ public class BoundedFIFO {
     view on the offending line of code.  Let us view line of code from
     the assurance failure at line 52 by double-clicking on
     <computeroutput>Lock "&lt;this&gt;.BufLock" not held when
-    accessing this.numElts at BoundedFIFO.java line
-    52</computeroutput>. Eclipse opens an editor window for
+    accessing this.numElts</computeroutput>. Eclipse opens an editor window for
     <classname>BoundedFIFO</classname> and highlights the field
     expression <code>numElts</code> on line 52. In addition the
     <guilabel>JSure Historical Source</guilabel> view shows the same
     code because the current Java code and the code when the scan was
     performed are the same.
-    <footnote>
-      <para>You can enable line numbering in the Java editors by
+
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="images/boundedfifo3.png" />
+    </imageobject>
+  </mediaobject>   
+  
+  <tip>
+		<title>How to show line numbers in the Eclipse Java editor</title>
+		
+		<para>You can enable line numbering in the Java editor by
       right-clicking in the editor gutter and selecting <guimenu>Show
       Line Numbers</guimenu> or by going to
       <menuchoice><guimenu>General</guimenu>
@@ -245,13 +253,7 @@ public class BoundedFIFO {
       <guilabel>Preferences</guilabel> dialog box, and selecting
       <guilabel>Show line numbers</guilabel> in the preference
       pane.</para>
-    </footnote>
-
-  <mediaobject>
-    <imageobject>
-      <imagedata fileref="images/boundedfifo3.png" />
-    </imageobject>
-  </mediaobject>    
+ </tip> 
       
     This state access is one of many in the <function>get()</function>
     method.  A quick inspection of the method shows that it does not
@@ -326,24 +328,28 @@ public class BoundedFIFO {
     <classname>@RequiresLock("BufLock")</classname>.  There are seven
     methods in the class, so we could quickly add the annotations
     without too much work.  We can also take advantage of the
-    <guilabel>Proposed Promises</guilabel> view to have JSure add
-    these promises for us.  First, we would put the view in table mode by unpressing the <inlinegraphic fileref="images/java_decls_tree.gif"/> icon
-    in the view's tool bar (or unselecting <inlinegraphic fileref="images/java_decls_tree.gif"/> <guilabel>Show Proposals
-    In Java Declaration Tree</guilabel> in the view's menu). In the table view of the proposed promises, if we sort the view by its first column
-    (by clicking on the column header) we can see that the view
-    proposes seven <classname>RequiresLock</classname> annotations.
-    We can have JSure add these to the code by selecting them all and
-    choosing <menuchoice><guimenuitem>Annotate Code&hellip;</guimenuitem></menuchoice>:
+    <guilabel>Proposed Annotations</guilabel> view to have JSure add
+    these promises for us.  First, we make sure the view is only showing inferred annotations by
+    pressing the <inlinegraphic fileref="images/annotation_abductive.gif"/> icon
+    in the view's tool bar (or unselecting <inlinegraphic fileref="images/annotation_abductive.gif"/> <guilabel>Show Only Proposals
+    Inferred From Other Promises</guilabel> in the view's menu). In the tree view of the proposed annotations, select
+    the project <classname>JSureTutorial_BoundedFIFO</classname> and
+    choosing <menuchoice><guimenuitem>Expand</guimenuitem></menuchoice>:
     
       <mediaobject>
         <imageobject>
-         <imagedata fileref="images/proposed-promises-requireslock.png" />
+         <imagedata fileref="images/proposed-annotation-requireslock.png" />
         </imageobject>
       </mediaobject>    
       
+    The view shows annotations in the context of the Java declaration 
+    that they are proposed to be automatically placed on. Selecting any node
+    in the tree, including a Java declaration
+    or Eclipse project, and choosing <menuchoice><guimenuitem>Annotate Code...</guimenuitem></menuchoice>
+    from the view context menu begins an automatic code edit.
     Doing this would bring up an Eclipse source code refactoring
-    dialog box.  We choose not to go this route here (an example of
-    adding annotations using proposed promises is presented below).
+    dialog box.  We choose not to go this route here, however, an example of
+    adding annotations using this view is presented below.
     </para>
     
     <para>There is a way, however, to accomplish the
@@ -377,11 +383,20 @@ public class BoundedFIFO {
 
     <para>Add the <classname>@Promise</classname> annotation to
     <classname>BoundedFIFO</classname> and save the source
-    file. Choose <menuchoice><guimenu>JSure</guimenu>
+    file. You could choose <menuchoice><guimenu>JSure</guimenu>
     <guisubmenu>Verify Project</guisubmenu></menuchoice> from the
     Eclipse main menu to scan the project again or use the keyboard
     shortcut
-    <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
+    <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>,
+    however there is an easy shortcut to re-run the same scan again. Select the scan
+    in the <guilabel>JSure Scans</guilabel> view and choose <menuchoice><guimenu>Re-Verify</guimenu></menuchoice>
+    from the context menu as shown below.</para>
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo-re-verify.png"/>
+        </imageobject>
+      </mediaobject>    
         
     <para>After the analysis completes, there is a new <guilabel>Scoped
     promises</guilabel> heading in the <guilabel>Verification
@@ -395,9 +410,13 @@ public class BoundedFIFO {
           <imagedata fileref="images/boundedfifo6.png"/>
         </imageobject>
       </mediaobject>
+      
+    Note that the view highlights differences in light yellow. In this case indicating that the scoped
+    promise results are new since the previous scan. A <inlinegraphic fileref="images/delta_decr.gif"/> decorates
+    the lower-right of all images providing a trail from the root of the view's tree to new and changed results.
     </para>
     
-    <para>Let us look at the chain of evidence for the first unassured
+    <para>Let us look at the chain of evidence for the unassured
     <code>@RequiresLock</code> on the method <function>BoundedFIFO.isFull()</function>:
     
       <mediaobject>
@@ -449,7 +468,8 @@ public void put(LoggingEvent e) {
     
     <para>Make this change to <filename>BlockingFIFO.java</filename>
     and run another JSure scan using the keyboard shortcut
-    <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>.</para>
+    <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym> or
+    by using <guilabel>Re-Verify</guilabel> in the <guilabel>JSure Scans</guilabel> view.</para>
   </sect3>
   
   <sect3 id="single-threaded-constructor">
@@ -551,11 +571,11 @@ public void put(LoggingEvent e) {
     <classname>@Unique("return")</classname> to declare
     the intent that no aliases to the newly constructed object will be
     created during the execution of the constructor.  This annotation is
-    listed in the <guilabel>Proposed Promises</guilabel> view:
+    listed in the <guilabel>Proposed Annotation</guilabel> view:
     
       <mediaobject>
         <imageobject>
-          <imagedata fileref="images/proposed-promises-uniquereturn.png"/>
+          <imagedata fileref="images/proposed-annotation-uniquereturn.png"/>
         </imageobject>
       </mediaobject>
     </para>
@@ -567,7 +587,7 @@ public void put(LoggingEvent e) {
     
       <mediaobject>
         <imageobject>
-          <imagedata fileref="images/refactoring-window.png"/>
+          <imagedata fileref="images/proposed-annotation-refactoring-window.png"/>
         </imageobject>
       </mediaobject>
     

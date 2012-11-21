@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<sect2 id="jcip" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<title>Verifying thread safe and immutable classes</title>
+
+	<para>
+		In this tutorial we walk through the complete assurance of the
+		<classname>JSureTutorial_ThreadSafeAndImmutable</classname>
+		project using JSure. Specifically, we assure the implementation of
+		several classes that make up a simple 2D drawing framework. This
+		tutorial focuses on the effective use of the
+		<code>@ThreadSafe</code>
+		and
+		<code>@Immutable</code>
+		annotations from
+		<emphasis>Java Concurrency In Practice</emphasis>
+		by Goetz, et. al. (Addison-Wesley 2006).
+	</para>
+
+</sect2>
