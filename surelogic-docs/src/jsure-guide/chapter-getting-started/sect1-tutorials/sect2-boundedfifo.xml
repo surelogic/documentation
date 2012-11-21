@@ -650,7 +650,9 @@ public class BoundedFIFO {
     This annotation is suggested by JSure in the
     <guilabel>Verification Status</guilabel> view (under the
     suggestion) and in <guilabel>Proposed Promises</guilabel>
-    view. You can use either of these views to add the promise to the
+    view. Add the promise using the context menu in the
+    <guilabel>Verification Status</guilabel> view. Select <guilabel>Annotate Code..</guilabel>
+    to add the proposed <classname>@Unique</classname> annotation to the
     code.
     </para>
     
