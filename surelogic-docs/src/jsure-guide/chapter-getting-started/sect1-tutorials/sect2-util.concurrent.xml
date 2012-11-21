@@ -160,9 +160,10 @@ public class SynchronizedVariable implements Executor {
   </mediaobject>
 
   It is simple to "sync" up the <guilabel>Verification
-  Status</guilabel> view. Click on the one <inlinegraphic
+  Status</guilabel> view. Use the context menu on the one <inlinegraphic
   fileref="images/red_x.gif"/> result in the <guilabel>JSure Quick
-  Search</guilabel>. This will "sync" the two views. A double-click on
+  Search</guilabel> and select <guilabel>Open In Proof Context</guilabel>.
+  This will "sync" the two views. A double-click on
   the result will also bring up the code in both the Java editor and
   the <guilabel>JSure Historical Source</guilabel> view.
 
@@ -199,6 +200,9 @@ public class SynchronizedVariable implements Executor {
   and thus another thread could alter the value of the <structfield>value_</structfield>
   before <function>swap</function> returns. And (2) Java does guarantee that a read of 
   the two 32-bit halves of a <code>long</code> value is atomic.</para>
+  
+  <para>This is a real bug that existed in the released library.  It was, in fact,
+  uncovered using an earlier version of the JSure tool. It was quickly fixed.</para>
   
   <para>This method is tricky to fix because of its preamble which
   both short-circuits the swap if both objects are the same, and (2)
