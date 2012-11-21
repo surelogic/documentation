@@ -799,7 +799,7 @@ public class BoundedFIFO {
     appear to the upper-right as shown below.
        <mediaobject>
         <imageobject>
-          <imagedata fileref="images/boundedfifo-named-region3.png.png"/>
+          <imagedata fileref="images/boundedfifo-named-region3.png"/>
         </imageobject>
       </mediaobject>
     </para>
