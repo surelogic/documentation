@@ -9,10 +9,10 @@
   
   <para>This example demonstrates more sophisticated annotations and
   analysis results using a simple network capture the planet game:
-  <application>PlanetBaron</application>.  It will use the tutorial
-  project <application>JSureTutorial_PlanetBaron</application>.</para>
+  PlanetBaron.  It will use the tutorial
+  project <classname>JSureTutorial_PlanetBaron</classname>.</para>
 
-  <para>Scan the <application>JSureTutorial_PlanetBaron</application>
+  <para>Scan the <classname>JSureTutorial_PlanetBaron</classname>
   project with JSure. To do this choose
   <menuchoice><guimenu>JSure</guimenu> <guisubmenu>Verify
   Project</guisubmenu></menuchoice> from the Eclipse main menu. You
@@ -21,7 +21,7 @@
   This project already contains lock model annotations about its
   locking policies, not all of which assure (as you can see if you
   examine the scan results). In the rest of this tutorial we fix these
-  assurance failures.</para>
+  verification failures.</para>
   
   <sect3>
     <title>Running PlanetBaron</title>
@@ -151,9 +151,9 @@
   </sect3>
   
   <sect3 id="init-results">
-    <title>Initial Assurance Results</title>
+    <title>Initial Scan Results</title>
     
-    <para>The initial assurance results for the <application>JSureTutorial_PlanetBaron</application>
+    <para>The initial scan results for the <classname>JSureTutorial_PlanetBaron</classname>
     project are shown in <xref
     linkend="fig-pb-initial-state"/>.</para>
     
@@ -167,10 +167,15 @@
       </mediaobject>
     </figure>
     
-    <para>The lock model for lock <structfield>ThingLock</structfield>
+    <para>Lots of annotations have been place in this code.
+    Our focus is on the Concurrency models. You may poke around in the <guilabel>Verification Status</guilabel>
+    and <guilabel>Verification Explorer</guilabel> views to determine what is causing assurance failures.
+    In fact, it turns out that the lock model for lock <structfield>ThingLock</structfield>
     in class
     <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>
-    fails to assure.</para>
+    fails to assure&mdash;causing the related <classname>@ThreadSafe</classname> annotations,
+    such as on Planet and Ship, to also
+    fail to assure.</para>
 
     <para id="lock-viz-problems">We also note, primarily because a view is painted in bright
     yellow, that the project has a modeling problem. This view is
@@ -240,12 +245,14 @@
     declared in the class
     <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>:
     
-      <programlisting linenumbering="numbered" startinglinenumber="20"><emphasis>@RegionLock("ThingLock is f_lock protects Instance")</emphasis>
+      <programlisting linenumbering="numbered" startinglinenumber="20">@ThreadSafe
+<emphasis>@RegionLock("ThingLock is f_lock protects Instance")</emphasis>
 public abstract class Thing {
 
   /**
    * A logger for subclasses.
    */
+  @Vouch("ThreadSafe")
   protected static final Logger LOG = ConciseFormatter.getLogger("things");
 
   private final GameMap f_map; // immutable
@@ -308,9 +315,26 @@ public abstract class Thing {
         </imageobject>
       </mediaobject>
     </para>
-
-    <para>We see, by the <inlinegraphic fileref="images/info.gif"/>
-    result near the bottom, that JSure matches up
+    
+    <para>Before we examine this problem in depth we switch to
+    the <guilabel>Verification Explorer</guilabel> view by clicking on its
+    tab (to the right of the <guilabel>Verification Explorer</guilabel> view).
+    To see <function>lock()</function> and <function>unlock()</function> information
+    press the <inlinegraphic fileref="images/suggestions_warnings.gif"/> in the view toolbar.
+    Expand the <classname>JSureTutorial_PlanetBaron</classname> project, the
+    <classname>com.surelogic.jsure.planetbaron.game</classname> package, and the
+    <classname>Planet</classname> class.
+    
+     <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-lock-unlock-start.png" />
+        </imageobject>
+      </mediaobject>
+      
+    If you open the the two methods,
+    <code>getOwner</code> and <code>setOwner</code> we see, by
+    the <inlinegraphic fileref="images/info.gif"/>
+    results, that JSure matches up
     <function>lock()</function> and <function>unlock()</function>
     calls. Calls to <function>lock()</function> and
     <function>unlock()</function> are tracked separately because they
@@ -323,7 +347,8 @@ public abstract class Thing {
   <sect3>
     <title>Unprotected Field Access</title>
 
-    <para>We first look at the unprotected field access:
+    <para>Returning to the problem with the <classname>ThingLock</classname> locking model,
+    we first look at the unprotected field access:
 
       <mediaobject>
         <imageobject>
@@ -340,7 +365,7 @@ public abstract class Thing {
       <classname>Ship</classname>.  The erroneous access occurs in the
       method <function>Ship.moveTo()</function>:
 
-        <programlisting linenumbering="numbered" startinglinenumber="157">  public void moveTo(Location destination) {
+        <programlisting linenumbering="numbered" startinglinenumber="159">  public void moveTo(Location destination) {
     if (isMoving())
       throw new IllegalStateException(
           "a moving ship can't change its destination");
@@ -363,7 +388,7 @@ public abstract class Thing {
     }
   }</programlisting>
 
-    We see that the field access on line 162 in the condition of the
+    We see that the field access on line 164 in the condition of the
     <code>if</code>-statement occurs outside of the critical section
     that only spans the <code>else</code>-block.  We need to edit the
     method to expand the critical section to contain the entire
@@ -411,11 +436,11 @@ public abstract class Thing {
 
     <para>You can demonstrate to yourself that JSure understands the
     when the read component and when the write component of a
-    read&ndash;write lock needs to be held by changing lines 162 and
-    176 of <function>Ship.moveTo()</function> to acquire the read lock
+    read&ndash;write lock needs to be held by changing lines 164 and
+    178 of <function>Ship.moveTo()</function> to acquire the read lock
     instead of the write lock:
 
-      <programlisting linenumbering="numbered" startinglinenumber="157">  public void moveTo(Location destination) {
+      <programlisting linenumbering="numbered" startinglinenumber="159">  public void moveTo(Location destination) {
     if (isMoving())
       throw new IllegalStateException(
           "a moving ship can't change its destination");
@@ -451,6 +476,26 @@ public abstract class Thing {
     <code>else</code>-branch are unprotected because they require the
     write lock to be held, but only the read lock component of
     <structfield>ThingLock</structfield> is held.</para>
+    
+    <para>If we switch over the the <guilabel>Verification Explorer</guilabel> view
+    we can better see that the inconsistent results are all in the
+    <function>Ship.moveTo()</function> method. This is shown in the image below.
+    To match the image
+    unselect <inlinegraphic fileref="images/suggestions_warnings.gif"/> in the view
+    toolbar to hide suggestions and warnings and then
+    select <inlinegraphic fileref="images/analysis_result.gif"/>
+    to show analysis results. Expand your view to show
+    the <function>Ship.moveTo()</function> method.
+    </para>
+    
+    <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-needs-write-lock-explorer.png" />
+        </imageobject>
+    </mediaobject>
+    
+    <para>The <guilabel>Verification Explorer</guilabel> view can be helpful for looking
+    at the results in the context of their reported Java code location.</para>
 
     <para>Restore the method to its previously corrected form by
     changing lines 162 and 176 to invoke
@@ -463,7 +508,7 @@ public abstract class Thing {
     <title>Unsatisfied Preconditions</title>
 
     <para>We now move on to the three unsatisfied lock preconditions.
-    Expanding the results as shown in <xref linkend="fig-pb-unsatisfied-preconditions"/> reveals
+    Back in the <guilabel>Verification Status</guilabel>view, expanding the results as shown in <xref linkend="fig-pb-unsatisfied-preconditions"/> reveals
      
       <itemizedlist>
         <listitem>
@@ -634,28 +679,12 @@ public abstract class Thing {
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="images/pb-after-getThingLock.png" />
+          <imagedata fileref="images/pb-paintComponent-mixed-locking-fixed.png" />
         </imageobject>
       </mediaobject>
 
-    Do note, however, that the method
-    <function>Thing.getThingLock()</function> is assured to return the
-    correct lock object:
-
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/pb-getThingLock-okay.png" />
-        </imageobject>
-      </mediaobject>
-
-      In addition, note that the addition of the
-      <function>Thing.getThingLock()</function> has eliminated the
-      modeling problem. the <guilabel>Modeling Problems</guilabel>
-      view is now empty and no longer has a yellow background. This
-      occurred because we have added the ability for the lock to be
-      accessed with <code>public</code> visibility and the lock
-      visibility now matches the <code>public</code> visibility of the
-      <code>Instance</code> region.
+    The remaining problem is slightly subtle, and not immediately obvious
+    from the reported tool results.
     </para>
   </sect3>
 
@@ -672,6 +701,18 @@ public abstract class Thing {
       <mediaobject>
         <imageobject>
           <imagedata fileref="images/pb-non-final-locks.png" />
+        </imageobject>
+      </mediaobject>
+      
+    This can also be seen by following what changed (the trail
+    of <inlinegraphic fileref="images/delta_decr.gif"/>) in the
+    <guilabel>Verification Explorer</guilabel> view to the warnings.  This
+    view does a better job of showing that the warnings are all within
+    the <function>MapView.paintComponent()</function> method.
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/pb-non-final-locks-explorer.png" />
         </imageobject>
       </mediaobject>
 
@@ -733,7 +774,7 @@ public abstract class Thing {
     </para>
 
     <para>After making this change, the complete model for
-    <structfield>ThingLock</structfield> assures:
+    <structfield>ThingLock</structfield> assures along with the associated <code>@ThreadSafe</code> models:
 
       <mediaobject>
         <imageobject>
@@ -741,29 +782,11 @@ public abstract class Thing {
         </imageobject>
       </mediaobject>
 
-      Why is there a red dot on the verification result? This
-      indicates that the judgment is contingent upon a promise made by
-      the programmer. This means the the code likely contains a
+      Why is there a red dot on the verification result? In this
+      case it is because we have the uniqueness verifying analysis turned off.
+      It could also mean that the code contains a
       <classname>Vouch</classname> or <classname>Assume</classname>
-      annotation. If we open the <structfield>ThingLock</structfield>
-      and follow the trail of red dots we find a
-      <classname>Vouch</classname> has been placed at line 94 of
-      <classname>Ship</classname>. The programmer hasn't finished
-      modeling, but thinks the constructor is okay.
-
-      <mediaobject>
-        <imageobject>
-  	  <imagedata fileref="images/pb-reddot-1.png" />
-        </imageobject>
-      </mediaobject>
-
-      <mediaobject>
-        <imageobject>
-  	  <imagedata fileref="images/pb-reddot-2.png" />
-        </imageobject>
-      </mediaobject>
-
-      Notice that the use of the <classname>Vouch</classname> turns
+      annotation. The use of the <classname>Vouch</classname> turns
       what would have been an <inlinegraphic
       fileref="images/red_x.gif"/> result into a <inlinegraphic
       fileref="images/plus_vouch.gif"/>.
@@ -773,14 +796,14 @@ public abstract class Thing {
     using the <guilabel>JSure Quick Search</guilabel> view. In this
     view select the <guilabel>Annotation</guilabel> filter and scroll
     down and check the <emphasis>Vouch</emphasis>. The graph shows you
-    how many of each type of annotation. In this case there is only
-    one <classname>Vouch</classname> annotation in the code. To see
+    how many of each type of annotation. In this case there are
+    several <classname>Vouch</classname> annotations in the code. To see
     the annotation, select <guilabel>Show</guilabel> in the menu to
     the right of the filter.
 
     <mediaobject>
       <imageobject>
-	<imagedata fileref="images/pb-reddot-3.png" />
+	<imagedata fileref="images/pb-finding-vouchs.png" />
       </imageobject>
     </mediaobject>
     </para>
