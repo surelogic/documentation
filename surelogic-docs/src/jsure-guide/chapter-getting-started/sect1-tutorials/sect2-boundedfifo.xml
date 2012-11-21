@@ -611,6 +611,25 @@ public void put(LoggingEvent e) {
       and, therefore, the <classname>@Unique("return")</classname>
       annotation is as well.</para>
     </tip>
+    
+    <para>The verification result for <classname>BufLock</classname> includes
+    a <inlinegraphic fileref="images/reddot_decr.gif"/> icon in its
+    upper-left. This is an indication of something in the consistency proof
+    that is not being checked, or verified, by analysis. In this case the
+    consistency of the <classname>BufLock</classname> lock model depends upon
+    the <classname>@Unique("return")</classname> promise at line 43. As can be seen
+    at the bottom of the image above, this promise is not only decorated by a
+    <inlinegraphic fileref="images/reddot_decr.gif"/> icon in its
+    upper-left but also by a <inlinegraphic fileref="images/trusted_decr.gif"/> icon in its
+    upper-right. The <inlinegraphic fileref="images/trusted_decr.gif"/> indicates
+    that the promise is <emphasis>trusted</emphasis>&mdash;it is not checked by an analysis.
+    This is because we asked you to be sure that the uniqueness
+    verifying analysis is turned off. This is the analysis which
+    checks the <classname>@Unique("return")</classname> promise. A key feature of JSure is that analyses can be turned on
+    and off (or replaced)&mdash;the automated reasoning/proof maintenance system is a separate component
+    from the verifying analyses. In
+    the <guilabel>Verification Status</guilabel> any trail of <inlinegraphic fileref="images/reddot_decr.gif"/>
+    icons will lead you to a node that not being checked, or verified, by analysis.</para>
   </sect3>    
   
   <sect3 id="aggregating-state">
@@ -720,7 +739,7 @@ public class BoundedFIFO {
     
       <mediaobject>
         <imageobject>
-          <imagedata fileref="images/named-region-01.png"/>
+          <imagedata fileref="images/boundedfifo-named-region1.png"/>
         </imageobject>
       </mediaobject>      
     </para>
@@ -761,7 +780,7 @@ public class BoundedFIFO {
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="images/named-region-02.png"/>
+          <imagedata fileref="images/boundedfifo-named-region2.png"/>
         </imageobject>
       </mediaobject>      
     </para>
@@ -780,7 +799,7 @@ public class BoundedFIFO {
     appear to the upper-right as shown below.
        <mediaobject>
         <imageobject>
-          <imagedata fileref="images/boundedfifo13.png"/>
+          <imagedata fileref="images/boundedfifo-named-region3.png.png"/>
         </imageobject>
       </mediaobject>
     </para>
