@@ -17,7 +17,353 @@
 		<code>@Immutable</code>
 		annotations from
 		<emphasis>Java Concurrency In Practice</emphasis>
-		by Goetz, et. al. (Addison-Wesley 2006).
+		by Goetz, et. al. (Addison-Wesley 2006), hereafter referred to as JCIP.
 	</para>
+	
+	<para>We want our drawing library to be thread safe. We begin by examining the <classname>Point</classname> class.</para>
+	
+	<programlisting>public class Point {
 
+  int x, y;
+
+  private Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  public int getX() {
+    return x;
+  }
+
+  public int getY() {
+    return y;
+  }
+
+  private static List&lt;Point&gt; INSTANCES = new ArrayList&lt;Point&gt;();
+
+  public static Point getInstance(int x, int y) {
+    synchronized (INSTANCES) {
+      for (Point p : INSTANCES) {
+        if (p.x == x &amp;&amp; p.y == y)
+          return p;
+      }
+      final Point result = new Point(x, y);
+      INSTANCES.add(result);
+      return result;
+    }
+  }
+
+  public static Point getInstance(Point from, int xOffset, int yOffset) {
+    return getInstance(from.x + xOffset, from.y + yOffset);
+  }
+}</programlisting>
+
+  <para>This class appears thread safe, however, note that its instance state is immutable.
+  We consider immutable to be better than thread safe, because <emphasis>immutable objects are
+  always thread safe.</emphasis>
+  In fact, this class is a Java implementation of
+  the Flyweight design pattern from <emphasis>Design Patterns</emphasis> Gamma, et al. (Addison-Wesley 1994) SureLogic has
+  augmented the JCIP annotations to capture this distinction. Annotate the <classname>Point</classname> class as
+  shown below</para>
+  
+  <programlisting><emphasis>@Immutable(appliesTo=Part.Instance)
+@ThreadSafe(appliesTo=Part.Static)</emphasis>
+public class Point {
+  &hellip;
+}</programlisting>
+
+  <para>Scan the project with JSure. The class fails to assure as shown in the snippet from
+  the <guilabel>Verification Status</guilabel> view below.</para>
+
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-point1.png" />
+		</imageobject>
+	</mediaobject>
+	
+	<para>We focus on the immutable instance state of the <classname>Point</classname> class first and note that
+	JSure tells us that it cannot assure the implementation because the <code>x</code> and <code>y</code>
+	fields are not declared to be <code>final</code>. This is consistent with the advice from JCIP which
+	specifies that an object is immutable if <emphasis>all its fields are final</emphasis> (among other things).
+	Change the code as shown below to make all the fields final.</para>
+	
+		<programlisting>@Immutable(appliesTo=Part.Instance)
+@ThreadSafe(appliesTo=Part.Static)
+public class Point {
+
+  <emphasis>final</emphasis> int x, y;
+  &hellip;
+  private static <emphasis>final</emphasis> List&lt;Point&gt; INSTANCES = new ArrayList&lt;Point&gt;();
+  &hellip;
+}</programlisting>
+
+  <para>Now rescan the project with JSure. As shown below the
+  <code>@Immutable(appliesTo=Part.Instance)</code> annotation on the <classname>Point</classname> class
+  now verifies. The static portion which implements the Flyweight
+  pattern, does not.</para>
+  
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-point2.png" />
+		</imageobject>
+	</mediaobject>
+	
+  <para>Examining the the implementation of the <code>getInstance</code> method we can see that locking is used
+  to protect the contents of the <code>INSTANCES</code> collection because <code>ArrayList</code> is not
+  thread safe. We need to express the locking model in the code, similar to explained in the <code>BoundedFIFO</code>
+  tutorial, to support the verification of the <code>@ThreadSafe(appliesTo=Part.Static)</code> annotation.
+  Add the model to the code as shown in the listing below. A lock on the collection protects the contents of the collection.</para>
+  
+		<programlisting>@Immutable(appliesTo=Part.Instance)
+@ThreadSafe(appliesTo=Part.Static)
+<emphasis>@Region("static private FlyweightState")
+@RegionLock("FlyweightLock is INSTANCES protects FlyweightState")</emphasis>
+public class Point {
+  &hellip;
+  <emphasis>@UniqueInRegion("FlyweightState")</emphasis>
+  private static <emphasis>final</emphasis> List&lt;Point&gt; INSTANCES = new ArrayList&lt;Point&gt;();
+  &hellip;
+}</programlisting>
+
+  <para>With these changes in the code scan the project again with JSure. The models in the <classname>Point</classname> class are
+  now consistent with its implementation.</para>
+  
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-point3.png" />
+		</imageobject>
+	</mediaobject>
+	
+  <para>The annotations in this class now clearly reflect the design intent of the programmer, and are
+  precisely expressed in the code so that this intent is conveyed in to future maintainers. This is
+  important, as in our experience, many concurrency defects are introduced into the code during maintenance.</para>
+  
+  <para>We now turn our attention to the <code>Shape</code> interface listed below.</para>
+  
+  <programlisting>public interface Shape {
+
+  /**
+   * Gets the bounds of this shape.
+   * 
+   * @return a list containing four points: top-left point, top-right point,
+   *         bottom-right point, and bottom-left point.
+   * 
+   * @throws IllegalArgumentException
+   *           if something goes wrong.
+   */
+  List&lt;Point&gt; getBounds();
+
+  /**
+   * Gets the outline of this shape.
+   * 
+   * @return the outline of this shape, which should include at least three
+   *         points.
+   * 
+   * @throws IllegalArgumentException
+   *           if something goes wrong.
+   */
+  List&lt;Point&gt; getOutline();
+}</programlisting>
+
+  <para>This is the base interface for all our shapes, subtypes are shown in the following hierarchy:</para>
+
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-shape-hierarchy.png" />
+		</imageobject>
+	</mediaobject>
+	
+  <para>We want this class and its subtype to be thread safe, so we express this by placing a <code>@ThreadSafe</code>
+  annotation on the interface. In this case there should be no static portion to consider, but <code>@ThreadSafe</code>
+  with no <code>appliesTo</code> means that <emphasis>both</emphasis> the instance state and the static state are thread safe.</para>
+
+  <programlisting><emphasis>@ThreadSafe</emphasis>
+public interface Shape {
+  &hellip;
+}</programlisting>
+
+  <para>Edit the code as shown above and rescan the project with JSure.  The model is consistent, however, we get
+  two modeling problems. The problems are because JSure enforces <emphasis>annotation consistency</emphasis> across
+  the type hierarchy.  In this case, because <classname>Shape</classname> is annotated <code>@ThreadSafe</code>
+  the tool wants <classname>Polygon</classname> and <classname>Rectangle</classname> to be as well.  We can
+  allow the tool to perform the code edit by selecting both modeling problems and choosing <guilabel>Annotate Code To Fix...</guilabel>
+  as shown below.</para>
+  
+  	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-shape-mp1.png" />
+		</imageobject>
+	</mediaobject>
+
+	<para>The code edit is previewed as shown below. You may accept the edit.</para>
+	
+  	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-shape-mp2.png" />
+		</imageobject>
+	</mediaobject>
+	
+	<para>Now rescan the project again with JSure. The results should appear as</para>
+	
+  	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-shape-ts1.png" />
+		</imageobject>
+	</mediaobject>
+	
+	<para>The <classname>Rectangle</classname> assures, but the <classname>Polygon</classname> does not assure. Let's
+	examine this class in more detail.</para>
+	
+	<programlisting>@ThreadSafe
+public class Polygon implements Shape {
+
+  public Polygon() {
+    // callers use add to add points
+  }
+
+  private final Object lock = new Object();
+
+  private final List&lt;Point&gt; outline = new ArrayList&lt;Point&gt;();
+
+  public void add(Point value) {
+    if (value != null) {
+      synchronized (lock) {
+        outline.add(value);
+      }
+    }
+  }
+
+  public List&lt;Point&gt; getBounds() {
+    synchronized (lock) {
+      if (outline.size() &lt; 3)
+        throw new IllegalArgumentException();
+      Point top = null, bottom = null, right = null, left = null;
+      boolean first = true;
+      for (Point p : outline) {
+        if (first) {
+          top = bottom = right = left = p;
+        } else {
+          if (p.x &lt; left.x)
+            left = p;
+          if (p.x &gt; right.x)
+            right = p;
+          if (p.y &lt; bottom.y)
+            bottom = p;
+          if (p.y &gt; top.y)
+            top = p;
+        }
+      }
+      final ArrayList&lt;Point&gt; result = new ArrayList&lt;Point&gt;();
+      result.add(Point.getInstance(left.getX(), top.getY()));
+      result.add(Point.getInstance(right.getX(), top.getY()));
+      result.add(Point.getInstance(right.getX(), bottom.getY()));
+      result.add(Point.getInstance(left.getX(), bottom.getY()));
+      return result;
+    }
+  }
+
+  public List&lt;Point&gt; getOutline() {
+    synchronized (lock) {
+      if (outline.size() &lt; 3)
+        throw new IllegalArgumentException();
+      return new ArrayList&lt;Point&gt;(outline);
+    }
+  }
+}</programlisting>
+
+  <para>The class uses locking model: a lock on <code>lock</code> protects the
+  contents of the collection <code>outline</code>. We can express this intent with the following annotations
+  to the class.</para>
+  
+  	<programlisting>@ThreadSafe
+<emphasis>@Region("private PolygonState")
+@RegionLock("PolygonLock is lock protects PolygonState")</emphasis>
+public class Polygon implements Shape {
+
+  <emphasis>@Unique("return")</emphasis>
+  public Polygon() {
+    // callers use add to add points
+  }
+
+  private final Object lock = new Object();
+
+  <emphasis>@UniqueInRegion("PolygonState")</emphasis>
+  private final List&lt;Point&gt; outline = new ArrayList&lt;Point&gt;();
+
+  &hellip;
+}</programlisting>
+
+  <para>Make the above changes to the code and rescan the project with JSure. The tool reports that the <code>Polygon</code>
+  class is now consistent with its annotations.</para>
+  
+   <mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-shape-ts2.png" />
+		</imageobject>
+	</mediaobject>
+	
+	<para>Finally, we turn our attention to the <code>Rectangle</code> class. It verifies, but we should examine it
+	to be sure its annotations reflect programmer design intent.</para>
+	
+	<programlisting>@ThreadSafe
+public class Rectangle implements Shape {
+
+  private final Point topLeft;
+  private final int width, height;
+
+  public Rectangle(Point topLeft, int width, int height) {
+    if (topLeft == null || width &lt; 1 || height &lt; 1)
+      throw new IllegalArgumentException();
+    this.topLeft = topLeft;
+    this.width = width;
+    this.height = height;
+  }
+
+  public Point getTopLeft() {
+    return topLeft;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public List&lt;Point&gt; getBounds() {
+    final ArrayList&lt;Point&gt; result = new ArrayList&lt;Point&gt;();
+    result.add(topLeft);
+    result.add(Point.getInstance(topLeft, width, 0));
+    result.add(Point.getInstance(topLeft, width, -height));
+    result.add(Point.getInstance(topLeft, 0, -height));
+    return null;
+  }
+
+  public List&lt;Point&gt; getOutline() {
+    return getBounds();
+  }
+}</programlisting>
+
+  <para>This class, it appears from an examination of its code, is not just thread safe, it is immutable. Because
+  an immutable class is always thread safe, we can replace the <code>@ThreadSafe</code> annotation with an
+  <code>@Immutable</code> annotation.</para>
+  
+  	<programlisting><emphasis>@Immutable</emphasis>
+public class Rectangle implements Shape {
+  &hellip;
+}</programlisting>
+
+<para>Make the above changes to the code and rescan the project with JSure. The tool reports that the <code>Rectangle</code>
+  class remains consistent with its annotations.</para>
+  
+     <mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-shape-ts3.png" />
+		</imageobject>
+	</mediaobject>
+  
+      <para>You are now finished with this tutorial. The next tutorial
+    works on a larger codebase and presents the use of JSure to verify
+    lock policies that use <code>util.concurrent</code> locks.</para>
 </sect2>

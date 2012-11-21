@@ -932,7 +932,7 @@ private <emphasis>final</emphasis> LoggingEvent[] buf;</programlisting></para>
     </para>
 
     <para>You are now finished with this tutorial. The next tutorial
-    works on a larger codebase and presents the use of JSure to verify
-    lock policies that use <code>util.concurrent</code> locks.</para>
+    shows how to use the <code>@ThreadSafe</code> and <code>@Immutable</code> annotations
+    to express design intent and verify it using JSure.</para>
   </sect3>
 </sect2>
