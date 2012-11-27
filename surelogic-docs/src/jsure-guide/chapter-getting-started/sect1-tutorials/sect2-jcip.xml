@@ -62,7 +62,7 @@
   We consider immutable to be better than thread safe, because <emphasis>immutable objects are
   always thread safe.</emphasis>
   In fact, this class is a Java implementation of
-  the Flyweight design pattern from <emphasis>Design Patterns</emphasis> Gamma, et al. (Addison-Wesley 1994) SureLogic has
+  the Flyweight design pattern from <emphasis>Design Patterns</emphasis> Gamma, et al. (Addison-Wesley 1994). SureLogic has
   augmented the JCIP annotations to capture this distinction. Annotate the <classname>Point</classname> class as
   shown below</para>
   
@@ -97,6 +97,17 @@ public class Point {
   &hellip;
 }</programlisting>
 
+  	<note>
+		<title>Final fields and JSure</title>
+
+		<para>To obtain verification with JSure it often wants fields and (to a lesser degree)
+		variables to be declared
+		<code>final</code>. This is because it removes any doubt that the referenced object may
+		change from one point in the code to another point in the code. Get in the habit of
+		declaring unchanging fields to be <code>final</code> to help JSure
+		reach model/code consistency.</para>
+	</note>
+
   <para>Now rescan the project with JSure. As shown below the
   <code>@Immutable(appliesTo=Part.Instance)</code> annotation on the <classname>Point</classname> class
   now verifies. The static portion which implements the Flyweight
@@ -110,9 +121,10 @@ public class Point {
 	
   <para>Examining the the implementation of the <code>getInstance</code> method we can see that locking is used
   to protect the contents of the <code>INSTANCES</code> collection because <code>ArrayList</code> is not
-  thread safe. We need to express the locking model in the code, similar to explained in the <code>BoundedFIFO</code>
+  thread safe. We need to express a locking model in the code, much like we did int the <code>BoundedFIFO</code>
   tutorial, to support the verification of the <code>@ThreadSafe(appliesTo=Part.Static)</code> annotation.
-  Add the model to the code as shown in the listing below. A lock on the collection protects the contents of the collection.</para>
+  In this example, a lock on the collection protects the contents of the collection. Add the model to
+  the code as shown in the listing below. </para>
   
 		<programlisting>@Immutable(appliesTo=Part.Instance)
 @ThreadSafe(appliesTo=Part.Static)
@@ -134,9 +146,10 @@ public class Point {
 		</imageobject>
 	</mediaobject>
 	
-  <para>The annotations in this class now clearly reflect the design intent of the programmer, and are
-  precisely expressed in the code so that this intent is conveyed in to future maintainers. This is
-  important, as in our experience, many concurrency defects are introduced into the code during maintenance.</para>
+  <para>The annotations precisely express the design intent of the programmer, and are
+  expressed in the code so that this intent is conveyed in to future maintainers. This is
+  important, because in our experience, many concurrency defects are introduced
+  into the code during maintenance.</para>
   
   <para>We now turn our attention to the <code>Shape</code> interface listed below.</para>
   
@@ -165,7 +178,7 @@ public class Point {
   List&lt;Point&gt; getOutline();
 }</programlisting>
 
-  <para>This is the base interface for all our shapes, subtypes are shown in the following hierarchy:</para>
+  <para>This is the base interface for shapes, subtypes are shown in the following hierarchy:</para>
 
 	<mediaobject>
 		<imageobject>
@@ -184,8 +197,9 @@ public interface Shape {
 
   <para>Edit the code as shown above and rescan the project with JSure.  The model is consistent, however, we get
   two modeling problems. The problems are because JSure enforces <emphasis>annotation consistency</emphasis> across
-  the type hierarchy.  In this case, because <classname>Shape</classname> is annotated <code>@ThreadSafe</code>
-  the tool wants <classname>Polygon</classname> and <classname>Rectangle</classname> to be as well.  We can
+  a type hierarchy.  Because <classname>Shape</classname> is annotated <code>@ThreadSafe</code>
+  the tool wants <classname>Polygon</classname> and <classname>Rectangle</classname> to be as well. Putting it another
+  way, the <code>@ThreadSafe</code> annotation on <classname>Shape</classname> states that all shapes are thread safe.  We can
   allow the tool to perform the code edit by selecting both modeling problems and choosing <guilabel>Annotate Code To Fix...</guilabel>
   as shown below.</para>
   
@@ -211,8 +225,24 @@ public interface Shape {
 		</imageobject>
 	</mediaobject>
 	
-	<para>The <classname>Rectangle</classname> assures, but the <classname>Polygon</classname> does not assure. Let's
-	examine this class in more detail.</para>
+	<para>As shown above, the <classname>Rectangle</classname> class assures, but the <classname>Polygon</classname> class
+	does not assure.</para>
+	
+	  	<note>
+		<title>Automatic edits in JSure are intended to be helpful&mdash;not perfect</title>
+
+		<para>Automatic edits to your code, such as fixing modeling problems or including proposed annotations,
+		are heuristic&mdash;most are abductively inferred from other annotations you have made to the code.
+		They are designed to avoid tedious annotation entry. But they may not reflect programmer design intent, or,
+		as in this example, may be incomplete.
+		You should always carefully consider if the edit
+		reflects an assertion about your code that is reasonable based upon your understanding of its design.</para>
+	</note>
+	
+	
+	<para>Let's examine the implementation of the <classname>Polygon</classname> class in more detail to
+	determine why its <code>@ThreadSafe</code> fails to assure. Of immediate interest in the listing below is
+	the <code>lock</code> field and its use to protect the polygon's collection of points.</para>
 	
 	<programlisting>@ThreadSafe
 public class Polygon implements Shape {
@@ -302,8 +332,9 @@ public class Polygon implements Shape {
 		</imageobject>
 	</mediaobject>
 	
-	<para>Finally, we turn our attention to the <code>Rectangle</code> class. It verifies, but we should examine it
-	to be sure its annotations reflect programmer design intent.</para>
+	<para>We now turn our attention to the <code>Rectangle</code> class. It verifies, but we should examine it
+	to be sure its <code>@ThreadSafe</code> annotation reflects the programmer's design&mdash;In fact, it isn't an
+	exact match.</para>
 	
 	<programlisting>@ThreadSafe
 public class Rectangle implements Shape {
@@ -345,7 +376,8 @@ public class Rectangle implements Shape {
   }
 }</programlisting>
 
-  <para>This class, it appears from an examination of its code, is not just thread safe, it is immutable. Because
+  <para>This class, it appears from an examination of its code, is not just thread safe, it is immutable. Why? Because
+  <code>Point</code> is immutable and the other two fields are <code>int</code>&mdash;a primitive type. Because
   an immutable class is always thread safe, we can replace the <code>@ThreadSafe</code> annotation with an
   <code>@Immutable</code> annotation.</para>
   
@@ -354,15 +386,78 @@ public class Rectangle implements Shape {
   &hellip;
 }</programlisting>
 
-<para>Make the above changes to the code and rescan the project with JSure. The tool reports that the <code>Rectangle</code>
-  class remains consistent with its annotations.</para>
+<para>Make the above changes to the code and rescan the project with JSure.</para>
   
      <mediaobject>
 		<imageobject>
 			<imagedata fileref="images/jcip-shape-ts3.png" />
 		</imageobject>
 	</mediaobject>
+	
+	<para>The tool reports that the <code>Rectangle</code> class is assured to be immutable.</para>
+	
+	  	<note>
+		<title>Should Rectangle be @ThreadSafe or @Immutable</title>
+
+		<para>We changed the annotation on <code>Rectangle</code> to <code>@Immutable</code> based upon
+		its current implementation.  However, an argument could be made that leaving <code>Rectangle</code>
+		as <code>@ThreadSafe</code> allows greater implementation
+		flexibility in maintenance of the codebase. Both are valid approaches&mdash;you should make the
+		right choice for your code based upon your software design. You should always consider maintenance when
+		annotating code.</para>
+	</note>
   
+    <para>We now consider the <code>Canvas</code> class which is listed below.</para>
+    
+    <programlisting>public final class Canvas {
+
+  private final Set&lt;Point&gt; points = new CopyOnWriteArraySet&lt;Point&gt;();
+
+  public void addPoint(Point value) {
+    if (value != null)
+      points.add(value);
+  }
+
+  private final List&lt;Shape&gt; shapes = new CopyOnWriteArrayList&lt;Shape&gt;();
+
+  public void addShape(Shape value) {
+    if (value != null)
+      shapes.add(value);
+  }
+
+  public static Canvas getInstance() {
+    return INSTANCE;
+  }
+
+  private static final Canvas INSTANCE = new Canvas();
+
+  private Canvas() {
+    // singleton
+  }
+}</programlisting>
+
+    <para>We can make two observations about the implementation of this class. First, it
+    is a Java implementation of the
+    Singleton design pattern from <emphasis>Design Patterns</emphasis> Gamma, et al. (Addison-Wesley 1994).
+    We even note an informal comment in the private constructor about this intent. Note that sometimes informal
+    comments can help indicate that a JSure annotation might be appropriate. 
+    Second, the implementation appears to be thread safe. Both of these assertions can be expressed in JSure.</para>
+  
+  
+    	<programlisting><emphasis>@ThreadSafe
+@Singleton</emphasis>
+public final class Canvas {
+  &hellip;
+}</programlisting>
+
+      <para> Edit the code to appear as shown above and rescan the project with JSure. It will verify.</para>
+      
+    <mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-shape-ts4.png" />
+		</imageobject>
+	</mediaobject>
+      
       <para>You are now finished with this tutorial. The next tutorial
     works on a larger codebase and presents the use of JSure to verify
     lock policies that use <code>util.concurrent</code> locks.</para>
