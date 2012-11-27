@@ -835,7 +835,6 @@ verification results should not change but the modeling problems will go away.
     </para>
   </sect3>
 
-<!--
 	<sect3>
 		<title>Stating that BoundedFIFO @ThreadSafe</title>
 		
@@ -863,45 +862,70 @@ public class BoundedFIFO {
 		
 		<para>While the <code>BufLock</code> lock model checked its protected state, placing an
 		<code>@ThreadSafe</code> annotation on the class requires that all its state be
-		thread safe. By being immutable, protected by a lock, and so on.  The results
-		show that the field <code>buf</code> cannot be assured as thread safe. This
-		field is not currently part of the <code>BufLock</code> lock model&mdash;the state it
-		references is protected by the lock, but the field itself is not.  We have two options:</para>
-		
-	<itemizedlist>
-      <listitem>
-        <formalpara>
-          <title>Include the field in the BufLock locking model</title>
+		thread safe&mdash;by being immutable, protected by a lock, and so on.  The results
+		show that the array <code>buf</code> cannot be assured as thread safe because it is not
+		considered <emphasis>containable</emphasis>. This means that instances of the class can be
+		safely encapsulated via region aggregation into other objects because methods of this
+		class do not leak references to themselves or any of the other objects that they
+		reference, transitively. JSure cannot prove this for Java arrays (it is a surprisingly
+		difficult aliasing problem), however, you can, however, to continue to move this
+		<code>@ThreadSafe</code> model toward consistency by "vouching" for the buf field</para>
           
-          <para>To do this we would annotate the field as follows. The annotations below place the
-          field as well as the state referenced by the field into the <code>BufState</code> region
-          that is protected by the <code>BufLock</code> locking model.
+       <para>The use of the <code>@Vouch</code> annotation allows you to "override" or "quiet" a tool
+       reported inconsistency. Using this feature produces a <inlinegraphic fileref="images/reddot_decr.gif"/>
+       icon in its  upper-left. This is an indication of something in the consistency proof
+       that is not being checked, or verified, by analysis. The <code>@Vouch</code> annotation is the reason the
+       <inlinegraphic fileref="images/reddot_decr.gif"/> is used&mdash;it indicates that a programmer is
+       willing to prick a finger and vouch for the unverified contingency with a small drop of blood&mdash;at
+       least virtually. Use them with care and vouch for as little as possible.</para>
+    
+       <para>The first approach states the field is altogether thread-safe. The annotation is shown below.
 
-          <programlisting><emphasis>@InRegion("BufState")</emphasis>
+          <programlisting><emphasis>@Vouch("ThreadSafe")</emphasis>
 @UniqueInRegion("BufState")
-private LoggingEvent[] buf;</programlisting></para>
-        </formalpara>
-      </listitem>
-    
-      <listitem>
-        <formalpara>
-          <title>Declare the field final</title>
+private LoggingEvent[] buf;</programlisting>
+
+       Make this change to the code and rescan. The results are shown below.</para>
+            
+       <mediaobject>
+         <imageobject>
+           <imagedata fileref="images/boundedfifo-threadsafe2.png"/>
+         </imageobject>
+       </mediaobject>
+      
+      <para>This works but we don't, in this case need to paint such a broad stroke. There are many cases
+      where the <code>@Vouch("ThreadSafe")</code> annotation is reasonable, however in this case we can do better.
+      We want to be sure that the lock model actually protects the state. To make sure that this is the case
+      we simply vouch that the <code>buf</code> field is containable. This makes the aliasing assumption we
+      want but causes the tool to verify that a lock protects the state (in this example <code>BufLock</code>).
+            
+                      <programlisting><emphasis>@Vouch("Containable")</emphasis>
+@UniqueInRegion("BufState")
+private LoggingEvent[] buf;</programlisting>
+
+      Make this change to the code and rescan. The results are shown below.</para>
         
-          <para>The <code>@ThreadSafe</code> verifying analysis knows if something is immutable.
-          by declaring the field to be <code>final</code> it does not require that it be
-          protected by a lock.
-          
-  
-            <programlisting>@UniqueInRegion("BufState")
-private <emphasis>final</emphasis> LoggingEvent[] buf;</programlisting></para>
-        </formalpara>
-      </listitem>
-    </itemizedlist>
-    
-    <para>Either approach will work in this case. </para>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo-threadsafe3.png"/>
+        </imageobject>
+      </mediaobject>
+            
+     <para>This is an improvement because we vouch only for the aliasing&mdash;not both aliasing and
+     safe concurrency.  There are times where the <code>@Vouch</code> annotation
+     (and the <code>@Assume</code> annotation) can help, with correct code that JSure is not precise enough
+     to verify. Read the Javadoc for these annotations to learn more about how they works and see more
+     examples.</para>
+   
+    <para>Another possible approach would be to change the <code>buf</code> array
+    into a collection, such as <code>ArrayList</code>. In fact,
+    we note, the entire <code>BoundedFIFO</code> could be replaced
+    by a <code>java.util.concurrent.BlockingQueue</code> implementation, such as
+    <code>ArrayBlockingQueue</code>. This would avoid client
+    locking and simplify the code.</para>
 
 	</sect3>
--->
+
   <sect3 id="named-region">
     <title>Deleting Old Scans</title>
 
