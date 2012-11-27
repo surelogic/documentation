@@ -450,7 +450,7 @@ public final class Canvas {
   &hellip;
 }</programlisting>
 
-      <para> Edit the code to appear as shown above and rescan the project with JSure. It will verify.</para>
+      <para>Edit the code to appear as shown above and rescan the project with JSure. It will verify.</para>
       
     <mediaobject>
 		<imageobject>
