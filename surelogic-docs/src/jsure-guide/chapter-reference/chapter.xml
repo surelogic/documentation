@@ -1481,6 +1481,17 @@
       
     <listitem>
 	<formalpara>
+	  <title><guibutton>Analysis may propose promises not based on existing models (may slow scan execution and use significant memory)</guibutton></title>
+	  <para>The verifying analysis can propose promises about all code in the system&mdash;regardless if any
+	  annotations exist in your code. This feature may be useful to some users, but it can slow scan execution
+	   and cause the Eclipse instance that is loading up the results of a scan to consume significant memory for
+	   very large code bases. Today, turning on this feature will produce <code>@RegionEffects</code>
+	   proposals on every method and constructor in your codebase.</para>
+	</formalpara>
+    </listitem>
+
+    <listitem>
+	<formalpara>
 	  <title><guibutton>Load entire classpath into memory (used for testing library annotation consistency)</guibutton></title>
 	  <para>To save memory and time, JSure only loads classes from JAR files into memory during a scan
 	  if they are referenced, directly or indirectly, by code in the project. This selection directs JSure
