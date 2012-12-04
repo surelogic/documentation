@@ -190,7 +190,7 @@ public class BoundedFIFO {
     <para>By digging into the <guilabel>Concurrency</guilabel> results, we see
         two results. First, notice that the lock model <computeroutput>java.lang.Object.MUTEX</computeroutput> is initially unassured.
         This intrinsic lock model is declared on <classname>java.lang.Object</classname> and
-        defines to the need to hold a lock when invoking the <code>wait()</code> and <code>notify()</code>
+        defines the need to hold a lock when invoking the <code>wait()</code> and <code>notify()</code>
         methods on any Java object.  The lock model declares <code>this</code>, the object itself, as the
         lock that protects the wait–notify queue, and requires that the lock be held before the
         <code>wait()</code> and <code>notify()</code> methods may be invoked.  The fact that this model is unassured
@@ -225,7 +225,7 @@ public class BoundedFIFO {
     Double-clicking on any of the results in the
     <guilabel>Verification Status</guilabel> view focuses an Eclipse
     Java editor and the <guilabel>JSure Historical Source</guilabel>
-    view on the offending line of code.  Let us view line of code from
+    view on the offending line of code.  Let us view the line of code from
     the assurance failure at line 52 by double-clicking on
     <computeroutput>Lock "&lt;this&gt;.BufLock" not held when
     accessing this.numElts</computeroutput>. Eclipse opens an editor window for
@@ -370,8 +370,8 @@ public class BoundedFIFO {
     match the pattern <code>*(**)</code>. In the scoped promise the
     quotation marks are removed from inside the parenthesis. This is
     to avoid having to escape the inner quotation marks (i.e., \").
-    The pattern <code>*(**)</code> matches method with any name,
-    <code>*</code>, that have any parameter list, <code>(**)</code>.
+    The pattern <code>*(**)</code> matches each method with any name,
+    <code>*</code>, with any parameter list, <code>(**)</code>.
     Using a scoped promise has the additional advantage of better
     capturing the design intent: all methods in the class are expected
     to have the same lock precondition.  Were we to add a new method
@@ -499,7 +499,7 @@ public void put(LoggingEvent e) {
 
     Select <guilabel>Analysis Result</guilabel> from the menu. This
     lets you filter the results by the type of analysis result. The
-    graphics show that there are 41 analysis results and that 36 of
+    graphics show that there are 40 analysis results and that 35 of
     those results are consistent and 5 are inconsistent. Check
     <inlinegraphic fileref="images/red_x.gif"/>
     <guilabel>Inconsistent</guilabel>. This selection allows the
@@ -628,7 +628,7 @@ public void put(LoggingEvent e) {
     checks the <classname>@Unique("return")</classname> promise. A key feature of JSure is that analyses can be turned on
     and off (or replaced)&mdash;the automated reasoning/proof maintenance system is a separate component
     from the verifying analyses. In
-    the <guilabel>Verification Status</guilabel> any trail of <inlinegraphic fileref="images/reddot_decr.gif"/>
+    the <guilabel>Verification Status</guilabel>, any trail of <inlinegraphic fileref="images/reddot_decr.gif"/>
     icons will lead you to a node that not being checked, or verified, by analysis.</para>
   </sect3>    
   
@@ -670,7 +670,7 @@ public class BoundedFIFO {
     <guilabel>Verification Status</guilabel> view (under the
     suggestion) and in <guilabel>Proposed Promises</guilabel>
     view. Add the promise using the context menu in the
-    <guilabel>Verification Status</guilabel> view. Select <guilabel>Annotate Code..</guilabel>
+    <guilabel>Verification Status</guilabel> view. Select <guilabel>Annotate Code&hellip;</guilabel>
     to add the proposed <classname>@Unique</classname> annotation to the
     code.
     </para>
@@ -680,7 +680,7 @@ public class BoundedFIFO {
     referenced by <structfield>buf</structfield> is also protected by
     the lock that protects that state of the buffer.</para>
 
-    <para>After adding the annotations to the field
+    <para>After adding the annotation to the field
     <structfield>buf</structfield> and performing a scan of the
     <application>JSureTutorial_BoundedFIFO</application> project again we can
     see the effects of this annotation: there are now 29 protected
@@ -705,7 +705,7 @@ public class BoundedFIFO {
     
     <para>The lock <structfield>BufLock</structfield> is declared to protect
     the region <structfield>Instance</structfield>.  This is a region declared
-    the class <classname>java.lang.Object</classname> that is the ancestor of 
+    in the class <classname>java.lang.Object</classname> that is the ancestor of 
     every instance field declared in a class.  By associating the lock with this
     region we declare that every instance field of the class, <emphasis>and every
     instance field declared in all subclasses of the class</emphasis>, are protected
@@ -774,8 +774,8 @@ public class BoundedFIFO {
     aggregation of the array referenced by
     <structfield>buf</structfield> so that the array elements are
     aggregated into <structfield>BufState</structfield> by replacing
-    the previous <classname>@Aggregate</classname> annotation with
-    <classname>@AggregateInRegion("BufState")</classname>.  After these
+    the previous <classname>@Unique</classname> annotation with
+    <classname>@UniqueInRegion("BufState")</classname>.  After these
     changes we again have 29 protected field accesses:
 
       <mediaobject>
@@ -793,7 +793,7 @@ public class BoundedFIFO {
     we have populated it with have that same visibility.  If we tried to
     declare the region to be <code>private</code>, JSure would report a
     modeling error because all the fields are of &ldquo;default&rdquo; visibility.
-    To see this change the <classname>@Region</classname> annotation to
+    To see this, change the <classname>@Region</classname> annotation to
     <classname>@Region("<emphasis>private</emphasis> BufState")</classname> and scan
     the project again. The expected modeling problems about field visibility will
     appear to the upper-right as shown below.
@@ -836,7 +836,7 @@ verification results should not change but the modeling problems will go away.
   </sect3>
 
 	<sect3>
-		<title>Stating that BoundedFIFO @ThreadSafe</title>
+		<title>Stating that BoundedFIFO is @ThreadSafe</title>
 		
 		<para>We can now apply the <code>@ThreadSafe</code>
 		annotations from
@@ -863,13 +863,13 @@ public class BoundedFIFO {
 		<para>While the <code>BufLock</code> lock model checked its protected state, placing an
 		<code>@ThreadSafe</code> annotation on the class requires that all its state be
 		thread safe&mdash;by being immutable, protected by a lock, and so on.  The results
-		show that the array <code>buf</code> cannot be assured as thread safe because it is not
-		considered <emphasis>containable</emphasis>. This means that instances of the class can be
-		safely encapsulated via region aggregation into other objects because methods of this
+		show that the array <structfield>buf</structfield> cannot be assured as thread safe because it is not
+		considered <emphasis>containable</emphasis>. To be containable means that instances of the class can be
+		safely encapsulated via region aggregation into other objects because methods of the
 		class do not leak references to themselves or any of the other objects that they
 		reference, transitively. JSure cannot prove this for Java arrays (it is a surprisingly
-		difficult aliasing problem), however, you can, however, to continue to move this
-		<code>@ThreadSafe</code> model toward consistency by "vouching" for the buf field</para>
+		difficult aliasing problem). You can, however, continue to move the
+		<code>@ThreadSafe</code> model toward consistency by "vouching" for the <structfield>buf</structfield> field.</para>
           
        <para>The use of the <code>@Vouch</code> annotation allows you to "override" or "quiet" a tool
        reported inconsistency. Using this feature produces a <inlinegraphic fileref="images/reddot_decr.gif"/>
