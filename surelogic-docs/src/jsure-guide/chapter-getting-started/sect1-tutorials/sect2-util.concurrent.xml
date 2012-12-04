@@ -197,8 +197,8 @@ public class SynchronizedVariable implements Executor {
   
   This is incorrect for two reasons: (1) By occurring outside of the 
   synchronized blocks the return is not atomic with the rest of the method
-  and thus another thread could alter the value of the <structfield>value_</structfield>
-  before <function>swap</function> returns. And (2) Java does guarantee that a read of 
+  and thus another thread could alter the value of the <structfield>value_</structfield> field
+  before <function>swap</function> returns. And (2) Java does not guarantee that a read of 
   the two 32-bit halves of a <code>long</code> value is atomic.</para>
   
   <para>This is a real bug that existed in the released library.  It was, in fact,

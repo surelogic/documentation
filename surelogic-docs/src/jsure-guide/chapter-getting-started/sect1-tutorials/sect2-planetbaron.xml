@@ -174,7 +174,7 @@
     in class
     <classname>com.surelogic.jsure.planetbaron.game.Thing</classname>
     fails to assure&mdash;causing the related <classname>@ThreadSafe</classname> annotations,
-    such as on Planet and Ship, to also
+    such as on <classname>Planet</classname> and <classname>Ship</classname>, to also
     fail to assure.</para>
 
     <para id="lock-viz-problems">We also note, primarily because a view is painted in bright
@@ -232,7 +232,7 @@
     </para>
     
      <para>Now that we have fixed the modeling problem, we examine the lock model
-     for <structfield>ThingLock</structfield> in more detail with an aim fixing the model or the
+     for <structfield>ThingLock</structfield> in more detail with the aim of fixing the model or the
      code to allow verification.</para>
   </sect3>
   
@@ -434,7 +434,7 @@ public abstract class Thing {
   <sect3>
     <title>Read&ndash;Write Locks</title>
 
-    <para>You can demonstrate to yourself that JSure understands the
+    <para>You can demonstrate to yourself that JSure understands 
     when the read component and when the write component of a
     read&ndash;write lock needs to be held by changing lines 164 and
     178 of <function>Ship.moveTo()</function> to acquire the read lock
@@ -508,7 +508,7 @@ public abstract class Thing {
     <title>Unsatisfied Preconditions</title>
 
     <para>We now move on to the three unsatisfied lock preconditions.
-    Back in the <guilabel>Verification Status</guilabel>view, expanding the results as shown in <xref linkend="fig-pb-unsatisfied-preconditions"/> reveals
+    Back in the <guilabel>Verification Status</guilabel> view, expanding the results as shown in <xref linkend="fig-pb-unsatisfied-preconditions"/> reveals
      
       <itemizedlist>
         <listitem>
