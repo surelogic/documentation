@@ -478,6 +478,74 @@ public final class Canvas {
 	</mediaobject>
 	
 	</sect3>
+	
+	<sect3>
+    <title>Annotating Utility Classes</title>
+    
+    <para>We now consider the <code>DrawingHelper</code> class which is listed below.</para>
+    
+    <programlisting>public class DrawingHelper {
+
+  public static void drawSquare(Point at, int width) {
+    Shape square = new Rectangle(at, width, width);
+    Canvas.getInstance().addShape(square);
+  }
+
+  public static void drawRectangle(Point at, int width, int height) {
+    Shape square = new Rectangle(at, width, height);
+    Canvas.getInstance().addShape(square);
+  }
+
+  public static void drawPoint(int x, int y) {
+    Canvas.getInstance().addPoint(Point.getInstance(x, y));
+  }
+}</programlisting>
+
+    <para>We observe that this class is a <emphasis>utility class</emphasis> as described by Bloch in
+    <emphasis>Effective Java</emphasis> Item 4 (Addison-Wesley 2008). A utility class is a grouping
+    of static methods and static fields. Such classes, as Bloch notes, have acquired a bad reputation
+    because they have been abused in the past, but they do have valid uses.
+    JSure allows annotating a utility class with the annotation <code>@Utility</code>.</para>
+  
+  
+    	<programlisting><emphasis>@Utility</emphasis>
+public class DrawingHelper {
+  &hellip;
+}</programlisting>
+
+      <para>Edit the code to appear as shown above and rescan the project with JSure.</para>
+      
+    <mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-utility-dh1.png" />
+		</imageobject>
+	</mediaobject>
+	
+	<para>The <code>@Utility</code> annotation on the <code>DrawingHelper</code> class
+	does not verify. What is wrong? The problem is that it violates Bloch's <emphasis>Item 4:
+	Enforce noninstantiability with a private constructor</emphasis>.  JSure wants to be
+	sure that an instance of this class can never be created at runtime. To enforce this in our
+	implementation of <code>DrawingHelper</code> we need to add
+	a private constructor to the code.</para>
+	
+	<programlisting>@Utility
+public class DrawingHelper {
+  &hellip;
+  private DrawingHelper() {
+    // singleton
+  }
+}</programlisting>
+
+    <para>Edit the code to appear as shown above and rescan the project with JSure.
+     The <code>@Utility</code> annotation on the <code>DrawingHelper</code> class now verifies.</para>
+      
+    <mediaobject>
+		<imageobject>
+			<imagedata fileref="images/jcip-utility-dh2.png" />
+		</imageobject>
+	</mediaobject>
+    
+    </sect3>
       
       <para>You are now finished with this tutorial. The next tutorial
     works on a larger codebase and presents the use of JSure to verify
