@@ -10,6 +10,49 @@
   features to try out, and known limitations to avoid or workaround.
   These are presented in the sections below for each released version of
   Flashlight.</para>
+  
+    <sect1>
+    <title>Flashlight version 4.4.4</title>
+    <para>This section describes the 4.4.0 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <orderedlist>
+        <listitem>
+          <para>
+            <emphasis>Flashlight Run Control Dialog now controls instrumented applications</emphasis> &mdash;
+            A new dialog that allows monitoring and control of launched runs that are instrumented by Flashlight has
+            been added in this release. This dialog allows data collection to be stopped, but the application
+            left running. This capability is useful for all Flashlight users, but is especially helpful Android application developers.
+            Prior to the inclusion of this dialog the programmer had to <emphasis>Force Stop</emphasis> the Android application on the Android
+            phone or table which can be difficult to highly annoying due to the varying user interfaces across Android platforms.
+          </para>
+          
+          <mediaobject>
+					<imageobject>
+						<imagedata fileref="images/launched-run-control-dialog.png" />
+					</imageobject>
+		  </mediaobject>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis>Java element iconography better matches Eclipse</emphasis> &mdash;
+            Queries now show richer icons for Java declarations. This allows the iconography of Flashlight to
+            better match that of Eclipse. An example is shown in the image below.
+          </para>
+          
+          <mediaobject>
+					<imageobject>
+						<imagedata fileref="images/example-query-java-iconograpy.png" />
+					</imageobject>
+		  </mediaobject>
+        </listitem>
+      </orderedlist>
+    </sect2>
+    <sect2>
+      <title>Known Problems</title>
+      <para>The known problems are unchanged from the 4.3.4 release.</para>
+    </sect2>
+  </sect1>
 
   <sect1>
     <title>Flashlight version 4.3.4</title>
