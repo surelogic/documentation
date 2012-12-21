@@ -74,7 +74,7 @@
 					<para>
 						<emphasis>Tree-based Modeling Problems view with diff and filter capabilities</emphasis>
 						&mdash;
-						The <guilabel>Modeling Problems</guilabel> has been changed to a tree to better help the tool
+						The <guilabel>Modeling Problems</guilabel> view has been changed to a tree to better help the tool
 						user deal with larger numbers of modeling problems. In addition the view can now highlight differences
 						from the previous scan in a manner similar to the <guilabel>Verification Status</guilabel>
 						view and the <guilabel>Verification Explorer</guilabel> view. This can help the user notice
