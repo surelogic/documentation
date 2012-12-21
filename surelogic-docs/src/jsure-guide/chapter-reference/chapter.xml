@@ -388,7 +388,11 @@
 	is changed back to normal when no modeling problems exist in the selected scan.</para>
 	
 	<para>Double-clicking on a modeling problem will open the Java editor and
-	the <guilabel>JSure Historical Source</guilabel> view to the problem annotation.</para>
+	the <guilabel>JSure Historical Source</guilabel> view to the problem annotation.
+	This same action can be accomplished by selecting <guilabel>Open</guilabel> from the view context menu.
+	If the problem is in a binary the XML Library Annotation Editor can be opened by
+	selecting <guilabel>Open Library Annotation Editor</guilabel>
+	from the view context menu. This choice is only available for modeling problems about binaries.</para>
 	
 	<para>If the icon for a reported modeling problem is <inlinegraphic fileref="images/annotation_error_proposed.gif"/>
       (note the + to the upper-right) then JSure "thinks" it can resolve the modeling problem
@@ -410,9 +414,16 @@
       from the view's context menu will copy the text of the problem to the clipboard so
       that it can be pasted into an email or any other program.</para>
 
-       <para>The view&rsquo;s toolbar has two command icons:
+       <para>The view&rsquo;s toolbar has six command icons:
         <itemizedlist>
-
+        
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
+              <para>This button collapses all the nodes in the Java declaration tree.</para>
+            </formalpara>            
+          </listitem>
+          
           <listitem>
             <formalpara>
               <title><guiicon><inlinegraphic fileref="images/annotation_proposed.gif"/></guiicon></title>
@@ -421,6 +432,33 @@
               automatic fixes. If the problem's icon is <inlinegraphic fileref="images/annotation_error_proposed.gif"/> it
               has an automatic fix. If the problem's icon is <inlinegraphic fileref="images/annotation_error.gif"/>
               it must be fixed manually.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/changelog.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not differences are highlighted in the view. If a
+              problem has changed its background is painted in white.
+              In addition, a trail of <inlinegraphic fileref="images/delta_decr.gif"/> images appear from the root of the
+              tree to any problem that has changed.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/changelog_only.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not unchanged problems are displayed in this view. When this button is
+              selected only problems with differences are displayed in the view. By default this is not selected.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/java_comp_unit.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not problems not about
+              Java source code are displayed in this view. When this button is
+              selected only problems about source code are displayed. By default this is not selected.</para>
             </formalpara>            
           </listitem>
           
@@ -444,11 +482,18 @@
         </mediaobject>
       </figure>
       
-            <para>The view&rsquo;s menu has two commands; see <xref
+            <para>The view&rsquo;s menu has six commands; see <xref
       linkend="fig-jsure-scans-view-menu"/>:
       <itemizedlist>
+      
+      	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/> Collapse All</guiicon></title>
+	    <para>Selecting this menu item collapses all the nodes in the Java declaration tree.</para>
+	  </formalpara>            
+	</listitem>
+	
 	<listitem>
-	  
 	  <formalpara>
 	    <title><guiicon><inlinegraphic fileref="images/annotation_proposed.gif"/> Annotate Code To Fix...</guiicon></title>
 	    <para>Selecting this menu item automatically edits the code to try and resolve the selected modeling problem.
@@ -457,6 +502,34 @@
               the problem's icon is <inlinegraphic fileref="images/annotation_error.gif"/> it must be fixed manually.</para>
 	  </formalpara>            
 	</listitem>
+	
+		     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/changelog.gif"/> Highlight Differences</guiicon></title>
+         <para>Toggling this menu item controls whether or not differences are highlighted in the view. If a
+         problem has changed its background is painted in white.
+         In addition, a trail of <inlinegraphic fileref="images/delta_decr.gif"/> images appear from the root of the
+         tree to any problem that has changed.</para>
+       </formalpara>            
+     </listitem>
+
+     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/changelog_only.gif"/> Show Only Differences</guiicon></title>
+         <para>Toggling this menu item controls whether or not unchanged problems are displayed in this view. When this menu item is
+         checked only problems with differences are displayed in the view. By default this is not selected.</para>
+       </formalpara>            
+     </listitem>
+
+     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/java_comp_unit.gif"/> Show Only From Source</guiicon></title>
+         <para>Toggling this button controls whether or not problems not about
+              Java source code are displayed in this view. When this button is
+              selected only problems about source code are displayed. By default this is not selected.</para>
+       </formalpara>            
+     </listitem>
+     
 	 <listitem>
             <formalpara>
               <title><guiicon><inlinegraphic fileref="images/filter.gif"/> Modeling Problem Filtering...</guiicon></title>
@@ -851,14 +924,13 @@
         </mediaobject>
       </figure>
       
-            <para>The view&rsquo;s toolbar has three command icons:
+            <para>The view&rsquo;s toolbar has six command icons:
         <itemizedlist>
 
           <listitem>
             <formalpara>
               <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
-              <para>This button collapses all the nodes in the Java declaration tree. It is not
-              selectable if the view is showing the tabular view of the proposals.</para>
+              <para>This button collapses all the nodes in the Java declaration tree.</para>
             </formalpara>            
           </listitem>
 
@@ -867,6 +939,33 @@
               <title><guiicon><inlinegraphic fileref="images/annotation_proposed.gif"/></guiicon></title>
               <para>This button automatically annotates all the selected proposals into the code.
               The edit is previewed before it is made to the code.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/changelog.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not differences are highlighted in the view. If a
+              proposal has changed its background is painted in light yellow.
+              In addition, a trail of <inlinegraphic fileref="images/delta_decr.gif"/> images appear from the root of the
+              tree to any proposal that has changed.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/changelog_only.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not unchanged proposals are displayed in this view. When this button is
+              selected only proposals with differences are displayed in the view. By default this is not selected.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/java_comp_unit.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not proposals not for
+              Java source code are displayed in this view. When this button is
+              selected only proposals to source code are displayed. By default this is not selected.</para>
             </formalpara>            
           </listitem>
          
@@ -891,15 +990,14 @@
         </mediaobject>
       </figure>
       
-      <para>The view&rsquo;s menu has three commands; see <xref
+      <para>The view&rsquo;s menu has six commands; see <xref
       linkend="fig-proposed-promises-menu"/>:
       <itemizedlist>
+      
 	<listitem>
-	  
 	  <formalpara>
 	    <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/> Collapse All</guiicon></title>
-	    <para>Selecting this menu item collapses all the nodes in the Java declaration tree. It is not
-              selectable if the view is showing the tabular view of the proposals.</para>
+	    <para>Selecting this menu item collapses all the nodes in the Java declaration tree.</para>
 	  </formalpara>            
 	</listitem>
 	<listitem>
@@ -909,6 +1007,33 @@
               The edit is previewed before it is made to the code.</para>
 	  </formalpara>
 	</listitem>
+	
+	     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/changelog.gif"/> Highlight Differences</guiicon></title>
+         <para>Toggling this menu item controls whether or not differences are highlighted in the view. If a
+         proposal has changed its background is painted in light yellow.
+         In addition, a trail of <inlinegraphic fileref="images/delta_decr.gif"/> images appear from the root of the
+         tree to any proposal that has changed.</para>
+       </formalpara>            
+     </listitem>
+
+     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/changelog_only.gif"/> Show Only Differences</guiicon></title>
+         <para>Toggling this menu item controls whether or not unchanged proposals are displayed in this view. When this menu item is
+         checked only proposals with differences are displayed in the view. By default this is not selected.</para>
+       </formalpara>            
+     </listitem>
+
+     <listitem>
+       <formalpara>
+         <title><guiicon><inlinegraphic fileref="images/java_comp_unit.gif"/> Show Only Proposals To Source</guiicon></title>
+         <para>Toggling this button controls whether or not proposals not for
+              Java source code are displayed in this view. When this button is
+              selected only proposals to source code are displayed. By default this is not selected.</para>
+       </formalpara>            
+     </listitem>
 	
 	<listitem>
 	  <formalpara>
@@ -1198,16 +1323,21 @@
 	      your code.</entry>
 	    </row>
 	    <row>
-	      <entry><inlinegraphic fileref="images/class.gif"/> Java Class</entry>
-	      <entry>Allows you to filter the results to a particular set of Java classes.</entry>
-	    </row>
-	    <row>
 	      <entry><inlinegraphic fileref="images/package.gif"/> Java Package</entry>
 	      <entry>Allows you to filter the results to a particular set of Java packages.</entry>
 	    </row>
 	    <row>
+	      <entry><inlinegraphic fileref="images/class.gif"/> Java Type</entry>
+	      <entry>Allows you to filter the results to a particular set of Java types.</entry>
+	    </row>
+	    <row>
 	      <entry><inlinegraphic fileref="images/project.gif"/> Project</entry>
 	      <entry>Allows you to filter the results to a particular set of Eclipse projects.</entry>
+	    </row>
+	    <row>
+	      <entry><inlinegraphic fileref="images/choice.gif"/> Used By Proof</entry>
+	      <entry>Allows you to filter the results to those used in a verification proof or those not used in a verification proof. Many proofs have
+	      conjunction or OR choices that are made. This filter allows you to easily exclude those results not choosen.</entry>
 	    </row>
 	    <row>
 	      <entry><inlinegraphic fileref="images/verification_result.gif"/> Verification Judgment</entry>
@@ -1399,6 +1529,16 @@
 
 	  <para>If this is checked then any edits are automatically saved. It it is not checked the user is
 	  prompted to decided if they want to save edits before the scan is started.</para>
+	</formalpara>
+      </listitem>
+      
+   <listitem>
+	<formalpara>
+	  <title><guibutton>Tree views should save and restore expansion and selection (may be slow for larger scans)</guibutton></title>
+
+	  <para>If this is checked then the expansion and selection state of tree viewers is saved and restored on Eclipse exit and
+	  startup and when the scan is chaged. Unchecking this may speed scan load performance. Note that expansion and selection restoration of
+	  a view will automaticall timeout after roughly 3 seconds, so this preference is rarely needs to be unchecked.</para>
 	</formalpara>
       </listitem>
     </itemizedlist>

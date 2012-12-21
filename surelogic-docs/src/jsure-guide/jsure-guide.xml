@@ -56,6 +56,124 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+    
+    	<section id="sec-jsure-release-4-4-0">
+		<title>JSure version 4.4.0</title>
+		<para>This section describes the 4.4.0 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+			
+				<listitem>
+					<para>
+						<emphasis>Tree-based Modeling Problems view with diff and filter capabilities added to the Proposed Annotation view</emphasis>
+						&mdash;
+						The <guilabel>Modeling Problems</guilabel> has been changed to a tree to better help the tool
+						user deal with larger numbers of modeling problems. In addition the view can now highlight differences
+						from the previous scan in a manner similar to the <guilabel>Verification Status</guilabel>
+						view and the <guilabel>Verification Explorer</guilabel> view. This can help the user notice
+						new problems from the analysis based upon recent changes to their models. The <inlinegraphic fileref="images/changelog.gif"/> icon
+						highlights differences from the previous scan in the view. The <inlinegraphic fileref="images/changelog_only.gif"/> icon filters out
+						all problems except those that are new or changed from the previous scan. The <inlinegraphic fileref="images/java_comp_unit.gif"/> icon
+						filters the tree to only show problems about source code.
+					</para>
+					
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-440-modeling-problems-tree.png" />
+							</imageobject>
+					</mediaobject>
+				</listitem>
+			
+				<listitem>
+					<para>
+						<emphasis>Diff and filter capabilities added to the Proposed Annotation view</emphasis>
+						&mdash;
+						The <guilabel>Proposed Annotation</guilabel> view can now highlight differences
+						from the previous scan in a manner similar to the <guilabel>Verification Status</guilabel>
+						view and the <guilabel>Verification Explorer</guilabel> view. This can help the user notice
+						new proposals from the analysis based upon recent changes to their models. The <inlinegraphic fileref="images/changelog.gif"/> icon
+						highlights differences from the previous scan in the view. The <inlinegraphic fileref="images/changelog_only.gif"/> icon filters out
+						all proposals except those that are new or changed from the previous scan. The <inlinegraphic fileref="images/java_comp_unit.gif"/> icon
+						filters the tree to only show proposed annotations to source code.
+					</para>
+					
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-440-proposed-annotation-diff.png" />
+							</imageobject>
+					</mediaobject>
+				</listitem>
+
+				<listitem>
+					<para>
+						<emphasis>The JSure Quick Search view has a new filter</emphasis>
+						&mdash;
+						The <guilabel>JSure Quick Search</guilabel> view can now filter results by if they are
+						used in the verification proof of any promise. With the use of conjunction or OR folders in many verification
+						proofs this filter is useful to avoid examining results that were not chosen.
+					</para>
+					
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-440-used-by-proof.png" />
+							</imageobject>
+					</mediaobject>
+				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>Tree view expansion and selection persistence fixes</emphasis>
+						&mdash;
+						JSure tries to save and restore the expansion and selection of its various tree views when you start and stop Eclipse and when you
+						change from one scan to another. Several problems with this have been fixed in this release. However, this process can be slow
+						under the Windows operating system. The restore will timeout if it is taking too long&mdash;after about 3 seconds. The timeout
+						does not effect the view contents, just its expansion and selection. In addition, a preference has been added to allow you to
+						turn off tree view state save and restore. This preference is highlighted in the image below.
+					</para>
+					
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-440-tree-state.png" />
+							</imageobject>
+					</mediaobject>
+				</listitem>
+				
+			</orderedlist>
+		</section>
+
+	<section>
+		<title>Known Problems</title>
+		<para>This section describes known limitations in this
+			version of
+			JSure.
+		</para>
+		<orderedlist>
+			<listitem>
+				<para>
+					<emphasis>Old scans may or may not work properly</emphasis>
+					&mdash;
+					The changes to the data file formats that communicate JSure
+					scan results to the Eclipse tool user interface
+					are not as backwards compatible as we had hoped. Please do not upgrade to this
+					release until you can clear out old scans.
+					 It is suggested that you delete all old
+					scans by removing <guilabel>.jsure-data</guilabel> from your workspace
+					directory. Some older scans may load fine, but we have noted problems with
+					the new scan-difference features and user interface improvements that
+					this JSure release includes.
+				</para>
+			</listitem>
+
+		</orderedlist>
+	</section>
+	</section>
 
 	<section id="sec-jsure-release-4-3-4">
 		<title>JSure version 4.3.4</title>
