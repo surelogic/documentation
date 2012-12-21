@@ -90,6 +90,29 @@
 							</imageobject>
 					</mediaobject>
 				</listitem>
+				
+				<listitem>
+					<para>
+						<emphasis>&#64;Unique now applicable to static fields</emphasis>
+						&mdash;
+						Prior to this release the annotation below resulted in a modeling problem being reported. 
+<programlisting>public class C {
+  &#64;Unique
+  private static Object myObj = &hellip;
+}
+</programlisting>
+
+                        In this release the tool has been updated to allow this annotation to indicate that the field
+                        is unique and mapped into the <code>Static</code> region of the class. Hence,
+                        it the annotations above are now equivalent to
+<programlisting>public class C {
+  &#64;UniqueInRegion("Static")
+  private static Object myObj = &hellip;
+}
+</programlisting>
+					</para>
+				</listitem>
+				
 			
 				<listitem>
 					<para>
@@ -150,28 +173,7 @@
 
 	<section>
 		<title>Known Problems</title>
-		<para>This section describes known limitations in this
-			version of
-			JSure.
-		</para>
-		<orderedlist>
-			<listitem>
-				<para>
-					<emphasis>Old scans may or may not work properly</emphasis>
-					&mdash;
-					The changes to the data file formats that communicate JSure
-					scan results to the Eclipse tool user interface
-					are not as backwards compatible as we had hoped. Please do not upgrade to this
-					release until you can clear out old scans.
-					 It is suggested that you delete all old
-					scans by removing <guilabel>.jsure-data</guilabel> from your workspace
-					directory. Some older scans may load fine, but we have noted problems with
-					the new scan-difference features and user interface improvements that
-					this JSure release includes.
-				</para>
-			</listitem>
-
-		</orderedlist>
+		<para>The known problems are unchanged from JSure version 4.3.4.</para>
 	</section>
 	</section>
 
