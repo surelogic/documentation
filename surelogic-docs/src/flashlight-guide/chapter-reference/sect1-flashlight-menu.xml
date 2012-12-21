@@ -52,6 +52,14 @@
     </listitem>
     <listitem>
       <formalpara>
+        <title><guimenuitem>Launched Run Control...</guimenuitem></title>
+        <para>Opens the <guilabel>Flashlight Launched Run Control</guilabel> dialog. This
+        dialog lists all instrumented programs launched during this Eclipse session. It allows
+        collection of data to be stopped at any time.</para>
+      </formalpara>
+    </listitem>
+    <listitem>
+      <formalpara>
         <title><guimenuitem>Open Flashlight Perspective</guimenuitem></title>
         <para>Opens the <guilabel>Flashlight</guilabel> perspective. This
         perspective is useful for examining and querying collected run

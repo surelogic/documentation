@@ -19,7 +19,7 @@
       <orderedlist>
         <listitem>
           <para>
-            <emphasis>Flashlight Run Control Dialog now controls instrumented applications</emphasis> &mdash;
+            <emphasis>Flashlight Launched Run Control Dialog now controls instrumented applications</emphasis> &mdash;
             A new dialog that allows monitoring and control of launched runs that are instrumented by Flashlight has
             been added in this release. This dialog allows data collection to be stopped, but the application
             left running. This capability is useful for all Flashlight users, but is especially helpful Android application developers.
