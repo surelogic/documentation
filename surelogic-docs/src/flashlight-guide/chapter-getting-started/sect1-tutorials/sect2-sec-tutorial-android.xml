@@ -99,10 +99,8 @@
   <guilabel>Back</guilabel> buttons on your phone will close the
   <application>Counter Race</application> application, but most devices will
   keep the process running in the background.  In order to stop the
-  instrumentation so that we can collect our data, we can do one of two things:
-  connect to the runtime monitor and stop the instrumentation, or manually stop
-  the background process.  For the purposes of this tutorial, we will do the
-  latter.</para>
+  instrumentation so that we can collect our data, we do this using the
+  <guilabel>Flashlight Launched Run Control</guilabel> dialog.</para>
   
     <note>
 		<title>Do not terminate the tutorial application too quickly</title>
@@ -114,46 +112,24 @@
 		you may have terminated the application too quickly. Try running it again.</para>
 	</note>
   
-  <para>On your device or emulator open up the phone setting&mdash;how to to
-  this varies on each phone (try
-  <menuchoice><guimenu>menu-button</guimenu><guimenuitem>SystemsSettings</guimenuitem></menuchoice>
-  or perhaps
-  <menuchoice><guimenu>Applications</guimenu><guimenuitem>Settings</guimenuitem></menuchoice>).
-  Once in the system settings open the <guilabel>Applications</guilabel>
-  activity and select the <guilabel>Running</guilabel> tab (shown in the image
-  below).</para>
-  
-  <para>Next, click on <guilabel>Show cached processes</guilabel> at the bottom
-  of the activity (which will toggle to <guilabel>Show services in
-  use</guilabel>), if your version of the phone has this option.  Then navigate
-  through the list of processes until you find Counter Race.  Select Counter
-  Race, and then click <guilabel>Stop</guilabel> to terminate the
-  process.</para>
-  <figure id="fig-tutorial-android-phone-3">
-    <title>The cached Counter Race process</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-android-phone-3.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
-  <figure id="fig-tutorial-android-phone-4">
-    <title>Stopping the background process.</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-android-phone-4.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
+  <para>Open or switch to the <guilabel>Flashlight Launched Run Control</guilabel> dialog. This will not
+    stop the application on the Android device or emulator but will stop data collection
+    and prepared the data for querying.  Stop data collection by pressing the
+    <inlinegraphic fileref="images/red_x.gif"/> to the far right of
+    <application>FlashlightTutorial_CounterRace</application> row in the dialog.</para>
+    
+      <figure id="fig-android-run-control">
+        <title>Terminating data collection for FlashlightTutorial_CounterRace using the Flashlight Launched Run Control dialog</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/android-launched-run-control.png"/></imageobject>
+        </mediaobject>
+      </figure>
 
-  <para>Once you terminate the process, back in Eclipse, a notification window
-  should pop up asking if you want to switch to the Flashlight
-  perspective. Select <guilabel>Yes</guilabel> to move into the Flashlight
-  perspective.</para>
+  <para>Once you terminate the process, back in Eclipse, the data will start being prepared for querying.
+  The <guilabel>Flashlight Launched Run Control</guilabel> dialog will show you the progress made.</para>
   
-  <para>Another dialog will ask you if you want to prepare the collected data
-  for querying. Select <guilabel>Yes</guilabel> again to start preparing the
-  data. This will take a minute or two to accomplish.</para>
+  <para>If you are not in the Flashlight perspective, when the prepare job completes a dialog will ask you if you want to move to
+  the Flashlight perspective to query your data. Select <guilabel>Yes</guilabel> to move to the Flashlight perspective.</para>
   
   <para>After the data preparation completes you should see the Run Overview for
   the run of Counter Race.  Click on the <guilabel>Race Conditions</guilabel>

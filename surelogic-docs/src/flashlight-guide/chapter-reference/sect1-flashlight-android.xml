@@ -66,7 +66,21 @@
 
   <sect2>
     <title>Stopping Flashlight</title>
+    <para>The simplest approach is to use the <guilabel>Flashlight Launched Run Control</guilabel> dialog. This will not
+    stop the application on the Android device or emulator but will stop data collection
+    and prepared the data for querying.  Data collection is stopped for a
+    particular instrumented Android run by pressing the
+    <inlinegraphic fileref="images/red_x.gif"/> to the far right of that run in the dialog.</para>
+    
+      <figure id="fig-android-run-control">
+        <title>Terminating data collection the Flashlight Launched Run Control dialog</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/android-launched-run-control.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
     <para>
+      Another approach is to stop the application on the Android device itself.
       Depending on your application, you may need to close the program yourself.
       How you do this depends on the and version of Android that you are using.
       Later versions of Android have a <guilabel>Application Monitor</guilabel>

@@ -42,6 +42,20 @@
       </imageobject>
     </mediaobject>
   </figure>
+  
+      <note>
+		<title>New Flashlight Launched Run Control Dialog</title>
+
+		<para>The <guilabel>Flashlight Launched Run Control</guilabel> dialog
+		now lists each launched instrumented application. It lets you track the progress
+		of the application from launch, through, collection, data preparation, to being ready
+		to query in the Flashlight perspective. This dialog lets you stop data collection on
+		a running process at any time. The use of this dialog is not fully described below but
+		is straightforward to use. For example, prompts to prepare data no longer occur. When
+		the run completes it is prepared. The dialog is discussed in the Android tutorial because
+		it is critical to avoid having to <emphasis>Force Stop</emphasis> applications on the
+		phone or tablet.</para>
+	</note>
 
   <xi:include href="sect2-sec-tutorial-client.xml"/>
   <xi:include href="sect2-sec-tutorial-server.xml"/>
