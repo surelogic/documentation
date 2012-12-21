@@ -72,7 +72,7 @@
 			
 				<listitem>
 					<para>
-						<emphasis>Tree-based Modeling Problems view with diff and filter capabilities added to the Proposed Annotation view</emphasis>
+						<emphasis>Tree-based Modeling Problems view with diff and filter capabilities</emphasis>
 						&mdash;
 						The <guilabel>Modeling Problems</guilabel> has been changed to a tree to better help the tool
 						user deal with larger numbers of modeling problems. In addition the view can now highlight differences
