@@ -163,10 +163,11 @@
   <structfield>f_sharedCounter</structfield> is a static, non-volatile field in
   the <classname>CounterThread</classname> class.  To investigate this further
   let's run a detailed query.  Double click on <emphasis>What fields (static)
-  have an empty lock set?</emphasis> in the <guilabel>Query Menu</guilabel>. An
-  empty lock set indicates this field is not consistently protected by a
-  lock. The <guilabel>Query Results</guilabel> view should display one such
-  field: <structfield>f_sharedCounter</structfield>.</para>
+  have an empty lock set?</emphasis> under the <guilabel>Lock Use</guilabel>
+  section in the <guilabel>Query Menu</guilabel>. An empty lock set indicates
+  this field is not consistently protected by a lock. The <guilabel>Query
+  Results</guilabel> view should display one such field:
+  <structfield>f_sharedCounter</structfield>.</para>
 
   <figure id="fig-tutorial-android-sharedcounter-1">
     <title>Looking at f_sharedCounter</title>
@@ -177,9 +178,10 @@
     </mediaobject>
   </figure>
 
-  <para>Select the <structfield>f_sharedCounter</structfield> in the <guilabel>Query Results</guilabel> and then double-click on the
-  <emphasis>What threads read and write this field?</emphasis> query in the
-  <guilabel>Query Menu</guilabel>. The results should resemble the image below.</para>
+  <para>Select the <structfield>f_sharedCounter</structfield> in the
+  <guilabel>Query Results</guilabel> and then double-click on the <emphasis>What
+  threads read and write this field?</emphasis> query in the <guilabel>Query
+  Menu</guilabel>. The results should resemble the image below.</para>
 
   <figure id="fig-tutorial-android-sharedcounter-2">
     <title>What threads read and write f_sharedCounter?</title>
@@ -205,10 +207,10 @@
   fileref="images/gray_x_double.png" /></guiicon> icon in the toolbar of
   <guilabel>Query Results</guilabel> view. Next, double click on <emphasis>What
   fields (non-static) have an empty lock set after object
-  construction?</emphasis> in the <guilabel>Query Menu</guilabel>.  The
-  <guilabel>Query Results</guilabel> view should display the
-  <structfield>f_threadLocalCounts</structfield> field, similar to the image
-  below.</para>
+  construction?</emphasis> under the <guilabel>Lock Use</guilabel><guilabel>
+  section of the Query Menu</guilabel>.  The <guilabel>Query Results</guilabel>
+  view should display the <structfield>f_threadLocalCounts</structfield> field,
+  similar to the image below.</para>
 
   <figure id="fig-tutorial-android-threadlocal-1">
     <title>Looking at f_threadLocalCounts</title>

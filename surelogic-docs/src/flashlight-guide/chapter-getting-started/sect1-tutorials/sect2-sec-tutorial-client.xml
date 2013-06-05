@@ -230,10 +230,11 @@
 
   <para>We can also run queries on the run now.  Double-click on the
   <emphasis>What fields are read by the AWT Event Dispatch Thread and written in
-  others?</emphasis> query from the <guilabel>Query Menu</guilabel>.  The
-  results will appear in the <guilabel>Query Results</guilabel> view.  Go ahead
-  and click on the <structfield>f_connectDisconnectButton</structfield> entry.
-  Your screen should appear as shown in <xref
+  others?</emphasis> query under the <guilabel>API Use</guilabel> section of the
+  <guilabel>Query Menu</guilabel>.  The results will appear in the
+  <guilabel>Query Results</guilabel> view.  Go ahead and click on the
+  <structfield>f_connectDisconnectButton</structfield> entry.  Your screen
+  should appear as shown in <xref
   linkend="fig-tutorial-planetbaron-perspective-ctc1" />.  Query results are
   presented as a table, tree, or tree-table.  This result is a tree-table. The
   result reports the shared non-static fields noted in the run.</para>
@@ -248,7 +249,7 @@
 
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc1">
-    <title>Non-static fields that were observed to be shared in a ChatTestClient run</title>
+    <title>Fields accessed outside the Event Dispatch Thread in a ChatTestClient run</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-perspective-ctc1.png" />
