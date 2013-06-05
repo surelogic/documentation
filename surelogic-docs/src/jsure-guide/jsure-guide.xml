@@ -68,6 +68,54 @@
 			<para>This section describes new and noteworthy features in this
 				version of JSure.
 			</para>
+			<orderedlist>
+			<listitem><para>
+			<emphasis>Improved verification support for Goetz's &#64;GuardedBy annotation</emphasis>
+						&mdash;
+						The <code>&#64;GuardedBy</code> annotation was proposed by Goetz in
+						<emphasis>Java Concurrency In Practice</emphasis> (Addison-Wesley 2006). Verification
+						of this annotation has been supported by JSure but in this release we have broadened our
+						support. Use of <code>&#64;GuardedBy</code> on methods is now supported. In addition, more predictable naming
+						of the lock and protected state is used. In JSure <code>&#64;GuardedBy</code> annotations generate other
+						annotations as the <code>&#64;RegionLock</code> scheme is much more expressive than <code>&#64;GuardedBy</code>.
+						The generated annotations show up under the actual <code>&#64;GuardedBy</code> annotation in the tool results.
+						
+						</para>
+						<para>The code snippet below demonstrates the improvements and we show a screenshot of the JSure results below the listing.
+						
+<programlisting>public class Queue&lt;T&gt; {
+
+  &#64;GuardedBy("itself")
+  /* Generates a &#64;RegionLock named Guard$_contents
+   * and a &#64;Region named State$_contents on Queue,
+   * as well as &#64;UniqueInRegion("State$_contents")
+   * on this field */
+  private final List&lt;T&gt; contents = new ArrayList&lt;T&gt;();
+
+  &#64;GuardedBy("contents") // Generates &#64;InRegion("State$_contents")
+  private int numOps;
+
+  &#64;GuardedBy("contents") // Generates &#64;RequiresLock("Guard$_contents")
+  private void used() {
+    numOps++;
+  }
+
+  public void enq(T value) {
+    synchronized (contents) {
+      used();
+      // ...
+    }
+  }
+}
+</programlisting>
+
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-450-guarded-by.png" />
+							</imageobject>
+					</mediaobject>
+			</para></listitem>
+			</orderedlist>
 		</section>
 
 	<section>
