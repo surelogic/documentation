@@ -20,7 +20,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 4.4.0&mdash;December 2012</pubdate>
+    <pubdate>Version 4.5.0&mdash;June 2013</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -56,6 +56,74 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+    
+        	<section id="sec-jsure-release-4-5-0">
+		<title>JSure version 4.5.0</title>
+		<para>This section describes the 4.5.0 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+		</section>
+
+	<section>
+		<title>Known Problems</title>
+		<para>This section describes known limitations in this
+			version of
+			JSure.</para>
+		<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Ignored reference to a field protected by a lock</emphasis>
+						&mdash;
+						Under certain, rare circumstances, JSure mistakenly ignores references to fields protected by a lock,
+						due to limitations in the current analysis infrastructure. In particular, this behavior only occurs when the following
+						three conditions exist:
+						<orderedlist>
+							<listitem><para>The field being protected is of an inner class type.</para></listitem>
+							<listitem><para>The field is referenced from within an anonymous class.</para></listitem>
+							<listitem><para>The field is inside an object referred to by a local variable declared outside of the anonymous class.</para></listitem>
+						</orderedlist>
+						The following class demonstrates the problem.
+<programlisting>public class Outer {
+  static class Inner {
+    void doSomething() {
+    }
+  }
+
+  // Condition a
+  &#64;GuardedBy("itself")
+  final Inner inner = new Inner();
+
+  void test() {
+    // Condition c
+    final Outer o = new Outer();
+    run(new Runnable() {
+      &#64;Override
+      public void run() {
+        // Condition b
+        o.inner.doSomething(); // Ignored by JSure
+      }
+    });
+  }
+
+  void run(Runnable r) {
+    r.run();
+  }
+}</programlisting>
+In this example code the access to <code>o.inner</code> (marked as Ignored by JSure) is
+not properly checked by the tool. In fact, this code does not respect the locking model
+declared by the <code>&#64;GuardedBy("itself")</code> annotation on the field <code>inner</code>.
+					</para>
+					<para>We are working to fix this problem in the next release of JSure.</para>
+				</listitem>
+				</orderedlist>
+	</section>
+	</section>
     
     	<section id="sec-jsure-release-4-4-0">
 		<title>JSure version 4.4.0</title>
