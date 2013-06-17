@@ -10,9 +10,76 @@
   features to try out, and known limitations to avoid or workaround.
   These are presented in the sections below for each released version of
   Flashlight.</para>
+
+  <sect1>
+    <title>Flashlight version 4.5.0</title>
+    <para>This section describes the 4.5.0 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <orderedlist>
+        <listitem>
+          <para>
+            <emphasis>Support for Android Development Tools 22.01</emphasis> &mdash;
+            Flashlight supports the most recent release of the Android Development Tools (ADT) in Eclipse.
+          </para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Dynamic analysis added to detect possible false
+          sharing</emphasis> &mdash; <emphasis>false sharing</emphasis> occurs
+          when different fields in the same object are accessed concurrently
+          from separate threads, which can lead to frequent flushing of local
+          CPU caches and a general degradation of performance in areas of the
+          program that seem, at first blush, to be safely thread-confined.
+          False sharing is not a correctness problem but rather a performance
+          problem.
+          </para>
+          <para>
+          Flashlight attempts to detect false sharing problem points in the
+          program by first looking for fields that are accessed for a
+          significant period of time in one thread.  When it finds a candidate,
+          it then sifts through all accesses of any fields in the candidate
+          field's object during that period of time, and counts how many times
+          other field accesses interleave with the candidates.  It then divides
+          this by the total number of field accesses to get a percentage between
+          0% and 100% that indicates the level of interleaving in the
+          program. Fields with a high percentage of interleaving have a higher
+          potential for false sharing performance problems at runtime.
+          </para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Improved Java Memory Model support, helping the tool
+          user to understand happens-before query results</emphasis> &mdash;
+          Flashlight can show whether or not a happens-before relationship
+          exists between two threads in a run of an instrumented program. For
+          example, whether a write of a volatile field in the thread t1 and a
+          subsequent read in the thread t2 created a happens-before edge between
+          t1 and t2.
+          </para>
+          <para>
+            This release is able to present happens-before results to the user
+            so that they can determine if a particular happens-before edge
+            between two threads observed by the tool occurred by design or by
+            accident. To do this the tool lists all the events that occurred
+            between two threads for a particular duration of time. This
+            capability is important because any edge is as good as any other
+            from the tool’s point of view. However, it may have been accidental
+            that the state was safely accessed during the program run. By
+            including queries that let the user drill into each observed
+            happens-before edge the programmer or analyst can determine if the
+            “as-designed” concurrency policy was followed.
+          </para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+    <sect2>
+      <title>Known Problems</title>
+      <para>The known problems are unchanged from the 4.3.4 release.</para>
+
+    </sect2>
+  </sect1>
   
-    <sect1>
-    <title>Flashlight version 4.4.4</title>
+  <sect1>
+    <title>Flashlight version 4.4.0</title>
     <para>This section describes the 4.4.0 version of Flashlight.</para>
     <sect2>
       <title>New and Noteworthy</title>
