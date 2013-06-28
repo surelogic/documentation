@@ -57,6 +57,93 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
     
+            	<section id="sec-jsure-release-4-6-0">
+		<title>JSure version 4.6.0</title>
+		<para>This section describes the 4.6.0 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+			<listitem><para>
+			<emphasis>Verification support for &#64;NonNull, &#64;Raw, and &#64;Nullable annotations</emphasis>
+						&mdash;
+						This release of JSure rolls out a new verification for non-null references. The tool is able to verify that fields are non-null.
+						The complexities of Java object construction are handled by a &#64;Raw annotation that notes that a reference may be partically
+						initialized. See the Javadoc for the &#64;NonNull, &#64;Raw, and &#64;Nullable annotations for examples of their use.
+						
+						</para>
+						<para>The screenshot below shows JSure results from the verification of a field in the Timing Framework project.
+						
+
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-460-nullable.png" />
+							</imageobject>
+					</mediaobject>
+			</para></listitem>
+			</orderedlist>
+		</section>
+
+	<section>
+		<title>Known Problems</title>
+		<para>This section describes known limitations in this
+			version of
+			JSure.</para>
+		<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Ignored reference to a field protected by a lock</emphasis>
+						&mdash;
+						Under certain, rare circumstances, JSure mistakenly ignores references to fields protected by a lock,
+						due to limitations in the current analysis infrastructure. In particular, this behavior only occurs when the following
+						three conditions exist:
+						<orderedlist>
+							<listitem><para>The field being protected is of an inner class type.</para></listitem>
+							<listitem><para>The field is referenced from within an anonymous class.</para></listitem>
+							<listitem><para>The field is inside an object referred to by a local variable declared outside of the anonymous class.</para></listitem>
+						</orderedlist>
+						The following class demonstrates the problem.
+<programlisting>public class Outer {
+  static class Inner {
+    void doSomething() {
+    }
+  }
+
+  // Condition a
+  &#64;GuardedBy("itself")
+  final Inner inner = new Inner();
+
+  void test() {
+    // Condition c
+    final Outer o = new Outer();
+    run(new Runnable() {
+      &#64;Override
+      public void run() {
+        // Condition b
+        o.inner.doSomething(); // Ignored by JSure
+      }
+    });
+  }
+
+  void run(Runnable r) {
+    r.run();
+  }
+}</programlisting>
+In this example code the access to <code>o.inner</code> (marked as Ignored by JSure) is
+not properly checked by the tool. In fact, this code does not respect the locking model
+declared by the <code>&#64;GuardedBy("itself")</code> annotation on the field <code>inner</code>.
+					</para>
+					<para>We are working to fix this problem in the next release of JSure.</para>
+				</listitem>
+				</orderedlist>
+	</section>
+	</section>
+    
         	<section id="sec-jsure-release-4-5-0">
 		<title>JSure version 4.5.0</title>
 		<para>This section describes the 4.5.0 version of the JSure Eclipse
