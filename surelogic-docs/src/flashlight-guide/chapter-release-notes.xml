@@ -10,6 +10,50 @@
   features to try out, and known limitations to avoid or workaround.
   These are presented in the sections below for each released version of
   Flashlight.</para>
+  
+    <sect1>
+    <title>Flashlight version 4.6.0</title>
+    <para>This section describes the 4.6.0 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this version of Flashlight.</para>
+      <orderedlist>
+        <listitem>
+          <para><emphasis>Queries changed to use human readable time durations</emphasis> &mdash;
+              Most times reported by Flashlight are in nanoseconds. This time unit, however, is not
+              the easiest for programmers to examine and quickly understand. Flashlight
+              now reports these durations in a more human readable format to help the programmer
+              gain more insight from the tool about the performance of their program.
+          </para>
+          <para>The screenshot below shows an example of human readable durations for the
+              <emphasis>Thead Duration</emphasis> and <emphasis>Total Block Time</emphasis> of the listed threads.
+              
+              <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-460-human-readable-duration.png" />
+				</imageobject>
+			</mediaobject>
+          </para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+    <sect2>
+		<title>Known Problems</title>
+		<para>This section describes known limitations in this
+			version of Flashlight.</para>
+		<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Images in the tutorials and reference documentation may not be up to date</emphasis>
+						&mdash;
+						The queries used by the Flashlight are under review at SureLogic and some images of query results
+						in this document may differ from the tool. Please contact SureLogic if any output is confusing to you.
+					</para>
+					<para>We are working to fix this problem in the next release of Flashlight.</para>
+				</listitem>
+				</orderedlist>
+    </sect2>
+  </sect1>
 
   <sect1>
     <title>Flashlight version 4.5.0</title>
