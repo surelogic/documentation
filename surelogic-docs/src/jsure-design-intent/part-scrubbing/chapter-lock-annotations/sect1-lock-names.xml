@@ -153,6 +153,56 @@
           <row>
             <entry>
               <synopsis>
+<co id="lock.name.field"/><replaceable>field_id</replaceable>:<co id="lockid3"/><replaceable>lock_id</replaceable>
+              </synopsis>
+            
+              <calloutlist>
+                <callout arearefs="lock.name.field">
+                  <para>The name of an instance field of the method receiver.</para>
+                </callout>
+                <callout arearefs="lockid3">
+                  <para>A lock id.</para>
+                </callout>
+              </calloutlist>
+            </entry>
+          
+            <entry>
+              <itemizedlist>
+                <listitem>
+                  <formalpara>
+                    <title>The named field must be a <code>final</code> field
+                    of the method receiver</title>
+                    <para>If the field isn't <code>final</code> then
+                    the object referenced by the field can change
+                    during execution of the method and the named lock is
+                    not unique.</para>
+                  </formalpara>
+                </listitem>
+  
+                <listitem>
+                  <formalpara>
+                    <title>The type of <replaceable>field_id</replaceable>
+                    must be a user-declared type</title>
+                  </formalpara>
+                </listitem>
+  
+                <listitem>
+                  <formalpara>
+                    <title>The lock id <replaceable>lock_id</replaceable> must
+                    name an instance lock in the type of the field</title>
+                  
+                    <para>For clarity purposes we do not allow
+                    <code>static</code> locks to be named through instances; it
+                    only leads to confusion.</para>
+                  </formalpara>
+                </listitem>
+              </itemizedlist>
+            </entry>
+          </row>
+
+          <row>
+            <entry>
+              <synopsis>
 <co id="lock.name.fqclass1"/><replaceable>fully.qualified.class.name</replaceable>:<co id="lockid3"/><replaceable>lock_id</replaceable>
               </synopsis>
             
