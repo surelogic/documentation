@@ -50,4 +50,51 @@
   and uses that instrumentation to collect data about your program.  By default,
   data resides in your workspace under a directory named
   <filename>.flashlight-data</filename>.</para>
+  
+  <para>To run your program with Flashlight instrumentation is similar to launching it
+  normally in the Eclipse IDE. There are three ways to do this which we illustrate below
+  using the <emphasis>ChatTestClient</emphasis> Java program (from a tutorial).</para>
+
+	<itemizedlist>
+		<listitem>
+			<para>Using the Flashlight menu as shown in
+			<xref linkend="fig-quick-start-launch-main-menu" />.</para>
+		</listitem>
+		<listitem>
+			<para>Using the Flashlight quick launch icon in the Eclipse toolbar as shown in
+			<xref linkend="fig-quick-start-launch-toolbar" />.</para>
+		</listitem>
+		<listitem>
+			<para>Using the context menu of a launchable Java file as shown in
+			<xref linkend="fig-quick-start-launch-context" />.</para>
+		</listitem>
+	</itemizedlist>
+  
+  <figure id="fig-quick-start-launch-main-menu">
+    <title>Launching an instrumented Java program from the Flashlight menu</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/quick-start-launch-main-menu.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <figure id="fig-quick-start-launch-toolbar">
+    <title>Launching an instrumented Java program from the Eclipse quick launch toolbar</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/quick-start-launch-toolbar.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <figure id="fig-quick-start-launch-context">
+    <title>Launching an instrumented Java program from the file context menu</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/quick-start-launch-context.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
 </sect1>

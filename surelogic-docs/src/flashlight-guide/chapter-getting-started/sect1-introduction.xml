@@ -27,7 +27,7 @@
   and object finalization.</para>
 
   <para>Flashlight use imposes an overhead cost, in terms of time and
-  memory, on your program. Flashlight is a much more invasive analysis
+  memory, on your running program. Flashlight is a much more invasive analysis
   than a typical Java profiler. Roughly, an instrumented program will
   require two to three times the memory it normally uses and will run
   from 20 times to 80 times slower than it normally runs.  A dual- or
