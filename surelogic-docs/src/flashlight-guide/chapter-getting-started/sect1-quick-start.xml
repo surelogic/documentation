@@ -146,5 +146,61 @@
       </imageobject>
     </mediaobject>
   </figure>
+  
+  <para>When you open the Flashlight perspective in Eclipse it will look similar to <xref linkend="fig-quick-start-fl-persp" />. The
+      views in this perspective are described fully in <xref linkend="flashlight-perspective" /> but the purpose and use of each view is sketched below.</para>
+  
+  <figure id="fig-quick-start-fl-persp">
+    <title>The Flashlight perspective</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/flashlight-perspective.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>The <guilabel>Flashlight Runs</guilabel> view (upper-left in the above image) lists all the instrumented program runs
+      you have done using Flashlight. This view lists executions of programs, so a single
+      program may be listed several times. Each run includes the name of the program and the
+      time of the run. Runs of Android applications are listed with a
+      <guiicon><inlinegraphic fileref="images/android_app.gif" /></guiicon> icon. In the
+      image above <application>FlashlightTutorial_CounterRace</application> is an Android
+      application that has been run on a Nexus 4 phone. Standard
+      Java applications, both desktop and server-side, are listed with a
+      <guiicon><inlinegraphic fileref="images/java_app.gif" /></guiicon> icon.
+      In the image above <application>ChatTestClient</application> is a Java desktop (Swing) application.</para>
+      
+  <para>The <guilabel>Query Results</guilabel> view (middle-right in the above image) shows either (a) an overview of the run
+      currently selected in the <guilabel>Flashlight Runs</guilabel> view or (b) query results as
+      a table, tree or tree-table. The image above shows the run overivew. This lists good and bad
+      news about the selected run. These news items are not definitive, because they represent
+      information from a single run of the program&mdash;hence the name <emphasis>news</emphasis> instead of <emphasis>results</emphasis>.
+      Some news items are underlined. These underlined news items may be selected with the mouse to invoke a query and show the
+      news item's corresponding results. Some news items are because no information was found during the run. These items have no associated
+      results and are not underlined in the <guilabel>Query Results</guilabel> view.</para>
+      
+  <para>When results are shown in the <guilabel>Query Results</guilabel> view you can select a row and "drill-in" to a particular row of the
+      result that is of interest. Hence, you can run queries based upon the results of previous queries. This "drill-in" tree of queries is
+      tracked in the <guilabel>Query Results Explorer</guilabel> view (upper-right in the above image).  You can move up and down within
+      a particular "drill-in" tree of query results by using the forward and back arrows in the toolbar of both results views or by selecting
+      a particular result in the <guilabel>Query Results Explorer</guilabel> view.</para>
+      
+      
+  <para>To conclude this section we remind you that Flashlight is focused on helping improve the performance and safety of <emphasis>concurrent</emphasis>
+      Android and Java programs. But what happens if you run a program that is not concurrent? You will get a big red bar in the overview warning you
+      that no shared data was observed during the program run. This is shown for the traditional Java "Hello, world!" program in <xref linkend="fig-quick-start-fl-persp-helloworld" />.</para>
+      
+  <figure id="fig-quick-start-fl-persp-helloworld">
+    <title>The Flashlight perspective</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/flashlight-perspective-helloworld.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>If you get a <emphasis>No Shared Data Warning</emphasis> you should try to exercise the concurrent portions of your program more
+      fully. Also you may need to change what libraries are instrumented during your program run which is discussed in
+      <xref linkend="flashlight-preferences" />. Finally, it could be the case that your code is not concurrent.</para>
 
 </sect1>
