@@ -96,5 +96,55 @@
       </imageobject>
     </mediaobject>
   </figure>
+  
+  <para>To obtain useful information about your program from the tool you should
+  exercise it in a realistic manner. Typically, long program runs are not required,
+  however simply running unit test code or isolated cases can create poor data. Try
+  to run you program in a manner were its concurrency is exercised to the fullest
+  extent possible.</para>
+  
+  <para>When your program launches the <guilabel>Flashlight Launched Run Control Dialog</guilabel> appears. An
+  example of this dialog is shown in <xref linkend="fig-quick-start-launched-run-control" />. Each
+  running Flashlight-instrumented program gets a listing in this dialog&mdash;it can be though of as being similar to a web
+  browser download monitor dialog.</para>
+  
+  <figure id="fig-quick-start-launched-run-control">
+    <title>Dialog that shows the state of all running Flashlight-instrumented applications</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/quick-start-launched-run-control.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>It is possible to stop data collection and disconnect Flashlight from the
+  running application by pressing the <guiicon><inlinegraphic
+  fileref="images/red_x.gif" /></guiicon> icon to the far right of each dialog entry.
+  When the application completes or Flashlight is disconnected from the running application. The collected data is prepared for querying by the tool. Data
+  preparation may take some time and its progress is reported in the <guilabel>Flashlight
+  Launched Run Control Dialog</guilabel> as shown in <xref linkend="fig-quick-start-launched-run-control-prep" />.</para>
+  
+  <figure id="fig-quick-start-launched-run-control-prep">
+    <title>Showing the progress of collected data preparation for querying by the user</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/quick-start-launched-run-control-prep.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>When data is prepared querying is done in a special Eclipse perspective called the
+  <guilabel>Flashlight</guilabel> perspective.  If data preparation of any run completes and Eclipse is not currently
+  in the Flashlight perspective. The tool prompts the user to change to this perspective. This prompt is shown
+  in <xref linkend="fig-quick-start-switch-to-fl-persp" />.</para>
+
+  <figure id="fig-quick-start-switch-to-fl-persp">
+    <title>Dialog asking to change Eclipse to the Flashlight perspective</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/quick-start-switch-to-fl-persp.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
 </sect1>
