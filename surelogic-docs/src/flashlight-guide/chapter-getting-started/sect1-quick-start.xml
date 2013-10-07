@@ -176,15 +176,33 @@
       news about the selected run. These news items are not definitive, because they represent
       information from a single run of the program&mdash;hence the name <emphasis>news</emphasis> instead of <emphasis>results</emphasis>.
       Some news items are underlined. These underlined news items may be selected with the mouse to invoke a query and show the
-      news item's corresponding results. Some news items are because no information was found during the run. These items have no associated
-      results and are not underlined in the <guilabel>Query Results</guilabel> view.</para>
+      news item's corresponding results. Some news items are not underlined because they indicate that no information was
+      observed during the run&mdash;in these cases no results indicates something newsworthy. These items that are not
+      underlined have no associated
+      results.</para>
       
   <para>When results are shown in the <guilabel>Query Results</guilabel> view you can select a row and "drill-in" to a particular row of the
       result that is of interest. Hence, you can run queries based upon the results of previous queries. This "drill-in" tree of queries is
       tracked in the <guilabel>Query Results Explorer</guilabel> view (upper-right in the above image).  You can move up and down within
       a particular "drill-in" tree of query results by using the forward and back arrows in the toolbar of both results views or by selecting
-      a particular result in the <guilabel>Query Results Explorer</guilabel> view.</para>
+      a particular result in the <guilabel>Query Results Explorer</guilabel> view. To run a "drill-in" query you bring up the context menu for
+      the selected result in the <guilabel>Query Results</guilabel> view (for example, using a right-click of the mouse) or double-click that query
+      in the <guilabel>Query Menu</guilabel> view.</para>
       
+  <para>The <guilabel>Query Menu</guilabel> view (middle-left in the above image) lists the queries that you can run. At the top level
+      these queries are categorized to help you determine what results are of interest to you. These categories can be seen in the image
+      above. If you have selected a particular result then the <guilabel>Query Menu</guilabel> view lists
+      the possible "drill-in" queries, which we also call sub-queries, you can invoke.</para>
+      
+  <para>The Java editor is shown in the Flashlight perspective to the lower-left. This view will highlight lines of code
+      when results that link to code are selected in the <guilabel>Query Results</guilabel> view. In addition to the Java editor a
+      <guilabel>Historical Source Snapshot</guilabel> view exists to the lower-right that will highlight selected lines of code. This
+      view shows the code as it existed when the instrumented program run was made. This helps to avoid
+      user confusion if the program's source code has been modified.</para>
+      
+  <para>The final view in the perspective is the <guilabel>Querydoc</guilabel> this view shows detailed reference
+      documentation about a particular query. This view can help expain the benifits and limitations of each
+      query that Flashlight supports.</para>
       
   <para>To conclude this section we remind you that Flashlight is focused on helping improve the performance and safety of <emphasis>concurrent</emphasis>
       Android and Java programs. But what happens if you run a program that is not concurrent? You will get a big red bar in the overview warning you
