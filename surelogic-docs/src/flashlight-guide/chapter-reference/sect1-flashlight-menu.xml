@@ -15,8 +15,11 @@
 
   <para>The <guimenu>Flashlight</guimenu> menu appears as an item on the Eclipse
   workspace main menu. This menu provides direct access to common commands. The
-  menu is divided into three sections. The top section contains a shortcut to
-  the <guilabel>Flashlight</guilabel> perspective. The middle section contains
+  menu is divided into four sections. The top section contains command to launch and load
+  instrumented programs (in Eclipse or via Ant) and a command to show the launched run
+  control dialog and
+  the <guilabel>Flashlight</guilabel> perspective. The second section allows access to
+  the JSure inference capabilities of Flashlight. The third section contains
   commands to report problems about or suggest improvements to Flashlight
   directly to SureLogic. The bottom section allows access to the license
   management dialog.</para>
