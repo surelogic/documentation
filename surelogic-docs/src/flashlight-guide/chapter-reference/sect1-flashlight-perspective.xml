@@ -497,6 +497,19 @@
 				</imageobject>
 			</mediaobject>
 		</informalfigure>
+		
+		<para>We finish this section by noting that it is possible to bring up the <guilabel>Launched Run Control</guilabel>
+		dialog at any time using the <guimenu>Flashlight</guimenu> menu.  This is done by selecting the <guilabel>Launched Run Control...</guilabel>
+		menu item as shown below.</para>
+
+        <informalfigure id="fig-flashlight-launched-run-control-open">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/flashlight-launched-run-control-open.png" />
+				</imageobject>
+			</mediaobject>
+		</informalfigure>
+        
         
         <para></para>
 	</sect2>
