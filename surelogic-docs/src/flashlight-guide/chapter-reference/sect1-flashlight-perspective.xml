@@ -4,352 +4,502 @@
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <sect1 id="flashlight-perspective">
-  <title>The Flashlight perspective</title>
+	<title>The Flashlight perspective</title>
 
-  <para>The <guilabel>Flashlight</guilabel> perspective organizes the Eclipse
-  workbench to show views which will help you to interact with data from program
-  runs.</para>
-
-  <para>This perspective is useful for beginning use of the Flashlight tool. Its
-  "canned" organization can help you to understand the capabilities of the tool.
-  Advanced users may want to reconfigure the screen layout and save a custom
-  perspective.</para>
-
-  <informalfigure id="fig-flashlight-perspective">
-    <mediaobject>
-      <imageobject>
-	<imagedata fileref="images/flashlight-perspective.png" />
-      </imageobject>
-    </mediaobject>
-  </informalfigure>
-
-  <sect2>
-    <title>Views</title>
-    <para>This section describes the various Flashlight views unique to the
-    Flashlight Eclipse client, and that populate the perspective</para>
-
-    <sect3 id="flashlight-runs-view">
-      <title>Flashlight Runs</title>
-      <para>
-	The <guilabel>Flashlight Runs</guilabel> view lists information about
-	all of the completed runs of programs launched from the Flashlight
-	launch tab.
-
-	<itemizedlist>
-	  <listitem>
-	    <formalpara>
-	      <title>Raw</title>
-	      <para>The size of the data produced by the program run.</para>
-	    </formalpara>
-	  </listitem>
-
-	  <listitem>
-	    <formalpara>
-	      <title>Prep</title>
-	      <para>The size of the data produced by prepping the run.  If the
-	      data has not been prepared yet, this column will be blank.</para>
-	    </formalpara>
-	  </listitem>
-
-	  <listitem>
-	    <formalpara>
-	      <title>Run</title>
-	      <para>The name of the program run.  This is the same name that you
-	      see when launching a program from the Flashlight launch
-	      tab.</para>
-	    </formalpara>
-	  </listitem>
-
-	  <listitem>
-	    <formalpara>
-	      <title>Time</title>
-	      <para>The time the program was launched.</para>
-	    </formalpara>
-	  </listitem>
-
-	  <listitem>
-	    <formalpara>
-	      <title>By</title>
-	      <para>The user the program ran under.</para>
-	    </formalpara>
-	  </listitem>
-
-	  <listitem>
-	    <formalpara>
-	      <title>Host</title>
-	      <para>The hostname of the computer the program ran on.</para>
-	    </formalpara>
-	  </listitem>
-
-	  <listitem>
-	    <formalpara>
-	      <title>Java</title>
-	      <para>The version of the JVM that ran the program.</para>
-	    </formalpara>
-	  </listitem>
-
-	  <listitem>
-	    <formalpara>
-	      <title>Vendor</title>
-	      <para>The JVM vendor.</para>
-	    </formalpara>
-	  </listitem>
-
-	  <listitem>
-	    <formalpara>
-	      <title>OS</title>
-	      <para>The operating system the program ran under.</para>
-	    </formalpara>
-	  </listitem>
-
-	  <listitem>
-	    <formalpara>
-	      <title>Max Memory (MB)</title>
-	      <para>The maximum amount of memory in megabytes allotted to the
-	      program.</para>
-	    </formalpara>
-	  </listitem>
-
-	  <listitem>
-	    <formalpara>
-	      <title>Processors</title>
-	      <para>The number of CPU's that the JVM ran on when this program
-	      was executed.</para>
-	    </formalpara>
-	  </listitem>
-	</itemizedlist>
-      </para>
-      <informalfigure id="fig-flashlight-runs-view">
-	<!--title>The Flashlight Runs View</title-->
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/flashlight-runs-view.png" />
-	  </imageobject>
-	</mediaobject>
-      </informalfigure>
-
-    </sect3>
-
-    <sect3 id="flashlight-run-overview">
-      <title>Run Overview</title>
-      <para>
-        The <guilabel>Run Overview</guilabel> view displays a summary of the
-        data Flashlight collected for a given run.  The overview for a run is
-        displayed whenever a run is selected in the <guilabel>Run
-        View</guilabel>.
-      </para>
-      <para>
-        The collected data is organized into a series of tabs, each focusing on
-        a facet of the data.
-        <itemizedlist>
-          <listitem>
-            <formalpara>
-              <title>Lock Contention</title>
-              <para>Lists the most highly contended locks in the program, sorted
-              in descended order by average block time.  Drilling into the lock
-              will display all of the code locations where the lock was acquired
-              during the run, and how long the program was blocked for.</para>
-            </formalpara>
-          </listitem>
-          <listitem>
-            <formalpara>
-              <title>Deadlocks</title>
-              <para>Allows the user to browse all detected lock cycles in the
-              program. Each cycle has a numeric identifier, and is displayed as
-              a link at the top of the page. Clicking on the cycle's link will
-              display a graph of the cycle.  The nodes in the graph represent
-              lock objects in the program, and each directed edge indicates that
-              the target node was acquired while the source node was held at
-              some point in the run.  The edges are also displayed as hyperlinks
-              to the right of the graph, and clicking on an edge shows example
-              stack traces for both source and target node acquisitions.  The
-              threads that contributed to this lock cycle are also shown, and
-              hovering over them with the mouse highlights the edges observed in
-              that thread.</para>
-            </formalpara>
-          </listitem>
-          <listitem>
-            <formalpara>
-              <title>Race Conditions</title>
-              <para>Displays a tree of all the fields for which a potential race
-              condition was detected during the run.  Clicking on a field will
-              display a list of all of the locks that were held while the field
-              was accessed, and when and where the locks were acquired.</para>
-            </formalpara>
-          </listitem>
-          <listitem>
-            <formalpara>
-              <title>Bad Publishes</title>
-              <para>Displays a tree of all the fields that were written to and
-              read by multiple threads before their owning object was fully
-              constructed. Drilling into a field shows all of the events that
-              occurred during object construction, and clicking on an event
-              displays the event's full stack trace underneath the tree.</para>
-            </formalpara>
-          </listitem>
-          <listitem>
-            <formalpara>
-              <title>Program Timeline</title>
-              <para>A timeline of the observed run. The timeline shows the
-              duration of each thread as a blue line, and displays the full
-              program duration in red.</para>
-            </formalpara>
-          </listitem>
-          <listitem>
-            <formalpara>
-              <title>Coverage</title>
-              <para>Shows the entire call graph of the observed program as a
-              tree, as well as the names of every thread.  Clicking on a thread
-              will narrow the call graph down to just the portion of the program
-              observed in that that thread.  Multiple threads can also be
-              selected and deselected by shift-clicking.
-              </para>
-            </formalpara>
-          </listitem>
-        </itemizedlist>
-      </para>
-      <informalfigure id="fig-flashlight-run-overview">
-	<!--title>The Flashlight Run Overview</title-->
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/flashlight-run-overview.png" />
-	  </imageobject>
-	</mediaobject>
-      </informalfigure>
-
-    </sect3>
-    <sect3>
-      <title>Query Menu</title>
-      <para>
-	The <guilabel>Query Menu</guilabel> view displays the queries that can
-	be run from the current query results displayed in the <guilabel>Query
-	Results</guilabel> view.  If no results are displayed, then it displays
-	the queries that can be run from the currently selected run in the
-	<guilabel>Flashlight Runs</guilabel> view.  Queries that can be run by
-	double-clicking are black, queries that need you to select a more
-	specific row from the <guilabel>Query Results</guilabel> view are grayed
-	out.
-      </para>
-      <informalfigure id="fig-flashlight-query-menu-view">
-	<!--title>The Query Menu View</title-->
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/flashlight-query-menu-view.png" />
-	  </imageobject>
-	</mediaobject>
-      </informalfigure>
-
-    </sect3>
-    <sect3>
-      <title>Query Results</title>
-      <para>
-	This view displays the results from performing a query on a Flashlight
-	run.  You can change the results displayed by clicking on a different
-	query in the <guilabel>Query Results Explorer</guilabel> view or in the
-	<guilabel>Query Menu</guilabel> view.  Only one of the Query Results and
-	Run Overview views are displayed at a time.
-      </para>
-
-      <para>
-	The result of a query is displayed as either a tree, table, or
-	tree-table, depending on the specific query.  <xref
-	linkend="query-reference"/> describes the different queries and the
-	shapes of their results.
-      </para>
-      
-      <informalfigure id="fig-flashlight-query-results-view">
-	<!--title>The Query Results View</title-->
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/flashlight-query-results-view.png" />
-	  </imageobject>
-	</mediaobject>
-      </informalfigure>
-
-    </sect3>
-    <sect3>
-      <title>Query Results Explorer</title>
 	<para>
-	  This view allows you to select any of the queries run previously
-	  during the session and display it in the <guilabel>Query
-	  Results</guilabel> view.  You can also delete any or all of the
-	  results from here.
+		The
+		<guilabel>Flashlight</guilabel>
+		perspective organizes the Eclipse
+		workbench to show views which will help you to interact with data from program
+		runs.
 	</para>
-      <informalfigure id="fig-flashlight-query-results-explorer-view">
-	<!--title>The Query Results Explorer View</title-->
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/flashlight-query-results-explorer-view.png" />
-	  </imageobject>
-	</mediaobject>
-      </informalfigure>
-    </sect3>
 
-    <sect3>
-      <title>Historical Source Snapshot</title>
-      <para>
-	When a Flashlight run is performed, a snapshot of the project source
-	code is collected.  This view shows the source code as it appeared when
-	the run was actually performed.
-      </para>
-      <informalfigure id="fig-flashlight-historical-source-view">
-	<!--title>The Historical Source Snapshot View</title-->
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/flashlight-historical-source-view.png" />
-	  </imageobject>
-	</mediaobject>
-      </informalfigure>
-    </sect3>
-    <sect3>
-      <title>Monitor</title>
-      <para>
-        The <guilabel>Monitor View</guilabel> provides access to the an
-        instrumented program's runtime monitoring data.  It is not open in the
-        Flashlight perspective by default.
-      </para>
-      <informalfigure id="fig-flashlight-monitor-view">
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/flashlight-monitor-view.png" />
-	  </imageobject>
-	</mediaobject>
-      </informalfigure>
-      <para>
-        The <emphasis><guilabel>Fields</guilabel> tab</emphasis> displays all of
-        the fields in the program known to Flashlight, and their current status
-        in the monitor.  The status of a field is indicated by its color.  In
-        order to make it easier to sift through the data, packages and classes
-        that contain only unobserved fields are displayed with a gray
-        background.  Packages and classes containing any other type of fields
-        are displayed with the default white background.  Currently, fields may
-        have the following status:
-      </para>
-      <orderedlist>
-        <listitem>Potential Data Race</listitem>
-        <listitem>Shared and Actively Protected By A Lock</listitem>
-        <listitem>Shared</listitem>
-        <listitem>Not Shared</listitem>
-        <listitem>Not Observed</listitem>
-      </orderedlist>
-      <para>
-        The <emphasis><guilabel>Locks</guilabel> tab</emphasis> displays all
-        current locks in the program.  Garbage collected locks are not
-        displayed, as this could potentially cause the instrumentation to be
-        unbounded in memory size.  Any locks that the runtime monitoring
-        believes could potentially deadlock (or that are currently deadlocked)
-        are displayed in red font.
-      </para>
-      <para>
-        The <emphasis><guilabel>EDT</guilabel> tab</emphasis> displays all of
-        the fields in the program known to Flashlight, just as the Fields tab
-        does.  Any fields that have been accessed both inside and outside of a
-        Swing Event Dispatch Thread are highlighted.  This feature can be used
-        to detect violations of the Swing threading model.
-      </para>
-    </sect3>
+	<para>This perspective is useful for beginning use of the Flashlight
+		tool. Its
+		"canned" organization can help you to understand the capabilities of the tool.
+		Advanced users may want to reconfigure the screen layout and save a
+		custom
+		perspective.
+	</para>
 
-  </sect2>
+	<informalfigure id="fig-flashlight-perspective">
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="images/flashlight-perspective.png" />
+			</imageobject>
+		</mediaobject>
+	</informalfigure>
+
+	<sect2>
+		<title>Views</title>
+		<para>This section describes the various Flashlight views unique to
+			the
+			Flashlight Eclipse client, and that populate the perspective
+		</para>
+
+		<sect3 id="flashlight-runs-view">
+			<title>Flashlight Runs</title>
+			<para>
+				The
+				<guilabel>Flashlight Runs</guilabel>
+				view lists information about
+				all of the completed runs of programs launched from the Flashlight
+				launch tab.
+
+				<itemizedlist>
+					<listitem>
+						<formalpara>
+							<title>Raw</title>
+							<para>The size of the data produced by the program run.</para>
+						</formalpara>
+					</listitem>
+
+					<listitem>
+						<formalpara>
+							<title>Prep</title>
+							<para>The size of the data produced by prepping the run. If the
+								data has not been prepared yet, this column will be blank.
+							</para>
+						</formalpara>
+					</listitem>
+
+					<listitem>
+						<formalpara>
+							<title>Run</title>
+							<para>The name of the program run. This is the same name that you
+								see when launching a program from the Flashlight launch
+								tab.
+							</para>
+						</formalpara>
+					</listitem>
+
+					<listitem>
+						<formalpara>
+							<title>Time</title>
+							<para>The time the program was launched.</para>
+						</formalpara>
+					</listitem>
+
+					<listitem>
+						<formalpara>
+							<title>By</title>
+							<para>The user the program ran under.</para>
+						</formalpara>
+					</listitem>
+
+					<listitem>
+						<formalpara>
+							<title>Host</title>
+							<para>The hostname of the computer the program ran on.</para>
+						</formalpara>
+					</listitem>
+
+					<listitem>
+						<formalpara>
+							<title>Java</title>
+							<para>The version of the JVM that ran the program.</para>
+						</formalpara>
+					</listitem>
+
+					<listitem>
+						<formalpara>
+							<title>Vendor</title>
+							<para>The JVM vendor.</para>
+						</formalpara>
+					</listitem>
+
+					<listitem>
+						<formalpara>
+							<title>OS</title>
+							<para>The operating system the program ran under.</para>
+						</formalpara>
+					</listitem>
+
+					<listitem>
+						<formalpara>
+							<title>Max Memory (MB)</title>
+							<para>The maximum amount of memory in megabytes allotted to the
+								program.
+							</para>
+						</formalpara>
+					</listitem>
+
+					<listitem>
+						<formalpara>
+							<title>Processors</title>
+							<para>The number of CPU's that the JVM ran on when this program
+								was executed.
+							</para>
+						</formalpara>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<informalfigure id="fig-flashlight-runs-view">
+				<!--title>The Flashlight Runs View</title -->
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="images/flashlight-runs-view.png" />
+					</imageobject>
+				</mediaobject>
+			</informalfigure>
+
+		</sect3>
+
+		<sect3 id="flashlight-run-overview">
+			<title>Run Overview</title>
+			<para>
+				The
+				<guilabel>Run Overview</guilabel>
+				view displays a summary of the
+				data Flashlight collected for a given run. The overview for a run is
+				displayed whenever a run is selected in the
+				<guilabel>Run
+					View
+				</guilabel>
+				.
+			</para>
+			<para>
+				The collected data is organized into a series of tabs, each focusing
+				on
+				a facet of the data.
+				<itemizedlist>
+					<listitem>
+						<formalpara>
+							<title>Lock Contention</title>
+							<para>Lists the most highly contended locks in the program,
+								sorted
+								in descended order by average block time. Drilling into the lock
+								will display all of the code locations where the lock was
+								acquired
+								during the run, and how long the program was blocked for.
+							</para>
+						</formalpara>
+					</listitem>
+					<listitem>
+						<formalpara>
+							<title>Deadlocks</title>
+							<para>Allows the user to browse all detected lock cycles in the
+								program. Each cycle has a numeric identifier, and is displayed
+								as
+								a link at the top of the page. Clicking on the cycle's link will
+								display a graph of the cycle. The nodes in the graph represent
+								lock objects in the program, and each directed edge indicates
+								that
+								the target node was acquired while the source node was held at
+								some point in the run. The edges are also displayed as hyperlinks
+								to the right of the graph, and clicking on an edge shows example
+								stack traces for both source and target node acquisitions. The
+								threads that contributed to this lock cycle are also shown, and
+								hovering over them with the mouse highlights the edges observed
+								in
+								that thread.
+							</para>
+						</formalpara>
+					</listitem>
+					<listitem>
+						<formalpara>
+							<title>Race Conditions</title>
+							<para>Displays a tree of all the fields for which a potential
+								race
+								condition was detected during the run. Clicking on a field will
+								display a list of all of the locks that were held while the field
+								was accessed, and when and where the locks were acquired.
+							</para>
+						</formalpara>
+					</listitem>
+					<listitem>
+						<formalpara>
+							<title>Bad Publishes</title>
+							<para>Displays a tree of all the fields that were written to and
+								read by multiple threads before their owning object was fully
+								constructed. Drilling into a field shows all of the events that
+								occurred during object construction, and clicking on an event
+								displays the event's full stack trace underneath the tree.
+							</para>
+						</formalpara>
+					</listitem>
+					<listitem>
+						<formalpara>
+							<title>Program Timeline</title>
+							<para>A timeline of the observed run. The timeline shows the
+								duration of each thread as a blue line, and displays the full
+								program duration in red.
+							</para>
+						</formalpara>
+					</listitem>
+					<listitem>
+						<formalpara>
+							<title>Coverage</title>
+							<para>Shows the entire call graph of the observed program as a
+								tree, as well as the names of every thread. Clicking on a thread
+								will narrow the call graph down to just the portion of the
+								program
+								observed in that that thread. Multiple threads can also be
+								selected and deselected by shift-clicking.
+							</para>
+						</formalpara>
+					</listitem>
+				</itemizedlist>
+			</para>
+			<informalfigure id="fig-flashlight-run-overview">
+				<!--title>The Flashlight Run Overview</title -->
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="images/flashlight-run-overview.png" />
+					</imageobject>
+				</mediaobject>
+			</informalfigure>
+
+		</sect3>
+		<sect3>
+			<title>Query Menu</title>
+			<para>
+				The
+				<guilabel>Query Menu</guilabel>
+				view displays the queries that can
+				be run from the current query results displayed in the
+				<guilabel>Query
+					Results
+				</guilabel>
+				view. If no results are displayed, then it displays
+				the queries that can be run from the currently selected run in the
+				<guilabel>Flashlight Runs</guilabel>
+				view. Queries that can be run by
+				double-clicking are black, queries that need you to select a more
+				specific row from the
+				<guilabel>Query Results</guilabel>
+				view are grayed
+				out.
+			</para>
+			<informalfigure id="fig-flashlight-query-menu-view">
+				<!--title>The Query Menu View</title -->
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="images/flashlight-query-menu-view.png" />
+					</imageobject>
+				</mediaobject>
+			</informalfigure>
+
+		</sect3>
+		<sect3>
+			<title>Query Results</title>
+			<para>
+				This view displays the results from performing a query on a
+				Flashlight
+				run. You can change the results displayed by clicking on a different
+				query in the
+				<guilabel>Query Results Explorer</guilabel>
+				view or in the
+				<guilabel>Query Menu</guilabel>
+				view. Only one of the Query Results and
+				Run Overview views are displayed at a time.
+			</para>
+
+			<para>
+				The result of a query is displayed as either a tree, table, or
+				tree-table, depending on the specific query.
+				<xref linkend="query-reference" />
+				describes the different queries and the
+				shapes of their results.
+			</para>
+
+			<informalfigure id="fig-flashlight-query-results-view">
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="images/flashlight-query-results-view.png" />
+					</imageobject>
+				</mediaobject>
+			</informalfigure>
+
+		</sect3>
+		<sect3>
+			<title>Query Results Explorer</title>
+			<para>
+				This view allows you to select any of the queries run previously
+				during the session and display it in the
+				<guilabel>Query
+					Results
+				</guilabel>
+				view. You can also delete any or all of the
+				results from here.
+			</para>
+			<informalfigure id="fig-flashlight-query-results-explorer-view">
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="images/flashlight-query-results-explorer-view.png" />
+					</imageobject>
+				</mediaobject>
+			</informalfigure>
+		</sect3>
+
+		<sect3>
+			<title>Historical Source Snapshot</title>
+			<para>
+				When a Flashlight run is performed, a snapshot of the project source
+				code is collected. This view shows the source code as it appeared
+				when
+				the run was actually performed.
+			</para>
+			<informalfigure id="fig-flashlight-historical-source-view">
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="images/flashlight-historical-source-view.png" />
+					</imageobject>
+				</mediaobject>
+			</informalfigure>
+		</sect3>
+		<sect3>
+			<title>Monitor</title>
+			<para>
+				The
+				<guilabel>Monitor View</guilabel>
+				provides access to the an
+				instrumented program's runtime monitoring data. It is not open in the
+				Flashlight perspective by default.
+			</para>
+			<informalfigure id="fig-flashlight-monitor-view">
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="images/flashlight-monitor-view.png" />
+					</imageobject>
+				</mediaobject>
+			</informalfigure>
+			<para>
+				The
+				<emphasis>
+					<guilabel>Fields</guilabel>
+					tab
+				</emphasis>
+				displays all of
+				the fields in the program known to Flashlight, and their current status
+				in the monitor. The status of a field is indicated by its color. In
+				order to make it easier to sift through the data, packages and
+				classes
+				that contain only unobserved fields are displayed with a gray
+				background. Packages and classes containing any other type of fields
+				are displayed with the default white background. Currently, fields
+				may
+				have the following status:
+			</para>
+			<orderedlist>
+				<listitem>
+					Potential Data Race
+				</listitem>
+				<listitem>
+					Shared and Actively Protected By A Lock
+				</listitem>
+				<listitem>
+					Shared
+				</listitem>
+				<listitem>
+					Not Shared
+				</listitem>
+				<listitem>
+					Not Observed
+				</listitem>
+			</orderedlist>
+			<para>
+				The
+				<emphasis>
+					<guilabel>Locks</guilabel>
+					tab
+				</emphasis>
+				displays all
+				current locks in the program. Garbage collected locks are not
+				displayed, as this could potentially cause the instrumentation to be
+				unbounded in memory size. Any locks that the runtime monitoring
+				believes could potentially deadlock (or that are currently deadlocked)
+				are displayed in red font.
+			</para>
+			<para>
+				The
+				<emphasis>
+					<guilabel>EDT</guilabel>
+					tab
+				</emphasis>
+				displays all of
+				the fields in the program known to Flashlight, just as the Fields tab
+				does. Any fields that have been accessed both inside and outside of
+				a
+				Swing Event Dispatch Thread are highlighted. This feature can be used
+				to detect violations of the Swing threading model.
+			</para>
+		</sect3>
+
+	</sect2>
+
+	<sect2>
+		<title>Launched Run Control Dialog</title>
+		<para>This section describes the Flashlight Launched Run Control
+			dialog. This dialog
+			automatically appears when an instrumented program is launched in Eclipse.
+			It tracks the program run from launch, execution, termination, and data
+			preparation. It can be though of as being similar to a web
+            browser download monitor dialog. The image below shows an example of this dialog.
+		</para>
+
+		<informalfigure id="fig-flashlight-launched-run-control">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/flashlight-launched-run-control.png" />
+				</imageobject>
+			</mediaobject>
+		</informalfigure>
+		
+		<para>In the example above three instrumented launches are being tracked. The
+		<guilabel>PlayerUI</guilabel> run has launched and is collecting data. The
+		<guilabel>ChatTestClient</guilabel> and <guilabel>Server</guilabel> runs
+		have finished collecting data and are having their data prepared for querying.
+		The progress of data preparation is tracked in this dialog.</para>
+		
+		<para>It is possible to stop data collection and disconnect Flashlight from the
+        running application by pressing the <guiicon><inlinegraphic
+        fileref="images/red_x.gif" /></guiicon> icon to the far right of each dialog entry.
+        When the application completes or Flashlight is disconnected from the
+        running application.</para>
+        
+        <informalfigure id="fig-flashlight-launched-run-control-stop-collection">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/flashlight-launched-run-control-stop-collection.png" />
+				</imageobject>
+			</mediaobject>
+		</informalfigure>
+        
+        <para>It is also possible to filter the list of launches shown by typing text
+        into the box at the lower-right of the dialog. For example if "Play" is typed
+        into the filter box then all other launches except those that begin with
+        <guilabel>Play</guilabel> will be filtered out. This is shown in the image below.</para>
+        
+        <informalfigure id="fig-flashlight-launched-run-control-filter">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/flashlight-launched-run-control-filter.png" />
+				</imageobject>
+			</mediaobject>
+		</informalfigure>
+		
+		<para>To clear any filter you can either erase the text using backspace
+		/ delete or press the <guiicon><inlinegraphic
+        fileref="images/gray_x.png" /></guiicon> (which will erase the text all at once)</para>
+        
+        <para>There are two ways remove runs from the dialog that are ready for the user to query.
+        First, you can clear an individual run by pressing the <guiicon><inlinegraphic
+        fileref="images/gray_x.png" /></guiicon> to its right. Second, you can press the <guibutton>Clear List</guibutton>
+        button to the lower-left of the dialog. The <guibutton>Clear List</guibutton>
+        button clears all runs from the list that have completed data preparation.  These two approaches are highlighted
+        in the image below.</para>
+        
+        <informalfigure id="fig-flashlight-launched-run-control-clear">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/flashlight-launched-run-control-clear.png" />
+				</imageobject>
+			</mediaobject>
+		</informalfigure>
+        
+        <para></para>
+	</sect2>
 </sect1>
 
 
