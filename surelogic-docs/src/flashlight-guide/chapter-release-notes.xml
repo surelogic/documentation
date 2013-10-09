@@ -11,10 +11,10 @@
   These are presented in the sections below for each released version of
   Flashlight.</para>
   
-  <sect1>
+  <section>
     <title>Flashlight version 5.0.0</title>
     <para>This section describes the 5.0.0 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <para>This section describes new and noteworthy features in this version of Flashlight.</para>
       <orderedlist>
@@ -74,8 +74,8 @@
                   be hard to obtain from a list of 1,874 accesses.</para>
         </listitem>
       </orderedlist>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
 		<title>Known Problems</title>
 		<para>This section describes known limitations in this
 			version of Flashlight.</para>
@@ -89,13 +89,13 @@
 					<para>We are working to fix this problem in the next release of Flashlight.</para>
 				</listitem>
 				</orderedlist>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
   
-    <sect1>
+    <section>
     <title>Flashlight version 4.6.0</title>
     <para>This section describes the 4.6.0 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <para>This section describes new and noteworthy features in this version of Flashlight.</para>
       <orderedlist>
@@ -117,8 +117,8 @@
           </para>
         </listitem>
       </orderedlist>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
 		<title>Known Problems</title>
 		<para>This section describes known limitations in this
 			version of Flashlight.</para>
@@ -133,13 +133,13 @@
 					<para>We are working to fix this problem in the next release of Flashlight.</para>
 				</listitem>
 				</orderedlist>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
 
-  <sect1>
+  <section>
     <title>Flashlight version 4.5.0</title>
     <para>This section describes the 4.5.0 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <orderedlist>
         <listitem>
@@ -195,18 +195,18 @@
           </para>
         </listitem>
       </orderedlist>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
       <title>Known Problems</title>
       <para>The known problems are unchanged from the 4.3.4 release.</para>
 
-    </sect2>
-  </sect1>
+    </section>
+  </section>
   
-  <sect1>
+  <section>
     <title>Flashlight version 4.4.0</title>
     <para>This section describes the 4.4.0 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <orderedlist>
         <listitem>
@@ -239,17 +239,17 @@
 		  </mediaobject>
         </listitem>
       </orderedlist>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
       <title>Known Problems</title>
       <para>The known problems are unchanged from the 4.3.4 release.</para>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
 
-  <sect1>
+  <section>
     <title>Flashlight version 4.3.4</title>
     <para>This section describes the 4.3.4 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <orderedlist>
         <listitem>
@@ -294,8 +294,8 @@
           </para>
         </listitem>
       </orderedlist>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
       <title>Known Problems</title>
       <para>This section describes known bugs and limitations in this
       version of Flashlight.</para>
@@ -315,12 +315,12 @@
 	  </para>
 	</listitem>
       </itemizedlist>
-    </sect2>
-  </sect1>
-  <sect1>
+    </section>
+  </section>
+  <section>
     <title>Flashlight version 4.3.3</title>
     <para>This section describes the 4.3.3 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <orderedlist>
         <listitem>
@@ -331,8 +331,8 @@
           </para>
         </listitem>
       </orderedlist>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
       <title>Known Problems</title>
       <para>This section describes known bugs and limitations in this
       version of Flashlight.</para>
@@ -352,12 +352,12 @@
 	  </para>
 	</listitem>
       </itemizedlist>
-    </sect2>
-  </sect1>
-  <sect1>
+    </section>
+  </section>
+  <section>
     <title>Flashlight version 4.3.1</title>
     <para>This section describes the 4.3.1 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <orderedlist>
         <listitem>
@@ -373,8 +373,8 @@
           </para>
         </listitem>
       </orderedlist>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
       <title>Known Problems</title>
       <para>This section describes known bugs and limitations in this
       version of Flashlight.</para>
@@ -394,13 +394,13 @@
 	  </para>
 	</listitem>
       </itemizedlist>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
 
-  <sect1>
+  <section>
     <title>Flashlight version 4.3.0</title>
     <para>This section describes the 4.3.0 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <orderedlist>
         <listitem>
@@ -411,8 +411,8 @@
           </para>
         </listitem>
       </orderedlist>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
       <title>Known Problems</title>
       <para>This section describes known bugs and limitations in this
       version of Flashlight.</para>
@@ -432,17 +432,17 @@
 	  </para>
 	</listitem>
       </itemizedlist>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
 
-  <sect1>
+  <section>
     <title>Flashlight version 4.2.0</title>
     <para>This section describes the 4.2.0 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <para>Flashlight is unchanged since the previous release.</para>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
       <title>Known Problems</title>
       <para>This section describes known bugs and limitations in this
       version of Flashlight.</para>
@@ -462,14 +462,14 @@
 	  </para>
 	</listitem>
       </orderedlist>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
 
 
-  <sect1>
+  <section>
     <title>Flashlight version 4.1.0</title>
     <para>This section describes the 4.1.0 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <para>This section describes new and noteworthy features in this
       version of Flashlight.</para>
@@ -508,8 +508,8 @@
           all classes are instrumented by Flashlight.</para>
         </listitem>
       </orderedlist>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
       <title>Known Problems</title>
       <para>This section describes known bugs and limitations in this
       version of Flashlight.</para>
@@ -529,13 +529,13 @@
 	  </para>
 	</listitem>
       </itemizedlist>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
 
-  <sect1>
+  <section>
     <title>Flashlight version 4.0.1</title>
     <para>This section describes the 4.0.1 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
 
       <para>This section describes new and noteworthy features in this
@@ -575,13 +575,13 @@
           </para>
         </listitem>
       </orderedlist>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
 
-  <sect1>
+  <section>
     <title>Flashlight version 4.0.0</title>
     <para>This section describes the 4.0.0 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <para>This section describes new and noteworthy features in this
       version of Flashlight.</para>
@@ -627,18 +627,18 @@
 	    a new license.</para>
 	  </listitem>
       </orderedlist>
-    </sect2>
-    <sect2>
+    </section>
+    <section>
       <title>Known Problems</title>
       <para>Flashlight has no known problems at this time.</para>
-    </sect2>
+    </section>
 
-  </sect1>
+  </section>
 
-  <sect1>
+  <section>
     <title>Flashlight version 3.2.0</title>
     <para>This section describes the 3.2.0 version of Flashlight.</para>
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
       <para>This section describes new and noteworthy features in this
       version of Flashlight.</para>
@@ -656,22 +656,22 @@
 	  </para>
 	</listitem>
       </orderedlist>
-    </sect2>
+    </section>
 
-    <sect2>
+    <section>
       <title>Known Problems</title>
 
       <para>The known bugs and limitations in this version of
 	Flashlight is unchanged from the previous release.</para>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
 
-  <sect1>
+  <section>
     <title>Flashlight version 3.1.0</title>
     
     <para>This section describes the 3.1.0 release of Flashlight.</para>
     
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
 
       <para>This section describes new and noteworthy features in this
@@ -723,22 +723,22 @@
 	  </mediaobject>
 	</listitem>
       </orderedlist>
-    </sect2>
+    </section>
 
-    <sect2>
+    <section>
       <title>Known Problems</title>
 
       <para>The known bugs and limitations in this version of
 	Flashlight is unchanged from the previous release.</para>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
   
-    <sect1>
+    <section>
     <title>Flashlight version 3.0.0</title>
     
     <para>This section describes the 3.0.0 release of Flashlight.</para>
     
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
 
       <para>This section describes new and noteworthy features in this
@@ -769,9 +769,9 @@
 	  </para>
 	</listitem>
       </itemizedlist>
-    </sect2>
+    </section>
     
-    <sect2>
+    <section>
       <title>Known Problems</title>
 
       <para>This section describes known bugs and limitations in this
@@ -803,15 +803,15 @@
 	  </para>
 	</listitem>
       </itemizedlist>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
 
-  <sect1>
+  <section>
     <title>Flashlight version 2.3.0</title>
     
     <para>This section describes the 2.3.0 release of Flashlight.</para>
     
-    <sect2>
+    <section>
       <title>New and Noteworthy</title>
 
       <para>This section describes new and noteworthy features in this
@@ -849,9 +849,9 @@
 	</listitem>
 
       </itemizedlist>
-    </sect2>
+    </section>
     
-    <sect2>
+    <section>
       <title>Known Problems</title>
 
       <para>This section describes known bugs and limitations in this
@@ -870,7 +870,7 @@
 	  </para>
 	</listitem>
       </itemizedlist>
-    </sect2>
-  </sect1>
+    </section>
+  </section>
 
 </chapter>
