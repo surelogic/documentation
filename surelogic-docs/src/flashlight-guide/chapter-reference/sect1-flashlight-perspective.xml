@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="flashlight-perspective">
+<section id="flashlight-perspective">
 	<title>The Flashlight perspective</title>
 
 	<para>
@@ -29,36 +29,65 @@
 			</imageobject>
 		</mediaobject>
 	</informalfigure>
+	
+	<para>Each of the views shown in the screenshot above is discussed in the following sections.</para>
 
-	<sect2>
+	<section>
 		<title>Views</title>
 		<para>This section describes the various Flashlight views unique to
 			the
 			Flashlight Eclipse client, and that populate the perspective
 		</para>
 
-		<sect3 id="flashlight-runs-view">
-			<title>Flashlight Runs</title>
+		<section id="flashlight-runs-view">
+			<title>The Flashlight Runs view</title>
 			<para>
 				The
 				<guilabel>Flashlight Runs</guilabel>
 				view lists information about
 				all of the completed runs of programs launched from the Flashlight
-				launch tab.
+				launch tab. An example of this view is shown in <xref linkend="fig-flashlight-runs-view"/>.
+				This view only shows runs that have <emphasis>completed their execution</emphasis>. To examine
+				runs that are still running, and were been launched within Eclipse, you
+				use the <guilabel>Launched Run Control</guilabel>
+				dialog as described in <xref linkend="flashlight-launched-run-control-dialog" /></para>
+
+				<figure id="fig-flashlight-runs-view">
+					<title>The <guilabel>Flashlight Runs</guilabel> view</title>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/flashlight-runs-view.png" />
+						</imageobject>
+					</mediaobject>
+				</figure>
+
+			<para>The list below describes each column of the table that appears in this view.</para>
 
 				<itemizedlist>
 					<listitem>
 						<formalpara>
-							<title>Raw</title>
-							<para>The size of the data produced by the program run.</para>
-						</formalpara>
-					</listitem>
-
-					<listitem>
-						<formalpara>
-							<title>Prep</title>
-							<para>The size of the data produced by prepping the run. If the
-								data has not been prepared yet, this column will be blank.
+							<title>Size</title>
+							<para>The size of the the run and its current state.
+							The size is of the disk space being used by the run. The state of the
+							run is indicated by the icon displayed in this column. There are three icons
+							<itemizedlist>
+								<listitem>
+									<para><guiicon><inlinegraphic  fileref="images/drum.png" /></guiicon> &ndash; The run
+									has finished and its data is prepared for querying. Selecting this run will populate
+									the <guilabel>Query Menu</guilabel> with queries and the <guilabel>Query Results</guilabel>
+									view with good and bad news about the run.</para>
+								</listitem>
+								<listitem>
+									<para><guiicon><inlinegraphic  fileref="images/refresh.gif" /></guiicon> &ndash; The
+									run has completed data collection and is in the process of being prepared for querying.</para>
+								</listitem>
+								<listitem>
+									<para><guiicon><inlinegraphic  fileref="images/file.gif" /></guiicon> &ndash; The run
+									has completed data collection but has not started data preparation or its prepared data
+									has been manually been deleted from the disk. Selecting this run will allow you to prepare
+									it for querying (so will a double-click on the run).</para>
+								</listitem>
+							</itemizedlist>
 							</para>
 						</formalpara>
 					</listitem>
@@ -68,7 +97,17 @@
 							<title>Run</title>
 							<para>The name of the program run. This is the same name that you
 								see when launching a program from the Flashlight launch
-								tab.
+								tab. The icon indicates what type of program the run represents. There are two icons
+								<itemizedlist>
+								<listitem>
+									<para><guiicon><inlinegraphic  fileref="images/java_app.gif" /></guiicon> &ndash; The run
+									is from a Java desktop or server application.</para>
+								</listitem>
+								<listitem>
+									<para><guiicon><inlinegraphic  fileref="images/android_app.gif" /></guiicon> &ndash; The
+									run is from an Android application launched on a phone, tablet, or emulator.</para>
+								</listitem>
+							    </itemizedlist>
 							</para>
 						</formalpara>
 					</listitem>
@@ -79,21 +118,32 @@
 							<para>The time the program was launched.</para>
 						</formalpara>
 					</listitem>
-
+					
 					<listitem>
 						<formalpara>
-							<title>By</title>
-							<para>The user the program ran under.</para>
+							<title>Duration</title>
+							<para>The duration of the program execution.</para>
 						</formalpara>
 					</listitem>
-
+					
 					<listitem>
 						<formalpara>
-							<title>Host</title>
-							<para>The hostname of the computer the program ran on.</para>
+							<title>Processors</title>
+							<para>The number of CPU's that the JVM ran on when this program
+								was executed.
+							</para>
 						</formalpara>
 					</listitem>
-
+					
+					<listitem>
+						<formalpara>
+							<title>Max Memory</title>
+							<para>The maximum amount of computer memory allotted to the
+								program.
+							</para>
+						</formalpara>
+					</listitem>
+					
 					<listitem>
 						<formalpara>
 							<title>Java</title>
@@ -103,7 +153,7 @@
 
 					<listitem>
 						<formalpara>
-							<title>Vendor</title>
+							<title>Java Vendor</title>
 							<para>The JVM vendor.</para>
 						</formalpara>
 					</listitem>
@@ -117,202 +167,305 @@
 
 					<listitem>
 						<formalpara>
-							<title>Max Memory (MB)</title>
-							<para>The maximum amount of memory in megabytes allotted to the
-								program.
-							</para>
+							<title>Host</title>
+							<para>The hostname of the computer the program ran on.</para>
 						</formalpara>
 					</listitem>
 
 					<listitem>
 						<formalpara>
-							<title>Processors</title>
-							<para>The number of CPU's that the JVM ran on when this program
-								was executed.
-							</para>
+							<title>By</title>
+							<para>The user the program ran under.</para>
 						</formalpara>
 					</listitem>
 				</itemizedlist>
-			</para>
-			<informalfigure id="fig-flashlight-runs-view">
-				<!--title>The Flashlight Runs View</title -->
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="images/flashlight-runs-view.png" />
-					</imageobject>
-				</mediaobject>
-			</informalfigure>
+			
+	 <figure id="fig-flashlight-runs-view-toolbar">
+        <title>The <guilabel>Flashlight Runs</guilabel> view toolbar</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/flashlight-runs-view-toolbar.png"/></imageobject>
+        </mediaobject>
+      </figure>
+			
+			<para>The view&rsquo;s toolbar has two command icons; see <xref
+      linkend="fig-flashlight-runs-view-toolbar"/>.
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/fl_run_control.gif"/></guiicon></title>
+              <para>This button opens the <guilabel>Launched Run Control</guilabel> dialog. This dialog, which
+              lists still running Flashlight-instrumented programs, is described
+              in <xref linkend="flashlight-launched-run-control-dialog" />.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/refresh.gif"/></guiicon></title>
+              <para>This button scans the disk and refreshes the list of completed Flashlight runs. This can be
+              useful if an Ant scan was added to the Flashlight scan directory.</para>
+            </formalpara>            
+          </listitem>
+        </itemizedlist>
+      </para>
+      
+       <figure id="fig-flashlight-runs-view-menu">
+        <title>The <guilabel>Flashlight Runs</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/flashlight-runs-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has six commands; see <xref
+      linkend="fig-flashlight-runs-view-menu"/>.
+      	<itemizedlist>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/fl_prep_data.gif"/> Prepare</guiicon></title>
+		    <para>Selecting this menu item causes selected runs to be prepared for querying. If the run has already been prepared,
+		    the prepared data is deleted and prepared again from the "raw" collected run data.</para>
+		  </formalpara>
+		</listitem>
+	    <listitem>
+	      <formalpara>
+	        <title><guiicon><inlinegraphic fileref="images/file.gif"/> Show Log</guiicon></title>
+	        <para>This button opens a dialog that shows the log for the run. This includes information about the instrumentation,
+	        execution, and data preparation. An example of the dialog is shown in the image below.
+	        <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/flashlight-runs-view-log-dialog.png" />
+				</imageobject>
+			</mediaobject>
+	        </para>
+	      </formalpara>            
+	     </listitem>
+	     <listitem>
+	      <formalpara>
+	        <title><guiicon><inlinegraphic fileref="images/file.gif"/> Infer JSure Annotations...</guiicon></title>
+	        <para>Selecting this menu item opens a dialog that allows the user to infer JSure annotations for
+             a project, based on a completed Flashlight run.  For more information
+             see <xref linkend="flashlight-promises-inference" />.</para>
+	      </formalpara>            
+	     </listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/red_x.gif"/> Delete</guiicon></title>
+		    <para>Selecting this menu item deletes the selected runs from the disk.</para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/fl_run_control.gif"/> Run Control</guiicon></title>
+		    <para>Selecting this menu item opens the <guilabel>Flashlight Launched Run Control</guilabel> dialog. This
+            dialog lists all instrumented programs launched during this Eclipse session. It allows
+            collection of data to be stopped at any time.</para>
+		  </formalpara>
+		</listitem>
+				<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/refresh.gif"/> Refresh</guiicon></title>
+		    <para>Selecting this menu item scans from the disk and shows updates the view contents to reflect the
+		    current disk state. This is useful if runs are manually deleted or Ant runs are manually copied into the
+		    run directory.</para>
+		  </formalpara>
+		</listitem>
+	    </itemizedlist>
+      </para>
+      
+      <figure id="fig-flashlight-runs-view-context-menu">
+        <title>The <guilabel>Flashlight Runs</guilabel> view context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/flashlight-runs-view-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+    <para>The view&rsquo;s context menu has five commands; see <xref linkend="fig-flashlight-runs-view-context-menu"/>.
+    These commands match the view menu commands described above.</para>  
+    </section>    
 
-		</sect3>
 
-		<sect3 id="flashlight-run-overview">
-			<title>Run Overview</title>
-			<para>
-				The
-				<guilabel>Run Overview</guilabel>
-				view displays a summary of the
-				data Flashlight collected for a given run. The overview for a run is
-				displayed whenever a run is selected in the
-				<guilabel>Run
-					View
-				</guilabel>
-				.
-			</para>
-			<para>
-				The collected data is organized into a series of tabs, each focusing
-				on
-				a facet of the data.
-				<itemizedlist>
-					<listitem>
-						<formalpara>
-							<title>Lock Contention</title>
-							<para>Lists the most highly contended locks in the program,
-								sorted
-								in descended order by average block time. Drilling into the lock
-								will display all of the code locations where the lock was
-								acquired
-								during the run, and how long the program was blocked for.
-							</para>
-						</formalpara>
-					</listitem>
-					<listitem>
-						<formalpara>
-							<title>Deadlocks</title>
-							<para>Allows the user to browse all detected lock cycles in the
-								program. Each cycle has a numeric identifier, and is displayed
-								as
-								a link at the top of the page. Clicking on the cycle's link will
-								display a graph of the cycle. The nodes in the graph represent
-								lock objects in the program, and each directed edge indicates
-								that
-								the target node was acquired while the source node was held at
-								some point in the run. The edges are also displayed as hyperlinks
-								to the right of the graph, and clicking on an edge shows example
-								stack traces for both source and target node acquisitions. The
-								threads that contributed to this lock cycle are also shown, and
-								hovering over them with the mouse highlights the edges observed
-								in
-								that thread.
-							</para>
-						</formalpara>
-					</listitem>
-					<listitem>
-						<formalpara>
-							<title>Race Conditions</title>
-							<para>Displays a tree of all the fields for which a potential
-								race
-								condition was detected during the run. Clicking on a field will
-								display a list of all of the locks that were held while the field
-								was accessed, and when and where the locks were acquired.
-							</para>
-						</formalpara>
-					</listitem>
-					<listitem>
-						<formalpara>
-							<title>Bad Publishes</title>
-							<para>Displays a tree of all the fields that were written to and
-								read by multiple threads before their owning object was fully
-								constructed. Drilling into a field shows all of the events that
-								occurred during object construction, and clicking on an event
-								displays the event's full stack trace underneath the tree.
-							</para>
-						</formalpara>
-					</listitem>
-					<listitem>
-						<formalpara>
-							<title>Program Timeline</title>
-							<para>A timeline of the observed run. The timeline shows the
-								duration of each thread as a blue line, and displays the full
-								program duration in red.
-							</para>
-						</formalpara>
-					</listitem>
-					<listitem>
-						<formalpara>
-							<title>Coverage</title>
-							<para>Shows the entire call graph of the observed program as a
-								tree, as well as the names of every thread. Clicking on a thread
-								will narrow the call graph down to just the portion of the
-								program
-								observed in that that thread. Multiple threads can also be
-								selected and deselected by shift-clicking.
-							</para>
-						</formalpara>
-					</listitem>
-				</itemizedlist>
-			</para>
-			<informalfigure id="fig-flashlight-run-overview">
-				<!--title>The Flashlight Run Overview</title -->
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="images/flashlight-run-overview.png" />
-					</imageobject>
-				</mediaobject>
-			</informalfigure>
 
-		</sect3>
-		<sect3>
-			<title>Query Menu</title>
-			<para>
-				The
-				<guilabel>Query Menu</guilabel>
-				view displays the queries that can
-				be run from the current query results displayed in the
-				<guilabel>Query
-					Results
-				</guilabel>
-				view. If no results are displayed, then it displays
-				the queries that can be run from the currently selected run in the
-				<guilabel>Flashlight Runs</guilabel>
-				view. Queries that can be run by
-				double-clicking are black, queries that need you to select a more
-				specific row from the
-				<guilabel>Query Results</guilabel>
-				view are grayed
-				out.
-			</para>
-			<informalfigure id="fig-flashlight-query-menu-view">
-				<!--title>The Query Menu View</title -->
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="images/flashlight-query-menu-view.png" />
-					</imageobject>
-				</mediaobject>
-			</informalfigure>
+	<section id="query-menu-view">
+		<title>The Query Menu view</title>
+		
+		<para>The <guilabel>Query Menu</guilabel> view lists the queries that you can do on a Flashlight run.
+		An example of this view is shown in <xref linkend="fig-query-menu-view"/>. At the top level
+        these queries are categorized to help you determine what results are of interest to you. These categories can be seen in the image
+        below. If you have selected a particular result in the <guilabel>Query Results</guilabel> view then the <guilabel>Query Menu</guilabel> view lists
+        the possible "drill-in" queries, which we also call sub-queries, you can invoke.</para>
+		
+		<figure id="fig-query-menu-view">
+			<title>The <guilabel>Query Menu</guilabel> view</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-menu-view.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<para>During data preparation Flashlight checks if each top-level query has results. Normally queries with empty results are
+		not shown in the menu (however a setting below can change this and shown them in gray). If, however, all queries in a section are empty then a message
+		is shown for that category to inform the user of this situation. In <xref linkend="fig-query-menu-view"/> this is the
+		case for the <guilabel>API Use</guilabel> category at the bottom of the view.</para>
+		
+	 <figure id="fig-query-menu-view-toolbar">
+        <title>The <guilabel>Query Menu</guilabel> view toolbar</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/query-menu-view-toolbar.png"/></imageobject>
+        </mediaobject>
+      </figure>
+			
+			<para>The view&rsquo;s toolbar has one command icons; see <xref
+      linkend="fig-query-menu-view-toolbar"/>.
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/query_back.gif"/></guiicon></title>
+              <para>This button brings the query menu back up to the top level for the currently selected run.
+              It keeps all previous query results.</para>
+            </formalpara>            
+          </listitem>
+        </itemizedlist>
+      </para>
+	
+	  <figure id="fig-query-menu-view-menu">
+        <title>The <guilabel>Query Menu</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/query-menu-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has three commands; see <xref
+      linkend="fig-flashlight-runs-view-menu"/>.
+      	<itemizedlist>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/query_back.gif"/> Back to Top-Level Queries</guiicon></title>
+		    <para>Selecting this menu item brings the query menu back up to the top level for the currently selected run.
+              It keeps all previous query results.</para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon>Show Empty Queries</guiicon></title>
+		    <para>Checking this menu item causes empty queries at the top level of the query menu to be shown in gray.
+		    If it is not checked these queries are not shown in the view. All the grey queries listed in the menu below can
+		    be run, but will result in no row of data returned.
+		     <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-menu-view-empty-queries.png" />
+				</imageobject>
+			</mediaobject>
+			This preference is for advanced users and developers. It is rarely useful for normal tool use.
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon>Show Unrunnable Queries</guiicon></title>
+		    <para>Checking this menu item causes unrunnable sub-queries to be shown in gray.
+		    If it is not checked these queries are not shown in the view. The grey sub-query in the image below
+		    cannot be run for the selected row in the <guilabel>Query Results</guilabel> view.
+		     <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-menu-view-unrunnable.png" />
+				</imageobject>
+			</mediaobject>
+			This preference is for advanced users and developers. It is rarely useful for normal tool use.
+			This preference also shows unrunnable queries in the context menu of the <guilabel>Query Results</guilabel> view.
+		    </para>
+		  </formalpara>
+		</listitem>
+	</itemizedlist>
+	</para>
+	
+	  <figure id="fig-query-menu-view-context-menu">
+        <title>The <guilabel>Query Menu</guilabel> view context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/query-menu-view-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+    <para>The view&rsquo;s context menu has two commands; see <xref linkend="fig-query-menu-view-context-menu"/>.
+    <itemizedlist>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/run_drum.gif"/> Run</guiicon></title>
+		    <para>Selecting this menu item causes selected query to be invoked and its results displayed to the tool user.
+		    A double-click can also be used to invoke a query.</para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/doc.gif"/> Show Querydoc</guiicon></title>
+		    <para>Selecting this menu item causes the documentation for the selected
+		    query to be shown in the <guilabel>Querydoc</guilabel> view. Also, selecting the query with the mouse
+		    causes its documentation to appear in the <guilabel>Querydoc</guilabel> view. The <guilabel>Querydoc</guilabel> view
+		    is described in <xref linkend="querydoc-view"/>.</para>
+		  </formalpara>
+		</listitem>
+	</itemizedlist>
+    </para>  
 
-		</sect3>
-		<sect3>
-			<title>Query Results</title>
-			<para>
-				This view displays the results from performing a query on a
-				Flashlight
-				run. You can change the results displayed by clicking on a different
-				query in the
-				<guilabel>Query Results Explorer</guilabel>
-				view or in the
-				<guilabel>Query Menu</guilabel>
-				view. Only one of the Query Results and
-				Run Overview views are displayed at a time.
-			</para>
+	</section>
+		
+	<section id="query-results-view">
+		<title>The Query Results view</title>
+				
+	 <para>The <guilabel>Query Results</guilabel> view shows either (a) an overview of news about the run
+      currently selected in the <guilabel>Flashlight Runs</guilabel> view or (b) query results as
+      a table, tree or tree-table.</para>
+      
+     <figure id="fig-query-results-view-news">
+			<title>The <guilabel>Query Results</guilabel> view showing good and bad news about a run</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-results-view-news.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+      
+      <para><emphasis>Showing good and bad news about a run:</emphasis> An example of news about a run
+      is shown in <xref linkend="fig-query-results-view-news"/>.
+      In this mode the view lists good and bad
+      news about the selected run. These news items are not definitive, because they represent
+      information from a single run of the program&mdash;hence the name <emphasis>news</emphasis> instead of <emphasis>results</emphasis>.
+      Some news items are underlined. These underlined news items may be selected with the mouse to invoke a query and show the
+      news item's corresponding results. Some news items are not underlined because they indicate that no information was
+      observed during the run&mdash;in these cases no results indicates something newsworthy. These items that are not
+      underlined have no associated results.</para>
+      
+		<figure id="fig-query-results-view-results">
+			<title>The <guilabel>Query Results</guilabel> view showing query results and allowing sub-queries on a selected row</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-results-view-results.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+     <para><emphasis>Showing results and allowing "drill-in" queries:</emphasis> When results are shown in the <guilabel>Query Results</guilabel> view you can select a row and "drill-in" to a particular row of the
+      result that is of interest.
+      An example of news about a run
+      is shown in <xref linkend="fig-query-results-view-results"/>.
+       Hence, you can run queries based upon the results of previous queries. This "drill-in" tree of queries is
+      tracked in the <guilabel>Query Results Explorer</guilabel> view.  You can move up and down within
+      a particular "drill-in" tree of query results by using the forward and back arrows in the toolbar of both results views or by selecting
+      a particular result in the <guilabel>Query Results Explorer</guilabel> view. To run a "drill-in" query you bring up the context menu for
+      the selected result in the <guilabel>Query Results</guilabel> view (for example, using a right-click of the mouse) or double-click that query
+      in the <guilabel>Query Menu</guilabel> view.</para>
+		
 
-			<para>
-				The result of a query is displayed as either a tree, table, or
-				tree-table, depending on the specific query.
-				<xref linkend="query-reference" />
-				describes the different queries and the
-				shapes of their results.
-			</para>
+		<para>
+			The result of a query is displayed as either a tree, table, or
+			tree-table, depending on the specific query.
+			<xref linkend="query-reference" />
+			describes the different queries and the
+			shapes of their results.
+		</para>
 
-			<informalfigure id="fig-flashlight-query-results-view">
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="images/flashlight-query-results-view.png" />
-					</imageobject>
-				</mediaobject>
-			</informalfigure>
-
-		</sect3>
-		<sect3>
+	</section>
+		<section>
 			<title>Query Results Explorer</title>
 			<para>
 				This view allows you to select any of the queries run previously
@@ -330,9 +483,15 @@
 					</imageobject>
 				</mediaobject>
 			</informalfigure>
-		</sect3>
+		</section>
 
-		<sect3>
+	<section id="querydoc-view">
+		<title>The Querydoc view</title>
+		<para>TODO</para>
+
+	</section>
+
+		<section>
 			<title>Historical Source Snapshot</title>
 			<para>
 				When a Flashlight run is performed, a snapshot of the project source
@@ -347,8 +506,8 @@
 					</imageobject>
 				</mediaobject>
 			</informalfigure>
-		</sect3>
-		<sect3>
+		</section>
+		<section>
 			<title>Monitor</title>
 			<para>
 				The
@@ -424,11 +583,11 @@
 				Swing Event Dispatch Thread are highlighted. This feature can be used
 				to detect violations of the Swing threading model.
 			</para>
-		</sect3>
+		</section>
 
-	</sect2>
+	</section>
 
-	<sect2>
+	<section id="flashlight-launched-run-control-dialog">
 		<title>Launched Run Control Dialog</title>
 		<para>This section describes the Flashlight Launched Run Control
 			dialog. This dialog
@@ -510,10 +669,8 @@
 			</mediaobject>
 		</informalfigure>
         
-        
-        <para></para>
-	</sect2>
-</sect1>
+	</section>
+</section>
 
 
 
