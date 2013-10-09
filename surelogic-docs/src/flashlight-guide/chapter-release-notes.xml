@@ -11,6 +11,87 @@
   These are presented in the sections below for each released version of
   Flashlight.</para>
   
+  <sect1>
+    <title>Flashlight version 5.0.0</title>
+    <para>This section describes the 5.0.0 version of Flashlight.</para>
+    <sect2>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this version of Flashlight.</para>
+      <orderedlist>
+        <listitem>
+          <para><emphasis>Query Results shows good and bad news about the selected run</emphasis> &mdash;
+              The <guilabel>Query Results</guilabel> view now shows either (a) an overview of the run
+      currently selected in the <guilabel>Flashlight Runs</guilabel> view or (b) query results as
+      a table, tree or tree-table. What is new is the lists of good and bad
+      news items about the selected run. These news items are not definitive, because they represent
+      information from a single run of the program&mdash;hence the name <emphasis>news</emphasis> instead of <emphasis>results</emphasis>.
+      Some news items are underlined. These underlined news items may be selected with the mouse to invoke a query and show the
+      news item's corresponding results. Some news items are not underlined because they indicate that no information was
+      observed during the run&mdash;in these cases no results indicates something newsworthy. These items that are not
+      underlined have no associated
+      results.
+          </para>
+          <para>The screenshot below shows an example of good and bad news about
+              a run of the <guilabel>FlashlightTutorial_CounterRace</guilabel> Android application.
+              
+              <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-500-news.png" />
+				</imageobject>
+			</mediaobject>
+          </para>
+        </listitem>
+        
+        <listitem>
+          <para><emphasis>Major changes to tool queries</emphasis> &mdash;
+              The set of queries and sub-queries available in Flashlight has been significantly changed. These changes
+              make the tool easier to use and more actionable. In particular, these changes make it easier to get to
+              stack traces and lock traces and, therefore, link an analysis result to your code.
+              </para>
+        </listitem>
+        
+        <listitem>
+          <para><emphasis>Stack and lock traces are now unique</emphasis> &mdash;
+              Flashlight now identifies each stack and lock trace uniquely. This changes the way many queries are reported.
+              The problem which could occur in past versions of Flashight is that a query could result in hundreds of rows.
+              Now queries can group by distinct stack trace or lock trace and dramatically reduce the on-screen clutter.
+              The updated queries present more information to the user in a concise manner.
+              </para>
+              <para>As an example, the screenshot below shows the query results about where the field <guilabel>f_threadLocalCounts</guilabel> is
+                  accessed in the code.</para>
+                  
+              <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-500-uTrace.png" />
+				</imageobject>
+			</mediaobject>
+			
+                  <para>The result is grouped by unique path to the access&mdash;or unique stack trace. This result is three
+                  rows, in the previous release of Flashlight this result would have been 1,874 rows. In addition, this result conveys at a
+                  glance more about the use of the <guilabel>f_threadLocalCounts</guilabel> field by the program.
+                  In particular, the field is initialized in the main thread, passed to Thread-272 where
+                  it is thread confined for almost a second, then, finally, read again by the main thread. This insight would
+                  be hard to obtain from a list of 1,874 accesses.</para>
+        </listitem>
+      </orderedlist>
+    </sect2>
+    <sect2>
+		<title>Known Problems</title>
+		<para>This section describes known limitations in this
+			version of Flashlight.</para>
+		<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>TODO</emphasis>
+						&mdash;
+						TODO OR REMOVE.
+					</para>
+					<para>We are working to fix this problem in the next release of Flashlight.</para>
+				</listitem>
+				</orderedlist>
+    </sect2>
+  </sect1>
+  
     <sect1>
     <title>Flashlight version 4.6.0</title>
     <para>This section describes the 4.6.0 version of Flashlight.</para>
