@@ -87,10 +87,10 @@
 			the tutorial.</para>
 	</note>
 
-  <xi:include href="sect2-sec-tutorial-client.xml"/>
-  <xi:include href="sect2-sec-tutorial-server.xml"/>
-  <xi:include href="sect2-sec-tutorial-playerui.xml"/>
-  <xi:include href="sect2-sec-tutorial-dining.xml"/>
-  <xi:include href="sect2-sec-tutorial-android.xml"/>
-  <xi:include href="sect2-sec-tutorial-query-editor.xml"/>
+  <xi:include href="tutorial-planetbaron-client.xml"/>
+  <xi:include href="tutorial-planetbaron-server.xml"/>
+  <xi:include href="tutorial-planetbaron-playerui.xml"/>
+  <xi:include href="tutorial-dining.xml"/>
+  <xi:include href="tutorial-android.xml"/>
+  <xi:include href="tutorial-query-editor.xml"/>
 </section>
