@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect2 id="sec-tutorial-client">
+<section id="sec-tutorial-client">
   <title>Using Flashlight on the PlanetBaron project</title>
 
   <para>PlanetBaron is a network-based real-time strategy game. It contains
@@ -473,4 +473,4 @@ public static void main(String[] args) {
   <guilabel>Flashlight Runs</guilabel> view should be empty. It is important to
   delete old runs to ensure that you free up disk space on your computer.</para>
 
-</sect2>
+</section>

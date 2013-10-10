@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="introduction">
+<section id="introduction">
   <title>Introduction</title>
 
   <para><emphasis>What is Flashlight?</emphasis> Flashlight is a dynamic
@@ -41,4 +41,4 @@
   database of program run data is queried using a hierarchy of queries
   that enable the results of one query to be used as a basis for "drill
   in" using sub-queries.</para>
-</sect1>
+</section>

@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="sec-tutorial" xmlns:xi="http://www.w3.org/2001/XInclude">
+<section id="sec-tutorial" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Tutorials</title>
 
   <para>This section contains a series of Flashlight tutorials.  It is
@@ -62,4 +62,4 @@
   <xi:include href="sect2-sec-tutorial-playerui.xml"/>
   <xi:include href="sect2-sec-tutorial-query-editor.xml"/>
   <xi:include href="sect2-sec-tutorial-android.xml"/>
-</sect1>
+</section>
