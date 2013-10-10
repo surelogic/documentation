@@ -3,8 +3,8 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="flashlight-launch">
-  <title>Flashlight Launch Configuration</title>
+<section id="flashlight-launch">
+  <title>Flashlight launch configuration</title>
   
   <para>Applications are executed with Flashlight instrumentation by
   using a special Eclipse "flashlight" run mode.  Like executing your 
@@ -53,7 +53,7 @@
     </orderedlist>
   </para>
   
-  <sect2 id="instrumentation-pane">
+  <section id="instrumentation-pane">
     <title>Instrumentation</title>
     
     <para>The settings in the <guilabel>Instrumentation</guilabel> pane
@@ -78,7 +78,7 @@
       </mediaobject>
     </figure>
 
-    <sect3 id="entries-to-instrument">
+    <section id="entries-to-instrument">
       <title>Classpath and Boothpath Entries to Instrument</title>
     
       <para>The first section lists the entries on the application's
@@ -93,9 +93,9 @@
       unchecking the items in the two lists.  You might want to alter
       this settings, for example, if you do not want to instrument any
       library JAR files used by your application.</para>
-    </sect3>
+    </section>
     
-    <sect3 id="classes-not-to-instrument">
+    <section id="classes-not-to-instrument">
       <title>Classes Not to Be Instrumented</title>
 
       <para>The third section lists those classes that should not be
@@ -143,11 +143,11 @@
           </imageobject>
         </mediaobject>
       </figure>
-    </sect3>    
-  </sect2>
+    </section>    
+  </section>
   
-  <sect2 id="data-collection-pane">
-    <title>Data Collection</title>
+  <section id="data-collection-pane">
+    <title>Data collection</title>
     
     <para>The settings in the <guilabel>Data Collection</guilabel> pane,
     see <xref linkend="fig-data-collection-pane"/>, control how the
@@ -171,9 +171,9 @@
         </imageobject>
       </mediaobject>
     </figure>
-  </sect2>
+  </section>
   
-  <sect2 id="methods-pane">
+  <section id="methods-pane">
     <title>Methods</title>
 
     <para>The settings in this pane specify the methods that Flashlight
@@ -230,9 +230,9 @@
         </imageobject>
       </mediaobject>
     </figure>
-  </sect2>
+  </section>
   
-  <sect2 id="fields-pane">
+  <section id="fields-pane">
     <title>Fields</title>
     
     <para>The settings in this pane control which field accesses in
@@ -346,5 +346,5 @@
         </imageobject>
       </mediaobject>
     </figure>
-  </sect2>
-</sect1>
+  </section>
+</section>

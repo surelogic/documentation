@@ -3,8 +3,8 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="flashlight-android"  xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>Using Flashlight With Android</title>
+<section id="flashlight-android"  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Using Flashlight with Android</title>
   
   <para>You can use Flashlight in collaboration with version 21.0.0 of Google's
   Android Development Tools (ADT).  If you do not have the Android SDK and ADT
@@ -19,7 +19,7 @@
 		sit for several seconds before you close it on the phone and then terminate it.</para>
 	</note>
 
-  <sect2>
+  <section>
     <title>Running Flashlight</title>
     <formalpara>
       <title>Enable Network Access</title>
@@ -62,9 +62,9 @@
       </figure>
     </formalpara>
 
-  </sect2>
+  </section>
 
-  <sect2>
+  <section>
     <title>Stopping Flashlight</title>
     <para>The simplest approach is to use the <guilabel>Flashlight Launched Run Control</guilabel> dialog. This will not
     stop the application on the Android device or emulator but will stop data collection
@@ -102,8 +102,8 @@
       </mediaobject>
     </figure>
 
-  </sect2>
+  </section>
 
-</sect1>
+</section>
 
 
