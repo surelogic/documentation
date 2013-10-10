@@ -30,14 +30,75 @@
 		</mediaobject>
 	</informalfigure>
 	
-	<para>Each of the views shown in the screenshot above is discussed in the following sections.</para>
-
-	<section>
-		<title>Views</title>
-		<para>This section describes the various Flashlight views unique to
-			the
-			Flashlight Eclipse client, and that populate the perspective
+	<para>Each of the views shown in the screenshot above is discussed in the following sections.  These views include
+			<itemizedlist>
+			  <listitem>
+			    <para>The <guilabel>Flashlight Runs</guilabel> view described in <xref linkend="flashlight-runs-view" /></para>
+			  </listitem>
+			  <listitem>
+			    <para>The <guilabel>Query Menu</guilabel> view described in <xref linkend="query-menu-view" /></para>
+			  </listitem>
+			  <listitem>
+			    <para>The <guilabel>Query Results</guilabel> view described in <xref linkend="query-results-view" /></para>
+			  </listitem>
+			  <listitem>
+			    <para>The <guilabel>Query Results Explorer</guilabel> view described in <xref linkend="query-results-explorer-view" /></para>
+			  </listitem>
+			  <listitem>
+			    <para>The <guilabel>Querydoc</guilabel> view described in <xref linkend="querydoc-view" /></para>
+			  </listitem>
+			  <listitem>
+			    <para>The <guilabel>Historical Source Snapshot</guilabel> view described in <xref linkend="historical-source-snapshot-view" /></para>
+			  </listitem>
+			</itemizedlist>
+			Finally, we also discuss the <guilabel>Flashlight Launched Run Control</guilabel> dialog
+			in <xref linkend="flashlight-launched-run-control-dialog" /> because it tracks launched Flashlight-instrumented
+			applications and allows control over data collection.
 		</para>
+		
+	<section>
+      <title>Switching to the Perspective</title>
+      
+      <para>The <guilabel>Flashlight</guilabel> perspective can be enabled
+      in several ways:
+        <itemizedlist>
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>Flashlight</guimenu>
+            <guimenuitem>Open Flashlight Perspective</guimenuitem></menuchoice>.
+            <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/open-flashlight-perspective.png" />
+                </imageobject>
+              </mediaobject>
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>By choosing to switch to the perspective when data preparation for a run completes:
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/perspective-switch.png" />
+                </imageobject>
+              </mediaobject>
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>Window</guimenu>
+            <guisubmenu>Open Perspective</guisubmenu>
+            <guimenuitem>Other&hellip;</guimenuitem></menuchoice>, and
+            then choosing <guilabel>Flashlight</guilabel> from
+            the <guilabel>Open Perspective</guilabel> dialog box.  Or by
+            using any other standard Eclipse mechanism to switch
+            perspectives, such as clicking the the perspective&rsquo;s
+            icon (<guiicon><inlinegraphic
+            fileref="images/fl_logo.png"/></guiicon>) in the shortcut
+            bar.</para>
+          </listitem>          
+        </itemizedlist>
+      </para>
+    </section>
+		
 
 		<section id="flashlight-runs-view">
 			<title>The Flashlight Runs view</title>
@@ -284,7 +345,6 @@
     </section>    
 
 
-
 	<section id="query-menu-view">
 		<title>The Query Menu view</title>
 		
@@ -315,7 +375,7 @@
         </mediaobject>
       </figure>
 			
-			<para>The view&rsquo;s toolbar has one command icons; see <xref
+			<para>The view&rsquo;s toolbar has one command icon; see <xref
       linkend="fig-query-menu-view-toolbar"/>.
         <itemizedlist>
           <listitem>
@@ -336,7 +396,7 @@
       </figure>
       
       <para>The view&rsquo;s menu has three commands; see <xref
-      linkend="fig-flashlight-runs-view-menu"/>.
+      linkend="fig-query-menu-view-menu"/>.
       	<itemizedlist>
 		<listitem>
 		  <formalpara>
@@ -406,15 +466,15 @@
 		</listitem>
 	</itemizedlist>
     </para>  
-
 	</section>
-		
+
+
 	<section id="query-results-view">
 		<title>The Query Results view</title>
 				
 	 <para>The <guilabel>Query Results</guilabel> view shows either (a) an overview of news about the run
       currently selected in the <guilabel>Flashlight Runs</guilabel> view or (b) query results as
-      a table, tree or tree-table.</para>
+      a table, tree or tree-table. We now consider examples of both.</para>
       
      <figure id="fig-query-results-view-news">
 			<title>The <guilabel>Query Results</guilabel> view showing good and bad news about a run</title>
@@ -434,6 +494,9 @@
       news item's corresponding results. Some news items are not underlined because they indicate that no information was
       observed during the run&mdash;in these cases no results indicates something newsworthy. These items that are not
       underlined have no associated results.</para>
+      
+      <para>The "news" version of this view is only shown if a run is selected and no query result about that run is selected.
+      If a query has been run the view shows the results of the query.</para>
       
 		<figure id="fig-query-results-view-results">
 			<title>The <guilabel>Query Results</guilabel> view showing query results and allowing sub-queries on a selected row</title>
@@ -464,131 +527,351 @@
 			shapes of their results.
 		</para>
 
+
+	 <figure id="fig-query-results-view-toolbar">
+        <title>The <guilabel>Query Results</guilabel> view toolbar</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/query-results-view-toolbar.png"/></imageobject>
+        </mediaobject>
+      </figure>
+			
+			<para>The view&rsquo;s toolbar has five command icons; see <xref
+      linkend="fig-query-menu-view-toolbar"/>.
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/collapse_all.gif"/></guiicon></title>
+              <para>This button collapses all opened nodes in a tree or tree-table query result.</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/left.gif"/></guiicon></title>
+              <para>This button changes the selected query to the immediate parent query of the currently selected query.
+              The tree of queries that has been run by the user is shown in the <guilabel>Query Results Explorer</guilabel> view.</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/right.gif"/></guiicon></title>
+              <para>This button changes the selected query to the first child query of the currently selected query.
+              The tree of queries that has been run by the user is shown in the <guilabel>Query Results Explorer</guilabel> view.</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/gray_x.png"/></guiicon></title>
+              <para>This button removes the selected query from this view and the <guilabel>Query Results Explorer</guilabel> view.
+              If the query has any child sub-queries they are removed as well. The immediate parent query of the
+              removed query, if one exists, becomes the selected query.</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/gray_x_double.png"/></guiicon></title>
+              <para>This button removes all queries the user has run from this view and the <guilabel>Query Results Explorer</guilabel> view.
+              The tree of queries that has been run by the user is shown in the <guilabel>Query Results Explorer</guilabel> view.</para>
+            </formalpara>            
+          </listitem>
+        </itemizedlist>
+      </para>
+	
+	  <figure id="fig-query-results-view-menu">
+        <title>The <guilabel>Query Results</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/query-results-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has six commands; see <xref
+      linkend="fig-query-results-view-menu"/>. This menu is exactly the same as the view menu for
+      the <guilabel>Query Results Explorer</guilabel> view.
+      	<itemizedlist>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/info.gif"/> Show Defined Variable Values...</guiicon></title>
+		    <para>Selecting this menu item brings up a dialog that shows the variable values that
+		    defined the context of the query result
+		    being shown in the view. Selecting rows in a query result defines variables that are used to
+		    set a context to run subsequent sub-queries. As
+		    the user drills-in to the collected results more and more variables are used to define the context. The dialog lists
+		    the variable names in blue and their values in black.
+		    <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-results-view-variables-dialog.png" />
+				</imageobject>
+			</mediaobject>
+			This menu item is for advanced users and developers. It is rarely useful for normal tool use.
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/file.gif"/> Show SQL...</guiicon></title>
+		    <para>Selecting this menu item brings up the SQL query run to create the result being displayed in this
+		    view. The dialog shows the SQL query with all variable value substitution completed. The original query may be examined
+		    in the <guilabel>Query Editor</guilabel>.
+		     <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-results-view-sql-dialog.png" />
+				</imageobject>
+			</mediaobject>
+			This menu item is for advanced users and developers. It is rarely useful for normal tool use.
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/export.gif"/> Export...</guiicon></title>
+		    <para>Selecting this menu item allows you to export the query result being shown in this view to a file. A dialog
+		    comes up that lets you select the desired output format.
+		    <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-results-view-export-dialog.png" />
+				</imageobject>
+			</mediaobject>
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/query_back.gif"/> Back to Top-Level Queries</guiicon></title>
+		    <para>This button brings the query menu back up to the top level for the currently selected run.
+              It keeps all previous query results.
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/gray_x.png"/> Remove</guiicon></title>
+		    <para>Selecting this menu item removes the selected query from this view and the <guilabel>Query Results Explorer</guilabel> view.
+              If the query has any child sub-queries they are removed as well. The immediate parent query of the
+              removed query, if one exists, becomes the selected query.
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/gray_x_double.png"/> Remove All</guiicon></title>
+		    <para>Selecting this menu item removes all queries the user has run from this view and the <guilabel>Query Results Explorer</guilabel> view.
+              The tree of queries that has been run by the user is shown in the <guilabel>Query Results Explorer</guilabel> view.
+		    </para>
+		  </formalpara>
+		</listitem>
+	</itemizedlist>
+	</para>
+	
+	  <figure id="fig-query-results-view-context-menu">
+        <title>The <guilabel>Query Results</guilabel> view context menu lists "drill-in" queries that can be run on a selected row</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/query-results-view-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+    <para>The view&rsquo;s context menu lists "drill-in" or sub-queries that can be run
+    on a selected result row; see <xref linkend="fig-query-results-view-context-menu"/>.
+    The particular list of sub-queries is dependent upon the result that is selected. The query
+    in the menu that is decorated with a <guiicon><inlinegraphic fileref="images/asterisk.gif"/></guiicon> is
+    called the <emphasis>default query</emphasis> and can be run using a double-click on the row. For example,
+    in <xref linkend="fig-query-results-view-context-menu"/> the default query is <emphasis>What fields
+    are protected by this lock, and how often?</emphasis>
+    </para>  
 	</section>
-		<section>
-			<title>Query Results Explorer</title>
-			<para>
-				This view allows you to select any of the queries run previously
-				during the session and display it in the
-				<guilabel>Query
-					Results
-				</guilabel>
-				view. You can also delete any or all of the
-				results from here.
-			</para>
-			<informalfigure id="fig-flashlight-query-results-explorer-view">
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="images/flashlight-query-results-explorer-view.png" />
-					</imageobject>
-				</mediaobject>
-			</informalfigure>
-		</section>
+	
+	<section id="query-results-explorer-view">
+		<title>The Query Results Explorer view</title>
+		<para>
+			This view allows you to select any of the queries run previously
+			during the session and display it in the
+			<guilabel>Query	Results</guilabel>	view. You can also delete any or all of the
+			results from here.
+		</para>
+		
+		<figure id="fig-query-results-explorer-view">
+			<title>The <guilabel>Query Results Explorer</guilabel> view showing the tree of queries the tool user has run</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-results-explorer-view.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+	  <figure id="fig-query-results-explorer-view-toolbar">
+        <title>The <guilabel>Query Results Explorer</guilabel> view toolbar</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/query-results-explorer-view-toolbar.png"/></imageobject>
+        </mediaobject>
+      </figure>
+			
+			<para>The view&rsquo;s toolbar has four command icons; see <xref
+      linkend="fig-query-results-explorer-view-toolbar"/>.
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/left.gif"/></guiicon></title>
+              <para>This button changes the selected query to the immediate parent query of the currently selected query.</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/right.gif"/></guiicon></title>
+              <para>This button changes the selected query to the first child query of the currently selected query.</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/gray_x.png"/></guiicon></title>
+              <para>This button removes the selected query from this view and the <guilabel>Query Results</guilabel> view.
+              If the query has any child sub-queries they are removed as well. The immediate parent query of the
+              removed query, if one exists, becomes the selected query.</para>
+            </formalpara>            
+          </listitem>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/gray_x_double.png"/></guiicon></title>
+              <para>This button removes all queries the user has run from this view and the <guilabel>Query Results</guilabel> view.
+              The tree of queries that has been run by the user is shown in the <guilabel>Query Results Explorer</guilabel> view.</para>
+            </formalpara>            
+          </listitem>
+        </itemizedlist>
+      </para>
+	
+	  <figure id="fig-query-results-explorer-view-menu">
+        <title>The <guilabel>Query Results Explorer</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/query-results-explorer-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has six commands; see <xref
+      linkend="fig-query-results-explorer-view-menu"/>. This menu is exactly the same as the view menu for
+      the <guilabel>Query Results</guilabel> view.
+      	<itemizedlist>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/info.gif"/> Show Defined Variable Values...</guiicon></title>
+		    <para>Selecting this menu item brings up a dialog that shows the variable values that
+		    defined the context of the query result
+		    being shown in the view. Selecting rows in a query result defines variables that are used to
+		    set a context to run subsequent sub-queries. As
+		    the user drills-in to the collected results more and more variables are used to define the context. The dialog lists
+		    the variable names in blue and their values in black.
+		    <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-results-view-variables-dialog.png" />
+				</imageobject>
+			</mediaobject>
+			This menu item is for advanced users and developers. It is rarely useful for normal tool use.
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/file.gif"/> Show SQL...</guiicon></title>
+		    <para>Selecting this menu item brings up the SQL query run to create the result being displayed in this
+		    view. The dialog shows the SQL query with all variable value substitution completed. The original query may be examined
+		    in the <guilabel>Query Editor</guilabel>.
+		     <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-results-view-sql-dialog.png" />
+				</imageobject>
+			</mediaobject>
+			This menu item is for advanced users and developers. It is rarely useful for normal tool use.
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/export.gif"/> Export...</guiicon></title>
+		    <para>Selecting this menu item allows you to export the query result being shown in this view to a file. A dialog
+		    comes up that lets you select the desired output format.
+		    <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/query-results-view-export-dialog.png" />
+				</imageobject>
+			</mediaobject>
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/query_back.gif"/> Back to Top-Level Queries</guiicon></title>
+		    <para>This button brings the query menu back up to the top level for the currently selected run.
+              It keeps all previous query results.
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/gray_x.png"/> Remove</guiicon></title>
+		    <para>Selecting this menu item removes the selected query from this view and the <guilabel>Query Results Explorer</guilabel> view.
+              If the query has any child sub-queries they are removed as well. The immediate parent query of the
+              removed query, if one exists, becomes the selected query.
+		    </para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/gray_x_double.png"/> Remove All</guiicon></title>
+		    <para>Selecting this menu item removes all queries the user has run from this view and the <guilabel>Query Results Explorer</guilabel> view.
+              The tree of queries that has been run by the user is shown in the <guilabel>Query Results Explorer</guilabel> view.
+		    </para>
+		  </formalpara>
+		</listitem>
+	</itemizedlist>
+	</para>
+	
+    
+    <para>The <guilabel>Query Results Explorer</guilabel> view does not have a context menu.</para>  
+		
+	</section>
 
 	<section id="querydoc-view">
 		<title>The Querydoc view</title>
-		<para>TODO</para>
+		<para>Each query in Flashlight has Javadoc-like documentation that is displayed in the <guilabel>Querydoc</guilabel> view.
+		Selecting a query in the <guilabel>Query Menu</guilabel> causes its "querydoc" to appear in this view.</para>
+		
+		<figure id="fig-querydoc-view">
+			<title>The <guilabel>Querydoc</guilabel> view showing Javadoc-like information about a Flashlight query</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/querydoc-view.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<para>The documentation about each query includes a concise description about what its results display. Some pointers
+		 on how to read and understand the query's results&mdash;including any limitations the tool user should be aware of&mdash;are included in
+		 the querydoc text.</para>
 
 	</section>
-
-		<section>
-			<title>Historical Source Snapshot</title>
-			<para>
-				When a Flashlight run is performed, a snapshot of the project source
-				code is collected. This view shows the source code as it appeared
-				when
-				the run was actually performed.
-			</para>
-			<informalfigure id="fig-flashlight-historical-source-view">
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="images/flashlight-historical-source-view.png" />
-					</imageobject>
-				</mediaobject>
-			</informalfigure>
-		</section>
-		<section>
-			<title>Monitor</title>
-			<para>
-				The
-				<guilabel>Monitor View</guilabel>
-				provides access to the an
-				instrumented program's runtime monitoring data. It is not open in the
-				Flashlight perspective by default.
-			</para>
-			<informalfigure id="fig-flashlight-monitor-view">
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="images/flashlight-monitor-view.png" />
-					</imageobject>
-				</mediaobject>
-			</informalfigure>
-			<para>
-				The
-				<emphasis>
-					<guilabel>Fields</guilabel>
-					tab
-				</emphasis>
-				displays all of
-				the fields in the program known to Flashlight, and their current status
-				in the monitor. The status of a field is indicated by its color. In
-				order to make it easier to sift through the data, packages and
-				classes
-				that contain only unobserved fields are displayed with a gray
-				background. Packages and classes containing any other type of fields
-				are displayed with the default white background. Currently, fields
-				may
-				have the following status:
-			</para>
-			<orderedlist>
-				<listitem>
-					Potential Data Race
-				</listitem>
-				<listitem>
-					Shared and Actively Protected By A Lock
-				</listitem>
-				<listitem>
-					Shared
-				</listitem>
-				<listitem>
-					Not Shared
-				</listitem>
-				<listitem>
-					Not Observed
-				</listitem>
-			</orderedlist>
-			<para>
-				The
-				<emphasis>
-					<guilabel>Locks</guilabel>
-					tab
-				</emphasis>
-				displays all
-				current locks in the program. Garbage collected locks are not
-				displayed, as this could potentially cause the instrumentation to be
-				unbounded in memory size. Any locks that the runtime monitoring
-				believes could potentially deadlock (or that are currently deadlocked)
-				are displayed in red font.
-			</para>
-			<para>
-				The
-				<emphasis>
-					<guilabel>EDT</guilabel>
-					tab
-				</emphasis>
-				displays all of
-				the fields in the program known to Flashlight, just as the Fields tab
-				does. Any fields that have been accessed both inside and outside of
-				a
-				Swing Event Dispatch Thread are highlighted. This feature can be used
-				to detect violations of the Swing threading model.
-			</para>
-		</section>
-
+	
+	<section id="historical-source-snapshot-view">
+		<title>The Historical Source Snapshot view</title>
+		<para>
+			When a Flashlight run is performed, a snapshot of the project source
+			code is collected. The <guilabel>Historical Source Snapshot</guilabel> view shows the source code as it appeared
+			when the run was performed. When results are selected in the <guilabel>Query Results</guilabel> view the tool
+			highlights any associated line of code in this view.
+		</para>
+		
+		<figure id="fig-historical-source-snapshot-view">
+			<title>The <guilabel>Historical Source Snapshot</guilabel> view showing the field access selected in the <guilabel>Query Results</guilabel> view</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/historical-source-snapshot-view.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		<para>The snapshot of the source code as of the program launch and this view help the user if the code has changed
+		significantly since the run occurred. If the results only linked to the Java editor in Ecilpse the tool user
+		may be confused if the linked code has been changed.
+		This view helps avoid confusion with regard to code change since the run.</para>
 	</section>
 
 	<section id="flashlight-launched-run-control-dialog">
-		<title>Launched Run Control Dialog</title>
+		<title>The Launched Run Control dialog</title>
 		<para>This section describes the Flashlight Launched Run Control
 			dialog. This dialog
 			automatically appears when an instrumented program is launched in Eclipse.

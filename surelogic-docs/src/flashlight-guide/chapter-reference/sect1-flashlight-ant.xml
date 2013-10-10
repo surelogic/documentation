@@ -3,12 +3,12 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="flashlight-ant-tasks"  xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>Flashlight Ant Tasks</title>
+<section id="flashlight-ant-tasks"  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Flashlight Ant tasks</title>
 
   <para>Flashlight-related ANT tasks are declared in the JAR file
   flashlight-ant.jar. </para>
-  <sect2><title>Loading Flashlight Tasks into ANT</title>
+  <section><title>Loading Flashlight tasks into Ant</title>
 
   <para>The JAR file flashlight-ant.jar contains an antlib.xml file located at
   com/surelogic/flashlight/ant/antlib.xml. The best way to load the Flashlight
@@ -29,9 +29,9 @@
     The flashlight tasks can now be referred to using the the task names
     &lt;flashlight:taskname&gt;.
   </para>
-  </sect2>
-  <sect2>
-    <title>instrument</title>
+  </section>
+  <section>
+    <title>Flashlight Ant task: instrument</title>
     <para>Rewrite a set of classfiles to contain Flashlight instrumentation. The
     instrument task can</para>
     <itemizedlist>
@@ -74,7 +74,7 @@
     may also be used to specify additional libraries that make up the complete
     application. See <link linkend="instrument-task-classpath">below</link> for
     more information.</para>
-    <sect3>
+    <section>
       <title>Attributes</title>
       <para>In normal usage, there are four required attributes</para>
       <informaltable>
@@ -121,9 +121,9 @@
           </tbody>
         </tgroup>
       </informaltable>
-    </sect3>
+    </section>
 
-    <sect3>
+    <section>
       <title>Nested Elements</title> 
       <para>The classfiles to be rewritten are declared using nested
       <code>dir</code> and <code>jar</code> elements. Any number and combination
@@ -362,8 +362,8 @@
 </methodFiles>
         ]]></programlisting>
       </formalpara>
-    </sect3>
-    <sect3>
+    </section>
+    <section>
       <title>Examples</title>
       <para>Rewrite the classfiles found in the <code>input</code> directory,
       writing them to the <code>output</code> directory:</para>
@@ -490,15 +490,15 @@
     <jar srcfile="app.jar" destdir="instrumented"/>
 </flashlight:instrument>     
       ]]></programlisting>
-    </sect3>
-  </sect2>
-  <sect2>
-    <title>instrument-archive</title>
+    </section>
+  </section>
+  <section>
+    <title>Flashlight Ant task: instrument-archive</title>
     <para>This task cracks open an executable jar, ejb jar, or war file. It then
     instruments its contents and outputs a new archive file that can be dropped
     into any commonly used web server or, in the case of an executable jar, run
     from the command line.</para>
-    <sect3>
+    <section>
       <title>Attributes</title>
       <informaltable>
         <tgroup cols='3'>
@@ -562,8 +562,8 @@
           </tbody>
         </tgroup>
       </informaltable>
-    </sect3>
-    <sect3>
+    </section>
+    <section>
       <title>Nested Elements</title>
       <para>See <link linkend="instrument-task-classpath">Specifying the
       Complete Classpath</link> for details on how to specify archive
@@ -581,8 +581,8 @@
         instrumented archive, and will be available to the Historical Source
         View in the Eclipse client after a run has been prepped.</para>
       </formalpara>
-    </sect3>
-    <sect3>
+    </section>
+    <section>
       <title>Examples</title>
       <para>
         The following example instruments a Web Archive named
@@ -598,14 +598,14 @@
     <sources path="src"/>
 </flashlight:instrument>     
       ]]></programlisting>
-    </sect3>
-  </sect2>
-  <sect2>
-    <title>record</title>
+    </section>
+  </section>
+  <section>
+    <title>Flashlight Ant task: record</title>
     <para>Executes a java application in a manner similar to the <link
     xlink:href="http://ant.apache.org/manual/Tasks/java.html">Ant Java
     Task</link>.</para>
-    <sect3>
+    <section>
       <title>Attributes</title>
       <informaltable>
         <tgroup cols='3'>
@@ -648,8 +648,8 @@
           </tbody>
         </tgroup>
       </informaltable>
-    </sect3>
-    <sect3>
+    </section>
+    <section>
       <title>Nested Elements</title> 
       <formalpara>
         <title>Inspect</title>
@@ -663,14 +663,14 @@
         java source directory containing the source code used to build the jar
         or directory.</para>
       </formalpara>
-    </sect3>
-    <sect3>
+    </section>
+    <section>
       <title>Examples</title>
       <para></para>
-    </sect3>
-  </sect2>
-  <sect2 id="instrument-task-classpath">
-    <title>Specifying the Complete Classpath</title>
+    </section>
+  </section>
+  <section id="instrument-task-classpath">
+    <title>Specifying the complete classpath</title>
     <para>The following elements are <link
     xlink:href="http://ant.apache.org/manual/using.html#path">path-like
     structures</link> used to specify additional members of the application's
@@ -762,9 +762,9 @@
       identically named classes on the classpath. The instrumentation task
       reports to the instrumentation log when it skips a duplicate class.</para>
     </formalpara>
-  </sect2>
-  <sect2>
-    <title>Flashlight Debugging Attributes</title> 
+  </section>
+  <section>
+    <title>Flashlight debugging attributes</title> 
     <para>All ant tasks support a set of optional attributes used to configure
     the instrumentation step.  By changing these attribute values in the
     instrument, instrument-archive, and record tasks you can control which
@@ -1032,8 +1032,8 @@
         </tbody>
       </tgroup>
     </table>      
-  </sect2>
+  </section>
 
-</sect1>
+</section>
 
 

@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect2 id="sec-tutorial-query-editor">
+<section id="sec-tutorial-query-editor">
   <title>Using the Query Editor (Advanced)</title>
 
   <para>
@@ -224,4 +224,4 @@ ORDER BY 1,2,3
     </mediaobject>
   </figure>
 
-</sect2>
+</section>

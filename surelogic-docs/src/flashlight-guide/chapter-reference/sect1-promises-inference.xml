@@ -3,8 +3,8 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="flashlight-promises-inference">
-  <title>Inference of Promises Annotations</title>
+<section id="flashlight-promises-inference">
+  <title>Inference of Promise annotations</title>
 
   <para>Flashlight can make it easier to get started assuring your
   program in JSure.  The data from one or more runs can be used to
@@ -45,4 +45,4 @@
     project, if it does not exist already.
   </para>
 
-</sect1>
+</section>

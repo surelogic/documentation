@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect2 id="sec-tutorial-playerui">
+<section id="sec-tutorial-planetbaron-playerui">
   <title>Finding a deadlock in the PlanetBaron UI with lock cycle detection</title>
 
   <!-- Start of deadlock tutorial -->
@@ -159,4 +159,4 @@
     deadlock.
   </para>
 
-</sect2>
+</section>

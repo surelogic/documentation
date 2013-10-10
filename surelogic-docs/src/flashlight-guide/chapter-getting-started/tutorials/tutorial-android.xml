@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect2 id="sec-tutorial-android" xmlns:xlink="http://www.w3.org/1999/xlink">
+<section id="sec-tutorial-android" xmlns:xlink="http://www.w3.org/1999/xlink">
   <title>Using Flashlight on an Android project</title>
 
   <para>The following tutorial is intended to get you up and running with
@@ -404,7 +404,7 @@
     </mediaobject>
   </figure>
   <para>This concludes the Android tutorial.</para>
-</sect2>
+</section>
 
 
 

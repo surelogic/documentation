@@ -3,8 +3,8 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="flashlight-data-directory">
-  <title>The Flashlight Data Directory</title>
+<section id="flashlight-data-directory">
+  <title>The Flashlight data directory</title>
 
   <para>The Flashlight Eclipse plug-in writes the flashlight profile data
   files and other information in a location known as the "Flashlight
@@ -13,8 +13,8 @@
   directory is called <filename>.flashlight-data</filename> and is located in the root
   of your current Eclipse workspace.</para>
 
-  <sect2 id="per-run-directory">
-    <title>Per-Run Directories</title>
+  <section id="per-run-directory">
+    <title>Per-run directories</title>
 
     <para>Each run of an instrumented application in Eclipse creates a
     new "per-run directory" in the Flashlight data directory.  The name
@@ -203,10 +203,10 @@
         <filename>bin.jar</filename>.</listitem>
       </itemizedlist>
     </para>
-  </sect2>
+  </section>
   
-  <sect2>
-    <title>Example</title>
+  <section>
+    <title>Example application</title>
     
     <para>The application whose main class is
     <code>com.surelogic.fluid.javac.Util</code> needs the projects
@@ -257,9 +257,9 @@
               sierra-pmd.src.zip
               sierra-tool.src.zip</screen>
     </para>
-  </sect2>
-  <sect2 id="per-run-directory">
-    <title>Deleting Flashlight Data</title>
+  </section>
+  <section id="per-run-directory">
+    <title>Deleting Flashlight data</title>
     <para>After using Flashlight for a while, you may find that your Flashlight
     data directory is getting quite large.  The easiest way to reduce the size
     of your data directory is to delete runs you no longer need from the <link
@@ -268,5 +268,5 @@
     directory.  Both methods will remove all prepared data from this run as
     well, so make sure that you are completely done with the run before deleting
     it.</para>
-  </sect2>
-</sect1>
+  </section>
+</section>

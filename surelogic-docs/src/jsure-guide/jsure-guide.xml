@@ -454,7 +454,7 @@ declared by the <code>&#64;GuardedBy("itself")</code> annotation on the field <c
 						verification results in a Java code-oriented context. This view, similar to
 						the <guilabel>Verification Status</guilabel> view,
 						notes differences from the last scan. This view has many settings to filter what is shown that are described in
-						<xref linkend="sect-verification-explorer"/>. The image below shows
+						<xref linkend="verification-explorer-view"/>. The image below shows
 						the new <guilabel>Verification Explorer</guilabel> view.
 					</para>
 					
@@ -1066,7 +1066,7 @@ public class StaticState {
 						</mediaobject>
 						
 						<para>This capability was driven to help "scale up" the view to manage large numbers of proposals by JSure. In addition, filtering capabilities
-						have been added to the view. These capabilities are described fully in <xref linkend="ref-proposed-annotation-view"/>.</para>
+						have been added to the view. These capabilities are described fully in <xref linkend="proposed-annotation-view"/>.</para>
 				</listitem>
 				</orderedlist>
 		</section>

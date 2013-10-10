@@ -6,7 +6,7 @@
 <chapter id="getting-started" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Getting started</title>
 
-  <xi:include href="sect1-introduction.xml"/>
-  <xi:include href="sect1-quick-start.xml"/>
-  <xi:include href="sect1-tutorials/sect1.xml"/>    
+  <xi:include href="introduction.xml"/>
+  <xi:include href="quick-start.xml"/>
+  <xi:include href="tutorials/tutorial.xml"/>    
 </chapter>

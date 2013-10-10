@@ -3,8 +3,8 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="flashlight-method-files">
-  <title>Indirect Access Methods</title>
+<section id="flashlight-method-files">
+  <title>Indirect access methods</title>
   
   <para>Flashlight generates special access events when a method call
   has the capability of accessing state that is aggregated into one of
@@ -46,8 +46,8 @@
   to the class containing the indirect access method, then the classes
   match.</para>
 
-  <sect2 id="default-list">
-    <title>Default List of Indirect Access Methods</title>
+  <section id="default-list">
+    <title>Default list of indirect access methods</title>
     
     <informaltable>
       <tgroup cols="3">
@@ -1562,10 +1562,10 @@
         </tbody>
       </tgroup>
     </informaltable>    
-  </sect2>
+  </section>
 
-  <sect2 id="file-format">
-    <title>File Format</title>
+  <section id="file-format">
+    <title>File format</title>
     
     <para>A list of indirect access methods is maintained as an XML file
     defined by the following DTD:</para>
@@ -1639,7 +1639,7 @@
       </itemizedlist>
     </para>
     
-    <sect3 id="xml-example">
+    <section id="xml-example">
       <title>Example</title>
       
       <para>The following is a fragment of the default list of methods
@@ -1679,6 +1679,6 @@
   </class>
 </classes>]]></programlisting>
       </para>
-    </sect3>
-  </sect2>
-</sect1>
+    </section>
+  </section>
+</section>

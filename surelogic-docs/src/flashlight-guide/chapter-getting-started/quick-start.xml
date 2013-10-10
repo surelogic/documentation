@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="quick-start">
+<section id="quick-start">
   <title>Quick start: How to instrument your code and query Flashlight</title>
 
   <para>This section assumes that you have installed Flashlight. If you see a
@@ -221,4 +221,4 @@
       fully. Also you may need to change what libraries are instrumented during your program run which is discussed in
       <xref linkend="flashlight-preferences" />. Finally, it could be the case that your code is not concurrent.</para>
 
-</sect1>
+</section>
