@@ -6,7 +6,7 @@
 <chapter id="reference"
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Reference</title>
-  <sect1>
+  <section>
     <title>The JSure Menu</title>
     
     <para>The <guimenu>JSure</guimenu> menu, see <xref linkend="fig-jsure-menu"/>, appears
@@ -191,15 +191,15 @@
         </listitem>          
       </itemizedlist>
     </para>
-  </sect1>
+  </section>
 
-  <sect1 id="sec-code-verification-perspective">
+  <section id="sec-code-verification-perspective">
     <title>The Code Verification perspective</title>
     
     <para>The <guilabel>Code Verification</guilabel>
 	perspective organizes the Eclipse
 	workbench to show views which will help you to interact with
-	tool findings.
+	tool findings.</para>
 
 	<mediaobject>
 		<imageobject>
@@ -207,10 +207,39 @@
 		</imageobject>
 	</mediaobject>
 	
-	Each of the views shown in the screenshot above is discussed in the following sections.
-    </para>
+	<para>Each of the views shown in the screenshot above is discussed in the following sections. These views include
+		<itemizedlist>
+		  <listitem>
+		    <para>The <guilabel>JSure Scans</guilabel> view described in <xref linkend="jsure-scans-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Modeling Problems</guilabel> view described in <xref linkend="modeling-problems-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Verification Status</guilabel> view described in <xref linkend="verification-status-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Verification Explorer</guilabel> view described in <xref linkend="verification-explorer-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Proposed Annotation</guilabel> view described in <xref linkend="proposed-annotation-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Library Annotation Explorer</guilabel> view described in <xref linkend="library-annotation-explorer-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>XML Library Annotation</guilabel> editor described in <xref linkend="xml-library-annotation-editor" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>JSure Quick Search</guilabel> view described in <xref linkend="jsure-quick-search-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>JSure Historical Source</guilabel> view described in <xref linkend="jsure-historical-source-view" /></para>
+		  </listitem>
+		</itemizedlist>
+	</para>
     
-    <sect2>
+    <section>
       <title>Switching to the Perspective</title>
       
       <para>The <guilabel>Code Verification</guilabel> perspective can be enabled
@@ -253,9 +282,9 @@
           </listitem>          
         </itemizedlist>
       </para>
-    </sect2>
+    </section>
 
-	<sect2>
+	<section id="jsure-scans-view">
 		<title>The JSure Scans view</title>
 
 		<para>The <guilabel>JSure Scans</guilabel> view, as shown in <xref
@@ -365,9 +394,9 @@
 	</listitem>
     </itemizedlist>
       </para>      
-	</sect2>
+	</section>
 	
-	    <sect2>
+	    <section id="modeling-problems-view">
       <title>The Modeling Problems view</title>
 
       <para>The <guilabel>Modeling Problems</guilabel> view, as shown in <xref
@@ -542,9 +571,9 @@
           </listitem>
       </itemizedlist>
       </para> 
-    </sect2>
+    </section>
     
-    <sect2>
+    <section id="verification-status-view">
       <title>The Verification Status view</title>
 
       <para>The <guilabel>Verification Status</guilabel> view displays
@@ -695,9 +724,9 @@
 	</listitem>
       </itemizedlist>
       </para>      
-    </sect2>
+    </section>
     
-	<sect2 id="sect-verification-explorer">
+	<section id="verification-explorer-view">
 	    <title>The Verification Explorer view</title>
 	    
 	    <para>The <guilabel>Verification Explorer</guilabel>
@@ -891,10 +920,10 @@
       </itemizedlist>
       </para>
 	    
-	</sect2>
+	</section>
 
 
-	<sect2 id="ref-proposed-annotation-view">
+	<section id="proposed-annotation-view">
 		<title>The Proposed Annotation view</title>
 
 		<para>The <guilabel>Proposed Annotation</guilabel> view, as shown in <xref
@@ -1047,10 +1076,10 @@
       </itemizedlist>
       </para>      
       
-	</sect2>
+	</section>
 	
 
-	<sect2>
+	<section id="library-annotation-explorer-view">
 		<title>The Library Annotation Explorer view</title>
 
 		<para>
@@ -1174,9 +1203,9 @@
       </para>      
 		
 
-	</sect2>
+	</section>
 	
-	<sect2>
+	<section id="xml-library-annotation-editor">
 		<title>The XML Library Annotation editor</title>
 		
 				<para>The <guilabel>XML Library Annotation</guilabel> editor, as shown in <xref
@@ -1270,9 +1299,9 @@
         				</mediaobject>
         				</listitem>
       </itemizedlist>
-	</sect2>
+	</section>
 	
-	<sect2>
+	<section id="jsure-quick-search-view">
 		<title>The JSure Quick Search view</title>
 
 		<para>The <guilabel>JSure Quick Search</guilabel> view, as shown in <xref
@@ -1388,9 +1417,9 @@
 
         </itemizedlist>
       </para>
-	</sect2>
+	</section>
 	
-	<sect2>
+	<section id="jsure-historical-source-view">
 		<title>The JSure Historical Source view</title>
 
 		<para>The <guilabel>JSure Historical Source</guilabel> view, as shown in <xref
@@ -1410,11 +1439,11 @@
       in the <guilabel>Code Verification</guilabel> perspective, to the right of the
       Java editor at the bottom of the perspective.</para>
       
-	</sect2>
+	</section>
 
-  </sect1>
+  </section>
 
-  <sect1 id="sec-preferences">
+  <section id="sec-preferences">
     <title>JSure Preferences</title>
     
     <para>JSure adds four panes to the Eclipse Preferences window:
@@ -1445,7 +1474,7 @@
       the dialog then the outline will be filtered to only shown the
       JSure preference pages.</para>
     
-    <sect2>
+    <section>
     <title>JSure</title>
      
     <figure id="fig-jsure-prefs-jsure">
@@ -1654,9 +1683,9 @@
     that brings up the dialog box for installing and removing licenses; see
     <xref linkend="sec-license-management"/>.</para>
     
-    </sect2>
+    </section>
 
-    <sect2>
+    <section>
     <title>Flashlight Generated Lock Models</title>
     
         <figure id="fig-jsure-prefs-flgen">
@@ -1671,9 +1700,9 @@
         controls inferred models from the Surelogic
         <application>Flashlight</application> tool.</para>
             
-    </sect2>
+    </section>
     
-    <sect2 id="prefs-uninteresting-package-filtering">
+    <section id="prefs-uninteresting-package-filtering">
     <title>Uninteresting Package Filtering</title>
     
         <figure id="fig-jsure-prefs-filter">
@@ -1697,9 +1726,9 @@
         Filters can be added to avoid reports about code that you are not interested in, for example, modeling problems
         about a library included in your code that you do not maintain.</para>
     
-    </sect2>
+    </section>
     
-    <sect2>
+    <section>
     <title>Verifying Analysis Selection</title>
     
         <figure id="fig-jsure-prefs-analyses">
@@ -1714,11 +1743,11 @@
     which assurance analyses are actually executed by JSure.  Most of
     the time you do not need to change these settings unless directed by SureLogic technical support.</para>
     
-    </sect2>
+    </section>
     
-  </sect1>
+  </section>
 
-	<sect1 id="sec-surelogic-tool-properties-file">
+	<section id="sec-surelogic-tool-properties-file">
 		<title>SureLogic tool properties file</title>
 
 		<para>It is possible to exclude particular Eclipse source folders
@@ -1858,9 +1887,9 @@
 		</tgroup>
 	</informaltable>
 	</para>
-	</sect1>
+	</section>
 
-  <sect1 id="sec-license-management">
+  <section id="sec-license-management">
     <title>License management</title>
 
     <para>JSure is commercial software and a license is required to
@@ -1945,9 +1974,9 @@
     The tool is considered unlicensed at that point. To fix this
     situation install a new license (it is not required to install a
     new version of JSure).</para>
-  </sect1>
+  </section>
 
-  <sect1 id="sec-bugs-and-tips">
+  <section id="sec-bugs-and-tips">
     <title>Bugs and tips</title>
 
     <para>JSure allows any user to send problem reports and suggestions
@@ -2026,5 +2055,5 @@
     <guilabel>General</guilabel> preferences.  This dialog allows
     you to configure Eclipse for your network.</para>
 
-  </sect1>
+  </section>
 </chapter>

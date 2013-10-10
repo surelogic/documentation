@@ -30,14 +30,72 @@
 		</mediaobject>
 	</informalfigure>
 	
-	<para>Each of the views shown in the screenshot above is discussed in the following sections.</para>
-
-	<section>
-		<title>Views</title>
-		<para>This section describes the various Flashlight views unique to
-			the
-			Flashlight Eclipse client, and that populate the perspective
+	<para>Each of the views shown in the screenshot above is discussed in the following sections.  These views include
+			<itemizedlist>
+			  <listitem>
+			    <para>The <guilabel>Flashlight Runs</guilabel> view described in <xref linkend="flashlight-runs-view" /></para>
+			  </listitem>
+			  <listitem>
+			    <para>The <guilabel>Query Menu</guilabel> view described in <xref linkend="query-menu-view" /></para>
+			  </listitem>
+			  <listitem>
+			    <para>The <guilabel>Query Results</guilabel> view described in <xref linkend="query-results-view" /></para>
+			  </listitem>
+			  <listitem>
+			    <para>The <guilabel>Query Results Explorer</guilabel> view described in <xref linkend="query-results-explorer-view" /></para>
+			  </listitem>
+			  <listitem>
+			    <para>The <guilabel>Querydoc</guilabel> view described in <xref linkend="querydoc-view" /></para>
+			  </listitem>
+			  <listitem>
+			    <para>The <guilabel>Historical Source Snapshot</guilabel> view described in <xref linkend="historical-source-snapshot-view" /></para>
+			  </listitem>
+			</itemizedlist>
 		</para>
+		
+	<section>
+      <title>Switching to the Perspective</title>
+      
+      <para>The <guilabel>Flashlight</guilabel> perspective can be enabled
+      in several ways:
+        <itemizedlist>
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>Flashlight</guimenu>
+            <guimenuitem>Open Flashlight Perspective</guimenuitem></menuchoice>.
+            <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/open-flashlight-perspective.png" />
+                </imageobject>
+              </mediaobject>
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>By choosing to switch to the perspective when data preparation for a run completes:
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/perspective-switch.png" />
+                </imageobject>
+              </mediaobject>
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>Window</guimenu>
+            <guisubmenu>Open Perspective</guisubmenu>
+            <guimenuitem>Other&hellip;</guimenuitem></menuchoice>, and
+            then choosing <guilabel>Flashlight</guilabel> from
+            the <guilabel>Open Perspective</guilabel> dialog box.  Or by
+            using any other standard Eclipse mechanism to switch
+            perspectives, such as clicking the the perspective&rsquo;s
+            icon (<guiicon><inlinegraphic
+            fileref="images/fl_logo.png"/></guiicon>) in the shortcut
+            bar.</para>
+          </listitem>          
+        </itemizedlist>
+      </para>
+    </section>
+		
 
 		<section id="flashlight-runs-view">
 			<title>The Flashlight Runs view</title>
@@ -284,7 +342,6 @@
     </section>    
 
 
-
 	<section id="query-menu-view">
 		<title>The Query Menu view</title>
 		
@@ -406,9 +463,9 @@
 		</listitem>
 	</itemizedlist>
     </para>  
-
 	</section>
-		
+
+
 	<section id="query-results-view">
 		<title>The Query Results view</title>
 				
@@ -465,126 +522,48 @@
 		</para>
 
 	</section>
-		<section>
-			<title>Query Results Explorer</title>
-			<para>
-				This view allows you to select any of the queries run previously
-				during the session and display it in the
-				<guilabel>Query
-					Results
-				</guilabel>
-				view. You can also delete any or all of the
-				results from here.
-			</para>
-			<informalfigure id="fig-flashlight-query-results-explorer-view">
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="images/flashlight-query-results-explorer-view.png" />
-					</imageobject>
-				</mediaobject>
-			</informalfigure>
-		</section>
+	
+	<section id="query-results-explorer-view">
+		<title>Query Results Explorer</title>
+		<para>
+			This view allows you to select any of the queries run previously
+			during the session and display it in the
+			<guilabel>Query
+				Results
+			</guilabel>
+			view. You can also delete any or all of the
+			results from here.
+		</para>
+		<informalfigure id="fig-flashlight-query-results-explorer-view">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/flashlight-query-results-explorer-view.png" />
+				</imageobject>
+			</mediaobject>
+		</informalfigure>
+	</section>
 
 	<section id="querydoc-view">
 		<title>The Querydoc view</title>
 		<para>TODO</para>
 
 	</section>
-
-		<section>
-			<title>Historical Source Snapshot</title>
-			<para>
-				When a Flashlight run is performed, a snapshot of the project source
-				code is collected. This view shows the source code as it appeared
-				when
-				the run was actually performed.
-			</para>
-			<informalfigure id="fig-flashlight-historical-source-view">
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="images/flashlight-historical-source-view.png" />
-					</imageobject>
-				</mediaobject>
-			</informalfigure>
-		</section>
-		<section>
-			<title>Monitor</title>
-			<para>
-				The
-				<guilabel>Monitor View</guilabel>
-				provides access to the an
-				instrumented program's runtime monitoring data. It is not open in the
-				Flashlight perspective by default.
-			</para>
-			<informalfigure id="fig-flashlight-monitor-view">
-				<mediaobject>
-					<imageobject>
-						<imagedata fileref="images/flashlight-monitor-view.png" />
-					</imageobject>
-				</mediaobject>
-			</informalfigure>
-			<para>
-				The
-				<emphasis>
-					<guilabel>Fields</guilabel>
-					tab
-				</emphasis>
-				displays all of
-				the fields in the program known to Flashlight, and their current status
-				in the monitor. The status of a field is indicated by its color. In
-				order to make it easier to sift through the data, packages and
-				classes
-				that contain only unobserved fields are displayed with a gray
-				background. Packages and classes containing any other type of fields
-				are displayed with the default white background. Currently, fields
-				may
-				have the following status:
-			</para>
-			<orderedlist>
-				<listitem>
-					Potential Data Race
-				</listitem>
-				<listitem>
-					Shared and Actively Protected By A Lock
-				</listitem>
-				<listitem>
-					Shared
-				</listitem>
-				<listitem>
-					Not Shared
-				</listitem>
-				<listitem>
-					Not Observed
-				</listitem>
-			</orderedlist>
-			<para>
-				The
-				<emphasis>
-					<guilabel>Locks</guilabel>
-					tab
-				</emphasis>
-				displays all
-				current locks in the program. Garbage collected locks are not
-				displayed, as this could potentially cause the instrumentation to be
-				unbounded in memory size. Any locks that the runtime monitoring
-				believes could potentially deadlock (or that are currently deadlocked)
-				are displayed in red font.
-			</para>
-			<para>
-				The
-				<emphasis>
-					<guilabel>EDT</guilabel>
-					tab
-				</emphasis>
-				displays all of
-				the fields in the program known to Flashlight, just as the Fields tab
-				does. Any fields that have been accessed both inside and outside of
-				a
-				Swing Event Dispatch Thread are highlighted. This feature can be used
-				to detect violations of the Swing threading model.
-			</para>
-		</section>
-
+	
+	<section id="historical-source-snapshot-view">
+		<title>Historical Source Snapshot</title>
+		<para>
+			When a Flashlight run is performed, a snapshot of the project source
+			code is collected. This view shows the source code as it appeared
+			when
+			the run was actually performed.
+		</para>
+		<informalfigure id="fig-flashlight-historical-source-view">
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/flashlight-historical-source-view.png" />
+				</imageobject>
+			</mediaobject>
+		</informalfigure>
 	</section>
 
 	<section id="flashlight-launched-run-control-dialog">
