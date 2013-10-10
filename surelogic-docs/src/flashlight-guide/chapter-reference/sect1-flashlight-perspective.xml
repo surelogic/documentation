@@ -52,7 +52,8 @@
 			  </listitem>
 			</itemizedlist>
 			Finally, we also discuss the <guilabel>Flashlight Launched Run Control</guilabel> dialog
-			in <xref linkend="flashlight-launched-run-control-dialog" />.
+			in <xref linkend="flashlight-launched-run-control-dialog" /> because it tracks launched Flashlight-instrumented
+			applications and allows control over data collection.
 		</para>
 		
 	<section>
