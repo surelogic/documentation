@@ -6,8 +6,40 @@
 <section id="sec-tutorial" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Tutorials</title>
 
-  <para>This section contains a series of Flashlight tutorials.  It is
-  recommended that you go through these tutorials in order.  It is also
+  <para>
+	This section contains a series of Flashlight tutorials.
+
+	<itemizedlist>
+		<listitem>
+			<para><emphasis>PlanetBaron</emphasis> &ndash; Investigating a client-server real-time strategy game
+			that has some concurrency problems we'll use Flashlight to uncover and fix. This tutorial
+			is presented in <xref linkend="sec-tutorial-planetbaron-client" /> (a GUI thread-confinement bug),
+			<xref linkend="sec-tutorial-planetbaron-server" /> (a race condition),
+			and <xref linkend="sec-tutorial-planetbaron-playerui" /> (a potential deadlock).</para>
+		</listitem>
+		<listitem>
+			<para><emphasis>Dining Philosophers</emphasis> &ndash; Fixing a troubled implementation of the classic
+			dining philosophers problem that has a tendency to deadlock. This tutorial is presented in
+			 <xref linkend="sec-tutorial-dining" />.</para>
+		</listitem>
+		<listitem>
+			<para>(Android Only) <emphasis>Counter Race</emphasis> &ndash; Fixing a troubled implementation of a concurrent
+			counting Android application. This tutorial focuses on how to launch and collect data from Android applications using
+			Flashlight. If you do not have the Android Developer Tools (ADT) installed in your Eclipse as well as the
+			Android plug-ins for Flashlight then this tutorial cannot be loaded and run.
+			This tutorial is presented in
+			 <xref linkend="sec-tutorial-android" />.</para>
+		</listitem>
+		<listitem>
+			<para>(Advanced) <emphasis>Using the Flashlight query editor</emphasis> &ndash; This is an advanced tutorial that
+			shows how to change queries in the Flashlight tool.
+			This tutorial is presented in
+			 <xref linkend="sec-tutorial-query-editor" />.</para>
+		</listitem>
+	</itemizedlist>
+      
+      
+  It is recommended that you go through these tutorials in order.  It is also
   recommended that these tutorials be performed "hands-on" at your
   computer. You might want to create a new Eclipse workspace to use for
   these tutorials. In addition, if you run into any difficulties as you
@@ -26,40 +58,39 @@
   <para>These tutorials assume that you have installed Flashlight. If you see a
   <guimenu>Flashlight</guimenu> menu item on your Eclipse main menu than you can
   assume it has been installed properly.  To follow along with the tutorials you
-  will also need to add the PlanetBaron project to your workspace.  From the
+  will also need to add the tutorial projects to your workspace.  From the
   Eclipse main menu, choose
   <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run Flashlight
   Tutorials</guimenuitem></menuchoice> and add
-  <application>FlashlightTutorial_PlanetBaron</application> to your workspace as
+  all the listed projects) to your workspace as
   displayed in <xref linkend="fig-tutorial-installing-projects" /> and <xref
-  linkend="fig-tutorial-planetbaron-install" />.</para>
+  linkend="fig-tutorial-installing-projects-dialog" />. All the projects should
+  be checked when you open the dialog.</para>
 
-  <figure id="fig-tutorial-planetbaron-install">
-    <title>Adding PlanetBaron to your workspace</title>
+  <figure id="fig-tutorial-installing-projects-dialog">
+    <title>Adding the tutorial projects to your workspace</title>
     <mediaobject>
       <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-install.png" />
+        <imagedata fileref="images/tutorial-installing-projects-dialog.png" />
       </imageobject>
     </mediaobject>
   </figure>
   
       <note>
-		<title>New Flashlight Launched Run Control Dialog</title>
+		<title>FlashlightTutorial_CounterRace is an Android application</title>
 
-		<para>The <guilabel>Flashlight Launched Run Control</guilabel> dialog
-		now lists each launched instrumented application. It lets you track the progress
-		of the application from launch, through, collection, data preparation, to being ready
-		to query in the Flashlight perspective. This dialog lets you stop data collection on
-		a running process at any time. The use of this dialog is not fully described below but
-		is straightforward to use. For example, prompts to prepare data no longer occur. When
-		the run completes it is prepared. The dialog is discussed in the Android tutorial because
-		it is critical to avoid having to <emphasis>Force Stop</emphasis> applications on the
-		phone or tablet.</para>
+		<para>The <guilabel>FlashlightTutorial_CounterRace</guilabel> project requires
+		that both the Android Developer Tools (ADT) and the
+			Android plug-ins for Flashlight be installed in your Eclipse. If they are
+			not this project will not appear in <xref linkend="fig-tutorial-installing-projects-dialog" />.
+			If you do not use Android missing this project is no problem. Simply skip that portion of
+			the tutorial.</para>
 	</note>
 
   <xi:include href="sect2-sec-tutorial-client.xml"/>
   <xi:include href="sect2-sec-tutorial-server.xml"/>
   <xi:include href="sect2-sec-tutorial-playerui.xml"/>
-  <xi:include href="sect2-sec-tutorial-query-editor.xml"/>
+  <xi:include href="sect2-sec-tutorial-dining.xml"/>
   <xi:include href="sect2-sec-tutorial-android.xml"/>
+  <xi:include href="sect2-sec-tutorial-query-editor.xml"/>
 </section>
