@@ -51,6 +51,8 @@
 			    <para>The <guilabel>Historical Source Snapshot</guilabel> view described in <xref linkend="historical-source-snapshot-view" /></para>
 			  </listitem>
 			</itemizedlist>
+			Finally, we also discuss the <guilabel>Flashlight Launched Run Control</guilabel> dialog
+			in <xref linkend="flashlight-launched-run-control-dialog" />.
 		</para>
 		
 	<section>
@@ -676,7 +678,7 @@
 	</section>
 	
 	<section id="query-results-explorer-view">
-		<title>Query Results Explorer</title>
+		<title>The Query Results Explorer view</title>
 		<para>
 			This view allows you to select any of the queries run previously
 			during the session and display it in the
@@ -844,7 +846,7 @@
 	</section>
 	
 	<section id="historical-source-snapshot-view">
-		<title>Historical Source Snapshot</title>
+		<title>The Historical Source Snapshot view</title>
 		<para>
 			When a Flashlight run is performed, a snapshot of the project source
 			code is collected. The <guilabel>Historical Source Snapshot</guilabel> view shows the source code as it appeared
@@ -868,7 +870,7 @@
 	</section>
 
 	<section id="flashlight-launched-run-control-dialog">
-		<title>Launched Run Control Dialog</title>
+		<title>The Launched Run Control dialog</title>
 		<para>This section describes the Flashlight Launched Run Control
 			dialog. This dialog
 			automatically appears when an instrumented program is launched in Eclipse.
