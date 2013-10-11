@@ -7,13 +7,13 @@
 
   <title>Simple Lock Models</title>
   
-  <xi:include href="sect1-basic-model.xml"/>
+  <xi:include href="basic-model.xml"/>
 
-  <xi:include href="sect1-extended-model1.xml"/>
+  <xi:include href="extended-model1.xml"/>
 
-  <xi:include href="sect1-extended-model2.xml"/>
+  <xi:include href="extended-model2.xml"/>
 
-  <xi:include href="sect1-constructors.xml"/>
+  <xi:include href="constructors.xml"/>
 
-  <xi:include href="sect1-self-protected-objects.xml"/>
+  <xi:include href="self-protected-objects.xml"/>
 </chapter>

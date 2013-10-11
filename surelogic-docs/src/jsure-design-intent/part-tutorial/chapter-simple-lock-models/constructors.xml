@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
     
-<sect1 id="constructors">
+<section id="constructors">
   <title>Constructors</title>
       
   <para>Constructors cannot be declared <code>synchronized</code> in
@@ -44,7 +44,7 @@ class C {
   super-constructor it invokes is also
   <classname>@Unique("return")</classname>.</para>
 
-  <sect2 id="field-initialization">
+  <section id="field-initialization">
     <title>Field Initialization and Implicit Constructors</title>
         
     <para>Field initializers are part of the object construction
@@ -105,5 +105,5 @@ public class C {
 }
       </programlisting>
     </para>
-  </sect2>
-</sect1>
+  </section>
+</section>

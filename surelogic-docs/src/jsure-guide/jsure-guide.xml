@@ -41,14 +41,8 @@
     </section>
   </preface>
 
-  <xi:include href="chapter-getting-started/chapter.xml"/>
-
-  <!-- ************************************************************ /-->
-  <!-- Out of date: Not sure what to replace this with right now. -->
-  <!--xi:include href="chapter-understanding-assurance-output/chapter.xml"/-->
-  <!-- ************************************************************ /-->
-
-  <xi:include href="chapter-reference/chapter.xml"/>
+  <xi:include href="getting-started/chapter.xml"/>
+  <xi:include href="reference/chapter.xml"/>
 
   <chapter>
     <title>Release notes</title>

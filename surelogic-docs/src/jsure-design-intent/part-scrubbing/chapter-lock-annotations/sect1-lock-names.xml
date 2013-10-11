@@ -203,14 +203,14 @@
           <row>
             <entry>
               <synopsis>
-<co id="lock.name.fqclass1"/><replaceable>fully.qualified.class.name</replaceable>:<co id="lockid3"/><replaceable>lock_id</replaceable>
+<co id="lock.name.fqclass1"/><replaceable>fully.qualified.class.name</replaceable>:<co id="lockid3a"/><replaceable>lock_id</replaceable>
               </synopsis>
             
               <calloutlist>
                 <callout arearefs="lock.name.fqclass1">
                   <para>A fully qualified class name.</para>
                 </callout>
-                <callout arearefs="lockid3">
+                <callout arearefs="lockid3a">
                   <para>A lock id.</para>
                 </callout>
               </calloutlist>

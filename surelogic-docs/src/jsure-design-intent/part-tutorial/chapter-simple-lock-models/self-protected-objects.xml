@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
    
-<sect1 id="self-protected-objects">
+<section id="self-protected-objects">
   <title>Thread-Safe and Immutable Objects</title>
       
   <para>Region aggregation, described above, is one technique that can
@@ -98,7 +98,7 @@ public class Rational {
     </programlisting>
   </para>
   
-  <sect2>
+  <section>
     <title>The @Immutable Annotation</title>
     
     <para>Instances of a type annotated with <code>@Immutable</code> are immutable:
@@ -204,9 +204,9 @@ public class Rational { &hellip;
       private List&lt;String&gt; names = Collections.unmodifiableList(&hellip;);
       </programlisting>
     </para>
-  </sect2>
+  </section>
 
-  <sect2>
+  <section>
     <title>The @ThreadSafe Annotation</title>
     
     <para>The <code>@ThreadSafe</code> annotation is assured by check that 
@@ -290,5 +290,5 @@ public class Rational { &hellip;
  }
       </programlisting>
     </para>
-  </sect2>
-</sect1>
+  </section>
+</section>

@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
       
-<sect1 id="policy-locks">
+<section id="policy-locks">
   <title>Policy Locks</title>
         
     <para>Sometimes there is no obvious state to associate with a lock. 
@@ -58,4 +58,4 @@ public class Logger {
   would cause problems later on during the use of the loggers.  The
   synchronization ensures that only one <classname>Logger</classname>
   object is ever created for any given name.</para>
-</sect1>
+</section>

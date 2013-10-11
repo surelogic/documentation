@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
   
-      <sect1 id="declaring-effects">
+      <section id="declaring-effects">
         <title>Declaring Effects</title>
   
         <para>The effects of a constructor or method are declared using
@@ -150,4 +150,4 @@ public class Var {
 }
           </programlisting>
         </para>
-      </sect1>
+      </section>

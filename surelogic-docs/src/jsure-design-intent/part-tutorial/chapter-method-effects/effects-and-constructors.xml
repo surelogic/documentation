@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
            
-      <sect1>
+      <section>
         <title>Effects and Constructors</title>
         
         <para>A constructor that accesses state protected by a locking
@@ -39,4 +39,4 @@ public class C {
 }
           </programlisting>
         </para>
-      </sect1>
+      </section>
