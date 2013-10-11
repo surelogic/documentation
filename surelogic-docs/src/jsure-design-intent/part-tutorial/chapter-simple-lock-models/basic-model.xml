@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="basic-model">
+<section id="basic-model">
   <title>The Basic Lock Model</title>
       
   <para>The canonical Java model whereby an object protects itself is
@@ -93,4 +93,4 @@ public class C {
   }
     </programlisting>
   </para>
-</sect1>
+</section>

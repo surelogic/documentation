@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
            
-      <sect1 id="borrowed-and-effects">
+      <section id="borrowed-and-effects">
         <title>Borrowed References and Method Effects</title>
         
         <para>Another reason to declare method effects is to support
@@ -11,7 +11,7 @@
         <classname>@Borrowed</classname> parameters, and then describe how
         effects are used to support their assurance.</para>
         
-        <sect2 id="borrowed-params">
+        <section id="borrowed-params">
           <title>Borrowed Parameters</title>
           
           <para>When an object is passed as a parameter to a method,
@@ -61,9 +61,9 @@ public class C {
           that <classname>@Unique</classname> fields and
           <classname>@Borrowed</classname> variables are used
           correctly.</para>
-         </sect2>
+         </section>
          
-         <sect2 id="borrowed-with-method-effects">
+         <section id="borrowed-with-method-effects">
            <title>Supporting Borrowed With Method Effects</title>
            
            <para>As explained above, when a method is passed the value of
@@ -134,5 +134,5 @@ class Var {
 }
             </programlisting>
           </para>
-        </sect2>
-      </sect1>
+        </section>
+      </section>

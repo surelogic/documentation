@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="extended-model2">
+<section id="extended-model2">
   <title>Extending the Model: Aggregating Arrays and Other
   Objects</title>
       
@@ -122,4 +122,4 @@ public class LogExample {
   &hellip;
 }
   </programlisting>
-</sect1>
+</section>

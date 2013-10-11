@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
     
-<sect1 id="extended-model1">
+<section id="extended-model1">
   <title>Extending the Model: Caller Locking</title>
       
   <para>A frequent exception to the basic lock model is the expectation
@@ -56,4 +56,4 @@ public class Other {
 } 
     </programlisting>
   </para>
-</sect1>
+</section>
