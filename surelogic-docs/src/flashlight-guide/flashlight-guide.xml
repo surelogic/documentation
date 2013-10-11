@@ -46,8 +46,8 @@
     </section>
   </preface>
 
-  <xi:include href="chapter-getting-started/chapter.xml"/>
-  <xi:include href="chapter-reference/chapter.xml"/>
-  <xi:include href="chapter-release-notes.xml"/>
+  <xi:include href="getting-started/chapter.xml"/>
+  <xi:include href="reference/chapter.xml"/>
+  <xi:include href="release-notes.xml"/>
   <xi:include href="bibliography.xml"/>
 </book>
