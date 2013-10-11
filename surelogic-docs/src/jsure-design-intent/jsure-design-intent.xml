@@ -24,20 +24,20 @@
 
   <preface id="preface">
     <title>Preface</title>
-    <sect1>
+    <section>
       <title>Audience</title>
       <para>This document is intended for Java developers who want to
       use the JSure. We assume that the reader understands both the
       Java programming language and the use of Eclipse for Java
       development.</para>
-    </sect1>
-    <sect1>
+    </section>
+    <section>
       <title>Contact information</title>
       <para>For technical support or other questions, please
       contact:</para>
       <para><email>support@surelogic.com</email></para>
       <para>5808 Forbes Avenue, Pittsburgh, PA 15217-1602</para>
-    </sect1>
+    </section>
   </preface>
 
   <xi:include href="part-tutorial/part.xml"/>

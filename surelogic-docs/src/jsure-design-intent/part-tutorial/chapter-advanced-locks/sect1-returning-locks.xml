@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
       
-<sect1 id="returning-locks">
+<section id="returning-locks">
   <title>Returning Locks</title>
         
   <para>A method may be declared to return a particular lock using the
@@ -40,4 +40,4 @@ public class C {
   <para>An example of this sort of thing in production code is the
   method <function>getTreeLock()</function> in the JDK class
   <classname>java.awt.Container</classname>.</para>
-</sect1>
+</section>

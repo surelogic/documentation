@@ -6,9 +6,9 @@
 <chapter id="advanced-locks"  xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Advanced Lock Models</title>
       
-  <xi:include href="sect1-regions-and-locks.xml"/>
+  <xi:include href="regions-and-locks.xml"/>
       
-  <xi:include href="sect1-returning-locks.xml"/>
+  <xi:include href="returning-locks.xml"/>
 
-  <xi:include href="sect1-policy-locks.xml"/>
+  <xi:include href="policy-locks.xml"/>
 </chapter>

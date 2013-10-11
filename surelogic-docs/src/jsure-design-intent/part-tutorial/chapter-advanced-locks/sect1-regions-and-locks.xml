@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="regions-and-locks">
+<section id="regions-and-locks">
   <title>Regions and Locks</title>
       
   <para>The lock annotation <classname>@RegionLock</classname> actually
@@ -16,7 +16,7 @@
   each protected by a different lock, enabling concurrent access to
   different segments of the object’s state.</para>
 
-  <sect2 id="declaring-regions">
+  <section id="declaring-regions">
     <title>Declaring New Regions</title>
         
     <para>New regions are declared by annotating a class with
@@ -72,9 +72,9 @@ public class C {
     be placed into a <code>static</code> region. Non-<code>static</code>
     fields may be placed into either <code>static</code> or
     non-<code>static</code> regions.</para>
-  </sect2>
+  </section>
       
-  <sect2 id="locks-with-regions">
+  <section id="locks-with-regions">
     <title>Associating Locks with Regions</title>
         
     <para>The general form of the <classname>@RegionLock</classname> annotation is
@@ -173,7 +173,7 @@ public class C {
     ancestors are associated with a lock.  This prevents a region from
     being protected by multiple locks.</para>
           
-    <sect3 id="intrinsic-vs-juc">
+    <section id="intrinsic-vs-juc">
       <title>Intrinsic or <package>java.util.concurrent</package> Locks</title>
             
       <para>JSure understands the semantics of both intrinsic Java locks
@@ -295,10 +295,10 @@ public class CC {
       the original lock field is <code>static</code>, the cache fields
       must also be <code>static</code>.
       </para>
-    </sect3>
-  </sect2>
+    </section>
+  </section>
         
-  <sect2 id="multiple-locks">
+  <section id="multiple-locks">
     <title>Declaring Multiple Locks</title>
           
     <para>Multiple locks are declared as members of a class my using the
@@ -318,5 +318,5 @@ public class Sprite {
   &hellip;
 }
     </programlisting>
-  </sect2>
-</sect1>
+  </section>
+</section>
