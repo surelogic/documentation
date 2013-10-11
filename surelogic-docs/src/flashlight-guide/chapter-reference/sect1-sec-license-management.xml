@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="sec-license-management">
+<section id="sec-license-management">
   <title>License management</title>
 
   <para>Flashlight is commercial software and a license is required to use
@@ -83,4 +83,4 @@
   <para>When a license does expire it disappears from the dialog. The tool is
   considered unlicensed at that point. To fix this situation install a new
   license (it is not required to install a new version of Flashlight).</para>
-</sect1>
+</section>

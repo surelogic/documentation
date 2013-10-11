@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="sec-bugs-and-tips">
+<section id="sec-bugs-and-tips">
   <title>Bugs and tips</title>
 
   <para>Flashlight allows any user to send problem reports and
@@ -68,4 +68,4 @@
       <imageobject><imagedata fileref="images/bugs-and-tips-network-connections.png"/></imageobject>
     </mediaobject>
   </figure>
-</sect1>
+</section>

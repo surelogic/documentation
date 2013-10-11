@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="flashlight-preferences">
+<section id="flashlight-preferences">
   <title>Preferences</title>
 
   <figure id="preference-page">
@@ -94,10 +94,6 @@
           recorded information should be stored as an XML file, or as binary
           data.</listitem>
 
-          <listitem><guilabel>Compress
-          output</guilabel> controls whether the data file is
-          compressed with gzip.</listitem>
-
           <listitem>Flashlight has a 'refinery' component that attempts
           to remove data known to be local to a single thread, such as
           an object that is created and garbage collected within a
@@ -145,4 +141,4 @@
       memory.
     </para>
   </formalpara>
-</sect1>
+</section>

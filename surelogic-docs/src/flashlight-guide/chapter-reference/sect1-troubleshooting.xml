@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="troubleshooting">
+<section id="troubleshooting">
     <title>Troubleshooting</title>
     
     <para>This section contains several tips on solving problems when using Flashlight
@@ -56,4 +56,4 @@ Classpath entry workspace/project is instrumented and nests the instrumented cla
       </listitem>
     </orderedlist>
   
-</sect1>
+</section>

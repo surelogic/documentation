@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="query-reference">
+<section id="query-reference">
   <title>Queries</title>
   <para>
     Flashlight ships with a large number of queries accessible through the
@@ -14,7 +14,7 @@
     linkend="sec-tutorial" />.
   </para>
   
-  <sect2 id="query-reference-identifiers">
+  <section id="query-reference-identifiers">
     <title>Identifiers</title>
     
     <para>
@@ -104,9 +104,9 @@ public class Foo {
         </listitem>
       </itemizedlist>
     </para>
-  </sect2>
+  </section>
   
-  <sect2>
+  <section>
     <title>Reference</title>
     <qandaset defaultlabel="none" >
       <qandaentry>
@@ -2662,5 +2662,5 @@ public class Foo {
 	</answer>
       </qandaentry>
     </qandaset>
-  </sect2>
-</sect1>
+  </section>
+</section>

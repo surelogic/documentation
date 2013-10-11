@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="flashlight-menu">
+<section id="flashlight-menu">
   <title>The Flashlight menu</title>
 
   <figure id="fig-menu-flashlight">
@@ -114,4 +114,4 @@
     </listitem>
   </itemizedlist>
 
-</sect1>
+</section>
