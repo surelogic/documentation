@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="lock.names">
+<section id="lock.names">
   <title>Lock Names</title>
 
   <para><classname>@ReturnsLock</classname> and
@@ -38,7 +38,7 @@
   the role of the decorated lock name, which is a raw lock name enhanced
   to further identify either the read or write lock.</para>
           
-  <sect2 id="naming.raw.locks">
+  <section id="naming.raw.locks">
     <title>Raw Lock Names</title>
     
     <para>A raw lock name must conform
@@ -274,9 +274,9 @@
         </tbody>
       </tgroup>
     </table>
-  </sect2>
+  </section>
   
-  <sect2 id="naming.decorated.locks">
+  <section id="naming.decorated.locks">
     <title>Decorated Lock Names</title>
     
     <para>The syntax and constraints for a decorated lock name are similar
@@ -309,5 +309,5 @@
         </listitem>
       </itemizedlist>
     </para>
-  </sect2>
-</sect1>
+  </section>
+</section>

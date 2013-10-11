@@ -6,11 +6,11 @@
 <chapter id="uniqueness-annotations" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Uniqueness Annotations</title>
       
-  <xi:include href="sect1-uniqueness-declarations.xml"/>
+  <xi:include href="uniqueness-declarations.xml"/>
 
-  <xi:include href="sect1-agg-named-region.xml"/>
+  <xi:include href="agg-named-region.xml"/>
 
-  <xi:include href="sect1-agg-general.xml"/>
+  <xi:include href="agg-general.xml"/>
 
-  <xi:include href="sect1-borrowed-declarations.xml"/>
+  <xi:include href="borrowed-declarations.xml"/>
 </chapter>

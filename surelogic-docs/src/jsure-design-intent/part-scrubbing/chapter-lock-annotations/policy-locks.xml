@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1>
+<section>
   <title>Policy Lock Declaration</title>
   
   <para>Policy lock declarations have the form
@@ -25,12 +25,12 @@
     </calloutlist>
   </para>
   
-  <sect2>
+  <section>
     <title>Constraints</title>
     
     <para>Policy lock declarations have the same <link
     linkend="lock.id.constraints">lock id</link> and <link
     linkend="lock.field.constraints">lock field</link> constraints
     as region lock declarations.</para>
-  </sect2>
-</sect1>
+  </section>
+</section>

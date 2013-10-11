@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="implicit.target">
+<section id="implicit.target">
   <title>Implicitly Qualified Target</title>
   
   <para>A target may also have the simple form
@@ -25,7 +25,7 @@
   is an instance or a static region, respectively.
   </para>
   
-  <sect2>
+  <section>
     <title>Constraints</title>
     
     <itemizedlist>
@@ -53,5 +53,5 @@
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
-</sect1>
+  </section>
+</section>

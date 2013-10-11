@@ -3,26 +3,26 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="class.target">
-  <title>Class Target</title>
+<section>
+  <title>Any-Instance Target</title>
   
   <para>An any-instance target has the form
   
     <synopsis>
-<co id="class.instance.type"/><replaceable>type_name</replaceable>:<co id="class.instance.region"/><replaceable>region_name</replaceable>
+any(<co id="any.instance.type"/><replaceable>type_name</replaceable>):<co id="any.instance.region"/><replaceable>region_name</replaceable>
     </synopsis>
     
     <calloutlist>
-      <callout arearefs="class.instance.type">
+      <callout arearefs="any.instance.type">
         <para>The name of a class or interface.</para>
       </callout>
-      <callout arearefs="class.instance.region">
+      <callout arearefs="any.instance.region">
         <para>The name of a region.</para>
       </callout>
     </calloutlist>
   </para>
   
-  <sect2>
+  <section>
     <title>Constraints</title>
     
     <itemizedlist>
@@ -42,10 +42,13 @@
         <formalpara>
           <title>The region identified by
           <replaceable>region_name</replaceable> must a
-          <code>static</code> region that exists in
+          non-<code>static</code> region that exists in
           <replaceable>type_name</replaceable></title>
+          
+          <para>There is no point in the region being <code>static</code>: in
+          that case a <link linkend="class.target">class target</link> can be used.</para>
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
-</sect1>
+  </section>
+</section>

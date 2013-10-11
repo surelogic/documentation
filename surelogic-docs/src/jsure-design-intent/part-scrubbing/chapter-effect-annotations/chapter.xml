@@ -118,13 +118,13 @@
     </calloutlist>
   </para>
       
-  <xi:include href="sect1-region-effects.xml"/>
+  <xi:include href="region-effects.xml"/>
 
-  <xi:include href="sect1-instance-target.xml"/>
+  <xi:include href="instance-target.xml"/>
    
-  <xi:include href="sect1-any-instance-target.xml"/>
+  <xi:include href="any-instance-target.xml"/>
       
-  <xi:include href="sect1-class-target.xml"/>
+  <xi:include href="class-target.xml"/>
       
-  <xi:include href="sect1-implicit-target.xml"/>
+  <xi:include href="implicit-target.xml"/>
 </chapter>

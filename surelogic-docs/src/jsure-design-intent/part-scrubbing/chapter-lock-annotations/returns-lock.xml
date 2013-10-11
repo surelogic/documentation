@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-      <sect1>
+      <section>
         <title>Returns Lock</title>
         
         <para>A declaration that a method returns a particular lock has the form
@@ -19,7 +19,7 @@
           </calloutlist>
         </para>
         
-        <sect2>
+        <section>
           <title>Constraints</title>
           
           <itemizedlist>
@@ -30,5 +30,5 @@
               </formalpara>
             </listitem>
           </itemizedlist>
-        </sect2>
-      </sect1>
+        </section>
+      </section>

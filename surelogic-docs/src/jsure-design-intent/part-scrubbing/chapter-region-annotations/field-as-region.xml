@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="field.as.region">
+<section id="field.as.region">
   <title>Fields as Regions</title>
   
   <para>A field is placed into a non-default region using the annotation
@@ -11,7 +11,7 @@
   or on a class.
   </para>
   
-  <sect2 id="inregion.field">
+  <section id="inregion.field">
     <title>Field Annotation</title>
     
     <para>The normal usage is to annotate a field with           
@@ -26,7 +26,7 @@
       </calloutlist>
     </para>
   
-    <sect3>
+    <section>
       <title>Constraints</title>
 
       <itemizedlist>
@@ -83,10 +83,10 @@
           </formalpara>
         </listitem>
       </itemizedlist>
-    </sect3>
-  </sect2>
+    </section>
+  </section>
   
-  <sect2 id="inregion.class">
+  <section id="inregion.class">
     <title>Class Annotation</title>
     
     <para>Alternatively, many fields can be placed into the same region by annotating
@@ -107,7 +107,7 @@
       </calloutlist>
     </para>
   
-    <sect3>
+    <section>
       <title>Constraints</title>
 
       <itemizedlist>
@@ -199,6 +199,6 @@
           </formalpara>
         </listitem>
       </itemizedlist>
-    </sect3>
-  </sect2>        
-</sect1>
+    </section>
+  </section>        
+</section>

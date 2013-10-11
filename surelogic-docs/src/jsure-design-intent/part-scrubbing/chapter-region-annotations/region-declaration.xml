@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="region-declaration">
+<section id="region-declaration">
   <title>Region Declaration</title>
   
   <para>A new <emphasis>abstract</emphasis> region is declared using the annotation
@@ -36,7 +36,7 @@
   declaration, possibly augmented by an <classname>@InRegion</classname>
   annotation.</para>
   
-  <sect2 id="region.decl.constraints">
+  <section id="region.decl.constraints">
     <title>Constraints</title>
     
     <itemizedlist>
@@ -95,9 +95,9 @@
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
+  </section>
   
-  <sect2 id="region.hiding">
+  <section id="region.hiding">
     <title>Region Hiding</title>
     
     <para>Regions/fields may be hidden. That is, if class
@@ -178,5 +178,5 @@ public class Blooper extends Duper {
     in ancestor classes <classname>Super</classname> and
     <classname>Duper</classname> from annotations in class
     <classname>Blooper</classname>.</para>
-  </sect2>
-</sect1>
+  </section>
+</section>

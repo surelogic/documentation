@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1>
+<section>
   <title>Uniqueness Declarations</title>
   
   <para>The same annotation, <classname>@Unique</classname>, is used to annotate
@@ -96,7 +96,7 @@ class C {
   <classname>@Unique("this, return")</classname> or
   <classname>@Unique("return, this")</classname>.</para>
   
-  <sect2>
+  <section>
     <title>Field Constraints</title>
     
     <itemizedlist>
@@ -113,9 +113,9 @@ class C {
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
+  </section>
   
-  <sect2>
+  <section>
     <title>Parameter Constraints</title>
     
     <itemizedlist>
@@ -127,9 +127,9 @@ class C {
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
+  </section>
   
-  <sect2>
+  <section>
     <title>Return Value Constraints</title>
     
     <itemizedlist>
@@ -153,5 +153,5 @@ class C {
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
-</sect1>
+  </section>
+</section>

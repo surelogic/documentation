@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1>
+<section>
   <title>General Aggregation</title>
   
   <para>The <classname>@UniqueInRegion</classname> field annotation is also used
@@ -60,7 +60,7 @@ protected PersonRecord record;</programlisting>
     </itemizedlist>
   </para>
   
-  <sect2>
+  <section>
     <title>Constraints</title>
     
     <para>An <classname>@Aggregate</classname> annotation on a
@@ -187,5 +187,5 @@ protected PersonRecord record;</programlisting>
         </listitem>
       </itemizedlist>
     </para>
-  </sect2>
-</sect1>
+  </section>
+</section>

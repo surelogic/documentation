@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1>
+<section>
   <title>Region Lock Declaration</title>
   
   <para>Region lock declarations have the form
@@ -28,7 +28,7 @@
     </calloutlist>
   </para>
   
-  <sect2 id="lock.id.constraints">
+  <section id="lock.id.constraints">
     <title>Lock Id Constraints</title>
     
     <itemizedlist>
@@ -43,9 +43,9 @@
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
+  </section>
   
-  <sect2 id="lock.field.constraints">
+  <section id="lock.field.constraints">
     <title>Lock Field Constraints</title>
 
     <itemizedlist>
@@ -84,9 +84,9 @@
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
+  </section>
   
-  <sect2>
+  <section>
     <title>Region Constraints</title>
 
     <itemizedlist>
@@ -165,5 +165,5 @@
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
-</sect1>
+  </section>
+</section>

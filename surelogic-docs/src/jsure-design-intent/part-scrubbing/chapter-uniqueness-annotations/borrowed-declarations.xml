@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1>
+<section>
   <title>Borrowed Parameter Declarations</title>
   
   <para>A method can be constrained to not create aliases to
@@ -20,7 +20,7 @@
   <classname>@Borrowed("this")</classname> is used when annotating the
   receiver.</para>
   
-  <sect2>
+  <section>
     <title>Constraints</title>
     
     <itemizedlist>
@@ -54,5 +54,5 @@
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
-</sect1>
+  </section>
+</section>

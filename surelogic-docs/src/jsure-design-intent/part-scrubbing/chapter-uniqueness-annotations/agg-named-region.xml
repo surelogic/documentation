@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1>
+<section>
   <title>Aggregation into a Named Region</title>
   
   <para>The <classname>@UniqueInRegion</classname> field annotation is used
@@ -35,7 +35,7 @@
     </itemizedlist>
   </para>
   
-  <sect2>
+  <section>
     <title>Constraints</title>
     
     <itemizedlist>
@@ -69,5 +69,5 @@
         </formalpara>
       </listitem>
     </itemizedlist>
-  </sect2>
-</sect1>
+  </section>
+</section>

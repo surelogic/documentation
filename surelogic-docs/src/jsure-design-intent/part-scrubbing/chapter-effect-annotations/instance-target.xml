@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1>
+<section>
   <title>Instance Targets</title>
   
   <para>An instance target has one of the following forms:</para>
@@ -172,4 +172,4 @@ this:<co id="instance.target.reg1"/><replaceable>region_name</replaceable>
       </tbody>
     </tgroup>
   </informaltable>        
-</sect1>
+</section>

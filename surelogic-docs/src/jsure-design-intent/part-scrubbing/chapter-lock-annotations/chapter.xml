@@ -6,13 +6,13 @@
 <chapter id="lock-annotations" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Lock Annotations</title>
       
-  <xi:include href="sect1-region-locks.xml"/>
+  <xi:include href="region-locks.xml"/>
 
-  <xi:include href="sect1-policy-locks.xml"/>
+  <xi:include href="policy-locks.xml"/>
    
-  <xi:include href="sect1-lock-names.xml"/>
+  <xi:include href="lock-names.xml"/>
       
-  <xi:include href="sect1-returns-lock.xml"/>
+  <xi:include href="returns-lock.xml"/>
       
-  <xi:include href="sect1-lock-preconditions.xml"/>
+  <xi:include href="lock-preconditions.xml"/>
 </chapter>
