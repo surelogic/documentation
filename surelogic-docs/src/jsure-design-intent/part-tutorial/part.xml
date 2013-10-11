@@ -6,13 +6,13 @@
 <part xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Tutorial</title>
   
-  <xi:include href="chapter-simple-lock-models/chapter.xml"/>
+  <xi:include href="simple-lock-models/chapter.xml"/>
   
-  <xi:include href="chapter-advanced-locks/chapter.xml"/>
+  <xi:include href="advanced-locks/chapter.xml"/>
   
-  <xi:include href="chapter-method-effects/chapter.xml"/>
+  <xi:include href="method-effects/chapter.xml"/>
       
-  <xi:include href="chapter-scoped-promises/chapter.xml"/>
+  <xi:include href="scoped-promises/chapter.xml"/>
 
-  <xi:include href="chapter-vouches/chapter.xml"/>
+  <xi:include href="vouches/chapter.xml"/>
 </part>
