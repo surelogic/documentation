@@ -7,11 +7,12 @@
   <title>Queries</title>
   <para>
     Flashlight ships with a large number of queries accessible through the
-    Flashlight perspective.  This section documents the content and format of
-    each query.  For more information about how to use the Flashlight
-    perspective, see <xref linkend="flashlight-perspective" />.  For a tutorial
-    on how to use the provided queries effectively, see <xref
-    linkend="sec-tutorial" />.
+    Flashlight perspective.  For more information about how to use the Flashlight
+    perspective, see <xref linkend="flashlight-perspective" />. Documentation
+    for all queries can also be found in the Flashlight perspective, using the
+    <guilabel>Querydoc</guilabel> view documented in <xref
+    linkend="querydoc-view" />.  For a tutorial on how to use the provided
+    queries effectively, see <xref linkend="sec-tutorial" />.
   </para>
   
   <section id="query-reference-identifiers">
@@ -87,7 +88,13 @@ public class Foo {
             <title>Threads</title>
             
             <para>Threads are referred to by their name, as returned by
-            <function>Thread.getName()</function>.</para>
+            <function>Thread.getName()</function>.  If more than one thread in
+            the program has the same name, then they are disambiguated by
+            assigning a sequence number and referring to them by that as well.
+            For instance, if a program has two threads named
+            <classname>WorkerThread</classname> then Flashlight would refer to
+            them as <classname>WorkerThread</classname> and
+            <classname>WorkerThread (1)</classname>.</para>
           </formalpara>
         </listitem>
         
@@ -105,7 +112,7 @@ public class Foo {
       </itemizedlist>
     </para>
   </section>
-  
+<!--  
   <section>
     <title>Reference</title>
     <qandaset defaultlabel="none" >
@@ -2663,4 +2670,5 @@ public class Foo {
       </qandaentry>
     </qandaset>
   </section>
+-->
 </section>
