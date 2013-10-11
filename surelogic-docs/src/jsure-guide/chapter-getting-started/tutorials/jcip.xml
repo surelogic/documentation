@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect2 id="jcip" xmlns:xi="http://www.w3.org/2001/XInclude">
+<section id="jcip" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<title>Verifying thread safe and immutable classes</title>
 
 	<para>
@@ -58,7 +58,7 @@
   }
 }</programlisting>
 
-<sect3>
+<section>
     <title>Declaring State Is ThreadSafe or Immutable</title>
 
   <para>This class appears thread safe: note that its instance state is immutable
@@ -123,9 +123,9 @@ public class Point {
 		</imageobject>
 	</mediaobject>
 	
-	</sect3>
+	</section>
 	
-	<sect3>
+	<section>
     <title>Locking Models Support ThreadSafe</title>
 	
   <para>Examining the implementation of the <code>getInstance</code> method we can see that locking is used
@@ -160,9 +160,9 @@ public class Point {
   important, because in our experience, many concurrency defects are introduced
   into the code during maintenance.</para>
   
-  </sect3>
+  </section>
   
-  <sect3>
+  <section>
     <title>Annotating Type Hierarchies</title>
   
   <para>We now turn our attention to the <code>Shape</code> interface listed below.</para>
@@ -421,9 +421,9 @@ public class Rectangle implements Shape {
 		annotating code.</para>
 	</note>
 	
-	</sect3>
+	</section>
 	
-	<sect3>
+	<section>
     <title>Annotating Singleton Classes</title>
   
     <para>We now consider the <code>Canvas</code> class which is listed below.</para>
@@ -477,9 +477,9 @@ public final class Canvas {
 		</imageobject>
 	</mediaobject>
 	
-	</sect3>
+	</section>
 	
-	<sect3>
+	<section>
     <title>Annotating Utility Classes</title>
     
     <para>We now consider the <code>DrawingHelper</code> class which is listed below.</para>
@@ -545,9 +545,9 @@ public class DrawingHelper {
 		</imageobject>
 	</mediaobject>
     
-    </sect3>
+    </section>
       
       <para>You are now finished with this tutorial. The next tutorial
     works on a larger codebase and presents the use of JSure to verify
     lock policies that use <code>util.concurrent</code> locks.</para>
-</sect2>
+</section>

@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="tutorials"
+<section id="tutorials"
        xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Tutorials</title>
 
@@ -96,15 +96,15 @@
 
     All the tutorial projects should now compile in your Eclipse workspace without errors.</para>
 
-  <xi:include href="sect2-boundedfifo.xml"/>
+  <xi:include href="boundedfifo.xml"/>
   
-  <xi:include href="sect2-jcip.xml"/>
+  <xi:include href="jcip.xml"/>
   
-  <xi:include href="sect2-planetbaron.xml"/>
+  <xi:include href="planetbaron.xml"/>
   
-  <xi:include href="sect2-util.concurrent.xml"/>
+  <xi:include href="util-concurrent.xml"/>
 
-  <xi:include href="sect2-effects/sect2.xml"/>
+  <xi:include href="effects/effects.xml"/>
   
   <!-- xi:include href="sect2-smallworld.xml"/ -->
-</sect1>
+</section>

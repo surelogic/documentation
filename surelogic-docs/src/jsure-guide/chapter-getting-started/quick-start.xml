@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect1 id="quick-start">
+<section id="quick-start">
   <title>Quick start</title>
 
   <para>This section will quickly get you started with JSure. It
@@ -12,7 +12,7 @@
   enable JSure assurance of a Java project, and how to examine the
   assurance results.</para>
 
-  <sect2>
+  <section>
     <title>Installing Your License</title>
 
     <para>This section assumes that you have installed JSure. If you
@@ -59,9 +59,9 @@
     use JSure functionality.  We will assume from this point on that
     you have installed your license.  For more information, see <xref
     linkend="sec-license-management" /></para>
-  </sect2>
+  </section>
   
-  <sect2 id="sec-quick-start-annotations">
+  <section id="sec-quick-start-annotations">
     <title>Annotating and Assuring Your Code</title>
     
     <para>For the impatient, this section provides a
@@ -104,7 +104,7 @@
     to your disk.
     </para>
     
-    <sect3>
+    <section>
       <title>Scanning Your Projects with JSure</title>
       
       <para>JSure can assure any number of projects at the same
@@ -145,9 +145,9 @@
       the project's you want to verify (Unless you are using Java 1.4
       in which case annotations are added as Javadoc).</para>
       
-      </sect3>
+      </section>
       
-      <sect3>
+      <section>
       <title>Excluding Your Test Code From a Scan</title>
       
       <para>It is possible to exclude test code from a JSure scan
@@ -165,9 +165,9 @@
       For more information on how to setup a <filename>surelogic-tools.properties</filename> file
       see <xref linkend="sec-surelogic-tool-properties-file"/>.</para>
       
-    </sect3>
+    </section>
         
-    <sect3>
+    <section>
       <title>Viewing Assurance Results</title>
       
       <para>JSure scans run in the background on a copy of your
@@ -452,6 +452,6 @@
       have changed since that time. This view helps you understand the
       tool results by showing the code as it was when the scan was
       run.</para>
-    </sect3>
-  </sect2> 
-</sect1>
+    </section>
+  </section> 
+</section>

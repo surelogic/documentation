@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect2 id="smallworld"
+<section id="smallworld"
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Verifying SmallWorld</title>
   
@@ -83,7 +83,7 @@
 
 
 
-  <sect3 id="may-refer-to">
+  <section id="may-refer-to">
     <title>A Simple Model of the Static Structure using 
     <classname>@MayReferTo</classname></title>
     
@@ -179,9 +179,9 @@
       }
       </programlisting>
 
-  </sect3>
+  </section>
   
-  <sect3>
+  <section>
     <title>Introducing Layers</title>
     
       <programlisting>
@@ -251,9 +251,9 @@
     one-to-one. JSure will also flag if <function>lock()</function> or
     <function>unlock()</function> cannot be matched or if it matches
     inconsistently along different control-flow paths.</para>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>Unprotected Field Access</title>
 
     <para>We first look at the unprotected field access:
@@ -335,9 +335,9 @@
         </imageobject>
       </mediaobject>
     </para>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>Read&ndash;Write Locks</title>
 
     <para>You can demonstrate to yourself that JSure understands the
@@ -387,9 +387,9 @@
     changing lines 160 and 174 to invoke
     <function>writeLock()</function> instead of
     <function>readLock()</function>.</para>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>Unsatisfied Preconditions</title>
 
     <para>We now move on to the three unsatisfied lock preconditions.
@@ -476,9 +476,9 @@
     <classname>Ship</classname> or <classname>Planet</classname>
     object.
     </para>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>Mixed Lock Paradigms</title>
 
     <para>The problem in this case is that the
@@ -581,9 +581,9 @@
         </imageobject>
       </mediaobject>
     </figure>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>Fixing the Lock Visibility</title>
 
     <para>We could fix this problem by simply making the field
@@ -663,9 +663,9 @@
     Do note, however, that the method
     <function>Thing.getThingLock()</function> is assured to return the
     correct lock object.</para>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>One More Fix</title>
 
     <para>What is the lingering problem with the lock preconditions?
@@ -752,5 +752,5 @@
     leave this as an exercise for the reader to fix. There are several
     other locking models in this code that can be examined at your
     leisure.</para>
-  </sect3>
-</sect2>
+  </section>
+</section>

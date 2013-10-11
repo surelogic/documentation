@@ -6,7 +6,7 @@
 <chapter id="getting-started"
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Getting started</title>
-  <sect1>
+  <section>
     <title>Introduction</title>
 
     <para><emphasis>What is JSure?</emphasis> JSure is a model-based
@@ -34,9 +34,9 @@
     Java IDE.  This enables JSure scans to be run in the background
     within Eclipse and verification results to be examined by the tool
     user within the widely-used Eclipse Java IDE.</para>
-  </sect1>
+  </section>
 
-  <xi:include href="sect1-quick-start.xml"/>
+  <xi:include href="quick-start.xml"/>
 
-  <xi:include href="sect1-tutorials/sect1.xml"/>  
+  <xi:include href="tutorials/tutorials.xml"/>  
 </chapter>

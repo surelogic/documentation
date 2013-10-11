@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect3 id="unique">
+<section id="unique">
   <title>Effects and Uniqueness</title>
   
   <para>While annotating effects on classes documents worthwhile design intent
@@ -141,4 +141,4 @@
       </imageobject>
     </mediaobject>
   </para>
-</sect3>
+</section>

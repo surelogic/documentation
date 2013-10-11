@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect2 id="boundedfifo"
+<section id="boundedfifo"
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Verifying BoundedFIFO</title>
   
@@ -58,7 +58,7 @@
   of state using the annotations <classname>@Region</classname>,
   <classname>@InRegion</classname>, and <classname>@UniqueInRegion</classname>.</para>
   
-  <sect3 id="declaring-protected-state">
+  <section id="declaring-protected-state">
     <title>Declaring Protected State</title>
     
     <para>The <classname>BoundedFIFO</classname> class is a buffer
@@ -318,9 +318,9 @@ public class BoundedFIFO {
     line 29.  This suggests that it is the case the clients of
     <classname>BoundedFIFO</classname> are expected to acquire the
     lock.</para>
-  </sect3>
+  </section>
 
-  <sect3 id="declaring-lock-preconditions">
+  <section id="declaring-lock-preconditions">
     <title>Declaring Lock Preconditions</title>
     
     <para>We can test this hypothesis by annotating all the methods of
@@ -470,9 +470,9 @@ public void put(LoggingEvent e) {
     and run another JSure scan using the keyboard shortcut
     <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym> or
     by using <guilabel>Re-Verify</guilabel> in the <guilabel>JSure Scans</guilabel> view.</para>
-  </sect3>
+  </section>
   
-  <sect3 id="single-threaded-constructor">
+  <section id="single-threaded-constructor">
     <title>Declaring a Thread-Confined Constructor</title>
 
     <para>After analysis of the
@@ -630,9 +630,9 @@ public void put(LoggingEvent e) {
     from the verifying analyses. In
     the <guilabel>Verification Status</guilabel>, any trail of <inlinegraphic fileref="images/reddot_decr.gif"/>
     icons will lead you to a node that not being checked, or verified, by analysis.</para>
-  </sect3>    
+  </section>    
   
-  <sect3 id="aggregating-state">
+  <section id="aggregating-state">
     <title>Aggregating State</title>
     
     <para>Although the results show no outright assurance failures, there are still 
@@ -698,9 +698,9 @@ public class BoundedFIFO {
       <application>JSureTutorial_BoundedFIFO</application> project are now
       consistent with no warnings.
     </para>
-  </sect3>
+  </section>
 
-  <sect3 id="named-region">
+  <section id="named-region">
     <title>Using a Named Region</title>
     
     <para>The lock <structfield>BufLock</structfield> is declared to protect
@@ -833,9 +833,9 @@ public class BoundedFIFO {
 Go ahead and make these changes and scan the project again. The
 verification results should not change but the modeling problems will go away.
     </para>
-  </sect3>
+  </section>
 
-	<sect3>
+	<section>
 		<title>Stating that BoundedFIFO is @ThreadSafe</title>
 		
 		<para>We can now apply the <code>@ThreadSafe</code>
@@ -928,9 +928,9 @@ private LoggingEvent[] buf;</programlisting>
     <code>ArrayBlockingQueue</code>. This would avoid client
     locking and simplify the code.</para>
 
-	</sect3>
+	</section>
 
-  <sect3 id="named-region">
+  <section id="named-region">
     <title>Deleting Old Scans</title>
 
     <para>JSure saves each scan that you run. The <guilabel>JSure
@@ -962,5 +962,5 @@ private LoggingEvent[] buf;</programlisting>
     <para>You are now finished with this tutorial. The next tutorial
     shows how to use the <code>@ThreadSafe</code> and <code>@Immutable</code> annotations
     to express design intent and verify it using JSure.</para>
-  </sect3>
-</sect2>
+  </section>
+</section>

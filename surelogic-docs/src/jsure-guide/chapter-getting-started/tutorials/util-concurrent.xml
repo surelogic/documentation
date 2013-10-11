@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect2 id="util.concurrent"
+<section id="util.concurrent"
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Verifying <package>util.concurrent</package></title>
 
@@ -42,7 +42,7 @@
     </mediaobject>
   </figure>
   
-  <sect3>
+  <section>
     <title>Declaring Protected State For Type Hierarchy</title>
 
   <para>In this example we model the locking policy of
@@ -144,9 +144,9 @@ public class SynchronizedVariable implements Executor {
   <function>SynchronizedLong(long)</function>.</para>
   
   <para>Scan the project with JSure.</para>
-  </sect3>
+  </section>
 
-	<sect3>
+	<section>
 	<title>An Implementation Bug</title>
   <para>Scan the project with JSure. It is curious that there is still one
   unprotected field access. Note that the <guilabel>JSure Quick
@@ -246,7 +246,7 @@ public class SynchronizedVariable implements Executor {
       </imageobject>
     </mediaobject>
   </para>   
-  </sect3>
+  </section>
 
   <para>You are now finished with this tutorial.</para>
-</sect2>
+</section>

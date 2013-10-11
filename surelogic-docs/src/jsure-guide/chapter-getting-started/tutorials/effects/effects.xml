@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect2 id="effects"
+<section id="effects"
        xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Effective effects</title>
 
@@ -46,11 +46,11 @@
     as the relationship between effects and the uniqueness analysis.</para>
   </note>
   
-  <xi:include href="sect3-simplevar.xml"/>
+  <xi:include href="effects-simplevar.xml"/>
 
-  <xi:include href="sect3-unique.xml"/>
+  <xi:include href="effects-unique.xml"/>
   
-  <sect3 id="advanced">
+  <section id="advanced">
     <title>Advanced Effects Examples</title>
     
     <para>The package <application>com.surelogic.advanced</application>
@@ -351,5 +351,5 @@ public class StaticState {
 </programlisting>
 
     </para>
-  </sect3>
-</sect2>
+  </section>
+</section>

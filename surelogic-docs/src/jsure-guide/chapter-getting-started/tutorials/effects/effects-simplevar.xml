@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect3 id="simplevar">
+<section id="simplevar">
   <title>A Simple Variable Class</title>
   
   <para>In this example we examine the <classname>SimpleVar</classname> class in the
@@ -263,4 +263,4 @@
   contextual menu to replace the annotation with the correct one infered by
   JSure. Finally, run the JSure analysis to verify the fixed annotation.
   </para>
-</sect3>
+</section>

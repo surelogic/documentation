@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<sect2 id="planetbaron"
+<section id="planetbaron"
     xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Verifying PlanetBaron</title>
   
@@ -23,7 +23,7 @@
   examine the scan results). In the rest of this tutorial we fix these
   verification failures.</para>
   
-  <sect3>
+  <section>
     <title>Running PlanetBaron</title>
 
     <para>Although we do not need to run
@@ -148,9 +148,9 @@
       
     <para>We are now ready to examine the results from scanning the
     <application>PlanetBaron</application> codebase with JSure.</para>
-  </sect3>
+  </section>
   
-  <sect3 id="init-results">
+  <section id="init-results">
     <title>Initial Scan Results</title>
     
     <para>The initial scan results for the <classname>JSureTutorial_PlanetBaron</classname>
@@ -234,9 +234,9 @@
      <para>Now that we have fixed the modeling problem, we examine the lock model
      for <structfield>ThingLock</structfield> in more detail with the aim of fixing the model or the
      code to allow verification.</para>
-  </sect3>
+  </section>
   
-  <sect3>
+  <section>
     <title>Introducing ThingLock</title>
     
     <para>As can be seen in <xref linkend="fig-pb-initial-state"/>,
@@ -342,9 +342,9 @@ public abstract class Thing {
     <function>lock()</function> or <function>unlock()</function>
     cannot be matched or if it matches inconsistently along different
     control-flow paths.</para>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>Unprotected Field Access</title>
 
     <para>Returning to the problem with the <classname>ThingLock</classname> locking model,
@@ -429,9 +429,9 @@ public abstract class Thing {
         </imageobject>
       </mediaobject>
     </para>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>Read&ndash;Write Locks</title>
 
     <para>You can demonstrate to yourself that JSure understands 
@@ -502,9 +502,9 @@ public abstract class Thing {
     <function>writeLock()</function> instead of
     <function>readLock()</function>. When you are finished making these
     changing these lines back, run another scan.</para>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>Unsatisfied Preconditions</title>
 
     <para>We now move on to the three unsatisfied lock preconditions.
@@ -589,9 +589,9 @@ public abstract class Thing {
     <classname>Ship</classname> or <classname>Planet</classname>
     object.
     </para>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>Mixed Lock Paradigms</title>
 
     <para>The problem in this case is that the
@@ -686,9 +686,9 @@ public abstract class Thing {
     The remaining problem is slightly subtle, and not immediately obvious
     from the reported tool results.
     </para>
-  </sect3>
+  </section>
 
-  <sect3>
+  <section>
     <title>One More Fix: Locks must be final</title>
 
     <para>What is the lingering problem with the lock preconditions?
@@ -811,5 +811,5 @@ public abstract class Thing {
  <para>You are now finished with this tutorial. The next tutorial
     step through finding what was a real bug in a concurrency
     library.</para>
-  </sect3>
-</sect2>
+  </section>
+</section>
