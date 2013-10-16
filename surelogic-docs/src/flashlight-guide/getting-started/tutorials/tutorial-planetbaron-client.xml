@@ -18,10 +18,10 @@
   Flashlight we have to collect data while a program is running. We will start
   below by describing how to run and play a PlanetBaron game.  After we
   understand a bit about how to run the game we will return to using Flashlight
-  on it.</para>
+  to analyze it.</para>
 
   <para>Let's run a PlanetBaron game. Select <filename>Server.java</filename> in
-  the <package>edu.afit.planetbaron.server</package> package. Right-click and
+  the <package>com.surelogic.planetbaron.server</package> package. Right-click and
   select <menuchoice><guisubmenu>Run As</guisubmenu> <guimenuitem>Java
   Application</guimenuitem></menuchoice>. You should see following output in the
   console which indicates that the server has started successfully:</para>
@@ -32,7 +32,7 @@
 
   <para>Now we need to add some players. Select
   <filename>PlayerUI.java</filename> in the
-  <package>edu.afit.planetbaron.client</package> package. Right-click and select
+  <package>com.surelogic.planetbaron.client</package> package. Right-click and select
   <menuchoice><guisubmenu>Run As</guisubmenu> <guimenuitem>Java
   Application</guimenuitem></menuchoice>. You will see a Window appear has a
   blank grid and the title <application>PlanetBaron</application>. In the lower
@@ -54,12 +54,12 @@
   look similar to the below:</para>
 
   <screen>
-    [INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map [edu.afit.planetbaron.server.Server.startListening()]
-    [INFO "server-ch10"] client handler thread started [edu.afit.planetbaron.server.ClientHandler.run()]
-    [INFO "server-ch10 (Laurel)"] "play "Laurel"" processed GameStateUpdate from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
-    [INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (12,11)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
-    [INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (9,13)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
-    [INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (8,10)" processed Ok from ch10 (Laurel) [edu.afit.planetbaron.server.ClientHandler.run()]
+    [INFO "server-main"] PlanetBaron game server listening for clients on port 8693 and playing on a 15x15 map [com.surelogic.planetbaron.server.Server.startListening()]
+    [INFO "server-ch10"] client handler thread started [com.surelogic.planetbaron.server.ClientHandler.run()]
+    [INFO "server-ch10 (Laurel)"] "play "Laurel"" processed GameStateUpdate from ch10 (Laurel) [com.surelogic.planetbaron.server.ClientHandler.run()]
+    [INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (12,11)" processed Ok from ch10 (Laurel) [com.surelogic.planetbaron.server.ClientHandler.run()]
+    [INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (9,13)" processed Ok from ch10 (Laurel) [com.surelogic.planetbaron.server.ClientHandler.run()]
+    [INFO "server-ch10 (Laurel)"] "moveship "Laurel" to (8,10)" processed Ok from ch10 (Laurel) [com.surelogic.planetbaron.server.ClientHandler.run()]
   </screen>
 
   <para>Now, go back to Eclipse and start a second instance of
@@ -88,7 +88,7 @@
   windows as usual. This action ends both player user interfaces but the server
   is still running.  To terminate the server we need to use the chat-test client
   program. Select <filename>ChatTestClient.java</filename> in the
-  <package>edu.afit.planetbaron.client</package> package. Right-click and select
+  <package>com.surelogic.planetbaron.client</package> package. Right-click and select
   <menuchoice><guisubmenu>Run As</guisubmenu> <guimenuitem>Java
   Application</guimenuitem></menuchoice>. You will see a window appear with the
   title <application>ChatTest - PlanetBaron</application>. This program allows
