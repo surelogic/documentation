@@ -23,9 +23,9 @@
     tab and three instances of PlayerUI through the normal launch tab.  For this
     experiment, we only need one instance of PlayerUI, and we will instrument it
     instead of the server.  Go ahead and run
-    <classname>edu.afit.planetbaron.server.Server</classname> as a normal Java
+    <classname>com.surelogic.planetbaron.server.Server</classname> as a normal Java
     application, and then launch one instance of
-    <classname>edu.afit.planetbaron.client.PlayerUI</classname> through the
+    <classname>com.surelogic.planetbaron.client.PlayerUI</classname> through the
     Flashlight launch tab.  As in the previous tutorial, go ahead and connect
     into the game, and move your ship to a planet or two.  Then terminate your
     instance of PlayerUI by closing the application window, and stop the server
@@ -48,7 +48,7 @@
   </para>
 
   <figure id="fig-tutorial-planetbaron-deadlock1">
-    <title>A potential deadlock in <classname>edu.afit.planetbaron.client.PlayerUI</classname></title>
+    <title>A potential deadlock in <classname>com.surelogic.planetbaron.client.PlayerUI</classname></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock1.png" />
@@ -66,7 +66,7 @@
     Held</guilabel> stack trace shows where <code>Object-42</code> was acquired.
     We can see from the stack traces that this edge originated from the
     <function>mouseMoved</function> method in
-    <classname>edu.afit.planetbaron.client.MapView</classname>.  If we click on
+    <classname>com.surelogic.planetbaron.client.MapView</classname>.  If we click on
     a link to the <classname>MapView</classname> class from one of the stack
     traces and inspect the class, we see that the <classname>MapView</classname>
     class implements <classname>java.awt.event.MouseMotionListener</classname>.
@@ -105,15 +105,15 @@
     Object-42</code> link under the <guilabel>Edges</guilabel> heading.  Here
     the displayed stack traces show that the lock acquisitions originated from
     the <function>run</function> method in
-    <classname>edu.afit.planetbaron.client.communication.ServerProxy</classname>.
+    <classname>com.surelogic.planetbaron.client.communication.ServerProxy</classname>.
     The <classname>ServerProxy</classname> class extends
     <classname>java.lang.Thread</classname>, and an instance of it is created
     and started when we connect to a server.  If we inspect the stack traces, we
     see that the edge first acquires a write lock on
     <structfield>f_lock</structfield> in
-    <classname>edu.afit.planetbaron.game.GameMap</classname>, followed by a lock
+    <classname>com.surelogic.planetbaron.game.GameMap</classname>, followed by a lock
     on <structfield>m_cursorLocationLock</structfield> in
-    <classname>edu.afit.planetbaron.client.MapView</classname>.
+    <classname>com.surelogic.planetbaron.client.MapView</classname>.
   </para>
 
   <figure id="fig-tutorial-planetbaron-deadlock3">

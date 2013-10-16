@@ -202,7 +202,7 @@ ORDER BY 1,2,3
     choice.  Shown in <xref
     linkend="fig-tutorial-query-editor-new-query-results" /> is a picture of the
     list of methods that access <structfield>m_cursorLocationLock</structfield>
-    in <classname>edu.afit.planetbaron.client.MapView</classname> being
+    in <classname>com.surelogic.planetbaron.client.MapView</classname> being
     exported.  You can then import the file into your favorite spreadsheet
     editor.
   </para>
