@@ -64,52 +64,89 @@
 
   <para>
     The above figure displays a standard SQL query that displays some summary
-    information about shared fields in a Flashlight-instrumented program.  It does this by
-    selecting information from the embedded database created when a Flashlight
-    run is prepared.  For a complete reference as to what Derby&mdash;the
-    database Flashlight uses&mdash;accepts as valid SQL, see the <ulink
-    url="http://db.apache.org/derby/docs/dev/ref/ref-single.html" >Derby
+    information about shared fields in a Flashlight-instrumented program.  It
+    does this by selecting information from the embedded database created when a
+    Flashlight run is prepared.  For a complete reference as to what
+    Derby&mdash;the database Flashlight uses&mdash;accepts as valid SQL, see the
+    <ulink url="http://db.apache.org/derby/docs/dev/ref/ref-single.html" >Derby
     Reference Manual</ulink>.  You may have noticed that the column labels in
     this query are a little odd, and that they don't quite match up with what
     the labels look like in the query results.  Flashlight allows you to provide
     formatting clues to the <guilabel>Query Results</guilabel> view by adding
-    suffixes to your column labels.  These suffixes begin with <literal>__</literal>
-    (two underscore characters) followed by
-    any number of special tokens, including
+    suffixes to your column labels.  These suffixes begin with
+    <literal>__</literal> (two underscore characters) followed by any number of
+    special tokens, including (amongst others)
   </para>
   
   <itemizedlist>
     <listitem>
+      <para>
       <literal>(l)</literal> to left justify the text in the column.
+      </para>
     </listitem>
 
     <listitem>
-      <literal>(r)</literal> to right justify the text in the column.
+      <para>
+        <literal>(r)</literal> to right justify the text in the column.
+      </para>
     </listitem>
 
     <listitem>
-      <literal>(c)</literal> to center justify the text in the column.
+      <para>
+        <literal>(c)</literal> to center justify the text in the column.
+      </para>
     </listitem>
 
     <listitem>
-      <literal>|</literal> to make a tree-table.  Everything preceding the
-      <literal>|</literal> is considered to be part of the tree portion.  In the above example, the
-      package, class, and field names are considered part of the tree. You may
-      also place a <literal>]</literal> on any of the columns comprising the tree to tell
-      the <guilabel>Query Results</guilabel> view to keep part of the tree
-      collapsed by default when it displays the results.
+      <para>
+        <literal>|</literal> to make a tree-table.  Everything preceding the
+        <literal>|</literal> is considered to be part of the tree portion.  In the above example, the
+        package, class, and field names are considered part of the tree. You may
+        also place a <literal>]</literal> on any of the columns comprising the tree to tell
+        the <guilabel>Query Results</guilabel> view to keep part of the tree
+        collapsed by default when it displays the results.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        <literal>(prefix '<replaceable>str</replaceable>')</literal> or
+        <literal>(suffix '<replaceable>str</replaceable>')</literal> where
+        <replaceable>str</replaceable> is a (possibly empty) string.  The prefix
+        or suffix string is placed at the beginning or end of every column.
+      </para>
     </listitem>
     
     <listitem>
-      <literal>(<replaceable>op</replaceable> on <replaceable>column<subscript>1</subscript></replaceable>, &hellip;, <replaceable>column<subscript>n</subscript></replaceable>)</literal>,
-      where <replaceable>op</replaceable> is one of <literal>sum</literal>,
-      <literal>count</literal>, or <literal>max</literal>, to display
-      the sum, count, or maximum of the collapsed values in each specified column
-      in a tree-table.  For example, <literal>(count on 2,3)</literal> would display the number of rows
-      underneath each node in the second and third columns of the tree-table.
+      <para>
+        <literal>(add-commas) makes a numeric value comma-delimited.</literal>
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        <literal>(human-readable-duration</literal> converts a duration of time
+        into a human readable value.  The default is to assume the time is
+        specified in nanoseconds, but you can also say
+        <literal>(human-readable-duration unit 'SECONDS')</literal> to indicate
+        the value is in seconds.  Any enum value of
+        <classname>java.util.concurrent.TimeUnit</classname> will work for this
+        purpose.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        <literal>(<replaceable>op</replaceable> on <replaceable>column<subscript>1</subscript></replaceable>, &hellip;, <replaceable>column<subscript>n</subscript></replaceable>)</literal>,
+        where <replaceable>op</replaceable> is one of <literal>sum</literal>,
+        <literal>count</literal>, or <literal>max</literal>, to display
+        the sum, count, or maximum of the collapsed values in each specified column
+        in a tree-table.  For example, <literal>(count on 2,3)</literal> would display the number of rows
+        underneath each node in the second and third columns of the tree-table.
+      </para>
     </listitem>
     
     <listitem>
+      <para>
       <literal>(hide)</literal> to prevent the selected database field from being
       displayed in the results.  
       Sometimes the children of a query need an identifier that cannot be
@@ -118,12 +155,31 @@
       shared?</emphasis>, and it needs the numeric id of the field to run.  The
       latter query displays the field name, and hides the field id using the
       <literal>(hide)</literal> token.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        <literal>(blank-if '<replaceable>value</replaceable>'</literal> will
+        change the contents of the column to blank if
+        <replaceable>value</replaceable> is the data for a particular row.
+      </para>
     </listitem>
     
     <listitem>
-      <literal>('<replaceable>image name</replaceable>')</literal> to display
-      an image next to the row's text.
-      Flashlight uses <literal>('package.gif')</literal> and <literal>('class.gif')</literal> extensively.
+      <para>
+        <literal>('<replaceable>image name</replaceable>')</literal> to display
+        an image next to the row's text.
+        Flashlight uses <literal>('package.gif')</literal> and <literal>('class.gif')</literal> extensively.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        <literal>(icon)</literal> to display an image next to the row's text
+        based on a code.  A full explanation of (icon) is outside the scope of
+        this tutorial, but we will use the codes associated with class names
+        and method names in the query we construct.
+      </para>
     </listitem>
   </itemizedlist>
   <para>
@@ -142,7 +198,13 @@
     box:
   </para>
   <programlisting><![CDATA[
-SELECT DISTINCT CO.PACKAGENAME "Package", CO.CLASSNAME "Class", S.LOCATION "Method", S.ATLINE "Line__|"
+SELECT DISTINCT 
+   CO.PACKAGENAME "Package__('package.gif')", 
+   CO.CLASSNAME   "Class", 
+   CO.CLASSCODE   "Class__(icon)",
+   S.LOCATION     "Method",
+   S.LOCATIONCODE "Method__(icon)",
+   S.ATLINE       "Line__|"
 FROM ACCESS A, TRACE T, SITE S, OBJECT CO
 WHERE A.FIELD = ?FieldId? AND
       T.ID = A.TRACE AND
