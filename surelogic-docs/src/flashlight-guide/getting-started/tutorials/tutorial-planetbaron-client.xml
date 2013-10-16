@@ -124,7 +124,7 @@
   linkend="fig-tutorial-planetbaron-running-chattestclient" />.</para>
 
   <figure id="fig-tutorial-planetbaron-running-chattestclient">
-    <title>Running ChatTestClient with Flashlight instrumentation</title>
+    <title>Launching ChatTestClient with Flashlight instrumentation</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-running-chattestclient.png" />
@@ -132,13 +132,46 @@
     </mediaobject>
   </figure>
 
-  <para>The ChatTestClient window will appear on your screen. Click the
-  <guibutton>Connect</guibutton> button to try and connect to a game server.
+  <para>Two windows will appear on your screen. First, the <guilabel>Flashlight Run Control</guilabel> dialog
+      (to the right in <xref linkend="fig-tutorial-planetbaron-dialog-and-chattestclient" />) will
+   appear to monitor the instrumented program run.
+   This dialog automatically appears when an instrumented program is launched in Eclipse.
+   It tracks the program run from launch, execution, termination, and data
+   preparation. It can be though of as being similar to a web
+   browser download monitor dialog.</para>
+   
+    <figure id="fig-tutorial-planetbaron-dialog-and-chattestclient">
+    <title>Running ChatTestClient with Flashlight instrumentation monitoring in the Flashlight Run Control dialog</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-dialog-and-chattestclient.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+      
+  <para>Second, the ChatTestClient window will appear on your screen
+  (to the left in <xref linkend="fig-tutorial-planetbaron-dialog-and-chattestclient" />). Click the
+  <guibutton>Connect</guibutton> button in the ChatTestClient window to try and connect to a game server.
   This will fail and the application will show a dialog to you which you may
   dismiss. The reason it fails is that we did not start a game server. At this
   point we have exercised the ChatTestClient enough to see some Flashlight
-  results. Go ahead and close the application window to terminate the
-  program. At this point Eclipse, which knows that this launch was instrumented,
+  results. Go ahead and close the ChatTestClient application window (on Windows use the red-X to the upper-right, or the
+  equivalent functionality on your operating system) to terminate the
+  program. After a few seconds, Flashlight will note that the instrumented ChatTestClient application has finished running and
+  begin data preparation. Data preparation gets the collected run data ready for you to query. The
+  <guilabel>Flashlight Run Control</guilabel> dialog monitors the progress of data preparation as shown in
+  <xref linkend="fig-tutorial-planetbaron-prep-chattestclient" />.</para>
+  
+    <figure id="fig-tutorial-planetbaron-prep-chattestclient">
+    <title>Data preparation progress being monitored in the Flashlight Run Control dialog</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-prep-chattestclient.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>When data preparation is completed the tool
   will prompt you to switch to the Flashlight perspective as shown in <xref
   linkend="fig-tutorial-planetbaron-perspective-switch-dialog" />.</para>
 
@@ -153,7 +186,10 @@
 
   <para>Press <guibutton>Yes</guibutton> and the Flashlight perspective
   will appear as shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-empty" />.</para>
+  linkend="fig-tutorial-planetbaron-perspective-empty" />. At this point you can dismiss the <guilabel>Flashlight Run Control</guilabel> dialog or leave it up.
+  The <guilabel>Flashlight Run Control</guilabel> dialog can be brought up at any time by selecting
+  <menuchoice><guisubmenu>Flashlight</guisubmenu> <guimenuitem>Launched Run Control...</guimenuitem></menuchoice> from
+  the Eclipse main menu.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-empty">
     <title>The Flashlight perspective</title>
@@ -168,65 +204,26 @@
   from instrumented programs. The <guilabel>Flashlight Runs</guilabel> view in
   the upper-left manages the instrumented runs of programs. This view allows you
   to prepare data to be queried, select a prepared run for querying, and delete
-  runs from the disk.  We need to prepare, or <emphasis>prep</emphasis>, the
-  ChatTestClient run.  When you switch to the Flashlight perspective, you should
-  be prompted to prepare your run data as shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-run-dialog" />.</para>
+  runs from the disk.</para>
+  
+  <para>The <guilabel>Query Results</guilabel> view is showing an overview of our ChatTestClient run
+      which is currently selected in the <guilabel>Flashlight Runs</guilabel> view.
+      The overview lists good and bad
+      news about the selected run. These news items are not definitive, because they represent
+      information from a single run of the program&mdash;hence the name <emphasis>news</emphasis> instead of <emphasis>results</emphasis>.
+      Some news items are underlined. These underlined news items may be selected with the mouse to invoke a query and show the
+      news item's corresponding results. Some news items are not underlined because they indicate that no information was
+      observed during the run&mdash;in these cases no results indicates something newsworthy. These items that are not
+      underlined have no associated
+      results.</para>
 
 
-  <figure id="fig-tutorial-planetbaron-perspective-run-dialog">
-    <title>Prompting the user to prepare a completed run</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-perspective-run-dialog.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
-
-  <para>Press <guibutton>Yes</guibutton> and Flashlight will start preparing the
-  run.  If you have changed your workspace preferences so that the above dialog
-  does not show up, double-click the row in the <guilabel>Flashlight
-  Runs</guilabel> table to prepare your run.  Alternatively you can select the
-  run, right-click, and select <guimenuitem>Prepare</guimenuitem> from the
-  context menu.</para>
-
-  <para>A dialog will appear showing the progress of prepping the data for
-  querying. For large runs prepping can take a significant amount of time. This
-  run, which only collected roughly 5 KB of data, should prep quickly taking up
-  a total of roughly 10 MB of disk space.</para>
-
-  <para>When the prep is complete two changes will occur. First, a
-  <guiicon><inlinegraphic fileref="images/drum.png" /></guiicon> will
-  appear in the <guilabel>Prep</guilabel> column of the
-  <guilabel>Flashlight Runs</guilabel> view table for this run. Second,
-  several queries are now able to be run on the data. These queries are
-  listed in the <guilabel>Query Menu</guilabel> view directly below the
-  <guilabel>Flashlight Runs</guilabel> view.</para>
 
   <para>At this point we should be able to inspect the run data. If you haven't
   selected the row in the <guilabel>Flashlight Runs</guilabel> view already, go
   ahead and click on it now.  This should bring up the <guilabel>Run
   Overview</guilabel>. The <guilabel>Run Overview</guilabel> displays a summary
   of what Flashlight observed while the program was being run.</para>
-
-  <para>Click on the <guimenuitem>Program Timeline</guimenuitem> tab of the
-  <guilabel>Run Overview</guilabel>.  Your screen should appear as shown in
-  <xref linkend="fig-tutorial-planetbaron-ctc-program-timeline" />.  The
-  <guimenuitem>Program Timeline</guimenuitem> shows a timeline of all the
-  threads observed in this run of the program.  In the figure below, two threads
-  were observed.  <code>Thread-2</code> was the initial thread that the
-  <methodname>main</methodname> method was run from, and
-  <code>EventDispatchThread-512</code> is the AWT Event Dispatch Thread.</para>
-
-  <figure id="fig-tutorial-planetbaron-ctc-program-timeline">
-    <title>A sample Program Timeline for a ChatTestClient run</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-ctc-program-timeline.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
-
 
   <para>We can also run queries on the run now.  Double-click on the
   <emphasis>What fields are read by the AWT Event Dispatch Thread and written in
