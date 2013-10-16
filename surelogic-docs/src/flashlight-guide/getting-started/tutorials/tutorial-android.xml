@@ -319,18 +319,18 @@
   thread-safe manner.</para>
 
 
-  <para>If we want, we can drill in even further and look at where this field
-  was accessed to get a better idea of its behavior.  Go ahead and select the
-  first entry, then run <emphasis>Show every access of this field in this time
-  range.</emphasis> Note that the first access is a write that occurs while the
-  <classname>CounteThread</classname> object is under construction.  Click on
-  this access and run <emphasis>What is the stack trace for this
-  access?</emphasis>
+  <para>If we want, we can drill in even further and look at where these
+  happens-before events occurred to get a better idea of the program behavior.
+  Go ahead and select the second entry (the entry not in the main thread), then
+  run <emphasis>What happens before edges allow these field reads to see the
+  previous write?</emphasis> There are two entries in this case: one from the
+  thread start and one from the count down latch.  Click on the Thread start
+  entry and run <emphasis>What is the stack trace for this edge's source?</emphasis>
   </para>
 
 
   <figure id="fig-tutorial-android-threadlocal-10">
-    <title>The write of <structfield>f_threadLocalCounts</structfield> by the main thread.</title>
+    <title>The happens before edges from the main thread to write of <structfield>f_threadLocalCounts</structfield> by the main thread.</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-android-threadlocal-10.png" />
@@ -340,7 +340,7 @@
 
 
   <figure id="fig-tutorial-android-threadlocal-4">
-    <title>What is the stack trace for this access?</title>
+    <title>What is the stack trace for this edge's source?</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-android-threadlocal-4.png" />
@@ -350,8 +350,8 @@
 
   <para>We can see from the figure above that
   <structfield>f_threadLocalCounts</structfield> is written to during the
-  construction of <classname>CounterThread</classname>.  If we click on the
-  middle row, where the <methodname>go</methodname> method of class
+  construction of <classname>CounterThread</classname>.  If we click on first
+  row, where the <methodname>go</methodname> method of class
   <classname>CounterRaceActivity</classname> is called, we jump to that line of
   code in the source code and can see the context where
   <classname>CounterThread</classname> is initialized.  Following along with the
@@ -379,11 +379,11 @@
   <structfield>f_threadLocalCounts</structfield> by the main thread.  In the
   <guilabel>Query Results Explorer</guilabel> view, click on <emphasis>When and
   by what threads was this field accessed?</emphasis> and select the final row.
-  Run <emphasis>Show every access of this field in this time range.</emphasis>
+  Run <emphasis>What happens before edges allow these field reads to see the previous write?</emphasis>
   You should see something similar to the figure below.</para>
 
   <figure id="fig-tutorial-android-threadlocal-7">
-    <title>The read of <structfield>f_threadLocalCounts</structfield> by the main thread.</title>
+    <title>The happens before edge to main from the counter thread</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-android-threadlocal-7.png" />
@@ -394,10 +394,10 @@
   <para>Notice that the very last access of this field occurred in the main
   thread.  Select the last access of
   <structfield>f_threadLocalCounts</structfield>, and run <emphasis>What is the
-  stack trace for this access?</emphasis></para>
+  stack trace for this edge's source?</emphasis></para>
 
   <figure id="fig-tutorial-android-threadlocal-8">
-    <title>What is the stack trace for this access?</title>
+    <title>What is the stack trace for this edge's source?</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-android-threadlocal-8.png" />
@@ -405,7 +405,7 @@
     </mediaobject>
   </figure>
 
-  <para>Click on the middle line of the stack trace to get an idea of what is
+  <para>Click on the first line of the stack trace to get an idea of what is
   happening at this point in time.  We see that, in the
   <methodname>stop</methodname> method of <classname>CounterThread</classname>,
   the program iterates over each <classname>CounterThread</classname> and joins
