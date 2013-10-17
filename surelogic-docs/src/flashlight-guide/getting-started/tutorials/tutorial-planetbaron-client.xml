@@ -216,34 +216,55 @@
       observed during the run&mdash;in these cases no results indicates something newsworthy. These items that are not
       underlined have no associated
       results.</para>
+      
+      <para>The "Bad News" reports a single item for this run. Let's examine this report to see if it is significant. Click on
+      the underlined news item <emphasis>Fields read by the AWT Event Dispatch Thread were modified outside of it</emphasis>.
+      You should see the <guilabel>Query Results</guilabel> view change to a result similar to the one shown in
+      <xref linkend="fig-tutorial-planetbaron-outside-edt" />. Your result may be slightly different because the data
+      reflects what occurred in your particular run of the program. For example, the counts under the <emphasis>Reads</emphasis>
+      and <emphasis>Writes</emphasis> column may be different than what is shown in <xref linkend="fig-tutorial-planetbaron-outside-edt" />.</para>
+      
+  <figure id="fig-tutorial-planetbaron-outside-edt">
+    <title>Fields read by the AWT/Swing Event Dispatch Thread (EDT) and written in others</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-outside-edt.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Clicking on this news item ran the query <emphasis>What fields are read by the
+  AWT Event Dispatch Thread and written by others?</emphasis> This query also appeared in
+  the <guilabel>Query Menu</guilabel> view. But, it doesn't show this view right now because the view
+  is now showing sub-queries that can be run on the query result we just brought up.
+  When at the top level, however, the <guilabel>Query Menu</guilabel> view for this run is shown in
+  <xref linkend="fig-tutorial-planetbaron-outside-edt-menu" />. In fact, all news items come
+  from the menu of queries about a run. If a query is empty it can result in a good news report or bad news report.
+  The same goes for a query with results, however, if a news item has results then the tool allows the query to
+  be run directly from the news item. That is how we ran the query in this example.</para>
+  
+    <figure id="fig-tutorial-planetbaron-outside-edt-menu">
+    <title>The API query where the "bad news" item originated in the Query Menu view</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-outside-edt-menu.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
-
-
-  <para>At this point we should be able to inspect the run data. If you haven't
-  selected the row in the <guilabel>Flashlight Runs</guilabel> view already, go
-  ahead and click on it now.  This should bring up the <guilabel>Run
-  Overview</guilabel>. The <guilabel>Run Overview</guilabel> displays a summary
-  of what Flashlight observed while the program was being run.</para>
-
-  <para>We can also run queries on the run now.  Double-click on the
-  <emphasis>What fields are read by the AWT Event Dispatch Thread and written in
-  others?</emphasis> query under the <guilabel>API Use</guilabel> section of the
-  <guilabel>Query Menu</guilabel>.  The results will appear in the
-  <guilabel>Query Results</guilabel> view.  Go ahead and click on the
-  <structfield>f_connectDisconnectButton</structfield> entry.  Your screen
-  should appear as shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-ctc1" />.  Query results are
-  presented as a table, tree, or tree-table.  This result is a tree-table. The
-  result reports the shared non-static fields noted in the run.</para>
-
-  <para>Selecting fields in the query result causes these fields to be
+  <para>Let's return our attention to the <guilabel>Query Results</guilabel> view.
+  Selecting fields in the query result causes these fields to be
   highlighted in two views at the bottom of the Flashlight perspective.  The
   view to the left is the normal Java editor and represents the current state of
   the source code. The view to the right is an <guilabel>Historical Source
   Snapshot</guilabel> view that shows you the code as it existed when the
   program was executed.  This view helps you to understand if the code has
-  evolved since the run you are querying was made.</para>
-
+  evolved since the run you are querying was made. To see this, click on the 
+  row of the query result that lists information about the 
+  <structfield>f_connectDisconnectButton</structfield> field. You will see the two code views
+  change to the field's <structfield>f_connectDisconnectButton</structfield> declaration as shown in
+  <xref linkend="fig-tutorial-planetbaron-perspective-ctc1" />. In this example the code is exactly the same,
+  which is what we would expect because we just made the run and haven't made any changes since that time.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc1">
     <title>Fields accessed outside the Event Dispatch Thread in a ChatTestClient run</title>
@@ -254,11 +275,23 @@
     </mediaobject>
   </figure>
 
-
-  <para>Select the <structfield>f_connectDisconnectButton</structfield> and
+  <para>Flashlight can do more than run a single query. It is designed to allow you to
+  "drill-in" to understand the details about what occurred during a run.
+  Select the <structfield>f_connectDisconnectButton</structfield> and
   right-click. This brings up a menu of queries that can be run on this
-  result. Select <emphasis>What are the instances of this non-static
-  field?</emphasis> You should see a table with a single entry, as in <xref
+  result. In this case there is one as shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc1menu" />.</para>
+  
+    <figure id="fig-tutorial-planetbaron-perspective-ctc1menu">
+    <title>Drill-in queries that can be run on the f_connectDisconnectButton field</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc1menu.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Select <emphasis>What instances contain this field when it is read by the AWT Event Dispatch Thread
+  and written in others?</emphasis> You should see a table with a single entry, as in <xref
   linkend="fig-tutorial-planetbaron-perspective-ctc7" />.  If any other
   ChatTestClient objects had been created and shared their
   <structfield>f_connectDisconnectButton</structfield> with more than one
@@ -278,17 +311,24 @@
     </mediaobject>
   </figure>
   
-  <para>Right click on the single row and select <emphasis>What threads read and
-  write this field?</emphasis> The results should look something like <xref
+  <para>Right click on the single row and select <emphasis>When and by what threads is
+  this field accessed?</emphasis> The results should look something like <xref
   linkend="fig-tutorial-planetbaron-perspective-ctc2" />.  In the case of
   <structfield>f_connectDisconnectButton</structfield> we see that the
-  AWT-EventQueue-0, known as the event dispatch thread (EDT), and the main
-  thread shared this field. Note that all the accesses by the main thread were
+  main thread and AWT-EventQueue-0, known as the event dispatch thread (EDT),
+  shared this field. This result indicates, by the <emphasis>No</emphasis> in the <emphasis>Happens-Before</emphasis>
+  column that the field is not safely passed from the first thread to the second.
+  Flashlight can show whether or not a <emphasis>happens-before</emphasis> relationship exists between
+  two threads in a run of an instrumented program. For example, whether a write of a volatile field in
+  the thread t1 and a subsequent read in the thread t2 created a happens-before edge between t1 and t2.
+  These queries help the user better understand if the shared state in their Java program respects the
+  details of the Java memory model &mdash; and is therefore able to obtain high performance with safety.
+  We note that in this example all the accesses by the main thread were
   during construction of the ChatTestClient.
   </para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc2">
-    <title>What threads read and write this field?</title>
+    <title>When and by what threads is the f_connectDisconnectButton field accessed?</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-perspective-ctc2.png" />
