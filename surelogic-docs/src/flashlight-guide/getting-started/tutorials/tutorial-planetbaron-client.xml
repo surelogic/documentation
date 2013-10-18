@@ -490,40 +490,54 @@ public static void main(String[] args) {
   </orderedlist>
   </para>
 
-  <para>A new run will appear in the <guilabel>Flashlight Runs</guilabel>
-  view. Double-click this run to prep it if Flashlight does not automatically
-  ask to prepare the data.</para>
+  <para>You can watch the progress of data preparation in the
+  <guilabel>Flashlight Launched Run Control</guilabel> dialog. When data
+  preparation is complete on the new ChatTestData run you can dismiss 
+  the <guilabel>Flashlight Launched Run Control</guilabel> dialog.
+  The new ChatTestClient run will appear in the <guilabel>Flashlight Runs</guilabel>
+  view.</para>
 
-  <para>Clear out the previous query results by clicking the
+  <para>Delete all our previous query results by clicking the
   <guiicon><inlinegraphic fileref="images/gray_x_double.png" /></guiicon> in
-  either the <guilabel>Result Explorer</guilabel> portion of the <guilabel>Query
-  Flashlight</guilabel> view or the <guilabel>Flashlight Query
-  Results</guilabel> view. This action clears out the saved results from all
-  previous queries (the set of these results is saved in the <guilabel>Result
-  Explorer</guilabel> portion of the <guilabel>Query Flashlight</guilabel>
-  view).</para>
-
-  <para>Check that you have the new run selected in the <guilabel>Flashlight
-  Runs</guilabel> view and then double-click on the <emphasis>What fields are
-  read by the AWT Event Dispatch Thread and written in others?</emphasis>
-  query. The query is successful but no rows are returned. This indicates that
+  either the <guilabel>Query Results Explorer</guilabel> view or the <guilabel>Query
+  Results</guilabel> view. This action clears out previous queries we have done.</para>
+  
+  <para>Select the new ChatTestClient run in the <guilabel>Flashlight Runs</guilabel> and your workspace
+  should look similar to the one shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc4" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-perspective-ctc4">
+    <title>News about our new run of ChatTestClient</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc4.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Note that the bad news item is gone. This is a good sign that we have fixed the problem of
+  keeping access to AWT/Swing object thread confined to the AWT Event Dispatch Thread. For
+  ChatTestClient, this result indicates that
   no fields were observed being accessed in both the AWT Event Dispatch Thread
   and the main thread. This run provides some evidence that we have fixed the
-  bug discovered in ChatTestClient.</para>
+  bug discovered in ChatTestClient. We carefully say <emphasis>some evidence</emphasis>, rather than proves, because
+  a dynamic analysis tool does not investigate all possible executions of the ChatTestClient&mdash;it can
+  only report on what it observed.</para>
 
-  <para>Before we move on let's examine the old run one final time.  Clear out
-  the previous query results by again clicking the <guiicon><inlinegraphic
-  fileref="images/gray_x_double.png" /></guiicon> icon. Select the first
+  <para>Before we move on let's examine the old run in the <guilabel>Flashlight Runs</guilabel> view
+  one final time.Select the first
   ChatTestClient run and double-click the <emphasis>What fields are read by the
   AWT Event Dispatch Thread and written in others?</emphasis> query. Select
   <structfield>f_connectDisconnectButton</structfield> and right-click to select
-  the <emphasis>What are the individual instances of this non-static
-  field?</emphasis> query, then the <emphasis>When and by what threads was this
-  field accessed?</emphasis> query. Select the second access by the main thread
-  and right-click to select the <emphasis>Show stack trace for a field
-  access</emphasis> query. By selecting the bottom row of the stack trace you
-  can see that, while the Java editor code might prove confusing (because we
-  changed it), the <guilabel>Historical Source Snapshot</guilabel> view
+  the <emphasis>What instance contain this field when it is read by the AWT
+  Event Dispatch Thread and written in others?</emphasis> query.
+  Select the single ChatTestClient object instance, right-click, and run the <emphasis>When and by what threads was this
+  field accessed?</emphasis> query. Next select the main thread row, right-click, and run
+  the <emphasis>Show every access of this field in this time range.</emphasis> query.
+  Select the second access by the main thread
+  and right-click to select the <emphasis>What is the stack trace?</emphasis> query.
+  By selecting the bottom row of the stack trace you
+  can see that, while the Java editor code might prove confusing, because we
+  changed the code, the <guilabel>Historical Source Snapshot</guilabel> view
   remembers what the code looked like in this previous run. This difference is
   shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc5" />.</para>
 
@@ -537,10 +551,11 @@ public static void main(String[] args) {
   </figure>
 
   <para>We are finished with our examination of these runs, so let's delete
-  them. First, clear out all the queries by pressing the <guiicon><inlinegraphic
-  fileref="images/gray_x_double.png" /></guiicon> icon. In the
+  them. First, clear out all the queries we ran by pressing the <guiicon><inlinegraphic
+  fileref="images/gray_x_double.png" /></guiicon> icon in either the <guilabel>Query Results</guilabel> view or
+  the <guilabel>Query Results Explorer</guilabel> view. Next, in the
   <guilabel>Flashlight Runs</guilabel> view select both runs and
-  right-click. Select <guimenuitem>Delete</guimenuitem> from the context menu as
+  right-click to bring up the view's context menu. Select <guimenuitem>Delete</guimenuitem> from the context menu as
   shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc6" />.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc6">
@@ -555,6 +570,7 @@ public static void main(String[] args) {
   <para>You will be prompted to ensure that you really want to delete this
   Flashlight run data. Press <guibutton>OK</guibutton>. After a short delay the
   <guilabel>Flashlight Runs</guilabel> view should be empty. It is important to
-  delete old runs to ensure that you free up disk space on your computer.</para>
+  delete old runs to ensure that you free up disk space on your computer. As you can see in the first
+  column of the figure above, two short runs of ChatTestClient used roughly 23 MB of disk space.</para>
 
 </section>
