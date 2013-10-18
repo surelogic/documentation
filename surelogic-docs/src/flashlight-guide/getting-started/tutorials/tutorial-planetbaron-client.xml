@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <section id="sec-tutorial-planetbaron-client">
-  <title>Using Flashlight on PlanetBaron</title>
+  <title>Finding a thread-confinement problem in the PlanetBaron ChatTestClient with API specific analyses</title>
 
   <para>PlanetBaron is a network-based real-time strategy game. It contains
   three programs that we will run during this tutorial. The first is a server
