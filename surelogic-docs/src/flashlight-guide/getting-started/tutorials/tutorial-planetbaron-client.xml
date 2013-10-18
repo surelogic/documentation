@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <section id="sec-tutorial-planetbaron-client">
-  <title>Using Flashlight on the PlanetBaron project</title>
+  <title>Using Flashlight on PlanetBaron</title>
 
   <para>PlanetBaron is a network-based real-time strategy game. It contains
   three programs that we will run during this tutorial. The first is a server
@@ -336,28 +336,79 @@
     </mediaobject>
   </figure>
   
-  <para>In this run all the accesses of <structfield>f_connectDisconnectButton</structfield> in the main thread
-  occurred when the object was under construction.</para>
+  <para>Before we continue our analysis of the problem with the shared <structfield>f_connectDisconnectButton</structfield>
+  field let's learn to navigate query results in the user interface.
+  Flashlight remembers all queries you run until you explicitly delete them. At this point
+  you have run three queries&mdash;each a drill in of the previous. This structure can be
+  seen to the upper-right of the Eclipse window in the <guilabel>Query Results Explorer</guilabel>
+  view. That view should appear as shown in <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc2a" />.</para>
   
-  <para>We will zoom in a little more and look at the actual accesses of this
-  field.  Right click on the table, and run <emphasis>When and by what threads
-  was this field accessed?</emphasis> Your results should resemble <xref
-  linkend="fig-tutorial-planetbaron-perspective-ctc9" />. Each entry in this
-  query represents a series of contiguous accesses made in a single thread. This
-  query tells us that the <structfield>f_connectDisconnectButton</structfield>
-  was written to by the main thread several times, and then read from in the AWT
-  thread afterward.</para>
-
-
-  <figure id="fig-tutorial-planetbaron-perspective-ctc9">
-    <title>When and by what threads was this field accessed?</title>
+  <figure id="fig-tutorial-planetbaron-perspective-ctc2a">
+    <title>The Query Results Explorer shows queries that have been run and their structure</title>
     <mediaobject>
       <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc9.png" />
+        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc2a.png" />
       </imageobject>
     </mediaobject>
   </figure>
-
+  
+  <para>Each entry lists the name of the query executed. To the right of the name the number
+  of rows returned is listed. If the query is a top-level query on a run then the name
+  of the run and the time it was launched is listed so that query trees made on multiple
+  runs can be distinguished. The tree structure of this view reflects if one query
+  was a "drill-in" result from another.</para>
+  
+  <para>Click on the <emphasis>What instances contain this field when it is read by the AWT
+  Event Dispatch Thread and written in others?</emphasis> result in the <guilabel>Query Results Explorer</guilabel>
+  view. This causes the display of the <guilabel>Query Results</guilabel> view to change
+  to show this queries results. You can click on any result in the <guilabel>Query Results Explorer</guilabel>
+  view to see its results. In addition to directly clicking on a result you can use
+  <guiicon><inlinegraphic fileref="images/left.gif"/></guiicon> and <guiicon><inlinegraphic fileref="images/right.gif"/></guiicon>
+  icons in the toolbar of either the <guilabel>Query Results Explorer</guilabel>
+  view or the <guilabel>Query Results</guilabel> view to "drill-back" or "drill-in" along
+  a line of query results. Try this now.</para>
+  
+  <para>You can also start a new line of queries about a run by going back to the root
+  query menu for a run. There are two ways to do this. The first is to click on the run
+  in the <guilabel>Flashlight Runs</guilabel> view. The second is to click the
+  <guiicon><inlinegraphic fileref="images/query_back.gif"/></guiicon> icon in the toolbar
+  of the <guilabel>Query Menu</guilabel> view.</para>
+  
+  <para>To try this out let's run another root query. Select the ChatTestClient run with
+  the mouse in the <guilabel>Flashlight Runs</guilabel> view. This will change the
+  <guilabel>Query Menu</guilabel> view back to the top level. Find the query
+  <emphasis>What fields (static) are shared?</emphasis> (under the Shared State category) and
+  double-click on this query to run it. You should get a result similar to the one shown
+  in <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc2b" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-perspective-ctc2b">
+    <title>Running a second top-level query on ChatTestClient</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc2b.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Now we have two "lines of inquiry" about the ChatTestClient run. The
+  query result about shared static state that a single static
+  field tells us that only <structfield>LOG</structfield> was observed as being shared
+  between two or more threads. We are now done with this line of
+  inquiry about static state. To clear a single query result you press the
+  <guiicon><inlinegraphic fileref="images/gray_x.png"/></guiicon>
+  in the toolbar of either the <guilabel>Query Results Explorer</guilabel>
+  view or the <guilabel>Query Results</guilabel> view.
+  To clear out all query results you press the
+  <guiicon><inlinegraphic fileref="images/gray_x_double.png"/></guiicon>
+  in the toolbar of either the <guilabel>Query Results Explorer</guilabel>
+  view or the <guilabel>Query Results</guilabel> view. But we only want to clear out a single
+  result. So, now press the <guiicon><inlinegraphic fileref="images/gray_x.png"/></guiicon> toolbar button to delete
+  the query result about the <structfield>LOG</structfield> field. Next,
+  to get us back to our original line of inquiry select the <emphasis>When and by what
+  threads was this field accessed?</emphasis> result in the <guilabel>Query Results Explorer</guilabel> view.</para>
+  
   <para>We can get a better idea of when we are writing to
   <structfield>f_connectDisconnectButton</structfield> by drilling in and
   looking at each access that was made.  Right click on the main entry, and run
@@ -366,13 +417,10 @@
   linkend="fig-tutorial-planetbaron-perspective-ctc3" /> and will show you each
   read and write of the field that was observed by the instrumentation as the
   program executed. It shows the time at which the event occurred and the thread
-  it happened within. Select the second access by the main thread and
-  right-click. Drill-in again by selecting <emphasis>What is the stack trace for
-  this access?</emphasis> as shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-ctc8" />.</para>
+  it happened within.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc3">
-    <title>Looking at the accesses made to a field</title>
+    <title>Looking at the accesses made to the f_connectDisconnectButton field</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-perspective-ctc3.png" />
@@ -380,8 +428,12 @@
     </mediaobject>
   </figure>
   
+  <para>Now, select the second access by the main thread and
+  right-click. Drill-in again by selecting <emphasis>What is the stack trace for
+  this access?</emphasis>.</para>
+  
   <figure id="fig-tutorial-planetbaron-perspective-ctc8">
-    <title>Drilling in to see the stack trace for this field access</title>
+    <title>Drilling in to see the stack trace for this field access and a broken line of code</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-perspective-ctc8.png" />
@@ -389,19 +441,11 @@
     </mediaobject>
   </figure>
 
-  <para>This will result in a stack trace for the selected access.  Selecting
-  each row of the result will show that line of code in the program.  The bottom
-  row is, in fact, a bug in the program. This line is shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-ctc4" />.</para>
-
-  <figure id="fig-tutorial-planetbaron-perspective-ctc4">
-    <title>The broken line of code in ChatTestClient</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc4.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
+  <para>This will result in a stack trace for the selected access  as shown in <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc8" />.  Selecting
+  each row of the result will link to line of code in the ChatTestClient program. The bottom
+  row is, in fact, a bug in the program. This line is shown in the figure above
+  at line 52.</para>
 
   <para>What is wrong? To understand this problem we quote from Haase and Guy's
   <citetitle pubwork="book">Filthy Rich Clients</citetitle><biblioref
