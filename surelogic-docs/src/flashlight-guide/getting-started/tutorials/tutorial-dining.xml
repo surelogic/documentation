@@ -4,9 +4,377 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <section id="sec-tutorial-dining">
-	<title>Using Flashlight on a troubled dining philosophers implementation</title>
-	
-	<para>todo</para>
+  <title>Using Flashlight on a troubled dining philosophers implementation</title>
+  
+  <para>
+    This tutorial explores a small program based on the classic <ulink
+    url="http://en.wikipedia.org/wiki/Dining_philosophers">Dining
+    Philosophers</ulink> problem. The program models the following scenario:
+    Five philosophers sit down at a table with five plates, five forks, and a
+    bowl of spaghetti in the middle. A philosopher alternates between states of
+    thinking or eating.  They must acquire two forks to eat from the bowl of
+    spaghetti, and after eating they relinquish their forks to think again. The
+    philosophers never speak to each other.
+  </para>
+  <para>
+    The program represents each philosopher as a separate thread, and the forks
+    are java.util.concurrent locks. A philosopher must acquire a lock on both
+    nearby forks in order to eat.  The source code for the main method of
+    <classname>DiningPhilosophers</classname> is displayed below.  We create
+    five forks, and assign two forks to each dining philosopher to serve as the
+    fork on their left and right.  The first philosopher, Kant, Will have forks
+    0 and 1, Diogenes will have 1 and 2, and this goes on until we reach Russel,
+    who has forks 4 and 0.
+  </para>
+
+  <programlisting>
+<![CDATA[
+
+public class DiningPhilosophers {
+
+	private static final String[] names = new String[] { "Kant", "Diogenes",
+			"Descartes", "Goethe", "Russell" };
+
+	public static void main(String[] args) {
+		Fork[] forks = new Fork[5];
+		for (int i = 0; i < 5; i++) {
+			forks[i] = new Fork(i);
+		}
+		for (int i = 0; i < 5; i++) {
+			new Thread(new LeftThenRightPhilosopher(names[i], forks[i],
+					forks[(i + 1) % 5]), names[i]).start();
+		}
+		try {
+			Thread.sleep(30000);
+		} catch (final InterruptedException e) {
+			// Do nothing
+		}
+		System.exit(0);
+	}
+]]>
+  </programlisting>
+  <para>
+    The Fork class itself is a straightforward re-entrant lock, but has been
+    extended to include an ordinal value, which we will use to our advantage
+    later in the tutorial.
+  </para>
+  <programlisting>
+<![CDATA[
+	/**
+	 * The table forks are represented by locks. A philosopher must lock on the
+	 * Fork object in order to acquire the fork.
+	 * 
+	 * 
+	 */
+	@SuppressWarnings("serial")
+	static class Fork extends ReentrantLock {
+		private final int ord;
+
+		Fork(int ord) {
+			this.ord = ord;
+		}
+
+		int ordinal() {
+			return ord;
+		}
+	}
+
+}
+]]>
+  </programlisting>
+
+  <para>
+    The implementation of our philosopher,
+    <classname>LeftThenRightPhilosopher</classname>, is a
+    <classname>Runnable</classname> and has a <structfield>name</structfield>, a
+    <structfield>left</structfield> fork, and a <structfield>right</structfield>
+    fork.  Each philosopher will try to acquire the fork on their left (in the
+    case of Kant this would be fork 0) and then the fork on their right.  Once
+    they have two forks, they may eat.
+  </para>
+
+  <programlisting>
+<![CDATA[
+	/**
+	 * This philosopher always attempts to take the fork on their left, and then
+	 * the fork on their right.
+	 * 
+	 * 
+	 */
+	static class LeftThenRightPhilosopher implements Runnable {
+		private final String name;
+		private final Fork left;
+		private final Fork right;
+
+		LeftThenRightPhilosopher(String name, Fork left, Fork right) {
+			this.name = name;
+			this.left = left;
+			this.right = right;
+		}
+
+		public void run() {
+			while (true) {
+				try {
+					System.out.printf("%s is thinking.\n", name);
+					Thread.sleep(1000);
+					left.lock();
+					try {
+						System.out.printf("%s picks up the left fork.\n", name);
+						Thread.sleep(1000);
+						right.lock();
+						try {
+							System.out.printf("%s picks up the right fork.\n",
+									name);
+							Thread.sleep(1000);
+							System.out.printf("%s is eating.\n", name);
+							Thread.sleep(1000);
+						} finally {
+							right.unlock();
+						}
+					} finally {
+						left.unlock();
+					}
+				} catch (InterruptedException e) {
+					// Do nothing
+				}
+			}
+		}
+	}
+]]>
+  </programlisting>
+
+  <para>
+    Let's go ahead and run this and see what we get.  Right click on the
+    <classname>DiningPhilosophers</classname> class in the <guilabel>Package
+    Explorer</guilabel> and choose <menuchoice><guisubmenu>Flashlight
+    As</guisubmenu>
+    <guimenuitem>Java Application</guimenuitem></menuchoice>.  The output of the
+    program in the <guilabel>Console</guilabel> should appear as shown below.
+    After thirty seconds the program will terminate and Flashlight will prep the
+    run. If you don't want to wait thirty seconds you can press the
+    <guilabel>Stop</guilabel> button in the console once you see the output below.
+  </para>
+  <programlisting>
+<![CDATA[
+Kant is thinking.
+Descartes is thinking.
+Diogenes is thinking.
+Goethe is thinking.
+Russell is thinking.
+Diogenes picks up the left fork.
+Descartes picks up the left fork.
+Goethe picks up the left fork.
+Russell picks up the left fork.
+Kant picks up the left fork.
+]]>
+  </programlisting>
+
+  <para>
+    This doesn't look good.  It appears that every philosopher picked up the
+    fork on their left, and then no one was able to eat!  Now that the run has
+    terminated, Flashlight will prepare it for inspection and we can see what
+    went wrong.  Switch to the Flashlight perspective now if you have not been
+    prompted to do so already, and select the
+    <classname>DiningPhilosophers</classname> run in the <guilabel>Flashlight
+    Runs</guilabel> view.  You should see one article of bad news in the
+    <guilabel>Query Results</guilabel> view.
+  </para>
+
+  <figure id="fig-tutorial-dining-news">
+    <title>Bad News in DiningPhilosophers</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-dining-news.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    Go ahead and click on the <emphasis>Lock cycles were observed that could
+    cause the program to deadlock</emphasis> link.  You should see one lock cycle displayed, as shown in  <xref
+    linkend="fig-tutorial-dining-what-lock-cycles" /> below.  Double click on this entry and a lock graph will be
+    displayed that should look something like <xref linkend="fig-tutorial-dining-what-are-the-edges"/>.  Every node in this
+    graph is a lock in the program.  In this case that means the five
+    <classname>Fork</classname> objects that we created.  Each edge represents a
+    time in the program that we held the lock at the source of the edge and
+    tried to acquire the lock at the edge's destination.
+  </para>
+
+
+  <figure id="fig-tutorial-dining-what-lock-cycles">
+    <title>What lock cycles could potentially cause deadlock?</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-dining-what-lock-cycles.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-tutorial-dining-what-are-the-edges">
+    <title>What are the edges for this lock cycle?</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-dining-what-are-the-edges.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    From the graph it is clear what happened.  Each philosopher attempted to
+    acquire the lock on their left, and then tried to acquire a lock that was
+    already held by someone else by the person on their right.  So Kant needed
+    the lock held by Diogenes, who needed the lock held by Descartes, and on to
+    Goethe, then Russell, who closed the loop by needing the lock held by Kant.
+  </para>
+
+  <para>
+    Now that we have seen that <classname>LeftThenRightPhilosopher</classname>
+    leads to deadlock, we can try to fix this by using a different
+    implementation.  The typical first approach to fixing a deadlock scenario is
+    to choose a global ordering of all locks in the program, and then
+    <emphasis>always</emphasis> acquire locks in that order.  Recall that each
+    <classname>Fork</classname> object was given an ordinal value.  We're going
+    to take advantage of that fact to construct a philosopher that always
+    acquires the lowest numbered lock first.
+    <classname>OrderedPhilosopher</classname>, displayed below, does just that.
+  </para>
+
+  <programlisting>
+<![CDATA[
+
+	/**
+	 * Each fork happens to be numbered, and this philosopher will always grab
+	 * the lowest numbered fork next to them.
+	 * 
+	 */
+	static class OrderedPhilosopher implements Runnable {
+		private final String name;
+		private final Fork left;
+		private final Fork right;
+
+		OrderedPhilosopher(String name, Fork left, Fork right) {
+			this.name = name;
+			this.left = left;
+			this.right = right;
+		}
+
+		public void run() {
+			while (true) {
+				try {
+					boolean leftFirst = left.ordinal() < right.ordinal();
+					System.out.printf("%s is thinking.\n", name);
+					Thread.sleep(1000);
+					Fork first = leftFirst ? left : right;
+					first.lock();
+					try {
+						System.out.printf("%s picks up the %s fork.\n", name,
+								leftFirst ? "left" : "right");
+						Thread.sleep(1000);
+						Fork second = leftFirst ? right : left;
+						second.lock();
+						try {
+							System.out.printf("%s picks up the %s fork.\n",
+									name, leftFirst ? "right" : "left");
+							Thread.sleep(1000);
+							System.out.printf("%s is eating.\n", name);
+							Thread.sleep(1000);
+						} finally {
+							second.unlock();
+						}
+					} finally {
+						first.unlock();
+					}
+				} catch (InterruptedException e) {
+					// Do nothing
+				}
+			}
+		}
+	}
+]]>
+  </programlisting>
+
+  <para>
+    Change the main method of DiningPhilosophers to use the OrderedPhilosopher
+    implementation as shown below.
+  </para>
+
+  <programlisting>
+<![CDATA[
+
+public class DiningPhilosophers {
+
+	private static final String[] names = new String[] { "Kant", "Diogenes",
+			"Descartes", "Goethe", "Russell" };
+
+	public static void main(String[] args) {
+		Fork[] forks = new Fork[5];
+		for (int i = 0; i < 5; i++) {
+			forks[i] = new Fork(i);
+		}
+		for (int i = 0; i < 5; i++) {
+			new Thread(new OrderedPhilosopher(names[i], forks[i],
+					forks[(i + 1) % 5]), names[i]).start();
+		}
+		try {
+			Thread.sleep(30000);
+		} catch (final InterruptedException e) {
+			// Do nothing
+		}
+		System.exit(0);
+	}
+]]>
+  </programlisting>
+
+  <para>
+    Now go ahead and run the program again by right clicking on <classname>DiningPhilosophers</classname> in the <guilabel>Package
+    Explorer</guilabel> and choosing <menuchoice><guisubmenu>Flashlight As</guisubmenu>
+    <guimenuitem>Java Application</guimenuitem></menuchoice>.  You should see
+    quite a bit more output from the program this time.  Your run will be different, but will probably look something like this:
+  </para>
+
+  <programlisting>
+<![CDATA[
+Kant is thinking.
+Russell is thinking.
+Goethe is thinking.
+Descartes is thinking.
+Diogenes is thinking.
+Russell picks up the right fork.
+Diogenes picks up the left fork.
+Goethe picks up the left fork.
+Descartes picks up the left fork.
+Russell picks up the left fork.
+Russell is eating.
+Russell is thinking.
+Kant picks up the left fork.
+Goethe picks up the right fork.
+Goethe is eating.
+Goethe is thinking.
+Descartes picks up the right fork.
+Descartes is eating.
+Descartes is thinking.
+Diogenes picks up the right fork.
+...
+]]>
+  </programlisting>
+
+  <para>
+    Once the run has completed and prepped, we can see in the overview that the
+    program no longer has any potential for deadlock.
+  </para>
+  <figure id="fig-tutorial-dining-no-news">
+    <title>OrderedPhilosopher does not cause deadlock</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-dining-no-news.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    This completes the tutorial.
+  </para>
+
 
 </section>
-  
+
