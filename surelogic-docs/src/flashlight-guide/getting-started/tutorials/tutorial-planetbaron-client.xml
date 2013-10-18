@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <section id="sec-tutorial-planetbaron-client">
-  <title>Using Flashlight on the PlanetBaron project</title>
+  <title>Using Flashlight on PlanetBaron</title>
 
   <para>PlanetBaron is a network-based real-time strategy game. It contains
   three programs that we will run during this tutorial. The first is a server
@@ -238,10 +238,12 @@
   the <guilabel>Query Menu</guilabel> view. But, it doesn't show this view right now because the view
   is now showing sub-queries that can be run on the query result we just brought up.
   When at the top level, however, the <guilabel>Query Menu</guilabel> view for this run is shown in
-  <xref linkend="fig-tutorial-planetbaron-outside-edt-menu" />. In fact, all news items come
-  from the menu of queries about a run. If a query is empty it can result in a good news report or bad news report.
+  <xref linkend="fig-tutorial-planetbaron-outside-edt-menu" />. This top level menu is
+  where all the news items about a run come from. If a query is empty it can result in a good news report or bad news report.
   The same goes for a query with results, however, if a news item has results then the tool allows the query to
-  be run directly from the news item. That is how we ran the query in this example.</para>
+  be run directly from the news item. That is how we ran the 
+  <emphasis>What fields are read by the
+  AWT Event Dispatch Thread and written by others?</emphasis> query in this example.</para>
   
     <figure id="fig-tutorial-planetbaron-outside-edt-menu">
     <title>The API query where the "bad news" item originated in the Query Menu view</title>
@@ -320,12 +322,10 @@
   column that the field is not safely passed from the first thread to the second.
   Flashlight can show whether or not a <emphasis>happens-before</emphasis> relationship exists between
   two threads in a run of an instrumented program. For example, whether a write of a volatile field in
-  the thread t1 and a subsequent read in the thread t2 created a happens-before edge between t1 and t2.
+  one thread and a subsequent read in a second thread created a happens-before edge between the two threads.
   These queries help the user better understand if the shared state in their Java program respects the
-  details of the Java memory model &mdash; and is therefore able to obtain high performance with safety.
-  We note that in this example all the accesses by the main thread were
-  during construction of the ChatTestClient.
-  </para>
+  details of the <emphasis>Java memory model</emphasis> &mdash; and is therefore able
+  to obtain high performance with safety.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc2">
     <title>When and by what threads is the f_connectDisconnectButton field accessed?</title>
@@ -336,25 +336,79 @@
     </mediaobject>
   </figure>
   
-  <para>We will zoom in a little more and look at the actual accesses of this
-  field.  Right click on the table, and run <emphasis>When and by what threads
-  was this field accessed?</emphasis> Your results should resemble <xref
-  linkend="fig-tutorial-planetbaron-perspective-ctc9" />. Each entry in this
-  query represents a series of contiguous accesses made in a single thread. This
-  query tells us that the <structfield>f_connectDisconnectButton</structfield>
-  was written to by the main thread several times, and then read from in the AWT
-  thread afterward.</para>
-
-
-  <figure id="fig-tutorial-planetbaron-perspective-ctc9">
-    <title>When and by what threads was this field accessed?</title>
+  <para>Before we continue our analysis of the problem with the shared <structfield>f_connectDisconnectButton</structfield>
+  field let's learn to navigate query results in the user interface.
+  Flashlight remembers all queries you run until you explicitly delete them. At this point
+  you have run three queries&mdash;each a drill in of the previous. This structure can be
+  seen to the upper-right of the Eclipse window in the <guilabel>Query Results Explorer</guilabel>
+  view. That view should appear as shown in <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc2a" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-perspective-ctc2a">
+    <title>The Query Results Explorer shows queries that have been run and their structure</title>
     <mediaobject>
       <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc9.png" />
+        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc2a.png" />
       </imageobject>
     </mediaobject>
   </figure>
-
+  
+  <para>Each entry lists the name of the query executed. To the right of the name the number
+  of rows returned is listed. If the query is a top-level query on a run then the name
+  of the run and the time it was launched is listed so that query trees made on multiple
+  runs can be distinguished. The tree structure of this view reflects if one query
+  was a "drill-in" result from another.</para>
+  
+  <para>Click on the <emphasis>What instances contain this field when it is read by the AWT
+  Event Dispatch Thread and written in others?</emphasis> result in the <guilabel>Query Results Explorer</guilabel>
+  view. This causes the display of the <guilabel>Query Results</guilabel> view to change
+  to show this queries results. You can click on any result in the <guilabel>Query Results Explorer</guilabel>
+  view to see its results. In addition to directly clicking on a result you can use
+  <guiicon><inlinegraphic fileref="images/left.gif"/></guiicon> and <guiicon><inlinegraphic fileref="images/right.gif"/></guiicon>
+  icons in the toolbar of either the <guilabel>Query Results Explorer</guilabel>
+  view or the <guilabel>Query Results</guilabel> view to "drill-back" or "drill-in" along
+  a line of query results. Try this now.</para>
+  
+  <para>You can also start a new line of queries about a run by going back to the root
+  query menu for a run. There are two ways to do this. The first is to click on the run
+  in the <guilabel>Flashlight Runs</guilabel> view. The second is to click the
+  <guiicon><inlinegraphic fileref="images/query_back.gif"/></guiicon> icon in the toolbar
+  of the <guilabel>Query Menu</guilabel> view.</para>
+  
+  <para>To try this out let's run another root query. Select the ChatTestClient run with
+  the mouse in the <guilabel>Flashlight Runs</guilabel> view. This will change the
+  <guilabel>Query Menu</guilabel> view back to the top level. Find the query
+  <emphasis>What fields (static) are shared?</emphasis> (under the Shared State category) and
+  double-click on this query to run it. You should get a result similar to the one shown
+  in <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc2b" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-perspective-ctc2b">
+    <title>Running a second top-level query on ChatTestClient</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc2b.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Now we have two "lines of inquiry" about the ChatTestClient run. The
+  query result about shared static state that a single static
+  field tells us that only <structfield>LOG</structfield> was observed as being shared
+  between two or more threads. We are now done with this line of
+  inquiry about static state. To clear a single query result you press the
+  <guiicon><inlinegraphic fileref="images/gray_x.png"/></guiicon>
+  in the toolbar of either the <guilabel>Query Results Explorer</guilabel>
+  view or the <guilabel>Query Results</guilabel> view.
+  To clear out all query results you press the
+  <guiicon><inlinegraphic fileref="images/gray_x_double.png"/></guiicon>
+  in the toolbar of either the <guilabel>Query Results Explorer</guilabel>
+  view or the <guilabel>Query Results</guilabel> view. But we only want to clear out a single
+  result. So, now press the <guiicon><inlinegraphic fileref="images/gray_x.png"/></guiicon> toolbar button to delete
+  the query result about the <structfield>LOG</structfield> field. Next,
+  to get us back to our original line of inquiry select the <emphasis>When and by what
+  threads was this field accessed?</emphasis> result in the <guilabel>Query Results Explorer</guilabel> view.</para>
+  
   <para>We can get a better idea of when we are writing to
   <structfield>f_connectDisconnectButton</structfield> by drilling in and
   looking at each access that was made.  Right click on the main entry, and run
@@ -363,13 +417,10 @@
   linkend="fig-tutorial-planetbaron-perspective-ctc3" /> and will show you each
   read and write of the field that was observed by the instrumentation as the
   program executed. It shows the time at which the event occurred and the thread
-  it happened within. Select the second access by the main thread and
-  right-click. Drill-in again by selecting <emphasis>What is the stack trace for
-  this access?</emphasis> as shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-ctc8" />.</para>
+  it happened within.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc3">
-    <title>Looking at the accesses made to a field</title>
+    <title>Looking at the accesses made to the f_connectDisconnectButton field</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-perspective-ctc3.png" />
@@ -377,8 +428,12 @@
     </mediaobject>
   </figure>
   
+  <para>Now, select the second access by the main thread and
+  right-click. Drill-in again by selecting <emphasis>What is the stack trace for
+  this access?</emphasis>.</para>
+  
   <figure id="fig-tutorial-planetbaron-perspective-ctc8">
-    <title>Drilling in to see the stack trace for this field access</title>
+    <title>Drilling in to see the stack trace for this field access and a broken line of code</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-perspective-ctc8.png" />
@@ -386,19 +441,11 @@
     </mediaobject>
   </figure>
 
-  <para>This will result in a stack trace for the selected access.  Selecting
-  each row of the result will show that line of code in the program.  The bottom
-  row is, in fact, a bug in the program. This line is shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-ctc4" />.</para>
-
-  <figure id="fig-tutorial-planetbaron-perspective-ctc4">
-    <title>The broken line of code in ChatTestClient</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc4.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
+  <para>This will result in a stack trace for the selected access  as shown in <xref
+  linkend="fig-tutorial-planetbaron-perspective-ctc8" />.  Selecting
+  each row of the result will link to line of code in the ChatTestClient program. The bottom
+  row is, in fact, a bug in the program. This line is shown in the figure above
+  at line 52.</para>
 
   <para>What is wrong? To understand this problem we quote from Haase and Guy's
   <citetitle pubwork="book">Filthy Rich Clients</citetitle><biblioref
@@ -443,40 +490,54 @@ public static void main(String[] args) {
   </orderedlist>
   </para>
 
-  <para>A new run will appear in the <guilabel>Flashlight Runs</guilabel>
-  view. Double-click this run to prep it if Flashlight does not automatically
-  ask to prepare the data.</para>
+  <para>You can watch the progress of data preparation in the
+  <guilabel>Flashlight Launched Run Control</guilabel> dialog. When data
+  preparation is complete on the new ChatTestData run you can dismiss 
+  the <guilabel>Flashlight Launched Run Control</guilabel> dialog.
+  The new ChatTestClient run will appear in the <guilabel>Flashlight Runs</guilabel>
+  view.</para>
 
-  <para>Clear out the previous query results by clicking the
+  <para>Delete all our previous query results by clicking the
   <guiicon><inlinegraphic fileref="images/gray_x_double.png" /></guiicon> in
-  either the <guilabel>Result Explorer</guilabel> portion of the <guilabel>Query
-  Flashlight</guilabel> view or the <guilabel>Flashlight Query
-  Results</guilabel> view. This action clears out the saved results from all
-  previous queries (the set of these results is saved in the <guilabel>Result
-  Explorer</guilabel> portion of the <guilabel>Query Flashlight</guilabel>
-  view).</para>
-
-  <para>Check that you have the new run selected in the <guilabel>Flashlight
-  Runs</guilabel> view and then double-click on the <emphasis>What fields are
-  read by the AWT Event Dispatch Thread and written in others?</emphasis>
-  query. The query is successful but no rows are returned. This indicates that
+  either the <guilabel>Query Results Explorer</guilabel> view or the <guilabel>Query
+  Results</guilabel> view. This action clears out previous queries we have done.</para>
+  
+  <para>Select the new ChatTestClient run in the <guilabel>Flashlight Runs</guilabel> and your workspace
+  should look similar to the one shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc4" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-perspective-ctc4">
+    <title>News about our new run of ChatTestClient</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-perspective-ctc4.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Note that the bad news item is gone. This is a good sign that we have fixed the problem of
+  keeping access to AWT/Swing object thread confined to the AWT Event Dispatch Thread. For
+  ChatTestClient, this result indicates that
   no fields were observed being accessed in both the AWT Event Dispatch Thread
   and the main thread. This run provides some evidence that we have fixed the
-  bug discovered in ChatTestClient.</para>
+  bug discovered in ChatTestClient. We carefully say <emphasis>some evidence</emphasis>, rather than proves, because
+  a dynamic analysis tool does not investigate all possible executions of the ChatTestClient&mdash;it can
+  only report on what it observed.</para>
 
-  <para>Before we move on let's examine the old run one final time.  Clear out
-  the previous query results by again clicking the <guiicon><inlinegraphic
-  fileref="images/gray_x_double.png" /></guiicon> icon. Select the first
+  <para>Before we move on let's examine the old run in the <guilabel>Flashlight Runs</guilabel> view
+  one final time.Select the first
   ChatTestClient run and double-click the <emphasis>What fields are read by the
   AWT Event Dispatch Thread and written in others?</emphasis> query. Select
   <structfield>f_connectDisconnectButton</structfield> and right-click to select
-  the <emphasis>What are the individual instances of this non-static
-  field?</emphasis> query, then the <emphasis>When and by what threads was this
-  field accessed?</emphasis> query. Select the second access by the main thread
-  and right-click to select the <emphasis>Show stack trace for a field
-  access</emphasis> query. By selecting the bottom row of the stack trace you
-  can see that, while the Java editor code might prove confusing (because we
-  changed it), the <guilabel>Historical Source Snapshot</guilabel> view
+  the <emphasis>What instance contain this field when it is read by the AWT
+  Event Dispatch Thread and written in others?</emphasis> query.
+  Select the single ChatTestClient object instance, right-click, and run the <emphasis>When and by what threads was this
+  field accessed?</emphasis> query. Next select the main thread row, right-click, and run
+  the <emphasis>Show every access of this field in this time range.</emphasis> query.
+  Select the second access by the main thread
+  and right-click to select the <emphasis>What is the stack trace?</emphasis> query.
+  By selecting the bottom row of the stack trace you
+  can see that, while the Java editor code might prove confusing, because we
+  changed the code, the <guilabel>Historical Source Snapshot</guilabel> view
   remembers what the code looked like in this previous run. This difference is
   shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc5" />.</para>
 
@@ -490,10 +551,11 @@ public static void main(String[] args) {
   </figure>
 
   <para>We are finished with our examination of these runs, so let's delete
-  them. First, clear out all the queries by pressing the <guiicon><inlinegraphic
-  fileref="images/gray_x_double.png" /></guiicon> icon. In the
+  them. First, clear out all the queries we ran by pressing the <guiicon><inlinegraphic
+  fileref="images/gray_x_double.png" /></guiicon> icon in either the <guilabel>Query Results</guilabel> view or
+  the <guilabel>Query Results Explorer</guilabel> view. Next, in the
   <guilabel>Flashlight Runs</guilabel> view select both runs and
-  right-click. Select <guimenuitem>Delete</guimenuitem> from the context menu as
+  right-click to bring up the view's context menu. Select <guimenuitem>Delete</guimenuitem> from the context menu as
   shown in <xref linkend="fig-tutorial-planetbaron-perspective-ctc6" />.</para>
 
   <figure id="fig-tutorial-planetbaron-perspective-ctc6">
@@ -508,6 +570,7 @@ public static void main(String[] args) {
   <para>You will be prompted to ensure that you really want to delete this
   Flashlight run data. Press <guibutton>OK</guibutton>. After a short delay the
   <guilabel>Flashlight Runs</guilabel> view should be empty. It is important to
-  delete old runs to ensure that you free up disk space on your computer.</para>
+  delete old runs to ensure that you free up disk space on your computer. As you can see in the first
+  column of the figure above, two short runs of ChatTestClient used roughly 23 MB of disk space.</para>
 
 </section>
