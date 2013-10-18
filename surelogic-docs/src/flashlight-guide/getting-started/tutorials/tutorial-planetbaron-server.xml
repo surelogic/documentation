@@ -6,18 +6,19 @@
 <section id="sec-tutorial-planetbaron-server">
   <title>Finding a race condition in the PlanetBaron server with lock set analysis</title>
   
-  <para>ChatTestClient was a simple Swing application that let us try out the
-  <guilabel>Run Overview</guilabel> and some of Flashlight's queries.  From this
-  we uncovered a bug that could easily be overlooked in a code inspection. We
-  now turn our attention to a more complex multi-threaded program, the
+  <para>ChatTestClient was a simple Swing application that let us get started
+  analyzing a program's concurrent behavior with Flashlight.  From this
+  we uncovered a thread confinement bug that could easily be overlooked in a code inspection or even
+  during testing.
+  We now turn our attention to a more complex multi-threaded program, the
   PlanetBaron server, to illustrate several more complex queries that Flashlight
   is capable of. The basic user interaction with the Flashlight tool remains the
   same:
     <orderedlist>
       <listitem>Run an instrumented program.</listitem>
-      <listitem>Prep the data.</listitem>
+      <listitem>Prepare the data for quering.</listitem>
       <listitem>Query the data.</listitem>
-      <listitem>Drill into query results.</listitem>
+      <listitem>Analyze and drill into the query results.</listitem>
       <listitem>Change/fix code.</listitem>
     </orderedlist>
   </para>
@@ -67,10 +68,12 @@
 
   <para>When you have exercised the three players, terminate the three PlayerUI
   instances by closing the application windows. Run a ChatTestClient (without
-  instrumentation) and use it to shutdown the server.</para>
+  instrumentation) and use it to shutdown the server. Connect to the server and send a "shutdown" command.</para>
 
-  <para>In the Flashlight perspective go ahead and prep the server run so that
-  it can be queried. This will take a few minutes to complete.</para>
+  <para>In the <guilabel>Flashlight Launched Run Control</guilabel> dialog you
+  can watch the progress as the tool prepares the data collected from the server for querying.
+  This process will take a few minutes to complete. Once data preparation is completed
+  you can switch to the Flashlight perspective and dismiss the <guilabel>Flashlight Launched Run Control</guilabel> dialog.</para>
 
   <para>The sample query and <guilabel>Run Overview</guilabel> data you see here
   may or may not be identical to what you see at your computer.The program we
