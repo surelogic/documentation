@@ -16,7 +16,7 @@
   same:
     <orderedlist>
       <listitem>Run an instrumented program.</listitem>
-      <listitem>Prepare the data for quering.</listitem>
+      <listitem>Prepare the data for querying.</listitem>
       <listitem>Query the data.</listitem>
       <listitem>Analyze and drill into the query results.</listitem>
       <listitem>Change/fix code.</listitem>
@@ -73,14 +73,27 @@
   <para>In the <guilabel>Flashlight Launched Run Control</guilabel> dialog you
   can watch the progress as the tool prepares the data collected from the server for querying.
   This process will take a few minutes to complete. Once data preparation is completed
-  you can switch to the Flashlight perspective and dismiss the <guilabel>Flashlight Launched Run Control</guilabel> dialog.</para>
+  you can switch to the Flashlight perspective and dismiss the <guilabel>Flashlight
+  Launched Run Control</guilabel> dialog. The Flashlight perspective should look similar
+  to <xref
+  linkend="fig-tutorial-planetbaron-lockset-overview" />.</para>
 
-  <para>The sample query and <guilabel>Run Overview</guilabel> data you see here
-  may or may not be identical to what you see at your computer.The program we
+
+  <figure id="fig-tutorial-planetbaron-lockset-overview">
+    <title>The Flashlight perspective showing news about our Planetbaron server run</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset-overview.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>What you see <xref linkend="fig-tutorial-planetbaron-lockset-overview" />
+  may or may not be identical to what you see at your computer.  The program we
   are examining is a multi-threaded network-based game server. Therefore, it is
   impossible to duplicate a run&mdash;even for tutorial purposes. You should,
-  however, see results similar to what we present and you are encouraged to see
-  what you can find in your run results.</para>
+  however, see results similar to what we present. If not, we suggest
+  you try another run of the PlanetBaron server.</para>
 
   <!-- Start of lockset tutorial -->
   <para>We'll use a couple of analyses performed by Flashlight during the prep
@@ -93,13 +106,29 @@
   verification tool like SureLogic JSure is required), but it was observed to be
   true for the particular run of the program.  If shared state has no lock set
   then this may be a bad thing&mdash;it might mean that your program contains a
-  race condition.  To get an overview of the results of Flashlight's lock
-  analysis, click the <guimenuitem>Race Conditions</guimenuitem> tab of the
-  <guimenuitem>Run Overview</guimenuitem>.  The <emphasis>Race
-  Conditions</emphasis> tab displays all of the fields observed to have no lock
+  race condition.</para>
+  
+  <para>This run has bad news about the results of Flashlight's lock
+  analysis, click the <emphasis>Shared fields have no
+  common lock held for each access</emphasis> in the bad news column
+  as shown in <xref
+  linkend="fig-tutorial-planetbaron-lockset-badnews" />.</para>
+  
+    <figure id="fig-tutorial-planetbaron-lockset-badnews">
+    <title>Some shared fields are not protected by a common lock according to the Flashlight lockset analysis</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset-badnews.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>The <emphasis>Race
+  Conditions</emphasis> tab displays all of the fields observed to have an empty lock
   set during the last run of the program.  In this case, the results should
-  indicate that <classname>com.surelogic.planetbaron.game.Ship</classname> has no
-  lock set for the field <structfield>f_location</structfield>, as seen in <xref
+  indicate that <classname>com.surelogic.planetbaron.game.Ship</classname> has an empty
+  lock set for the field <structfield>f_location</structfield> for
+  some <classname>Ship</classname> instances, as seen in <xref
   linkend="fig-tutorial-planetbaron-lockset1" />.</para>
 
   <figure id="fig-tutorial-planetbaron-lockset1">
