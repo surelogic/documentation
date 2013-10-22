@@ -67,8 +67,8 @@
   </figure>
 
   <para>When you have exercised the three players, terminate the three PlayerUI
-  instances by closing the application windows. Run a ChatTestClient (without
-  instrumentation) and use it to shutdown the server. Connect to the server and send a "shutdown" command.</para>
+  instances by closing the application windows. Run a ChatTestClient without
+  instrumentation and use it to shutdown the server. Connect to the server and send a "shutdown" command.</para>
 
   <para>In the <guilabel>Flashlight Launched Run Control</guilabel> dialog you
   can watch the progress as the tool prepares the data collected from the server for querying.
@@ -80,7 +80,7 @@
 
 
   <figure id="fig-tutorial-planetbaron-lockset-overview">
-    <title>The Flashlight perspective showing news about our Planetbaron server run</title>
+    <title>The Flashlight perspective showing news about our PlanetBaron server run</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-lockset-overview.png" />
@@ -115,7 +115,7 @@
   linkend="fig-tutorial-planetbaron-lockset-badnews" />.</para>
   
     <figure id="fig-tutorial-planetbaron-lockset-badnews">
-    <title>Some shared fields are not protected by a common lock according to the Flashlight lockset analysis</title>
+    <title>Some shared fields are not protected by a common lock according to the Flashlight lock set analysis</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-lockset-badnews.png" />
@@ -139,6 +139,74 @@
       </imageobject>
     </mediaobject>
   </figure>
+  
+  <para>The query result in <xref linkend="fig-tutorial-planetbaron-lockset1" /> lists
+  all objects that were observed to have at least one instance where a non-static field
+  had an empty lock set.  The screenshot above shows that <structfield>f_location</structfield> was
+  contained in one object that had a non-empty lock set and two that had an empty lock set.
+  How could this happen? This could occur, for example, if the one instance was not exercised
+  enough to make the lock set become empty, or put another way, the bad code in the implementation
+  was not invoked on that <classname>Ship</classname> instance.</para>
+  
+  <para>Before we proceed to investigate this potential locking problem in the PlanetBaron server code.
+  We want to introduce the idea of a <emphasis>default query</emphasis>. Most, but not all, query results
+  in Flashlight allow you to double-click on a row of the result and run a pre-selected or default query. This
+  query has been selected by the tool to "make sense" to be invoked on that row of data. You can tell which
+  query will be invoked with a double-click by selecting the row and then examining its context menu. The query that is the default
+  is marked with a <guiicon><inlinegraphic fileref="images/asterisk.gif"/></guiicon>. To see this
+  select <structfield>f_location</structfield> in the current query result and bring up the context menu.
+  You will see that <emphasis>What instances contain this field and have an empty lock set?</emphasis>
+  is marked as the default query. This is shown in
+  <xref linkend="fig-tutorial-planetbaron-lockset-defaultquery" />.</para>
+
+  <figure id="fig-tutorial-planetbaron-lockset-defaultquery">
+    <title>The default query in a context menu is marked with a <guiicon><inlinegraphic fileref="images/asterisk.gif"/></guiicon> and can be invoked with a double-click</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset-defaultquery.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Let's run this default query by double-clicking on the <structfield>f_location</structfield> row in the query result.
+  You should obtain a list of <classname>Ship</classname> instances that have an empty lock set. We want to keep drilling
+  in to this result. (We obtained two instances
+  but this number will vary.) So now double click on any
+  <classname>Ship</classname> instance listed in the result to run
+  the <emphasis>How often is a lock held
+  when this field is accessed?</emphasis>
+  query. This query shows all the locks that were observed protecting any
+  access to the state of the <classname>Ship</classname> instance we double-clicked on
+  in the prior query result. Your results will vary but should be similar to what
+  is shown in <xref linkend="fig-tutorial-planetbaron-lockset-lockperc" />.</para>
+
+  <figure id="fig-tutorial-planetbaron-lockset-lockperc">
+    <title>All the locks observed to protect access to the state of a <classname>Ship</classname> instance</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-lockset-lockperc.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>The data presented in <xref linkend="fig-tutorial-planetbaron-lockset-lockperc" />
+  may be somewhat of a surprise to you. How can so many locks protect the <structfield>f_location</structfield>
+  field in one <classname>Ship</classname> instance?
+  This occurs in the PlanetBaron server because the <classname>Ship</classname> class is
+  part of the game model and is accessed from many places within the code. The code that
+  invokes <classname>Ship</classname> class methods is holding locks as required by its concurrency policy&mdash;but
+  holding these locks is not related to
+  the concurrency policy of the <classname>Ship</classname> class.
+  This results in Flashlight noting many locks being held
+  when the <structfield>f_location</structfield>
+  is accessed. Notice, by examining the reported <guilabel>% Held</guilabel> column, that
+  most of these locks are not held all that often.</para>
+  
+  <para>The lock that is held the most in <xref linkend="fig-tutorial-planetbaron-lockset-lockperc" />
+  is an instance of <classname>ReentrantReadWriteLock</classname>
+  this is a dynamic lock defined by java.util.concurrent. Flashlight supports both intrinsic
+  locking (via <classname>synchronized</classname> blocks and methods) and dynamic locking
+  (<classname>java.util.concurrent.Lock</classname> instances).</para>
 
   <para>We can click on the <structfield>f_location</structfield> field to bring
   up a tree-table displaying all of the locks held while f_location was being
