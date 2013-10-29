@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <section id="sec-tutorial-planetbaron-playerui">
-  <title>Finding a deadlock in the PlanetBaron UI with lock cycle detection</title>
+  <title>Finding a potential deadlock in the PlanetBaron player user interface with lock cycle detection</title>
 
   <!-- Start of deadlock tutorial -->
   <para>
@@ -14,7 +14,7 @@
     graph points from a lock that is already held to a lock being acquired.
     Cycles in the graph indicate that the program sometimes acquires a set of
     locks in more than one order, a behavior that commonly leads to deadlock.
-    To investigate this further, we will instrument the PlanetBaron client this
+    To investigate this further, we will instrument the PlanetBaron PlayerUI this
     time around.
   </para>
 
@@ -27,10 +27,55 @@
     application, and then launch one instance of
     <classname>com.surelogic.planetbaron.client.PlayerUI</classname> through the
     Flashlight launch tab.  As in the previous tutorial, go ahead and connect
-    into the game, and move your ship to a planet or two.  Then terminate your
+    into the game (type in a player name and then press
+    <guibutton>Connect</guibutton>), and move your ship to a planet or two.
+    Then terminate your
     instance of PlayerUI by closing the application window, and stop the server
-    from the Flashlight console.
+    from the Flashlight console. You should see progress in the <guilabel>Flashlight
+    Launched Run Control</guilabel> dialog as shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock-prep" />.
   </para>
+  
+    <figure id="fig-tutorial-planetbaron-deadlock-prep">
+    <title>Preparing data from a instrumented PlayerUI run for querying</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock-prep.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>If you are not, switch into the Flashlight perspective so that we can begin
+  to query the data from the PlayerUI run that you just completed.</para>
+  
+  <para>As seen in <xref linkend="fig-tutorial-planetbaron-deadlock0" /> Flashlight
+  has observed lock cycles that may cause the program to deadlock. This doesn't
+  mean that the run actually had a deadlock occur. In fact, in our run it didn't (but it may have in yours
+  if your user interface froze while running the game).
+  What the tool has observed is that different threads acquired two or more
+  locks in a different order&mdash;which could result in a deadlock if the timing
+  of this is just right. For example, if one thread acquires <emphasis>lock-1</emphasis>
+  roughly at the same time a second thread acquires <emphasis>lock-2</emphasis>, and then (still holding both
+  locks) the first thread tries to acquire <emphasis>lock-2</emphasis> and the second thread tries
+  to acquire <emphasis>lock-1</emphasis> the program has reached a deadlock. Progress cannot be
+  made in either of these threads unless one "gives up" trying to acquire both locks. But,
+  in Java "giving up" is not expressible with
+  intrinsic locks (e.g., synchronized statements) and most of the java.util.concurrent locks&mdash;both
+  threads just stop their progress.  Therefore, if two or more locks need to be
+  acquired by a system then the order that the lock
+  acquisitions are made should be kept consistent in the entire codebase.
+  Deadlock can be difficult to test for, but Flashlight helps make it easier by not
+  noticing inconsistent lock orderings without an actual deadlock having to occur. a test failure would
+  require the deadlock to occur during the test.</para>
+  
+  <figure id="fig-tutorial-planetbaron-deadlock0">
+    <title>Deadlock results about the PlayerUI in both the query menu and the bad news table</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock0.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
   <para>
     Now that we have an instrumented run of <classname>PlayerUI</classname>,
@@ -101,7 +146,7 @@
 
   <para>
     Now let's look at the other edge in our potential deadlock cycle, and see if
-    there really is a problem.  Click on the <code>ReentrantReadWriteLock-51->
+    there really is a problem.  Click on the <code>ReentrantReadWriteLock-51 ->
     Object-42</code> link under the <guilabel>Edges</guilabel> heading.  Here
     the displayed stack traces show that the lock acquisitions originated from
     the <function>run</function> method in
@@ -117,7 +162,7 @@
   </para>
 
   <figure id="fig-tutorial-planetbaron-deadlock3">
-    <title>Stack traces for the <code>ReentrantReadWriteLock-51 -> Object-42 </code> lock edge</title>
+    <title>Stack traces for the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock3.png" />
