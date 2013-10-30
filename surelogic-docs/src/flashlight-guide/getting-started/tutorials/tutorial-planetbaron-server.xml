@@ -23,7 +23,7 @@
     </orderedlist>
   </para>
 
-  <para>Start a server using the Flashlight launch tab the Eclipse toolbar as
+  <para>Run a PlanetBaron server using the Flashlight launch tab the Eclipse toolbar as
   shown in <xref linkend="fig-tutorial-planetbaron-running-server" />.  We are
   assuming you ran the server and player applications earlier in the tutorial so
   that the Server and PlayerUI launch configurations will still be present in
@@ -34,6 +34,19 @@
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-running-server.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>You will see that data collection being tracked in
+  the <guilabel>Flashlight Launched Run Control</guilabel> dialog. This is shown in
+  <xref linkend="fig-tutorial-planetbaron-server-data-collection" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-server-data-collection">
+    <title>The Launched Run Control dialog shows that data is being collected during our run of the PlanetBaron server</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-server-data-collection.png" />
       </imageobject>
     </mediaobject>
   </figure>
@@ -97,15 +110,16 @@
 
   <!-- Start of lockset tutorial -->
   <para>We'll use a couple of analyses performed by Flashlight during the prep
-  phase to investigate the PlanetBaron server.  The first of these is a lock set
-  analysis.  A lock set analysis examines each access of a field in the program
+  phase to investigate the PlanetBaron server.  The first of these is a <emphasis>lock set
+  analysis</emphasis>.  A lock set analysis examines each access of a field in the program
   and intersects the set of locks held.  If shared state has a lock set it is a
   good thing&mdash;this state was observed to be protected consistently by at
   least one lock.  This isn't a guarantee that this field will always be
   protected in every run of the program (to make this determination a sound
   verification tool like SureLogic JSure is required), but it was observed to be
-  true for the particular run of the program.  If shared state has no lock set
-  then this may be a bad thing&mdash;it might mean that your program contains a
+  true for the particular run of the program being queried in Flashlight.  If
+  shared state has no lock set
+  then this could be a problem&mdash;it may mean that your program contains a
   race condition.</para>
   
   <para>This run has bad news about the results of Flashlight's lock
@@ -123,14 +137,17 @@
     </mediaobject>
   </figure>
   
-  <para>The <emphasis>Race
-  Conditions</emphasis> tab displays all of the fields observed to have an empty lock
-  set during the last run of the program.  In this case, the results should
-  indicate that <classname>com.surelogic.planetbaron.game.Ship</classname> has an empty
-  lock set for the field <structfield>f_location</structfield> for
-  some <classname>Ship</classname> instances, as seen in <xref
-  linkend="fig-tutorial-planetbaron-lockset1" />.</para>
-
+  <para>The bad news item we clicked on runs the <emphasis>What fields (non-static) have an
+  empty lock set after object construction?</emphasis> query.
+  The results of this query are shown in <xref
+  linkend="fig-tutorial-planetbaron-lockset1" />.
+  The lock set analysis ignores state accesses during object construction
+  because, typically, Java objects are constructed in the context of a single thread
+  and only later is a reference to the object shared.
+  By ignoring construction the lock set the analysis is more precise and Flashlight has
+  other queries that can detect if object construction is not thread confined, i.e., it violates
+  the normal Java convention.</para>
+  
   <figure id="fig-tutorial-planetbaron-lockset1">
     <title>An empty lock set in PlanetBaron</title>
     <mediaobject>
@@ -142,13 +159,15 @@
   
   <para>The query result in <xref linkend="fig-tutorial-planetbaron-lockset1" /> lists
   all objects that were observed to have at least one instance where a non-static field
-  had an empty lock set.  The screenshot above shows that <structfield>f_location</structfield> was
-  contained in one object that had a non-empty lock set and two that had an empty lock set.
+  had an empty lock set.  The screenshot above shows that three ship instances&mdash;one ship
+  for each player we connected&mdash;contained an
+  <structfield>f_location</structfield> field that had an empty lock set. It is possible
+  that in your run one or two of the three instances had a non-empty lock set.
   How could this happen? This could occur, for example, if the one instance was not exercised
-  enough to make the lock set become empty, or put another way, the bad code in the implementation
-  was not invoked on that <classname>Ship</classname> instance.</para>
+  enough to make the lock set become empty, or put another way, the bad code
+  was never called on that <classname>Ship</classname> instance.</para>
   
-  <para>Before we proceed to investigate this potential locking problem in the PlanetBaron server code.
+  <para>Before we investigate this potential locking problem in the PlanetBaron server code.
   We want to introduce the idea of a <emphasis>default query</emphasis>. Most, but not all, query results
   in Flashlight allow you to double-click on a row of the result and run a pre-selected or default query. This
   query has been selected by the tool to "make sense" to be invoked on that row of data. You can tell which
@@ -204,9 +223,12 @@
   
   <para>The lock that is held the most in <xref linkend="fig-tutorial-planetbaron-lockset-lockperc" />
   is an instance of <classname>ReentrantReadWriteLock</classname>
-  this is a dynamic lock defined by java.util.concurrent. Flashlight supports both intrinsic
-  locking (via <classname>synchronized</classname> blocks and methods) and dynamic locking
-  (<classname>java.util.concurrent.Lock</classname> instances).</para>
+  this is a dynamic lock defined by java.util.concurrent. Flashlight watches both intrinsic
+  lock acquisitions (via <classname>synchronized</classname> blocks and methods) and dynamic locking
+  (<classname>java.util.concurrent.Lock</classname> instances). Intrinsic lock use is indicated with a
+  <guiicon><inlinegraphic fileref="images/lock.gif"/></guiicon> icon and the object instance name.
+  Dynamic lock acquisition is indicated with a <guiicon><inlinegraphic fileref="images/lock_dynamic.gif"/></guiicon>
+  icon and the object instance name.</para>
 
   <para>We can click on the <structfield>f_location</structfield> field to bring
   up a tree-table displaying all of the locks held while f_location was being

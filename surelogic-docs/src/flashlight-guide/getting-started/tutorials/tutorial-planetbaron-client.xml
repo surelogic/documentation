@@ -132,7 +132,7 @@
     </mediaobject>
   </figure>
 
-  <para>Two windows will appear on your screen. First, the <guilabel>Flashlight Run Control</guilabel> dialog
+  <para>Two windows will appear on your screen. First, the <guilabel>Flashlight Launched Run Control</guilabel> dialog
       (to the right in <xref linkend="fig-tutorial-planetbaron-dialog-and-chattestclient" />) will
    appear to monitor the instrumented program run.
    This dialog automatically appears when an instrumented program is launched in Eclipse.
@@ -141,7 +141,7 @@
    browser download monitor dialog.</para>
    
     <figure id="fig-tutorial-planetbaron-dialog-and-chattestclient">
-    <title>Running ChatTestClient with Flashlight instrumentation monitoring in the Flashlight Run Control dialog</title>
+    <title>Running ChatTestClient with Flashlight instrumentation monitoring in the Flashlight Launched Run Control dialog</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-dialog-and-chattestclient.png" />
@@ -159,11 +159,11 @@
   equivalent functionality on your operating system) to terminate the
   program. After a few seconds, Flashlight will note that the instrumented ChatTestClient application has finished running and
   begin data preparation. Data preparation gets the collected run data ready for you to query. The
-  <guilabel>Flashlight Run Control</guilabel> dialog monitors the progress of data preparation as shown in
+  <guilabel>Flashlight Launched Run Control</guilabel> dialog monitors the progress of data preparation as shown in
   <xref linkend="fig-tutorial-planetbaron-prep-chattestclient" />.</para>
   
     <figure id="fig-tutorial-planetbaron-prep-chattestclient">
-    <title>Data preparation progress being monitored in the Flashlight Run Control dialog</title>
+    <title>Data preparation progress being monitored in the Flashlight Launched Run Control dialog</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-prep-chattestclient.png" />
@@ -186,7 +186,7 @@
 
   <para>Press <guibutton>Yes</guibutton> and the Flashlight perspective
   will appear as shown in <xref
-  linkend="fig-tutorial-planetbaron-perspective-empty" />. At this point you can dismiss the <guilabel>Flashlight Run Control</guilabel> dialog or leave it up.
+  linkend="fig-tutorial-planetbaron-perspective-empty" />. At this point you can dismiss the <guilabel>Flashlight Launched Run Control</guilabel> dialog or leave it up.
   The <guilabel>Flashlight Run Control</guilabel> dialog can be brought up at any time by selecting
   <menuchoice><guisubmenu>Flashlight</guisubmenu> <guimenuitem>Launched Run Control...</guimenuitem></menuchoice> from
   the Eclipse main menu.</para>
