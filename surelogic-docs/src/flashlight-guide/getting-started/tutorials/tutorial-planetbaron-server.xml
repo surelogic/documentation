@@ -229,30 +229,37 @@
   <guiicon><inlinegraphic fileref="images/lock.gif"/></guiicon> icon and the object instance name.
   Dynamic lock acquisition is indicated with a <guiicon><inlinegraphic fileref="images/lock_dynamic.gif"/></guiicon>
   icon and the object instance name.</para>
+  
+  <para>Some analysis of this query result points to a likely problem in the PlanetBaron server implementation. The same object, a instance of
+  <classname>ReentrantReadWriteLock</classname>, is being used as <emphasis>both a dynamic
+  and an intrinsic</emphasis> lock&mdash;this is indicated by the same lock name appearing,
+  one with an <guiicon><inlinegraphic fileref="images/lock.gif"/></guiicon> icon (intrinsic) and the other with a <guiicon><inlinegraphic fileref="images/lock_dynamic.gif"/></guiicon>
+  (dynamic) icon. It is confusing and bad coding practice to do this in
+  a Java program, but it can occur when a locking scheme is "converted" from using intrinsic locks
+  to dynamic locks, and, in fact, this was done to the PlanetBaron server code.  It could
+  also happen if a programmer doesn't understand how to acquire a dynamic lock, e.g., <code>l.lock()</code>,
+  and instead synchronizes on it, e.g., <code>synchronized(l)</code>.</para>
+  
+  <para>Let's investigate this further. Double-click on the top entry in the query result to 
+  run the <emphasis>Where is this field accessed while this lock is not held?</emphasis>. This
+  query shows us the points in the code where this field was accessed and the dynamic
+  <classname>ReentrantReadWriteLock</classname> was <emphasis>not</emphasis> held. This result also includes
+  accesses during object construction, so we want to ignore these accesses.</para>
 
-  <para>We can click on the <structfield>f_location</structfield> field to bring
-  up a tree-table displaying all of the locks held while f_location was being
-  accessed at some point in the program or other.  As we can see, the locks are
-  sorted by how often they were held when the field is accessed.  The first
-  lock, a ReentrantReadWriteLock, appears to be accessed with some frequency, so
-  it may be worth investigating.  Click on the arrow by the
-  ReentrantReadWriteLock to expand its subtree.  Expanding the subtree reveals
-  two subtrees.  The 'not held at' subtree shows all accesses to
-  <structfield>f_location</structfield> that happened while the lock was not
-  held.  The 'heldAt' subtree shows the field accesses while the lock was held,
-  as well as where the lock was acquired for the field access.</para>
-
-  <para>Looking at the 'not held at' portion of the subtree, we can see that
-  <structfield>f_location</structfield> was not protected by the
-  ReentrantReadWriteLock at lines 95, 99, and 156 of
-  <filename>Ship.java</filename>.  Click on the links for each of those lines of
-  code to display the location in the editor.  Two of them are in the
+  <para>The result is shown in <xref linkend="fig-tutorial-planetbaron-lockset4"
+  /> Two of them are in the
   constructor, and don't appear to be a problem.  The final line, on the other
   hand, is an unprotected access of <structfield>f_location</structfield>, and
   the source of our problem.  <xref linkend="fig-tutorial-planetbaron-lockset4"
-  /> shows the incorrectly synchronized line of code.
+  /> shows the unprotected access of the <structfield>f_location</structfield> field
+  at line 156 of the <classname>Ship.java</classname> compilation unit.
+  This looks like a coding mistake. We have boxed (in yellow) the scope where the lock
+  is held. It appears that the scope of code holding the lock in this method was just
+  made too narrow to include this access. Clearly the method implementation wants a
+  predicate (not asking to move to your current location) to hold, but the lock is not held
+  when predicate is checked. In fact, this type of bug is called a <emphasis>check-then-act</emphasis>
+  concurrency problem
   </para>
-
 
   <figure id="fig-tutorial-planetbaron-lockset4">
     <title>The offending line of code</title>
@@ -268,7 +275,8 @@
     <emphasis>before</emphasis> the access of
     <structfield>f_location</structfield> in the condition of the
     <code>if</code> statement.  This requires changing the scope of the
-    <code>try</code>&ndash;<code>finally</code> block as well.
+    <code>try</code>&ndash;<code>finally</code> block as well.  This change fixes the <emphasis>check-then-act</emphasis>
+  concurrency bug.
 
   <programlisting><![CDATA[  public void moveTo(Location destination) {
     if (isMoving())
@@ -295,8 +303,8 @@
 
     Change the method to appear like the one above, and run Flashlight on the
     PlanetBaron server again.  Once you have prepped the new run, you can run
-    <emphasis>What fields (non-static) have an empty lock set</emphasis> to see
-    that all instances of <structfield>f_location</structfield> now have a lock
+    <emphasis>What fields (non-static) have an empty lock set after object construction?</emphasis> to see
+    that all <classname>Ship</classname> instances that contain of <structfield>f_location</structfield> now have a lock
     set.
   </para>
 
