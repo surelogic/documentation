@@ -302,7 +302,8 @@
   }]]></programlisting>
 
     Change the method to appear like the one above, and run Flashlight on the
-    PlanetBaron server again.  Once you have prepped the new run, you can run
+    PlanetBaron server again.  Once you have completed the new run and it is ready
+    to be queried, you can run
     <emphasis>What fields (non-static) have an empty lock set after object construction?</emphasis> to see
     that all <classname>Ship</classname> instances that contain of <structfield>f_location</structfield> now have a lock
     set.

@@ -6,14 +6,13 @@
 <section id="sec-tutorial-planetbaron-playerui">
   <title>Finding a potential deadlock in the PlanetBaron player user interface with lock cycle detection</title>
 
-  <!-- Start of deadlock tutorial -->
   <para>
     In addition to a lock set analysis, Flashlight provides an analysis that
     detects potential deadlock scenarios.  It does this by constructing a
     directed graph of all lock acquisitions in the program.  Each edge in the
     graph points from a lock that is already held to a lock being acquired.
     Cycles in the graph indicate that the program sometimes acquires a set of
-    locks in more than one order, a behavior that commonly leads to deadlock.
+    locks in more than one order, a behavior that can cause two or more threads to deadlock.
     To investigate this further, we will instrument the PlanetBaron PlayerUI this
     time around.
   </para>
@@ -45,13 +44,24 @@
     </mediaobject>
   </figure>
   
-  <para>If you are not, switch into the Flashlight perspective so that we can begin
+  <para>If you are not already in it, switch into the Flashlight perspective so that we can begin
   to query the data from the PlayerUI run that you just completed.</para>
   
   <para>As seen in <xref linkend="fig-tutorial-planetbaron-deadlock0" /> Flashlight
-  has observed lock cycles that may cause the program to deadlock. This doesn't
-  mean that the run actually had a deadlock occur. In fact, in our run it didn't (but it may have in yours
-  if your user interface froze while running the game).
+  has observed lock cycles that may cause the program to deadlock.</para>
+
+  <figure id="fig-tutorial-planetbaron-deadlock0">
+    <title>Deadlock results about the PlayerUI in both the query menu and the bad news table</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock0.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>This doesn't
+  mean that the run actually deadlocked. In fact, in our run it didn't&mdash;but it may have in yours,
+  if the user interface froze while you were running the game, then that's likely what occurred.
   What the tool has observed is that different threads acquired two or more
   locks in a different order&mdash;which could result in a deadlock if the timing
   of this is just right. For example, if one thread acquires <emphasis>lock-1</emphasis>
@@ -65,32 +75,30 @@
   acquired by a system then the order that the lock
   acquisitions are made should be kept consistent in the entire codebase.
   Deadlock can be difficult to test for, but Flashlight helps make it easier by not
-  noticing inconsistent lock orderings without an actual deadlock having to occur. a test failure would
-  require the deadlock to occur during the test.</para>
+  noticing inconsistent lock orderings <emphasis>without</emphasis> an actual deadlock
+  having to occur. With traditional testing, the deadlock would actually have to
+  occur during the test run to catch this problem. Further, the failure may not contain enough trace
+  information to diagnose the problem. This can be maddening if you can only get the test failure
+  to occur rarely, and, as is often the case, never in the debugger.</para>
   
-  <figure id="fig-tutorial-planetbaron-deadlock0">
-    <title>Deadlock results about the PlayerUI in both the query menu and the bad news table</title>
+  <para>Click on the bad news item <emphasis>Lock cycles were observed
+  that could cause the program to deadlock</emphasis>. This runs the query <emphasis>What
+  lock cycles could potentially cause deadlock?</emphasis> as indicated in
+  <xref linkend="fig-tutorial-planetbaron-deadlock0" />. The query result you get should
+  look similar to the one in <xref linkend="fig-tutorial-planetbaron-deadlock-lc" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-deadlock-lc">
+    <title>Lock cycles observed in our PlayerUI run</title>
     <mediaobject>
       <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-deadlock0.png" />
+        <imagedata fileref="images/tutorial-planetbaron-deadlock-lc.png" />
       </imageobject>
     </mediaobject>
   </figure>
-
-  <para>
-    Now that we have an instrumented run of <classname>PlayerUI</classname>,
-    select it from the <guilabel>Flashlight Runs</guilabel> view in the
-    Flashlight perspective, and click on the
-    <guimenuitem>Deadlocks</guimenuitem> tab of the <guilabel>Run
-    Overview</guilabel>.  If you connected the client to the server, the result
-    of your query should be a two-lock cycle similar to <xref
-    linkend="fig-tutorial-planetbaron-deadlock1" />.  In our example the locks
-    involved are <code>Object-42</code> and
-    <code>ReentrantReadWriteLock-51</code>, and each appears to be acquired at
-    some point while the other is already held.  If you are following along,
-    your lock numbers may be different, but they should correspond to the 'same'
-    locks.
-  </para>
+  
+  <para>Go ahead and double-click on each cycle. Let's focus on the two lock cycle
+  between a <classname>ReentrantReadWriteLock</classname> and an <classname>Object</classname>.
+  This result is shown in the <xref linkend="fig-tutorial-planetbaron-deadlock1" />.</para>
 
   <figure id="fig-tutorial-planetbaron-deadlock1">
     <title>A potential deadlock in <classname>com.surelogic.planetbaron.client.PlayerUI</classname></title>
@@ -102,10 +110,165 @@
   </figure>
 
   <para>
-    To figure out where the trouble lies, we'll have to look at both lock edges
-    in the cycle.  Click on the <code>Object-42 ->
-    ReentrantReadWriteLock-51</code> link under the <guilabel>Edges</guilabel>
-    heading.  This will display two stack traces underneath the cycle graph. The
+  This query result uses a graphical display, in addition to a table to better convey the lock
+  cycle. This potential deadlock occurs whenever you connect a PlayerUI to the PlanetBaron server.
+  The result
+    is a two-lock cycle similar to <xref
+    linkend="fig-tutorial-planetbaron-deadlock1" />. In our run the locks
+    involved are <code>Object-42</code> and
+    <code>ReentrantReadWriteLock-51</code>, and each appears to be acquired at
+    some point while the other is already held. Notice from the icons that
+    <guiicon><inlinegraphic fileref="images/lock.gif"/></guiicon> <code>Object-42</code> is used as an intrinsic lock
+    and <guiicon><inlinegraphic fileref="images/lock_dynamic.gif"/></guiicon> <code>ReentrantReadWriteLock-51</code>
+    is used as a dynamic lock.
+    If you are following along,
+    your lock numbers may be different, but they should correspond to the same
+    locks identified in our run.
+  </para>
+  
+  <para>Notice that the result shown <xref
+    linkend="fig-tutorial-planetbaron-deadlock1" /> has all the criteria needed for the program to deadlock. One thread, Thread-4, holds
+    <code>ReentrantReadWriteLock-51</code> and then acquires <code>Object-42</code> (138 times in our run). A second thread,
+    AWT-EventQueue-0, holds <code>Object-42</code> and then acquires <code>ReentrantReadWriteLock-51</code> (80 times in our run). We just got lucky
+    that the <emphasis>deadly embrace</emphasis> didn't occur and deadlock the PlayerUI&mdash;our program worked
+    properly by luck of the scheduler.</para>
+
+  <para>
+    To figure out where in the code the implementation problem lies, we'll have to look at both lock edges
+    in the cycle one at a time.  Select the <code>ReentrantReadWriteLock-51 -> Object-42</code> row in
+    the table and run the <emphasis>Where and in what threads does this lock
+    edge occur?</emphasis>. The result will be similar to the one shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock2" />.</para>
+    
+  <figure id="fig-tutorial-planetbaron-deadlock2">
+    <title>Code location where the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurs</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock2.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+    <para>The only location in the code where this edge occurred is at line 424 of the <classname>MapView</classname> compilation unit.
+    Flashlight lets us understand how we got to this location with two kinds of traces:
+    <emphasis>stack</emphasis> and <emphasis>lock</emphasis> traces.
+    The stack trace is a traditional debugger trace. To see this select the code location in the result and run
+    the <emphasis>What is the stack trace?</emphasis> as shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock2-stm" />. The query result is shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock2-st" />.</para>
+    
+  <figure id="fig-tutorial-planetbaron-deadlock2-stm">
+    <title>Running a query to see the stack trace to where the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurs</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock2-stm.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock2-st">
+    <title>Stack trace to where the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurs</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock2-st.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>You can select each row in the resulting stack trace to have the Java editor and <guilabel>Historical Source Snapshot</guilabel> view
+  jump to that code location.   Here
+    the stack trace tells us that the lock acquisitions originated from
+    the <function>run</function> method in
+    <classname>com.surelogic.planetbaron.client.communication.ServerProxy</classname>.
+    The <classname>ServerProxy</classname> class extends
+    <classname>java.lang.Thread</classname>, and an instance of it is created
+    and started when we connect to a server. The thread this occurred in handles the background network communication with
+    the PlanetBaron server.  A limitation of this trace is that it doesn't directly show where the lock acquisitions occurred.</para>
+    
+    <para>
+    To show where locks were acquired in the code Flashlight uses a <emphasis>lock trace</emphasis>. Similar to a stack trace, the lock trace shows where locks were acquired
+    by a thread in order from most recently acquired to least recently acquired. Go back up to the previous query result by pressing the
+    <guiicon><inlinegraphic fileref="images/left.gif"/></guiicon> toolbar button in the <guilabel>Query Results</guilabel> view.
+    Select the code location again and pick the <emphasis>What is the lock trace?</emphasis> 
+    query from the context menu as shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock2-ltm" /> (you could alternatively double-click on the row because 
+    as indicated by the <guiicon><inlinegraphic fileref="images/asterisk.gif"/></guiicon> obtaining
+    the lock trace is the default query). The query result is shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock2-lt" />.</para>
+    
+      <figure id="fig-tutorial-planetbaron-deadlock2-ltm">
+    <title>Running a query to see the lock trace to where the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurs</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock2-ltm.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock2-lt">
+    <title>Lock trace to where the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurs</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock2-lt.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+    <para>Like the stack trace, you can select each row in the resulting
+  lock trace to have the Java editor and <guilabel>Historical Source Snapshot</guilabel> view
+  jump to that code location.
+   If we inspect the two entries reported in the trace, we
+    see that the edge first acquires a write lock on
+    <structfield>f_lock</structfield> in
+    <classname>GameMap</classname> as shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock2-c1" />., followed by a lock
+    on <structfield>m_cursorLocationLock</structfield> in
+    <classname>MapView</classname> as shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock2-c2" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-deadlock2-c1">
+    <title>First lock acquisition in this edge occurs in the <classname>GameMap</classname> class</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock2-c1.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  <figure id="fig-tutorial-planetbaron-deadlock2-c2">
+    <title>Second lock acquisition in this edge occurs in <structfield>m_cursorLocationLock</structfield> in the <classname>MapView</classname> class</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock2-c2.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Now let's turn our focus to the other edge of the lock cycle. We need to go back up the the graphical view that showed the edges.
+  To do this directly, select the <emphasis>What are the lock edges for this lock cycle?</emphasis> result in
+  the <guilabel>Query Results Explorer</guilabel> view as shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock-reset" />.</para>
+  
+    <figure id="fig-tutorial-planetbaron-deadlock-reset">
+    <title>Directly selecting the <emphasis>What are the lock edges for this lock cycle?</emphasis> result in the Query Results Explorer view re-displays that queries result</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock-reset.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>  Here
+    the displayed stack traces show that the lock acquisitions originated from
+    the <function>run</function> method in
+    <classname>com.surelogic.planetbaron.client.communication.ServerProxy</classname>.
+    The <classname>ServerProxy</classname> class extends
+    <classname>java.lang.Thread</classname>, and an instance of it is created
+    and started when we connect to a server.  If we inspect the stack traces, we
+    see that the edge first acquires a write lock on
+    <structfield>f_lock</structfield> in
+    <classname>com.surelogic.planetbaron.game.GameMap</classname>, followed by a lock
+    on <structfield>m_cursorLocationLock</structfield> in
+    <classname>com.surelogic.planetbaron.client.MapView</classname>.</para>
+    
+   <para>   This will display two stack traces underneath the cycle graph. The
     <guilabel>Lock Acquired</guilabel> stack trace shows where
     <code>ReentrantReadWriteLock-51</code> was acquired and the <guilabel>Lock
     Held</guilabel> stack trace shows where <code>Object-42</code> was acquired.
@@ -119,41 +282,14 @@
     of an event triggered in the AWT event thread.
   </para>
 
-  <figure id="fig-tutorial-planetbaron-deadlock2">
-    <title>Stack traces for the <code>Object-42 -> ReentrantReadWriteLock-51</code> lock edge</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-deadlock2.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
-  <figure id="fig-tutorial-planetbaron-deadlock4">
-    <title>Acquisition of <structfield>f_lock</structfield> in the <classname>GameMap</classname> class from <xref linkend="fig-tutorial-planetbaron-deadlock2" /></title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-deadlock4.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
-  <figure id="fig-tutorial-planetbaron-deadlock5">
-    <title>Acquisition of <structfield>m_cursorLocationLock</structfield> in the MapView class from <xref linkend="fig-tutorial-planetbaron-deadlock2" /></title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-deadlock5.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
+
+  
+
 
   <para>
     Now let's look at the other edge in our potential deadlock cycle, and see if
     there really is a problem.  Click on the <code>ReentrantReadWriteLock-51 ->
-    Object-42</code> link under the <guilabel>Edges</guilabel> heading.  Here
-    the displayed stack traces show that the lock acquisitions originated from
-    the <function>run</function> method in
-    <classname>com.surelogic.planetbaron.client.communication.ServerProxy</classname>.
-    The <classname>ServerProxy</classname> class extends
-    <classname>java.lang.Thread</classname>, and an instance of it is created
-    and started when we connect to a server.  If we inspect the stack traces, we
+    Object-42</code> link under the <guilabel>Edges</guilabel> heading.   If we inspect the stack traces, we
     see that the edge first acquires a write lock on
     <structfield>f_lock</structfield> in
     <classname>com.surelogic.planetbaron.game.GameMap</classname>, followed by a lock
@@ -161,30 +297,6 @@
     <classname>com.surelogic.planetbaron.client.MapView</classname>.
   </para>
 
-  <figure id="fig-tutorial-planetbaron-deadlock3">
-    <title>Stack traces for the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-deadlock3.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
-  <figure id="fig-tutorial-planetbaron-deadlock6">
-    <title>Acquisition of <structfield>m_cursorLocationLock</structfield> in the <classname>MapView</classname> class from <xref linkend="fig-tutorial-planetbaron-deadlock3" /></title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-deadlock6.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
-  <figure id="fig-tutorial-planetbaron-deadlock7">
-    <title>Acquisition of <structfield>f_lock</structfield> in the <classname>GameMap</classname> class from <xref linkend="fig-tutorial-planetbaron-deadlock3" /></title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-planetbaron-deadlock7.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
 
   <para>
     To summarize, our investigation has shown us that our lock cycle is composed
