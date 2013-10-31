@@ -10,9 +10,11 @@
     This tutorial explores a small program based on the classic <ulink
     url="http://en.wikipedia.org/wiki/Dining_philosophers">Dining
     Philosophers</ulink> problem. The program models the following scenario:
-    Five philosophers sit down at a table with five plates, five forks, and a
-    bowl of spaghetti in the middle. A philosopher alternates between states of
-    thinking or eating.  They must acquire two forks to eat from the bowl of
+    Five philosophers sit down at a table.  Five plates are layed out, one in
+    front of each philosopher. Five forks are set down, one between each plate.
+    A bowl of spaghetti sits in the middle. While dinner takes place, each
+    philosopher alternates between states of thinking or eating.  They must
+    acquire the two forks on either side of their plate to eat from the bowl of
     spaghetti, and after eating they relinquish their forks to think again. The
     philosophers never speak to each other.
   </para>
@@ -32,25 +34,25 @@
 
 public class DiningPhilosophers {
 
-	private static final String[] names = new String[] { "Kant", "Diogenes",
-			"Descartes", "Goethe", "Russell" };
+   private static final String[] names = new String[] { "Kant", "Diogenes",
+         "Descartes", "Goethe", "Russell" };
 
-	public static void main(String[] args) {
-		Fork[] forks = new Fork[5];
-		for (int i = 0; i < 5; i++) {
-			forks[i] = new Fork(i);
-		}
-		for (int i = 0; i < 5; i++) {
-			new Thread(new LeftThenRightPhilosopher(names[i], forks[i],
-					forks[(i + 1) % 5]), names[i]).start();
-		}
-		try {
-			Thread.sleep(30000);
-		} catch (final InterruptedException e) {
-			// Do nothing
-		}
-		System.exit(0);
-	}
+   public static void main(String[] args) {
+      Fork[] forks = new Fork[5];
+      for (int i = 0; i < 5; i++) {
+         forks[i] = new Fork(i);
+      }
+      for (int i = 0; i < 5; i++) {
+         new Thread(new LeftThenRightPhilosopher(names[i], forks[i],
+               forks[(i + 1) % 5]), names[i]).start();
+      }
+      try {
+         Thread.sleep(30000);
+      } catch (final InterruptedException e) {
+         // Do nothing
+      }
+      System.exit(0);
+   }
 ]]>
   </programlisting>
   <para>
@@ -60,24 +62,24 @@ public class DiningPhilosophers {
   </para>
   <programlisting>
 <![CDATA[
-	/**
-	 * The table forks are represented by locks. A philosopher must lock on the
-	 * Fork object in order to acquire the fork.
-	 * 
-	 * 
-	 */
-	@SuppressWarnings("serial")
-	static class Fork extends ReentrantLock {
-		private final int ord;
+   /**
+    * The table forks are represented by locks. A philosopher must lock on the
+    * Fork object in order to acquire the fork.
+    * 
+    * 
+    */
+   @SuppressWarnings("serial")
+   static class Fork extends ReentrantLock {
+      private final int ord;
 
-		Fork(int ord) {
-			this.ord = ord;
-		}
+      Fork(int ord) {
+         this.ord = ord;
+      }
 
-		int ordinal() {
-			return ord;
-		}
-	}
+      int ordinal() {
+         return ord;
+      }
+   }
 
 }
 ]]>
@@ -95,51 +97,51 @@ public class DiningPhilosophers {
 
   <programlisting>
 <![CDATA[
-	/**
-	 * This philosopher always attempts to take the fork on their left, and then
-	 * the fork on their right.
-	 * 
-	 * 
-	 */
-	static class LeftThenRightPhilosopher implements Runnable {
-		private final String name;
-		private final Fork left;
-		private final Fork right;
+   /**
+    * This philosopher always attempts to take the fork on their left, and then
+    * the fork on their right.
+    * 
+    * 
+    */
+   static class LeftThenRightPhilosopher implements Runnable {
+      private final String name;
+      private final Fork left;
+      private final Fork right;
 
-		LeftThenRightPhilosopher(String name, Fork left, Fork right) {
-			this.name = name;
-			this.left = left;
-			this.right = right;
-		}
+      LeftThenRightPhilosopher(String name, Fork left, Fork right) {
+         this.name = name;
+         this.left = left;
+         this.right = right;
+      }
 
-		public void run() {
-			while (true) {
-				try {
-					System.out.printf("%s is thinking.\n", name);
-					Thread.sleep(1000);
-					left.lock();
-					try {
-						System.out.printf("%s picks up the left fork.\n", name);
-						Thread.sleep(1000);
-						right.lock();
-						try {
-							System.out.printf("%s picks up the right fork.\n",
-									name);
-							Thread.sleep(1000);
-							System.out.printf("%s is eating.\n", name);
-							Thread.sleep(1000);
-						} finally {
-							right.unlock();
-						}
-					} finally {
-						left.unlock();
-					}
-				} catch (InterruptedException e) {
-					// Do nothing
-				}
-			}
-		}
-	}
+      public void run() {
+         while (true) {
+            try {
+               System.out.printf("%s is thinking.\n", name);
+               Thread.sleep(1000);
+               left.lock();
+               try {
+                  System.out.printf("%s picks up the left fork.\n", name);
+                  Thread.sleep(1000);
+                  right.lock();
+                  try {
+                     System.out.printf("%s picks up the right fork.\n",
+                           name);
+                     Thread.sleep(1000);
+                     System.out.printf("%s is eating.\n", name);
+                     Thread.sleep(1000);
+                  } finally {
+                     right.unlock();
+                  }
+               } finally {
+                  left.unlock();
+               }
+            } catch (InterruptedException e) {
+               // Do nothing
+            }
+         }
+      }
+   }
 ]]>
   </programlisting>
 
@@ -242,54 +244,54 @@ Kant picks up the left fork.
   <programlisting>
 <![CDATA[
 
-	/**
-	 * Each fork happens to be numbered, and this philosopher will always grab
-	 * the lowest numbered fork next to them.
-	 * 
-	 */
-	static class OrderedPhilosopher implements Runnable {
-		private final String name;
-		private final Fork left;
-		private final Fork right;
+   /**
+    * Each fork happens to be numbered, and this philosopher will always grab
+    * the lowest numbered fork next to them.
+    * 
+    */
+   static class OrderedPhilosopher implements Runnable {
+      private final String name;
+      private final Fork left;
+      private final Fork right;
 
-		OrderedPhilosopher(String name, Fork left, Fork right) {
-			this.name = name;
-			this.left = left;
-			this.right = right;
-		}
+      OrderedPhilosopher(String name, Fork left, Fork right) {
+         this.name = name;
+         this.left = left;
+         this.right = right;
+      }
 
-		public void run() {
-			while (true) {
-				try {
-					boolean leftFirst = left.ordinal() < right.ordinal();
-					System.out.printf("%s is thinking.\n", name);
-					Thread.sleep(1000);
-					Fork first = leftFirst ? left : right;
-					first.lock();
-					try {
-						System.out.printf("%s picks up the %s fork.\n", name,
-								leftFirst ? "left" : "right");
-						Thread.sleep(1000);
-						Fork second = leftFirst ? right : left;
-						second.lock();
-						try {
-							System.out.printf("%s picks up the %s fork.\n",
-									name, leftFirst ? "right" : "left");
-							Thread.sleep(1000);
-							System.out.printf("%s is eating.\n", name);
-							Thread.sleep(1000);
-						} finally {
-							second.unlock();
-						}
-					} finally {
-						first.unlock();
-					}
-				} catch (InterruptedException e) {
-					// Do nothing
-				}
-			}
-		}
-	}
+      public void run() {
+         while (true) {
+            try {
+               boolean leftFirst = left.ordinal() < right.ordinal();
+               System.out.printf("%s is thinking.\n", name);
+               Thread.sleep(1000);
+               Fork first = leftFirst ? left : right;
+               first.lock();
+               try {
+                  System.out.printf("%s picks up the %s fork.\n", name,
+                        leftFirst ? "left" : "right");
+                  Thread.sleep(1000);
+                  Fork second = leftFirst ? right : left;
+                  second.lock();
+                  try {
+                     System.out.printf("%s picks up the %s fork.\n",
+                           name, leftFirst ? "right" : "left");
+                     Thread.sleep(1000);
+                     System.out.printf("%s is eating.\n", name);
+                     Thread.sleep(1000);
+                  } finally {
+                     second.unlock();
+                  }
+               } finally {
+                  first.unlock();
+               }
+            } catch (InterruptedException e) {
+               // Do nothing
+            }
+         }
+      }
+   }
 ]]>
   </programlisting>
 
@@ -303,25 +305,25 @@ Kant picks up the left fork.
 
 public class DiningPhilosophers {
 
-	private static final String[] names = new String[] { "Kant", "Diogenes",
-			"Descartes", "Goethe", "Russell" };
+   private static final String[] names = new String[] { "Kant", "Diogenes",
+         "Descartes", "Goethe", "Russell" };
 
-	public static void main(String[] args) {
-		Fork[] forks = new Fork[5];
-		for (int i = 0; i < 5; i++) {
-			forks[i] = new Fork(i);
-		}
-		for (int i = 0; i < 5; i++) {
-			new Thread(new OrderedPhilosopher(names[i], forks[i],
-					forks[(i + 1) % 5]), names[i]).start();
-		}
-		try {
-			Thread.sleep(30000);
-		} catch (final InterruptedException e) {
-			// Do nothing
-		}
-		System.exit(0);
-	}
+   public static void main(String[] args) {
+      Fork[] forks = new Fork[5];
+      for (int i = 0; i < 5; i++) {
+         forks[i] = new Fork(i);
+      }
+      for (int i = 0; i < 5; i++) {
+         new Thread(new OrderedPhilosopher(names[i], forks[i],
+               forks[(i + 1) % 5]), names[i]).start();
+      }
+      try {
+         Thread.sleep(30000);
+      } catch (final InterruptedException e) {
+         // Do nothing
+      }
+      System.exit(0);
+   }
 ]]>
   </programlisting>
 
