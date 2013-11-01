@@ -25,17 +25,17 @@
     <classname>DiningPhilosophers</classname> is displayed below.  We create
     five forks, and assign two forks to each dining philosopher to serve as the
     fork on their left and right.  The first philosopher, Kant, Will have forks
-    0 and 1, Diogenes will have 1 and 2, and this goes on until we reach Russel,
+    0 and 1, Diogenes will have 1 and 2, and this goes on until we reach Russell,
     who has forks 4 and 0.
   </para>
 
   <programlisting>
 <![CDATA[
-
 public class DiningPhilosophers {
 
-   private static final String[] names = new String[] { "Kant", "Diogenes",
-         "Descartes", "Goethe", "Russell" };
+   private static final String[] names = new String[] {
+     "Kant", "Diogenes", "Descartes", "Goethe", "Russell"
+   };
 
    public static void main(String[] args) {
       Fork[] forks = new Fork[5];
@@ -53,6 +53,8 @@ public class DiningPhilosophers {
       }
       System.exit(0);
    }
+...
+}
 ]]>
   </programlisting>
   <para>
@@ -62,25 +64,21 @@ public class DiningPhilosophers {
   </para>
   <programlisting>
 <![CDATA[
-   /**
-    * The table forks are represented by locks. A philosopher must lock on the
-    * Fork object in order to acquire the fork.
-    * 
-    * 
-    */
-   @SuppressWarnings("serial")
-   static class Fork extends ReentrantLock {
-      private final int ord;
+/**
+ * The table forks are represented by locks. A philosopher must lock on the
+ * Fork object in order to acquire the fork.
+ */
+@SuppressWarnings("serial")
+static class Fork extends ReentrantLock {
+   private final int ord;
 
-      Fork(int ord) {
-         this.ord = ord;
-      }
-
-      int ordinal() {
-         return ord;
-      }
+   Fork(int ord) {
+      this.ord = ord;
    }
 
+   int ordinal() {
+      return ord;
+   }
 }
 ]]>
   </programlisting>
@@ -97,51 +95,49 @@ public class DiningPhilosophers {
 
   <programlisting>
 <![CDATA[
-   /**
-    * This philosopher always attempts to take the fork on their left, and then
-    * the fork on their right.
-    * 
-    * 
-    */
-   static class LeftThenRightPhilosopher implements Runnable {
-      private final String name;
-      private final Fork left;
-      private final Fork right;
+/**
+ * This philosopher always attempts to take the fork on their left, and then
+ * the fork on their right.
+ */
+static class LeftThenRightPhilosopher implements Runnable {
+   private final String name;
+   private final Fork left;
+   private final Fork right;
 
-      LeftThenRightPhilosopher(String name, Fork left, Fork right) {
-         this.name = name;
-         this.left = left;
-         this.right = right;
-      }
+   LeftThenRightPhilosopher(String name, Fork left, Fork right) {
+      this.name = name;
+      this.left = left;
+      this.right = right;
+   }
 
-      public void run() {
-         while (true) {
+   public void run() {
+      while (true) {
+         try {
+            System.out.printf("%s is thinking.\n", name);
+            Thread.sleep(1000);
+            left.lock();
             try {
-               System.out.printf("%s is thinking.\n", name);
+               System.out.printf("%s picks up the left fork.\n", name);
                Thread.sleep(1000);
-               left.lock();
+               right.lock();
                try {
-                  System.out.printf("%s picks up the left fork.\n", name);
+                  System.out.printf("%s picks up the right fork.\n",
+                        name);
                   Thread.sleep(1000);
-                  right.lock();
-                  try {
-                     System.out.printf("%s picks up the right fork.\n",
-                           name);
-                     Thread.sleep(1000);
-                     System.out.printf("%s is eating.\n", name);
-                     Thread.sleep(1000);
-                  } finally {
-                     right.unlock();
-                  }
+                  System.out.printf("%s is eating.\n", name);
+                  Thread.sleep(1000);
                } finally {
-                  left.unlock();
+                  right.unlock();
                }
-            } catch (InterruptedException e) {
-               // Do nothing
+            } finally {
+               left.unlock();
             }
+         } catch (InterruptedException e) {
+            // Do nothing
          }
       }
    }
+}
 ]]>
   </programlisting>
 
@@ -194,14 +190,8 @@ Kant picks up the left fork.
   <para>
     Go ahead and click on the <emphasis>Lock cycles were observed that could
     cause the program to deadlock</emphasis> link.  You should see one lock cycle displayed, as shown in  <xref
-    linkend="fig-tutorial-dining-what-lock-cycles" /> below.  Double click on this entry and a lock graph will be
-    displayed that should look something like <xref linkend="fig-tutorial-dining-what-are-the-edges"/>.  Every node in this
-    graph is a lock in the program.  In this case that means the five
-    <classname>Fork</classname> objects that we created.  Each edge represents a
-    time in the program that we held the lock at the source of the edge and
-    tried to acquire the lock at the edge's destination.
-  </para>
-
+    linkend="fig-tutorial-dining-what-lock-cycles" />. As expected the cycle involves five locks&mdash;one for each fork.</para>
+    
 
   <figure id="fig-tutorial-dining-what-lock-cycles">
     <title>What lock cycles could potentially cause deadlock?</title>
@@ -211,6 +201,17 @@ Kant picks up the left fork.
       </imageobject>
     </mediaobject>
   </figure>
+    
+    <para>Double click on this entry and a lock graph will be
+    displayed that should look something like <xref linkend="fig-tutorial-dining-what-are-the-edges"/>.  Every node in this
+    graph is a lock in the program.  In this case that means the five
+    <classname>Fork</classname> objects that we created.  Each edge represents a
+    time in the program that we held the lock at the source of the edge and
+    tried to acquire the lock at the edge's destination. You can manipulate the graph by clicking and dragging nodes
+  if the layout is cluttered. You can also move the whole graph by clicking and dragging on the background
+   of the graph.
+  </para>
+
 
   <figure id="fig-tutorial-dining-what-are-the-edges">
     <title>What are the edges for this lock cycle?</title>
