@@ -111,18 +111,20 @@
 
   <para>
   This query result uses a graphical display, in addition to a table to better convey the lock
-  cycle. This potential deadlock occurs whenever you connect a PlayerUI to the PlanetBaron server.
-  The result
-    is a two-lock cycle similar to <xref
-    linkend="fig-tutorial-planetbaron-deadlock1" />. In our run the locks
+  cycle. The result displays a two-lock cycle.  This potential deadlock occurs
+  whenever you connect a PlayerUI to the PlanetBaron server.
+  You can manipulate the graph by clicking and dragging nodes
+  if the layout is cluttered. You can also move the whole graph by clicking and dragging on the background
+   of the graph.</para>
+   
+   <para>In our run the locks
     involved are <code>Object-42</code> and
     <code>ReentrantReadWriteLock-51</code>, and each appears to be acquired at
     some point while the other is already held. Notice from the icons that
     <guiicon><inlinegraphic fileref="images/lock.gif"/></guiicon> <code>Object-42</code> is used as an intrinsic lock
     and <guiicon><inlinegraphic fileref="images/lock_dynamic.gif"/></guiicon> <code>ReentrantReadWriteLock-51</code>
     is used as a dynamic lock.
-    If you are following along,
-    your lock numbers may be different, but they should correspond to the same
+    Your lock numbers may be different, but they should correspond to the same
     locks identified in our run.
   </para>
   
@@ -131,7 +133,9 @@
     <code>ReentrantReadWriteLock-51</code> and then acquires <code>Object-42</code> (138 times in our run). A second thread,
     AWT-EventQueue-0, holds <code>Object-42</code> and then acquires <code>ReentrantReadWriteLock-51</code> (80 times in our run). We just got lucky
     that the <emphasis>deadly embrace</emphasis> didn't occur and deadlock the PlayerUI&mdash;our program worked
-    properly by luck of the scheduler.</para>
+    properly by luck of the scheduler. As we noted above, this problem in the code occurs
+    whenever you connect a PlayerUI to the PlanetBaron server. There is a lock ordering problem
+    with the PlayerUI code.</para>
 
   <para>
     To figure out where in the code the implementation problem lies, we'll have to look at both lock edges
@@ -158,7 +162,7 @@
     linkend="fig-tutorial-planetbaron-deadlock2-st" />.</para>
     
   <figure id="fig-tutorial-planetbaron-deadlock2-stm">
-    <title>Running a query to see the stack trace to where the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurs</title>
+    <title>Running a query to see the stack trace of how the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurred</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock2-stm.png" />
@@ -166,7 +170,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock2-st">
-    <title>Stack trace to where the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurs</title>
+    <title>Stack trace of how the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurred</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock2-st.png" />
@@ -174,15 +178,19 @@
     </mediaobject>
   </figure>
   
-  <para>You can select each row in the resulting stack trace to have the Java editor and <guilabel>Historical Source Snapshot</guilabel> view
+  <para>You can select each row in the resulting stack trace to have
+  the Java editor and <guilabel>Historical Source Snapshot</guilabel> view
   jump to that code location.   Here
     the stack trace tells us that the lock acquisitions originated from
-    the <function>run</function> method in
-    <classname>com.surelogic.planetbaron.client.communication.ServerProxy</classname>.
+    the <function>run</function> method in our
+    <classname>ServerProxy</classname> class.
     The <classname>ServerProxy</classname> class extends
     <classname>java.lang.Thread</classname>, and an instance of it is created
-    and started when we connect to a server. The thread this occurred in handles the background network communication with
-    the PlanetBaron server.  A limitation of this trace is that it doesn't directly show where the lock acquisitions occurred.</para>
+    and started when we connect to a server. Going to the bottom of the stack trace can often help us understand
+    what Thread-4 was in terms of the program design.
+    In this case, Thread-4 handles the background network communication with
+    the PlanetBaron server.  A limitation of a stack trace is that it doesn't directly show where the lock acquisitions occurred, that's
+    what Flashlight uses a <emphasis>lock trace</emphasis> to do.</para>
     
     <para>
     To show where locks were acquired in the code Flashlight uses a <emphasis>lock trace</emphasis>. Similar to a stack trace, the lock trace shows where locks were acquired
@@ -196,7 +204,7 @@
     linkend="fig-tutorial-planetbaron-deadlock2-lt" />.</para>
     
       <figure id="fig-tutorial-planetbaron-deadlock2-ltm">
-    <title>Running a query to see the lock trace to where the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurs</title>
+    <title>Running a query to see the lock trace of how the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurred</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock2-ltm.png" />
@@ -204,7 +212,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock2-lt">
-    <title>Lock trace to where the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurs</title>
+    <title>Lock trace of how the <code>ReentrantReadWriteLock-51 -> Object-42</code> lock edge occurred</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock2-lt.png" />
@@ -215,7 +223,7 @@
     <para>Like the stack trace, you can select each row in the resulting
   lock trace to have the Java editor and <guilabel>Historical Source Snapshot</guilabel> view
   jump to that code location.
-   If we inspect the two entries reported in the trace, we
+   If we inspect the two entries reported in the trace from bottom to top, we
     see that the edge first acquires a write lock on
     <structfield>f_lock</structfield> in
     <classname>GameMap</classname> as shown in <xref
@@ -225,7 +233,7 @@
     linkend="fig-tutorial-planetbaron-deadlock2-c2" />.</para>
   
   <figure id="fig-tutorial-planetbaron-deadlock2-c1">
-    <title>First lock acquisition in this edge occurs in the <classname>GameMap</classname> class</title>
+    <title>First lock acquisition in this edge occurs in <structfield>endCurrentTurn</structfield> in the <classname>GameMap</classname> class</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock2-c1.png" />
@@ -233,7 +241,7 @@
     </mediaobject>
   </figure>
   <figure id="fig-tutorial-planetbaron-deadlock2-c2">
-    <title>Second lock acquisition in this edge occurs in <structfield>m_cursorLocationLock</structfield> in the <classname>MapView</classname> class</title>
+    <title>Second lock acquisition in this edge occurs in the <structfield>endOfTurn</structfield> callback in the <classname>MapView</classname> class</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-deadlock2-c2.png" />
@@ -241,10 +249,18 @@
     </mediaobject>
   </figure>
   
-  <para>Now let's turn our focus to the other edge of the lock cycle. We need to go back up the the graphical view that showed the edges.
-  To do this directly, select the <emphasis>What are the lock edges for this lock cycle?</emphasis> result in
+  <para>The dynamic lock first acquired protects the model of the game map. This code and
+  its locking policy is shared
+  by the PlayerUI and the PlanetBaron server. The second lock is used to protect the location of the
+  mouse cursor in terms of the game map grid within the PlayerUI. Apparently the designer
+  of this code thought these two locks did not interact&mdash;but it appears that they do.</para>
+  
+  <para>Now let's turn our focus to the other edge of the lock cycle to see what
+  occurred in the program to have the locks occur in the other order. We need to go back up the the graphical view that showed the edges.
+  To do this directly, select the <emphasis>What are the edges for this lock cycle?</emphasis> result in
   the <guilabel>Query Results Explorer</guilabel> view as shown in <xref
-    linkend="fig-tutorial-planetbaron-deadlock-reset" />.</para>
+    linkend="fig-tutorial-planetbaron-deadlock-reset" />. This action will change the
+    <guilabel>Query Results</guilabel> view to show the results for the <emphasis>What are the edges for this lock cycle?</emphasis> query.</para>
   
     <figure id="fig-tutorial-planetbaron-deadlock-reset">
     <title>Directly selecting the <emphasis>What are the lock edges for this lock cycle?</emphasis> result in the Query Results Explorer view re-displays that queries result</title>
@@ -255,65 +271,128 @@
     </mediaobject>
   </figure>
   
-  <para>  Here
-    the displayed stack traces show that the lock acquisitions originated from
-    the <function>run</function> method in
-    <classname>com.surelogic.planetbaron.client.communication.ServerProxy</classname>.
-    The <classname>ServerProxy</classname> class extends
-    <classname>java.lang.Thread</classname>, and an instance of it is created
-    and started when we connect to a server.  If we inspect the stack traces, we
-    see that the edge first acquires a write lock on
-    <structfield>f_lock</structfield> in
-    <classname>com.surelogic.planetbaron.game.GameMap</classname>, followed by a lock
-    on <structfield>m_cursorLocationLock</structfield> in
-    <classname>com.surelogic.planetbaron.client.MapView</classname>.</para>
+  <para>Select the <code>Object-42 -> ReentrantReadWriteLock-51</code> row in
+    the table and run the <emphasis>Where and in what threads does this lock
+    edge occur?</emphasis>. The result will be similar to the one shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock3" />.</para>
     
-   <para>   This will display two stack traces underneath the cycle graph. The
-    <guilabel>Lock Acquired</guilabel> stack trace shows where
-    <code>ReentrantReadWriteLock-51</code> was acquired and the <guilabel>Lock
-    Held</guilabel> stack trace shows where <code>Object-42</code> was acquired.
-    We can see from the stack traces that this edge originated from the
-    <function>mouseMoved</function> method in
-    <classname>com.surelogic.planetbaron.client.MapView</classname>.  If we click on
-    a link to the <classname>MapView</classname> class from one of the stack
-    traces and inspect the class, we see that the <classname>MapView</classname>
-    class implements <classname>java.awt.event.MouseMotionListener</classname>.
-    We can deduce that <function>mouseMoved</function> is called as the result
-    of an event triggered in the AWT event thread.
-  </para>
-
-
+  <figure id="fig-tutorial-planetbaron-deadlock3">
+    <title>Code location where the <code>Object-42 -> ReentrantReadWriteLock-51</code> lock edge occurs</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock3.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
   
+  <para>From the result above we see that this lock edge occurs at two points in the code: lines 299 and lines 463 of the <classname>GameMap</classname>
+  compilation unit. Both seem to occur with the same frequency and both are within the AWT Event Dispatch Thread (EDT) so we'll arbitrarily pick
+  the first and drill-in to it.
+  Select the location at line 299 in the <guilabel>Query Results</guilabel> view and from the context menu run
+    the <emphasis>What is the stack trace?</emphasis> query. The result is shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock3-st" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-deadlock3-st">
+    <title>Stack trace of how the <code>Object-42 -> ReentrantReadWriteLock-51</code> lock edge occurred</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock3-st.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Again we are very interested in the bottom of the stack trace to figure out the thread context this edge occurred in. In this
+  case the trace that led to the edge began in the mouseMoved method of the <classname>MapView</classname> class. This is a callback
+  from the Swing user interface library about changes to where the mouse is pointing on the user's screen. Now go
+  back up to the previous query result by pressing the
+    <guiicon><inlinegraphic fileref="images/left.gif"/></guiicon> toolbar button in the <guilabel>Query Results</guilabel> view.
+    Select the first code location again and pick the <emphasis>What is the lock trace?</emphasis> 
+    query from the context menu (you could alternatively double-click on the row because 
+    as indicated by the <guiicon><inlinegraphic fileref="images/asterisk.gif"/></guiicon> obtaining
+    the lock trace is the default query). The query result is shown in <xref
+    linkend="fig-tutorial-planetbaron-deadlock3-lt" />.</para>
+    
 
-
-  <para>
-    Now let's look at the other edge in our potential deadlock cycle, and see if
-    there really is a problem.  Click on the <code>ReentrantReadWriteLock-51 ->
-    Object-42</code> link under the <guilabel>Edges</guilabel> heading.   If we inspect the stack traces, we
-    see that the edge first acquires a write lock on
-    <structfield>f_lock</structfield> in
-    <classname>com.surelogic.planetbaron.game.GameMap</classname>, followed by a lock
-    on <structfield>m_cursorLocationLock</structfield> in
-    <classname>com.surelogic.planetbaron.client.MapView</classname>.
-  </para>
-
-
-  <para>
-    To summarize, our investigation has shown us that our lock cycle is composed
-    of two separate and repeated events in our program.  Every time the AWT
-    Event Thread processes a mouseMoved event, we acquire
-    <structfield>m_cursorLocationLock</structfield>, then a read lock on
-    <structfield>f_lock</structfield>.  Every time we get a response back from
-    the server, we acquire a write lock on <structfield>f_lock</structfield>,
-    then <structfield>m_cursorLocationLock</structfield>.  Unfortunately for the
-    program, both of these events can happen at any time.  If they trigger
-    near-simultaneously, we can end up in a scenario where the server thread
-    holds onto <structfield>f_lock</structfield> and waits on
-    <structfield>m_cursorLocationLock</structfield>, while the AWT event thread
-    holds onto <structfield>m_cursorLocationLock</structfield> and waits for the
-    server thread to give up its write lock on
-    <structfield>f_lock</structfield>.  When this happens, the program will
-    deadlock.
+  <figure id="fig-tutorial-planetbaron-deadlock3-lt">
+    <title>Lock trace of how the <code>Object-42 -> ReentrantReadWriteLock-51</code> lock edge occurred</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock3-lt.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>The bottom two lock acquisitions are of the same lock, the
+  lock that protects the location of the
+  mouse cursor in terms of the game map grid within the PlayerUI. This is not surprising because
+  the callback is telling the program that the mouse pointer location has changed on the screen. Select the
+  top lock acquisition and in the Java editor you can see where in the code the last lock in this edge was acquired as shown
+  in <xref linkend="fig-tutorial-planetbaron-deadlock3-maplock" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-deadlock3-maplock">
+    <title>The last lock acquisition in this edge occurs in the <structfield>getPlanetAt</structfield> "getter" method in the <classname>GameMap</classname> class</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock3-maplock.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>This call to <structfield>getPlanetAt</structfield> is the problem. But what code called this method? Switch back to the stack trace
+  result and select the entry just below the location in <structfield>getPlanetAt</structfield>&mdash;the second row in the trace.
+  The result is shown in <xref linkend="fig-tutorial-planetbaron-deadlock3-getPlanetAt" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-deadlock3-getPlanetAt">
+    <title>Where the call to the <structfield>getPlanetAt</structfield> "getter" method occurs during this edge</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock3-getPlanetAt.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>The call to setScanInformation is the root cause of this edge. This method updates the information in the scan
+  box part of the user interface as shown in <xref linkend="fig-tutorial-planetbaron-deadlock3-scan" />. The scan box displays information about
+  the planet the mouse is currently hovering over. This image also
+  visually shows the "logical" mouse location that is being protected by <structfield>m_cursorLocationLock</structfield>
+  as a white outline around square on the game map.</para>
+  
+  <figure id="fig-tutorial-planetbaron-deadlock3-scan">
+    <title>The scan in the PlayerUI shows information about the planet the mouse is hovering over</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock3-scan.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Fixing a potential deadlock may not straightforward because it often points to a design problem. However, in this case narrowing
+  the scope of use of
+  <structfield>m_cursorLocationLock</structfield> is a good starting place. In particular, two changes would probably address this problem.
+  First, the operation of checking if the cursor has moved, and if so saving the last location and updating the current location should
+  be moved into a method&mdash;as opposed to being directly done in the mouseMoved method. Second, the call to notifyCursorListeners in setCursorLocation
+  should not be made holding the lock.</para>
+  
+    <programlisting>
+<![CDATA[
+private void setCursorLocation(Location l) {
+  synchronized (m_cursorLocationLock) {
+    m_cursorLocation = l;
+    notifyCursorListeners(l); // BAD - Don't do this!
+  }
+}
+]]>
+  </programlisting>
+   
+  
+  <para>Note that the call to notifyCursorListeners within the synchronized block. This call "calls back"
+  to client code that has registered with the <classname>MapView</classname> class. This, from a best practice point of view,
+  is really the root cause of the potential deadlock. It violates Joshua Bloch's Item 67: <emphasis>Avoid excessive synchronization</emphasis> from the
+  book <emphasis>Effective Java</emphasis> (2nd edition, Addison-Wesley 2008). The item states <emphasis>To avoid liveness and safety failures,
+  never cede control to the client within a synchronized method or block.</emphasis>. However, this
+  is exactly what the current implementation of setCursorLocation does. For the purposes of this tutorial we will not go through the code changes
+  necessary to fix this in the PlanetBaron code. We finish up by noting two things: (1) This deadlock does really occur in real use of the PlayerUI program, and (2)
+  until Flashlight was used to investigate the problem, several experienced programmers were unable to track down what was causing the intermittent deadlock.
   </para>
 
 </section>
