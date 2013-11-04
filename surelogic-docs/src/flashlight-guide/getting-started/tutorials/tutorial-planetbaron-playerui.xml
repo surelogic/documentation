@@ -394,5 +394,83 @@ private void setCursorLocation(Location l) {
   necessary to fix this in the PlanetBaron code. We finish up by noting two things: (1) This deadlock does really occur in real use of the PlayerUI program, and (2)
   until Flashlight was used to investigate the problem, several experienced programmers were unable to track down what was causing the intermittent deadlock.
   </para>
-
+  
+  <para>Before we move on, let's turn our attention to the second lock cycle in the program. Clear out all your query results by
+  pressing <guiicon><inlinegraphic fileref="images/gray_x_double.png"/></guiicon> icon in the toolbar
+  of the <guilabel>Query Results</guilabel> view. Next double-click on
+  the <emphasis>What lock cycles could potentially cause deadlock?</emphasis> query in the <guilabel>Query Menu</guilabel>
+  view (it should be the first query listed). Next bring up the lock cycle we didn't just investigate to get a result
+  similar to the one shown in <xref linkend="fig-tutorial-planetbaron-deadlock4" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-deadlock4">
+    <title>A "self" lock cycle in the PlayerUI where a single lock is used as both an intrinsic and dynamic lock</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock4.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>This is a "self" lock cycle where the same lock is being used as both an intrinsic and dynamic lock.
+  Notice from the icons that
+    <guiicon><inlinegraphic fileref="images/lock.gif"/></guiicon> <code>ReentrantReadWriteLock-1565</code> is used as an intrinsic lock
+    and same object <guiicon><inlinegraphic fileref="images/lock_dynamic.gif"/></guiicon> <code>ReentrantReadWriteLock-1565</code>
+    is used as a dynamic lock.
+  This troublesome code was most likely caused by a bad conversion to the
+  use of the util.concurrent read-write lock from simple intrinsic locking in the PlanetBaron
+  code&mdash;a change made in the second year of this software's existence. We will not step through this
+  problem in detail, however, please feel free to investigate it fully on your own. To make this more concrete, we note
+  that if you
+  drill-into this result you will find muddled methods like the one listed below.</para>
+  
+    <programlisting>
+<![CDATA[public void doTurn() {
+  f_lock.writeLock().lock();  // dynamic lock acquisition
+  try {
+    synchronized (f_lock) {   // BAD - Don't synchronize on a dynamic lock object!
+      f_sendReport_lastTurn = f_sendReport_thisTurn;
+      f_sendReport_thisTurn = false;
+    }
+  } finally {
+    f_lock.writeLock().unlock();
+  }
+}
+]]>
+  </programlisting>
+  
+  <para>Notice that <code>f_lock</code> is acquired as both a dynamic lock, the call to <code>lock()</code> and
+  <code>unlock()</code>, and an intrinsic lock, the <code>synchronized (f_lock)</code> block. It is considered
+  bad practice to synchronize on a util.concurrent lock object, but Java cannot stop you from doing this.
+  This is a mistake that can effect program performance, and in this case, worse, cause a deadlock.
+  </para>
+  
+  <para>In fact, Flashlight has a special query to help track down this kind of intrinsic/dynamic use problem&mdash;even if it didn't result
+  in a lock cycle as in the case of the example above.  Let's run this query now.
+  Clear out all your query results by
+  pressing <guiicon><inlinegraphic fileref="images/gray_x_double.png"/></guiicon> icon in the toolbar
+  of the <guilabel>Query Results</guilabel> view. Next double-click on
+  the <emphasis>What objects were used as both a dynamic and an intrinsic lock?</emphasis> query in the <guilabel>Query Menu</guilabel>
+  view (it should be the last query listed in the <emphasis>Lock Use</emphasis> section of the menu). The result
+  should be similar to the one shown in <xref linkend="fig-tutorial-planetbaron-deadlock4-both" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-deadlock4-both">
+    <title>Lock objects in the PlayerUI that were observed to be used as both a dynamic lock and an intrinsic lock</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock4-both.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>This query can be helpful to track down this particular locking problem.  In fact, there is a bad news item
+  for this that you will receive if it is observed as shown in <xref linkend="fig-tutorial-planetbaron-deadlock4-both-news" />.</para>
+  
+  <figure id="fig-tutorial-planetbaron-deadlock4-both-news">
+    <title>News item that lock objects in the PlayerUI that were observed to be used as both a dynamic lock and an intrinsic lock</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-planetbaron-deadlock4-both-news.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 </section>

@@ -285,7 +285,7 @@
 
     f_lock.writeLock().lock();
     try {
-      if (f_location.equals(destination)) { // <<<=== unprotected access
+      if (f_location.equals(destination)) {
         LOG.log(Level.WARNING,
             "ignored attempt to move ship to its current location");
       } else {
