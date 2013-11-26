@@ -11,6 +11,24 @@
   These are presented in the sections below for each released version of
   Flashlight.</para>
   
+    <section>
+    <title>Flashlight version 5.1.0</title>
+    <para>This section describes the 5.1.0 version of Flashlight.</para>
+    <section>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this version of Flashlight.</para>
+      <orderedlist>
+        <listitem>
+          <para><emphasis>Dynamic analysis instrumentation made more concurrent to reduce overhead</emphasis> &mdash;
+              This release contains several changes to the dynamic analysis data store used by Flashlight
+              to collect data from both standard Java programs and Android applications. These
+              changes reduce the overhead of the tool's instrumentation for most applications.
+          </para>
+        </listitem>
+       </orderedlist>
+    </section>
+  </section>
+  
   <section>
     <title>Flashlight version 5.0.0</title>
     <para>This section describes the 5.0.0 version of Flashlight.</para>
@@ -74,21 +92,6 @@
                   be hard to obtain from a list of 1,874 accesses.</para>
         </listitem>
       </orderedlist>
-    </section>
-    <section>
-		<title>Known Problems</title>
-		<para>This section describes known limitations in this
-			version of Flashlight.</para>
-		<orderedlist>
-				<listitem>
-					<para>
-						<emphasis>TODO</emphasis>
-						&mdash;
-						TODO OR REMOVE.
-					</para>
-					<para>We are working to fix this problem in the next release of Flashlight.</para>
-				</listitem>
-				</orderedlist>
     </section>
   </section>
   
