@@ -24,7 +24,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 5.0.0&mdash;October 2013</pubdate>
+    <pubdate>Version 5.1.0&mdash;November 2013</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -3101,6 +3101,36 @@ if (o == null) {
     noteworthy features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of Sierra.</para>
+    
+        <section id="sec-sierra-release-5-1-0">
+      <title>Sierra version 5.1.0</title>
+      <para>This section describes the 5.1.0 version of Sierra.</para>
+      <section>
+	<title>New and Noteworthy</title>
+	<para>This section describes new and noteworthy features in this
+	version of Sierra.</para>
+	<orderedlist>
+	  	   <listitem>
+	    <para><emphasis>Support for IBM Jazz source control</emphasis> &mdash; The source
+	        control component of the IBM Jazz technology platform manages the source code,
+	        documents, and other artifacts that a team creates. The code is stored on a server
+	        and accessed as a URL by clients. This created a problem for Sierra which, prior to
+	        this release, expected the source code and binary artifacts of a project to exist
+	        as files on a local or remote filesystem. Changes were made to Sierra in this release to support
+	        IBM Jazz source control. Similar server-based URL-oriented systems
+	        should also be supported by Sierra.</para>
+	  </listitem>
+
+        </orderedlist>
+      </section>
+
+      <section>
+	<title>Known Problems</title>
+
+	<para>The known bugs and limitations in this version of Sierra is
+	unchanged from the previous release.</para>
+      </section>
+    </section>
     
     <section>
       <title>Sierra version 4.0.2</title>
