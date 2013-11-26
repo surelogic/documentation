@@ -51,6 +51,39 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
     
+    
+<section id="sec-jsure-release-5-1-0">
+		<title>JSure version 5.1.0</title>
+		<para>This section describes the 5.1.0 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+			<listitem><para>
+			<emphasis>Verification will timeout for &#64;NonNull, &#64;Raw, and &#64;Nullable annotations</emphasis>
+						&mdash;
+						Support for a timeout of the null value verifying analysis has been added in this release.
+						This allows the user to better control how long a scan may take on a particular code base.
+						Most tool users do not need to change the default timeout values in the tool. This capability
+						is intended for advanced users on highly complex codebases.
+						</para>
+						</listitem>
+			</orderedlist>
+		</section>
+
+	<section>
+		<title>Known Problems</title>
+		<para>The known limitations in this
+			version of
+			JSure are unchanged from the previous version.</para>
+	</section>
+</section>
+    
             	<section id="sec-jsure-release-4-6-0">
 		<title>JSure version 4.6.0</title>
 		<para>This section describes the 4.6.0 version of the JSure Eclipse
