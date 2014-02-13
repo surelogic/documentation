@@ -222,6 +222,9 @@
 		    <para>The <guilabel>Verification Explorer</guilabel> view described in <xref linkend="verification-explorer-view" /></para>
 		  </listitem>
 		  <listitem>
+		    <para>The <guilabel>Analysis-Enabled Metrics</guilabel> view described in <xref linkend="analysis-enabled-metrics-view" /></para>
+		  </listitem>
+		  <listitem>
 		    <para>The <guilabel>Proposed Annotation</guilabel> view described in <xref linkend="proposed-annotation-view" /></para>
 		  </listitem>
 		  <listitem>
@@ -921,7 +924,105 @@
       </para>
 	    
 	</section>
+	
+	
+	<section id="analysis-enabled-metrics-view">
+	    <title>The Analysis-Enabled Metrics view</title>
+	    
+	    <para>The <guilabel>Analysis-Enabled Metrics</guilabel>
+			view, as shown in <xref linkend="fig-analysis-enabled-metrics-view" />, shows metrics collected
+			during each scan of a codebase. These metrics can help answer questions about how much has been
+			done to the codebase, how large it is, the scan performance, and so on.
+		</para>
+		
+		<para>Most tabs are interactive and show aggregate, scan-level, information as well as detailed counts on individual files.
+		In particular, a threshold slider allows metric values above or below a threshold to be highlighed in the view. Only rows with
+		data are highlighted&mdash;summary rows are not, however, a
+		trail of <inlinegraphic fileref="images/asterisk.gif"/> decorators to the lower left of the row's image leads
+		to highlighted rows in any tree-table displayed
+		by this view.</para>
 
+		<figure id="fig-analysis-enabled-metrics-view">
+			<title>The <guilabel>Analysis-Enabled Metrics</guilabel> view</title>
+			<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/analysis-enabled-metrics-view.png" />
+				</imageobject>
+			</mediaobject>
+		</figure>
+		
+		 <para>The view&rsquo;s toolbar has three command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/></guiicon></title>
+              <para>This button collapses all the nodes in the metric tab being displayed.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/alpha_sort.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not the nodes in the metric
+                  tab being shown are sorted in alphabetical order.
+                  When it is not pressed in tabs are storted by the magnitude of the metric being
+                  displayed in the tab.</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/filter.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not nodes in the metric tab being
+              shown are filtered by a threshold. Typically, nodes are highlighted if they
+              exceed the metric threshold, but this toggle allows only those that exceed the threshold to be shown.</para>
+            </formalpara>    
+          </listitem>
+          
+        </itemizedlist>
+      </para>
+      
+            <figure id="fig-analysis-enabled-metrics-menu">
+        <title>The <guilabel>Analysis-Enabled Metrics</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/analysis-enabled-metrics-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has three commands; see <xref
+      linkend="fig-analysis-enabled-metrics-menu"/>:
+      <itemizedlist>
+	<listitem>
+	  
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/collapseall.gif"/> Collapse All</guiicon></title>
+	    <para>Selecting this menu item collapses all the nodes in the Java declaration tree.</para>
+	  </formalpara>            
+	</listitem>
+	
+    <listitem>
+         <formalpara>
+           <title><guiicon><inlinegraphic fileref="images/alpha_sort.gif"/> Sort Contents Alphabetically</guiicon></title>
+           <para>Toggling this menu item controls whether or not the nodes in the metric
+               tab being shown are sorted in alphabetical order.
+               When it is unchecked tabs are storted by the magnitude of the metric being
+               displayed in the tab.</para>
+         </formalpara>            
+       </listitem>
+       
+       <listitem>
+         <formalpara>
+           <title><guiicon><inlinegraphic fileref="images/filter.gif"/> Filter By Metric Threshold</guiicon></title>
+           <para>Toggling this menu item controls whether or not nodes in the metric tab being
+           shown are filtered by a threshold. Typically, nodes are highlighted if they
+           exceed the metric threshold, but this toggle allows only those that exceed the threshold to be shown.</para>
+         </formalpara>    
+       </listitem>
+      </itemizedlist>
+      </para>
+      
+	</section>
 
 	<section id="proposed-annotation-view">
 		<title>The Proposed Annotation view</title>
