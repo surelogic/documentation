@@ -52,6 +52,49 @@
     released version of JSure.</para>
     
     
+    <section id="sec-jsure-release-5-3-0">
+		<title>JSure version 5.3.0</title>
+		<para>This section describes the 5.3.0 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+			<listitem><para>
+			<emphasis>New Analysis-Enabled Metrics view</emphasis>
+						&mdash;
+						JSure now has a metrics view as described in <xref linkend="analysis-enabled-metrics-view" />.
+						This view shows metrics collected during each scan of a codebase. These metrics
+						can help answer questions about how much has been
+						done to the codebase, how large it is, the scan performance, and so on.
+						</para>
+						</listitem>
+			<listitem><para>
+			<emphasis>@Raw annotation replaced with @Initialized</emphasis>
+						&mdash;
+						The confusing @Raw annotation has been replaced with @Initalized. Please see the Javadoc for @Initialized for further details on this change
+						and proper use of the new annotation.
+						</para>
+						</listitem>
+			<listitem><para>
+			<emphasis>Scoped promise support for @NonNull, @Nullable, and @RegionEffects</emphasis>
+						&mdash;
+						It is now possible to "change the default" to non-null by using @Promise("@NonNull")
+						at the package level. For example, to change all references to be non-null in the package
+						com.stuff you would put the following in /com/stuff/package-info.java:
+						<programlisting>@com.surelogic.Promise(&quot;@NonNull&quot;)
+package com.stuff;</programlisting>
+						Please see the Javadoc for @Promise for more examples of how to use this feature.
+						</para>
+						</listitem>
+			</orderedlist>
+		</section>
+</section>
+    
 <section id="sec-jsure-release-5-1-0">
 		<title>JSure version 5.1.0</title>
 		<para>This section describes the 5.1.0 version of the JSure Eclipse
