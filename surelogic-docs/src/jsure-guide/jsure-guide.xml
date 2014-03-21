@@ -65,16 +65,17 @@
 			</para>
 			<orderedlist>
 			<listitem><para>
-			<emphasis>Cast utility added for casting references to be nullable or non-null</emphasis>
+			<emphasis>Casting references to @NonNull or @Nullable</emphasis>
 						&mdash;
 						A <code>Cast</code> utility has been added to the promises library Jar to allow
 						"casting" a reference such that it can be assigned to a @NonNull reference or
-						a @Nullable reference. This utilility is most useful when dealing with @Initialized
-						references during object construction.
+						a @Nullable reference. This utility is most useful when dealing with partially initialized
+						references during object construction (as shown in the example below), however it may
+						also be needed when dealing with library or framework code outside your control.
 					</para>
 					<para>These casts are not checked by the tool, however the <code>Cast.toNonNull</code>
 					includes a Java language <code>assert</code> that may be used to enable a runtime
-					check. Java language assertions are enabled by passing "-ea" to the Java virtual
+					check. Java language assertions are usually enabled by passing "-ea" to the Java virtual
 					machine.</para>
 						<para>The screenshot below shows an example of a cast to non-null from the Javadoc for
 						the <code>Cast</code> utility.
