@@ -103,6 +103,58 @@
     </figure>
 
   </section>
+  
+  <section id="flashlight-apk"><title>Launching Packaged Android Applications (APK)</title>
+      <para>Any Android APK may be launched from the Flashlight main menu as shown in 
+      <xref linkend="fig-android-apk-launch" />.</para>
+      
+            <figure id="fig-android-apk-launch">
+        <title>Launching a packaged Android application (binary APK) from the Flashlight main menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/android-launch-apk.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>There are a number of approaches to get an APK file, these are discussed in the following paragraphs.</para>
+
+
+	<formalpara>
+		<title>Using an Application</title>
+		<para>
+			There are a number of tools that allow you to get at the APK
+			files sitting onyour Android device. One such tool is
+			<emphasis>Apk Extractor</emphasis>,	which is available on Google Play
+			<ulink
+				url="https://play.google.com/store/apps/details?id=net.sylark.apkextractor">here</ulink>.
+			<emphasis>Apk Extractor</emphasis>
+			allows you to extract the APK file corresponding to any
+			application installed on your Android device. The file can then be mailed to
+			you or saved to the device's SD card for easy extraction later.
+		</para>
+	</formalpara>
+	
+	<formalpara>
+		<title>From an Android project</title>
+		<para>Any Eclipse Android project can produce a signed APK suitable
+		    for instrumentation by right-clicking on the project from the
+		    <guilabel>Project Explorer</guilabel> view and choosing
+		    <menuchoice><guimenuitem>Android Tools</guimenuitem><guimenuitem>Export Signed Application Package...</guimenuitem></menuchoice>
+		    as shown below
+		     <mediaobject>
+          <imageobject><imagedata fileref="images/android-apk-from-project.png"/></imageobject>
+        </mediaobject>
+		    </para>
+		    
+	</formalpara>
+	
+		<formalpara>
+		<title>From a project website</title>
+		<para>Many open source applications have a project website that makes their APK file
+		publicly available.  For example, builds of connectbot&mdash;an ssh client&mdash;and tomdroid&mdash;a
+		notekeeping application&mdash;can be found at <ulink url="https://code.google.com/p/connectbot/">google code</ulink>
+		and <ulink url="https://launchpad.net/tomdroid">launchpad.net</ulink> respectively.</para>
+	</formalpara>
+  </section>
 
 </section>
 

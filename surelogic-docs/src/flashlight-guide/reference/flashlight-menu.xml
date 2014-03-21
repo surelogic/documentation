@@ -76,7 +76,8 @@
         <para>Opens a dialog that allows the user to select an APK file, which is a packaged Android application (binary),
             and launch an instrumented run on an Android device or emulator. Optionally you can associated a
             workspace project with the APK, but this is only useful if you have the application's source
-            code, and is rarely needed because the Android project can be launched directly with Flashlight.</para>
+            code, and is rarely needed because the Android project can be launched directly with Flashlight.
+              For more information please see <xref linkend="flashlight-apk" />.</para>
       </formalpara>
     </listitem>
     <listitem>

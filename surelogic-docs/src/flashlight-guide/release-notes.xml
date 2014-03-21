@@ -11,6 +11,48 @@
   These are presented in the sections below for each released version of
   Flashlight.</para>
   
+      <section>
+    <title>Flashlight version 5.4.0</title>
+    <para>This section describes the 5.4.0 version of Flashlight.</para>
+    <section>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this version of Flashlight.</para>
+      <orderedlist>
+        <listitem>
+          <para><emphasis>Binary Android APK Launch Support</emphasis> &mdash;
+              A new Flashlight menu item has been added to launch
+              binary Android applications on an Android device. Binary Android applications
+              are contained within an APK file.
+              
+            <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-540-apk.png" />
+				</imageobject>
+			</mediaobject>
+          </para>
+          <para>This release is the first that makes this capability accessible from the tool menu.
+          Note that you must have the ADT loaded in your Eclipse and load the "Flashlight Client Android (Optional)" feature
+          when you install the SureLogic tools.</para>
+          <para>The only limitation we are aware of with this new feature is that you cannot use
+          it to "overwrite" default-, root-, or vendor-installed applications on your phone.
+          The apps included in this set vary from carrier to carrier &mdash; but typically includes GMail,
+          Camera and some other applications. We are currently investigating approaches to
+          avoid this limitation.</para>
+          <para>For more information please see <xref linkend="flashlight-apk" />.</para>
+        </listitem>
+        <listitem><para><emphasis>Duration totals corrected</emphasis> &mdash; A bug
+        that caused the total duration reported in several Flashlight queries to be incorrect has been fixed
+        in this release. An example is hilighted in the image below.
+          <mediaobject>
+				<imageobject>
+					<imagedata fileref="images/release-notes-540-durationtotal.png" />
+				</imageobject>
+			</mediaobject>
+        </para></listitem>
+       </orderedlist>
+    </section>
+  </section>
+  
     <section>
     <title>Flashlight version 5.1.0</title>
     <para>This section describes the 5.1.0 version of Flashlight.</para>
