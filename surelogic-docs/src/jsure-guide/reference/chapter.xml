@@ -1854,11 +1854,12 @@
 		<para>It is possible to exclude particular Eclipse source folders
 			or Java packages from a scan.
 			This feature can be useful to
-			exclude test or obsolete code from scans.
+			exclude test or obsolete code from scans. It is also possible to treat particular Eclipse source folders
+			or Java packages as if they were a library (a Jar).
 		</para>
 		<para>To do this you create a
 			<filename>surelogic-tools.properties</filename>
-	file at the root of an Eclipse Java project. Two properties are recognized
+	file at the root of an Eclipse Java project. Four properties are recognized
 	
 	<itemizedlist>
 		<listitem>
@@ -1874,6 +1875,27 @@
 			<formalpara>
 				<title><guibutton>scan.exclude.source.package</guibutton></title>
 				<para>This property excludes the contents of one or more packages from scans. Packages may be
+				listed explicitly using a comma separated list. A <code>*</code> can be used within a package name
+				as a wildcard to match several packages.</para>
+			</formalpara>
+		</listitem>
+		
+		<listitem>
+			<formalpara>
+				<title><guibutton>scan.source.folder.as.bytecode</guibutton></title>
+				<para>This property treats one or more source folders of a project as if all its code
+				was binary, or bytecode (such as if it were within Jar).
+				The source folder is referenced by its name relative to the root of the project. More than one
+				source folder can be specified using a comma separated list.</para>
+			</formalpara>
+		</listitem>
+
+		<listitem>
+			<formalpara>
+				<title><guibutton>scan.source.package.as.bytecode</guibutton></title>
+				<para>This property treats the contents of one or more packages as if all its code
+				was binary, or bytecode (such as if it were within Jar).
+				Packages may be
 				listed explicitly using a comma separated list. A <code>*</code> can be used within a package name
 				as a wildcard to match several packages.</para>
 			</formalpara>
