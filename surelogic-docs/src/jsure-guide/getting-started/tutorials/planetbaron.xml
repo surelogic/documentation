@@ -167,7 +167,7 @@
       </mediaobject>
     </figure>
     
-    <para>Lots of annotations have been place in this code.
+    <para>Lots of annotations have been placed in this code.
     Our focus is on the Concurrency models. You may poke around in the <guilabel>Verification Status</guilabel>
     and <guilabel>Verification Explorer</guilabel> views to determine what is causing assurance failures.
     In fact, it turns out that the lock model for lock <structfield>ThingLock</structfield>
