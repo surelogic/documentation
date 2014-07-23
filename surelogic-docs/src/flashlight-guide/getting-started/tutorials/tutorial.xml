@@ -18,9 +18,14 @@
 			and <xref linkend="sec-tutorial-planetbaron-playerui" /> (a potential deadlock).</para>
 		</listitem>
 		<listitem>
-			<para><emphasis>Dining Philosophers</emphasis> &ndash; Fixing a troubled implementation of the classic
-			dining philosophers problem that has a tendency to deadlock. This tutorial is presented in
-			 <xref linkend="sec-tutorial-dining" />.</para>
+			<para><emphasis>Dining Philosophers</emphasis> &ndash;
+			Fixing a troubled implementation of the classic dining
+			philosophers problem that has a tendency to
+			deadlock. The Java 8 version of this tutorial is
+			presented in <xref
+			linkend="sec-tutorial-dining-java8"/>.  For an older
+			version of this tutorial see <xref
+			linkend="sec-tutorial-dining"/>.</para>
 		</listitem>
 		<listitem>
 			<para>(Android Only) <emphasis>Counter Race</emphasis> &ndash; Fixing a troubled implementation of a concurrent
@@ -90,6 +95,7 @@
   <xi:include href="tutorial-planetbaron-client.xml"/>
   <xi:include href="tutorial-planetbaron-server.xml"/>
   <xi:include href="tutorial-planetbaron-playerui.xml"/>
+  <xi:include href="tutorial-dining-java8.xml"/>
   <xi:include href="tutorial-dining.xml"/>
   <xi:include href="tutorial-android.xml"/>
   <xi:include href="tutorial-query-editor.xml"/>

@@ -10,8 +10,22 @@
   features to try out, and known limitations to avoid or workaround.
   These are presented in the sections below for each released version of
   Flashlight.</para>
-  
-      <section>
+    <section>
+    <title>Flashlight version 5.5.0</title>
+    <para>This section describes the 5.5.0 version of Flashlight.</para>
+    <section>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this version of Flashlight.</para>
+      <orderedlist>
+        <listitem>
+          <para><emphasis>Support for Java 8</emphasis> &mdash; The chief
+          addition to this release was full support for the Java 8 runtime.  No
+          work is needed to make use of this, projects should work as is.</para>
+        </listitem>
+      </orderedlist>
+    </section>
+  </section>
+  <section>
     <title>Flashlight version 5.4.0</title>
     <para>This section describes the 5.4.0 version of Flashlight.</para>
     <section>
