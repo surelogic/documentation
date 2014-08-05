@@ -204,13 +204,13 @@ public class SynchronizedVariable implements Executor {
   This is incorrect for two reasons:
   
         <orderedlist>
-        <listitem id="li1">
+        <listitem>
           <para>By occurring outside of the 
   synchronized blocks the return is not atomic with the rest of the method
   and thus another thread could alter the value of the <structfield>value_</structfield> field
   before <function>swap</function> returns.</para>
         </listitem>
-        <listitem id="li2">
+        <listitem>
           <para>Java does not guarantee that a read of 
   the two 32-bit halves of a <code>long</code> value is atomic.</para>
         </listitem>

@@ -20,7 +20,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 5.4&mdash;March 2014</pubdate>
+    <pubdate>Version 5.5&mdash;August 2014</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -50,6 +50,30 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+
+	<section id="sec-jsure-release-5-5-0">
+		<title>JSure version 5.5.0</title>
+		<para>This section describes the 5.5.0 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Less need to declare final variables</emphasis>
+						&mdash; JSure now automatically checks if a local variable is effectively final and will
+						treat the reference as if it is declared final. This reduces the need to manually declare local variables
+						and parameters to be final.
+					</para>
+				</listitem>
+			</orderedlist>
+		</section>
+	</section>
     
     
         <section id="sec-jsure-release-5-4-0">
