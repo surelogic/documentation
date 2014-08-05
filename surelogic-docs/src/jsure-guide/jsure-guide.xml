@@ -66,9 +66,22 @@
 				<listitem>
 					<para>
 						<emphasis>Less need to declare final variables</emphasis>
-						&mdash; JSure now automatically checks if a local variable is effectively final and will
-						treat the reference as if it is declared final. This reduces the need to manually declare local variables
-						and parameters to be final.
+						&mdash;
+						JSure now automatically checks if a local variable is effectively
+						final and will
+						treat the reference as if it is declared final. This
+						reduces the need to manually declare local variables
+						and parameters
+						to be final.
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<emphasis>Java 8 virtual machine support</emphasis> &mdash;
+						This release of JSure supports scanning Java 7 (and earlier) code with a
+						Java 8 standard library and virtual machine. This version does not yet support
+						scanning code in the Java 8 language (e.g., using lambdas, etc) this is currently
+						in development and will be included in a future release.
 					</para>
 				</listitem>
 			</orderedlist>
