@@ -625,7 +625,10 @@ public abstract class Thing {
     <para>What if we, like the author of this method, were too
     forgetful to identify this problem on our own?  JSure has already
     pointed out this problem to us via three warnings that appear with
-    the assurance results for <structfield>ThingLock</structfield>:
+    the assurance results for <structfield>ThingLock</structfield> as shown
+    below. Make sure that the
+    <inlinegraphic fileref="images/suggestions_warnings.gif"/> is selected in the view toolbar so that suggestions and warnings
+    are displayed in the view.
 
       <mediaobject>
         <imageobject>
