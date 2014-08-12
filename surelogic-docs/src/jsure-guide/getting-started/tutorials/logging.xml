@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<section id="loggin" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<title>Uncovering a bug in <package>java.util.logging</package></title>
+
+	<para>
+		In this tutorial we examine a real-world bug in the
+		<package>java.util.logging</package>
+		portion of the Java standard library. This is a check-than-act
+		bug that was reported in Java 5 but was not fixed until Java 7. Our version of
+		the code for this tutorial is changed to be in a different package so
+		that it doesn't conflict with the standard library.
+	</para>
+
+	<para>
+		The project we will be using is named
+		<emphasis>JSureTutorial_java.util.logging</emphasis>
+		.
+	</para>
+
+	<section>
+		<title>A check-than-act problem</title>
+
+		<para>In the tutorial project go into the
+			<package>com.surelogic.util.logging</package>
+			package and open the
+			<classname>Logging</classname>
+			class in the Java editor. Examine the lines listed below.</para>
+			
+			<programlisting linenumbering="numbered" startinglinenumber="401">public void log(LogRecord record) {
+  if (record.getLevel().intValue() &lt; levelValue || levelValue == offValue) {
+    return;
+  }
+  synchronized (this) {
+    if (filter != null &amp;&amp; !filter.isLoggable(record)) {
+      return;
+    }
+  }
+
+  // Post the LogRecord to all our Handlers, and then to
+  // our parents' handlers, all the way up the tree.</programlisting>
+  
+	<para>Of interest is line 406 that <structfield>filter</structfield>
+	    is first checked that it is not null, followed by its use: <code>!filter.isLoggable(record)</code>. This occurs in order
+	    because the <code>&amp;&amp;</code> is a shortcut
+	    logical and which will return false if the first expression is false. This code is reasonable because if, in fact, <structfield>filter</structfield>
+	    is null then the expression <code>!filter.isLoggable(record)</code> would throw a <emphasis>NullPointerException</emphasis>.</para>
+	    
+	<para>A lock on the instance is held as this operation occurs, this lock is acquired using <code>synchronized (this)</code> at line 40. Therefore, it appears
+	    that the programmer intent is to hold a lock on the class when the <structfield>filter</structfield> is accessed. In fact, the
+	    <emphasis>Logger</emphasis> class is intented to be threadsafe. You can see this way up at line 119 of the class's Javadoc.</para>
+	    
+	<programlisting linenumbering="numbered" startinglinenumber="119"> * All methods on Logger are multi-thread safe.</programlisting>
+	
+	<para>We now turn our attention to the getter and setter for the <structfield>filter</structfield> field in the implementation of <emphasis>Logger</emphasis>.
+	    This code, which beings at line 362, is listed below.</para>
+	
+	<programlisting linenumbering="numbered" startinglinenumber="362">  /**
+   * Set a filter to control output on this Logger.
+   * &lt;P&gt;
+   * After passing the initial "level" check, the Logger will call this Filter
+   * to check if a log record should really be published.
+   * 
+   * @param newFilter
+   *            a filter object (may be null)
+   * @exception SecurityException
+   *                if a security manager exists and if the caller does not
+   *                have LoggingPermission("control").
+   */
+  public void setFilter(Filter newFilter) throws SecurityException {
+    if (!anonymous) {
+      manager.checkAccess();
+    }
+    filter = newFilter;
+  }
+
+  /**
+   * Get the current filter for this Logger.
+   * 
+   * @return a filter object (may be null)
+   */
+  public Filter getFilter() {
+    return filter;
+  }</programlisting>
+  
+	<para>The problem is that neither the setter nor the getter follow the locking model. Worse, the Javadoc at line 368 makes it
+	    clear that a value of null is an acceptable value for the <structfield>filter</structfield> field.</para>
+	    
+	<para>The access of the <structfield>filter</structfield> field without holding the
+	    proper lock is the concurrency problem. We refer to this as a check-than-act
+	    problem because the change to null could occur, via the setter,
+	    after the null check at line 406, but before the use of the field in the <code>!filter.isLoggable(record)</code>. Causing the program
+	    the throw a <emphasis>NullPointerException</emphasis>.</para>
+
+	</section>
+
+	<section>
+		<title>Causing a Logger to throw a NullPointerException</title>
+
+	</section>
+
+
+</section>

@@ -63,7 +63,7 @@
 		projects will <emphasis>not</emphasis> compile without errors until you add the Promises
 		Library JAR into the build path of each project. A few of the tutorial
 		projects, such as <classname>JSureTutorial_ThreadSafeAndImmutable</classname>,
-		compile without errors because no annotations have been placed into the projects yet.</para>
+		will compile without errors because no annotations have been placed into the projects yet.</para>
 	</note>
     
     <para>Next, we need to add the
@@ -101,6 +101,8 @@
   <xi:include href="jcip.xml"/>
   
   <xi:include href="planetbaron.xml"/>
+  
+  <xi:include href="logging.xml"/>
   
   <xi:include href="util-concurrent.xml"/>
 
