@@ -99,6 +99,8 @@
 
 	<section>
 		<title>Causing a Logger to throw a NullPointerException</title>
+		
+		<para>The <emphasis>Logger</emphasis> class can be exercised to throw a <emphasis>NullPointerException</emphasis></para>
 
 	</section>
 
