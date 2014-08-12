@@ -10,7 +10,7 @@
 		In this tutorial we examine a real-world bug in the
 		<package>java.util.logging</package>
 		portion of the Java standard library. This is a check-than-act
-		bug that was reported in Java 5 but was not fixed until Java 7. Our version of
+		bug that was reported to Sun when it appeared in Java 5 but was not fixed until Java 7. Our version of
 		the code for this tutorial is changed to be in a different package so
 		that it doesn't conflict with the standard library.
 	</para>
@@ -100,8 +100,68 @@
 	<section>
 		<title>Causing a Logger to throw a NullPointerException</title>
 		
-		<para>The <emphasis>Logger</emphasis> class can be exercised to throw a <emphasis>NullPointerException</emphasis></para>
+		<para>The <emphasis>Logger</emphasis> class can be exercised to throw a <emphasis>NullPointerException</emphasis>.
+		    We have included a small test program that has several threads obtain the same <emphasis>Logger</emphasis> instance
+		    and repeatedly change the filter from a value to null while logging output.
+		    This code is shown in <xref linkend="fig-logging-concurrent-exercise-code"/>.</para>
+    
+	    <figure id="fig-logging-concurrent-exercise-code">
+	      <title>The concurrent exercise program to cause the library bug to throw a NullPointerException</title>
+	      
+	      <mediaobject>
+	        <imageobject>
+	          <imagedata fileref="images/logging_concurrent-exercise-code.png" />
+	        </imageobject>
+	      </mediaobject>
+	    </figure>
+	    
+	    <para>If you launch this program in Eclipse it will sometimes complete normally. Sometimes
+	        one thread will throw a NullPointerException. Sometimes more than one thread will
+	        throw a NullPointerException.  This is due to the unpredicable nature of this type
+	        of problem, making it untestable.</para>
 
+	</section>
+	
+	<section>
+		<title>(Optional) Use of Flashlight dynamic analysis to show the problem</title>
+		
+		<para>If you have the SureLogic Flashlight tool you can use it to reliably uncover the
+		    problem with the <structfield>filter</structfield> field within
+		    the <emphasis>Logger</emphasis> class. Launch the program with Flashlight using either the Flashlight menu or
+		    the <inlinegraphic fileref="images/fl_logo.png"/> in the Eclipse launch toolbar. Let it
+		    finish its execution, and let the tool automatically prepare the data collected for querying.  When prompted
+		    switch to the Flaslight perspective. The result should appear as shown in the screenshot below.</para>
+		    
+	      <mediaobject>
+	        <imageobject>
+	          <imagedata fileref="images/logging_flashlight-news.png" />
+	        </imageobject>
+	      </mediaobject>
+	      
+	      <para>The news item of interest is boxed in red in the image
+	          above: <emphasis>Shared fields with writes that do not happen-before subsequent reads</emphasis>.
+	          What the Flashlight tool has observed during the program run is that their are (instance) fields
+	          that are shared between two or more threads but do not respect the Java memory model. In particular,
+	          the tool could not establish that a write in one thread <emphasis>happened-before</emphasis> a read
+	          in a second thread. Click on this finding to find out what fields were observered to have this problem.</para>
+	          
+	      <mediaobject>
+	        <imageobject>
+	          <imagedata fileref="images/logging_flashlight-finding.png" />
+	        </imageobject>
+	      </mediaobject>
+	      
+	      <para>The screenshot above shows that Flashlight indeed noted the problem we described in the section above. However, it
+	          did this by examining the memory model, whereas we were examining consistent locking.  Dynamic analysis results
+	          using the Java memory model are usually more percise, but Flashlight also noted the lack consitent lock useage
+	          for the <structfield>filter</structfield> field within the <emphasis>Logger</emphasis> class.
+	          You can see this if you select the <emphasis>Shared fields with no common lock held for each access</emphasis>
+		      result in the bad news report, or the <emphasis>What fields (non-static) have an empty
+		      lock set after object construction?</emphasis> query from the <guilabel>Query Menu</guilabel> view.</para>
+		      
+	      <para>Flashlight contains rich information about these findings that you can feel free to dig into, however, we
+	          will now turn our attention back to JSure. We want to now model the programmer intended locking model and fix the code bug.</para>
+		
 	</section>
 
 
