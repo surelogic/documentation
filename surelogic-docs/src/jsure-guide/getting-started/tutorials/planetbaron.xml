@@ -166,6 +166,19 @@
         </imageobject>
       </mediaobject>
     </figure>
+
+	<note>
+		<title>Do not worry about the Null value verification results for
+			PlanetBaron</title>
+
+		<para>There are several problems with the Null value results for this
+			project, which
+			while interesting, are not the focus of this tutorial. In a nutshell, too
+			much is being
+			done in constructors and the analysis is pointing out that partially
+			initialized objects
+			may be being alised or dispatched into before they should.</para>
+	</note>
     
     <para>Lots of annotations have been placed in this code.
     Our focus is on the Concurrency models. You may poke around in the <guilabel>Verification Status</guilabel>
@@ -191,6 +204,14 @@
         </imageobject>
       </mediaobject>
     </figure>
+
+	<note>
+		<title>Do not worry about other library modeling problems</title>
+
+		<para>There may be other modeling problems in the standard library.
+			This is especially true if you are using Java 8. It is safe to ignore
+			these during this tutorial.</para>
+	</note>
 
     <para>A modeling problem indicates a syntactic or semantic problem
     with an annotation that has been added to the code. Double-clicking
