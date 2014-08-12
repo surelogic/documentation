@@ -674,106 +674,10 @@ public abstract class Thing {
     </para>
 
     <para>Once the changes to the <classname>MapView</classname> class are completed,
-    run another JSure scan.  Surprisingly, the lock preconditions
-    still fail to assure:
+    run another JSure scan.</para>
 
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/pb-paintComponent-mixed-locking-fixed.png" />
-        </imageobject>
-      </mediaobject>
 
-    The remaining problem is slightly subtle, and not immediately obvious
-    from the reported tool results.
-    </para>
-  </section>
-
-  <section>
-    <title>One More Fix: Locks must be final</title>
-
-    <para>What is the lingering problem with the lock preconditions?
-    To find out, we turn our attention once more to the
-    <guilabel>Suggestions and warnings</guilabel> section of the
-    results.  Here we find method
-    <function>MapView.paintComponent()</function> contains 6
-    &ldquo;non-final lock expressions:&rdquo;
-
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/pb-non-final-locks.png" />
-        </imageobject>
-      </mediaobject>
-      
-    This can also be seen by following what changed (the trail
-    of <inlinegraphic fileref="images/delta_decr.gif"/>) in the
-    <guilabel>Verification Explorer</guilabel> view to the warnings.  This
-    view does a better job of showing that the warnings are all within
-    the <function>MapView.paintComponent()</function> method.
-    
-      <mediaobject>
-        <imageobject>
-          <imagedata fileref="images/pb-non-final-locks-explorer.png" />
-        </imageobject>
-      </mediaobject>
-
-    What does this mean?  In JSure, a lock expression is an expression
-    used to reference a lock object.  For example <code>this</code> in
-    <code>synchronized (this) { &hellip; }</code>.  A <emphasis>final
-    lock expression</emphasis> is a lock expression that JSure can
-    determine must always evaluate to the same value, that is, the
-    expression is idempotent at run time.</para>
-
-    <para>The problem in <function>paintComponent()</function> is that
-    the local variables <varname>s</varname> and <varname>p</varname>
-    are not <code>final</code>, so JSure is worried that the value of
-    <varname>s</varname>, for example, at the time it is used to
-    acquire the lock will not be the same as the value of
-    <varname>s</varname> as the time it is used to release the lock.
-    We can fix this by declaring <varname>s</varname> (at lines 129 and 146) and
-    <varname>p</varname> (at line 137) to be <code>final</code>:
-
-      <programlisting linenumbering="numbered" startinglinenumber="142">  @Override
-  protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
-
-    final int height = getHeight();
-    final int width = getWidth();
-
-    // fill the entire component with black
-    g.setColor(Color.black);
-    g.fillRect(0, 0, width, height);
-
-    drawGridOutline(g);
-
-    for (<emphasis>final Ship s</emphasis> : GameMap.getInstance().getShips()) {
-      s.getThingLock().readLock().lock();
-      try {
-        drawShipMovementTrail(g, s);
-      } finally {
-        s.getThingLock().readLock().unlock();
-      }
-    }
-    for (<emphasis>final Planet p</emphasis> : GameMap.getInstance().getPlanets()) {
-      p.getThingLock().readLock().lock();
-      try {
-        drawPlanet(g, p);
-      } finally {
-        p.getThingLock().readLock().unlock();
-      }
-    }
-    drawCursor(g);
-    for (<emphasis>final Ship s</emphasis> : GameMap.getInstance().getShips()) {
-      s.getThingLock().readLock().lock();
-      try {
-        drawShip(g, s);
-      } finally {
-        s.getThingLock().readLock().unlock();
-      }
-    }
-  }</programlisting>
-    </para>
-
-    <para>After making this change, the complete model for
+    <para>At this point the complete model for
     <structfield>ThingLock</structfield> assures along with the associated <code>@ThreadSafe</code> models:
 
       <mediaobject>
