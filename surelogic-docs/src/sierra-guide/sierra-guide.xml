@@ -3134,6 +3134,14 @@ if (o == null) {
 						programming language.
 					</para>
 				</listitem>
+				<listitem>
+					<para>
+						<emphasis>Updated web portal library</emphasis> &mdash;
+						The Sierra portal has been updated to version 2.6.1 of GWT. This update
+						should help with browser support as well as bug fixes to the web
+						infrastructure.
+					</para>
+				</listitem>
 			</orderedlist>
 		</section>
 	</section>

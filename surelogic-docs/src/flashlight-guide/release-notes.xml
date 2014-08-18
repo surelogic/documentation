@@ -23,6 +23,15 @@
           Java programs on a Java 8 virtual machine. To launch Java 8 programs a version of Eclipse that
           supports Java 8, e.g., Eclipse Luna (4.4) or above, is required.</para>
         </listitem>
+         <listitem>
+          <para><emphasis>New query to detect multiple acquisitions and releases of the same lock within a method</emphasis> &mdash;
+          This release of Flashlight has a new query <emphasis>What methods acquire locks in more than one place?</emphasis> which
+          is useful for uncovering potential locking problems. In particular, if a lock is released and then
+          reacquired during a method it could indicate that a class-level invariant is not established
+          and some other code could see the object in an "in-between" state.</para>
+          <para>Because Flashlight does not understand the invariants that must be maintained in your code, this
+          query may not be precise for all systems. But it can be useful in uncovering subtle locking problems.</para>
+        </listitem>
       </orderedlist>
     </section>
   </section>

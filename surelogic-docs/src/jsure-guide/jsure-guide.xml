@@ -65,7 +65,7 @@
 			<orderedlist>
 				<listitem>
 					<para>
-						<emphasis>Less need to declare final variables</emphasis>
+						<emphasis>Less need to declare local variables and parameters as final</emphasis>
 						&mdash;
 						JSure now automatically checks if a local variable is effectively
 						final and will
@@ -83,6 +83,17 @@
 						scanning code in the Java 8 language (e.g., using lambdas, etc) this is currently
 						in development and will be included in a future release.
 					</para>
+					<para>JSure can scan Java 8 projects in Eclipse if they contain only Java 7 source code.
+					This makes the tool easier to use if a project is built at Java 8 level but doesn't
+					really need it (perhaps because the default Eclipse JRE is Java 8).
+					However, if JSure detects a Java 8 construct it cannot support
+					it informs the user with the dialog shown below and cancels the scan.</para>
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-550-java8-notyet.png" />
+							</imageobject>
+					</mediaobject>
+					<para>As noted above we are working on a release of JSure that includes complete Java 8 support.</para>
 				</listitem>
 			</orderedlist>
 		</section>
