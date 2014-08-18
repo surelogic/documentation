@@ -27,7 +27,7 @@
 		<para>In the tutorial project go into the
 			<package>com.surelogic.util.logging</package>
 			package and open the
-			<classname>Logging</classname>
+			<classname>Logger</classname>
 			class in the Java editor. Examine the lines listed below.</para>
 			
 			<programlisting linenumbering="numbered" startinglinenumber="404">public void log(LogRecord record) {
@@ -46,7 +46,7 @@
 	    logical and which will return false if the first expression is false. This code is reasonable because if, in fact, <structfield>filter</structfield>
 	    is null then the expression <code>!filter.isLoggable(record)</code> would throw a <emphasis>NullPointerException</emphasis>.</para>
 	    
-	<para>A lock on the instance is held as this operation occurs, this lock is acquired using <code>synchronized (this)</code> at line 408. Therefore, it appears
+	<para>A lock on the instance is held as this operation occurs: this lock is acquired using <code>synchronized (this)</code> at line 408. Therefore, it appears
 	    that the programmer intent is to hold a lock on the class when the <structfield>filter</structfield> is accessed. In fact, the
 	    <emphasis>Logger</emphasis> class is intented to be threadsafe. You can see this way up at line 121 which is within the Javadoc on the class declaration.</para>
 	    
@@ -149,9 +149,9 @@
 	      </mediaobject>
 	      
 	      <para>The Flashlight findings indicate the concurrency problem we described in the section above. However, it
-	          did this by examining if state was safely shared pre the memory model, whereas we were examining consistent
+	          did this by examining if state was safely shared per the memory model, whereas we were examining consistent
 	          locking.  Dynamic analysis results
-	          using the Java memory model are usually more precise, but Flashlight also noted the lack consistent lock usage
+	          using the Java memory model are usually more precise, but Flashlight also noted the lack of consistent lock usage
 	          for the <structfield>filter</structfield> field within the <emphasis>Logger</emphasis> class.
 	          You can see this if you select the <emphasis>Shared fields with no common lock held for each access</emphasis>
 		      result in the bad news report, or the <emphasis>What fields (non-static) have an empty
@@ -183,7 +183,7 @@
 	      field within the <classname>Logger</classname> class.</para>
 	      
 	      <para>The results for the <structfield>filter</structfield>
-	      field are expanded in the image above. Note that their are two parts of convincing JSure that the field respects the assertion
+	      field are expanded in the image above. Note that there are two parts of convincing JSure that the field respects the assertion
 	      that the class is actually thread safe: (1) the field itself, (2) the object referenced by the field.  In this case the latter
 	      is okay because the declared type of the field is <classname>Filter</classname>, which has been proven thread safe. The field
 	      itself needs to be protected. Because the <structfield>filter</structfield> field is mutable,
@@ -290,11 +290,11 @@ So your code should appear as shown below.</para>
 	        </imageobject>
 	      </mediaobject>
 	      
-	      <code>This method, at first glance, may appear to be a nice addition that allows client code to directly get a reference
-	      to the filter being used by the anonymous logger.</code>
+	      <para>This method, at first glance, may appear to be a nice addition that allows client code to directly get a reference
+	      to the filter being used by the anonymous logger.</para>
 	      
-	      <code>At this point scan the project again with JSure. It finds the locking model has become inconsistent due to this
-	      code change.</code>
+	      <para>At this point scan the project again with JSure. It finds the locking model has become inconsistent due to this
+	      code change.</para>
 	      
 	      <mediaobject>
 	        <imageobject>
@@ -312,9 +312,9 @@ So your code should appear as shown below.</para>
 	        </imageobject>
 	      </mediaobject>
 	      
-	      <para>Make this code change and rescan the project with JSure.  Again the tool reports model-code inconsistency. What is wrong?
+	      <para>Make this code change and rescan the project with JSure.  Again the tool reports model&ndash;code inconsistency. What is wrong?
 	      The problem is that we are holding the wrong lock. Because the <code>getAnonymousLoggerFilter</code> method is
-	      declared to be <code>static</code>, adding <code>synchronize</code> to the method obtains a lock on the <classname>Logger</classname>
+	      declared to be <code>static</code>, adding <code>synchronized</code> to the method obtains a lock on the <classname>Logger</classname>
 	      class&mdash;not on the anonymous logger instance!  To fix this problem change the method implemetation to the code listed below.</para>
 	      
 	      <programlisting>public static Filter getAnonymousLoggerFilter() {
