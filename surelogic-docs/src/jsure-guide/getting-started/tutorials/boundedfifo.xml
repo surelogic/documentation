@@ -222,11 +222,11 @@ public class BoundedFIFO {
       </imageobject>
     </mediaobject>    
 
-    Double-clicking on any of the results in the
+    Selecting any of the results in the
     <guilabel>Verification Status</guilabel> view focuses an Eclipse
     Java editor and the <guilabel>JSure Historical Source</guilabel>
     view on the offending line of code.  Let us view the line of code from
-    the assurance failure at line 52 by double-clicking on
+    the assurance failure at line 52 by clicking on
     <computeroutput>Lock "&lt;this&gt;.BufLock" not held when
     accessing this.numElts</computeroutput>. Eclipse opens an editor window for
     <classname>BoundedFIFO</classname> and highlights the field
@@ -299,7 +299,7 @@ public class BoundedFIFO {
       </mediaobject>    
     
     This tells us that <function>BoundedFIFO.get()</function> is
-    called by <function>BlockingFIFO.get</function>.  Double-clicking
+    called by <function>BlockingFIFO.get</function>.  Clicking
     on <computeroutput>get() - test.BlockingFIFO</computeroutput> opens
     <classname>BlockingFIFO</classname> in a Java editor and selects
     the call expression:
@@ -429,7 +429,7 @@ public class BoundedFIFO {
     <parameter>this</parameter> (as evidenced by the caller holding
     the lock <code>this.MUTEX</code>), although the analysis tells use
     that the lock on <code>this.fifo</code> is the lock that is
-    needed.  Double-clicking on the supporting information result
+    needed.  Clicking on the supporting information result
     opens a Java editor and selects the expression that acquires the
     lock:
 
@@ -540,7 +540,7 @@ public void put(LoggingEvent e) {
     </mediaobject>
     </para>
 
-    <para>If you double-click on the five assurance failures, the
+    <para>If you click on the five assurance failures, the
     <inlinegraphic fileref="images/red_x.gif"/> results at the right
     above, you will see that they point to the field initializers for
     the fields <structfield>first</structfield>,

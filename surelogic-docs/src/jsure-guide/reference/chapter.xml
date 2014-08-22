@@ -597,7 +597,7 @@
         </mediaobject>
       </figure>
       
-      <para>Double-clicking on a result in the <guilabel>Verification Status</guilabel> view highlights
+      <para>Clicking on a result in the <guilabel>Verification Status</guilabel> view highlights
       the code associated with that result in the Java editor and the <guilabel>JSure Historical Source</guilabel> view.
       This view also notes the differences between the current scan and the previous scan (in its far right column).</para>
       
@@ -1221,7 +1221,7 @@
 			</mediaobject>
 		</figure>
 		
-		<para>Double-clicking on a type or an annotation in this view brings up the XML library annotation editor (described below). Any changes to library annotations are made in this editor&mdash;the
+		<para>Clicking on a type or an annotation in this view brings up the XML library annotation editor (described below). Any changes to library annotations are made in this editor&mdash;the
 		<guilabel>Library Annotation Explorer</guilabel> view does not allow the user to perform edits.</para>
 		
 		<para>JSure tracks user library annotation differences across a series of tool releases and manage updates
@@ -1420,7 +1420,7 @@
       a series of filters on the results to focus on the particular
       scan results that are of immediate interest. Selecting a result
       highlights that result in the <guilabel>Verification
-      Status</guilabel> view. Double-clicking on a result in the <guilabel>JSure Quick Search</guilabel> view highlights
+      Status</guilabel> view. Clicking on a result in the <guilabel>JSure Quick Search</guilabel> view highlights
       the code associated with that result in the Java editor and the <guilabel>JSure Historical Source</guilabel>.</para>
 
       <informaltable frame='all'>
@@ -1485,7 +1485,13 @@
       flexible and allows you to chain many filters together before
       you <menuchoice><guimenu>Show</guimenu></menuchoice> a list of
       results. You can also save queries that you find useful via the
-      toolbar at the bottom of the view.</para>
+      toolbar at the bottom of the view. As you construct a chain of many filters you
+      may dismiss some of them by pressing the 
+	  <inlinegraphic fileref="images/gray_x.gif"/> in the upper-right-hand
+	  corner of the filter box. For example, in the screenshot above,
+	  the <inlinegraphic fileref="images/gray_x.gif"/> is next to where
+	  the tool lists the text <guilabel>2,094 Results</guilabel> in the
+	  <guilabel>Project</guilabel> filter.</para>
       
             <para>The view&rsquo;s toolbar has three command icons at the bottom:
         <itemizedlist>

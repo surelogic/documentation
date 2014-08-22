@@ -108,7 +108,7 @@ public class SynchronizedVariable implements Executor {
   under this category.  For now we shall focus on the lock model; we return 
   to the remaining result at the end of the tutorial.</para>
   
-  <para>Closer inspection of the negative lock results (by double-clicking on the
+  <para>Closer inspection of the negative lock results (by clicking on the
   results in either view) reveals that the first two of these are
   field initializations in the class&rsquo;s constructors.  In the
   case of the constructors <function>SynchronizedLong(long)</function>
@@ -169,8 +169,8 @@ public class SynchronizedVariable implements Executor {
   Status</guilabel> view. Use the context menu on the one <inlinegraphic
   fileref="images/red_x.gif"/> result in the <guilabel>JSure Quick
   Search</guilabel> and select <guilabel>Open In Proof Context</guilabel>.
-  This will "sync" the two views. A double-click on
-  the result will also bring up the code in both the Java editor and
+  This will "sync" the two views. When you select
+  the result the tool will also bring up the code in both the Java editor and
   the <guilabel>JSure Historical Source</guilabel> view.
 
     <mediaobject>

@@ -214,7 +214,7 @@
 	</note>
 
     <para>A modeling problem indicates a syntactic or semantic problem
-    with an annotation that has been added to the code. Double-clicking
+    with an annotation that has been added to the code. Clicking
     on the one modeling problem will open the <classname>Thing</classname> class in the
     Java editor. This modeling
     problem is related to the visibility of <code>f_lock</code>, the

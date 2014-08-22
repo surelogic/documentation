@@ -381,9 +381,10 @@
       you to query the scan results in an ad hoc manner. You can setup
       a series of filters on the results to focus on the particular
       scan results that are of immediate interest. Selecting a result
-      highlights that result in the <guilabel>Verification
-      Status</guilabel> view. Double-clicking on a result brings up
-      the code location of that result in your code.</para>
+      brings up the code location of that result in your code.
+      The context menu for a result can be used to highlight the same
+      result in the <guilabel>Verification
+      Status</guilabel> view.</para>
 
       <informaltable frame='all'>
 	<tgroup cols='2' align='left'>
