@@ -946,17 +946,16 @@ if (o == null) {
 	<title>Interacting with a Sierra team server</title>
 
 	<para>This tutorial assumes that you have installed Sierra and
-	have run through <xref linkend="sec-tutorial-client" />. (For
+	have run through <xref linkend="sec-tutorial-client" /> the ShowOff tutorial. (For
 	understanding only, this tutorial does not use the
 	<application>ShowOff</application> project.) It also assumes
 	that you have the <emphasis>Sierra Local Team Server
-	(Optional)</emphasis> featured installed (available on the
-	SureLogic update site). This tutorial introduces you to use of a
+	(Optional)</emphasis> featured installed. This tutorial introduces you to use of a
 	Sierra team server. The team server helps a group of programmers
 	work together with Sierra.</para>
 
 	<para>If you have not added the
-	<application>SmallWorld</application> project to your
+	<application>SierraTutorial_SmallWorld</application> project to your
 	workspace yet, add it now by choosing
 	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
 	Tutorials</guimenuitem></menuchoice> from the workspace
@@ -1522,8 +1521,8 @@ if (o == null) {
 	<emphasis>Edit</emphasis> link a the upper-right to edit the
 	Tutorial scan filter.  Select the <emphasis>Add
 	Category</emphasis> link. In the dialog that opens select
-	<userinput>Correctness (FindBugs)</userinput> and
-	<userinput>Performance (FindBugs)</userinput> as shown in
+	<userinput>Correctness</userinput> and
+	<userinput>Performance</userinput> as shown in
 	<xref linkend="fig-tutorial-portal-scan-filter-add-categories"
 	/> and press <guibutton>OK</guibutton>.</para>
 
