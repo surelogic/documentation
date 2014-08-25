@@ -629,31 +629,54 @@ public class ShowOff {
 	    </imageobject>
 	  </mediaobject>
 	</figure>
+	
+	<para>All the findings in your local database are shown when, as
+	in the screenshot above, the filter is off.  These are listed
+	in the <guilabel>Findings</guilabel> view at the bottom-left.
+	The view cuts off at 500 findings, but this preference can be changed.
+	You can tell that all the findings are displayed because the text at the
+	bottom of the list states <guilabel>5 Findings</guilabel>. If the cutoff were
+	in use then the text would state the list is limited to 500 by displaying
+	<guilabel><inlinegraphic fileref="images/warning.gif" />Showing 500
+	of all possible findings</guilabel>. Further, this text would be underlined to indicate
+	that it hyperlinks to the
+	preference page for Sierra. Thus, you can increase the cutoff value if you wish.</para>
 
 	<para>The <guilabel>Sierra Quick Search</guilabel> view at
 	the top of the perspective allows you to "drill-into" findings
 	along several dimensions. It is a powerful control but is
 	straightforward to use. For this tutorial, first click on
 	<guibutton>Importance</guibutton> then check
-	<guibutton>High</guibutton> and then click on
-	<guibutton>Show</guibutton>. Next, select the one finding
-	shown in the table. Selecting this finding, with one click,
-	will bring up information about it in the <guilabel>Finding
-	Details</guilabel> view. Selecting this finding with a
-	double-click will bring up the information about it and
+	<guibutton>High</guibutton>. Notice that these actions change the list
+	of findings
+	displayed in the <guilabel>Results</guilabel> view. At this point, one
+	findings should be listed. Select the finding
+	shown in the <guilabel>Results</guilabel> view. Selecting this finding
+	will bring up its information in the <guilabel>Finding
+	Details</guilabel> view. In addition, the Java editor will
 	highlight the offending line of code. Your screen should now
-	look like <xref linkend="fig-tutorial-screenshot" />. If you
+	look like <xref linkend="fig-tutorial-screenshot-showoff-finding" />. If you
 	get more than one finding, you probably have scanned other
 	projects. (To delete the data from these projects see <xref
 	linkend="sec-preferences-scan-data" />.)</para>
+	
+	<figure id="fig-tutorial-screenshot-showoff-finding">
+	  <title>Examining the one high importance finding for the ShowOff project</title>
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/tutorial-screenshot-showoff-finding.png" />
+	    </imageobject>
+	  </mediaobject>
+	</figure>
 
 	<para>Read the description in the <guilabel>Finding
 	Details</guilabel> view <guilabel>Synopsis</guilabel> tab. In
-	addition, you can click the two line references in the
+	addition, you can click the line references in the
 	<guilabel>Location</guilabel> portion of the tab to examine
-	the two lines of code referenced by this finding.  This high
+	the lines of code referenced by this finding to help you understand
+	why the tool reported it.  This high
 	importance finding is about a possible null dereference, and
-	these two lines represent code that would be executed before
+	these lines represent code that would be executed before
 	the null dereference.  It was noticed because
 	the <function>box</function> method checks
 	if <varname>o</varname> is null but then later, regardless of
@@ -686,10 +709,28 @@ if (o == null) {
 	<para>In the <guilabel>Sierra Quick Search</guilabel> clear
 	your current search by pressing the <guiicon><inlinegraphic
 	fileref="images/asterisk-grey-x.png" /></guiicon> icon in the
-	upper-right of the view. Now select
-	<guibutton>Status</guibutton> check <guibutton>Fixed</guibutton>
-	and then <guibutton>Show</guibutton> to see the finding you just
-	fixed. Sierra works hard to remember findings across scans. It
+	far upper-right of the view.  This clears the filter and lets
+	all the findings through to the <guilabel>Results</guilabel> view.</para>
+	
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/tutorial-remove-whole-filter.png" />
+	    </imageobject>
+	  </mediaobject>	
+	
+	<para>You can also clear
+	just a particular filter (and all the subsequent filters to its right) by using the <inlinegraphic
+	fileref="images/asterisk-grey-x.png" /> in the upper-right of the filter selection box.</para> 
+	
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/tutorial-remove-part-filter.png" />
+	    </imageobject>
+	  </mediaobject>	
+	
+	<para>In this case you can use either approach because there is only one filter. Next, select
+	<guibutton>Status</guibutton> and check <guibutton>Fixed</guibutton> to see the finding you just
+	fixed appear back in the <guilabel>Results</guilabel> view. Sierra works hard to remember findings across scans. It
 	does this by matching findings reported in each scan (The
 	matching heuristic used by the tool is not perfect but will work
 	most of the time, however, aggressive code changes might throw
@@ -706,14 +747,13 @@ if (o == null) {
 	bar chart and select <guibutton>Select All</guibutton> from
 	the context menu. This is a quick way to select all the items
 	listed. Select <guibutton>Audited</guibutton> and check the
-	two items listed (Yes and No) and then select
-	<guibutton>Show</guibutton> to see all the findings from the
-	most recent scan.</para>
+	two items listed (Yes and No) to see all the findings from the
+	most recent scan in the <guilabel>Results</guilabel> view.</para>
 
 	<para>Select the first finding shown. It warns that all classes
 	and interfaces should belong to a named package.  This is not a
 	finding we care about for this project so we can audit
-	it. Right-click on the finding and via the <guimenuitem>Set
+	it. Right-click on the finding in the <guilabel>Results</guilabel> view and via the <guimenuitem>Set
 	Importance</guimenuitem> context menu select
 	<guimenuitem>Irrelevant</guimenuitem> to change the importance of
 	the finding.</para>
@@ -721,7 +761,7 @@ if (o == null) {
 	<para>This action, which we call auditing the finding, causes
 	several things to occur. First, if you examine the counts bar
 	chart for <guibutton>Audited</guibutton> you will note that one
-	finding has now been audited and two have not. If you uncheck and
+	finding has now been audited and the others have not. If you uncheck and
 	then check <guibutton>No</guibutton> (a checkbox under the
 	<guibutton>Audited</guibutton> filter) you can see the other two
 	findings in the list go away and then return. Second, in the
@@ -751,19 +791,32 @@ if (o == null) {
 	click the underlined <guibutton>Importance</guibutton>
 	"breadcrumb" (one of the underlined words at the top of the
 	view) to scroll the view over to the importance
-	selections. The breadcrumbs allow easy scrolling of the view
+	selections.</para>
+	
+	  <mediaobject>
+	    <imageobject>
+	      <imagedata fileref="images/tutorial-breadcrumb.png" />
+	    </imageobject>
+	  </mediaobject>	
+	  	
+	<para>The breadcrumbs allow easy scrolling of the view
 	to areas that might be off the screen. Uncheck
 	<guibutton>Irrelevant</guibutton> and then examine the state
-	of the view. If we click on the <guibutton>Show</guibutton>
-	breadcrumb to scroll the view back to the far right, we can
-	see that the one irrelevant finding is now filtered out of the
+	of the <guilabel>Results</guilabel> view. The one irrelevant
+	finding is now filtered out of the
 	set of findings shown.</para>
 
-	<para>Let's examine the two remaining findings. Double-click the
-	first one to bring it up in the <guilabel>Finding
-	Details</guilabel> view and highlight the issue in the Java editor
-	(a single-click only brings the finding up in the
-	<guilabel>Finding Details</guilabel> view). This finding notes
+	<para>Let's examine the three remaining findings. Click the
+	first one in the <guilabel>Results</guilabel> view, <emphasis>All methods are static. Consider
+	using a utility class instead</emphasis>, to bring it up in the <guilabel>Finding
+	Details</guilabel> view and highlight the issue in the Java editor. This finding notes that the class may follow
+	the utility design pattern and you should consider creating a private constructor to avoid the creation of
+	any objects of this type. We are are not concerned with this finding
+	so audit it to be <guilabel>Irrelevant</guilabel>.</para>
+	
+	<para>Again, select the first finding in the <guilabel>Results</guilabel> view,
+	<emphasis>Avoid appending characters as strings in StringBuffer.append</emphasis>.
+	This finding notes
 	that you could append a character rather than a string. This
 	change would result in a slight performance improvement in our
 	code. To fix it change
@@ -779,7 +832,7 @@ if (o == null) {
 	</figure>
 
 	<para>In the <emphasis>Finding Details</emphasis> view open the
-	audit tab and click on the stamp image in the upper-left. This
+	audit tab and click on the large stamp image in the upper-left. This
 	creates an audit entry that states, "I examined this finding." and
 	is a quick way to note that you examined this finding. Since we
 	want to note that we have edited the code, type "I fixed this in
@@ -796,13 +849,14 @@ if (o == null) {
 	reflect that you made this change. The state of this finding
 	can be seen in <xref linkend="fig-tutorial-audits" />.</para>
 
-	<para>Now let's examine the last finding by double-clicking on
-	this finding in the <guilabel>Sierra Quick Search</guilabel>
-	view. The finding should be at the bottom of the list. This
+	<para>Now let's examine the last finding by selecting it in
+	the <guilabel>Results</guilabel> view, <emphasis>Avoid instantiating
+	String objects; this is usually unnecessary</emphasis>.
+	The finding should be at the bottom of the list. This
 	finding is complaining about our use of <computeroutput>new
-	String("hello")</computeroutput> in the code. Explicit use of
+	String("hello")</computeroutput> in the code at line 10. Explicit use of
 	string construction is considered bad practice in Java as it
-	forces the Java virtual machine to make extra copies of
+	can force the Java virtual machine to make extra copies of
 	strings.</para>
 
 	<figure id="fig-tutorial-artifacts">
@@ -832,15 +886,15 @@ if (o == null) {
 	<computeroutput>box("hello")</computeroutput> and then scan the
 	project one final time.</para>
 
-	<para>When the scan is completed the <guilabel>Findings Quick
-	Search</guilabel> view will update to show no findings. This
+	<para>When the scan is completed the <guilabel>Findings</guilabel> view
+	will update to show no findings. This
 	indicates that no new findings have been found and the two we
 	were working on have been fixed. Clear the search in the
 	<guilabel>Sierra Quick Search</guilabel> view by pressing the
 	<guiicon><inlinegraphic
 	fileref="images/asterisk-grey-x.png" /></guiicon>
 	icon and press <guibutton>Status</guibutton> to see that two
-	findings have been fixed and one finding is unchanged as seen in
+	findings have been fixed and two findings are unchanged as seen in
 	<xref linkend="fig-tutorial-status-fixed" />.</para>
 
 	<figure id="fig-tutorial-status-fixed">
@@ -865,7 +919,7 @@ if (o == null) {
 	left-hand side of the view and select <emphasis>Scan
 	Data</emphasis>. Alternatively, you can also type the word
 	<userinput>data</userinput> in the text box at the upper
-	right.  Select the <emphasis>ShowOff</emphasis> project in the
+	right.  Select the <emphasis>SierraTutorial_ShowOff</emphasis> project in the
 	<guilabel>Scanned Projects</guilabel> box and press
 	<guibutton>Delete Sierra Data</guibutton>.  A confirmation
 	dialog will appear as shown in <xref
@@ -884,7 +938,8 @@ if (o == null) {
 	Workspace</guibutton> can be used to wipe the entire Sierra
 	database. There is one Sierra database per Eclipse workspace,
 	however, all scan documents are stored in your
-	<filename>.sierra-data</filename> directory.</para>
+	<filename>.sierra-data</filename> directory. If your Eclipse is closed
+	deleting this directory clears out all Sierra data.</para>
       </section>
 
       <section id="sec-tutorial-team-server">
