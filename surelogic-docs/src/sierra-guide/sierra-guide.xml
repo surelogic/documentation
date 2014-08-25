@@ -121,7 +121,9 @@
       The scan document is unfiltered and may contain hundreds of
       thousands of tool-reported issues.  Scan documents are stored in
       your Sierra data directory.  This directory, by default, is
-      in your workspace under <filename>.sierra-data</filename>.</para>
+      in your workspace under <filename>.sierra-data</filename>. (This is sometimes useful
+      to know because you can clear out all scan data and "reset" Sierra
+      by deleting this entire directory)</para>
 
       <para>The results reported by analysis tools during a scan are
       called <emphasis>artifacts</emphasis> by Sierra.  Sierra
@@ -158,8 +160,8 @@
       <emphasis>rule</emphasis> by analysis tools.  Each analysis tool
       included in Sierra reports artifacts based upon the set of
       artifact types (or rules) that they contain.  For example, one
-      artifact type included in FindBugs and PMD is that explicit
-      construction of string objects is inefficient.  Each artifact
+      artifact type included in FindBugs and PMD is <emphasis>explicit
+      construction of string objects is inefficient.</emphasis>  Each artifact
       reported by a scan has one and only one artifact type.</para>
 
       <para>A <emphasis>finding type</emphasis> is similar to an
@@ -451,14 +453,15 @@
 	show views which will help you to examine the findings the scan
 	reported.</para>
 
-	<para>The <guilabel>Findings Quick Search</guilabel> view allows
+	<para>By default all findings are shown (up to a cutoff limit of 500, by default, which
+	you may change). However, the <guilabel>Sierra Quick Search</guilabel> view allows
 	you to select what findings are of interest to you. For example,
 	if you select <guibutton>Project</guibutton> you will see your
-	results partitioned by project. Selecting
-	<guibutton>Show</guibutton> shows the list of findings you have
-	filtered down to. Use this view partition and filter your findings
-	as you see fit and then press <guibutton>Show</guibutton> to see
-	individual results.</para>
+	results partitioned by project. The
+	<guilabel>Results</guilabel> view shows the list of findings you have
+	filtered down to. Selecting a results in the <guilabel>Results</guilabel> view
+	shows details about that individual result in
+	the <guilabel>Finding Details</guilabel> view.</para>
 
 	<para>Small orange <guiicon><inlinegraphic
 	fileref="images/asterisk-orange.png" /></guiicon> icons appear
@@ -466,8 +469,7 @@
 	default, these gutter icons only appear for findings deemed of
 	high or critical importance.</para>
 
-	<para>If you click on a finding in the <guilabel>Findings Quick
-	Search</guilabel> or in the Java editor that finding will be shown
+	<para>If you click on a finding in the <guilabel>Results</guilabel> view or in the Java editor that finding will be shown
 	in the <guilabel>Finding Details</guilabel> view. This view allows
 	you to read about the finding and interact with the finding. One
 	change that can be made is to the importance of the
@@ -513,13 +515,14 @@
 	<application>ShowOff</application>. Select
 	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
 	Tutorials</guimenuitem></menuchoice> from the workspace menu
-	and add the <application>ShowOff</application> project to your
+	and add the <application>SierraTutorial_ShowOff</application> and
+	<application>SierraTutorial_SmallWorld</application>projects to your
 	workspace as shown in <xref
 	linkend="fig-tutorial-installing-projects" /> and <xref
 	linkend="fig-tutorial-install"/>.</para>
 
 	<figure id="fig-tutorial-install">
-	  <title>Adding ShowOff and SmallWorld to your workspace</title>
+	  <title>Adding the ShowOff and SmallWorld tutorial projects to your workspace</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata fileref="images/tutorial-install.png" />
@@ -576,13 +579,24 @@ public class ShowOff {
 	<para>Double check that the project compiles
 	successfully, it should. (If not, fix any problems before you continue.)</para>
 
-	<para>Now run a Sierra scan on the code. To do this right-click on
+	<para>Now run a Sierra scan on the code. To do this
+	choose the
+	<guimenuitem>Scan Project</guimenuitem> menu item from the
+	<guimenu>Sierra</guimenu> menu item in the Eclipse main menu.
+	Alternatively, you can right-click on
 	the <application>SierraTutorial_ShowOff</application> project (not the Java file)
 	in the <guilabel>Package Explorer</guilabel> and from the
 	<guimenu>Sierra</guimenu> menu (likely way down toward the bottom) select the <guimenuitem>Scan
-	Project</guimenuitem> menu item. Alternatively, you can choose the
-	<guimenuitem>Scan Project</guimenuitem> menu item from the
-	<guimenu>Sierra</guimenu> menu item in the Eclipse main menu. When
+	Project</guimenuitem> menu item. Either way a <guilabel>Scan Project</guilabel>
+	dialog should appear as shown below.</para>
+
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/tutorial-scan-showoff.png" />
+		</imageobject>
+	</mediaobject>
+	
+	<para>When
 	the dialog appears check the <application>SierraTutorial_ShowOff</application>
 	project and press the <guibutton>OK</guibutton> button. If this is
 	the first time Sierra has been loaded into your Eclipse it might
@@ -591,7 +605,15 @@ public class ShowOff {
 
 	<para>After the scan is completed you will be prompted to
 	change to the <guilabel>Code Review</guilabel>
-	perspective. You want to do this so click
+	perspective.</para>
+	
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="images/tutorial-change-perspective.png" />
+		</imageobject>
+	</mediaobject>
+	
+	<para>You want to do this so click
 	<guibutton>Yes</guibutton>. You can also open this perspective
 	by selecting the <guimenuitem>Open Code Review
 	Perspective</guimenuitem> menu item from the
@@ -608,7 +630,7 @@ public class ShowOff {
 	  </mediaobject>
 	</figure>
 
-	<para>The <guilabel>Findings Quick Search</guilabel> view at
+	<para>The <guilabel>Sierra Quick Search</guilabel> view at
 	the top of the perspective allows you to "drill-into" findings
 	along several dimensions. It is a powerful control but is
 	straightforward to use. For this tutorial, first click on
@@ -661,7 +683,7 @@ if (o == null) {
 	seems to disappear, however, the tool knows it has been
 	fixed.</para>
 
-	<para>In the <guilabel>Findings Quick Search</guilabel> clear
+	<para>In the <guilabel>Sierra Quick Search</guilabel> clear
 	your current search by pressing the <guiicon><inlinegraphic
 	fileref="images/asterisk-grey-x.png" /></guiicon> icon in the
 	upper-right of the view. Now select
@@ -673,7 +695,7 @@ if (o == null) {
 	most of the time, however, aggressive code changes might throw
 	it off).</para>
 
-	<para>In the <guilabel>Findings Quick Search</guilabel> clear
+	<para>In the <guilabel>Sierra Quick Search</guilabel> clear
 	your current search again by pressing the
 	<guiicon><inlinegraphic fileref="images/asterisk-grey-x.png"
 	/></guiicon> icon in the upper-right of the view (or instead
@@ -725,7 +747,7 @@ if (o == null) {
 
 	<para>We probably do not want to see findings that we have
 	marked as <guibutton>Irrelevant</guibutton> in our list of
-	results. So in the <guilabel>Findings Quick Search</guilabel>
+	results. So in the <guilabel>Sierra Quick Search</guilabel>
 	click the underlined <guibutton>Importance</guibutton>
 	"breadcrumb" (one of the underlined words at the top of the
 	view) to scroll the view over to the importance
@@ -775,7 +797,7 @@ if (o == null) {
 	can be seen in <xref linkend="fig-tutorial-audits" />.</para>
 
 	<para>Now let's examine the last finding by double-clicking on
-	this finding in the <guilabel>Findings Quick Search</guilabel>
+	this finding in the <guilabel>Sierra Quick Search</guilabel>
 	view. The finding should be at the bottom of the list. This
 	finding is complaining about our use of <computeroutput>new
 	String("hello")</computeroutput> in the code. Explicit use of
@@ -814,7 +836,7 @@ if (o == null) {
 	Search</guilabel> view will update to show no findings. This
 	indicates that no new findings have been found and the two we
 	were working on have been fixed. Clear the search in the
-	<guilabel>Findings Quick Search</guilabel> view by pressing the
+	<guilabel>Sierra Quick Search</guilabel> view by pressing the
 	<guiicon><inlinegraphic
 	fileref="images/asterisk-grey-x.png" /></guiicon>
 	icon and press <guibutton>Status</guibutton> to see that two
@@ -1584,7 +1606,7 @@ if (o == null) {
 	are consistent with the data in your client (Filter by the
 	project SmallWorld then show the importance counts).</para>
 
-	<para>Use the <emphasis>Findings Quick Search</emphasis> view
+	<para>Use the <emphasis>Sierra Quick Search</emphasis> view
 	select all the findings from SmallWorld that are within the
 	<emphasis>Performance (FindBugs)</emphasis> finding
 	category. There should be three findings as shown in <xref
@@ -2010,7 +2032,7 @@ if (o == null) {
       Sierra Eclipse client.</para>
 
       <section id="sec-findings-quick-search">
-	<title>Findings Quick Search</title>
+	<title>Sierra Quick Search</title>
 
 	<para>This view allows you to select a set of findings to
 	examine based upon a set of filters.</para>
@@ -2197,7 +2219,7 @@ if (o == null) {
 	<orderedlist>
 	  <listitem>
 	    <para><emphasis>Maximum number of findings shown in
-	    'Findings Quick Search' results:</emphasis> This setting
+	    'Sierra Quick Search' results:</emphasis> This setting
 	    limits the number of findings that the <emphasis>Findings
 	    Quick Search</emphasis> view will show. This setting ensures
 	    that Eclipse doesn't run out of memory trying to display a
@@ -3018,7 +3040,7 @@ if (o == null) {
 		<title>Sierra version 5.5.0</title>
 		<para>This section describes the 5.5.0 version of Sierra.</para>
 		<section>
-			<title>New and Noteworthy</title>
+			<title>New and noteworthy</title>
 			<para>This section describes new and noteworthy features in this
 				version of Sierra.</para>
 			<orderedlist>
@@ -3049,1137 +3071,54 @@ if (o == null) {
 				<listitem>
 					<para>
 						<emphasis>Updated web portal library</emphasis> &mdash;
-						The Sierra portal has been updated to version 2.6.1 of GWT. This update
-						should help with browser support as well as bug fixes to the web
+						The Sierra portal has been updated to version 2.6.1 of GWT. This
+						update
+						should help with browser support as well as bug fixes to the
+						web
 						infrastructure.
 					</para>
 				</listitem>
-			</orderedlist>
-		</section>
-	</section>
-    
-        <section id="sec-sierra-release-5-1-0">
-      <title>Sierra version 5.1.0</title>
-      <para>This section describes the 5.1.0 version of Sierra.</para>
-      <section>
-	<title>New and Noteworthy</title>
-	<para>This section describes new and noteworthy features in this
-	version of Sierra.</para>
-	<orderedlist>
-	  	   <listitem>
-	    <para><emphasis>Support for IBM Jazz source control</emphasis> &mdash; The source
-	        control component of the IBM Jazz technology platform manages the source code,
-	        documents, and other artifacts that a team creates. The code is stored on a server
-	        and accessed as a URL by clients. This created a problem for Sierra which, prior to
-	        this release, expected the source code and binary artifacts of a project to exist
-	        as files on a local or remote filesystem. Changes were made to Sierra in this release to support
-	        IBM Jazz source control. Similar server-based URL-oriented systems
-	        should also be supported by Sierra.</para>
-	  </listitem>
-
-        </orderedlist>
-      </section>
-
-      <section>
-	<title>Known Problems</title>
-
-	<para>The known bugs and limitations in this version of Sierra is
-	unchanged from the previous release.</para>
-      </section>
-    </section>
-    
-    <section>
-      <title>Sierra version 4.0.2</title>
-      <para>This section describes the 4.0.2 version of Sierra.</para>
-      <section>
-	<title>New and Noteworthy</title>
-
-	<para>This section describes new and noteworthy features in this version
-	of Sierra.
-	</para>
-	<orderedlist>
-	  <listitem><para><emphasis>Test code can be excluded from a scan using a property file</emphasis>
-	  &mdash;
-	  It is now possible to exclude test code from a Sierra scan by creating
-	  a <filename>surelogic-tools.properties</filename> file at the root of
-	  each project that contains test code.
-          
-          <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="images/release-notes-402-surelogic-tools-file.png" />
-	    </imageobject>
-	  </mediaobject>
-          
-          For example, the screenshot above shows the use of the <filename>surelogic-tools.properties</filename>
-	  to exclude the <filename>test</filename> source folder of <application>timingframework-core</application> Java project. 
-          For more information on how to setup a <filename>surelogic-tools.properties</filename> file
-          see <xref linkend="sec-surelogic-tool-properties-file"/>.</para>
-          
-          <para>A limitation of this feature that the exclusions are not saved
-          for each scan. This limitation can make it difficult to determine the
-          exclusions used for a scan if the
-          <filename>surelogic-tools.properties</filename> file is frequently
-          changed. It is therefore recommended that this file be kept as stable
-          as possible.</para>
-          </listitem>
-          
-      	  <listitem><para><emphasis>If a scan crashes the tool will prompt to
-      	  send a scan failure report to SureLogic</emphasis> &mdash; If a Sierra
-      	  scan crashes or any sort of analysis problem is detected the tool will
-      	  prompt the user to send a scan failure report to SureLogic.
-	  
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="images/release-notes-402-scan-crash.png" />
-	    </imageobject>
-	  </mediaobject>
-	  
-	  This type of report includes a log of the verifying analysis scan
-	  (other problem reports typically include the Eclipse log) to help
-	  SureLogic pinpoint the problem. The log can be examined and edited
-	  before it is sent to SureLogic. Further, it can be saved to a file or
-	  printed.
-	  
-	  </para></listitem>
-        </orderedlist>
-      </section>
-    </section>
-    
-    <section>
-		<title>Sierra version 4.0.1</title>
-		<para>This section describes the 4.0.1 version of Sierra.</para>
-		<section>
-			<title>New and Noteworthy</title>
-
-			<para>This section describes new and noteworthy features in this
-				version of Sierra.
-			</para>
-			<orderedlist>
 				<listitem>
 					<para>
-						<emphasis>The text of a Problem Report or a Tip for Improvement
-							can be printed or saved</emphasis>
-						&mdash;
-						The preview pane now allows the tool user to print or save
-						the text of a problem report or tip for improvement.
-
-						<mediaobject>
-							<imageobject>
-								<imagedata fileref="images/release-notes-401-printorsave.png" />
-							</imageobject>
-						</mediaobject>
-
-						This is helpful to tool users who do not have an Internet
-						connection on their machine.
+						<emphasis><guilabel>Findings Quick Search</guilabel> split into two new views: <guilabel>Sierra Quick Search</guilabel> and <guilabel>Results</guilabel></emphasis> &mdash;
+						The Sierra results display has been split into two views to improve usability of the tool. In particular, you can turn off the filter and simply
+						show all tool results.
 					</para>
 				</listitem>
 			</orderedlist>
 		</section>
 	</section>
-    
 
-    <section id="sec-sierra-release-4-0-0">
-      <title>Sierra version 4.0.0</title>
-      <para>This section describes the 4.0.0 version of Sierra.</para>
-      <section>
-	<title>New and Noteworthy</title>
-	<para>This section describes new and noteworthy features in this
-	version of Sierra.</para>
-	<orderedlist>
-	  	   <listitem>
-	    <para><emphasis>New SureLogic license format</emphasis> &mdash; The format
-	    of SureLogic licenses has changed. You may need to contact SureLogic to obtain
-	    a new license.</para>
-	  </listitem>
+	<section id="sec-sierra-release-5-1-0">
+		<title>Sierra version 5.1.0</title>
+		<para>This section describes the 5.1.0 version of Sierra.</para>
+		<section>
+			<title>New and noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of Sierra.</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Support for IBM Jazz source control</emphasis> &mdash;
+						The source
+						control component of the IBM Jazz technology platform manages the source
+						code,
+						documents, and other artifacts that a team creates. The code is stored on a
+						server
+						and accessed as a URL by clients. This created a problem for Sierra
+						which, prior to
+						this release, expected the source code and binary artifacts of a
+						project to exist
+						as files on a local or remote filesystem. Changes were made to
+						Sierra in this release to support
+						IBM Jazz source control. Similar server-based URL-oriented systems
+						should also be supported by Sierra.
+					</para>
+				</listitem>
 
-        </orderedlist>
-      </section>
+			</orderedlist>
+		</section>
 
-      <section>
-	<title>Known Problems</title>
-
-	<para>The known bugs and limitations in this version of Sierra is
-	unchanged from the previous release.</para>
-      </section>
-    </section>
-
-    <section id="sec-sierra-release-3-1-0">
-      <title>Sierra version 3.1.0</title>
-
-      <para>This section describes the 3.1.0 version of the Sierra
-      Eclipse client and the Sierra team server.</para>
-      <section>
-	<title>New and Noteworthy</title>
-
-	<para>This section describes new and noteworthy features in this
-	version of Sierra.</para>
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Tips and problem reports are tracked by
-	    SureLogic</emphasis> &mdash; When you submit a tip for
-	    improvement or a problem report to SureLogic it is tracked
-	    via an automatically created Bugzilla issue report at
-	    <ulink
-	    url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>. If
-	    you include your email address in the tip or problem
-	    report you will be notified when changes to the status of
-	    the Bugzilla issue are made by SureLogic engineers. The
-	    public Bugzilla may also be accessed via a browser at
-	    <ulink
-	    url="http://www.surelogic.com/bugzilla/index.cgi">surelogic.com</ulink>.</para>
-	  </listitem>
-
-	  <listitem>
-	    <para><emphasis>The "Tip for Improvement" and "Problem
-	    Report" dialogs are no longer modal</emphasis> &mdash;
-	    This allows the user to cut and paste information from
-	    Eclipse that they want to send to SureLogic into the
-	    dialog.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-      <section>
-	<title>Known Problems</title>
-
-	<para>The known bugs and limitations in this version of
-	Sierra is unchanged from the previous release.</para>
-
-      </section>
-    </section>
-
-    <section id="sec-sierra-release-3-0-0">
-    	<title>Sierra version 3.0.0</title>
-    	<para>This section describes the 3.0.0 version of the Sierra
-    	Eclipse client and the Sierra team server.</para>
-	<section>
-	<title>New and Noteworthy</title>
-
-	<para>This section describes new and noteworthy features in this
-	version of Sierra.</para>
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Quickly create tutorial projects</emphasis> &mdash;
-	    You can now create the SmallWorld and ShowOff tutorial projects from
-	    the Eclipse main menu.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-          <section>
-	<title>Known Problems</title>
-
-	<para>This section describes known bugs and limitations in this version
-	of Sierra.</para>
-
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Shutdown of Eclipse while a scan is running can
-	    cause scan failure.</emphasis> &mdash; (Unchanged from 2.2) In some
-	    cases shutting down Eclipse when a scan is running in the background
-	    can cause the scan to fail.  It is recommended that Eclipse be left
-	    running until all scans are completed.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Logging out of a team server sometimes does not
-	    clear page state</emphasis> &mdash; (Unchanged from 2.2) When
-	    logging in and logging out to the team server with a browser,
-	    especially with different user names, sometimes page state is not
-	    cleared. To work around this problem simple reload the page or
-	    restart your browser when you log out.</para>
-
-	    <para>Most team server users will not encounter this issue. We
-	    believe it to be a rare problem.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Findings Quick Search view scrollbar freeze (Windows
-	    Eclipse 3.2 and Eclipse 3.3 only)</emphasis> &mdash; (Unchanged from
-	    2.2) Under Windows XP or Vista and Eclipse 3.2 or Eclipse 3.3,
-	    sometimes the horizontal scrollbars get frozen when a new selection
-	    scrolls into view. This is a bug in the Eclipse SWT library tracked
-	    as Eclipse <ulink
-	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885"> bug
-	    211885</ulink> on eclipse.org. The Eclipse.org programmer assigned
-	    to this bug reports that this bug has been fixed and the fix was
-	    released in Eclipse 3.4.</para>
-
-	    <para>If this problem occurs it is possible to get the scrollbar
-	    working again by either by (a) moving the horizontal scrollbar at
-	    the bottom of the view a little bit in any direction or (b) resizing
-	    the view.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Using the -Xshareclasses optimization flag on a IBM
-	    Java 5 VM causes Sierra to crash (Windows only)</emphasis> &mdash;
-	    (Unchanged from 2.2) Under Windows XP and Vista, Sierra fails to
-	    operate properly when the -Xshareclasses optimization flag is set on
-	    the IBM Java 5 VM. A warning dialog is shown when Sierra loads into
-	    Eclipse if this problem is detected.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
-	      </imageobject>
-	    </mediaobject>
-	    The workaround for this problem is to remove this flag from
-	    your eclipse.ini file.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-    </section>
-
-    <section id="sec-sierra-release-2-3-0">
-    	<title>Sierra version 2.3.0</title>
-    	<para>This section describes the 2.3.0 version of the Sierra
-    	Eclipse client and the Sierra team server.</para>
-	<section>
-	<title>New and Noteworthy</title>
-
-	<para>This section describes new and noteworthy features in this
-	version of Sierra.</para>
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Updated analysis tools</emphasis> &mdash; FindBugs
-	    has been updated to version 1.3.9.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Quickly create tutorial projects</emphasis> &mdash;
-	    You can now create the SmallWorld and ShowOff tutorial projects from
-	    the Findings Quick Search menu.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-          <section>
-	<title>Known Problems</title>
-
-	<para>This section describes known bugs and limitations in this version
-	of Sierra.</para>
-
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Shutdown of Eclipse while a scan is running can
-	    cause scan failure.</emphasis> &mdash; (Unchanged from 2.2) In some
-	    cases shutting down Eclipse when a scan is running in the background
-	    can cause the scan to fail.  It is recommended that Eclipse be left
-	    running until all scans are completed.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Logging out of a team server sometimes does not
-	    clear page state</emphasis> &mdash; (Unchanged from 2.2) When
-	    logging in and logging out to the team server with a browser,
-	    especially with different user names, sometimes page state is not
-	    cleared. To work around this problem simple reload the page or
-	    restart your browser when you log out.</para>
-
-	    <para>Most team server users will not encounter this issue. We
-	    believe it to be a rare problem.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Findings Quick Search view scrollbar freeze (Windows
-	    Eclipse 3.2 and Eclipse 3.3 only)</emphasis> &mdash; (Unchanged from
-	    2.2) Under Windows XP or Vista and Eclipse 3.2 or Eclipse 3.3,
-	    sometimes the horizontal scrollbars get frozen when a new selection
-	    scrolls into view. This is a bug in the Eclipse SWT library tracked
-	    as Eclipse <ulink
-	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885"> bug
-	    211885</ulink> on eclipse.org. The Eclipse.org programmer assigned
-	    to this bug reports that this bug has been fixed and the fix was
-	    released in Eclipse 3.4.</para>
-
-	    <para>If this problem occurs it is possible to get the scrollbar
-	    working again by either by (a) moving the horizontal scrollbar at
-	    the bottom of the view a little bit in any direction or (b) resizing
-	    the view.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Using the -Xshareclasses optimization flag on a IBM
-	    Java 5 VM causes Sierra to crash (Windows only)</emphasis> &mdash;
-	    (Unchanged from 2.2) Under Windows XP and Vista, Sierra fails to
-	    operate properly when the -Xshareclasses optimization flag is set on
-	    the IBM Java 5 VM. A warning dialog is shown when Sierra loads into
-	    Eclipse if this problem is detected.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
-	      </imageobject>
-	    </mediaobject>
-	    The workaround for this problem is to remove this flag from
-	    your eclipse.ini file.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-    </section>
-
-    <section id="sec-sierra-release-2-2-1">
-      <title>Sierra version 2.2.1</title>
-      <para>This section describes the 2.2.1 version of the Sierra Eclipse
-      client and the Sierra team server.</para>
-
-      <section>
-	<title>New and Noteworthy</title>
-
-	<para>This section describes new and noteworthy features in this
-	version of Sierra.</para>
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Default location of the Sierra data directory has
-	    changed.</emphasis> &mdash; The location of the .sierra-data
-	    directory has moved from your user's home directory to the workspace
-	    directory.  It is safe to delete the old .sierra-data directory if
-	    you so choose.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Updated analysis tools</emphasis> &mdash; FindBugs
-	    has been updated to version 1.3.8 and PMD has been updated to
-	    version 4.2.5.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-          <section>
-	<title>Known Problems</title>
-
-	<para>This section describes known bugs and limitations in this version
-	of Sierra.</para>
-
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Shutdown of Eclipse while a scan is running can
-	    cause scan failure.</emphasis> %mdash; (Unchanged from 2.2) In some
-	    cases shutting down Eclipse when a scan is running in the background
-	    can cause the scan to fail.  It is recommended that Eclipse be left
-	    running until all scans are completed.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Logging out of a team server sometimes does not
-	    clear page state</emphasis> &mdash; (Unchanged from 2.2) When
-	    logging in and logging out to the team server with a browser,
-	    especially with different user names, sometimes page state is not
-	    cleared. To work around this problem simple reload the page or
-	    restart your browser when you log out.</para>
-
-	    <para>Most team server users will not encounter this issue. We
-	    believe it to be a rare problem.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Findings Quick Search view scrollbar freeze (Windows
-	    Eclipse 3.2 and Eclipse 3.3 only)</emphasis> &mdash; (Unchanged from
-	    2.2) Under Windows XP or Vista and Eclipse 3.2 or Eclipse 3.3,
-	    sometimes the horizontal scrollbars get frozen when a new selection
-	    scrolls into view. This is a bug in the Eclipse SWT library tracked
-	    as Eclipse <ulink
-	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885"> bug
-	    211885</ulink> on eclipse.org. The Eclipse.org programmer assigned
-	    to this bug reports that this bug has been fixed and the fix was
-	    released in Eclipse 3.4.</para>
-
-	    <para>If this problem occurs it is possible to get the scrollbar
-	    working again by either by (a) moving the horizontal scrollbar at
-	    the bottom of the view a little bit in any direction or (b) resizing
-	    the view.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Using the -Xshareclasses optimization flag on a IBM
-	    Java 5 VM causes Sierra to crash (Windows only)</emphasis> &mdash;
-	    (Unchanged from 2.2) Under Windows XP and Vista, Sierra fails to
-	    operate properly when the -Xshareclasses optimization flag is set on
-	    the IBM Java 5 VM. A warning dialog is shown when Sierra loads into
-	    Eclipse if this problem is detected.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
-	      </imageobject>
-	    </mediaobject>
-	    The workaround for this problem is to remove this flag from
-	    your eclipse.ini file.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-    </section>
-
-
-    <section id="sec-sierra-release-2-2">
-      <title>Sierra version 2.2</title>
-      <para>This section describes the 2.2 version of the Sierra Eclipse
-      client and the Sierra team server.</para>
-
-      <section>
-	<title>New and Noteworthy</title>
-
-	<para>This section describes new and noteworthy features in this
-	version of Sierra.</para>
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Send problem reports and suggestions to
-	    SureLogic from the main menu</emphasis> &mdash; Selecting
-	    <guimenuitem>Send Tip for Improvement</guimenuitem> or
-	    <guimenuitem>Send Problem Report</guimenuitem> allows a
-	    tip or problem report to be send to SureLogic directly
-	    within Eclipse.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/release-notes-2-2-main-menu-service.png" />
-	      </imageobject>
-	    </mediaobject>
-	    These menu choices bring up dialogs that allow the user to
-	    control exactly what information is sent to SureLogic.  In
-	    addition, the user can preview the exact text that will be
-	    sent.
-	    </para>
-	    <para>Messages sent from these dialogs go over HTTP to
-	    SureLogic.  If a proxy is used on your network then it is
-	    critical to configure Eclipse to use it.  To do this open
-	    the Eclipse <guilabel>Preferences</guilabel> and examine
-	    the <guilabel>Network Connections</guilabel> under the
-	    <guilabel>General</guilabel> preferences.  This dialog
-	    allows you to configure Eclipse for your network.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-2-network-connections.png" />
-	      </imageobject>
-	    </mediaobject>
-	    </para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>New look for the Team Servers
-	    view</emphasis> &mdash; The Team Servers view has a new
-	    tree look. The view contains more information about the
-	    state of connections to one or more Sierra team servers.
-	    In addition, a significant number of preferences can be
-	    set to control interaction with team servers.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-2-team-servers-view.png" />
-	      </imageobject>
-	    </mediaobject>
-            </para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>License management added</emphasis>
-	    &mdash; Use of Sierra now requires a license from
-	    SureLogic. Lack of a license will prohibit you from
-	    running any scans.  It is still possible to examine data
-	    from prior scans (which can be useful if your license
-	    expires). Selecting <guimenuitem>Manage SureLogic
-	    Licenses</guimenuitem> from the Sierra menu brings up the
-	    license management form.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/release-notes-2-2-license-management.png" />
-	      </imageobject>
-	    </mediaobject>
-            For Sierra to operate properly either a Sierra or All
-            Tools license must be installed.
-	    </para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Updated analysis tools</emphasis> &mdash;
-	    FindBugs has been updated to version 1.3.6 and PMD has
-	    been updated to version 4.2.4.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-
-      <section>
-	<title>Known Problems</title>
-
-	<para>This section describes known bugs and limitations in this
-	version of Sierra.</para>
-
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Shutdown of Eclipse while a scan is
-	    running can cause scan failure.</emphasis> In some cases
-	    shutting down Eclipse when a scan is running in the
-	    background can cause the scan to fail.  It is recommended
-	    that Eclipse be left running until all scans are
-	    completed.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Logging out of a team server sometimes
-	    does not clear page state</emphasis> &mdash; (Unchanged
-	    from 2.1) When logging in and logging out to the team
-	    server with a browser, especially with different
-	    user names, sometimes page state is not cleared. To work
-	    around this problem simple reload the page or restart your
-	    browser when you log out.</para>
-
-	    <para>Most team server users will not encounter this
-	    issue. We believe it to be a rare problem.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Findings Quick Search view scrollbar
-	    freeze (Windows Eclipse 3.2 and Eclipse 3.3
-	    only)</emphasis> &mdash; (Updated from 2.1) Under Windows
-	    XP or Vista and Eclipse 3.2 or Eclipse 3.3, sometimes the
-	    horizontal scrollbars get frozen when a new selection
-	    scrolls into view. This is a bug in the Eclipse SWT
-	    library tracked as Eclipse <ulink
-	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885">
-	    bug 211885</ulink> on eclipse.org. The Eclipse.org
-	    programmer assigned to this bug reports that this bug has
-	    been fixed and the fix was released in Eclipse 3.4.</para>
-
-	    <para>If this problem occurs it is possible to get
-	    the scrollbar working again by either by (a) moving the
-	    horizontal scrollbar at the bottom of the view a little bit
-	    in any direction or (b) resizing the view.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Using the -Xshareclasses optimization flag
-	    on a IBM Java 5 VM causes Sierra to crash (Windows
-	    only)</emphasis> &mdash; (Unchanged from 2.1) Under Windows
-	    XP and Vista, Sierra fails to operate properly when the
-	    -Xshareclasses optimization flag is set on the IBM Java 5
-	    VM. A warning dialog is shown when Sierra loads into Eclipse
-	    if this problem is detected.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
-	      </imageobject>
-	    </mediaobject>
-	    The workaround for this problem is to remove this flag from
-	    your eclipse.ini file.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-    </section>
-
-    <section id="sec-sierra-release-2-1">
-      <title>Sierra version 2.1</title>
-
-      <para>This section describes the 2.1 version of the Sierra Eclipse
-      client and the Sierra team server.</para>
-
-      <section>
-	<title>New and Noteworthy</title>
-
-	<para>This section describes new and noteworthy features in this
-	version of Sierra.</para>
-
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>No project selection required to scan,
-	    re-scan, synchronize, publish a scan, or disconnect from the
-	    main menu</emphasis> &mdash; The Scan Project, Re-Scan
-	    Changes in Project, Synchronize Project, Publish Latest
-	    Scan, and Disconnect choices are no longer grayed out when
-	    no projects are selected in the Package Explorer.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/release-notes-2-1-main-menu-scan.png" />
-	      </imageobject>
-	    </mediaobject>
-	    A dialog now appears to allow you to select the set of
-	    projects you want to run the command on. This change is
-	    primarily intended to make it easier to start a scan on a set
-	    of Java projects. It also makes it easier to scan all open
-	    Java projects by using the <emphasis>Select All</emphasis>
-	    button in the dialog.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-1-main-menu-scan-dialog.png" />
-	      </imageobject>
-	    </mediaobject>
-	    If you do have a set of projects selected in the
-	    <emphasis>Package Explorer</emphasis> then the dialog will
-	    automatically open with those projects checked (non-Java
-	    projects are filtered out of the your selection). (If only
-	    one Java project is open in the workspace then that project
-	    will also be checked by default.) You may also elect to skip
-	    the dialog if you uncheck <emphasis>Show this dialog even
-	    when projects are selected in the Package
-	    Explorer</emphasis> (or the equivalent setting in the Sierra
-	    preferences dialog).</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Sortable columns about findings shown in the
-	    Findings Quick Search view</emphasis> &mdash; To make it
-	    easier to sort queried findings it is now possible to show
-	    several columns in the <emphasis>Findings Quick
-	    Search</emphasis> view.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-1-list-of-findings-columns.png" />
-	      </imageobject>
-	    </mediaobject>
-	    Columns are selected via a drop down menu.  Clicking on the
-	    column title toggles the sorting of that column. Sort order
-	    is from left to right and you may drag the columns to
-	    reorder them as you desire.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Findings Quick Search view tries harder to
-	    "keep your place"</emphasis> &mdash; When you change an
-	    attribute of a selected finding in the <emphasis>Findings
-	    Quick Search</emphasis> view which causes it to be filtered
-	    out of the list the view focuses on the next item in the
-	    list rather than moving you to the top of the list. This
-	    feature helps to resolve SureLogic bug 1391.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Local team server feature added</emphasis>
-	    &mdash; To make it easier to try out and use a Sierra team
-	    server a new optional feature has been added to make it
-	    easy to run a team server within Eclipse on your desktop.
-	    <mediaobject>
-	      <imageobject><imagedata fileref="images/release-notes-2-1-local-team-server.png"/></imageobject>
-	    </mediaobject>
-	    The feature contributes a <emphasis>Local Team
-	    Server</emphasis> view that allows you to start, stop, and
-	    (optionally) examine the logs of a Sierra team server that
-	    you run on your desktop.</para>
-
-	    <para>The team server is fully functional and can be
-	    connected to by other computers on your network using the IP
-	    address of your machine. The database and logs for this
-	    local team server appear in the
-	    <emphasis>.sierra-data/server</emphasis> subdirectory in your
-	    workspace. Three logs are available for you to examine. The
-	    first log is the Jetty web server request log which shows
-	    traffic to the local server. The second log is the Sierra
-	    portal log which shows information from the Sierra portal
-	    web site. The third log is the Sierra services log which
-	    shows information about communication between Sierra Eclipse
-	    clients and the local server.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Improved code scanning</emphasis> &mdash;
-	    Several enhancements have been made to the scan capabilities
-	    of Sierra to support diverse users of the tool.</para>
-
-	    <para>Scans run in a separate Java VM this release adds the
-	    ability to set the maximum memory used by code scan
-	    processes.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-1-scan-memory-pref.png" />
-	      </imageobject>
-	    </mediaobject>
-	    This maximum value for this Java VM setting is difficult to
-	    determine and is different on all computer configurations
-	    due to technical limitations in Java VM
-	    implementations. Sierra calculates this maximum for your
-	    computer configuration as best it can and limits your
-	    setting based upon the results of this calculation.
-	    However, it is possible, in rare cases, that too large a
-	    value for your computer configuration could be set. In this
-	    case the scan will abort right away and you should get an
-	    indication of what the problem is.  This feature helps to
-	    resolve SureLogic bug 1386.</para>
-
-	    <para>Eclipse project configuration is better considered by
-	    code scans. Sierra now uses the correct language level
-	    (e.g., Java 1.4) when performing a code scan.</para>
-
-	    <para>Cyclic dependencies between Java projects no longer
-	    cause a stack overflow when a code scan is run. This feature
-	    resolves SureLogic bug 1399.</para>
-
-	    <para>Code scans now support extremely large numbers of
-	    libraries and jars on your Eclipse Java build path. This
-	    failed in the past on Windows operating systems due to
-	    limitations on the length of command line arguments.</para>
-
-	    <para>Error reporting out of code scans is greatly
-	    improved. If something goes wrong with a scan some
-	    indication of the problem should be reported into the
-	    Eclipse log. This feature helps to resolve SureLogic bugs
-	    1378 and 1386.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>The Sierra Eclipse client creates fewer log
-	    files</emphasis> &mdash; A new log file was created in your
-	    <emphasis>.sierra-data</emphasis> directory each time
-	    Eclipse was run. This creates a lot of like
-	    <emphasis>log-eclipse-2008.03.03-at-15.07.03.143.txt</emphasis>
-	    in your <emphasis>.sierra-data</emphasis> directory. The
-	    old scheme has been replaced with one that creates only one
-	    log file per month and appends entries to the end of that
-	    file. These new log files look like
-	    <emphasis>log-eclipse-client-2008_03.txt</emphasis> in your
-	    <emphasis>.sierra-data</emphasis> directory.</para>
-
-	    <para>Once you upgrade to Sierra version 2.1 you can safely
-	    delete the old log files in your
-	    <emphasis>.sierra-data</emphasis> directory. You can also
-	    opt to keep them.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-
-      <section>
-	<title>Known Problems</title>
-
-	<para>This section describes known bugs and limitations in this
-	version of Sierra.</para>
-
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Scans not backwards compatible</emphasis>
-	    &mdash; For scans that are published to a Sierra team server
-	    the format of the scan document sent to the server has
-	    changed and is not backwards compatible. It is not possible
-	    to publish scans done under 2.0 to 2.1.</para>
-
-	    <para>This limitation does not impact most users because few
-	    have published a scan to a team server. However, it is
-	    starting to become interesting to use this functionality as
-	    reports and charts become available on the Sierra team
-	    server. It is important to note that only full scans (not
-	    re-scans) can be published. So it is best practice to do a
-	    full scan before publishing it to a team server.</para>
-
-	    <para>The easiest action you can take to ensure this problem
-	    will not occur is to delete your
-	    <emphasis>.sierra-data</emphasis> directory when you
-	    install 2.1. This will clear out any old scan documents in
-	    this directory (these files look like
-	    <emphasis>project.sierra.gz</emphasis> where project is the
-	    name of your project).  If you elect to keep your old log
-	    files (the only other contents of this directory) you can
-	    simply delete all the files in your
-	    <emphasis>.sierra-data</emphasis> directory with the
-	    <emphasis>.sierra.gz</emphasis> extension.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>PMD sometimes fails if the classpath of the
-	    code you are scanning clashes with its classpath</emphasis>
-	    &mdash; The current PMD implementation mixes its classpath
-	    with the classpath of the code being scanned. This causes
-	    problems if classes in these two classpaths clash. One case
-	    we have encountered is when the code being scanned has JAXB
-	    2.1 on its classpath.  (We discovered this problem trying to
-	    scan the code from the GlassFish project.)
-	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/release-notes-2-1-pmd-scan-failure-jaxb.png" />
-	      </imageobject>
-	    </mediaobject>
-	    If this occurs please contact SureLogic. To workaround the
-	    problem turn off PMD in the tool preferences. See <xref
-	    linkend="fig-preferences-tools" />.</para>
-
-	    <para>SureLogic is working with the PMD team to fix this
-	    problem in the near future.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Logging out of a team server sometimes does
-	    not clear page state</emphasis> &mdash; When logging in and
-	    logging out to the team server with a browser, especially
-	    with different user names, sometimes page state is not
-	    cleared. To work around this problem simple reload the page
-	    or restart your browser when you log out.</para>
-
-	    <para>Most team server users will not encounter this
-	    issue. We believe it to be a rare problem.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Findings Quick Search view scrollbar freeze
-	    (Windows only)</emphasis> &mdash; (Updated from 2.0) Under
-	    Windows XP and Vista, sometimes the horizontal scrollbars
-	    get frozen when a new selection scrolls into view. This is a
-	    bug in the Eclipse SWT library that is being tracked as
-	    Eclipse <ulink
-	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885">
-	    bug 211885</ulink> on eclipse.org. The Eclipse.org
-	    programmer assigned to this bug reports that this bug has
-	    been fixed and should be released in Eclipse
-	    3.4. Unfortunately, It is not possible for SureLogic to work
-	    around this bug in our code until the IBM fix is released
-	    with Eclipse. If this problem occurs it is possible to get
-	    the scrollbar working again by either by (a) moving the
-	    horizontal scrollbar at the bottom of the view a little bit
-	    in any direction or (b) resizing the view.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Using the -Xshareclasses optimization flag
-	    on a IBM Java 5 VM causes Sierra to crash (Windows
-	    only)</emphasis> &mdash; (Unchanged from 2.0) Under Windows
-	    XP and Vista, Sierra fails to operate properly when the
-	    -Xshareclasses optimization flag is set on the IBM Java 5
-	    VM. A warning dialog is shown when Sierra loads into Eclipse
-	    if this problem is detected.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
-	      </imageobject>
-	    </mediaobject>
-	    The workaround for this problem is to remove this flag from
-	    your eclipse.ini file.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-    </section>
-
-    <section id="sec-sierra-release-2-0">
-      <title>Sierra version 2.0</title>
-
-      <para>This section describes the 2.0 version of the Sierra Eclipse
-      client and the Sierra team server.</para>
-
-      <section>
-	<title>New and Noteworthy</title>
-
-	<para>This section describes new and noteworthy features in this
-	version of Sierra.</para>
-
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Smaller Sierra download for Eclipse running
-	    on Java 6</emphasis> &mdash; The standard libraries shipped
-	    with Java 6 that are used as part of Sierra (e.g., JAXB)
-	    have been refactored into a <emphasis>Sierra Eclipse Client
-	    Java 5 Compatibility Library</emphasis> feature. This
-	    feature only needs to be installed if your Eclipse is
-	    running on a Java 5 virtual machine.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/release-notes-2-0-update-site.png" />
-	      </imageobject>
-	    </mediaobject>
-	    If you use a Java 6 virtual machine, not installing the
-	    compatibility library cuts the download from about 15MB to
-	    10MB.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>On-line help added to Sierra</emphasis>
-	    &mdash; Help about configuring and using Sierra has been
-	    added to the tool. In particular, a tutorial has been added
-	    as well as a description of all the preference settings for
-	    the tool.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/release-notes-2-0-help.png" />
-	      </imageobject>
-	    </mediaobject>
-	    The on-line help is also available at <ulink
-	    url="http://www.surelogic.com/sierra/help">surelogic.com</ulink>
-	    (this copy is easier to reference).</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Re-scan changes in your projects</emphasis>
-	    &mdash; This feature automatically determines what code
-	    needs to be re-scanned based upon changes in your Eclipse
-	    workspace. If you have changed your code and want to know if
-	    your changes fix some of the Sierra findings reported, you
-	    can use this command rather than performing a full scan of
-	    your project.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/release-notes-2-0-re-scan.png" />
-	      </imageobject>
-	    </mediaobject>
-	    This menu choice is also available on the context menu for a
-	    project.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Multi-select a list of findings</emphasis>
-	    &mdash; Multi-select on a list of findings is now
-	    implemented in the conventional manner for tables within the
-	    Eclipse IDE.  Because Ctrl-A will select all the findings
-	    listed, the old "All" menu choices have been removed from
-	    the context menu.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-multi-select.png" />
-	      </imageobject>
-	    </mediaobject>
-	    This feature resolves SureLogic bug 1259.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Project scans can be started from the Sierra
-	    Team Servers view</emphasis> &mdash; To make it easier to
-	    start scans or re-scans within the <emphasis>Code
-	    Review</emphasis> perspective it is now possible to start a
-	    scan on a connected project or all connected projects within
-	    the <emphasis>Sierra Team Servers</emphasis> view.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-team-server-scan.png" />
-	      </imageobject>
-	    </mediaobject>
-	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/release-notes-2-0-team-server-scan-all-connected.png" />
-	      </imageobject>
-	    </mediaobject>
-	    </para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Unlimited finding count for export to a
-	    file</emphasis> &mdash; Export of findings was limited to
-	    2000 findings. The number of findings that can be exported
-	    is now unlimited. In addition, the maximum number of
-	    findings shown in the <emphasis>Findings Quick
-	    Search</emphasis> view may be configured via the Sierra
-	    preferences page. If enough memory is available, the number
-	    may be raised above 2000. A warning dialog is presented to
-	    the user if the number of findings shown in the view is less
-	    than the number desired by the user (the user may elect to
-	    not show this dialog).
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-export.png" />
-	      </imageobject>
-	    </mediaobject>
-	    This feature resolves SureLogic bugs 1307 and 1308.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>FindBugs 1.3.2 integrated into
-	    Sierra</emphasis> &mdash; The FindBugs analysis used by
-	    Sierra has been upgraded from FindBugs release 1.3.0 to
-	    release 1.3.2.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>PMD 4.1 integrated into Sierra</emphasis>
-	    &mdash; The PMD analysis used by Sierra has been upgraded
-	    from PMD release 4.0 to release 4.1.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>PMD copy-paste detector integrated into
-	    Sierra</emphasis> &mdash; The copy-paste detector included
-	    with the PMD tool has been integrated into Sierra. This is
-	    helpful for finding code that has been "cloned" within your
-	    system and that might be worth of being refactored into a
-	    method.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-cpd.png" />
-	      </imageobject>
-	    </mediaobject>
-	    </para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>"Empty method in abstract class rule" from
-	    PMD improved</emphasis> &mdash; PMD's rule "Empty method in
-	    abstract class" often generated lots of high priority false
-	    positives. SureLogic has improved the analysis for this rule
-	    and the priority of its findings was lowered. The problem
-	    with the original analysis was that it did not consider if
-	    expression of the method's return statement was
-	    interesting. This resolves SureLogic bug 1306.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Fixed missing "new" findings on
-	    re-scan</emphasis> &mdash; Findings were sometimes "missing"
-	    on re-scans because all "new" findings were being
-	    ignored. This bug is now fixed. This resolves SureLogic bug
-	    1328.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Links to Sierra views</emphasis> &mdash; In
-	    the <emphasis>Code Review</emphasis> perspective, links to
-	    the Sierra views have been added from the 'Window | Show
-	    View' context menu in the Eclipse main menu. Note that to
-	    see these links, the 'Code Review' perspective needs to be
-	    reset using the 'Window | Reset Perspective' command on the
-	    Eclipse main menu. This resolves SureLogic bug 1330.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>User administration moved to Sierra team
-	    server</emphasis> &mdash; Adding, Deleting, and modifying
-	    settings for Sierra team server users has been moved to the
-	    team server's web portal.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata
-		    fileref="images/release-notes-2-0-team-server-user-mgt.png" />
-	      </imageobject>
-	    </mediaobject>
-	    </para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Ad hoc query row display improved</emphasis>
-	    &mdash; The 5000 row limit on the number of rows queried by
-	    and ad hoc query had a display bug. The bug caused rows over
-	    the limit to show only the first column of data with nulls
-	    for all the other columns. This has been fixed. In addition,
-	    within Sierra, the ad hoc query tool now uses the limit set
-	    in the Sierra preference page to limit findings shown to
-	    limit the number of rows it displays from any query.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
-
-      <section>
-	<title>Known Problems</title>
-	<para>This section describes known bugs and limitations in this
-	version of Sierra.</para>
-	<orderedlist>
-	  <listitem>
-	    <para><emphasis>Findings Quick Search view scrollbar freeze
-	    (Windows only)</emphasis> &mdash; Under Windows XP and
-	    Vista, sometimes the horizontal scrollbars get frozen when a
-	    new selection scrolls into view. This is a bug in the
-	    Eclipse SWT library that is being tracked as Eclipse <ulink
-	    url="https://bugs.eclipse.org/bugs/show_bug.cgi?id=211885">bug
-	    211885</ulink> on eclipse.org. If this problem occurs it is
-	    possible to get the scrollbar working again by either by (a)
-	    moving the horizontal scrollbar at the bottom of the view a
-	    little bit in any direction or (b) resizing the view.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>Using the -Xshareclasses optimization flag
-	    on a IBM Java 5 VM causes Sierra to crash (Windows
-	    only)</emphasis> &mdash; Under Windows XP and Vista, Sierra
-	    fails to operate properly when the -Xshareclasses
-	    optimization flag is set on the IBM Java 5 VM. A warning
-	    dialog is shown when Sierra loads into Eclipse if this
-	    problem is detected.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-ibm-jvm-bug.png" />
-	      </imageobject>
-	    </mediaobject>
-	    The workaround for this problem is to remove this flag from
-	    your eclipse.ini file.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>List of findings display bug (Linux
-	    only)</emphasis> &mdash; Under Linux the list of findings
-	    sometimes sizes the displayed table far to narrow. This
-	    problem seems to only occur when the number of findings
-	    would fit in the available vertical space available to the
-	    table, i.e., scrolling would not be required.
-	    <mediaobject>
-	      <imageobject>
-		<imagedata 
-		    fileref="images/release-notes-2-0-linux-findings-display-bug.png" />
-	      </imageobject>
-	    </mediaobject>
-	    The workaround for this problem is to resize the view a
-	    little bit.</para>
-	  </listitem>
-	  <listitem>
-	    <para><emphasis>The Sierra team server does not email
-	    problems to system administrators</emphasis> &mdash; In this
-	    release the Sierra team server cannot be configured to email
-	    any internal errors to system administrators.
-	    Administrators need to check the logs in the 
-	    <emphasis>.sierra-data/server</emphasis> directory.</para>
-	  </listitem>
-	</orderedlist>
-      </section>
     </section>
   </chapter> 
 </book>
