@@ -951,7 +951,7 @@ if (o == null) {
 	<para>This tutorial assumes that you have installed Sierra and
 	have run through <xref linkend="sec-tutorial-client" /> the ShowOff tutorial. (For
 	understanding only, this tutorial does not use the
-	<application>ShowOff</application> project.) It also assumes
+	<application>SierraTutorial_ShowOff</application> project.) It also assumes
 	that you have the <emphasis>Sierra Local Team Server
 	(Optional)</emphasis> featured installed. This tutorial introduces you to use of a
 	Sierra team server. The team server helps a group of programmers
@@ -1063,10 +1063,7 @@ if (o == null) {
 	/>. This panel lets you adjust the memory used by the local team
 	server and set the level of logging output. The default value is
 	fine for this tutorial so press the
-	<guibutton>Cancel</guibutton> button to exit the panel. (If your
-	computer can't handle the default setting then you might get an
-	infinite yellow light below. If this happens restart Eclipse and
-	lower the memory to try again.)</para>
+	<guibutton>Cancel</guibutton> button to exit the panel.</para>
 
 	<figure id="fig-tutorial-local-team-server-preferences">
 	  <title>Preference panel for controlling the memory used by the local team server</title>
@@ -1080,9 +1077,11 @@ if (o == null) {
 	Database</guimenuitem> from the local team server view menu 
         (top right of the view) to delete the
 	<filename>.sierra-data/server</filename> directory from your
-	workspace (If you already started a local team server using the
+	workspace. If you already started a local team server using the
 	<guibutton>Start Server</guibutton>, stop it before you wipe
-	the database). Next, press the <guibutton>Start
+	the database, however if you have never used the local team
+	server, e.g., if you just installed Sierra, this wipe step
+	may be safely skipped. Next, press the <guibutton>Start
 	Server</guibutton> button on the view. A dialog will appear
 	warning you that the life of the server process you are
 	starting is not tied to the life of your Eclipse process. This
@@ -1311,7 +1310,8 @@ if (o == null) {
 	  </mediaobject>
 	</figure>
 
-	<para>Log your browser out of the team server.</para>
+	<para>Log your browser out of the team server by pressing <guibutton>Log Out</guibutton>
+	in the upper-right of the browser.</para>
 
 	<para>At this point let's go back to your Eclipse. Go to the
 	<guilabel>Code Review</guilabel> perspective. Select
@@ -1321,10 +1321,12 @@ if (o == null) {
 	the view where connections from the Eclipse client to team
 	servers are defined. We will now define a connection to the
 	local team server we are running. To do this click on the
-	<guibutton>New team server location</guibutton> toolbar button
-	at the top of the view or right-click in the left-hand list
-	and choose <emphasis>New...</emphasis> from the context
-	menu.</para>
+	<inlinegraphic fileref="images/edit_new.gif"/> button in the view toolbar, or
+	choose <emphasis>New...</emphasis> from the view menu, or click on the underlined <emphasis>setup a server</emphasis> in the view contents.</para>
+
+ 	<mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-new-server-choices.png"/></imageobject>
+	  </mediaobject>
 
 	<para>The <emphasis>New Sierra Team Server Location</emphasis>
 	dialog will appear. This dialog lets you provide information
@@ -1377,7 +1379,7 @@ if (o == null) {
 	</informaltable>
 
 	<para>The panel should look like <xref
-	linkend="fig-tutorial-localhost-connection" />. If it does you can
+	linkend="fig-tutorial-portal-localhost-connection" />. If it does you can
 	press the <emphasis>OK</emphasis> button. If someone else on
 	another computer wants to connect to your local team server then
 	they cannot use <emphasis>localhost</emphasis> as the host. They
@@ -1386,10 +1388,10 @@ if (o == null) {
 	they should probably have a different user name and password. Next
 	we will connect the SmallWorld project to this server.</para>
 
-	<figure id="fig-tutorial-localhost-connection">
+	<figure id="fig-tutorial-portal-localhost-connection">
 	  <title>Defining the connection to the local team server within the Eclipse client</title>
 	  <mediaobject>
-	    <imageobject><imagedata fileref="images/tutorial-localhost-connection.png"/></imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-localhost-connection.png"/></imageobject>
 	  </mediaobject>
 	</figure>
 
@@ -1414,43 +1416,54 @@ if (o == null) {
 
 	<para>To connect the SmallWorld project to the local server
 	right-click on the server name and select <guimenuitem>Connect
-	Projects...</guimenuitem> from the context menu. Check the
-	SmallWorld project and press the <guibutton>OK</guibutton>
-	button. Your view will look like <xref
-	linkend="fig-tutorial-smallworld-connected" />.</para>
-
-	<figure id="fig-tutorial-smallworld-connected">
-	  <title>The Team Servers view showing that the SmallWorld project is connected to local server</title>
+	Projects...</guimenuitem> from the context menu.</para>
+	
 	  <mediaobject>
-	    <imageobject><imagedata fileref="images/tutorial-smallworld-connected.png"/></imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-connect-menu.png"/></imageobject>
+	  </mediaobject>	
+	
+	<para>Check the	SmallWorld project in the dialog that appears and press the <guibutton>OK</guibutton>
+	button.</para>
+	
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-connect-smallworld.png"/></imageobject>
+	  </mediaobject>	
+	  	
+	<para>Your <guilabel>Team Servers</guilabel>view will look like the image below.</para>
+
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-teamservers-smallworld.png"/></imageobject>
 	  </mediaobject>
-	</figure>
 
 	<para>A very useful feature of a team server is that it can
 	store the scan filter for your team. A scan filter defines the
-	types of results your team has deemed completely without
+	types of results your team has deemed to be completely without
 	merit. These results are filtered out of the scan. For more
 	information about setting up a scan filter see <xref
 	linkend="sec-preferences-scan-filter" />. To send your scan
 	filter to the server right-click on the server name and select
 	the <emphasis>Send Local Scan Filter As...</emphasis> menu
-	item from the context menu. A dialog appear prompting you for
-	a name to save the scan filter with on the server as shown in
-	<xref linkend="fig-tutorial-send-scan-filter" />. Enter
+	item from the context menu.</para>
+	
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-send-scan-filter.png"/></imageobject>
+	  </mediaobject>	
+	
+	<para>A dialog appear prompting you for
+	a name to save the scan filter with on the server as shown below. Enter
 	<userinput>Tutorial</userinput> and press
-	<guibutton>Send</guibutton> to continue. The local server now
-	has a copy, the same scan filter as your client. You should see
+	<guibutton>Send</guibutton> to continue.</para>
+	
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-portal-name-scan-filter.png"/></imageobject>
+	  </mediaobject>	
+	  
+	<para>The local server now
+	has a copy, the same scan filter as your client. (If you wish, you can look to see
 	this copy of the scan filter in the <guilabel>Team
 	Server</guilabel> under the Scan Filters portion of your local
-	server, it will be called
-	<emphasis>Tutorial</emphasis>.</para>
-
-	<figure id="fig-tutorial-send-scan-filter">
-	  <title>Sending a copy of the client scan filter to local server</title>
-	  <mediaobject>
-	    <imageobject><imagedata fileref="images/tutorial-send-scan-filter.png"/></imageobject>
-	  </mediaobject>
-	</figure>
+	team server, it will be called
+	<emphasis>Tutorial</emphasis>.)</para>
 
 	<para>Other members of your team get the scan filter settings
 	from the team server. We don't need to download them since we
@@ -1458,36 +1471,30 @@ if (o == null) {
 	and use the Tutorial scan filter stored on the local server
 	you right-click on the scan filter name and select
 	<emphasis>Copy to Local Scan Filter</emphasis> from the
-	context menu as shown in <xref
-	linkend="fig-tutorial-copy-scan-filter" />. A dialog will warn
+	context menu as shown below. A dialog will warn
 	that this will replace the scan filter currently on your
 	client. Press <emphasis>Yes</emphasis> to continue.</para>
 
-	<figure id="fig-tutorial-copy-scan-filter">
-	  <title>Downloading a copy of the Tutorial scan filter to the client from local server</title>
-	  <mediaobject>
 	    <imageobject>
 	      <imagedata
-		  fileref="images/tutorial-copy-scan-filter.png" />
+		  fileref="images/tutorial-portal-copy-scan-filter-to-local.png" />
 	    </imageobject>
-	  </mediaobject>
-	</figure>
 
 	<para>The reason it is important to keep the scan filter
 	consistent between your clients and your server is that if you
-	have different scan filters you can see different analysis
+	have different scan filters you can see different Sierra
 	results. For example, if the server filters out findings about
 	null pointers and your client does not then you will see more
 	findings on the client than you do on your server. To understand
 	why this is true you need to understand a bit about how scans
 	work.</para>
 
-	<para>A project scan (via Eclipse or via Ant) creates a scan
-	document file. You can see these files in your
-	<filename>.sierra-data</filename> directory. For the
+	<para>A project scan (via Eclipse or via Ant as described later in this document) creates a scan
+	document file. You can see these files in the
+	<filename>.sierra-data/scans</filename> directory under your workspace directory. For the
 	SmallWorld project you will see the
-	<filename>SmallWorld.sierra.gz</filename> scan document
-	file. This file contains the tool reports about the SmallWorld
+	<filename>SierraTutorial_SmallWorld.sierra.gz</filename> scan document
+	file. This file contains the tool reports about the SierraTutorial_SmallWorld
 	project. When a scan is loaded into the client database your
 	local scan filter is applied.  When you publish your
 	SmallWorld scan to your server the scan document file is sent
@@ -1503,17 +1510,17 @@ if (o == null) {
 	local server</emphasis>.  This assignment is done on the
 	portal.</para>
 
-	<para>We will now edit the Tutorial scan filter on the portal
-	and assign it to the connected SmallWorld project. In your web
+	<para>We will now edit the Tutorial scan filter on the web portal
+	and assign it to the connected SierraTutoral_SmallWorld project. In your web
 	browser log back into the portal as the
-	<userinput>zork</userinput> user. Select the <guilabel>Scan
+	<userinput>zork</userinput> user (password zork). Select the <guilabel>Scan
 	Filters</guilabel> tab and then select the
 	<emphasis>Tutorial</emphasis> scan filter in the list at the
 	left.  This scan filter is defined in terms of finding types,
 	let's define it with just a few focused categories. To do this
 	we will first delete the scan filter and then build it from
 	scratch.  Press the <emphasis>Delete</emphasis> link at the
-	upper-right to delete the scan filter.  Next, press the
+	upper-right to delete the scan filter (confirm if asked, Are you sure?).  Next, press the
 	<guibutton>Create a Scan Filter</guibutton> button at the
 	upper-left and enter <userinput>Tutorial</userinput> and press
 	<guibutton>Create</guibutton>. The new scan filter will be
@@ -1525,21 +1532,16 @@ if (o == null) {
 	Tutorial scan filter.  Select the <emphasis>Add
 	Category</emphasis> link. In the dialog that opens select
 	<userinput>Correctness</userinput> and
-	<userinput>Performance</userinput> as shown in
-	<xref linkend="fig-tutorial-portal-scan-filter-add-categories"
-	/> and press <guibutton>OK</guibutton>.</para>
-
-	<figure id="fig-tutorial-portal-scan-filter-add-categories">
-	  <title>Adding Correctness and Performance to the Tutorial scan filter</title>
-	  <mediaobject>
-	    <imageobject>
+	<userinput>Performance</userinput> as shown below.</para>
+	
+		<imageobject>
 	      <imagedata
 		  fileref="images/tutorial-portal-scan-filter-add-categories.png" />
 	    </imageobject>
-	  </mediaobject>
-	</figure>
+	
+	<para>Next press <guibutton>OK</guibutton> to add the two categories to the scan filter.</para>
 
-	<para>Change the importance of the categories as follows:</para>
+	<para>Change the importance of the categories using the drop-down menus as follows:</para>
 
 	<informaltable>
 	  <tgroup cols='2' align='left'>
@@ -1551,11 +1553,11 @@ if (o == null) {
 	    </thead>
 	    <tbody>
 	      <row>
-		<entry>Correctness (FindBugs)</entry>
+		<entry>Correctness</entry>
 		<entry>Critical</entry>
 	      </row>
 	      <row>
-		<entry>Performance (FindBugs)</entry>
+		<entry>Performance</entry>
 		<entry>High</entry>
 	      </row>
 	    </tbody>
@@ -1585,7 +1587,7 @@ if (o == null) {
 
 	<para>We now need to assign this scan filter to the SmallWorld
 	project. To do this click on the <guilabel>Projects</guilabel>
-	tab. Select the SmallWorld project in the list to the left.
+	tab. Select the SierraTutorial_SmallWorld project in the list to the left.
 	To change the scan filter assigned to this project select the
 	<emphasis>(Change)</emphasis> link on line where the scan
 	filter for this project is listed.  In the dialog that appears
@@ -1622,16 +1624,24 @@ if (o == null) {
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
-		  fileref="images/tutorial-scan-filter-assigned-to-smallworld.png" />
+		  fileref="images/tutorial-portal-scan-filter-sync-to-smallworld.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
 
-	<para>Run a scan of the SmallWorld project. We can now publish
+	<para>At this point run a scan of the SierraTutorial_SmallWorld project.
+	To do this select <guimenu>Sierra</guimenu> |
+	<inlinegraphic
+	fileref="images/sierra_scan.gif" /> <guimenuitem>Scan Project</guimenuitem> from the Eclipse
+	main menu and check only the SierraTutorial_SmallWorld project and press the <guibutton>OK</guibutton>
+	button. Wait for the scan to complete.</para>
+	
+	<para>We can now publish
 	this scan of SmallWorld to the local server. Select
-	<guimenu>Sierra</guimenu> | <guimenuitem>Publish Latest
+	<guimenu>Sierra</guimenu> | <inlinegraphic
+	fileref="images/sierra_publish.gif" /> <guimenuitem>Publish Latest
 	Scan</guimenuitem> from the Eclipse main menu. Check the
-	SmallWorld project and press the <guibutton>OK</guibutton>
+	SierraTutorial_SmallWorld project and press the <guibutton>OK</guibutton>
 	button. This client operation is the first of two ways to
 	publish a scan to a team server. The second way to publish a
 	scan to a team server is to use Ant.</para>
@@ -1661,11 +1671,11 @@ if (o == null) {
 	To This Portal</emphasis> table. Using <emphasis>Findings
 	Quick Search</emphasis> view you can verify that these counts
 	are consistent with the data in your client (Filter by the
-	project SmallWorld then show the importance counts).</para>
+	project SierraTutorial_SmallWorld then show the Importance counts).</para>
 
 	<para>Use the <emphasis>Sierra Quick Search</emphasis> view
-	select all the findings from SmallWorld that are within the
-	<emphasis>Performance (FindBugs)</emphasis> finding
+	select all the findings from SierraTutorial_SmallWorld that are within the
+	<emphasis>Performance</emphasis> finding
 	category. There should be three findings as shown in <xref
 	linkend="fig-tutorial-smallworld-category-counts" />.</para>
 
@@ -1674,38 +1684,27 @@ if (o == null) {
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
-		  fileref="images/tutorial-smallworld-category-counts.png" />
+		  fileref="images/tutorial-portal-smallworld-category-counts.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
 
-	<para>The counts in the finding categories may appear
-	surprising. It states that there are 4 findings but the bars
-	add up to 6. In addition, the scan filter used for the scan
-	(i.e., Tutorial) only included two of the four categories
-	shown. What is the reason for these apparent inconsistencies?
-	The reason is that Sierra categories are not a partition of
+	<para>Note that in Sierra categories are not a partition of
 	the finding types.  It is possible for a finding type to be in
-	one or more categories.  In this case there is overlap. To see
-	this, add the <guilabel>Finding Type</guilabel> filter after
-	the <guilabel>Finding Category</guilabel> and check and
-	uncheck each finding category one at at time. Note that
-	<emphasis>Should be static</emphasis> finding type is in both
-	the <emphasis>Design Rules (PMD)</emphasis> and the
-	<emphasis>Performance (FindBugs)</emphasis> categories. In
-	addition, the <emphasis>Superfluous instanceof</emphasis>
-	finding type is in both the <emphasis>Correctness
-	(FindBugs)</emphasis> and <emphasis>Style
-	(FindBugs)</emphasis> categories. Go back and show the three
-	<emphasis>Performance (FindBugs)</emphasis> findings.</para>
+	one or more categories, in which case there is overlap.</para>
 
-	<para>Check all the categories and select
-	<guilabel>Show</guilabel> to see the four findings. The two
-	findings about changing the anonymous inner classes to named
-	static classes we consider unimportant for this
-	program. Change the importance of these two findings to
-	Irrelevant by selecting both and using the context
-	menu.</para>
+	<para>Check both the categories in
+	<guilabel>Sierra Quick Search</guilabel> view to see the three findings. The
+	finding about changing the anonymous inner class SmallWorld$1 to named
+	static class we consider unimportant for this
+	program. Change the importance of this findings to
+	Irrelevant using either the context
+	menu in the <guilabel>Results</guilabel> view or the <guilabel>Finding Details</guilabel> view.</para>
+
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-change-to-irrelevant.png" />
+	    </imageobject>
 
 	<para>One of the findings suggests that the
 	<varname>f_description</varname> field can be declared
@@ -1720,26 +1719,27 @@ if (o == null) {
 	  <para>Remove this field and simply return the string literal
 	  "Our Hero" from the getDescription() method.</para>
 	</blockquote>
+	
+	<para>The view will appear as shown below. Note the audits are by <emphasis>Local</emphasis> prior
+	to a synchronize with the team server.</para>
+	 <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-audits-before-sync.png" />
+	 </imageobject>
 
 	<para>You have now made a few audits that you can share with
 	the team server. To do this select <guimenu>Sierra</guimenu> |
-	<guimenuitem>Synchronize All</guimenuitem> from the Eclipse
+	<inlinegraphic fileref="images/sierra_sync.gif" /> <guimenuitem>Synchronize All</guimenuitem> from the Eclipse
 	main menu. After this command completes, note that the name
 	the audit is attributed to changed from
 	<emphasis>Local</emphasis> to <emphasis>zork</emphasis>
 	because we synchronized under the user zork to the local
-	server. This can be seen in <xref
-	linkend="fig-tutorial-smallworld-zork-audits" />.</para>
+	server.</para>
 
-	<figure id="fig-tutorial-smallworld-zork-audits">
-	  <title>After a sync local audits are attributed to the zork user</title>
-	  <mediaobject>
 	    <imageobject>
 	      <imagedata
-		  fileref="images/tutorial-smallworld-zork-audits.png" />
+		  fileref="images/tutorial-portal-zork-audits.png" />
 	    </imageobject>
-	  </mediaobject>
-	</figure>
 
 	<para>If you refresh the welcome page in your web browser it
 	will look like <xref
@@ -1761,32 +1761,55 @@ if (o == null) {
 
 	<para>In the Eclipse client mark the three performance
 	findings as being examined by me (a command in the context
-	menu) or make an ad hoc audit on each finding. Notice that
+	menu as shown below) or make an ad hoc audit on each finding. Notice that
 	these new audits are attributed to <emphasis>Local</emphasis>
 	not to zork. This is because we have not synchronized these
-	audits with the server. To illustrate this point let's
+	audits with the server.</para>
+	
+		<imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-audit-of-performance.png" />
+	    </imageobject>
+	
+	<para>To illustrate this point let's
 	attribute these audits to the <emphasis>troll</emphasis> user
 	not to the <emphasis>zork</emphasis> user.</para>
 
-	<para>Go to the <guilabel>Team Servers</guilabel> view,
+	<para>Go to the <guilabel>Team Servers</guilabel> view in Eclipse,
 	right-click on the local server and select the
-	<guimenuitem>Properties...</guimenuitem> menu item. In the
+	<guimenuitem>Properties...</guimenuitem> menu item as shown below.</para>
+	
+		<imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-teamservers-properties.png" />
+	    </imageobject>
+	
+	<para>In the
 	dialog that appears change the user name and password to
 	<userinput>troll</userinput> and press the
-	<guibutton>OK</guibutton> button. Now synchronize with the
+	<guibutton>OK</guibutton> button.</para>
+	
+		<imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-teamservers-properties-dialog.png" />
+	    </imageobject>	
+	
+	<para>Now synchronize with the
 	server again by pressing the <guiicon><inlinegraphic
-	fileref="images/sierra_sync.gif" /></guiicon> icon (or by
-	selecting <guimenu>Sierra</guimenu> | <guimenuitem>Synchronize
+	fileref="images/sierra_sync.gif" /></guiicon> icon in the
+	toolbar of the <guilabel>Team Servers</guilabel> view (or by
+	selecting <guimenu>Sierra</guimenu> | <inlinegraphic
+	fileref="images/sierra_sync.gif" /> <guimenuitem>Synchronize
 	All</guimenuitem> from the Eclipse main menu). The new audits
 	will change to the <emphasis>troll</emphasis> user as shown in
-	<xref linkend="fig-tutorial-smallworld-troll-audits" />.</para>
+	<xref linkend="fig-tutorial-portal-troll-audits" />.</para>
 
-	<figure id="fig-tutorial-smallworld-troll-audits">
+	<figure id="fig-tutorial-portal-troll-audits">
 	  <title>After a sync local audits are attributed to the troll user</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
-		  fileref="images/tutorial-smallworld-troll-audits.png" />
+		  fileref="images/tutorial-portal-troll-audits.png" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
@@ -1810,7 +1833,14 @@ if (o == null) {
 
 	<para>To complete this tutorial go back to the <emphasis>Local
 	Team Server</emphasis> view and press <emphasis>Stop
-	Server</emphasis> to shutdown your local team server. You can opt
+	Server</emphasis> to shutdown your local team server.</para>
+
+	    <imageobject>
+	      <imagedata
+		  fileref="images/tutorial-portal-stop-local-team-server.png" />
+	    </imageobject>
+	    	
+	<para>You can opt
 	to leave the local team server running, however, realize that it
 	is listening on your local network.</para>
 
