@@ -2442,7 +2442,7 @@ if (o == null) {
 	url="http://www.mortbay.org/jetty/">Jetty</ulink> is a
 	lightweight web server implemented entirely in Java.</para>
 
-	<para>The default value for this setting is 1024 MB. The
+	<para>The default value for this setting is 1,024 MB. The
 	maximum value for your computer is shown in the dialog.  This
 	maximum value for this setting is difficult to determine and
 	is different on each computer configuration due to technical
@@ -2477,7 +2477,9 @@ if (o == null) {
 
 	<para>The Scan Data preference pane allows cleanup of scan data
 	about old and no longer needed projects. It also allows the
-	entire Sierra Eclipse client database to be wiped clean.</para>
+	entire Sierra Eclipse client database to be wiped clean
+	via the <guibutton>Delete All Sierra Data For This Workspace</guibutton>
+	button.</para>
 
 	<para>The list of projects shown in the <emphasis>Scanned
 	Projects</emphasis> group of this panel reflect projects that
@@ -2485,19 +2487,21 @@ if (o == null) {
 	projects can be selected and deleted from the Sierra client
 	database. It is important to understand that the data is
 	deleted immediately when the <guibutton>Delete Sierra
-	Data</guibutton> button is pressed (not when the
+	Data</guibutton> button is pressed&mdash;not when the
 	<guibutton>OK</guibutton> or <guibutton>Apply</guibutton> is
-	pressed for the preference pane).</para>
+	pressed for the preference pane.</para>
 
 	<para>Sierra uses an embedded relational database to store its
 	results about your code. It is possible to wipe this database
-	clean by pressing the<emphasis>Delete All Sierra Data For This
-	Workspace</emphasis> button. This wipes all the data in the
-	database for the Sierra Eclipse client. This action is not
-	typically needed, but is useful for serviceability of Sierra.
+	clean by pressing the <guibutton>Delete All Sierra Data For This
+	Workspace</guibutton> button. This wipes all the data in the
+	database for the Sierra Eclipse client (you could also delete the
+	<emphasis>.sierra-data</emphasis> directory under your workspace when
+	Eclipse is not running).
 	Beware that all audits that have not been synchronized to a
 	team server will be lost. This action does not delete the
-	database for the Local Team Server. To do that select the
+	database for the Local Team Server (but deleting
+	the <emphasis>.sierra-data</emphasis> directory does). To do that in Eclipse select the
 	<guimenuitem>Wipe Local Team Server Database</guimenuitem> from
 	the <guilabel>Local Team Server</guilabel> view menu.</para>
       </section>
@@ -2527,13 +2531,13 @@ if (o == null) {
 	<para>The local scan filter may be shared among a development
 	team using a Sierra team server. In the <guilabel>Team
 	Servers</guilabel> view you can select a server and on its
-	context menu select <emphasis>Send Local Scan Filter
-	As...</emphasis> to send your local scan filter settings to
+	context menu select <guibutton>Send Local Scan Filter
+	As...</guibutton> to send your local scan filter settings to
 	that server. You will be prompted for a name for the scan
 	filter (all scan filters on a team server are explicitly
 	named). You can also select any named scan filter on a team
-	server and on its context menu select <emphasis>Copy to Local
-	Scan Filter</emphasis> to download that scan filter setting
+	server and on its context menu select <guibutton>Copy to Local
+	Scan Filter</guibutton> to download that scan filter setting
 	from that server and overwrite your local settings.</para>
       </section>
 
@@ -2579,27 +2583,6 @@ if (o == null) {
 	made.</para>
       </section>
 
-      <section id="sec-preferences-tools">
-	<title>Tools</title>
-	<figure id="fig-preferences-tools">
-	  <title>The Tools preference pane</title>
-	  <mediaobject>
-	    <imageobject><imagedata fileref="images/preferences-tools.png"/></imageobject>
-	  </mediaobject>
-	</figure>
-
-	<para>The tools preference pane allows course control over what
-	tools are run during a partial or full scan.</para>
-
-	<para>Typically, it is recommended that all the tools are run
-	and that the scan filter preferences (which can be shared via a
-	team server across a development team) be used to filter scan
-	output. However, if a tool is failing on some project or taking
-	a exorbitant amount of time to execute, then it can be helpful
-	to use this panel to ensure the tool is not invoked. If either
-	of these problems occur, them please file a bug with SureLogic
-	about them.</para>
-      </section>
     </section>
     
     	<section id="sec-surelogic-tool-properties-file">
