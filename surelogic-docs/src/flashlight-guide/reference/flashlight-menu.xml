@@ -38,9 +38,10 @@
     <listitem>
       <formalpara>
         <title><guimenuitem>Import Ant run...</guimenuitem></title>
-        <para>Helps the user to copy a Flashlight run created from one of the
-        Flashlight ant tasks into the data directory, which allows the run to be
-        prepped and inspected.  For more information please see <xref
+        <para>Allows the user to copy a Flashlight run created from one of the
+        Flashlight Ant tasks into the data directory. This allows the run to be
+        prepared and inspected in the Eclipse tool user experience.  For more information
+        about using Ant with Flashlight please see <xref
         linkend="flashlight-ant-tasks" />.</para>
       </formalpara>
     </listitem>

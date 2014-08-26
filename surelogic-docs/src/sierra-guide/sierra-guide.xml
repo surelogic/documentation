@@ -464,10 +464,13 @@
 	the <guilabel>Finding Details</guilabel> view.</para>
 
 	<para>Small orange <guiicon><inlinegraphic
-	fileref="images/asterisk-orange.png" /></guiicon> icons appear
+	fileref="images/asterisk_orange.gif" /></guiicon> icons appear
 	in the Java editor gutter to highlight tool findings. By
 	default, these gutter icons only appear for findings deemed of
-	high or critical importance.</para>
+	high or critical importance. The dmore important the tool believes the finding
+	to be the darker orange the icon will be. When these editor gutter marks are displayed,
+	in particular for what importance values, can be configured in the Sierra preferences
+    as described in <xref linkend="sec-preferences" />.</para>
 
 	<para>If you click on a finding in the <guilabel>Results</guilabel> view or in the Java editor that finding will be shown
 	in the <guilabel>Finding Details</guilabel> view. This view allows
@@ -708,7 +711,7 @@ if (o == null) {
 
 	<para>In the <guilabel>Sierra Quick Search</guilabel> clear
 	your current search by pressing the <guiicon><inlinegraphic
-	fileref="images/asterisk-grey-x.png" /></guiicon> icon in the
+	fileref="images/gray_x.gif" /></guiicon> icon in the
 	far upper-right of the view.  This clears the filter and lets
 	all the findings through to the <guilabel>Results</guilabel> view.</para>
 	
@@ -720,7 +723,7 @@ if (o == null) {
 	
 	<para>You can also clear
 	just a particular filter (and all the subsequent filters to its right) by using the <inlinegraphic
-	fileref="images/asterisk-grey-x.png" /> in the upper-right of the filter selection box.</para> 
+	fileref="images/gray_x.gif" /> in the upper-right of the filter selection box.</para> 
 	
 	  <mediaobject>
 	    <imageobject>
@@ -738,7 +741,7 @@ if (o == null) {
 
 	<para>In the <guilabel>Sierra Quick Search</guilabel> clear
 	your current search again by pressing the
-	<guiicon><inlinegraphic fileref="images/asterisk-grey-x.png"
+	<guiicon><inlinegraphic fileref="images/gray_x.gif"
 	/></guiicon> icon in the upper-right of the view (or instead
 	of clearing the query just select
 	<guibutton>Importance</guibutton> in the far left pane of the
@@ -892,7 +895,7 @@ if (o == null) {
 	were working on have been fixed. Clear the search in the
 	<guilabel>Sierra Quick Search</guilabel> view by pressing the
 	<guiicon><inlinegraphic
-	fileref="images/asterisk-grey-x.png" /></guiicon>
+	fileref="images/gray_x.gif" /></guiicon>
 	icon and press <guibutton>Status</guibutton> to see that two
 	findings have been fixed and two findings are unchanged as seen in
 	<xref linkend="fig-tutorial-status-fixed" />.</para>
@@ -1606,7 +1609,7 @@ if (o == null) {
 	changes we have made.  To do this select the
 	<guimenuitem>Synchronize All</guimenuitem> command from the
 	<guimenu>Sierra</guimenu> menu or click the
-	<guiicon><inlinegraphic fileref="images/sierra-sync.png"
+	<guiicon><inlinegraphic fileref="images/sierra_sync.gif"
 	/></guiicon> icon in the <guilabel>Team Servers</guilabel>
 	view. This will synchronize with the local server and you
 	should see the scan filter for SmallWorld change as shown in
@@ -1772,7 +1775,7 @@ if (o == null) {
 	<userinput>troll</userinput> and press the
 	<guibutton>OK</guibutton> button. Now synchronize with the
 	server again by pressing the <guiicon><inlinegraphic
-	fileref="images/sierra-sync.png" /></guiicon> icon (or by
+	fileref="images/sierra_sync.gif" /></guiicon> icon (or by
 	selecting <guimenu>Sierra</guimenu> | <guimenuitem>Synchronize
 	All</guimenuitem> from the Eclipse main menu). The new audits
 	will change to the <emphasis>troll</emphasis> user as shown in
@@ -1906,7 +1909,7 @@ if (o == null) {
 	tasks a Sierra team server. You now know how to use the Ant
 	tasks to add Sierra to your QA process or nightly
 	build. Reference documentation for the Sierra Ant tasks is
-	found in <xref linkend="sec-ant-tasks" />.</para>
+	found in <xref linkend="sierra-ant-tasks" />.</para>
       </section>
     </section>
   </chapter>
@@ -1937,7 +1940,8 @@ if (o == null) {
 
       <orderedlist>
 	<listitem>
-	  <para><emphasis>Scan Project</emphasis> &mdash; This command
+	  <para><emphasis><inlinegraphic fileref="images/sierra_scan.gif" />
+	  Scan Project</emphasis> &mdash; This command
 	  starts a full scan on the selected set of projects. The
 	  scans are run in background jobs and progress can be seen in
 	  the Eclipse <guilabel>Progress</guilabel> view and (by
@@ -1964,7 +1968,8 @@ if (o == null) {
 	  <guibutton>OK</guibutton> button.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Re-Scan Changes in Project</emphasis>
+	  <para><emphasis><inlinegraphic fileref="images/sierra_scan_delta.gif" />
+	  Re-Scan Changes in Project</emphasis>
 	  &mdash; This command starts a partial scan on only those
 	  Java types in the project that have been recompiled since
 	  the last scan. If little has been changed in a project then
@@ -1976,7 +1981,26 @@ if (o == null) {
 	  Project</guimenuitem> command.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Open Code Review Perspective</emphasis>
+	  <para><emphasis><inlinegraphic fileref="images/sierra_load_scan.gif" />
+	  Import Ant Scan...</emphasis>
+	  &mdash; Allows the user to copy a Sierra scan created from one of the
+        Sierra Ant tasks into the data directory. This allows the scan to be
+        examined in the Eclipse tool user experience.  For more information
+        about using Ant with Sierra please see <xref
+        linkend="sierra-ant-tasks" />.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis><inlinegraphic fileref="images/jar_saveas.gif" />
+	  Save Ant Task As...</emphasis>
+	  &mdash; Saves the Sierra Ant tasks to a directory of your choice.
+	  These tasks are primarily used to scan projects outside of Eclipse, such
+	  as in a automated build or when a codebase isn't developed in Eclipse.
+	  For more information please
+	  see <xref linkend="sierra-ant-tasks" />.</para>
+	</listitem>
+	<listitem>
+	  <para><emphasis><inlinegraphic fileref="images/sierra_investigate.gif" />
+	  Open Code Review Perspective</emphasis>
 	  &mdash; This menu choice opens the <guilabel>Code
 	  Review</guilabel> perspective. This perspective is useful
 	  for examining and auditing analysis findings. This
@@ -1984,7 +2008,8 @@ if (o == null) {
 	  and toolbars for perspectives.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Configure Team Servers</emphasis> &mdash;
+	  <para><emphasis><inlinegraphic fileref="images/sierra_server.gif" />
+	  Configure Team Servers</emphasis> &mdash;
 	  This menu choice opens and gives the focus to the
 	  <guilabel>Sierra Servers</guilabel> view. This view is used
 	  to manage connections to Sierra team servers.  This view may
@@ -1992,7 +2017,8 @@ if (o == null) {
 	  views.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Synchronize All</emphasis> &mdash; This menu
+	  <para><emphasis><inlinegraphic fileref="images/sierra_sync.gif" />
+	  Synchronize All</emphasis> &mdash; This menu
 	  choice synchronizes audits for all the projects connected to
 	  all Sierra team servers. All BugLink data is synchronized as
 	  well. This command has the same effect as selecting each
@@ -2000,7 +2026,9 @@ if (o == null) {
 	  Project</guimenuitem> menu item.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Synchronize Project</emphasis> &mdash; This
+	  <para><emphasis>
+	  <inlinegraphic fileref="images/sierra_sync.gif" />
+	  Synchronize Project</emphasis> &mdash; This
 	  command sends all local audits to the Sierra team server the
 	  selected project is connected to. It also downloads all
 	  audits (made by other users) from the server to this client.
@@ -2010,7 +2038,8 @@ if (o == null) {
 	  BugLink data is synchronized as well.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Publish Latest Scan</emphasis> &mdash; This
+	  <para><emphasis><inlinegraphic fileref="images/sierra_publish.gif" />
+	  Publish Latest Scan</emphasis> &mdash; This
 	  command sends the scan results from the last full scan to
 	  the Sierra team server that the project is connected
 	  to. Note that only <emphasis>full scans</emphasis> can be
@@ -2021,7 +2050,8 @@ if (o == null) {
 	  </para>
 	</listitem>
 	<listitem>
-	  <para><emphasis>Disconnect</emphasis> &mdash; This command
+	  <para><emphasis><inlinegraphic fileref="images/sierra_disconnect.gif" />
+	  Disconnect</emphasis> &mdash; This command
 	  disconnects the selected project from the Sierra team server
 	  it is currently connected to. This action causes all local
 	  information about the project to be deleted (so a new scan
@@ -2187,7 +2217,7 @@ if (o == null) {
 	network. The view shows what projects are connected to
 	particular team servers and what scan filters exist and are in
 	use. This view has a shortcut <guiicon><inlinegraphic
-	fileref="images/sierra-sync.png" /></guiicon> icon that allows
+	fileref="images/sierra_sync.gif" /></guiicon> icon that allows
 	all information to be synchronized with the set of known
 	Sierra Team Servers.</para>
 
@@ -2228,7 +2258,7 @@ if (o == null) {
       </section>
     </section>
 
-    <section>
+    <section id="sec-preferences">
       <title>Preferences</title>
 
       <para>The Sierra Eclipse client has many preferences. These
@@ -2265,7 +2295,8 @@ if (o == null) {
 	is used to store all data for the Local Team Server. All
 	Sierra data goes into the data directory except the local
 	Database which is stored under the current Eclipse
-	workspace. This location is relative to your workspace and cannot be changed.</para>
+	workspace. This location is relative to your workspace and cannot be changed.
+	It is listed here so you can find it (if you need to delete/clear out all your Sierra data).</para>
 
 	<para>The <emphasis>Appearance</emphasis> group contains the
 	following settings:</para>
@@ -2279,10 +2310,12 @@ if (o == null) {
 	    that Eclipse doesn't run out of memory trying to display a
 	    gigantic set of analysis findings.</para>
 
-	    <para>The default value for this setting is 2000, however,
-	    it can be raised if Eclipse is given a large amount of
-	    memory. A warning is shown in the <emphasis>Findings Quick
-	    Search</emphasis> view if a list is truncated.</para>
+	    <para>The default value for this setting is 500, however,
+	    it can be raised up to the point that Eclipse performance
+	    becomes unacceptable to you (this value can be large if
+	    you have a fast computer and allocate a lot of memory to Eclipse). A warning is shown in
+	    the <emphasis>Findings</emphasis> view if a list of findings is cutoff with a
+	    hyperlink to this preference page.</para>
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>Show 'balloon' notifications for scan start
@@ -2315,8 +2348,8 @@ if (o == null) {
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>Allow the user to select the set of
-	    projects to scan even when projects are selected in the
-	    Package Explorer.</emphasis> This setting controls if the
+	    projects to scan even when projects are selected (in the
+	    Package Explorer).</emphasis> This setting controls if the
 	    dialog is shown to allow the user to select projects when
 	    the user performs a scan or publish. If this setting is
 	    checked then the dialog always appears even if projects
@@ -2326,14 +2359,6 @@ if (o == null) {
 
 	    <para>The default value for this setting is
 	    checked.</para>
-	  </listitem>
-          <listitem>
-	    <para><emphasis>Display results from the SureLogic JSure
-	    verification tool.</emphasis> This setting allows JSure
-	    results to be viewed in Sierra.</para>
-
-	    <para>The default value for this setting is not checked
-	    (JSure results are not shown).</para>
 	  </listitem>
 	  <listitem>
 	    <para><emphasis>Show markers for findings in the Java
@@ -2879,7 +2904,7 @@ if (o == null) {
       </figure>
     </section>
 
-    <section id="sec-ant-tasks">
+    <section id="sierra-ant-tasks">
       <title>Ant tasks</title>
 
       <para>Sierra provides two tasks that can be used to extend
