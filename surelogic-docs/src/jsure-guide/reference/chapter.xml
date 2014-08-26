@@ -1642,7 +1642,7 @@
 
       <listitem>
 	<formalpara>
-	  <title><guibutton>Allow the user to select the set of projects to scan even when projects are selected in the Package Explorer</guibutton></title>
+	  <title><guibutton>Allow the user to select the set of projects to scan even when projects are selected (in the Package Explorer)</guibutton></title>
 
 	  <para>If this is checked then the project selection dialog is always shown when a scan is started. If it is not checked it is only displayed
 	  if no projects are selected in the <guilabel>Package Explorer</guilabel> view.</para>
@@ -1675,25 +1675,6 @@
 	  <para>If this is checked then the expansion and selection state of tree viewers is saved and restored on Eclipse exit and
 	  startup and when the scan is chaged. Unchecking this may speed scan load performance. Note that expansion and selection restoration of
 	  a view will automaticall timeout after roughly 3 seconds, so this preference is rarely needs to be unchecked.</para>
-	</formalpara>
-      </listitem>
-    </itemizedlist>
-
-    It has one option under the <guilabel>Javadoc Annotation Support</guilabel> heading:
-
-    <itemizedlist>
-      <listitem>
-	<formalpara>
-	  <title><guibutton>Consider @annotate tags in Javadoc
-	  comments to be JSure Annotations (useful for Java 1.4
-	  code)</guibutton></title>
-
-	  <para>If the source code level of a project is set to Java
-	  1.4, by default, JSure will look for @annotate tags in
-	  Javadoc. However, if the source code level of the project is
-	  set to Java 5 or higher then it will not. This preference
-	  enables @annotate tags for projects that have a source code
-	  level set to Java 5 or higher.</para>
 	</formalpara>
       </listitem>
     </itemizedlist>
