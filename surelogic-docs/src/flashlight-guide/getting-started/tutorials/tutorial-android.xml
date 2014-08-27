@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <section id="sec-tutorial-android" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>Using Flashlight on an Android project</title>
+  <title>Finding a race condition in an Android application (Android only)</title>
 
   <para>The following tutorial is intended to get you up and running with
   Android.  You can try this on your Android phone or tablet if you have one.
