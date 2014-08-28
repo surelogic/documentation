@@ -103,7 +103,7 @@
   <xi:include href="tutorial-planetbaron-client.xml"/>
   <xi:include href="tutorial-planetbaron-server.xml"/>
   <xi:include href="tutorial-planetbaron-playerui.xml"/>
-  <xi:include href="tutorial-dining.xml"/>
+  <xi:include href="tutorial-dining-philosophers.xml"/>
   <xi:include href="tutorial-android.xml"/>
   <xi:include href="tutorial-query-editor.xml"/>
 </section>
