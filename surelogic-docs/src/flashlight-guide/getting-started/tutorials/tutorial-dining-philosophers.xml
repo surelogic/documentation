@@ -47,16 +47,27 @@ Enter number your choice:
   philosophers are doing: thinking, picking up a fork, eating, putting down a fork. Each philosopher tries to
   eat 10 times during the meal.</para>
   
-  <para>Except for the global order strategy (choice 4) the program may deadlock as shown below.
-  In the example below picking up the left fork followed by the right fork led to deadlock.</para>
+  <para>Except for the global order strategy, which is choice 4, the program may deadlock.
+  We say <emphasis>may</emphasis> because you might be able to run the examples several times successfully
+  before you encounter a hang. The unpredictable nature of the program failure makes deadlock difficult
+  to test for, and tricky to diagnose. It all too often occurs at bad times&mdash;such as in production.
+  Flashlight can help because, as we shall see a bit later in this tutorial,
+  it detects lock ordering which may lead to deadlock, but does not require
+  the deadlock to occur.
+  In the example screenshot below picking up the left fork followed
+  by the right fork led to deadlock&mdash;we'll have to manually terminate the program.</para>
   
   	<imageobject>
 		<imagedata fileref="images/tutorial-dining-terminate-program.png" />
 	</imageobject>
 	
-	<para>If the output hangs and the program is still running&mdash;deadlock has occurred. Press the red
+	<para>To summarize, if when you are running the program and the output hangs but the program is still running&mdash;deadlock has occurred. Press the red
 	terminate button on the console toolbar (highlighted in the screenshot above) to
-	terminate the deadlocked run.</para>
+	terminate the deadlocked run. If the program completes successfully you will see a final log message as shown below.</para>
+	
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-program-finished.png" />
+	</imageobject>
 	
 	<para>Before we use Flashlight on this program let's sketch how it is implemented.</para>
   </section>
@@ -64,7 +75,7 @@ Enter number your choice:
     <section>
   <title>The Java implementation</title>
   <para>
-    The Java implementation represents each philosopher as a separate thread, and holding a fork
+    The Java implementation represents each philosopher as a separate thread, and picking up and holding a fork
     is represented by holding a java.util.concurrent Lock instance. A philosopher must hold both
     nearby forks in order to eat.  While dining the philosopher eats ten times.
     Using two enums, the implementation defines five forks, the <guilabel>Fork</guilabel> enum,
@@ -75,7 +86,7 @@ Enter number your choice:
     who has forks FIVE and ONE.
   </para>
   
-  <para>The Fork enum is listed below. It defines the five forks: ONE, TWO, THREE, FOUR, and FIVE. A
+  <para>The <guilabel>Fork</guilabel> enum is listed below. It defines the five forks: ONE, TWO, THREE, FOUR, and FIVE. A
   util.concurrent dynamic lock is used by the program to represent holding a lock, so the getLock() method
   provides access to the lock.  The isHolding() method is used by the program to check if the lock is
   held&mdash;in particular by several logging methods in the <guilabel>Philosopher</guilabel> enum
@@ -87,7 +98,7 @@ Enter number your choice:
 		<imagedata fileref="images/tutorial-dining-fork-impl.png" />
 	</imageobject>
 	
-	<para>The Philosopher enum is listed below. It defines five philosophers: Kant, Diogenes, Descartes, Goethe,
+	<para>The <guilabel>Philosopher</guilabel> enum is listed below. It defines five philosophers: Kant, Diogenes, Descartes, Goethe,
 	and Russell. The constructor orders the group around the table with regard to the five forks. The getLeft()
 	and getRight() methods provide access to the forks near each philosopher. For example, to get the fork
 	to the right of Descartes you would use <guilabel>Descartes.getRight()</guilabel>.</para>
@@ -110,7 +121,7 @@ Enter number your choice:
 	<para>The <guilabel>PhilosopherStrategy</guilabel> type drives the simulation of the dining philosophers.
 	This type is different depending upon if you are using the Java 8 version of the code or not. The
 	Java 8 version is listed below. It uses an interface with default methods as well as a lambda (at line 47).
-	The pre-Java 8 version of the code is similar enough that we don't list it. It simply uses
+	The pre-Java 8 version of the code is so similar that we don't list it. That version uses
 	an abstract class and replaces the lambda with an anonymous class.</para>
 	
 	<imageobject>
@@ -149,7 +160,8 @@ Enter number your choice:
 	</imageobject>
 	
 	<para>We don't list the <guilabel>RightThenLeft</guilabel> class because its implementation is exactly like the one listed above
-	with one rather obvious change.  The <guilabel>RandomOrder</guilabel> class is slightly more interesting and is listed below.</para>
+	with one rather obvious change.  The <guilabel>RandomOrder</guilabel> class is
+	more interesting and is listed below.</para>
 	
 	<imageobject>
 		<imagedata fileref="images/tutorial-dining-random-order.png" />
@@ -165,92 +177,115 @@ Enter number your choice:
 		<imagedata fileref="images/tutorial-dining-global-order.png" />
 	</imageobject>	
 	
-	<para>This implementation uses the ordinal on each Fork to have the philosopher pick up (locks)
+	<para>This implementation uses the ordinal on each Fork to have the philosopher pick up (lock)
 	the fork with the lower value first. This strategy will not deadlock.</para>
-
   </section>
   
+  <section>
+  <title>Using Flashlight to uncover the potential for deadlock</title>
+  
   <para>
-    Let's go ahead and run this and see what we get.  Right click on the
+    Let's go ahead and make a run with Flashlight and see how it can help us
+    detect that a program may deadlock.  Right click on the
     <classname>DiningPhilosophers</classname> class in the <guilabel>Package
     Explorer</guilabel> and choose <menuchoice><guisubmenu>Flashlight
     As</guisubmenu>
-    <guimenuitem>Java Application</guimenuitem></menuchoice>.  The output of the
-    program in the <guilabel>Console</guilabel> should appear as shown below.
-    After thirty seconds the program will terminate and Flashlight will prep the
-    run. If you don't want to wait thirty seconds you can press the
-    <guilabel>Stop</guilabel> button in the console once you see the output below.
+    <guimenuitem>Java Application</guimenuitem></menuchoice>. Alternatively, you can use the Flashlight
+    launch icon in the Eclipse toolbar as shown below. Either approach will get the run started.
+    </para>
+    
+      <imageobject>
+        <imagedata fileref="images/tutorial-dining-launch.png" />
+      </imageobject>
+    
+    <para>When the program runs go to the <guilabel>Console</guilabel> view and
+    choose choice 3, <emphasis>Randomly choose order each time (may deadlock)</emphasis>, for
+    the run strategy. See if the program completes or deadlocks. If it completes Flashlight should automatically begin to prepare the data.
+    If it hangs press the <guilabel>Terminate</guilabel> button to kill the run and, within a few seconds,
+    Flashlight should detect the program was terminated and begin to prepare the data.
   </para>
-  <programlisting>
-<![CDATA[
-Kant is thinking.
-Descartes is thinking.
-Diogenes is thinking.
-Goethe is thinking.
-Russell is thinking.
-Diogenes picks up the left fork.
-Descartes picks up the left fork.
-Goethe picks up the left fork.
-Russell picks up the left fork.
-Kant picks up the left fork.
-]]>
-  </programlisting>
-
   <para>
-    Your run may be different, however, the output above doesn't look good.  It appears that every philosopher picked up the
-    fork on their left, then tried to get the fork on their left&mdash;resulting in
-    a deadlock.  Thus, no one was able to eat!  Now that the run has
-    terminated, Flashlight will prepare it for inspection and we can see what
-    went wrong.  Switch to the Flashlight perspective now if you have not been
+    The run used to create the description below completed, however, your run may be
+    different. Switch to the Flashlight perspective now if you have not been
     prompted to do so already, and select the
     <classname>DiningPhilosophers</classname> run in the <guilabel>Flashlight
-    Runs</guilabel> view.  You should see one article of bad news in the
+    Runs</guilabel> view if it is not selected.  You should see some bad news in the
     <guilabel>Query Results</guilabel> view.
   </para>
 
-  <figure id="fig-tutorial-dining-news">
-    <title>Bad News in DiningPhilosophers</title>
-    <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-dining-news.png" />
       </imageobject>
-    </mediaobject>
-  </figure>
 
-  <para>
-    Go ahead and click on the <emphasis>Lock cycles were observed that could
-    cause the program to deadlock</emphasis> link.  You should see one lock cycle displayed, as shown in  <xref
-    linkend="fig-tutorial-dining-what-lock-cycles" />. As expected the cycle involves five locks&mdash;one for each fork.</para>
+	<para>
+		Go ahead and click on the
+		<emphasis>Lock cycles were observed that could
+			cause the program to deadlock</emphasis>
+		link. You should see two lock cycles displayed, as shown below. It is
+		possible, but unlikely, that you may only get one&ndash;recall we selected random order as our strategy which results
+		in a cycle going one way around the table and another going the other way around the table.
+	</para>
+
+
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-what-lock-cycles.png" />
+	</imageobject>
+
+	<para>
+		What is going on? The program didn't deadlock? Let's drill in to the
+		first cycle by selecting that row
+		in the
+		<guilabel>Query Results</guilabel>
+		view and selecting
+		<emphasis>What are the edges for this lock cycle?</emphasis>
+		from the context menu.
+	</para>
     
 
-  <figure id="fig-tutorial-dining-what-lock-cycles">
-    <title>What lock cycles could potentially cause deadlock?</title>
-    <mediaobject>
       <imageobject>
-        <imagedata fileref="images/tutorial-dining-what-lock-cycles.png" />
+        <imagedata fileref="images/tutorial-dining-what-lock-cycles-drill-in.png" />
       </imageobject>
-    </mediaobject>
-  </figure>
     
-    <para>Double click on this entry and a lock graph will be
-    displayed that should look something like <xref linkend="fig-tutorial-dining-what-are-the-edges"/>.  Every node in this
-    graph is a lock in the program.  In this case that means the five
-    <classname>Fork</classname> objects that we created.  Each edge represents a
-    time in the program that we held the lock at the source of the edge and
-    tried to acquire the lock at the edge's destination. You can manipulate the graph by clicking and dragging nodes
-  if the layout is cluttered. You can also move the whole graph by clicking and dragging on the background
-   of the graph.
-  </para>
-
-
-  <figure id="fig-tutorial-dining-what-are-the-edges">
-    <title>What are the edges for this lock cycle?</title>
-    <mediaobject>
+    <para>A lock acquisition order graph will be
+    displayed that should look something like the screenshot below.</para>
+    
       <imageobject>
         <imagedata fileref="images/tutorial-dining-what-are-the-edges.png" />
       </imageobject>
-    </mediaobject>
-  </figure>
+
+	<para>
+		Every node in the displayed
+		graph is a lock observed at runtime being acquired by a thread of the
+		program. In this case that means the five
+		<guilabel>ReentrantLock</guilabel>
+		objects that we created to be locks within the
+		<guilabel>Fork</guilabel>
+		objects. Each edge represents a
+		time in the program that we held the lock at the source of the edge and
+		tried to acquire the lock at the edge's destination. You can
+		manipulate the graph by clicking and dragging nodes
+		if the layout is cluttered. You can also move the whole graph by
+		clicking and dragging on the background
+		of the graph.
+	</para>
+
+	<para>The tablular part helps to understand what threads actually preformed the acquisitions and when. This
+	can help diagnose if the cycle could have actually deadlocked. In this case it clearly could have. The occurance
+	counts in the Threads column are a bit confusing&mdash;because this run completed we would expect the occurances
+	to add to ten (the number of times each philosopher ate during the meal). However this is only one direction, and
+	we selected the random strategy. Go back and bring up the lock cycle graph for the second cycle. It
+	should look something like the screenshot below.</para>
+
+      <imageobject>
+        <imagedata fileref="images/tutorial-dining-what-are-the-edges-reverse.png" />
+      </imageobject>
+      
+      <para>Of note, if you add up the counts in both Threads columns they will sum to ten
+      for each philosopher thread&mdash;the
+      number of times each philosopher ate during the meal. If you examine the graph
+      the cycle is similar but goes in the other direction.  This is a result of the random order strategy, which
+      doesn't really work to avoid deadlock.  The program could have deadlocked in either
+      direction.</para>
 
   <para>
     From the graph it is clear what happened.  Each philosopher attempted to
@@ -377,8 +412,10 @@ Diogenes picks up the right fork.
     </mediaobject>
   </figure>
 
+</section>
+
   <para>
-    This completes the tutorial.
+    This completes the dining philosophers tutorial.
   </para>
 
 
