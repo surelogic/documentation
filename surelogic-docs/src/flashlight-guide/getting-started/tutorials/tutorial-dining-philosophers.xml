@@ -10,7 +10,7 @@
     This tutorial explores Java implementation of the classic <ulink
     url="http://en.wikipedia.org/wiki/Dining_philosophers">Dining
     Philosophers</ulink> problem. 
-    Five philosophers sit down at a table.  Five plates are layed out, one in
+    Five philosophers sit down at a table.  Five plates are laid out, one in
     front of each philosopher. Five forks are set down, one between each plate.
     A bowl of spaghetti sits in the middle. While dinner takes place, each
     philosopher alternates between states of thinking or eating.  They must
@@ -18,139 +18,158 @@
     spaghetti, and after eating they relinquish their forks to think again. The
     philosophers never speak to each other.
   </para>
-  <para>The implementation used in this tutorial is for Java 6 (and 7). If you
-  have Java 8 you can also run a very similar tutorial
-  in TODO.</para>
+  
+  <note>
+	<title>Which project should I use for this project?</title>
+
+		<para>Either of the two tutorial projects may be used: <guilabel>FlashlightTutorial_DiningPhilosophers</guilabel>
+		or <guilabel>FlashlightTutorial_DiningPhilosophersJava8</guilabel>. The second requires Java 8.
+		If you develop using Java 8 it is recommended that you use use the Java 8 project, if not
+		the other project supports Java 6 or Java 7.</para>
+  </note>
+  
+  <section>
+  <title>Running the program</title>
+  
+  <para>To run the program select the <guilabel>DiningPhilosophers</guilabel> class and launch it. In the
+  Eclipse console you should see the below prompt.</para>
+  
+  <programlisting>What strategy should the philosophers use to choose the order to pick up their forks?
+1. Left fork followed by right fork (may deadlock)
+2. Right fork followed by left fork  (may deadlock)
+3. Randomly choose order each time (may deadlock)
+4. Order all the forks on the table and have all philosophers pick them up in that order
+Enter number your choice: 
+  </programlisting>
+  
+  <para>The program lets you pick a strategy that all the philosophers use to pick up their forks.  All but
+  the last may deadlock the program. As the dining takes place you see output about what the five
+  philosophers are doing: thinking, picking up a fork, eating, putting down a fork. Each philosopher tries to
+  eat 10 times during the meal.</para>
+  
+  <para>Except for the global order strategy (choice 4) the program may deadlock as shown below.
+  In the example below picking up the left fork followed by the right fork led to deadlock.</para>
+  
+  	<imageobject>
+		<imagedata fileref="images/tutorial-dining-terminate-program.png" />
+	</imageobject>
+	
+	<para>If the output hangs and the program is still running&mdash;deadlock has occurred. Press the red
+	terminate button on the console toolbar (highlighted in the screenshot above) to
+	terminate the deadlocked run.</para>
+	
+	<para>Before we use Flashlight on this program let's sketch how it is implemented.</para>
+  </section>
+  
+    <section>
+  <title>The Java implementation</title>
   <para>
-    The Java implementation represents each philosopher as a separate thread, and the forks
-    are java.util.concurrent locks. A philosopher must acquire a lock on both
-    nearby forks in order to eat.  The source code for the main method of
-    <classname>DiningPhilosophers</classname> is displayed below.  We create
-    five forks, and assign two forks to each dining philosopher to serve as the
+    The Java implementation represents each philosopher as a separate thread, and holding a fork
+    is represented by holding a java.util.concurrent Lock instance. A philosopher must hold both
+    nearby forks in order to eat.  While dining the philosopher eats ten times.
+    Using two enums, the implementation defines five forks, the <guilabel>Fork</guilabel> enum,
+    and five philosophers, the
+    <guilabel>Philosopher</guilabel> enum. Two forks are assigned to each philosopher to serve as the
     fork on their left and right.  The first philosopher, Kant, Will have forks
-    0 and 1, Diogenes will have 1 and 2, and this goes on until we reach Russell,
-    who has forks 4 and 0.
+    ONE and TWO, Diogenes will have TWO and THREE, and this goes on until we reach Russell,
+    who has forks FIVE and ONE.
   </para>
+  
+  <para>The Fork enum is listed below. It defines the five forks: ONE, TWO, THREE, FOUR, and FIVE. A
+  util.concurrent dynamic lock is used by the program to represent holding a lock, so the getLock() method
+  provides access to the lock.  The isHolding() method is used by the program to check if the lock is
+  held&mdash;in particular by several logging methods in the <guilabel>Philosopher</guilabel> enum
+  that check that a particular fork of interest is held (or not held) using this method. The getGlobalOrder()
+  method passes out the built-in enum ordinal value. This is used by the global order strategy to order fork
+  pick-up across all philosophers (establishing a global order to lock acquisition is an effective deadlock avoidance technique).</para>
+  
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-fork-impl.png" />
+	</imageobject>
+	
+	<para>The Philosopher enum is listed below. It defines five philosophers: Kant, Diogenes, Descartes, Goethe,
+	and Russell. The constructor orders the group around the table with regard to the five forks. The getLeft()
+	and getRight() methods provide access to the forks near each philosopher. For example, to get the fork
+	to the right of Descartes you would use <guilabel>Descartes.getRight()</guilabel>.</para>
+	
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-philosopher-impl1.png" />
+	</imageobject>
+	
+	<para>The Philosopher enum also has several methods that log what is being done and check the state of
+	holding a fork is correct. These methods are listed below. These methods simply double-check
+	fork state and log, they do not perform the actions. In particular they do not acquire the locks that
+	indicated a philosopher is holding a particular fork.
+	Doing this and running the simulation of philosopher dining is discussed below and is
+	done by the <guilabel>PhilosopherStrategy</guilabel> type.</para>
+	
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-philosopher-impl2.png" />
+	</imageobject>
+	
+	<para>The <guilabel>PhilosopherStrategy</guilabel> type drives the simulation of the dining philosophers.
+	This type is different depending upon if you are using the Java 8 version of the code or not. The
+	Java 8 version is listed below. It uses an interface with default methods as well as a lambda (at line 47).
+	The pre-Java 8 version of the code is similar enough that we don't list it. It simply uses
+	an abstract class and replaces the lambda with an anonymous class.</para>
+	
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-philosopher-strategy-impl1.png" />
+	</imageobject>
+	
+	<para>The dine() method is how the main program starts the dining philosophers. It creates
+	a separate thread of execution for each of the five philosophers and calls pickupBothForksAndEat
+	ten times. A latch is used to have all the philosopher threads start the meal together.
+	The chooseForkPickUpOrder is the method implemented by an actual strategy implementation.
+	It returns a pair of forks. The first value is the fork that should be picked up (locked) first,
+	the second value is the fork that should be picked up (locked) second.  The pickUpBothForksAndEat
+	method is where it all happens. This key method is listed below.</para>
+	
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-philosopher-strategy-impl2.png" />
+	</imageobject>
+	
+	<para>The implementation of this method is unsurprising. It locks on the forks in the passed order
+	and calls the various philosopher methods to log the state of the simulation as it proceeds.</para>
+	
+	<para>The <guilabel>PhilosopherStrategy</guilabel> type strips down the implementation of any
+	strategy to simply defining what order the forks are picked up. The type hierarchy of concrete
+	strategy implementations is	shown below.</para>
+	
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-strategy-type-hierarchy.png" />
+	</imageobject>
+	
+	<para>These map directly to the four choices the program gives you when it starts. The
+	<guilabel>LeftThenRight</guilabel> class is listed below. It simply constructs a new
+	pair (to define the pickup order) with the left fork first and the right fork second.</para>
 
-  <programlisting>
-<![CDATA[
-public class DiningPhilosophers {
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-left-then-right.png" />
+	</imageobject>
+	
+	<para>We don't list the <guilabel>RightThenLeft</guilabel> class because its implementation is exactly like the one listed above
+	with one rather obvious change.  The <guilabel>RandomOrder</guilabel> class is slightly more interesting and is listed below.</para>
+	
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-random-order.png" />
+	</imageobject>
+	
+	<para>The above implementation flips a coin to decide if it should return an
+	order of left then right or an order of right then left. This might seem like a way to avoid deadlock,
+	but it turns out it doesn't work and we will investigate its behavior with Flashlight below. A way to avoid
+	deadlock is to define a global order on all the forks and have each philosopher respect that order. That
+	is what the <guilabel>GlobalOrder</guilabel> strategy does and it is listed below.</para>
+	
+	<imageobject>
+		<imagedata fileref="images/tutorial-dining-global-order.png" />
+	</imageobject>	
+	
+	<para>This implementation uses the ordinal on each Fork to have the philosopher pick up (locks)
+	the fork with the lower value first. This strategy will not deadlock.</para>
 
-  private static final String[] names = new String[] { "Kant", "Diogenes", "Descartes", "Goethe", "Russell" };
-
-  public static void main(String[] args) {
-    Fork[] forks = new Fork[5];
-    for (int i = 0; i < 5; i++) {
-      forks[i] = new Fork(i);
-    }
-    for (int i = 0; i < 5; i++) {
-      String name = names[i];
-      int left = i;
-      int right = (i + 1) % 5;
-      new Thread(new LeftThenRightPhilosopher(name, forks[left], forks[right]), name).start();
-    }
-    // run for 10 seconds and then exit the program
-    try {
-      Thread.sleep(MILLISECONDS.convert(10, SECONDS));
-    } catch (final InterruptedException ignore) {
-    }
-    System.exit(0);
-  }
-  ...
-}
-]]>
-  </programlisting>
-  <para>
-  The main program launches the threads and lets them run for 10 seconds before killing the
-  program. So regardless if your example runs deadlock, they will terminate after 30 seconds.</para>
-  <para>
-    The Fork class itself extends java.util.concurrent.ReentrantLock&mdash;a fork is a dynamic lock.
-    Fork has been
-    extended to include an ordinal value, which we will use to order lock
-    acquisitions in the program later in the tutorial (OrderedPhilosopher).
-  </para>
-  <programlisting>
-<![CDATA[
-static class Fork extends ReentrantLock {
-  private final int lockAcqisitionOrder;
-
-  Fork(int lockAcquisitionOrder) {
-    this.lockAcqisitionOrder = lockAcquisitionOrder;
-  }
-
-  /**
-   * Gets the lock acquisition order. Lower values should be acquired first.
-   * <p>
-   * This value is only used by the {@link OrderedPhilosopher} implementation.
-   * 
-   * @return the lock acquisition order
-   */
-  int getLockAcquisitionOrder() {
-    return lockAcqisitionOrder;
-  }
-}
-]]>
-  </programlisting>
-
-  <para>
-    The implementation of our philosopher,
-    <classname>LeftThenRightPhilosopher</classname>, is a
-    <classname>Runnable</classname> and has a <structfield>name</structfield>, a
-    <structfield>left</structfield> fork, and a <structfield>right</structfield>
-    fork.  Each philosopher will try to lock their left fork and then lock
-    their right fork.  Once they have two forks, they may eat. This implementation
-    may deadlock.
-  </para>
-
-  <programlisting>
-<![CDATA[
-/**
- * This philosopher always attempts to take the fork on their left, and then
- * the fork on their right.
- * <p>
- * This philosopher implementation may deadlock.
- */
-static class LeftThenRightPhilosopher implements Runnable {
-  private final String name;
-  private final Fork left;
-  private final Fork right;
-
-  LeftThenRightPhilosopher(String name, Fork left, Fork right) {
-    this.name = name;
-    this.left = left;
-    this.right = right;
-  }
-
-  @Override
-  public void run() {
-    while (true) {
-      try {
-        System.out.printf("%s is thinking.\n", name);
-        Thread.sleep(ONE_SECOND);
-        left.lock();
-        try {
-          System.out.printf("%s picks up the left fork.\n", name);
-          Thread.sleep(ONE_SECOND);
-          right.lock();
-          try {
-            System.out.printf("%s picks up the right fork.\n", name);
-            Thread.sleep(ONE_SECOND);
-            System.out.printf("%s is eating.\n", name);
-            Thread.sleep(ONE_SECOND);
-          } finally {
-            right.unlock();
-          }
-        } finally {
-          left.unlock();
-        }
-      } catch (InterruptedException ignore) {
-      }
-    }
-  }
-}
-]]>
-  </programlisting>
-
+  </section>
+  
   <para>
     Let's go ahead and run this and see what we get.  Right click on the
     <classname>DiningPhilosophers</classname> class in the <guilabel>Package
