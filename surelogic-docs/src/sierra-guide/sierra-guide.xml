@@ -2922,13 +2922,13 @@ if (o == null) {
     <section id="sierra-ant-tasks">
       <title>Ant tasks</title>
 
-      <para>Sierra provides two tasks that can be used to extend
-      <ulink url="http://ant.apache.org">Apache Ant</ulink>. The
-      Sierra Ant tasks may be downloaded from <ulink
-      url="http://www.surelogic.com/static/sierra/sierra-ant.zip">
-      http://www.surelogic.com/static/sierra/sierra-ant.zip</ulink>. Unzip
-      them to any location on your disk. The archive will create a
-      <filename>sierra-ant</filename> directory.</para>
+      <para>Sierra provides two tasks that can be used to extend <ulink
+      url="http://ant.apache.org">Apache Ant</ulink>. You can get them from the
+      main menu by selecting <guimenu>Sierra</guimenu> | <inlinegraphic
+      fileref="images/jar_saveas.gif" /> <guimenuitem>Save Ant Task
+      As...</guimenuitem> from the main menu.  Sierra will then create a folder
+      named <filename>sierra-ant-5.0.0</filename> in the directory of your
+      choosing, containing the sierra-ant installation.</para>
 
 
       <para>The below code shows and example of adding the Sierra
