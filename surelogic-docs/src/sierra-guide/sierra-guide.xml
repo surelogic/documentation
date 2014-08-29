@@ -1869,12 +1869,14 @@ if (o == null) {
 	<guibutton>Start Server</guibutton> to get it running
 	again.</para>
 
-	<para>The Sierra Ant tasks may be downloaded from <ulink
-	url="http://www.surelogic.com/static/sierra/sierra-ant.zip">
-	http://www.surelogic.com/static/sierra/sierra-ant.zip</ulink>. Unzip
-	them to any location on your disk. The archive will create a
-	<filename>sierra-ant</filename> directory.</para>
-
+        <para>You will need to install the Sierra Ant tasks somewhere on your
+        computer.  You can get them from the main menu by selecting
+        <guimenu>Sierra</guimenu> | <inlinegraphic
+        fileref="images/jar_saveas.gif" /> <guimenuitem>Save Ant Task
+        As...</guimenuitem> Sierra will then create a folder named
+        <filename>sierra-ant-5.0.0</filename> containing the sierra-ant
+        installation.</para>
+        
 	<para>In the SmallWorld project create a file at the root of
 	the project called <userinput>sierra-ant-scan.xml</userinput>
 	with the below contents.</para>
@@ -1882,7 +1884,7 @@ if (o == null) {
 	<programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;project name="SmallWorld" default="scan" basedir="."&gt;
-  &lt;property name="sl.home" value="C:/Users/Tim/Documents/sierra-ant" /&gt;
+  &lt;property name="sl.home" value="C:/Users/Tim/Documents/sierra-ant-5.0.0" /&gt;
   &lt;property name="sl.lib"  value="${sl.home}/lib" /&gt;
   &lt;property name="project" value="SmallWorld" /&gt;
   &lt;path id="sl.classpath"&gt;&lt;fileset dir="${sl.lib}" includes="**/*.jar" /&gt;&lt;/path&gt;
