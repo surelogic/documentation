@@ -753,13 +753,18 @@ if (o == null) {
 	two items listed (Yes and No) to see all the findings from the
 	most recent scan in the <guilabel>Results</guilabel> view.</para>
 
-	<para>Select the first finding shown. It warns that all classes
-	and interfaces should belong to a named package.  This is not a
-	finding we care about for this project so we can audit
-	it. Right-click on the finding in the <guilabel>Results</guilabel> view and via the <guimenuitem>Set
-	Importance</guimenuitem> context menu select
-	<guimenuitem>Irrelevant</guimenuitem> to change the importance of
-	the finding.</para>
+	<para>Select the first finding shown. It warns that all classes and
+	interfaces should belong to a named package. It is possible that a
+	different finding is first in your list of findings if you have changed
+	the sort order for the <guilabel>Findings</guilabel> view, if this is
+	the case then make sure to pick the finding that says <emphasis>All
+	classes and interfaces should belong to a named package</emphasis>
+	rather than just picking the first finding.  This is not a finding we
+	care about for this project so we can audit it. Right-click on the
+	finding in the <guilabel>Results</guilabel> view and via the
+	<guimenuitem>Set Importance</guimenuitem> context menu select
+	<guimenuitem>Irrelevant</guimenuitem> to change the importance of the
+	finding.</para>
 
 	<para>This action, which we call auditing the finding, causes
 	several things to occur. First, if you examine the counts bar
@@ -852,15 +857,14 @@ if (o == null) {
 	reflect that you made this change. The state of this finding
 	can be seen in <xref linkend="fig-tutorial-audits" />.</para>
 
-	<para>Now let's examine the last finding by selecting it in
-	the <guilabel>Results</guilabel> view, <emphasis>Avoid instantiating
-	String objects; this is usually unnecessary</emphasis>.
-	The finding should be at the bottom of the list. This
-	finding is complaining about our use of <computeroutput>new
-	String("hello")</computeroutput> in the code at line 10. Explicit use of
-	string construction is considered bad practice in Java as it
-	can force the Java virtual machine to make extra copies of
-	strings.</para>
+	<para>Now let's examine the last finding by selecting it in the
+	<guilabel>Results</guilabel> view, <emphasis>ShowOff.main(String[])
+	invokes ineffiecient new String(String) constructor</emphasis>.  The
+	finding should be at the bottom of the list. This finding is complaining
+	about our use of <computeroutput>new String("hello")</computeroutput> in
+	the code at line 10. Explicit use of string construction is considered
+	bad practice in Java as it can force the Java virtual machine to make
+	extra copies of strings.</para>
 
 	<figure id="fig-tutorial-artifacts">
 	  <title>Two tool artifacts have been combined to create this finding</title>
