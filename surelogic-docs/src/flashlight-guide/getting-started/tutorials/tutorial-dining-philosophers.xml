@@ -288,151 +288,103 @@ Enter number your choice:
       doesn't really work to avoid deadlock.  The program could have deadlocked in either
       direction (perhaps your run did!).</para>
       
-      <para>It is possible to drill</para>
+
+      
+      <para>Flashlight tries to ensure there is always a path from a result to the
+      code. To show this for this example select the first entry in the table,
+      <emphasis>ReentrantLock-28 -> ReentrantLock-19</emphasis> in
+      thread <emphasis>Russell</emphasis>), and from the context menu
+      select the query <emphasis>Where and in what threads does this lock edge occur?</emphasis>
+      as shown below.</para>
+      
+      <imageobject>
+        <imagedata fileref="images/tutorial-dining-drill-in-1.png" />
+      </imageobject>
+      
+      <para>The result of this query shows where in the code the edge occurs, to be percise, it shows
+      where the lock was acquired that is pointed to
+      by the directed edge in the graph while already holding the lock the directed edge emerged from. If you select the deepest entry the code
+      jumps to the correct line number. Recall the <guilabel>Historical Source Snapshot</guilabel>
+      shows what the code looked like when the run was made. It can help you avoid
+      confusion if the code has changed since the run was made.</para>
+      
+      <imageobject>
+        <imagedata fileref="images/tutorial-dining-drill-in-2.png" />
+      </imageobject>
+      
+      <para>If we want to understand how the program got to this state use the context menu
+      to display the stack trace.  Choose <emphasis>What is the stack trace?</emphasis>
+      as shown in the image below.</para>
+      
+      <imageobject>
+        <imagedata fileref="images/tutorial-dining-drill-in-3.png" />
+      </imageobject>
+      
+      <para>This brings up the stack trace leading up to the edge. The lock trace query shows
+      you the order locks were acquired up to the edge, which is also interesting in some cases. However,
+      in this case we can see the dual lock acquisition right in the method where the edge occurs.</para>
+      
+      <para>The image below shows the Java 8 trace which begins in a lambda expression passed
+      to a new thread. 
+      If you are running the Java 6 version
+      will show a nested class that was passed to a new thread. In more complex
+      code being able to get to the stack and lock
+      traces can be invaluable to understand how a potential deadlock might occur&mdash;and
+      help you to understand how to repair the problem.</para>
+      
+     <imageobject>
+        <imagedata fileref="images/tutorial-dining-drill-in-4.png" />
+      </imageobject>
       
       <para>This example illustrates how Flashlight tracks and reports on lock ordering and can help you understand,
       and eliminate, the potental for your system to deadlock&mdash;without having to produce a
       run that does deadlock.</para>
       
-      <para>If you go back to the bad news for the run, the other item relates to this one.</para>
+      <para>Flashlight has another, albeit less precise, query to help uncover lock ordering issues. If you
+      clear out your chain of queries you will see a <emphasis>Where does a thread hold a lock and acquire another?</emphasis>
+      This is a good query to uncover all the places where two or more locks were acquired in your code&mdash;even
+      if no lock cycles were observed.</para>
       
-      <imageobject>
-        <imagedata fileref="images/tutorial-dining-news.png" />
-      </imageobject>
-      
-      <para>If you click on <emphasis>What methods acquire locks in more than one place?</emphasis> you should
-      see the following result which brings you right to the locking code.</para>
+     <imageobject>
+        <imagedata fileref="images/tutorial-dining-where-does-1.png" />
+     </imageobject>
+     
+     <para>Go ahead and run this query. The result you obtain should be similar to the image below.</para>
+     
+     <imageobject>
+        <imagedata fileref="images/tutorial-dining-where-does-2.png" />
+     </imageobject>
+     
+     <para>Notice that the point where the second lock is acquired by a philosopher thread is the location
+     reported as
+     the result of this query. This query does not mandate that a lock cycle be observed. It simply
+     finds all places a lock was acquired while holding one or more other locks. It can be useful
+     to audit that all multiple lock acquisitions are intended&mdash;not accidental.</para>
+  </section>
+  
 
-      <imageobject>
-        <imagedata fileref="images/tutorial-dining-method-locks.png" />
-      </imageobject>
-
+  <section>
+  <title>Using Flashlight to "check" the global lock order implementation</title>
   <para>
-    From the graph it is clear what happened.  Each philosopher attempted to
-    acquire the lock on their left, and then tried to acquire a lock that was
-    already held by someone else by the person on their right.  So Kant needed
-    the lock held by Diogenes, who needed the lock held by Descartes, and on to
-    Goethe, then Russell, who closed the loop by needing the lock held by Kant.
+    We stated earlier that the global lock order approach was deadlock-free. We can check this, to a
+    degree, with Flashlight.  Run the program again and choose choice 4. When it completes and is prepared
+    you will see a news result similar to the one shown below.
   </para>
+  
+   <imageobject>
+        <imagedata fileref="images/tutorial-dining-global-order-news.png" />
+   </imageobject>
+   
+   <para>The "good news" report, <emphasis>No lock cycles were observed that could cause the program to deadlock</emphasis>
+   is a good sign that the approach works. However, Flashlight cannot prove anything about all possible runs of
+   the program&mdash;it can only provide positive evidence about what it observes. This, however, is useful
+   to gain confidence in the concurrency and locking policies of complex sofware system.</para>
+  
+   <para>Finally, go ahead and run the <emphasis>Where does a thread hold a lock and acquire another?</emphasis>
+   from the <guilabel>Query Menu</guilabel> for this run. Notice that you obtain the same result we did for
+   the previous run. This is because, as we discussed above, this query doesn't consider lock cycles.</para>
 
-  <para>
-    Now that we have seen that <classname>LeftThenRightPhilosopher</classname>
-    leads to deadlock, we can try to fix this by using a different
-    implementation.  The typical first approach to fixing a deadlock scenario is
-    to choose a global ordering of all locks in the program, and then
-    <emphasis>always</emphasis> acquire locks in that order.  Recall that each
-    <classname>Fork</classname> object was given an ordinal value.  We're going
-    to take advantage of that fact to construct a philosopher that always
-    acquires the lowest numbered lock first.
-    <classname>OrderedPhilosopher</classname>, displayed below, does just that.
-  </para>
-
-  <programlisting>
-<![CDATA[
-/**
- * This philosopher uses the lock acquisition order stored in its forks to
- * grab the forks in a consistent "global" fork order.
- * <p>
- * This philosopher implementation will not deadlock.
- */
-static class OrderedPhilosopher implements Runnable {
-  private final String name;
-  private final Fork left;
-  private final Fork right;
-
-  OrderedPhilosopher(String name, Fork left, Fork right) {
-    this.name = name;
-    this.left = left;
-    this.right = right;
-  }
-
-  @Override
-  public void run() {
-    while (true) {
-      try {
-        boolean leftFirst = left.getLockAcquisitionOrder() < right.getLockAcquisitionOrder();
-        System.out.printf("%s is thinking.\n", name);
-        Thread.sleep(ONE_SECOND);
-        Fork first = leftFirst ? left : right;
-        first.lock();
-        try {
-          System.out.printf("%s picks up the %s fork.\n", name, leftFirst ? "left" : "right");
-          Thread.sleep(ONE_SECOND);
-          Fork second = leftFirst ? right : left;
-          second.lock();
-          try {
-            System.out.printf("%s picks up the %s fork.\n", name, leftFirst ? "right" : "left");
-            Thread.sleep(ONE_SECOND);
-            System.out.printf("%s is eating.\n", name);
-            Thread.sleep(ONE_SECOND);
-          } finally {
-            second.unlock();
-          }
-        } finally {
-          first.unlock();
-        }
-      } catch (InterruptedException ignore) {
-      }
-    }
-  }
-}
-]]>
-  </programlisting>
-
-  <para>
-    Change line 34 within the main method of DiningPhilosophers to use the OrderedPhilosopher
-    implementation as shown below.
-  </para>
-
-<programlisting>34: new Thread(new <emphasis role="strong">OrderedPhilosopher</emphasis>(name, forks[left], forks[right]), name).start();</programlisting>
-
-  <para>
-    Now go ahead and run the program again by right clicking on <classname>DiningPhilosophers</classname> in the <guilabel>Package
-    Explorer</guilabel> and choosing <menuchoice><guisubmenu>Flashlight As</guisubmenu>
-    <guimenuitem>Java Application</guimenuitem></menuchoice>.  You should see
-    quite a bit more output from the program this time.  Your run will be different, but will probably look something like this:
-  </para>
-
-  <programlisting>
-<![CDATA[
-Kant is thinking.
-Russell is thinking.
-Goethe is thinking.
-Descartes is thinking.
-Diogenes is thinking.
-Russell picks up the right fork.
-Diogenes picks up the left fork.
-Goethe picks up the left fork.
-Descartes picks up the left fork.
-Russell picks up the left fork.
-Russell is eating.
-Russell is thinking.
-Kant picks up the left fork.
-Goethe picks up the right fork.
-Goethe is eating.
-Goethe is thinking.
-Descartes picks up the right fork.
-Descartes is eating.
-Descartes is thinking.
-Diogenes picks up the right fork.
-...
-]]>
-  </programlisting>
-
-  <para>
-    Once the run has completed and prepped, we can see in the overview that the
-    program no longer has any potential for deadlock.
-  </para>
-  <figure id="fig-tutorial-dining-no-news">
-    <title>OrderedPhilosopher does not cause deadlock</title>
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/tutorial-dining-no-news.png" />
-      </imageobject>
-    </mediaobject>
-  </figure>
-
-</section>
+  </section>
 
   <para>
     This completes the dining philosophers tutorial.
