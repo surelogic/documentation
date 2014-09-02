@@ -1750,8 +1750,8 @@ if (o == null) {
 	linkend="fig-tutorial-portal-welcome-page-zork-audits" />. The
 	charts and graphs have been updated to show the contributions
 	made by the zork user. Also we can see that the SmallWorld
-	project now has 4 findings (1 critical, 1 low, and 2
-	irrelevant) and 4 audits on 3 findings.</para>
+	project now has 3 findings (1 critical, 1 low, and 1
+	irrelevant) and 3 audits on 2 findings.</para>
 
 	<figure id="fig-tutorial-portal-welcome-page-zork-audits">
 	  <title>The portal shows the audits attributed to the zork user</title>
@@ -1763,7 +1763,7 @@ if (o == null) {
 	  </mediaobject>
 	</figure>
 
-	<para>In the Eclipse client mark the three performance
+	<para>In the Eclipse client mark the two performance
 	findings as being examined by me (a command in the context
 	menu as shown below) or make an ad hoc audit on each finding. Notice that
 	these new audits are attributed to <emphasis>Local</emphasis>
@@ -1822,8 +1822,8 @@ if (o == null) {
 	will look like <xref
 	linkend="fig-tutorial-portal-welcome-page-troll-audits" />. The
 	charts and graphs have been updated to show the contributions
-	made by the troll user. There are seven audits by two users
-	about three SmallWorld project findings.</para>
+	made by the troll user. There are five audits by two users
+	about two SmallWorld project findings.</para>
 
 	<figure id="fig-tutorial-portal-welcome-page-troll-audits">
 	  <title>The portal shows the audits attributed to the zork and troll users</title>
