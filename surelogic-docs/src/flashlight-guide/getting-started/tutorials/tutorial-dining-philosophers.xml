@@ -269,10 +269,10 @@ Enter number your choice:
 		of the graph.
 	</para>
 
-	<para>The tablular part to the right of the graph helps you to understand what threads actually preformed the
+	<para>The tabular part to the right of the graph helps you to understand what threads actually preformed the
 	acquisitions of more than one lock and when. This
-	can help diagnose if the cycle could have actually deadlocked. In this case it clearly could have. The occurance
-	counts in the Threads column are a bit confusing&mdash;this run completed wouldn't we expect the occurances
+	can help diagnose if the cycle could have actually deadlocked. In this case it clearly could have. The occurrence
+	counts in the Threads column are a bit confusing&mdash;this run completed wouldn't we expect the occurrences
 	to add to ten?  Ten being the number of times each philosopher ate during the meal holding two forks (locks). However this is only one direction, and
 	we selected the random strategy. Go back and bring up the lock cycle graph for the second cycle. It
 	should look something like the screenshot below.</para>
@@ -301,7 +301,7 @@ Enter number your choice:
         <imagedata fileref="images/tutorial-dining-drill-in-1.png" />
       </imageobject>
       
-      <para>The result of this query shows where in the code the edge occurs, to be percise, it shows
+      <para>The result of this query shows where in the code the edge occurs, to be precise, it shows
       where the lock was acquired that is pointed to
       by the directed edge in the graph while already holding the lock the directed edge emerged from. If you select the deepest entry the code
       jumps to the correct line number. Recall the <guilabel>Historical Source Snapshot</guilabel>
@@ -378,7 +378,7 @@ Enter number your choice:
    <para>The "good news" report, <emphasis>No lock cycles were observed that could cause the program to deadlock</emphasis>
    is a good sign that the approach works. However, Flashlight cannot prove anything about all possible runs of
    the program&mdash;it can only provide positive evidence about what it observes. This, however, is useful
-   to gain confidence in the concurrency and locking policies of complex sofware system.</para>
+   to gain confidence in the concurrency and locking policies of complex software system.</para>
   
    <para>Finally, go ahead and run the <emphasis>Where does a thread hold a lock and acquire another?</emphasis>
    from the <guilabel>Query Menu</guilabel> for this run. Notice that you obtain the same result we did for
