@@ -1878,7 +1878,7 @@ if (o == null) {
         <guimenu>Sierra</guimenu> | <inlinegraphic
         fileref="images/jar_saveas.gif" /> <guimenuitem>Save Ant Task
         As...</guimenuitem> Sierra will then create a folder named
-        <filename>sierra-ant-5.0.0</filename> containing the sierra-ant
+        <filename>sierra-ant-5.5.0</filename> containing the sierra-ant
         installation.</para>
         
 	<para>In the SmallWorld project create a file at the root of
@@ -1888,9 +1888,9 @@ if (o == null) {
 	<programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;project name="SmallWorld" default="scan" basedir="."&gt;
-  &lt;property name="sl.home" value="C:/Users/Tim/Documents/sierra-ant-5.0.0" /&gt;
+  &lt;property name="sl.home" value="C:/Users/Tim/Documents/sierra-ant-5.5.0" /&gt;
   &lt;property name="sl.lib"  value="${sl.home}/lib" /&gt;
-  &lt;property name="project" value="SmallWorld" /&gt;
+
   &lt;path id="sl.classpath"&gt;&lt;fileset dir="${sl.lib}" includes="**/*.jar" /&gt;&lt;/path&gt;
   &lt;taskdef name="sierra-scan"
            classname="com.surelogic.ant.sierra.SierraScan"
@@ -1901,8 +1901,9 @@ if (o == null) {
   &lt;tstamp /&gt;
   
   &lt;target name="scan"&gt;	  	  	
+    &lt;property name="project" value="SmallWorld" /&gt;
     &lt;property name="document" value="${project}-${DSTAMP}${TSTAMP}" /&gt;
-
+    
     &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
                  classpath="${basedir}/jdom-1.0.jar" source="1.5"
                  home="${sl.home}" document="${document}"
@@ -2339,8 +2340,8 @@ if (o == null) {
 
 	<orderedlist>
 	  <listitem>
-	    <para><emphasis>Maximum number of findings shown in
-	    'Sierra Quick Search' results:</emphasis> This setting
+	    <para><emphasis>Maximum number of findings listed in 
+	    'Findings' view:</emphasis> This setting
 	    limits the number of findings that the <emphasis>Findings
 	    Quick Search</emphasis> view will show. This setting ensures
 	    that Eclipse doesn't run out of memory trying to display a
@@ -2931,7 +2932,7 @@ if (o == null) {
       main menu by selecting <guimenu>Sierra</guimenu> | <inlinegraphic
       fileref="images/jar_saveas.gif" /> <guimenuitem>Save Ant Task
       As...</guimenuitem> from the main menu.  Sierra will then create a folder
-      named <filename>sierra-ant-5.0.0</filename> in the directory of your
+      named <filename>sierra-ant-5.5.0</filename> in the directory of your
       choosing, containing the sierra-ant installation.</para>
 
 
