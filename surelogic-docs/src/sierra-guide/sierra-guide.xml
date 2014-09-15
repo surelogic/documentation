@@ -1885,62 +1885,105 @@ if (o == null) {
 	the project called <userinput>sierra-ant-scan.xml</userinput>
 	with the below contents.</para>
 
-	<programlisting>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;project name="SmallWorld" default="scan" basedir="."&gt;
-  &lt;property name="sl.home" value="C:/Users/Tim/Documents/sierra-ant-5.5.0" /&gt;
-  &lt;property name="sl.lib"  value="${sl.home}/lib" /&gt;
-
-  &lt;path id="sl.classpath"&gt;&lt;fileset dir="${sl.lib}" includes="**/*.jar" /&gt;&lt;/path&gt;
-  &lt;taskdef name="sierra-scan"
+	<programlisting><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SmallWorld" default="scan" basedir=".">
+  <property name="sl.home" value="/home/nathan/java/sierra-ant-5.5.0" />
+  <property name="sl.lib"  value="${sl.home}/lib" />
+  <path id="sl.classpath"><fileset dir="${sl.lib}" includes="**/*.jar" /></path>
+  <taskdef name="sierra-scan"
            classname="com.surelogic.ant.sierra.SierraScan"
-           classpathref="sl.classpath" /&gt;
-  &lt;taskdef name="sierra-publish"
+           classpathref="sl.classpath" />
+  <taskdef name="sierra-publish"
            classname="com.surelogic.ant.sierra.SierraPublish"
-           classpathref="sl.classpath" /&gt;
-  &lt;tstamp /&gt;
+           classpathref="sl.classpath" />
+  <tstamp />
+
   
-  &lt;target name="scan"&gt;	  	  	
-    &lt;property name="project" value="SmallWorld" /&gt;
-    &lt;property name="document" value="${project}-${DSTAMP}${TSTAMP}" /&gt;
-    
-    &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
+  <property name="project" value="SmallWorld" />
+  <property name="document" value="${project}-${DSTAMP}${TSTAMP}" />
+  
+  <target name="scan">	  	  	
+    <sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
                  classpath="${basedir}/jdom-1.0.jar" source="1.5"
                  home="${sl.home}" document="${document}"
-                 projectname="${project}" /&gt;
-
-    &lt;sierra-publish user="zork" password="zork" host="localhost"
+                 projectname="${project}" />
+  </target>
+  
+  <target name="scan-and-publish" depends="scan" >
+    <sierra-publish user="zork" password="zork" host="localhost"
                     secure="false" port="13376" contextPath="/sl/"
-                    document="${document}" /&gt;
-  &lt;/target&gt;
-&lt;/project&gt;
-	</programlisting>
+                    document="${document}" />  	    
+  </target>
+  
+  </project>]]>
+        </programlisting>
 
 	<para>You will have to modify the setting for
-	<userinput>sl.home</userinput> to reference where you located
-	the <filename>sierra-ant</filename> directory on your
-	machine.</para>
+	<userinput>sl.home</userinput> to reference where you located the
+	<filename>sierra-ant</filename> directory on your machine.</para>
 
-	<para>Within Eclipse run this as an Ant task by selecting the
-	XML file and selecting <guimenuitem>Run As</guimenuitem> |
-	<guimenuitem>Ant Build</guimenuitem>. Output from the running
-	task will appear in the console as seen in <xref
-	linkend="fig-tutorial-ant-console" />.</para>
+	<para>Within Eclipse run this as an Ant task by selecting the XML file
+	and selecting <guimenuitem>Run As</guimenuitem> | <guimenuitem>Ant
+	Build</guimenuitem>. Output from the running task will appear in the
+	console as seen in <xref linkend="fig-tutorial-ant-console-scan"
+	/>.</para>
 
-	<figure id="fig-tutorial-ant-console">
+	<figure id="fig-tutorial-ant-console-scan">
 	  <title>Console output from scanning SmallWorld with Ant</title>
 	  <mediaobject>
-	    <imageobject><imagedata fileref="images/tutorial-ant-console.png" /></imageobject>
+	    <imageobject><imagedata fileref="images/tutorial-ant-console-scan.png" /></imageobject>
 	  </mediaobject>
 	</figure>
 
+        <para>You should be able to see from the console output that the project
+        was scanned, and a file containing the results was written to disk. In
+        our example, the file is located in the
+        <filename>/home/nathan/demospace/</filename> directory and is called
+        <filename>SierraTutorial_SmallWorld-201409121502.sierra.gz</filename>,
+        yours will be written to whatever directory
+        <userinput>sl.home</userinput> was set to.</para>
+
+        <para>We can import this scan into eclipse when we are ready to look at
+        the results.  To do this we choose <guimenuitem>Sierra</guimenuitem> |
+        <guimenuitem>Import Ant Scan</guimenuitem>.  The tool will then notify
+        you once the scan has finished importing.</para>
+
+	<figure id="fig-tutorial-ant-">
+	  <title>Successful scan import</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-ant-import.png" /></imageobject>
+	  </mediaobject>
+	</figure>
+
+        <para>In addition to importing a scan, we can publish a scan directly to
+        a running server.  We'll do this with the second build target we set up,
+        "scan-and-publish".  Go ahead and change the default target of
+        <filename>sierra-ant-scan.xml</filename> to "scan-and-publish".  It
+        should look as follows: </para>
+
+	<programlisting><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SmallWorld" default="scan" basedir=".">
+...]]>
+        </programlisting>
+        <para>Now run the ant task again.  The output should appear as below.</para>
+        
+	<figure id="fig-tutorial-ant-console-publish">
+	  <title>Console output from scanning and publishing SmallWorld with Ant</title>
+	  <mediaobject>
+	    <imageobject><imagedata fileref="images/tutorial-ant-console-publish.png" /></imageobject>
+	  </mediaobject>
+	</figure>
+
+        
 	<para>Let's see that the scan was uploaded to the local team
-	server. First, log into the local team server with your web
-	browser and click on the <guilabel>Projects</guilabel>
-	tab. Select <guilabel>SmallWorld</guilabel> in the list of
-	projects (to the left). Note that the Ant scan will appear at
-	the top of the Scans table (at the bottom-right). You can
-	click on time of the scan to list its findings.</para>
+	server. First, log into the local team server with your web browser and
+	click on the <guilabel>Projects</guilabel> tab. Select
+	<guilabel>SmallWorld</guilabel> in the list of projects (to the
+	left). Note that the Ant scan will appear at the top of the Scans table
+	(at the bottom-right). You can click on time of the scan to list its
+	findings.</para>
 
 	<para>This tutorial has introduced the use of the Sierra Ant
 	tasks a Sierra team server. You now know how to use the Ant
