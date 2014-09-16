@@ -657,6 +657,14 @@
               tree to any result that has changed.</para>
             </formalpara>            
           </listitem>
+          
+         <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/changelog_only.gif"/></guiicon></title>
+              <para>Toggling this button controls whether or not unchanged results are displayed in this view. When this button is
+              selected only results with differences are displayed in the view. By default this is not selected.</para>
+            </formalpara>            
+          </listitem>
 
           <listitem>
             <formalpara>
@@ -718,13 +726,22 @@
            tree to any result that has changed.</para>
          </formalpara>            
        </listitem>
-	<listitem>
-	  <formalpara>
-	    <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/> Show Information/Warning Hints</guiicon></title>
-	    <para>Toggling this menu item controls whether or not information and warning hints are 
-	    displayed in the view.</para>
-	  </formalpara>
-	</listitem>
+       
+       <listitem>
+         <formalpara>
+           <title><guiicon><inlinegraphic fileref="images/changelog_only.gif"/> Show Only Differences</guiicon></title>
+           <para>Toggling this menu item controls whether or not unchanged results are displayed in this view. When this menu item is
+           checked only results with differences are displayed in the view. By default this is not selected.</para>
+         </formalpara>            
+       </listitem>
+       
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/suggestions_warnings.gif"/> Show Information/Warning Hints</guiicon></title>
+		    <para>Toggling this menu item controls whether or not information and warning hints are 
+		    displayed in the view.</para>
+		  </formalpara>
+		</listitem>
       </itemizedlist>
       </para>      
     </section>
