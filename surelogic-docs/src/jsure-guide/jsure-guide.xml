@@ -50,6 +50,37 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+    
+    	<section id="sec-jsure-release-5-5-1">
+		<title>JSure version 5.5.1</title>
+		<para>This section describes the 5.5.1 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>"Show only differences from the last scan" filter added to Verification Status view</emphasis>
+						&mdash;
+						The <guilabel>Verification Status</guilabel> view can now be
+						set to filter out all results that have not changed since the
+						prior scan. This can be helpful to focus attention on what is
+						different.
+					</para>
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-551-show-only-diffs.png" />
+							</imageobject>
+					</mediaobject>
+				</listitem>
+			</orderedlist>
+		</section>
+	</section>
 
 	<section id="sec-jsure-release-5-5-0">
 		<title>JSure version 5.5.0</title>
