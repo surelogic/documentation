@@ -1878,7 +1878,7 @@ if (o == null) {
         <guimenu>Sierra</guimenu> | <inlinegraphic
         fileref="images/jar_saveas.gif" /> <guimenuitem>Save Ant Task
         As...</guimenuitem> Sierra will then create a folder named
-        <filename>sierra-ant-5.5.0</filename> containing the sierra-ant
+        <filename>sierra-ant-5.5.1</filename> containing the sierra-ant
         installation.</para>
         
 	<para>In the SmallWorld project create a file at the root of
@@ -1888,7 +1888,7 @@ if (o == null) {
 	<programlisting><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="SmallWorld" default="scan" basedir=".">
-  <property name="sl.home" value="/home/nathan/java/sierra-ant-5.5.0" />
+  <property name="sl.home" value="/home/nathan/java/sierra-ant-5.5.1" />
   <property name="sl.lib"  value="${sl.home}/lib" />
   <path id="sl.classpath"><fileset dir="${sl.lib}" includes="**/*.jar" /></path>
   <taskdef name="sierra-scan"
@@ -2975,7 +2975,7 @@ if (o == null) {
       main menu by selecting <guimenu>Sierra</guimenu> | <inlinegraphic
       fileref="images/jar_saveas.gif" /> <guimenuitem>Save Ant Task
       As...</guimenuitem> from the main menu.  Sierra will then create a folder
-      named <filename>sierra-ant-5.5.0</filename> in the directory of your
+      named <filename>sierra-ant-5.5.1</filename> in the directory of your
       choosing, containing the sierra-ant installation.</para>
 
 
