@@ -1916,7 +1916,7 @@ if (o == null) {
                     document="${document}" />  	    
   </target>
   
-  </project>]]>
+</project>]]>
         </programlisting>
 
 	<para>You will have to modify the setting for
