@@ -1887,7 +1887,7 @@ if (o == null) {
 
 	<programlisting><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="SmallWorld" default="scan" basedir=".">
+<project name="SierraTutorial_SmallWorld" default="scan" basedir=".">
   <property name="sl.home" value="/home/nathan/java/sierra-ant-5.5.1" />
   <property name="sl.lib"  value="${sl.home}/lib" />
   <path id="sl.classpath"><fileset dir="${sl.lib}" includes="**/*.jar" /></path>
@@ -1900,7 +1900,7 @@ if (o == null) {
   <tstamp />
 
   
-  <property name="project" value="SmallWorld" />
+  <property name="project" value="SierraTutorial_SmallWorld" />
   <property name="document" value="${project}-${DSTAMP}${TSTAMP}" />
   
   <target name="scan">	  	  	
@@ -1964,7 +1964,7 @@ if (o == null) {
 
 	<programlisting><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="SmallWorld" default="scan-and-publish" basedir=".">
+<project name="SierraTutorial_SmallWorld" default="scan-and-publish" basedir=".">
 ...]]>
         </programlisting>
         <para>Now run the ant task again.  The output should appear as below.</para>
