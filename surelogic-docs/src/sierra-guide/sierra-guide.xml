@@ -1964,7 +1964,7 @@ if (o == null) {
 
 	<programlisting><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="SmallWorld" default="scan" basedir=".">
+<project name="SmallWorld" default="scan-and-publish" basedir=".">
 ...]]>
         </programlisting>
         <para>Now run the ant task again.  The output should appear as below.</para>
