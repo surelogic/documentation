@@ -11,10 +11,18 @@
 
 	<target name="build-all" depends="build-all-but-pdf, build-pdf" />
 
-	<target name="build-all-but-pdf" depends="jsure-guide, jsure-design-intent, sierra-guide, flashlight-guide" />
+	<target name="build-all-but-pdf" depends="jsure-guide, jsure-design-intent, sierra-guide, flashlight-guide, create-html-zip" />
 
 	<target name="build-pdf" depends="jsure-guide-pdf, jsure-design-intent-pdf, sierra-guide-pdf, flashlight-guide-pdf" />
 
+	<target name="create-html-zip">
+		<zip destfile="${build}/${docs-zip-name}.zip">
+			<zipfileset dir="${je.html.dir}" prefix="${docs-zip-name}/${jsure-guide}/" />
+			<zipfileset dir="${di.html.dir}" prefix="${docs-zip-name}/${jsure-design-intent}/" />
+			<zipfileset dir="${sg.html.dir}" prefix="${docs-zip-name}/${sierra-guide}/" />
+			<zipfileset dir="${fg.html.dir}" prefix="${docs-zip-name}/${flashlight-guide}/" />
+		</zip>
+	</target>
 
 	<!-- JSure Guide -->
 

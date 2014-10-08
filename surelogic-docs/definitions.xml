@@ -26,46 +26,52 @@
 	<property name="docbook-to-html-xsl" value="${docbook.dir}/html/profile-docbook.xsl" />
 	<property name="docbook-to-eclipse-xsl" value="${docbook.dir}/eclipse/profile-eclipse.xsl" />
 	<property name="docbook-to-fo-xsl" value="${docbook.dir}/fo/profile-docbook.xsl" />
+	
+	<property name="docs-zip-name" value="surelogic-html-docs" />
 
 	<!-- JSure Guide definitions -->
-	<property name="je.source.dir" location="${src}/jsure-guide" />
-	<property name="je.source.file" location="${je.source.dir}/jsure-guide.xml" />
-	<property name="je.build.dir" location="${build}/jsure-guide" />
+	<property name="jsure-guide" value="jsure-guide" />
+	<property name="je.source.dir" location="${src}/${jsure-guide}" />
+	<property name="je.source.file" location="${je.source.dir}/${jsure-guide}.xml" />
+	<property name="je.build.dir" location="${build}/${jsure-guide}" />
 	<property name="je.html.dir" location="${je.build.dir}/html" />
-	<property name="je.html.file" location="${je.html.dir}/jsure-guide.html" />
+	<property name="je.html.file" location="${je.html.dir}/${jsure-guide}.html" />
 	<property name="je.eclipse.help.dir" location="${je.build.dir}/eclipse-help" />
 	<property name="je.install.dir" location="../jsure-client-eclipse-help" />
-	<property name="je.pdf.file" location="${je.build.dir}/jsure-guide.pdf" />
+	<property name="je.pdf.file" location="${je.build.dir}/${jsure-guide}.pdf" />
 
 	<!-- Design Intent definitions -->
-	<property name="di.source.dir" location="${src}/jsure-design-intent" />
-	<property name="di.source.file" location="${di.source.dir}/jsure-design-intent.xml" />
-	<property name="di.build.dir" location="${build}/jsure-design-intent" />
+	<property name="jsure-design-intent" value="jsure-design-intent" />
+	<property name="di.source.dir" location="${src}/${jsure-design-intent}" />
+	<property name="di.source.file" location="${di.source.dir}/${jsure-design-intent}.xml" />
+	<property name="di.build.dir" location="${build}/${jsure-design-intent}" />
 	<property name="di.html.dir" location="${di.build.dir}/html" />
-	<property name="di.html.file" location="${di.html.dir}/jsure-design-intent.html" />
+	<property name="di.html.file" location="${di.html.dir}/${jsure-design-intent}.html" />
 	<property name="di.eclipse.help.dir" location="${di.build.dir}/eclipse-help" />
 	<property name="di.install.dir" location="../jsure-design-intent-eclipse-help" />
-	<property name="di.pdf.file" location="${di.build.dir}/jsure-design-intent.pdf" />
+	<property name="di.pdf.file" location="${di.build.dir}/${jsure-design-intent}.pdf" />
 
 	<!-- Sierra Guide definitions -->
-	<property name="sg.source.dir" location="${src}/sierra-guide" />
-	<property name="sg.source.file" location="${sg.source.dir}/sierra-guide.xml" />
-	<property name="sg.build.dir" location="${build}/sierra-guide" />
+	<property name="sierra-guide" value="sierra-guide" />
+	<property name="sg.source.dir" location="${src}/${sierra-guide}" />
+	<property name="sg.source.file" location="${sg.source.dir}/${sierra-guide}.xml" />
+	<property name="sg.build.dir" location="${build}/${sierra-guide}" />
 	<property name="sg.html.dir" location="${sg.build.dir}/html" />
-	<property name="sg.html.file" location="${sg.html.dir}/sierra-guide.html" />
+	<property name="sg.html.file" location="${sg.html.dir}/${sierra-guide}.html" />
 	<property name="sg.eclipse.help.dir" location="${sg.build.dir}/eclipse-help" />
 	<property name="sg.install.dir" location="../sierra-client-eclipse-help" />
-	<property name="sg.pdf.file" location="${sg.build.dir}/sierra-guide.pdf" />
+	<property name="sg.pdf.file" location="${sg.build.dir}/${sierra-guide}.pdf" />
 
 	<!-- Flashlight Guide definitions -->
-	<property name="fg.source.dir" location="${src}/flashlight-guide" />
-	<property name="fg.source.file" location="${fg.source.dir}/flashlight-guide.xml" />
-	<property name="fg.build.dir" location="${build}/flashlight-guide" />
+	<property name="flashlight-guide" value="flashlight-guide" />
+	<property name="fg.source.dir" location="${src}/${flashlight-guide}" />
+	<property name="fg.source.file" location="${fg.source.dir}/${flashlight-guide}.xml" />
+	<property name="fg.build.dir" location="${build}/${flashlight-guide}" />
 	<property name="fg.html.dir" location="${fg.build.dir}/html" />
-	<property name="fg.html.file" location="${fg.html.dir}/flashlight-guide.html" />
+	<property name="fg.html.file" location="${fg.html.dir}/${flashlight-guide}.html" />
 	<property name="fg.eclipse.help.dir" location="${fg.build.dir}/eclipse-help" />
 	<property name="fg.install.dir" location="../flashlight-client-eclipse-help" />
-	<property name="fg.pdf.file" location="${fg.build.dir}/flashlight-guide.pdf" />
+	<property name="fg.pdf.file" location="${fg.build.dir}/${flashlight-guide}.pdf" />
 
 	<!-- FOP engine class -->
 	<property name="fop.class" value="org.apache.fop.cli.Main" />
