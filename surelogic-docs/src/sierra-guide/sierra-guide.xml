@@ -3043,6 +3043,12 @@ if (o == null) {
 		the extension <filename>.sierra.gz</filename>.</entry>
 		<entry>Yes</entry>
 	      </row>
+              <row>
+		<entry>properties</entry>
+		<entry>The location of a properties file, as described in <xref
+		linkend="sec-surelogic-tool-properties-file"/>.</entry>
+		<entry>No</entry>
+	      </row>
 	    </tbody>
 	  </tgroup>
 	</informaltable>
