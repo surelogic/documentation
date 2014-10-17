@@ -3069,7 +3069,7 @@ if (o == null) {
     &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
                  classpath="${basedir}/jdom-1.0.jar" source="1.5"
                  home="${sl.home}" document="${document}"
-                 projectname="${project}" /&gt;
+                 projectname="${project}" properties="surelogic-tools.properties" /&gt;
 
     &lt;sierra-publish user="zork" password="zork" host="localhost"
                     secure="false" port="13376" contextPath="/sl/"
@@ -3184,6 +3184,29 @@ if (o == null) {
     workaround. These are presented in the sections below for each
     released version of Sierra.</para>
 
+    <section id="sec-sierra-release-5-5-2">
+      <title>Sierra version 5.5.2</title>
+      		<para>This section describes the 5.5.2 version of Sierra.</para>
+		<section>
+			<title>New and noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of Sierra.</para>
+			<orderedlist>
+                          <listitem>
+                            <para>
+                              <emphasis>Support for
+                              <filename>surelogic-tools.properties</filename>
+                              files in the Ant tasks</emphasis> &mdash; This
+                              release adds a new <guilabel>properties</guilabel>
+                              attribute to the <command>sierra-scan</command>
+                              Ant task.  Documentation for the ant tasks can be
+                              found at <xref linkend="sierra-ant-tasks"/>
+                            </para>
+                          </listitem>
+                        </orderedlist>
+                </section>
+    </section>
+    
 	<section id="sec-sierra-release-5-5-0">
 		<title>Sierra version 5.5.0</title>
 		<para>This section describes the 5.5.0 version of Sierra.</para>
