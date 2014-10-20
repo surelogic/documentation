@@ -3186,28 +3186,56 @@ if (o == null) {
     workaround. These are presented in the sections below for each
     released version of Sierra.</para>
 
-    <section id="sec-sierra-release-5-5-2">
-      <title>Sierra version 5.5.2</title>
-      		<para>This section describes the 5.5.2 version of Sierra.</para>
+	<section id="sec-sierra-release-5-5-2">
+		<title>Sierra version 5.5.2</title>
+		<para>This section describes the 5.5.2 version of Sierra.</para>
 		<section>
 			<title>New and noteworthy</title>
 			<para>This section describes new and noteworthy features in this
 				version of Sierra.</para>
 			<orderedlist>
-                          <listitem>
-                            <para>
-                              <emphasis>Support for
-                              <filename>surelogic-tools.properties</filename>
-                              files in the Ant tasks</emphasis> &mdash; This
-                              release adds a new <guilabel>properties</guilabel>
-                              attribute to the <command>sierra-scan</command>
-                              Ant task.  Documentation for the ant tasks can be
-                              found at <xref linkend="sierra-ant-tasks"/>
-                            </para>
-                          </listitem>
-                        </orderedlist>
-                </section>
-    </section>
+				<listitem>
+					<para><emphasis>Scanned Projects view added to Sierra</emphasis> &mdash;
+					A new view has been added to show the project that have been scanned by Sierra.
+					This view shows when the scan was done, the exclusion specification read from
+					that project's <filename>surelogic-tools.properties</filename>
+							file, and the time of the prior scan (if any). This view allows you to
+							delete the scan data about a project and start a new scan.  A choice
+							on the view menu allows all scans to be deleted.</para>
+							
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-552-new-view.png" />
+							</imageobject>
+					</mediaobject>
+					
+					<para>This new view makes the Scan Data page of the Sierra preferences obselete. That preference page
+					has been removed in this release of the tool. A key driving consideration of this change was to 
+					make it straightforward for a tool user to find what exclusion specification read from
+					that project's <filename>surelogic-tools.properties</filename> was actually understood by the tool and used.
+					A reset of the Sierra perspective may be needed to see the new view.</para>
+					
+				</listitem>
+				<listitem>
+					<para>
+						<emphasis>
+							Support for
+							<filename>surelogic-tools.properties</filename>
+							files in the Ant tasks
+						</emphasis> &mdash;
+						This
+						release adds a new
+						<guilabel>properties</guilabel>
+						attribute to the
+						<command>sierra-scan</command>
+						Ant task. Documentation for the ant tasks can be
+						found in
+						<xref linkend="sierra-ant-tasks" />
+					</para>
+				</listitem>
+			</orderedlist>
+		</section>
+	</section>
     
 	<section id="sec-sierra-release-5-5-0">
 		<title>Sierra version 5.5.0</title>
