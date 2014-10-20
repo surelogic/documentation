@@ -1877,9 +1877,11 @@ if (o == null) {
         computer.  You can get them from the main menu by selecting
         <guimenu>Sierra</guimenu> | <inlinegraphic
         fileref="images/jar_saveas.gif" /> <guimenuitem>Save Ant Task
-        As...</guimenuitem> Sierra will then create a folder named
-        <filename>sierra-ant-5.5.1</filename> containing the sierra-ant
-        installation.</para>
+        As...</guimenuitem> Sierra will then create a file named
+        <filename>sierra-ant-&lt;version&gt;.zip</filename> containing the
+        current plugin version's sierra-ant installation.  You will need to
+        unzip this file to a location of your choosing before using the ant
+        tasks.</para>
         
 	<para>In the SmallWorld project create a file at the root of
 	the project called <userinput>sierra-ant-scan.xml</userinput>
@@ -1888,7 +1890,7 @@ if (o == null) {
 	<programlisting><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="SierraTutorial_SmallWorld" default="scan" basedir=".">
-  <property name="sl.home" value="/home/nathan/java/sierra-ant-5.5.1" />
+  <property name="sl.home" value="/home/nathan/java/sierra-ant" />
   <property name="sl.lib"  value="${sl.home}/lib" />
   <path id="sl.classpath"><fileset dir="${sl.lib}" includes="**/*.jar" /></path>
   <taskdef name="sierra-scan"
