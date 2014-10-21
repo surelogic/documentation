@@ -324,7 +324,7 @@
 
 	</para>
       
-       <para>The view&rsquo;s toolbar has two command icons:
+       <para>The view&rsquo;s toolbar has three command icons:
         <itemizedlist>
 
           <listitem>
@@ -364,7 +364,7 @@
       linkend="fig-jsure-scans-view-menu"/>. These commands match the toolbar commands described above.</para>
       
       <figure id="fig-jsure-scans-view-context-menu">
-        <title>The <guilabel>JSure Scans</guilabel> view menu</title>
+        <title>The <guilabel>JSure Scans</guilabel> context menu</title>
         <mediaobject>
           <imageobject><imagedata fileref="images/jsure-scans-view-context-menu.png"/></imageobject>
         </mediaobject>

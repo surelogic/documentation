@@ -2188,39 +2188,223 @@ if (o == null) {
       to reconfigure the screen layout and save a custom perspective
       or add one or more of the Sierra views to the Java
       perspective.</para>
+      
+    <mediaobject>
+		<imageobject>
+			<imagedata fileref="images/code-review-perspective.png" />
+		</imageobject>
+	</mediaobject>
+	
+	<para>Each of the views shown in the screenshot above is discussed in the following sections. These views include
+		<itemizedlist>
+		  <listitem>
+		    <para>The <guilabel>Scanned Projects</guilabel> view described in <xref linkend="sec-scanned-projects-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Sierra Quick Search</guilabel> view described in <xref linkend="sec-findings-quick-search" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Verification Status</guilabel> view described in <xref linkend="verification-status-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Verification Explorer</guilabel> view described in <xref linkend="verification-explorer-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Analysis-Enabled Metrics</guilabel> view described in <xref linkend="analysis-enabled-metrics-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Proposed Annotation</guilabel> view described in <xref linkend="proposed-annotation-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>Library Annotation Explorer</guilabel> view described in <xref linkend="library-annotation-explorer-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>XML Library Annotation</guilabel> editor described in <xref linkend="xml-library-annotation-editor" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>JSure Quick Search</guilabel> view described in <xref linkend="jsure-quick-search-view" /></para>
+		  </listitem>
+		  <listitem>
+		    <para>The <guilabel>JSure Historical Source</guilabel> view described in <xref linkend="jsure-historical-source-view" /></para>
+		  </listitem>
+		</itemizedlist>
+	</para>
+    
+    <section>
+      <title>Switching to the Perspective</title>
+      
+      <para>The <guilabel>Code Verification</guilabel> perspective can be enabled
+      in several ways:
+        <itemizedlist>
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>Sierra</guimenu>
+            <guimenuitem>Open Code Review
+            Perspective</guimenuitem></menuchoice>.
+            <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/open-code-review.png" />
+                </imageobject>
+              </mediaobject>
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>By choosing to switch to the perspective when scanning a project:
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/perspective-switch.png" />
+                </imageobject>
+              </mediaobject>
+            </para>
+          </listitem>
+          
+          <listitem>
+            <para>By selecting <menuchoice><guimenu>Window</guimenu>
+            <guisubmenu>Open Perspective</guisubmenu>
+            <guimenuitem>Other&hellip;</guimenuitem></menuchoice>, and
+            then choosing <guilabel>Code Review</guilabel> from
+            the <guilabel>Open Perspective</guilabel> dialog box.  Or by
+            using any other standard Eclipse mechanism to switch
+            perspectives, such as clicking the the perspective&rsquo;s
+            icon (<guiicon><inlinegraphic
+            fileref="images/sierra_logo.gif"/></guiicon>) in the shortcut
+            bar.</para>
+          </listitem>          
+        </itemizedlist>
+      </para>
+    </section>
+       
+   <section id="sec-scanned-projects-view">
+	<title>The Scanned Projects view</title>
+
+	<para>The <guilabel>Scanned Projects</guilabel> view, as shown in <xref
+      linkend="fig-scanned-projects-view"/>, lists the projects that have been scanned by the tool.
+      It allows you to quickly re-scan one or more projects and can be used to delete scans from your disk.</para>
+		
+	<figure id="fig-scanned-projects-view">
+        <title>The <guilabel>Scanned Projects</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/scanned-projects-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
+
+	<para>
+		Each row in the table represents a scan. The table displays has the
+		following columns:
+		<itemizedlist>
+			<listitem>
+			<formalpara><title>Project</title><para>The name of the project.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Scan Time</title><para>The time the most recent scan occurred.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Prior Scan Time</title><para>The time of the scan immediatly prior to the most recent scan, or blank if none.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Exclusion Specification (surelogic-tools.properties)</title><para>The exclusions for source folders and packages
+			from the <filename>surelogic-tools.properties</filename> file located at the project's root. This file is optional and
+			its format is described in <xref linkend="sec-surelogic-tool-properties-file"/>.</para></formalpara>
+			</listitem>
+		</itemizedlist>
+
+	</para>
+      
+       <para>The view&rsquo;s toolbar has two command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/sierra_re_scan.gif"/></guiicon></title>
+              <para>This button "re-scans" the selected projects. This allows you to easily start a new scan on
+              a set of projects that you have previously scanned.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/red_x.gif"/></guiicon></title>
+              <para>This button deletes scans for the selected project from the disk.</para>
+            </formalpara>            
+          </listitem>
+
+        </itemizedlist>
+      </para>
+      
+       <figure id="fig-scanned-projects-view-menu">
+        <title>The <guilabel>Scanned Projects</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/scanned-projects-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has three commands; see <xref
+      linkend="fig-scanned-projects-view-menu"/>:
+	     <itemizedlist>
+	    <listitem>
+	      <formalpara>
+	        <title><guiicon><inlinegraphic fileref="images/sierra_re_scan.gif"/> Re-Scan</guiicon></title>
+	        <para>This button "re-scans" the selected projects. This allows you to easily start a new scan on
+	              a set of projects that you have previously scanned.</para>
+	      </formalpara>            
+	     </listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/red_x.gif"/> Delete</guiicon></title>
+		    <para>This button deletes scans for the selected project from the disk.</para>
+		  </formalpara>
+		</listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon>Delete All Scans</guiicon></title>
+		    <para>This button deletes all your scans from the disk. This action deletes the entire Sierra
+		    database of results from your disk. It my take some time, and the tool shows a progress bar after
+		    you confirm you really want to perform this action.</para>
+		  </formalpara>
+		</listitem>
+	    </itemizedlist>
+      </para>
+      
+      <figure id="fig-scanned-projects-context-menu">
+        <title>The <guilabel>Scanned Projects</guilabel> context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/scanned-projects-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+    <para>The view&rsquo;s context menu has two commands; see <xref
+      linkend="fig-scanned-projects-context-menu"/>:
+    <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title><guiicon><inlinegraphic fileref="images/sierra_re_scan.gif"/> Re-Scan</guiicon></title>
+        <para>This button "re-scans" the selected projects. This allows you to easily start a new scan on
+              a set of projects that you have previously scanned.</para>
+      </formalpara>            
+     </listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/red_x.gif"/> Delete</guiicon></title>
+	    <para>This button deletes scans for the selected project from the disk.</para>
+	  </formalpara>
+	</listitem>
+    </itemizedlist>
+      </para>      
     </section>
 
-    <section>
-      <title>Views</title>
-
-      <para>This section describes the Eclipse views defined by the
-      Sierra Eclipse client.</para>
-      
-            <section id="sec-scanned-projects-view">
-	<title>Scanned Projects</title>
-
-	<para>This view shows when the scan was done, the exclusion specification read from
-		that project's <filename>surelogic-tools.properties</filename>
-		file, and the time of the prior scan (if any). This view allows you to
-		delete the scan data about a project and start a new scan.  A choice
-		on the view menu allows all scans to be deleted.</para>
-							
-		<mediaobject>
-				<imageobject>
-					<imagedata fileref="images/scanned-projects-view.png" />
-				</imageobject>
-		</mediaobject>
-
-	<para>The view menu allows you to quickly rescan a project and, if you are done with your evaluation
-	of a project's code, delete Sierra data about that project.  The view menu also has a choice that clear all
-	the data about all projects you have scanned.</para>
-      </section>
-
       <section id="sec-findings-quick-search">
-	<title>Sierra Quick Search</title>
+	<title>The Sierra Quick Search view</title>
 
-	<para>This view allows you to select a set of findings to
+	<para>The <guilabel>Sierra Quick Search</guilabel> view, as shown in <xref
+      linkend="fig-sierra-quick-search-view"/>, allows you to select a set of findings to
 	examine based upon a set of filters.</para>
+		
+	<figure id="fig-sierra-quick-search-view">
+        <title>The <guilabel>Sierra Quick Search</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/sierra-quick-search-view.png"/></imageobject>
+        </mediaobject>
+      </figure>
 
 	<orderedlist>
 	  <listitem>
