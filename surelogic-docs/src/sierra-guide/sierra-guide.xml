@@ -2280,7 +2280,7 @@ if (o == null) {
       </figure>
 
 	<para>
-		Each row in the table represents a scan. The table displays has the
+		Each row in the table represents a scan. The table displays the
 		following columns:
 		<itemizedlist>
 			<listitem>
@@ -2396,23 +2396,34 @@ if (o == null) {
         <mediaobject>
           <imageobject><imagedata fileref="images/sierra-quick-search-view.png"/></imageobject>
         </mediaobject>
-      </figure>
+     </figure>
+     
+     <para>Each choice in this view allows you to define a filter on
+     the findings. First you choose what you want to filter.
+     Second you check what you want to allow through that level of the
+     filter to the next. Many levels of filtering can be defined
+     in this view. To clear out one level press the <inlinegraphic
+	 fileref="images/gray_x.gif" /> icon within a filter. To clear
+	 out the entire filter press the <inlinegraphic
+	 fileref="images/gray_x.gif" /> icon at the uppper-right of the view.</para>
+	 
+	 <para>The filters supported by this view are as follows:</para>
 
 	<orderedlist>
 	  <listitem>
-	    <para><emphasis>Audited</emphasis> &mdash; Partitions
+	    <para><inlinegraphic fileref="images/sierra_stamp_small.gif"/> <emphasis>Audited</emphasis> &mdash; Partitions
 	    findings into the set of findings that have been audited by
 	    a programmer and the set of findings that have not been
 	    audited by a programmer.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Audits</emphasis> &mdash; Partitions
+	    <para><inlinegraphic fileref="images/sierra_stamp_small.gif"/> <emphasis>Audits</emphasis> &mdash; Partitions
 	    findings based upon the number of times they have been
 	    audited by a programmer. A 0 indicates that no audits have
 	    been performed.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Finding Category</emphasis> &mdash;
+	    <para><inlinegraphic fileref="images/category.gif"/> <emphasis>Finding Category</emphasis> &mdash;
 	    Separates findings by the category their finding type is
 	    part of. Categories are defined by a set of finding
 	    types. Because a finding type can be included in more than
@@ -2421,31 +2432,31 @@ if (o == null) {
 	    findings.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Finding Type</emphasis> &mdash; Partitions
+	    <para><inlinegraphic fileref="images/index_card.gif"/> <emphasis>Finding Type</emphasis> &mdash; Partitions
 	    findings by their finding type.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Importance</emphasis> &mdash; Partitions
+	    <para><inlinegraphic fileref="images/asterisk_orange.gif"/> <emphasis>Importance</emphasis> &mdash; Partitions
 	    findings by their assigned importance. Importance is one of:
 	    critical, high, medium, low, and irrelevant.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Java Class</emphasis> &mdash; Partitions
+	    <para><inlinegraphic fileref="images/class.gif"/> <emphasis>Java Type</emphasis> &mdash; Partitions
 	    findings by the Java class that the (primary) code location
 	    the finding is about occurs within.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Java Package</emphasis> &mdash; Partitions
+	    <para><inlinegraphic fileref="images/package.gif"/> <emphasis>Java Package</emphasis> &mdash; Partitions
 	    findings by the Java package that the (primary) code
 	    location the finding is about occurs within.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Project</emphasis> &mdash; Partitions
+	    <para><inlinegraphic fileref="images/project.gif"/> <emphasis>Project</emphasis> &mdash; Partitions
 	    findings by the Java project that the (primary) code
 	    location the finding is about occurs within.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Status</emphasis> &mdash; Partitions
+	    <para><inlinegraphic fileref="images/task_new.gif"/> <emphasis>Status</emphasis> &mdash; Partitions
 	    findings by the status of the finding compared to the last
 	    scan. <emphasis>New</emphasis> indicates that the finding
 	    was not in the last scan (or that there is no last scan).
@@ -2455,14 +2466,14 @@ if (o == null) {
 	    current scan.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Tool</emphasis> &mdash; Partitions findings
+	    <para><inlinegraphic fileref="images/sierra_logo.gif"/> <emphasis>Tool</emphasis> &mdash; Partitions findings
 	    by the tool that reported the finding. If more than one tool
 	    reported the finding (i.e., it has multiple artifacts from
 	    different analysis tools) then <emphasis>multiple
 	    tools</emphasis> is indicated.</para>
 	  </listitem>
 	  <listitem>
-	    <para><emphasis>Tool Artifacts</emphasis> &mdash;
+	    <para><inlinegraphic fileref="images/sierra_logo.gif"/> <emphasis>Tool Artifacts</emphasis> &mdash;
 	    Partitions findings based upon the number of analysis tool
 	    artifacts reported about them. A 1 indicates that one
 	    analysis tool artifact supported the finding, a 2
@@ -2471,8 +2482,141 @@ if (o == null) {
 	  </listitem>
 	</orderedlist>
 
-	<para>Described further in <xref linkend="sec-tutorial-client"
-	/>.</para>
+	      <para>The view&rsquo;s toolbar has two command icons:
+        <itemizedlist>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon>( __ | __ | __ ) Breadcrumbs</guiicon></title>
+              <para>Located to the upper-left of the view a series of underlined titles allows you to animate the view to that filter.
+              This is useful as the filter becomes large and complex and no longer fits on the screen.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/gray_x.gif"/> Clear Current Search</guiicon></title>
+              <para>This button clears the entire filter from the view. It causes the <guilabel>Findings</guilabel> view to show all scan findings.</para>
+            </formalpara>            
+          </listitem>
+
+        </itemizedlist>
+      </para>
+      
+      <figure id="fig-sierra-quick-search-view-lower-toolbar">
+        <title>The saved searches toolbar at the bottom of the view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/sierra-quick-search-view-lower-toolbar.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view also has a toolbar at the bottom which allows searches to be remembered, named, and managed; see <xref
+      linkend="fig-sierra-quick-search-view-lower-toolbar"/>:
+        <itemizedlist>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/sierra_investigate_dot.gif"/> Open Search</guiicon></title>
+              <para>Lets you select a named search from the complete list of saved searches. The selected search is loaded up in
+              the view and the current search is discarded.
+               <mediaobject>
+         		 <imageobject><imagedata fileref="images/open-saved-search-dialog.png"/></imageobject>
+        		</mediaobject>
+              </para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/saveas_edit.gif"/> Save Search As</guiicon></title>
+              <para>Brings up the dialog below to allow you to name the current set of filters defined in the view as a search.
+                <mediaobject>
+         		 <imageobject><imagedata fileref="images/save-search-as-dialog.png"/></imageobject>
+        		</mediaobject>
+              </para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/gray_x.gif"/> Delete Saved Search</guiicon></title>
+              <para>This brings up the dialog shown below to allow you to delete a search that you previously saved.
+               <mediaobject>
+         		 <imageobject><imagedata fileref="images/delete-search-dialog.png"/></imageobject>
+        		</mediaobject>
+        		</para>
+            </formalpara>            
+          </listitem>
+          
+          <listitem>
+            <formalpara>
+              <title><guiicon>Saved Searches: ( __ | __ | __ )</guiicon></title>
+              <para>This list allows you to directly click on a named search to bring it up in the view. If this list gets too long you can use
+              the <guiicon><inlinegraphic fileref="images/sierra_investigate_dot.gif"/> Open Search</guiicon> toolbar item described above.</para>
+            </formalpara>            
+          </listitem>
+
+        </itemizedlist>
+      </para>
+      
+       <figure id="fig-sierra-quick-search-view-menu">
+        <title>The <guilabel>Scanned Projects</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/sierra-quick-search-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has two commands; see <xref
+      linkend="fig-sierra-quick-search-view-menu"/>:
+	     <itemizedlist>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon><inlinegraphic fileref="images/import.gif"/> Import Searches...</guiicon></title>
+		    <para>This button imports an XML file containing saved searches into this workspace. Beware that any searches you have that
+		    match a name in the XML file will be overwritten with the search in the XML file.</para>
+		  </formalpara>
+		</listitem>
+	    <listitem>
+	      <formalpara>
+	        <title><guiicon><inlinegraphic fileref="images/export.gif"/> Export Searches...</guiicon></title>
+	        <para>This button allows you to export all your saved searches to an XML file. This file can then be loaded into
+	        another Eclipse workspace, such as an Eclipse installation used by a collegue or one on another computer used by you.</para>
+	      </formalpara>            
+	     </listitem>
+	    </itemizedlist>
+      </para>
+      
+      <figure id="fig-sierra-quick-search-view-context-menu">
+        <title>The <guilabel>Scanned Projects</guilabel> context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/sierra-quick-search-view-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+    <para>The view&rsquo;s context menu has three commands; see <xref
+      linkend="fig-sierra-quick-search-view-context-menu"/>:
+    <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title><guiicon>Select All</guiicon></title>
+        <para>This menu item checks all filter items in the list &mdash; causing all possible findings to be allowed through the filter.</para>
+      </formalpara>            
+     </listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon>Deselect All</guiicon></title>
+	    <para>This menu item unchecks all filter items in the list &mdash; causing no findings to be allowed through the filter.</para>
+	  </formalpara>
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon>Sort By Finding Count</guiicon></title>
+	    <para>When this menu item is checked then then the listed filter items
+	    are sorted by how many findings each item contains. When this menu item is not checked
+	    the listed filter items are sorted alphabetically.</para>
+	  </formalpara>
+	</listitem>
+    </itemizedlist>
+      </para>      
       </section>
 
       <section id="sec-findings-view">
@@ -2480,9 +2624,95 @@ if (o == null) {
 
 	<para>This view displays a list of findings. If a filter is defined by the <guilabel>Sierra Quick Search</guilabel> view
 	then this view lists the findings that pass through that filter.</para>
+	
+	<para>The <guilabel>Findings</guilabel> view, as shown in <xref
+      linkend="fig-findings-view"/>, lists the set of findings reported by
+      the tool. If no filter is defined all findings are let through, otherwise findings which make it through the filter are listed.</para>
+		
+	<figure id="fig-findings-view">
+        <title>The <guilabel>Findings</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/findings-view.png"/></imageobject>
+        </mediaobject>
+     </figure>
+     
+     <para>
+		Each row in the table represents a finding. The table displays the
+		following columns:
+		<itemizedlist>
+			<listitem>
+			<formalpara><title>Summary</title><para>A short description of the finding.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Tool</title><para>The tool, such as FindBugs, that reported the finding.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Project</title><para>The Eclipse project the finding is within.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Package</title><para>The Java package the finding is withing.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Type</title><para>The Java type, such as a class or interface, the finding is within.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Line</title><para>The line number the finding refers to.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Importance</title><para>The tool, or audited, importance of the the finding.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Finding Type</title><para>The tool defined type of the finding.</para></formalpara>
+			</listitem>
+		</itemizedlist>
 
-	<para>Described further in <xref linkend="sec-tutorial-client"
-	/>.</para>
+	</para>
+	
+	<para>Each column may be sorted by pressing on the column title. If too many findings are displayed a warning appears at the bottom of the view.
+	This warning is a hyperlink to the preferences if you wish to increase the maximum number of findings displayed.</para>
+
+	  <figure id="fig-findings-view-context-menu">
+        <title>The <guilabel>Findings</guilabel> context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/findings-view-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+    <para>The view&rsquo;s context menu has three commands; see <xref
+      linkend="fig-findings-view-context-menu"/>:
+    <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title><guiicon>Set Importance</guiicon></title>
+        <para>This menu item allows you to directly set the importance of a group of selected findings. This can be quicker than doing it one by one using
+        the <guilabel>Finding Details</guilabel> view.</para>
+      </formalpara>            
+     </listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon>Mark As Examined By Me</guiicon></title>
+	    <para>This menu item "stamps" that you examined the finding. This information becomes an audit on the selected findings visible to your team members..</para>
+	  </formalpara>
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon>Filter Findings Of This Type From Future Local Scans</guiicon></title>
+	    <para>This menu item filters out findings of this type, via your scan filter, in future scans.</para>
+	  </formalpara>
+	</listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon>Export...</guiicon></title>
+	    <para>Exports the list of findings into a file.  Two different formats are supported as shown in the dialog below. This dialog allows you
+	    to choose the export format and the destination file.
+ 		<mediaobject>
+          <imageobject><imagedata fileref="images/findings-view-export-dialog.png"/></imageobject>
+        </mediaobject>
+        </para>
+	  </formalpara>
+	</listitem>
+    </itemizedlist>
+      </para>      
       </section>
 
       <section id="sec-finding-details-view">
