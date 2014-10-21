@@ -2204,28 +2204,19 @@ if (o == null) {
 		    <para>The <guilabel>Sierra Quick Search</guilabel> view described in <xref linkend="sec-findings-quick-search" /></para>
 		  </listitem>
 		  <listitem>
-		    <para>The <guilabel>Verification Status</guilabel> view described in <xref linkend="verification-status-view" /></para>
+		    <para>The <guilabel>Findings</guilabel> view described in <xref linkend="sec-findings-view" /></para>
 		  </listitem>
 		  <listitem>
-		    <para>The <guilabel>Verification Explorer</guilabel> view described in <xref linkend="verification-explorer-view" /></para>
+		    <para>The <guilabel>Finding Details</guilabel> view described in <xref linkend="sec-finding-details-view" /></para>
 		  </listitem>
 		  <listitem>
-		    <para>The <guilabel>Analysis-Enabled Metrics</guilabel> view described in <xref linkend="analysis-enabled-metrics-view" /></para>
+		    <para>The <guilabel>Team Servers</guilabel> view described in <xref linkend="sec-team-servers-view" /></para>
 		  </listitem>
 		  <listitem>
-		    <para>The <guilabel>Proposed Annotation</guilabel> view described in <xref linkend="proposed-annotation-view" /></para>
+		    <para>The <guilabel>Synchronize History</guilabel> view described in <xref linkend="sec-synchronize-history-view" /></para>
 		  </listitem>
 		  <listitem>
-		    <para>The <guilabel>Library Annotation Explorer</guilabel> view described in <xref linkend="library-annotation-explorer-view" /></para>
-		  </listitem>
-		  <listitem>
-		    <para>The <guilabel>XML Library Annotation</guilabel> editor described in <xref linkend="xml-library-annotation-editor" /></para>
-		  </listitem>
-		  <listitem>
-		    <para>The <guilabel>JSure Quick Search</guilabel> view described in <xref linkend="jsure-quick-search-view" /></para>
-		  </listitem>
-		  <listitem>
-		    <para>The <guilabel>JSure Historical Source</guilabel> view described in <xref linkend="jsure-historical-source-view" /></para>
+		    <para>The <guilabel>Synchronize History Details</guilabel> view described in <xref linkend="sec-synchronize-history-details-view" /></para>
 		  </listitem>
 		</itemizedlist>
 	</para>
@@ -2397,7 +2388,8 @@ if (o == null) {
 
 	<para>The <guilabel>Sierra Quick Search</guilabel> view, as shown in <xref
       linkend="fig-sierra-quick-search-view"/>, allows you to select a set of findings to
-	examine based upon a set of filters.</para>
+	examine based upon a set of filters. If no filter is defined all findings are let through. The resulting
+	list of findings is shown in the <guilabel>Findings</guilabel> view described in <xref linkend="sec-findings-view" />.</para>
 		
 	<figure id="fig-sierra-quick-search-view">
         <title>The <guilabel>Sierra Quick Search</guilabel> view</title>
@@ -2483,8 +2475,18 @@ if (o == null) {
 	/>.</para>
       </section>
 
+      <section id="sec-findings-view">
+	<title>The Findings view</title>
+
+	<para>This view displays a list of findings. If a filter is defined by the <guilabel>Sierra Quick Search</guilabel> view
+	then this view lists the findings that pass through that filter.</para>
+
+	<para>Described further in <xref linkend="sec-tutorial-client"
+	/>.</para>
+      </section>
+
       <section id="sec-finding-details-view">
-	<title>Finding Details</title>
+	<title>The Finding Details view</title>
 
 	<para>This view displays information about and allows you to
 	audit an analysis finding. It also displays all analysis tool
@@ -2494,8 +2496,8 @@ if (o == null) {
 	/>.</para>
       </section>
 
-      <section id="sec-team-servers-view">
-	<title>Team Servers</title>
+    <section id="sec-team-servers-view">
+	<title>The Team Servers view</title>
 
 	<para>This view provides a tree that shows the Sierra Eclipse
 	client's connections to Sierra Team Servers on the
@@ -2510,37 +2512,28 @@ if (o == null) {
 	linkend="sec-tutorial-team-server" />.</para>
       </section>
 
-      <section id="sec-synchronize-history">
-	<title>Synchronize History</title>
+    <section id="sec-synchronize-history-view">
+	<title>The Synchronize History view</title>
 	<para>This view provides a table that lists each synchronize
 	that has been done with a Sierra Team Server. The table lists
 	when the synchronize occurred, what server was involved, and a
 	summary of the audit data passed back and forth.  Selecting a
 	row in this table brings up the <guilabel>Synchronize History
 	Details</guilabel> view. This view is described in <xref
-	linkend="sec-synchronize-history-details" />.</para>
+	linkend="sec-synchronize-history-details-view" />.</para>
       </section>
 
-      <section id="sec-synchronize-history-details">
-	<title>Synchronize History Details</title>
+    <section id="sec-synchronize-history-details-view">
+	<title>The Synchronize History Details view</title>
 	<para>This view provides details linking to particular audits
 	for a synchronize with a Sierra Team Server.  A synchronize
 	event is selected in the <guilabel>Synchronize
 	History</guilabel> view that focuses the information shown in
 	this view.  The <guilabel>Synchronize History</guilabel> view
-	is described in <xref linkend="sec-synchronize-history"
+	is described in <xref linkend="sec-synchronize-history-view"
 	/>.</para>
       </section>
 
-      <section>
-	<title>Query Sierra</title>
-	<para>This view allows direct queries on the embedded
-	relational database used to store Sierra data. It is typically
-	only used for serviceability of Sierra or by consultants
-	(using its ability to perform ad hoc queries on the Sierra
-	results for client reports).
-	</para>
-      </section>
     </section>
 
     <section id="sec-preferences">
