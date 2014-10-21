@@ -917,22 +917,17 @@ if (o == null) {
 	you want it to.</para>
 
 	<para>Before we move on to the next tutorial we want to delete
-	the ShowOff project from the Sierra database. This is done via
-	the Sierra preferences. Select <guimenu>Window</guimenu> |
-	<guimenuitem>Preferences</guimenuitem> from the Eclipse main
-	menu. On the Mac select <guimenu>Eclipse</guimenu> |
-	<guimenuitem>Preferences</guimenuitem> from the Eclipse main
-	menu. Open the <emphasis>Sierra</emphasis> item on the
-	left-hand side of the view and select <emphasis>Scan
-	Data</emphasis>. Alternatively, you can also type the word
-	<userinput>data</userinput> in the text box at the upper
-	right.  Select the <emphasis>SierraTutorial_ShowOff</emphasis> project in the
-	<guilabel>Scanned Projects</guilabel> box and press
-	<guibutton>Delete Sierra Data</guibutton>.  A confirmation
-	dialog will appear as shown in <xref
-	linkend="fig-tutorial-delete-data" />. Press
+	the ShowOff project from the Sierra database. This is done
+	using the <guilabel>Scanned Projects</guilabel> view to the left
+	of the <guilabel>Sierra Quick Search</guilabel> view. Select the
+	<emphasis>SierraTutorial_ShowOff</emphasis> project and either press the
+	<inlinegraphic fileref="images/red_x.gif"/> icon on the view tool bar
+	or choose <guimenu><inlinegraphic fileref="images/red_x.gif"/> Delete</guimenu>
+	from the context menu as shown in <xref
+	linkend="fig-tutorial-delete-data" />.  A confirmation
+	dialog will appear to confirm that you really want to delete the project. Press
 	<guibutton>OK</guibutton> to confirm that you want to delete
-	this project's data.</para>
+	all the scans for the <emphasis>SierraTutorial_ShowOff</emphasis> project.</para>
 
 	<figure id="fig-tutorial-delete-data">
 	  <title>Removing the ShowOff project from the Sierra findings database</title>
@@ -949,7 +944,7 @@ if (o == null) {
 	deleting this directory clears out all Sierra data.</para>
       </section>
 
-      <section id="sec-tutorial-team-server">
+   <section id="sec-tutorial-team-server">
 	<title>Interacting with a Sierra team server</title>
 
 	<para>This tutorial assumes that you have installed Sierra and
