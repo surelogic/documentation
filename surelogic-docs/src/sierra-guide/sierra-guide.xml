@@ -661,7 +661,7 @@ public class ShowOff {
 	look like <xref linkend="fig-tutorial-screenshot-showoff-finding" />. If you
 	get more than one finding, you probably have scanned other
 	projects. (To delete the data from these projects see <xref
-	linkend="sec-preferences-scan-data" />.)</para>
+	linkend="sec-scanned-projects-view" />.)</para>
 	
 	<figure id="fig-tutorial-screenshot-showoff-finding">
 	  <title>Examining the one high importance finding for the ShowOff project</title>
@@ -1264,8 +1264,12 @@ if (o == null) {
 	cannot. Users are not deleted from a team server they are just
 	disabled. This keeps the source of all audit information about
 	findings on the server consistent.</para>
-
-	<para>We no longer need the default <emphasis>admin</emphasis>
+	
+	<para>Go back to the user management screen by clicking on the <guibutton>Manage Site</guibutton> link in
+	the upper-right of the page (just to the left of <guibutton>Log
+	Out</guibutton>) to open the site management page. Select the
+	<guibutton>Users</guibutton> tab to open the user management
+	page. We no longer need the default <emphasis>admin</emphasis>
 	user so change its status to <emphasis>Disabled</emphasis> using
 	the drop-down menu. If the list of disabled users gets long you
 	can uncheck the <emphasis>Show disabled users</emphasis> setting
@@ -1679,7 +1683,7 @@ if (o == null) {
 	linkend="fig-tutorial-smallworld-category-counts" />.</para>
 
 	<figure id="fig-tutorial-smallworld-category-counts">
-	  <title>The findings by category for the SmallWorld scan</title>
+	  <title>Findings by category for the SmallWorld scan</title>
 	  <mediaobject>
 	    <imageobject>
 	      <imagedata
@@ -2191,6 +2195,26 @@ if (o == null) {
 
       <para>This section describes the Eclipse views defined by the
       Sierra Eclipse client.</para>
+      
+            <section id="sec-scanned-projects-view">
+	<title>Scanned Projects</title>
+
+	<para>This view shows when the scan was done, the exclusion specification read from
+		that project's <filename>surelogic-tools.properties</filename>
+		file, and the time of the prior scan (if any). This view allows you to
+		delete the scan data about a project and start a new scan.  A choice
+		on the view menu allows all scans to be deleted.</para>
+							
+		<mediaobject>
+				<imageobject>
+					<imagedata fileref="images/scanned-projects-view.png" />
+				</imageobject>
+		</mediaobject>
+
+	<para>The view menu allows you to quickly rescan a project and, if you are done with your evaluation
+	of a project's code, delete Sierra data about that project.  The view menu also has a choice that clear all
+	the data about all projects you have scanned.</para>
+      </section>
 
       <section id="sec-findings-quick-search">
 	<title>Sierra Quick Search</title>
@@ -2540,47 +2564,6 @@ if (o == null) {
 
 	<para>The default value for this setting is
 	<emphasis>INFO</emphasis>.</para>
-      </section>
-
-      <section id="sec-preferences-scan-data">
-	<title>Scan Data</title>
-
-	<figure id="fig-preferences-scan-data">
-	  <title>The Scan Data preference pane</title>
-	  <mediaobject>
-	    <imageobject><imagedata fileref="images/preferences-scan-data.png"/></imageobject>
-	  </mediaobject>
-	</figure>
-
-	<para>The Scan Data preference pane allows cleanup of scan data
-	about old and no longer needed projects. It also allows the
-	entire Sierra Eclipse client database to be wiped clean
-	via the <guibutton>Delete All Sierra Data For This Workspace</guibutton>
-	button.</para>
-
-	<para>The list of projects shown in the <emphasis>Scanned
-	Projects</emphasis> group of this panel reflect projects that
-	have scan data and audits about them.  One or more of these
-	projects can be selected and deleted from the Sierra client
-	database. It is important to understand that the data is
-	deleted immediately when the <guibutton>Delete Sierra
-	Data</guibutton> button is pressed&mdash;not when the
-	<guibutton>OK</guibutton> or <guibutton>Apply</guibutton> is
-	pressed for the preference pane.</para>
-
-	<para>Sierra uses an embedded relational database to store its
-	results about your code. It is possible to wipe this database
-	clean by pressing the <guibutton>Delete All Sierra Data For This
-	Workspace</guibutton> button. This wipes all the data in the
-	database for the Sierra Eclipse client (you could also delete the
-	<emphasis>.sierra-data</emphasis> directory under your workspace when
-	Eclipse is not running).
-	Beware that all audits that have not been synchronized to a
-	team server will be lost. This action does not delete the
-	database for the Local Team Server (but deleting
-	the <emphasis>.sierra-data</emphasis> directory does). To do that in Eclipse select the
-	<guimenuitem>Wipe Local Team Server Database</guimenuitem> from
-	the <guilabel>Local Team Server</guilabel> view menu.</para>
       </section>
 
       <section id="sec-preferences-scan-filter">
