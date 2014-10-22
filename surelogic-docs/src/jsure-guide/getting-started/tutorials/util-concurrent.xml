@@ -102,7 +102,7 @@ public class SynchronizedVariable implements Executor {
   </para>
 
   <para>The lock model does not verify because there are three unprotected
-  field acceses.  Also note that the results contain a
+  field accesses.  Also note that the results contain a
   <guilabel>Null values</guilabel> category that is unassured.  There is one 
   negative result, visible in the <guilabel>JSure Quick Search</guilabel> view,
   under this category.  For now we shall focus on the lock model; we return 
@@ -284,7 +284,7 @@ public class SynchronizedVariable implements Executor {
     lock_ = this;
   }</programlisting>
   
-  This assignement of <code>this</code> to the field is unacceptable because
+  This assignment of <code>this</code> to the field is unacceptable because
   the receiver is <code>@Initialized(through="Object")</code>.  What does this
   mean?</para>
   
@@ -294,7 +294,7 @@ public class SynchronizedVariable implements Executor {
   by invoking a constructor on <classname>C</classname>.  All the constructors for <classname>C</classname>
   first invoke a constructor for <classname>B</classname>, and so on.  As the constructors
   complete, more and more of the instance is initialized.  We say that the object
-  is intialized through <emphasis><classname>X</classname></emphasis> if the most recently 
+  is initialized through <emphasis><classname>X</classname></emphasis> if the most recently 
   completed constructor is from class <emphasis><classname>X</classname></emphasis>.  
   This is important, because the only <code>@NonNull</code> fields that can be
   trusted to actually be <code>null</code> are those fields declared in class 
@@ -333,7 +333,7 @@ public class SynchronizedVariable implements Executor {
     </mediaobject>
 
   There is no longer an assurance failure in <guilabel>Null values</guilabel>.
-  Instead, we have a new trused promise under the <guilabel>Vouches</guilabel>
+  Instead, we have a new trusted promise under the <guilabel>Vouches</guilabel>
   category.</para>
   </section>
 </section>

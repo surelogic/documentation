@@ -193,7 +193,7 @@
 			<listitem><para>
 			<emphasis>@Raw annotation replaced with @Initialized</emphasis>
 						&mdash;
-						The confusing @Raw annotation has been replaced with @Initalized. Please see the Javadoc for @Initialized for further details on this change
+						The confusing @Raw annotation has been replaced with @Initialized. Please see the Javadoc for @Initialized for further details on this change
 						and proper use of the new annotation.
 						</para>
 						</listitem>

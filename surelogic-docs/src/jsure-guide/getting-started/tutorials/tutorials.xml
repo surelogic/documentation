@@ -12,7 +12,7 @@
   locks in concurrent Java programs.  The first two tutorials use small
   closed-world examples to demonstrate annotating code and using JSure, starting
   with no annotations at all.  The
-  remaining turorials begin with a partially annotated program,
+  remaining tutorials begin with a partially annotated program,
   and demonstrate more sophisticated concepts such as support for
   <package>java.util.concurrent</package> reader&ndash;writer
   locks.</para>

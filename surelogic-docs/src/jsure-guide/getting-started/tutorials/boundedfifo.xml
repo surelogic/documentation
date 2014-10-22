@@ -192,7 +192,7 @@ public class BoundedFIFO {
         This intrinsic lock model is declared on <classname>java.lang.Object</classname> and
         defines the need to hold a lock when invoking the <code>wait()</code> and <code>notify()</code>
         methods on any Java object.  The lock model declares <code>this</code>, the object itself, as the
-        lock that protects the wait–notify queue, and requires that the lock be held before the
+        lock that protects the wait-notify queue, and requires that the lock be held before the
         <code>wait()</code> and <code>notify()</code> methods may be invoked.  The fact that this model is unassured
         indicates that somewhere in the code JSure is unable to prove that a lock is held on an object that either
         <code>wait()</code> or <code>notify()</code> is invoked on. We will discover this finding to be accurate later in this tutorial.</para>
@@ -462,7 +462,7 @@ public void put(LoggingEvent e) {
     <para>Indeed, this problem is why the <computeroutput>java.lang.Object.MUTEX</computeroutput> lock model has remained unassured.
         Notice that <code>fifo.notify()</code>  is called within the synchronized block.
         The <computeroutput>java.lang.Object.MUTEX</computeroutput> lock model declares the object itself (in this case <code>fifo</code>) as the
-        lock that protects the wait–notify queue, and requires that the lock be held before the
+        lock that protects the wait-notify queue, and requires that the lock be held before the
         <code>wait()</code> and <code>notify()</code> methods may be invoked.  The verification state of this model
         also hinted that the wrong lock was being acquired in the code. This code change will allow the <computeroutput>java.lang.Object.MUTEX</computeroutput> lock model to assure.</para>
     
@@ -591,7 +591,7 @@ public void put(LoggingEvent e) {
         </imageobject>
       </mediaobject>
     
-    Select <guibutton>OK</guibutton> to insert the annotation.  Rescan
+    Select <guibutton>OK</guibutton> to insert the annotation.  Re-scan
     the project and the model now assures:
 
       <mediaobject>
@@ -851,7 +851,7 @@ public class BoundedFIFO {
   &hellip;
 }</programlisting>
 		
-		If we rescan the project with JSure we find that this does not assure. What is the problem?
+		If we re-scan the project with JSure we find that this does not assure. What is the problem?
 		</para>
 		
 	  <mediaobject>
@@ -885,7 +885,7 @@ public class BoundedFIFO {
 @UniqueInRegion("BufState")
 private LoggingEvent[] buf;</programlisting>
 
-       Make this change to the code and rescan. The results are shown below.</para>
+       Make this change to the code and re-scan. The results are shown below.</para>
             
        <mediaobject>
          <imageobject>
@@ -903,7 +903,7 @@ private LoggingEvent[] buf;</programlisting>
 @UniqueInRegion("BufState")
 private LoggingEvent[] buf;</programlisting>
 
-      Make this change to the code and rescan. The results are shown below.</para>
+      Make this change to the code and re-scan. The results are shown below.</para>
         
       <mediaobject>
         <imageobject>

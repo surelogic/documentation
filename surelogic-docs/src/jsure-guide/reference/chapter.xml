@@ -953,7 +953,7 @@
 		</para>
 		
 		<para>Most tabs are interactive and show aggregate, scan-level, information as well as detailed counts on individual files.
-		In particular, a threshold slider allows metric values above or below a threshold to be highlighed in the view. Only rows with
+		In particular, a threshold slider allows metric values above or below a threshold to be highlighted in the view. Only rows with
 		data are highlighted&mdash;summary rows are not, however, a
 		trail of <inlinegraphic fileref="images/asterisk.gif"/> decorators to the lower left of the row's image leads
 		to highlighted rows in any tree-table displayed
@@ -983,7 +983,7 @@
               <title><guiicon><inlinegraphic fileref="images/alpha_sort.gif"/></guiicon></title>
               <para>Toggling this button controls whether or not the nodes in the metric
                   tab being shown are sorted in alphabetical order.
-                  When it is not pressed in tabs are storted by the magnitude of the metric being
+                  When it is not pressed in tabs are sorted by the magnitude of the metric being
                   displayed in the tab.</para>
             </formalpara>            
           </listitem>
@@ -1023,7 +1023,7 @@
            <title><guiicon><inlinegraphic fileref="images/alpha_sort.gif"/> Sort Contents Alphabetically</guiicon></title>
            <para>Toggling this menu item controls whether or not the nodes in the metric
                tab being shown are sorted in alphabetical order.
-               When it is unchecked tabs are storted by the magnitude of the metric being
+               When it is unchecked tabs are sorted by the magnitude of the metric being
                displayed in the tab.</para>
          </formalpara>            
        </listitem>
@@ -1423,7 +1423,7 @@
 		<title>The JSure Quick Search view</title>
 
 		<para>The <guilabel>JSure Quick Search</guilabel> view, as shown in <xref
-      linkend="fig-jsure-quick-search-view"/>, shows tool results to the tool ueser in a flexible, query-oriented, manner.</para>
+      linkend="fig-jsure-quick-search-view"/>, shows tool results to the tool user in a flexible, query-oriented, manner.</para>
 		
 	  <figure id="fig-jsure-quick-search-view">
         <title>The <guilabel>JSure Quick Search</guilabel> view</title>
@@ -1690,8 +1690,8 @@
 	  <title><guibutton>Tree views should save and restore expansion and selection (may be slow for larger scans)</guibutton></title>
 
 	  <para>If this is checked then the expansion and selection state of tree viewers is saved and restored on Eclipse exit and
-	  startup and when the scan is chaged. Unchecking this may speed scan load performance. Note that expansion and selection restoration of
-	  a view will automaticall timeout after roughly 3 seconds, so this preference is rarely needs to be unchecked.</para>
+	  startup and when the scan is changed. Unchecking this may speed scan load performance. Note that expansion and selection restoration of
+	  a view will aromatically timeout after roughly 3 seconds, so this preference is rarely needs to be unchecked.</para>
 	</formalpara>
       </listitem>
     </itemizedlist>
@@ -1769,7 +1769,7 @@
 	  <title><guibutton>Load entire classpath into memory (used for testing library annotation consistency)</guibutton></title>
 	  <para>To save memory and time, JSure only loads classes from JAR files into memory during a scan
 	  if they are referenced, directly or indirectly, by code in the project. This selection directs JSure
-	  to load the entire project classpath into memory. This is not recommened for normal tool use, however,
+	  to load the entire project classpath into memory. This is not recommended for normal tool use, however,
 	  it is very helpful when annotating binary libraries with the <guibutton>Library Annotation Explorer</guibutton> and editor.
 	  This is because it can help check that all subtypes of an annotated binary class are properly annotated.</para>
 	</formalpara>
@@ -1824,7 +1824,7 @@
         on the package and type names a result is within.</para>
         
         <para>If any of the filters match the resource that the modeling problem or proposed promise is
-        within, then the problem or proposa. is not shown.
+        within, then the problem or proposal. is not shown.
         The filters are defined using Java regular expressions.</para>
         
         <para>This preference pane has a set of reasonable defaults that cover the Java standard library.
@@ -2159,7 +2159,7 @@
     
         <para>The <guimenuitem>Send Library Annotation Changes</guimenuitem> command
     opens a dialog to allow the user to send any library annotation changes that they
-    have made to SureLogic to be added into the standard set of annotations shiped with the
+    have made to SureLogic to be added into the standard set of annotations shipped with the
     JSure tool. The dialog that opens is seen in <xref
     linkend="fig-bugs-and-tips-menu-library-annotations" /> The dialog
     allows the user to control exactly what information is sent to

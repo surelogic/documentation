@@ -260,7 +260,7 @@
   annotation for methods with unverified annotations.  Select the 
   <guilabel>proposed promise</guilabel> under the unaccounted for effect
   and select <menuchoice><guimenuitem>Annotate code&hellip;</guimenuitem></menuchoice> in the
-  contextual menu to replace the annotation with the correct one infered by
+  contextual menu to replace the annotation with the correct one inferred by
   JSure. Finally, run the JSure analysis to verify the fixed annotation.
   </para>
 </section>

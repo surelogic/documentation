@@ -125,7 +125,7 @@
   to the method <function>nonBorrowedSum()</function>.  It can also be fixed 
   by rewriting the <function>doStuff2()</function> to reassign a value to
   <structfield>values</structfield> <emphasis>before</emphasis> the method call
-  is made.  This also elimates the need for the unsightly try&ndash;finally:
+  is made.  This also eliminates the need for the unsightly try&ndash;finally:
   
     <mediaobject>
       <imageobject>
