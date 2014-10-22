@@ -467,7 +467,7 @@
 	fileref="images/asterisk_orange.gif" /></guiicon> icons appear
 	in the Java editor gutter to highlight tool findings. By
 	default, these gutter icons only appear for findings deemed of
-	high or critical importance. The dmore important the tool believes the finding
+	high or critical importance. The more important the tool believes the finding
 	to be the darker orange the icon will be. When these editor gutter marks are displayed,
 	in particular for what importance values, can be configured in the Sierra preferences
     as described in <xref linkend="sec-preferences" />.</para>
@@ -859,7 +859,7 @@ if (o == null) {
 
 	<para>Now let's examine the last finding by selecting it in the
 	<guilabel>Results</guilabel> view, <emphasis>ShowOff.main(String[])
-	invokes ineffiecient new String(String) constructor</emphasis>.  The
+	invokes inefficient new String(String) constructor</emphasis>.  The
 	finding should be at the bottom of the list. This finding is complaining
 	about our use of <computeroutput>new String("hello")</computeroutput> in
 	the code at line 10. Explicit use of string construction is considered
@@ -2290,7 +2290,7 @@ if (o == null) {
 			<formalpara><title>Scan Time</title><para>The time the most recent scan occurred.</para></formalpara>
 			</listitem>
 			<listitem>
-			<formalpara><title>Prior Scan Time</title><para>The time of the scan immediatly prior to the most recent scan, or blank if none.</para></formalpara>
+			<formalpara><title>Prior Scan Time</title><para>The time of the scan immediately prior to the most recent scan, or blank if none.</para></formalpara>
 			</listitem>
 			<listitem>
 			<formalpara><title>Exclusion Specification (surelogic-tools.properties)</title><para>The exclusions for source folders and packages
@@ -2405,7 +2405,7 @@ if (o == null) {
      in this view. To clear out one level press the <inlinegraphic
 	 fileref="images/gray_x.gif" /> icon within a filter. To clear
 	 out the entire filter press the <inlinegraphic
-	 fileref="images/gray_x.gif" /> icon at the uppper-right of the view.</para>
+	 fileref="images/gray_x.gif" /> icon at the upper-right of the view.</para>
 	 
 	 <para>The filters supported by this view are as follows:</para>
 
@@ -2579,7 +2579,7 @@ if (o == null) {
 	      <formalpara>
 	        <title><guiicon><inlinegraphic fileref="images/export.gif"/> Export Searches...</guiicon></title>
 	        <para>This button allows you to export all your saved searches to an XML file. This file can then be loaded into
-	        another Eclipse workspace, such as an Eclipse installation used by a collegue or one on another computer used by you.</para>
+	        another Eclipse workspace, such as an Eclipse installation used by a colleague or one on another computer used by you.</para>
 	      </formalpara>            
 	     </listitem>
 	    </itemizedlist>
@@ -2650,22 +2650,21 @@ if (o == null) {
 			<formalpara><title>Project</title><para>The Eclipse project the finding is within.</para></formalpara>
 			</listitem>
 			<listitem>
-			<formalpara><title>Package</title><para>The Java package the finding is withing.</para></formalpara>
+			<formalpara><title>Package</title><para>The Java package the finding is within.</para></formalpara>
 			</listitem>
 			<listitem>
 			<formalpara><title>Type</title><para>The Java type, such as a class or interface, the finding is within.</para></formalpara>
 			</listitem>
 			<listitem>
-			<formalpara><title>Line</title><para>The line number the finding refers to.</para></formalpara>
+			<formalpara><title>Line</title><para>The line number the finding is about.</para></formalpara>
 			</listitem>
 			<listitem>
-			<formalpara><title>Importance</title><para>The tool, or audited, importance of the the finding.</para></formalpara>
+			<formalpara><title>Importance</title><para>The tool, or Sierra-user audited, importance of the the finding.</para></formalpara>
 			</listitem>
 			<listitem>
-			<formalpara><title>Finding Type</title><para>The tool defined type of the finding.</para></formalpara>
+			<formalpara><title>Finding Type</title><para>The tool-defined type of the finding, such as <emphasis>Avoid using short</emphasis>.</para></formalpara>
 			</listitem>
 		</itemizedlist>
-
 	</para>
 	
 	<para>Each column may be sorted by pressing on the column title. If too many findings are displayed a warning appears at the bottom of the view.
@@ -2717,10 +2716,65 @@ if (o == null) {
 
       <section id="sec-finding-details-view">
 	<title>The Finding Details view</title>
-
-	<para>This view displays information about and allows you to
-	audit an analysis finding. It also displays all analysis tool
-	artifacts that support a finding.</para>
+	
+    <para>The <guilabel>Finding Details</guilabel> view, as shown in <xref
+      linkend="fig-finding-details-view-synopsis-tab"/>, displays information about and allows you to
+	audit one particular finding. The finding displayed in this view corresponds to
+	the selection in the <guilabel>Findings</guilabel> view.</para>
+		
+	<figure id="fig-finding-details-view-synopsis-tab">
+        <title>The <guilabel>Finding Details</guilabel> view <guilabel>Synopsis</guilabel> tab</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/finding-details-view-synopsis-tab.png"/></imageobject>
+        </mediaobject>
+    </figure>
+    
+    <para>The <guilabel>Synopsis</guilabel> tab primarily provides an overview of the finding.
+    This overview includes a summary, importance judgment, audit count, reporting analysis
+    tool, location in the code, and a detailed description.</para>
+    
+    <para>You can quickly change the importance judgment of this finding from
+    this tab using the drop-down menu at the upper-right of the view. An example of
+    performing this action is shown in the image below.</para>
+    
+    <mediaobject>
+          <imageobject><imagedata fileref="images/finding-details-quick-importance.png"/></imageobject>
+    </mediaobject>
+    
+    <para>You can also press the <inlinegraphic fileref="images/sierra_stamp_small.gif"/>
+    icon to create a quick audit that states that you have examined the finding.</para>
+    
+    <mediaobject>
+          <imageobject><imagedata fileref="images/finding-details-quick-audit.png"/></imageobject>
+    </mediaobject>
+    
+    <figure id="fig-finding-details-view-audit-tab">
+        <title>The <guilabel>Finding Details</guilabel> view <guilabel>Audit</guilabel> tab</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/finding-details-view-audit-tab.png"/></imageobject>
+        </mediaobject>
+    </figure>
+    
+    <para>The <guilabel>Finding Details</guilabel> view <guilabel>Audit</guilabel> tab is shown in <xref
+      linkend="fig-finding-details-view-audit-tab"/>. This view lists the detailed audits made by your team members about this
+      Sierra finding. You can also press the <inlinegraphic fileref="images/sierra_stamp_small.gif"/>
+    icon to create a quick audit that states that you have examined the finding. You can change the importance judgment of the
+    finding using the radio control to the right of the tab. You can also enter a comment and add it to the stream of audits
+    about this finding.  When you synchronize with your team server, all the members of your team will see your audits.</para>
+    
+    <figure id="fig-finding-details-view-artifact-tab">
+        <title>The <guilabel>Finding Details</guilabel> view <guilabel>Artifact</guilabel> tab</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/finding-details-view-artifact-tab.png"/></imageobject>
+        </mediaobject>
+    </figure>
+    
+    <para>The <guilabel>Finding Details</guilabel> view <guilabel>Artifact</guilabel> tab is shown in <xref
+      linkend="fig-finding-details-view-artifact-tab"/>. An artifact is a report from an analysis tool run during a scan.
+      Sierra creates a finding from one or more artifacts. In the example shown above, the finding was created from
+      two artifacts, one from PMD and one from FindBugs.  The tab shows information about what the tool reported and
+      the location the tool referenced in its report.</para>
+    
 
 	<para>Described further in <xref linkend="sec-tutorial-client"
 	/>.</para>
@@ -2728,40 +2782,284 @@ if (o == null) {
 
     <section id="sec-team-servers-view">
 	<title>The Team Servers view</title>
-
-	<para>This view provides a tree that shows the Sierra Eclipse
+	
+	 <para>The <guilabel>Team Servers</guilabel> view, as shown in <xref
+      linkend="fig-team-servers-view"/>, provides a tree that shows the Sierra Eclipse
 	client's connections to Sierra Team Servers on the
 	network. The view shows what projects are connected to
 	particular team servers and what scan filters exist and are in
 	use. This view has a shortcut <guiicon><inlinegraphic
 	fileref="images/sierra_sync.gif" /></guiicon> icon that allows
 	all information to be synchronized with the set of known
-	Sierra Team Servers.</para>
+	Sierra Team Servers..</para>
+		
+	<figure id="fig-team-servers-view">
+        <title>The <guilabel>Team Servers</guilabel> view organized by team server</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/team-servers-view.png"/></imageobject>
+        </mediaobject>
+    </figure>
+    
+       <para>The view&rsquo;s toolbar has two command icons:
+        <itemizedlist>
 
-	<para>Described further in <xref
-	linkend="sec-tutorial-team-server" />.</para>
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/sierra_sync.gif"/></guiicon></title>
+              <para>This button performs a synchronize with all servers and connected projects. It is the same
+              as choosing <guilabel><inlinegraphic fileref="images/sierra_sync.gif"/> Synchronized All</guilabel>
+              from the <guilabel>Sierra</guilabel> menu.</para>
+            </formalpara>            
+          </listitem>
+
+          <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/edit_new.gif"/></guiicon></title>
+              <para>This defines a new connection to a running team server. When it is pressed the dialog below appears for you
+              to fill out all the connection information about the team server. Please see the tutorial in <xref
+              linkend="sec-tutorial-team-server"/> about interacting with a team
+              server for some concrete examples of defining a connection.
+               <mediaobject>
+                 <imageobject><imagedata fileref="images/team-servers-view-new-connection-dialog.png"/></imageobject>
+                </mediaobject>
+              </para>
+            </formalpara>            
+          </listitem>
+        </itemizedlist>
+      </para>
+      
+       <figure id="fig-team-servers-view-menu">
+        <title>The <guilabel>Team Servers</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/team-servers-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has five commands; see <xref
+      linkend="fig-team-servers-view-menu"/>:
+	     <itemizedlist>
+	       <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/edit_new.gif"/> New...</guiicon></title>
+              <para>This defines a new connection to a running team server. When it is pressed the dialog below appears for you
+              to fill out all the connection information about the team server. Please see the tutorial in <xref
+              linkend="sec-tutorial-team-server"/> about interacting with a team
+              server for some concrete examples of defining a connection.
+               <mediaobject>
+                 <imageobject><imagedata fileref="images/team-servers-view-new-connection-dialog.png"/></imageobject>
+                </mediaobject>
+              </para>
+            </formalpara>            
+          </listitem>
+	    <listitem>
+	      <formalpara>
+	        <title><guiicon>Show by Team Server</guiicon></title>
+	        <para>The tree displayed in the <guilabel>Team Servers</guilabel> view has two possible organizations. 
+		    Selecting this radio choice organizes the tree by team server as shown in <xref linkend="fig-team-servers-view"/>.</para>
+	      </formalpara>            
+	     </listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon>Show by Project</guiicon></title>
+		    <para>The tree displayed in the <guilabel>Team Servers</guilabel> view has two possible organizations. 
+		    Selecting this radio choice organizes the tree by project as shown in <xref linkend="fig-team-servers-view-by-project"/>.
+		    
+		       <figure id="fig-team-servers-view-by-project">
+        <title>The <guilabel>Team Servers</guilabel> view organized by project</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/team-servers-view-by-project.png"/></imageobject>
+        </mediaobject>
+    </figure>
+    </para>
+		  </formalpara>
+		</listitem>
+		 <listitem>
+            <formalpara>
+              <title><guiicon><inlinegraphic fileref="images/sierra_sync.gif"/> Synchronize All</guiicon></title>
+              <para>This menu choice performs a synchronize with all servers and connected projects. It is the same
+              as choosing <guilabel><inlinegraphic fileref="images/sierra_sync.gif"/> Synchronized All</guilabel>
+              from the <guilabel>Sierra</guilabel> menu.</para>
+            </formalpara>            
+          </listitem>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon>Preferences...</guiicon></title>
+		    <para>Selecting this menu choice opens the preference page for team server connections. This preference page
+	        is described in <xref linkend="sec-preferences-server-interaction"/>. The server interaction
+	        preference pane allows control
+	        over automatic synchronization with Sierra Team Servers. To
+	        enable automatic interaction with a server, right-click on a
+        	team server in the <guilabel>Team Servers</guilabel> view and
+	        check <guimenuitem>Use Automatic
+	        Synchronization</guimenuitem>.</para>
+		  </formalpara>
+		</listitem>
+	    </itemizedlist>
+      </para>
+      
+      <figure id="fig-team-servers-view-context-menu">
+        <title>The <guilabel>Team Servers</guilabel> context menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/team-servers-view-context-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+    <para>The view&rsquo;s context menu has five commands; see <xref
+      linkend="fig-team-servers-view-context-menu"/>:
+    <itemizedlist>
+    <listitem>
+      <formalpara>
+        <title><guiicon><inlinegraphic fileref="images/sierra_scan.gif"/> Scan Project</guiicon></title>
+        <para>This menu choice
+	  starts a full scan on the selected project. The
+	  scans are run in background jobs and progress can be seen in
+	  the Eclipse <guilabel>Progress</guilabel> view and (by
+	  default) via balloon notifications.  This is the same as the <guiicon><inlinegraphic
+	  fileref="images/sierra_scan.gif"/> Scan Project</guiicon> command on the <guilabel>Sierra</guilabel> menu.</para>
+      </formalpara>            
+     </listitem>
+	<listitem>
+	  <formalpara>
+	    <title><guiicon><inlinegraphic fileref="images/sierra_scan_delta.gif"/> Re-Scan Changes in Project</guiicon></title>
+	    <para>This menu choice starts a partial scan on only those
+	  Java types in the selected project that have been recompiled since
+	  the last scan. If little has been changed in a project then
+	  this choice will be quicker than running a full scan. For
+	  the purpose of finding differences, only those types that
+	  are scanned are changed. This is the same as the <guiicon><inlinegraphic fileref="images/sierra_scan_delta.gif"/> Re-Scan
+	  Changes in Project</guiicon> command on the <guilabel>Sierra</guilabel> menu.</para>
+	  </formalpara>
+	</listitem>
+	<listitem>
+      <formalpara>
+       <title><guiicon><inlinegraphic fileref="images/sierra_sync.gif"/> Synchronize Project</guiicon></title>
+        <para>This menu choice performs a synchronize of the selected project with its connected team server. It is the same
+            as choosing <guilabel><inlinegraphic fileref="images/sierra_sync.gif"/> Synchronized Project</guilabel>
+             from the <guilabel>Sierra</guilabel> menu.</para>
+            </formalpara>            
+          </listitem>
+     <listitem>
+      <formalpara>
+        <title><guiicon><inlinegraphic fileref="images/sierra_publish.gif"/> Publish Latest Scan</guiicon></title>
+        <para>This
+	  menu choice sends the scan results from the last full scan to
+	  the Sierra team server that the selected project is connected
+	  to. Note that only <emphasis>full scans</emphasis> can be
+	  published to a team server.
+        This is the same as the <guiicon><inlinegraphic fileref="images/sierra_publish.gif"/> Publish Latest Scan</guiicon>
+        command on the <guilabel>Sierra</guilabel> menu.</para>
+      </formalpara>            
+     </listitem>
+     <listitem>
+      <formalpara>
+        <title><guiicon><inlinegraphic fileref="images/sierra_disconnect.gif"/> Disconnect</guiicon></title>
+        <para>This menu choice
+	  disconnects the selected project from the Sierra team server
+	  it is currently connected to. This action causes all local
+	  information about the project to be deleted (so a new scan
+	  will have to be run on the project). The disconnected
+	  project may then be connected to a different Sierra team
+	  server.
+        This is the same as the <guiicon><inlinegraphic fileref="images/sierra_disconnect.gif"/> Disconnect</guiicon>
+        command on the <guilabel>Sierra</guilabel> menu.</para>
+      </formalpara>            
+     </listitem>
+    </itemizedlist>
+      </para>      
       </section>
 
     <section id="sec-synchronize-history-view">
 	<title>The Synchronize History view</title>
-	<para>This view provides a table that lists each synchronize
+	
+	<figure id="fig-synchronize-history-view">
+        <title>The <guilabel>Synchronize History</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/synchronize-history-view.png"/></imageobject>
+        </mediaobject>
+    </figure>
+    
+	<para>The <guilabel>Synchronize History</guilabel> view, as shown in <xref
+      linkend="fig-synchronize-history-view"/>, provides a table that lists each synchronize
 	that has been done with a Sierra Team Server. The table lists
 	when the synchronize occurred, what server was involved, and a
 	summary of the audit data passed back and forth.  Selecting a
 	row in this table brings up the <guilabel>Synchronize History
-	Details</guilabel> view. This view is described in <xref
-	linkend="sec-synchronize-history-details-view" />.</para>
+	Details</guilabel> view.</para>
+	
+	     <para>
+		Each row in the table represents a finding. The table displays the
+		following columns:
+		<itemizedlist>
+			<listitem>
+			<formalpara><title>Occurred</title><para>The date and time when the connection with the team server occurred.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Server</title><para>The name of the team server which Eclipse connected.</para></formalpara>
+			</listitem>
+			<listitem>
+			<formalpara><title>Summary</title><para>A synopsis of what was sent and what was received from the team server during the connection.</para></formalpara>
+			</listitem>
+		</itemizedlist>
+	</para>
+	
+	<para>Each column may be sorted by pressing on the column title. Selecting a
+	row in the table brings up the <guilabel>Synchronize History
+	Details</guilabel> view which provides more information about the event and
+	links to particular Sierra findings involved.</para>
+	
+	       <figure id="fig-synchronize-history-view-menu">
+        <title>The <guilabel>Synchronize History</guilabel> view menu</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/synchronize-history-view-menu.png"/></imageobject>
+        </mediaobject>
+      </figure>
+      
+      <para>The view&rsquo;s menu has two commands; see <xref
+      linkend="fig-synchronize-history-view-menu"/>:
+	     <itemizedlist>
+		<listitem>
+		  <formalpara>
+		    <title><guiicon>Omit Empty Synchronize Events</guiicon></title>
+		    <para>This toggle allows you to filter out synchronize events that simply connected and did not transfer any audit information. This
+		    can be helpful to remove clutter from the view table.</para>
+		  </formalpara>
+		</listitem>
+	    <listitem>
+	      <formalpara>
+	        <title><guiicon>Preferences...</guiicon></title>
+	        <para>This button opens the preference page for team server connections. This preference page
+	        is described in <xref linkend="sec-preferences-server-interaction"/>. The server interaction
+	        preference pane allows control
+	        over automatic synchronization with Sierra Team Servers. To
+	        enable automatic interaction with a server, right-click on a
+        	team server in the <guilabel>Team Servers</guilabel> view and
+	        check <guimenuitem>Use Automatic
+	        Synchronization</guimenuitem>.</para>
+	      </formalpara>            
+	     </listitem>
+	    </itemizedlist>
+      </para>
       </section>
 
     <section id="sec-synchronize-history-details-view">
 	<title>The Synchronize History Details view</title>
-	<para>This view provides details linking to particular audits
+	
+	<figure id="fig-synchronize-history-details-view">
+        <title>The <guilabel>Synchronize History Details</guilabel> view</title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/synchronize-history-details-view.png"/></imageobject>
+        </mediaobject>
+    </figure>
+    
+	<para>The <guilabel>Synchronize History Details</guilabel> view, as shown in <xref
+      linkend="fig-synchronize-history-view"/>, provides details linking to particular audits
 	for a synchronize with a Sierra Team Server.  A synchronize
 	event is selected in the <guilabel>Synchronize
 	History</guilabel> view that focuses the information shown in
-	this view.  The <guilabel>Synchronize History</guilabel> view
-	is described in <xref linkend="sec-synchronize-history-view"
-	/>.</para>
+	this view.</para>
+	
+	<para>The findings underlined in the detail report, when selected, bring up the <guilabel>Finding Details</guilabel> view
+	 in the <guilabel>Audit</guilabel> tab. This allows you to examine the audits.</para>
       </section>
 
     </section>
@@ -3594,7 +3892,7 @@ if (o == null) {
 							</imageobject>
 					</mediaobject>
 					
-					<para>This new view makes the Scan Data page of the Sierra preferences obselete. That preference page
+					<para>This new view makes the Scan Data page of the Sierra preferences obsolete. That preference page
 					has been removed in this release of the tool. A key driving consideration of this change was to 
 					make it straightforward for a tool user to find what exclusion specification read from
 					that project's <filename>surelogic-tools.properties</filename> was actually understood by the tool and used.
@@ -3616,6 +3914,16 @@ if (o == null) {
 						Ant task. Documentation for the ant tasks can be
 						found in
 						<xref linkend="sierra-ant-tasks" />
+					</para>
+				</listitem>
+				<listitem>
+					<para>
+						<emphasis>
+							Updated reference documentation for the Sierra Eclipse client views
+						</emphasis> &mdash;
+						As part of our ongoing work to improve the Sierra reference documentation we
+						have done a major update of the descriptions of each view used by the
+						Sierra Eclipse client.
 					</para>
 				</listitem>
 			</orderedlist>
