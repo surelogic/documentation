@@ -291,7 +291,7 @@
   these happens-before relationships, so let's verify for our self that they
   exist. We'll do that by taking a look at where in the main thread
   <structfield>f_threadLocalCounts</structfield> is initialized.  Go up one
-  query level, back to <emphasis>What instancs contain this field and have an
+  query level, back to <emphasis>What instances contain this field and have an
   empty lock set?</emphasis> by clicking on the <guiicon><inlinegraphic
   fileref="images/gray_x.png" /></guiicon> icon in the toolbar of
   <guilabel>Query Results</guilabel> view.  Then run <emphasis>When and by what
