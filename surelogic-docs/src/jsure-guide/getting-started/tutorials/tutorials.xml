@@ -59,7 +59,8 @@
 	<note>
 		<title>Several of the imported projects will not compile in Eclipse</title>
 
-		<para>The JSureTutorial_PlanetBaron and JSureTutorial_EffectiveEffects
+		<para>The JSureTutorial_PlanetBaron, JSureTutorial_EffectiveEffects,
+		and JSureTutorial_NonNull
 		projects will <emphasis>not</emphasis> compile without errors until you add the Promises
 		Library JAR into the build path of each project. A few of the tutorial
 		projects, such as <classname>JSureTutorial_ThreadSafeAndImmutable</classname>,

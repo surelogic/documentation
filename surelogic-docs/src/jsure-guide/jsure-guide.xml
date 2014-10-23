@@ -51,6 +51,31 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
     
+    	<section id="sec-jsure-release-5-5-2">
+		<title>JSure version 5.5.2</title>
+		<para>This section describes the 5.5.2 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Tutorial about effective use of null reference annotations</emphasis>
+						&mdash;
+						The documentation has been updated to include a tutorial about using
+						null reference annotations. This is still a work in progress, but is
+						far enough along to be interesting in the documentation for JSure.
+					</para>
+				</listitem>
+			</orderedlist>
+		</section>
+	</section>
+    
     	<section id="sec-jsure-release-5-5-1">
 		<title>JSure version 5.5.1</title>
 		<para>This section describes the 5.5.1 version of the JSure Eclipse
