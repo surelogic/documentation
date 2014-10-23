@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<section id="nonnull" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<title>Verifying Non-<code>null</code> References</title>
+
+	<para>This tutorial demonstrates the use of the <code>@NonNull</code> and
+  the <code>@Initialized</code> annotations for declaring intent regarding
+  non-<code>null</code> references.  We assure two classes that could be
+	part of a graphics package, <classname>Point</classname> and
+	<classname>Rectangle</classname>.  These classes are contrived, based
+	on code patterns that we have encountered in production code.</para>  
+
+  <para>The class <classname>Point</classname> implements an immutable
+  two-dimensional point:</para>	
+	
+	<programlisting><emphasis>@Immutable</emphasis>
+public class Point {
+  private final int x;
+  private final int y;
+  
+  public Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+  
+  public int getX() {
+    return x;
+  }
+
+  public int getY() {
+    return y;
+  }
+  
+  public Point translate(int dx, int dy) {
+    return new Point(x + dx, y + dy);
+  }
+  
+  public boolean isAboveLeftOf(Point p) {
+    return this.x &lt;= p.x &amp;&amp; this.y &lt;= p.y;
+  }
+}</programlisting>
+
+  <para>Besides the getter methods, the class has the method
+  <function>translate</function> that returns a <emphasis>new</emphasis>
+  point instance, and the predicate <function>isAboveLeftOf</function> that 
+  returns whether the point is above, and to the left of the given point.</para>
+  
+  <para>The mutable class <classname>Rectangle</classname> has three fields,
+  <code>@NonNull</code> point references, and a cached perimeter value:</para>
+  
+  <programlisting>public class Rectangle {
+  private <emphasis>@NonNull</emphasis> Point topLeft;
+  private <emphasis>@NonNull</emphasis> Point bottomRight;
+  
+  private int perimeter;
+  
+  // ...
+}</programlisting>
+
+  <para>Our assurance of this class is going to be based around the
+  <code>@NonNull</code> annotations on the <structfield>topleft</structfield>
+  and <structfield>bottomRight</structfield> fields.</para>
+  
+  <para>Before analyzing the code, make sure that JSure's Nullable Assurance is
+  activated by checking <guilabel>Nullable</guilabel> in the 
+  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Verifying
+  Analysis Selection</guimenuitem></menuchoice> preference pane.  (The
+  <guilabel>Nullable Preprocessor</guilabel> analysis will always be selected
+  when <guilabel>Nullable</guilabel> is selected.)  Now scan the project 
+  with JSure.</para>
+
+  <section>
+    <title>Initial Assurance Results</title>
+    
+    <para>The initial assurance results from the <guilabel>Verification
+    Status</guilabel> view are shown below:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-initial.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>First we see that the <code>@Immuable</code> annotation on
+    <classname>Point</classname> assures because the only fields in the class
+    are <code>final</code> integer values.  Second we see four unsatisfied 
+    <code>@NonNull</code> annotations: two on the fields <structfield>topLeft</structfield>
+    and <structfield>bottomRight</structfield>, and two <emphasis>virtual</emphasis>
+    annotations on the receivers of <function>copyFrom</function> and 
+    <function>computePerimeter</function>.  The annotations on the fields are
+    explicit in the code (see above).  The annotations on the method receivers
+    are virtual because they are not present in the code; instead the annotations
+    are implicit on all method receivers and displayed in the results only 
+    when they are unsatisfied.</para>
+    
+    <para>The rest of the tutorial proceeds as follows:
+      <orderedlist>
+        <listitem>
+          <para>The annotations on the fields <structfield>topLeft</structfield>
+          and <structfield>bottomRight</structfield> are assured by adding additional
+          annotations to method parameters and method return values.</para>
+        </listitem>
+        <listitem>
+          <para>The virtual annotations on the receivers of
+          <function>copyFrom</function> and <function>computePerimeter</function>
+          are assured.</para>
+        </listitem>
+        <listitem>
+          <para>The code is refactored to avoid the problems raised by 
+          <function>copyFrom</function> and <function>computePerimeter</function>.</para>
+        </listitem>
+      </orderedlist>
+    </para>    
+  </section>
+  
+  <section>
+    <title>Assuring the Fields</title>
+    
+    <para>We continue by expanding the results for the fields
+    <structfield>topLeft</structfield> and <structfield>bottomRight</structfield>.
+    They are used similarly by the class implementation and thus have similar
+    results:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-fields.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>The <code>@NonNull</code> annotation for each field has a positive
+    &ldquo;Definitely assigned&rdquo; result.  JSure requires the every non null
+    field be explicitly initialized during construction, otherwise the field's 
+    value will be the Java language default <code>null</code> value.  In this
+    case, JSure is satisfied that the fields are definitely assigned by the
+    constructor <function>Rectangle(Point, Point)</function>.  However, assurance
+    is not satisfied that the constructor <function>Rectangle(Rectangle)</function>
+    initializes the fields.  This is because the constructor invokes a method
+    to initalize the fields:</para>
+    
+    <programlisting>  /**
+   * Copy constructor.
+   */
+  public Rectangle(Rectangle other) {
+    copyFrom(other);
+  }</programlisting>
+    
+    <para>Assurance cannot be sure what the invoked method may do, and thus
+    cannot be sure that the constructor will initialize the fields to
+    non-<code>null</code> values.  We revisit this problem later in the
+    tutorial.</para>
+    
+    <para>The first unacceptable assignment result for each field refers to
+    values being assigned to the fields in the constructor
+    <function>Rectangle(Point, Point)</function>.  The constructor is as
+    follows:</para>
+    
+    <programlisting>  /**
+   * Caller responsibility to insure that the points really are
+   * top-left and bottom-right.  Origin (0, 0) is the top-left corner
+   * of the canvas.
+   */
+  private Rectangle(Point topLeft, Point bottomRight) {
+    this.topLeft = topLeft;
+    this.bottomRight = bottomRight;
+    computePerimeter();
+  }</programlisting>
+    
+    <para>Because the formal parameters <parameter>topLeft</parameter>
+    and <parameter>bottomRight</parameter> are unannotated they are 
+    allowed to be passed the value <code>null</code>, and thus the 
+    fields could be initialized to <code>null</code> in violation of their
+    <code>@NonNull</code> annotation.  The solution, as proposed in the
+    results, is to annotate the two parameters with <code>@NonNull</code>.
+    Go ahead and do that now.</para>
+    
+    <para>Next we see that <structfield>topLeft</structfield> and 
+    <structfield>bottomRight</structfield> have unacceptable assignments
+    due to the &ldquo;return value of method call&rdquo; <code>translate()</code>.
+    This is a method from the class <classname>Point</classname> that returns
+    a new point translated from the original:</para>
+    
+    <programlisting>  public Point translate(int dx, int dy) {
+    return new Point(x + dx, y + dy);
+  }</programlisting>
+  
+    <para>Assurance rejects the assignments to the fields because without any
+    programmer annotation assurance assumes that a method may return the
+    value <code>null</code>.  In this case the method always returns a 
+    new object, and thus always returns a non-<code>null</code> reference.
+    We can annotate this by adding the <code>@NonNull</code> annotation
+    to the method:</para>
+    
+    <programlisting>  <emphasis>@NonNull</emphasis>
+  public Point translate(int dx, int dy) {
+    return new Point(x + dx, y + dy);
+  }</programlisting>
+     
+    <para>Add the annotation and reverify the project.  The five unacceptable
+    assignments we just looked at are now acceptable.  If you have 
+    <guilabel>Hightlight differences from last scan</guilabel> button
+    selected on the view, the changes to the results are hightlighted in yellow:</para>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-fields2.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>The initialization of the <structfield>topLeft</structfield> in
+    the constructor <function>Rectangle(Point, Point)</function> is now
+    satisfied by the annotation on the formal parameter.  Furthermore, calls
+    to the constructor itself are also now verified to pass only non-<code>null</code>
+    values as actuals.  In this case, there is one call site and it passes
+    a new object:</para>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-param-chain.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>Similary, the assigned to <structfield>topLeft</structfield> in
+    <function>Rectangle.translate()</function> is now satisfied by the annotation
+    on the return value of <function>Point.translate()</function>.  And the 
+    chain of evidence continues to the actual return value of the method
+    (the creation of the new <classname>Point</classname> object):</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-return-chain.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>The results are similar for the field
+    <structfield>bottomRight</structfield>.</para>
+    
+    <para>Both fields have an &ldquo;Acceptable assignment&rdquo; result that 
+    shows with a red X.  This means that some annotation that the chain of
+    evidence relies on does not assure.  In this case, the annotation is a 
+    recursive reference to the <code>@NonNull</code> annotation on the field 
+    itself:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-redx-assured.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>You can tell the reference is resursive because of the upward 
+    pointing arrow.  The reference is caused by an assignment in method
+    <function>copyFrom()</function> where the the value of the field in
+    one object is copied to the field in another object:</para>
+    
+    <programlisting>  public void copyFrom(Rectangle other) {
+    topLeft = other.topLeft;
+    bottomRight = other.bottomRight;
+    perimeter = other.perimeter;
+  }</programlisting>
+  
+    <para>This chain of evidence will sort itself out once the other assurnace
+    failures under the <code>@NonNull</code> annotation are corrected.</para>
+    
+    <para>There is one more &ldquo;Unacceptable assignment&rdquo; for the
+    field <structfield>bottomRight</structfield>:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-setBottomRight.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>The assignment in question is in the method
+    <function>setBottomRight()</function>:</para>
+    
+    <programlisting>  public void setBottomRight(Point newCorner) {
+    if (!topLeft.isAboveLeftOf(newCorner)) {
+      throw new IllegalArgumentException();
+    }
+    bottomRight = newCorner;
+    computePerimeter();
+  }</programlisting>
+  
+    <para>This is another case of the field being assigned the value from
+    an unannotated formal parameter.  The solution once again is to add
+    <code>@NonNull</code> to the formal parameter
+    <parameter>newCorner</parameter>.  Go ahead and do this now.</para>
+    
+    <para>You may notice that just before <function>setBottomRight()</function>
+    in the source code is the method <function>setTopLeft()</function>.  This
+    begs the question, why there is not a similar assurance failure of the
+    assignment to <structfield>topLeft</structfield> in that method.  The answer
+    lies in the condition of the <code>if</code>-statements used to check that
+    the top-left&ndash;bottom-right invariant on the fields is maintained.  In
+    <function>setBottomRight()</function> the expression
+    <code>!topLeft.isAboveLeftOf(newCorner)</code> is used, with the 
+    field reference used as the receiver to <function>isAboveLeftOf()</function>.
+    But in the method <function>setTopLeft()</function>, the expression
+    <code>!newCorner.isAboveLeftOf(bottomRight)</code> is used, with 
+    formal parameter <parameter>newCorner</parameter> used as the receiver.
+    Why does this matter?  When analyzing the body of the method
+    <function>setTopLeft()</function>, the analysis knows that receivers must
+    always be non-<code>null</code>, or else the Java runtime will throw
+    a <code>NullPointerException</code>.  So the analysis knows that in any code
+    that executes after the dereference of <parameter>newCorner</parameter>
+    in the conditional of the <code>if</code>-statement the value of 
+    <parameter>newCorner</parameter> must not be <code>null</code>.  It would 
+    still be wise from a documentation point of view to annotate the formal
+    parameter of <function>setTopLeft</function> as <code>@NonNull</code>.  
+    Do this now and reverify the project.</para>
+    
+    <para>The assignment in <function>setBottomRight</function> now
+    assures:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-setBottomRight-assures.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>We are now done assuring the <code>@NonNull</code> annotations on
+    the fields <structfield>topLeft</structfield> and
+    <structfield>bottomRight</structfield>.</para>    
+  </section>
+  
+  <section>
+    <title>References to Partially Initialized Objects</title>
+    
+    <para>We now visit the unassured viritual <code>@NonNull</code>
+    annotations.  We start with the last one on the receiver of 
+    <function>Rectangle.computePerimeter()</function>:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-computePerimeter.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>What does this chain of evidence mean exactly?  The result is on the
+    method call <code>computePerimeter()</code> in the constructor 
+    <function>Rectangle(Point, Point)</function>:</para>
+    
+    <programlisting>  private Rectangle(@NonNull Point topLeft, @NonNull Point bottomRight) {
+    this.topLeft = topLeft;
+    this.bottomRight = bottomRight;
+    computePerimeter();
+  }</programlisting>
+  
+    <para>Assurance does not like the reference from <code>this</code> that
+    is being used as the receiver to the method
+    <function>computePerimeter()</function>.  Specifically, unless otherwise 
+    annotated, a method expects that its receiver is <code>@NonNull</code>,
+    but JSure finds in this case that the receiver is
+    <code>@Initialized(through="Object")</code>.  What does this mean? 
+    It means that the object referenced by <code>this</code> in the constructor
+    is <emphasis>partially initialized</emphasis>, in this case through class
+    <classname>Object</classname>.  An <code>@Initialized(through="X")</code>
+    reference is (1) never <code>null</code>; and (2) only guaranteed to have 
+    the fields from ancestor classes through <classname>X</classname> initialized.
+    So in this case, the fields from class <classname>Rectangle</classname>
+    are not guaranteed to have been intialized&mdash;because the referenced object
+    is only initialized through its <classname>Object</classname> portion&mdash;and thus <emphasis>may be seen
+    to hold the value <code>null</code> despite being annotated as 
+    <code>@NonNull</code></emphasis>.  For this reason, even though an
+    <code>@Initialized</code> reference is never <code>null</code>, it cannot
+    be passed to a <code>@NonNull</code> reference because we must manage the
+    fact that some of the fields of the referenced object may violate their
+    <code>@NonNull</code> invariants.  In our particular case here, we can
+    see that the <code>@NonNull</code> fields <structfield>topLeft</structfield>
+    and <structfield>bottomRight</structfield> are correctly initialized
+    before calling <function>computePerimeter</function>.  We use this fact
+    later in the example.</para>
+    
+    <para>Partially initialized references originate in constructors: an object
+    of type <classname>C</classname> is not fully initialized until its final
+    constructor, the one defined within <classname>C</classname>, executes. If
+    a reference to the receiver is passed to another method during
+    construction&mdash;as it is in <function>Rectangle(Point, Point)</function>&mdash;then
+    that reference is partially initialized through the most recently
+    constructed superclass component.  That is, if we have class
+    <classname>C</classname> extends <classname>B</classname> extends
+    <classname>A</classname>, and during the execution of the constructor for
+    <classname>B</classname> a reference to the object being constructed is
+    leaked, then that reference is partially initialized through
+    <classname>A</classname>.</para>
+    
+    <formalpara>
+      <title>To be continued</title>
+      <para>This section will continue by showing several attempts to
+      assure the method <function>computePerimeter()</function>.  The section
+      further continues by discussing the assurance failure in 
+      <function>Rectangle(Rectangle)</function>, which is also related to
+      a partially initialized object.  All the assurance 
+      techniques discussed are flawed, relying on escaping JSures analysis-based
+      assurance. The best approach is to rewrite the class, which
+      is to be discussed in a later section.</para>
+    </formalpara>
+    
+  </section>
+  
+</section>

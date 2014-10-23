@@ -108,5 +108,7 @@
 
   <xi:include href="effects/effects.xml"/>
   
+  <xi:include href="null.xml"/>
+  
   <!-- xi:include href="sect2-smallworld.xml"/ -->
 </section>
