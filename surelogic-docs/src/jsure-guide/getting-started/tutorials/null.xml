@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <section id="nonnull" xmlns:xi="http://www.w3.org/2001/XInclude">
-	<title>Verifying Non-<code>null</code> References</title>
+	<title>Verifying non-<code>null</code> references</title>
 
 	<para>This tutorial demonstrates the use of the <code>@NonNull</code> and
   the <code>@Initialized</code> annotations for declaring intent regarding
@@ -138,7 +138,7 @@ public class Point {
     constructor <function>Rectangle(Point, Point)</function>.  However, assurance
     is not satisfied that the constructor <function>Rectangle(Rectangle)</function>
     initializes the fields.  This is because the constructor invokes a method
-    to initalize the fields:</para>
+    to initialize the fields:</para>
     
     <programlisting>  /**
    * Copy constructor.
@@ -200,8 +200,8 @@ public class Point {
      
     <para>Add the annotation and reverify the project.  The five unacceptable
     assignments we just looked at are now acceptable.  If you have 
-    <guilabel>Hightlight differences from last scan</guilabel> button
-    selected on the view, the changes to the results are hightlighted in yellow:</para>
+    <guilabel>Highlight differences from last scan</guilabel> button
+    selected on the view, the changes to the results are highlighted in yellow:</para>
 
     <mediaobject>
       <imageobject>
@@ -222,7 +222,7 @@ public class Point {
       </imageobject>
     </mediaobject>
     
-    <para>Similary, the assigned to <structfield>topLeft</structfield> in
+    <para>Similarly, the assigned to <structfield>topLeft</structfield> in
     <function>Rectangle.translate()</function> is now satisfied by the annotation
     on the return value of <function>Point.translate()</function>.  And the 
     chain of evidence continues to the actual return value of the method
@@ -249,7 +249,7 @@ public class Point {
       </imageobject>
     </mediaobject>
     
-    <para>You can tell the reference is resursive because of the upward 
+    <para>You can tell the reference is recursive because of the upward 
     pointing arrow.  The reference is caused by an assignment in method
     <function>copyFrom()</function> where the the value of the field in
     one object is copied to the field in another object:</para>
@@ -260,7 +260,7 @@ public class Point {
     perimeter = other.perimeter;
   }</programlisting>
   
-    <para>This chain of evidence will sort itself out once the other assurnace
+    <para>This chain of evidence will sort itself out once the other assurance
     failures under the <code>@NonNull</code> annotation are corrected.</para>
     
     <para>There is one more &ldquo;Unacceptable assignment&rdquo; for the
@@ -328,7 +328,7 @@ public class Point {
   <section>
     <title>References to Partially Initialized Objects</title>
     
-    <para>We now visit the unassured viritual <code>@NonNull</code>
+    <para>We now visit the unassured virtual <code>@NonNull</code>
     annotations.  We start with the last one on the receiver of 
     <function>Rectangle.computePerimeter()</function>:</para>
     
@@ -360,7 +360,7 @@ public class Point {
     reference is (1) never <code>null</code>; and (2) only guaranteed to have 
     the fields from ancestor classes through <classname>X</classname> initialized.
     So in this case, the fields from class <classname>Rectangle</classname>
-    are not guaranteed to have been intialized&mdash;because the referenced object
+    are not guaranteed to have been initialized&mdash;because the referenced object
     is only initialized through its <classname>Object</classname> portion&mdash;and thus <emphasis>may be seen
     to hold the value <code>null</code> despite being annotated as 
     <code>@NonNull</code></emphasis>.  For this reason, even though an
@@ -393,7 +393,7 @@ public class Point {
       further continues by discussing the assurance failure in 
       <function>Rectangle(Rectangle)</function>, which is also related to
       a partially initialized object.  All the assurance 
-      techniques discussed are flawed, relying on escaping JSures analysis-based
+      techniques discussed are flawed, relying on escaping JSure's analysis-based
       assurance. The best approach is to rewrite the class, which
       is to be discussed in a later section.</para>
     </formalpara>

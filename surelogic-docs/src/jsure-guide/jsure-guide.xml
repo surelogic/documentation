@@ -20,7 +20,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 5.5&mdash;August 2014</pubdate>
+    <pubdate>Version 5.5.2&mdash;October 2014</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -68,7 +68,8 @@
 						<emphasis>Tutorial about effective use of null reference annotations</emphasis>
 						&mdash;
 						The documentation has been updated to include a tutorial about using
-						null reference annotations. This is still a work in progress, but is
+						null reference annotations. The tutorial is in <xref linkend="nonnull"/>. This new
+						tutorial is still a work in progress, but is
 						far enough along to be interesting in the documentation for JSure.
 					</para>
 				</listitem>
