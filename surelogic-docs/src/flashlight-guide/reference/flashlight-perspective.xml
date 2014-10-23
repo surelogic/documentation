@@ -409,7 +409,7 @@
 		  <formalpara>
 		    <title><guiicon>Show Empty Queries</guiicon></title>
 		    <para>Checking this menu item causes empty queries at the top level of the query menu to be shown in gray.
-		    If it is not checked these queries are not shown in the view. All the grey queries listed in the menu below can
+		    If it is not checked these queries are not shown in the view. All the gray queries listed in the menu below can
 		    be run, but will result in no row of data returned.
 		     <mediaobject>
 				<imageobject>
@@ -424,7 +424,7 @@
 		  <formalpara>
 		    <title><guiicon>Show Unrunnable Queries</guiicon></title>
 		    <para>Checking this menu item causes unrunnable sub-queries to be shown in gray.
-		    If it is not checked these queries are not shown in the view. The grey sub-query in the image below
+		    If it is not checked these queries are not shown in the view. The gray sub-query in the image below
 		    cannot be run for the selected row in the <guilabel>Query Results</guilabel> view.
 		     <mediaobject>
 				<imageobject>
@@ -865,7 +865,7 @@
 		</figure>
 		
 		<para>The snapshot of the source code as of the program launch and this view help the user if the code has changed
-		significantly since the run occurred. If the results only linked to the Java editor in Ecilpse the tool user
+		significantly since the run occurred. If the results only linked to the Java editor in Eclipse the tool user
 		may be confused if the linked code has been changed.
 		This view helps avoid confusion with regard to code change since the run.</para>
 	</section>

@@ -337,7 +337,7 @@ Enter number your choice:
       </imageobject>
       
       <para>This example illustrates how Flashlight tracks and reports on lock ordering and can help you understand,
-      and eliminate, the potental for your system to deadlock&mdash;without having to produce a
+      and eliminate, the potential for your system to deadlock&mdash;without having to produce a
       run that does deadlock.</para>
       
       <para>Flashlight has another, albeit less precise, query to help uncover lock ordering issues. If you

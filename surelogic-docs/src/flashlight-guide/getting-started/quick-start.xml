@@ -172,7 +172,7 @@
       
   <para>The <guilabel>Query Results</guilabel> view (middle-right in the above image) shows either (a) an overview of the run
       currently selected in the <guilabel>Flashlight Runs</guilabel> view or (b) query results as
-      a table, tree or tree-table. The image above shows the run overivew. This lists good and bad
+      a table, tree or tree-table. The image above shows the run overview. This lists good and bad
       news about the selected run. These news items are not definitive, because they represent
       information from a single run of the program&mdash;hence the name <emphasis>news</emphasis> instead of <emphasis>results</emphasis>.
       Some news items are underlined. These underlined news items may be selected with the mouse to invoke a query and show the
@@ -201,7 +201,7 @@
       user confusion if the program's source code has been modified.</para>
       
   <para>The final view in the perspective is the <guilabel>Querydoc</guilabel> this view shows detailed reference
-      documentation about a particular query. This view can help expain the benifits and limitations of each
+      documentation about a particular query. This view can help explain the benefits and limitations of each
       query that Flashlight supports.</para>
       
   <para>To conclude this section we remind you that Flashlight is focused on helping improve the performance and safety of <emphasis>concurrent</emphasis>

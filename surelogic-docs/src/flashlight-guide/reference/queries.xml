@@ -2148,7 +2148,7 @@ public class Foo {
                 </row>
                 <row>
                   <entry>Start</entry>
-                  <entry>The time of the earlies access in this entry.</entry>
+                  <entry>The time of the earliest access in this entry.</entry>
                 </row>
                 <row>
                   <entry>End</entry>

@@ -177,7 +177,7 @@
 			much is being
 			done in constructors and the analysis is pointing out that partially
 			initialized objects
-			may be being alised or dispatched into before they should.</para>
+			may be being aliased or dispatched into before they should.</para>
 	</note>
     
     <para>Lots of annotations have been placed in this code.

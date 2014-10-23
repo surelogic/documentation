@@ -3,7 +3,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
-<section id="loggin" xmlns:xi="http://www.w3.org/2001/XInclude">
+<section id="logging" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<title>Uncovering a bug in <package>java.util.logging</package></title>
 
 	<para>
@@ -48,7 +48,7 @@
 	    
 	<para>A lock on the instance is held as this operation occurs: this lock is acquired using <code>synchronized (this)</code> at line 408. Therefore, it appears
 	    that the programmer intent is to hold a lock on the class when the <structfield>filter</structfield> is accessed. In fact, the
-	    <emphasis>Logger</emphasis> class is intented to be threadsafe. You can see this way up at line 121 which is within the Javadoc on the class declaration.</para>
+	    <emphasis>Logger</emphasis> class is intended to be threadsafe. You can see this way up at line 121 which is within the Javadoc on the class declaration.</para>
 	    
 	<programlisting linenumbering="numbered" startinglinenumber="121"> * All methods on Logger are multi-thread safe.</programlisting>
 	
@@ -197,7 +197,7 @@
 	        </imageobject>
 	      </mediaobject>
 	      
-	      <para>At this point rescan the project with JSure. As expected, the inconsistent locking of the
+	      <para>At this point re-scan the project with JSure. As expected, the inconsistent locking of the
 	      <structfield>filter</structfield> field is noted by the tool.</para>
 	      
 	      <mediaobject>
@@ -257,7 +257,7 @@ or
   }
 }</programlisting>
 
-depending upon your preference.  Now, rescan the project with JSure and the lock model should now be found consistent.
+depending upon your preference.  Now, re-scan the project with JSure and the lock model should now be found consistent.
 	      
 	      </para>
 	      
@@ -312,10 +312,10 @@ So your code should appear as shown below.</para>
 	        </imageobject>
 	      </mediaobject>
 	      
-	      <para>Make this code change and rescan the project with JSure.  Again the tool reports model&ndash;code inconsistency. What is wrong?
+	      <para>Make this code change and re-scan the project with JSure.  Again the tool reports model&ndash;code inconsistency. What is wrong?
 	      The problem is that we are holding the wrong lock. Because the <code>getAnonymousLoggerFilter</code> method is
 	      declared to be <code>static</code>, adding <code>synchronized</code> to the method obtains a lock on the <classname>Logger</classname>
-	      class&mdash;not on the anonymous logger instance!  To fix this problem change the method implemetation to the code listed below.</para>
+	      class&mdash;not on the anonymous logger instance!  To fix this problem change the method implementation to the code listed below.</para>
 	      
 	      <programlisting>public static Filter getAnonymousLoggerFilter() {
   Logger anon = getAnonymousLogger();
@@ -324,7 +324,7 @@ So your code should appear as shown below.</para>
   }
 }</programlisting>
 
-		<para>Save your changes and rescan the project with JSure. The locking model for the <structfield>filter</structfield> field
+		<para>Save your changes and re-scan the project with JSure. The locking model for the <structfield>filter</structfield> field
 		should once again be consistent.</para>
 		
 		<mediaobject>

@@ -33,7 +33,7 @@
       time the application was executed.</listitem>
 
       <listitem><replaceable>Platform</replaceable> is the platform the run
-      happend on, either <guilabel>Java</guilabel> or
+      happened on, either <guilabel>Java</guilabel> or
       <guilabel>Android</guilabel>.</listitem>
     
     </itemizedlist>  
@@ -175,7 +175,7 @@
       <listitem>
         <formalpara>
           <title><filename>prep</filename></title>
-          <para>This directory contains data produced by the post-mortem tool
+          <para>This directory contains data produced by the postmortem tool
           during the prep phase, including the database supporting the
           <guilabel>Eclipse</guilabel> query tool.
           </para>
