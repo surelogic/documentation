@@ -386,7 +386,7 @@ public class Point {
     leaked, then that reference is partially initialized through
     <classname>A</classname>.</para>
     
-    <formalpara>
+    <!--formalpara>
       <title>To be continued</title>
       <para>This section will continue by showing several attempts to
       assure the method <function>computePerimeter()</function>.  The section
@@ -396,7 +396,161 @@ public class Point {
       techniques discussed are flawed, relying on escaping JSure's analysis-based
       assurance. The best approach is to rewrite the class, which
       is to be discussed in a later section.</para>
-    </formalpara>
+    </formalpara-->
+    
+    <para>How can we satisfy the assurance for constructor
+    <function>Rectangle(Point, Point)</function>?  The most straightforward
+    way to do so is to declare to <function>computePerimeter()</function> that
+    the receiver is possible partially intialized by annotating it with an
+    <code>@Initialized</code> annotation:</para>
+    
+    <programlisting>  <emphasis>@Initialized(through="Object", value="this")</emphasis>
+  private void computePerimeter() {
+    int width = bottomRight.getX() - topLeft.getX();
+    int height = bottomRight.getY() - topLeft.getY();
+    perimeter = (width + height) &lt;&lt; 1;
+  }</programlisting>
+    
+    <para>Here we have to use the <code>value</code> attribute of the 
+    annotation to indicate that that receiver of the method (and not the return
+    value) is being annotated.  Add this to the code and reverify the
+    project.  At first glance the results seem acceptable.  There is a 
+    new model drop corresponding to the <code>@Initialized</code> annotation
+    and all the call sites of the method are assured.  Note that the actual
+    receiver is <code>@Initialized</code> when the method is called
+    from the constructor, but <code>@NonNull</code> when the method
+    is called from other methods:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-computePerimeter2.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>Unfortunately, there are also changed results for the
+    <code>@NonNull</code> annotations on the two fields.  This is noted by 
+    the small delta decoration on the icons.  Opening up these results reveals
+    new <emphasis>negative</emphasis> results about the field: possible 
+    dereferences of a <code>null</code> value.</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-computePerimeter3.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>The fields <structfield>topLeft</structfield> and
+    <structfield>bottomRight</structfield> are not supposed to be <code>null</code>
+    so how can we possibly read a <code>null</code> value from them?  The 
+    receiver of the method <structfield>computePerimeter</structfield> 
+    is <code>@Initialized(through="Object")</code>, which means inside the method 
+    analysis must assume that the fields have not yet been initialized to a 
+    non-<code>null</code> value.  So attempting to dereference the fields
+    to use them as receivers for <function>getX()</function> and
+    <function>getY()</function> can yield a <code>null</code> value.  As 
+    <code>null</code> is not acceptable for a receiver, assurance creates 
+    a negative result here.  Assurance does not normally report an error result
+    when a possible null value is used as a receiver because in unannotated code
+    this would create too many errors.  It does however report the situation as a 
+    warning when a field is explicitely annotated with <code>@Nullable</code>.
+    Assurance reports an error in this case because of the 
+    special situation of reading <code>null</code> from a <code>@NonNull</code>
+    field.</para>
+     
+    <para>To assure the method <function>computePerimeter()</function> we need
+    to handle the fact that the fields <structfield>topLeft</structfield> and
+    <structfield>bottomRight</structfield> may be <code>null</code>.  We 
+    could do this by testing the fields against <code>null</code> and only 
+    computing the perimeter if they are not null:</para>
+    
+    <programlisting>  @Initialized(through="Object", value="this")
+  private void computePerimeter() {
+    Point tL = topLeft;
+    Point bR = bottomRight;
+    if (tL != null &amp;&amp; bR != null) {
+      int width = bR.getX() - tL.getX();
+      int height = bR.getY() - tL.getY();
+      perimeter = (width + height) &lt;&lt; 1;
+    }
+  }</programlisting>
+  
+    <para>Here we first copy the value of the fields into local variables
+    before testing against <code>null</code>.  This is necessary because the
+    flow analysis only tracks the values of local variables because it cannot
+    be sure that the value of a field is not going to be modified by a 
+    concurrently executing thread of control.  (We are currently working on 
+    relaxing this constraint by exploiting our concurrency annotations, e.g., 
+    <code>@RegionLock</code>.)  Flow analysis also understands comparisons 
+    against <code>null</code> and thus can determine that both
+    <varname>tL</varname> and <varname>bR</varname> are non null in the
+    body of the <code>if</code>-statement.  After reverifying the project
+    the &ldquo;possible dereference of a null value&rdquo; negative results
+    are gone:</para> 
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-computePerimeter4.png" />
+      </imageobject>
+    </mediaobject>
+
+    <para>Despite this apparent success at verifying the method, this 
+    approach is undesirable because it leaves the field
+    <structfield>perimeter</structfield> in an unknown state when 
+    one of the corners of the rectangle is <code>null</code>.  More importantly,
+    it swallows the error when one of the fields is <code>null</code>.  We 
+    could add error handling here, but what would we do?  Throwing an exception
+    is extreme because there isn't anything the caller of the method can 
+    do about the situation.  The fact is that
+    <function>computePerimeter()</function> must rely on the 
+    <code>@NonNull</code> annotations on <structfield>topLeft</structfield> and
+    <structfield>bottomRight</structfield>.</para>  
+    
+    <para>We must return <function>computePerimeter()</function> to its
+    original form:</para>
+    
+    <programlisting>  private void computePerimeter() {
+    int width = bottomRight.getX() - topLeft.getX();
+    int height = bottomRight.getY() - topLeft.getY();
+    perimeter = (width + height) &lt;&lt; 1;
+  }</programlisting>
+  
+    <para>The best approach to assurance in this case is recognizing that
+    the constructor <function>Rectangle(Point, Point)</function> has
+    completed initializing the <code>@NonNull</code> fields before calling
+    <function>computePerimeter()</function>:</para>
+    
+    <programlisting>  private Rectangle(@NonNull Point topLeft, @NonNull Point bottomRight) {
+    this.topLeft = topLeft;
+    this.bottomRight = bottomRight;
+    computePerimeter();
+  }</programlisting>
+   
+    <para>So what we need to do is force the analysis to consider the receiver
+    to be <code>@NonNull</code> when invoking
+    <function>computePerimeter()</function>.  We can do this using the 
+    method <code>Cast.toNonNull()</code>.  This is a method in the SureLogic
+    library that always returns it's given reference as a <code>@NonNull</code>
+    reference.  As a safe-guard it triggers a Java assertion failure if the
+    given reference is actually <code>null</code>.  Analysis recognizes this
+    method and treats it like a <code>@Vouch</code> in the results.  </para>
+    
+    <programlisting>  private Rectangle(@NonNull Point topLeft, @NonNull Point bottomRight) {
+    this.topLeft = topLeft;
+    this.bottomRight = bottomRight;
+    Cast.toNonNull(this).computePerimeter(); // N.B. topLeft and bottomRight are initialized
+  }</programlisting>
+
+    <para>After reverifying the project, the negative assurance result on the 
+    virtual <code>@NonNull</code> annotation for method
+    <function>Rectangle.computePerimeter()</function> is gone.  We also see
+    a new vouch result corresponding to the call to 
+    <function>Cast.toNonNull()</function>:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-cast-to-nonnull.png" />
+      </imageobject>
+    </mediaobject>
     
   </section>
   
