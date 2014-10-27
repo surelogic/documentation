@@ -225,7 +225,7 @@
       and <emphasis>Writes</emphasis> column may be different than what is shown in <xref linkend="fig-tutorial-planetbaron-outside-edt" />.</para>
       
   <figure id="fig-tutorial-planetbaron-outside-edt">
-    <title>Fields read by the AWT/Swing Event Dispatch Thread (EDT) and written in others</title>
+    <title>Mutable fields read by the AWT/Swing Event Dispatch Thread (EDT) and written in others</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="images/tutorial-planetbaron-outside-edt.png" />
@@ -233,8 +233,8 @@
     </mediaobject>
   </figure>
   
-  <para>Clicking on this news item ran the query <emphasis>What fields are read by the
-  AWT Event Dispatch Thread and written by others?</emphasis> This query also appeared in
+  <para>Clicking on this news item ran the query <emphasis>What mutable fields are read by the
+  AWT Event Dispatch Thread and written in others?</emphasis> This query also appeared in
   the <guilabel>Query Menu</guilabel> view. But, it doesn't show this view right now because the view
   is now showing sub-queries that can be run on the query result we just brought up.
   When at the top level, however, the <guilabel>Query Menu</guilabel> view for this run is shown in
@@ -242,8 +242,8 @@
   where all the news items about a run come from. If a query is empty it can result in a good news report or bad news report.
   The same goes for a query with results, however, if a news item has results then the tool allows the query to
   be run directly from the news item. That is how we ran the 
-  <emphasis>What fields are read by the
-  AWT Event Dispatch Thread and written by others?</emphasis> query in this example.</para>
+  <emphasis>What mutable fields are read by the
+  AWT Event Dispatch Thread and written in others?</emphasis> query in this example.</para>
   
     <figure id="fig-tutorial-planetbaron-outside-edt-menu">
     <title>The API query where the "bad news" item originated in the Query Menu view</title>
