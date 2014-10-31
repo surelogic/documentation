@@ -552,6 +552,104 @@ public class Point {
       </imageobject>
     </mediaobject>
     
+    
+    
+    <para>Now we look at the virtual <code>@NonNull</code> on method
+    <function>copyFrom()</function>:</para>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-copyFrom.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>Again, we have an instance method called from a constructor
+    using the object under construction as the receiver:</para>
+    
+    <programlisting>  /**
+   * Copy constructor.
+   */
+  public Rectangle(Rectangle other) {
+    copyFrom(other);
+  }</programlisting>  
+   
+   
+    <para>As before, the obvious starting point is to annotate the receiver
+    of <function>copyFrom()</function> as being a partially initialized 
+    object.  This is obviously a safe thing to do because the method only 
+    writes the fields of the receiver.  While we are at it, we also declare
+    that the parameter <parameter>other</parameter> is <code>@NonNull</code>:</para>
+    
+    <programlisting>  <emphasis>@Initialized(through="Object", value="this")</emphasis>
+  public void copyFrom(<emphasis>@NonNull</emphasis> Rectangle other) {
+    topLeft = other.topLeft;
+    bottomRight = other.bottomRight;
+    perimeter = other.perimeter;
+  }</programlisting>
+    
+    <para>After reassuring the project, the <code>@Initialized</code>
+    annotation assures, but the <code>@NonNull</code> annotation does not.  The
+    problem being that the formal paramter in the constructor used as the 
+    actual in the method call needs to be <code>@NonNull</code> as well:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-copyFrom2.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>Add the <code>@NonNull</code> annotation to the parameter
+    <parameter>other</parameter> of <function>Rectangle(Rectangle)</function>.
+    After reassuring the project, the new <code>@NonNull</code> annotations 
+    assure:</para>
+
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-copyFrom3.png" />
+      </imageobject>
+    </mediaobject>
+    
+    <para>Reviewing the rest of the results, we see that we still have a 
+    &ldquo;Not definitely assigned&rdquo; failure for each of the fields
+    <structfield>topLeft</structfield> and <structfield>bottomRight</structfield>
+    and recursive failures originating from the assignments in the 
+    method <function>copyFrom</function>.  Again, the recursive failures 
+    originate in the fact the correctness of copy assignments depends on the 
+    fields <structfield>topLeft</structfield> and
+    <structfield>bottomRight</structfield> being <code>@NonNull</code> 
+    which is not assuring due to the definite assignment errors.</para>
+    
+    <para>As described previously, Nullable assurance requires that every
+    <code>@NonNull</code> field be explicitly assigned in each constructor
+    or in its field declaration.  This is so that the Java-default value of
+    <code>null</code> for references is never visible.  Analysis is unable to 
+    determine that the fields <structfield>topLeft</structfield> and <structfield>bottomRight</structfield>
+    are properly initialized in <function>Rectangle(Rectangle)</function>
+    because the constructor relies on the method <function>copyFrom()</function>
+    to initialize the fields.  We must use a <code>@Vouch</code> annotation 
+    on the constructor to explicitly indicate that the fields are 
+    correctly initialized:</para>
+    
+    <programlisting>  <emphasis>@Vouch("topLeft and bottomRight are initialized by copyFrom()")</emphasis>
+  public Rectangle(@NonNull Rectangle other) {
+    copyFrom(other);
+  }</programlisting>
+    
+    <para>Assuring the project after adding this annotation is finally
+    successful:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-copyFrom-assured.png" />
+      </imageobject>
+    </mediaobject>
+
+    <para>The &ldquo;Not definitely assigned&rdquo; results now display with 
+    a grey plus, indicating the that result has been explicitly made acceptable
+    by the addition of the <code>@Vouch</code> annotation.  We also see that the
+    recursive dependency of the <code>@NonNull</code> field annotations 
+    finally assures because the rest of the errors have been resolved.</para>
+
   </section>
   
 </section>
