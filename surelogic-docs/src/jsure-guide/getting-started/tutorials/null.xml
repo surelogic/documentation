@@ -779,6 +779,62 @@ public class Point {
 
   <section>
     <title>Fixing <function>Rectangle(Rectangle)</function></title>
+    
+    <para>Recall that the problem with the constructor 
+    <function>Rectangle(Rectangle)</function> is that it does not
+    directly initialize the <code>@NonNull</code> fields
+    <structfield>topLeft</structfield> and
+    <structfield>bottomRight</structfield>.  Instead it uses the
+    method <function>copyFrom()</function> to do it.  If we want to
+    cleanly assure this constructor&mdash;not use a
+    <code>@Vouch</code> annotation&mdash;then we must explicitly initialize the
+    fields in the body of the constructor.  The best approach in this case
+    is to inline the call to <function>copyFrom()</function>.  Select the
+    call 
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/nonnull-copyFrom-1.png" />
+        </imageobject>
+      </mediaobject>
+    
+    and choose <menuchoice><guimenuitem>Refactor</guimenuitem>
+    <guimenuitem>Inline&hellip;</guimenuitem></menuchoice>.  Choose to inline
+    only the selected location:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/nonnull-copyFrom-2.png" />
+        </imageobject>
+      </mediaobject>
+    </para>
+    
+    <para>After refactoring, the method is
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/nonnull-copyFrom-3.png" />
+        </imageobject>
+      </mediaobject>
+     
+    The <code>@Vouch</code> annotation is no longer necessary as the 
+    problematic method call has been removed.  You should remove it now.  
+    Reassure the project.  The project now assures completely without any
+    programmer vouches:
+    
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/nonnull-final.png" />
+        </imageobject>
+      </mediaobject>
+    </para>
+    
+    <para>The <code>@Initialized</code> annotation remains on the 
+    method <function>copyFrom()</function>.  This is currently harmless because
+    the method does not read from any fields of the receiver.  But leaving it
+    in place will constrain the evolution of the method.  In this example,
+    it is not clear that the method is necessary any more.  In a more complete 
+    project the method may continue to be used.</para>
   </section>
       
 </section>
