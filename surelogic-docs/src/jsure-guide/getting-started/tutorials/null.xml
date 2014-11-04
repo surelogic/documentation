@@ -649,7 +649,136 @@ public class Point {
     by the addition of the <code>@Vouch</code> annotation.  We also see that the
     recursive dependency of the <code>@NonNull</code> field annotations 
     finally assures because the rest of the errors have been resolved.</para>
-
+    
+    <para>As this section illustrates, calling instance methods on
+    the receiver from a constructor complicates the assurance of 
+    <code>@NonNull</code> fields by introducing references to partially
+    initialized objects.  Generally speaking, you should avoid calling methods
+    on the object being constructed.  The following sections show how we
+    can  simplify the assurance of the classes in this example by rewriting the
+    constructors to avoid calling methods on the under-construction object.</para>
   </section>
   
+  <section>
+    <title>Fixing <function>Rectangle(Point, Point)</function></title>
+    
+    <para>We start with the constructor
+    <function>Rectangle(Point, Point)</function> which calls the method
+    <function>computePerimeter()</function>.  This method is called by each
+    method that updates the corners of the rectangle:
+    <function>setBottomRight()</function>, <function>setTopLeft()</function>,
+    and <function>stretch()</function>.  The method is used to maintain
+    the invariant that the value of the field <structfield>perimeter</structfield>
+    is the geometric perimeter of the rectangle described by the two points.
+    Because the perimeter needs to be computed in multiple places, it the 
+    authors of the class sensibly abstracted out the
+    <function>computePerimeter()</function> method.  Unfortunatley, as we have
+    seen calling an instance method from the constructor is bad practice.
+    We need to refactor the class and the method to avoid this problem.  
+    Specifically, we are going to</para>
+    
+    <orderedlist>
+      <listitem>
+        <para>Rename the original method.</para>
+      </listitem>
+      <listitem>
+        <para>Extract a new <code>static</code> method that computes and
+        <emphasis>returns</emphasis> the value of the perimeter.</para>
+      </listitem>
+      <listitem>
+        <para>In-line the method call in the constructor so that
+        <structfield>perimeter</structfield> is explicitly set within the
+        constructor.</para>
+      </listitem>
+    </orderedlist>
+    
+    <formalpara>
+      <title>Renaming the original method</title>
+      
+      <para>To rename the <function>computePerimeter()</function>, select
+      <guilabel>computePerimeter</guilabel> in the <guilabel>Outline</guilabel>
+      view.  Then select <menuchoice><guimenuitem>Refactor</guimenuitem>
+      <guimenuitem>Rename&hellip;</guimenuitem></menuchoice>.  Enter the
+      name &ldquo;updatePerimeter&rdquo; in the dialog box:
+      
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/nonnull-rename-method.png" />
+          </imageobject>
+        </mediaobject>
+      
+      This name better reflects the effects of the method.  Click on 
+      <guilabel>OK</guilabel> and Eclipse renames the method and updates the
+      method call sites.</para>
+    </formalpara>
+    
+    <formalpara>
+      <title>Extracting a new method</title>
+      
+      <para>Next we want to extract a new method that computes
+      <emphasis>and returns</emphasis> the perimeter value.  We could do this
+      using the Eclipse refactorings, but it would be tedious because we 
+      would first have to extract bogus local variables
+      so that the <guilabel>Extract method</guilabel> refactoring could use them
+      as formal parameters and as the return value.  Then after extracting
+      the method, we would have to in-line the bogus locals to get rid of them.
+      In this case it is simpler to just edit the code by hand and update
+      <function>updatePerimeter()</function> and add a new
+      <function>computePerimeter()</function>:
+      
+      <programlisting>  private void updatePerimeter() {
+    perimeter = computePerimeter(topLeft, bottomRight);
+  }
+  
+  private static int computePerimeter(final Point topLeft, final Point bottomRight) {
+    int width = bottomRight.getX() - topLeft.getX();
+    int height = bottomRight.getY() - topLeft.getY();
+    return (width + height) &lt;&lt; 1;
+  }</programlisting>
+      
+      Note that 
+      <function>computePerimeter()</function> is <code>static</code>.  This allows
+      it to be called from a constructor without any problems.</para>
+    </formalpara>
+    
+    <formalpara>
+      <title>In-lining the method call</title>
+      
+      <para>Finally we need to update the call to
+      <function>updatePerimeter()</function> in the constructor
+      <function>Rectangle(Point, Point)</function> itself.  This is technically
+      an in-lining operation because we want to unwrap 
+      <function>updatePerimeter()</function> to expose the assignment of the
+      field <structfield>perimeter</structfield>.  Using the Eclipse refactoring
+      operation will not do exactly what we want, however, because it will
+      perpetuate the use of <function>Cast.toNull()</function> and will use
+      the fields <structfield>topLeft</structfield> and <structfield>bottomRight</structfield>
+      as the actual arguments to <function>computePerimeter</function> when we
+      want to use the formal parameters of the constructor.  Better to edit
+      the method by hand and update it to
+      
+      <programlisting>  private Rectangle(@NonNull Point topLeft, @NonNull Point bottomRight) {
+    this.topLeft = topLeft;
+    this.bottomRight = bottomRight;
+    <emphasis>this.perimeter = computePerimeter(topLeft, bottomRight);</emphasis>
+  }</programlisting>
+      </para>
+    </formalpara>
+    
+    <para>Now reassure the project.  The &ldquo;Cast.toNonNull()&rdquo; drop
+    no longer appears under the <guilabel>Vouches</guilabel> heading.  This is
+    as we expect becasue we removed the use of that method.  More importantly, 
+    the rest of the project still assures:</para>
+    
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/nonnull-fixed-1.png" />
+      </imageobject>
+    </mediaobject>    
+  </section>
+
+  <section>
+    <title>Fixing <function>Rectangle(Rectangle)</function></title>
+  </section>
+      
 </section>
