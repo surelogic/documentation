@@ -73,7 +73,7 @@ public class Point {
   with JSure.</para>
 
   <section>
-    <title>Initial Assurance Results</title>
+    <title>Initial results</title>
     
     <para>The initial assurance results from the <guilabel>Verification
     Status</guilabel> view are shown below:</para>
@@ -117,7 +117,7 @@ public class Point {
   </section>
   
   <section>
-    <title>Assuring the Fields</title>
+    <title>Assuring the fields</title>
     
     <para>We continue by expanding the results for the fields
     <structfield>topLeft</structfield> and <structfield>bottomRight</structfield>.
@@ -131,13 +131,13 @@ public class Point {
     </mediaobject>
     
     <para>The <code>@NonNull</code> annotation for each field has a positive
-    &ldquo;Definitely assigned&rdquo; result.  JSure requires the every non null
+    &ldquo;Definitely assigned&rdquo; result. This is good news.  JSure requires the every non null
     field be explicitly initialized during construction, otherwise the field's 
     value will be the Java language default <code>null</code> value.  In this
     case, JSure is satisfied that the fields are definitely assigned by the
-    constructor <function>Rectangle(Point, Point)</function>.  However, assurance
+    constructor <function>Rectangle(Point, Point)</function>.  However, the tool
     is not satisfied that the constructor <function>Rectangle(Rectangle)</function>
-    initializes the fields.  This is because the constructor invokes a method
+    initializes the fields.  This is because the constructor invokes a method <function>copyFrom</function>
     to initialize the fields:</para>
     
     <programlisting>  /**
@@ -147,10 +147,10 @@ public class Point {
     copyFrom(other);
   }</programlisting>
     
-    <para>Assurance cannot be sure what the invoked method may do, and thus
+    <para>The verifying analysis cannot be sure what the invoked method may do, and thus
     cannot be sure that the constructor will initialize the fields to
     non-<code>null</code> values.  We revisit this problem later in the
-    tutorial.</para>
+    tutorial, but put it on the backburner for now.</para>
     
     <para>The first unacceptable assignment result for each field refers to
     values being assigned to the fields in the constructor
@@ -174,7 +174,11 @@ public class Point {
     fields could be initialized to <code>null</code> in violation of their
     <code>@NonNull</code> annotation.  The solution, as proposed in the
     results, is to annotate the two parameters with <code>@NonNull</code>.
-    Go ahead and do that now.</para>
+    Go ahead and change your code as shown below. You can, of course, use the
+    proposed promise feature of JSure
+    to automatically add the two annotations.</para>
+    
+        <programlisting>  private Rectangle(<emphasis>@NonNull</emphasis> Point topLeft, <emphasis>@NonNull</emphasis> Point bottomRight)</programlisting>
     
     <para>Next we see that <structfield>topLeft</structfield> and 
     <structfield>bottomRight</structfield> have unacceptable assignments
@@ -186,8 +190,8 @@ public class Point {
     return new Point(x + dx, y + dy);
   }</programlisting>
   
-    <para>Assurance rejects the assignments to the fields because without any
-    programmer annotation assurance assumes that a method may return the
+    <para>JSure rejects the assignments to the fields because without any
+    programmer annotation it assumes that a method may return the
     value <code>null</code>.  In this case the method always returns a 
     new object, and thus always returns a non-<code>null</code> reference.
     We can annotate this by adding the <code>@NonNull</code> annotation
@@ -286,7 +290,9 @@ public class Point {
     <para>This is another case of the field being assigned the value from
     an unannotated formal parameter.  The solution once again is to add
     <code>@NonNull</code> to the formal parameter
-    <parameter>newCorner</parameter>.  Go ahead and do this now.</para>
+    <parameter>newCorner</parameter>.  Go ahead and do this now as shown below.</para>
+    
+    <programlisting>  public void setBottomRight(<emphasis>@NonNull</emphasis> Point newCorner)</programlisting>
     
     <para>You may notice that just before <function>setBottomRight()</function>
     in the source code is the method <function>setTopLeft()</function>.  This
@@ -320,13 +326,13 @@ public class Point {
       </imageobject>
     </mediaobject>
     
-    <para>We are now done assuring the <code>@NonNull</code> annotations on
+    <para>We now redirect our attention away from the <code>@NonNull</code> annotations on
     the fields <structfield>topLeft</structfield> and
     <structfield>bottomRight</structfield>.</para>    
   </section>
   
   <section>
-    <title>References to Partially Initialized Objects</title>
+    <title>References to partially initialized objects</title>
     
     <para>We now visit the unassured virtual <code>@NonNull</code>
     annotations.  We start with the last one on the receiver of 
@@ -371,7 +377,7 @@ public class Point {
     see that the <code>@NonNull</code> fields <structfield>topLeft</structfield>
     and <structfield>bottomRight</structfield> are correctly initialized
     before calling <function>computePerimeter</function>.  We use this fact
-    later in the example.</para>
+    in just a minute.</para>
     
     <para>Partially initialized references originate in constructors: an object
     of type <classname>C</classname> is not fully initialized until its final
@@ -401,8 +407,9 @@ public class Point {
     <para>How can we satisfy the assurance for constructor
     <function>Rectangle(Point, Point)</function>?  The most straightforward
     way to do so is to declare to <function>computePerimeter()</function> that
-    the receiver is possible partially intialized by annotating it with an
-    <code>@Initialized</code> annotation:</para>
+    the receiver is possible partially initialized by annotating it with an
+    <code>@Initialized</code> annotation as shown below. This annotation
+    can be added using the proposed promise in the results.</para>
     
     <programlisting>  <emphasis>@Initialized(through="Object", value="this")</emphasis>
   private void computePerimeter() {
@@ -415,7 +422,7 @@ public class Point {
     annotation to indicate that that receiver of the method (and not the return
     value) is being annotated.  Add this to the code and reverify the
     project.  At first glance the results seem acceptable.  There is a 
-    new model drop corresponding to the <code>@Initialized</code> annotation
+    new result node corresponding to the <code>@Initialized</code> annotation
     and all the call sites of the method are assured.  Note that the actual
     receiver is <code>@Initialized</code> when the method is called
     from the constructor, but <code>@NonNull</code> when the method
@@ -449,19 +456,19 @@ public class Point {
     to use them as receivers for <function>getX()</function> and
     <function>getY()</function> can yield a <code>null</code> value.  As 
     <code>null</code> is not acceptable for a receiver, assurance creates 
-    a negative result here.  Assurance does not normally report an error result
+    a negative result here.  JSure does not normally report an error result
     when a possible null value is used as a receiver because in unannotated code
     this would create too many errors.  It does however report the situation as a 
-    warning when a field is explicitely annotated with <code>@Nullable</code>.
+    warning when a field is explicitly annotated with <code>@Nullable</code>.
     Assurance reports an error in this case because of the 
     special situation of reading <code>null</code> from a <code>@NonNull</code>
     field.</para>
      
     <para>To assure the method <function>computePerimeter()</function> we need
     to handle the fact that the fields <structfield>topLeft</structfield> and
-    <structfield>bottomRight</structfield> may be <code>null</code>.  We 
-    could do this by testing the fields against <code>null</code> and only 
-    computing the perimeter if they are not null:</para>
+    <structfield>bottomRight</structfield> may be <code>null</code>.  Let's try
+    doing this by testing the fields against <code>null</code> and only 
+    computing the perimeter if they are not null. Make this code change and reverify.</para>
     
     <programlisting>  @Initialized(through="Object", value="this")
   private void computePerimeter() {
@@ -478,7 +485,7 @@ public class Point {
     before testing against <code>null</code>.  This is necessary because the
     flow analysis only tracks the values of local variables because it cannot
     be sure that the value of a field is not going to be modified by a 
-    concurrently executing thread of control.  (We are currently working on 
+    concurrently executing thread of control.  (We are in the process of considering
     relaxing this constraint by exploiting our concurrency annotations, e.g., 
     <code>@RegionLock</code>.)  Flow analysis also understands comparisons 
     against <code>null</code> and thus can determine that both
@@ -505,8 +512,9 @@ public class Point {
     <code>@NonNull</code> annotations on <structfield>topLeft</structfield> and
     <structfield>bottomRight</structfield>.</para>  
     
-    <para>We must return <function>computePerimeter()</function> to its
-    original form:</para>
+    <para>So let's go ahead and return <function>computePerimeter()</function> to its
+    original form. Change it back to look like the code below. In particular,
+    be sure to remove the <code>@Initialized</code> annotation from the method.</para>
     
     <programlisting>  private void computePerimeter() {
     int width = bottomRight.getX() - topLeft.getX();
@@ -589,7 +597,7 @@ public class Point {
     
     <para>After reassuring the project, the <code>@Initialized</code>
     annotation assures, but the <code>@NonNull</code> annotation does not.  The
-    problem being that the formal paramter in the constructor used as the 
+    problem being that the formal parameter in the constructor used as the 
     actual in the method call needs to be <code>@NonNull</code> as well:</para>
     
     <mediaobject>
@@ -645,7 +653,7 @@ public class Point {
     </mediaobject>
 
     <para>The &ldquo;Not definitely assigned&rdquo; results now display with 
-    a grey plus, indicating the that result has been explicitly made acceptable
+    a gray plus, indicating the that result has been explicitly made acceptable
     by the addition of the <code>@Vouch</code> annotation.  We also see that the
     recursive dependency of the <code>@NonNull</code> field annotations 
     finally assures because the rest of the errors have been resolved.</para>
@@ -654,13 +662,13 @@ public class Point {
     the receiver from a constructor complicates the assurance of 
     <code>@NonNull</code> fields by introducing references to partially
     initialized objects.  Generally speaking, you should avoid calling methods
-    on the object being constructed.  The following sections show how we
+    on the object being constructed.  The next two sections show how we
     can  simplify the assurance of the classes in this example by rewriting the
     constructors to avoid calling methods on the under-construction object.</para>
   </section>
   
   <section>
-    <title>Fixing <function>Rectangle(Point, Point)</function></title>
+    <title>Avoiding the need to cast the receiver within <function>Rectangle(Point, Point)</function></title>
     
     <para>We start with the constructor
     <function>Rectangle(Point, Point)</function> which calls the method
@@ -672,7 +680,7 @@ public class Point {
     is the geometric perimeter of the rectangle described by the two points.
     Because the perimeter needs to be computed in multiple places, it the 
     authors of the class sensibly abstracted out the
-    <function>computePerimeter()</function> method.  Unfortunatley, as we have
+    <function>computePerimeter()</function> method.  Unfortunately, as we have
     seen calling an instance method from the constructor is bad practice.
     We need to refactor the class and the method to avoid this problem.  
     Specifically, we are going to</para>
@@ -738,7 +746,8 @@ public class Point {
       
       Note that 
       <function>computePerimeter()</function> is <code>static</code>.  This allows
-      it to be called from a constructor without any problems.</para>
+      it to be called from a constructor without creating any problems with regard
+      to verifying our null reference design intent.</para>
     </formalpara>
     
     <formalpara>
@@ -767,7 +776,7 @@ public class Point {
     
     <para>Now reassure the project.  The &ldquo;Cast.toNonNull()&rdquo; drop
     no longer appears under the <guilabel>Vouches</guilabel> heading.  This is
-    as we expect becasue we removed the use of that method.  More importantly, 
+    as we expect because we removed the use of that method.  More importantly, 
     the rest of the project still assures:</para>
     
     <mediaobject>
@@ -778,7 +787,7 @@ public class Point {
   </section>
 
   <section>
-    <title>Fixing <function>Rectangle(Rectangle)</function></title>
+    <title>Avoiding the need for a vouch on <function>Rectangle(Rectangle)</function></title>
     
     <para>Recall that the problem with the constructor 
     <function>Rectangle(Rectangle)</function> is that it does not
@@ -834,7 +843,7 @@ public class Point {
     the method does not read from any fields of the receiver.  But leaving it
     in place will constrain the evolution of the method.  In this example,
     it is not clear that the method is necessary any more.  In a more complete 
-    project the method may continue to be used.</para>
+    project the method may continue to be used. For this tutorial delete the method and reverify.</para>
   </section>
       
 </section>
