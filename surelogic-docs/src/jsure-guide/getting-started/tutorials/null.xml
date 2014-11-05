@@ -418,9 +418,14 @@ public class Point {
     perimeter = (width + height) &lt;&lt; 1;
   }</programlisting>
     
-    <para>Here we have to use the <code>value</code> attribute of the 
+    <para>Here we use the <code>value</code> attribute of the 
     annotation to indicate that that receiver of the method (and not the return
-    value) is being annotated.  Add this to the code and reverify the
+    value) is being annotated.  You may notice that the <code>value</code>
+    attribute is not explicit in the proposed promise in the results.  When
+    the <code>@Initialized</code> annotation is used on a method, the
+    <code>value</code> attribute is <code>"this"</code> by default.  We make
+    it explicit in our example for clarity.  Add the <code>@Initalized</code>
+    annotation to the code and reverify the
     project.  At first glance the results seem acceptable.  There is a 
     new result node corresponding to the <code>@Initialized</code> annotation
     and all the call sites of the method are assured.  Note that the actual
