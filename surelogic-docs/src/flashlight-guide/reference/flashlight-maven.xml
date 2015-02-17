@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<section id="flashlight-maven" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Flashlight Maven Plugin</title>
+  <para>If your project uses <ulink url="http://maven.apache.org/">Apache
+  Maven</ulink>, Flashlight provides a plugin that can help you produce
+  instrumented versions of your jar or war files.  You can get the plugin from
+  the main menu by selecting <guimenu>Sierra</guimenu> | <inlinegraphic
+  fileref="../images/jar_saveas.gif" /> <guimenuitem>Save Maven Plugin
+  As...</guimenuitem> from the main menu.  This will save a zip file in the
+  location of your choosing that, when unzipped, inflates to a repository named
+  <filename>flashlight-repo</filename> containing our plugin and its
+  dependencies.</para>
+  <para>The simplest way to add the plugin to a project is to add the
+  repository to <filename>pom.xml</filename> file in your project.  If you
+  have more than one project that makes use of sierra, you may find it more
+  useful to add the repository to an active profile, as described <ulink
+  url="http://maven.apache.org/guides/mini/guide-multiple-repositories.html">here</ulink>.</para>
+
+  <programlisting>
+&lt;pluginRepositories&gt;
+...
+  &lt;pluginRepository&gt;
+    &lt;id&gt;flashlight-tools&lt;/id&gt;
+    &lt;name&gt;In Project Repo&lt;/name&gt;
+    &lt;url&gt;file:///path/to/flashlight-repo&lt;/url&gt;
+  &lt;/pluginRepository&gt;
+...
+&lt;/pluginRepositories&gt;  
+  </programlisting>
+  <para>The Flashlight plugin currently only has one goal,
+  <code>flashlight:instrument-archive</code>, with the following configuration
+  attributes:</para>
+  <informaltable>
+    <tgroup cols='3' align='left'>
+      <thead>
+	<row>
+	  <entry>Attribute</entry>
+	  <entry>Description</entry>
+	  <entry>Required</entry>
+	</row>
+      </thead>
+      <tbody>
+        <row>
+          <entry>dataDir</entry>
+          <entry>The location of the Flashlight data directory.  This directory
+          will be used to store the results of any runs performed with the
+          instrumented archive.</entry>
+          <entry>Yes></entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+  <para>Running this goal will crack open the jar or war file produced by
+  <code>mvn package</code>. It then instruments its contents and outputs a new
+  archive file that can be dropped into any commonly used web server or, in the
+  case of an executable jar, run from the command line.  The output file can be
+  found in the <directory>target</directory> folder and will be named
+  &lt;project&gt;-&lt;version&gt;.inst.&lt;packaging>.</para>
+</section>
+
