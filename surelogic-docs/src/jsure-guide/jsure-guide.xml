@@ -51,6 +51,96 @@
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
     
+       <section id="sec-jsure-release-5-6-0">
+		<title>JSure version 5.6.0</title>
+		<para>This section describes the 5.6.0 version of the JSure Eclipse
+			client.
+		</para>
+
+		<section>
+			<title>New and Noteworthy</title>
+			<para>This section describes new and noteworthy features in this
+				version of JSure.
+			</para>
+			<orderedlist>
+				<listitem>
+					<para>
+						<emphasis>Region declarations can now be inferred by JSure</emphasis>
+						&mdash;
+						You can use <code>@InRegion</code> or <code>@UniqueInRegion</code> annotations
+						to allow inference of <code>@Region</code> annotations. This allows you to have
+						the tool infer the correct information to declare a region of state. The intent
+						is to make <code>@RegionLock</code> as simple to use as <code>@GuardedBy</code>.
+					</para>
+					<para>
+					The image below shows the Animator class prior to this change. The explicit region
+					declaration is highlighted.</para>
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-560-before-ri.png" />
+							</imageobject>
+					</mediaobject>
+					<para>With this enhancement the code no longer needs this declaration as shown below.</para>
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-560-after-ri.png" />
+							</imageobject>
+					</mediaobject>
+					<para>The promise is inferred and shows up in the verification results as a virtual promise (marked with a V).</para>
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-560-after-ri-results.png" />
+							</imageobject>
+					</mediaobject>
+					<para>Of course, this feature is optional and the explicit declaration is still supported.</para>
+				</listitem>
+				<listitem>
+					<para>
+						<emphasis>New @TrackPartiallyInitialized annotation limits partially initialized object annotations in large existing codebases</emphasis>
+						&mdash;
+						The use of <code>@NonNull</code> on fields in an object now requires that class to be annotated <code>@TrackPartiallyInitialized</code>.
+						This new annotation turns on checking of the class implementation and its superclass implementations to verify that dispatching during
+						construction is annotated with <code>@Initialized(through)</code> annotations. Originally we did this analysis across the entire
+						codebase but this proved tedious to annotate in large existing codebases. While you may place this annotation on any class you want it is only required if (a) the class
+						contains <code>@NonNull</code> field or (b) a subclass of the class is annotated <code>@TrackPartiallyInitialized</code>.
+					</para>
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-560-track-pi.png" />
+							</imageobject>
+					</mediaobject>
+					<para>In the example above the Animator class is required to be annotated <code>@TrackPartiallyInitialized</code> because its <code>f_startDirection</code>
+					field is <code>@NonNull</code>. This also forces any superclasses to be annotated <code>@TrackPartiallyInitialized</code>. In this example, that is only
+					java.lang.Object, which, as we can see below, is annotated <code>@TrackPartiallyInitialized</code>.</para>
+					<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/release-notes-560-track-pi-object.png" />
+							</imageobject>
+					</mediaobject>
+					<para>The tool will propose this annotation. So for many users this annotation can be edited in by the tool
+					when you add <code>@NonNull</code> on one of the fields in your code. Just keep adding the proposed <code>@TrackPartiallyInitialized</code>
+					promise to classes (goes up the class hierarchy) until no more proposals are made by the tool.</para>
+					</listitem>
+					<listitem>
+					<para>
+						<emphasis>Uniqueness annotations simplified</emphasis>
+						&mdash;
+						The uniqueness verifying analysis is still turned off by default, however, if it is turned on in this release (via the JSure menu in Eclipse)
+						you will note that is simpler to use and its results are more understandable. In addition the promises have been simplified as of this release.
+						The changes include the following:
+						The <code>@Borrowed</code> annotation no longer has an <code>allowReturn</code> attribute.
+						The <code>@Immutable</code> annotation no longer applies to references.
+						The <code>@BorrowedInRegion</code> and <code>@ReadOnly</code> promises has been removed.
+						The <code>@Unique</code> annotation annotation no longer has an <code>allowRead</code> attribute.
+						The <code>@UniqueInRegion</code> annotation annotation no longer has an <code>allowRead</code> attribute.
+					</para>
+					<para>We will continue to work to make this analysis more straightforward to use over the next several JSure releases. This analysis
+					is very useful for verifying security and concurrency properties of a codebase.</para>
+					</listitem>
+			</orderedlist>
+		</section>
+	</section>
+    
     	<section id="sec-jsure-release-5-5-2">
 		<title>JSure version 5.5.2</title>
 		<para>This section describes the 5.5.2 version of the JSure Eclipse
