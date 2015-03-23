@@ -836,6 +836,39 @@ verification results should not change but the modeling problems will go away.
   </section>
 
 	<section>
+		<title>Using an Inferred Named Region</title>
+	<para>This need to get the <code>@Region</code> declaration "just right" can be somewhat annoying and JSure (since version 5.6) can simply
+        infer the correct region declaration. Let's try this out. Go ahead and delete the <code>@Region</code> declaration
+        in your code as shown below.</para>
+<programlisting>@RegionLock("BufLock is this protects BufState")
+@Promise("@RequiresLock(BufLock) for *(**)")
+public class BoundedFIFO {
+  @UniqueInRegion("BufState")
+  <emphasis>private</emphasis> LoggingEvent[] buf;
+
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int numElts = 0;
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int first = 0;
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int next = 0;
+  @InRegion("BufState")
+  <emphasis>private</emphasis> int size;
+  &hellip;
+}</programlisting>
+<para>It is important to keep the <code>@InRegion</code> and <code>@UniqueInRegion</code> declarations because those are
+    what the tool uses to infer the <code>@Region</code> declaration.</para>
+    <para>If we make the above change and scan the project again we get the results reported below.
+         <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/boundedfifo-inferred-region.png"/>
+        </imageobject>
+      </mediaobject>
+      This inference of declarations can make using <code>@RegionLock</code> simpler in practice.
+        </para>
+	</section>
+
+	<section>
 		<title>Stating that BoundedFIFO is @ThreadSafe</title>
 		
 		<para>We can now apply the <code>@ThreadSafe</code>
@@ -844,7 +877,6 @@ verification results should not change but the modeling problems will go away.
 		by Goetz, et. al. (Addison-Wesley 2006) to the <code>BoundedFIFO</code> class.
 		
 		<programlisting><emphasis>@ThreadSafe</emphasis>
-@Region("private BufState")
 @RegionLock("BufLock is this protects BufState")
 @Promise("@RequiresLock(BufLock) for *(**)")
 public class BoundedFIFO {
