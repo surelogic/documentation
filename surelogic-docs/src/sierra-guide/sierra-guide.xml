@@ -4081,6 +4081,25 @@ if (o == null) {
     workaround. These are presented in the sections below for each
     released version of Sierra.</para>
 
+  <section id="sec-sierra-release-5-6-0">
+    <title>Sierra version 5.6.0</title>
+    <para>This section describes the 5.6.0 version of Sierra.</para>
+    <section>
+      <title>New and noteworthy</title>
+      <para>This section describes new and noteworthy features in this
+        version of Sierra.</para>
+      <orderedlist>
+        <listitem>
+          <para>
+            <emphasis>Updated analysis tools</emphasis> &mdash;
+            FindBugs has been updated to version 3.0.1. PMD has been updated
+            to version 5.2.3.
+          </para>
+        </listitem>
+      </orderedlist>
+    </section>
+  </section>
+
 	<section id="sec-sierra-release-5-5-2">
 		<title>Sierra version 5.5.2</title>
 		<para>This section describes the 5.5.2 version of Sierra.</para>
