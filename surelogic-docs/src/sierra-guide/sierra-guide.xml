@@ -819,7 +819,7 @@ if (o == null) {
 	using a utility class instead</emphasis>, to bring it up in the <guilabel>Finding
 	Details</guilabel> view and highlight the issue in the Java editor. This finding notes that the class may follow
 	the utility design pattern and you should consider creating a private constructor to avoid the creation of
-	any objects of this type. We are are not concerned with this finding
+	any objects of this type. We are not concerned with this finding
 	so audit it to be <guilabel>Irrelevant</guilabel>.</para>
 	
 	<para>Again, select the first finding in the <guilabel>Results</guilabel> view,
