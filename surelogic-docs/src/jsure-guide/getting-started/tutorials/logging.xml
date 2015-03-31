@@ -9,7 +9,7 @@
 	<para>
 		In this tutorial we examine a real-world bug in the
 		<package>java.util.logging</package>
-		portion of the Java standard library. This is a check-than-act
+		portion of the Java standard library. This is a check-then-act
 		bug that was reported to Sun when it appeared in Java 5 but was not fixed until Java 7. Our version of
 		the code for this tutorial is changed to be in a different package so
 		that it doesn't conflict with the standard library.
@@ -22,7 +22,7 @@
 	</para>
 
 	<section>
-		<title>A check-than-act problem</title>
+		<title>A check-then-act problem</title>
 
 		<para>In the tutorial project go into the
 			<package>com.surelogic.util.logging</package>
@@ -87,7 +87,7 @@
 	    clear that a value of null is an acceptable value for the <structfield>filter</structfield> field.</para>
 	    
 	<para>The access of the <structfield>filter</structfield> field without holding the
-	    proper lock is the concurrency problem. We refer to this as a check-than-act
+	    proper lock is the concurrency problem. We refer to this as a check-then-act
 	    problem because the change to null could occur, via the setter,
 	    after the null check at line 409, but before the use of the field in the <code>!filter.isLoggable(record)</code>. Causing the program
 	    the throw a <emphasis>NullPointerException</emphasis>.</para>
