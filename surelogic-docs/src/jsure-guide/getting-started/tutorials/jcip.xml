@@ -546,6 +546,39 @@ public class DrawingHelper {
 	</mediaobject>
     
     </section>
+    
+  <section>
+    <title>Strengthening the result with the Uniqueness verifying analysis</title>
+    
+    <para>We see <inlinegraphic fileref="images/reddot_decr.gif"/> red dot images to the upper-left
+        of results that have a contingency.  JSure uses this to flag things that are not
+        checked by the tool. These include programmer vouches as well as trusted promises.
+        In this code the many <inlinegraphic fileref="images/reddot_decr.gif"/> red dots come from not running the Uniquness verifying analysis. In this
+        section we are going to turn this on to strengthen our results.</para>
+        
+    <para>Uniqueness can be difficult to use on large practices, however it is recommended
+        when you want to increase your confidence in the verification results. To turn on the analysis
+        select <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Use Uniqueness Verifying Analysis</guimenuitem></menuchoice>
+        This should check the menu item (you can double-check that it is checked).</para>
+        
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/jcip-unique-menu.png" />
+        </imageobject>
+      </mediaobject>
+      
+      <para>When you are sure this is checked start a new scan of the project. The results appear as shown below.</para>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/jcip-unique-results.png" />
+        </imageobject>
+      </mediaobject>
+      <para>Notice that we now verify the @Unique("return") annotation on the Polygon constructor. This removes all the red dots from our results.
+          This means the results are sound &mdash; the constraints expressed by the verified annotations hold across all possible executions of the program
+          (assuming the runtime respects the Java programming language semantics). This is strong result indeed. We do note that sometimes
+          verifying uniqueness annotations can be difficult, so it may or may not be worth your time. It really depends
+          upon the nature and criticality of the software you are evaluating using JSure.</para>
+  </section>
       
       <para>You are now finished with this tutorial. The next tutorial
     works on a larger codebase and presents the use of JSure to verify
