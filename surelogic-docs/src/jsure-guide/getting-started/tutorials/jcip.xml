@@ -4,7 +4,7 @@
 "../../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <section id="jcip" xmlns:xi="http://www.w3.org/2001/XInclude">
-	<title>Verifying thread safe and immutable classes</title>
+	<title>Verifying annotations from the book <emphasis>Java Concurrency In Practice</emphasis></title>
 
 	<para>
 		In this tutorial we walk through the complete assurance of the
