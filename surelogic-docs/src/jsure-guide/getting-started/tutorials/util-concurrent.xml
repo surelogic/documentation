@@ -73,6 +73,9 @@ public class SynchronizedVariable implements Executor {
     <programlisting>  <emphasis>@InRegion("VarState")</emphasis>
   protected long value_;</programlisting>
   
+  Note that this is an example where we need to explicitly declare the region.
+  Region inference only works within a class, this is too complex of a model
+  for the tool to infer.
   Now scan the project with JSure. To do this choose
   <menuchoice><guimenu>JSure</guimenu> <guisubmenu>Verify
   Project</guisubmenu></menuchoice> from the Eclipse main menu or use
@@ -102,11 +105,7 @@ public class SynchronizedVariable implements Executor {
   </para>
 
   <para>The lock model does not verify because there are three unprotected
-  field accesses.  Also note that the results contain a
-  <guilabel>Null values</guilabel> category that is unassured.  There is one 
-  negative result, visible in the <guilabel>JSure Quick Search</guilabel> view,
-  under this category.  For now we shall focus on the lock model; we return 
-  to the remaining result at the end of the tutorial.</para>
+  field accesses. We focus now on investigating these inconsistent results.</para>
   
   <para>Closer inspection of the negative lock results (by clicking on the
   results in either view) reveals that the first two of these are
@@ -148,7 +147,9 @@ public class SynchronizedVariable implements Executor {
   to <function>SynchronizedVariable()</function> and 
   <function>SynchronizedLong(long)</function>.</para>
   
-  <para>Scan the project with JSure.</para>
+  <para>Scan the project with JSure.  The results below also assume you have left the
+     <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Use Uniqueness Verifying Analysis</guimenuitem></menuchoice>
+     menu item checked &mdash; and, as such, uniqueness annotations are being tool verified.</para>
   </section>
 
 	<section>
@@ -259,81 +260,11 @@ public class SynchronizedVariable implements Executor {
         <imagedata fileref="images/sv-swap-fixed.png" />
       </imageobject>
     </mediaobject>
-  </para>   
+  </para>
+  
+  <para>
+      This completes this tutorial. It has given you insight into modeling complex library code and uncovering (what was) a real-world defect.
+  </para>
     
-  </section>
-
-  <section>
-  <title>Partially Initialized Receiver</title>
-
-  <para>We finally turn our attention to the <guilabel>Null values</guilabel>
-  category.  This category contains results related to assuring that 
-  fields and variables annotated with <code>@NonNull</code>
-  never contain the value <code>null</code>.  Full exploration of this topic
-  requires another tutorial.  For now we limit our concern to <emphasis>partially
-  initialized</emphasis> objects.  The specific assurance failure we have concerns
-  the assignment to the field <structfield>lock_</structfield> in the constructor
-  <function>SynchronizedVariable()</function>:
-  
-  <programlisting>  /**
-   * Create a SynchronizedVariable using itself as the lock
-   **/
-  @RegionEffects("none")
-  @Starts("nothing")
-  public SynchronizedVariable() {
-    lock_ = this;
-  }</programlisting>
-  
-  This assignment of <code>this</code> to the field is unacceptable because
-  the receiver is <code>@Initialized(through="Object")</code>.  What does this
-  mean?</para>
-  
-  <para>An object is initialized through a chain of constructor calls.  For
-  example, if class <classname>C</classname> extends <classname>B</classname> extends <classname>A</classname>
-  (extends <classname>Object</classname>), then an instance of <classname>C</classname> is created
-  by invoking a constructor on <classname>C</classname>.  All the constructors for <classname>C</classname>
-  first invoke a constructor for <classname>B</classname>, and so on.  As the constructors
-  complete, more and more of the instance is initialized.  We say that the object
-  is initialized through <emphasis><classname>X</classname></emphasis> if the most recently 
-  completed constructor is from class <emphasis><classname>X</classname></emphasis>.  
-  This is important, because the only <code>@NonNull</code> fields that can be
-  trusted to actually be <code>null</code> are those fields declared in class 
-  <emphasis><classname>X</classname></emphasis> or one of its superclasses.  Thus, we
-  must specially track variables that might refer to partially initialized
-  objects to make sure that we properly handle the <code>@NonNull</code>
-  fields of the object.</para>
-  
-  <para>Generally speaking, we cannot allow the assignment of a partially
-  initialized object to an unannotated (actually, a <code>@Nullable</code>)
-  field or variable because then we would lose track of which fields of the 
-  partially initialized object are not yet initialized. This would mean we 
-  could actually read <code>null</code> from a <code>@NonNull</code>.  In the
-  case of constructor <function>SynchronizedVariable</function>, the receiver
-  is only initialized through <classname>Object</classname>.  It is safe to assign
-  to the field <structfield>lock_</structfield>, however, because the field is 
-  not going to be used to access any fields of the referenced object 
-  during the construction of the object <emphasis>or any of its subclasses</emphasis>.</para>
-  
-  <para>We can allow this assignment to proceed, and suppress the assurance
-  failure, by using the special method <code>com.surelogic.Cast.toNullable</code> to
-  "cast" the partially initialized reference to a nullable reference:
-  
-  <programlisting>  @RegionEffects("none")
-  @Starts("nothing")
-  public SynchronizedVariable() {
-    lock_ = <emphasis>Cast.toNullable(this)</emphasis>;
-  }</programlisting>
-  
-  After rerunning verification, we get the following results
-
-    <mediaobject>
-      <imageobject>
-        <imagedata fileref="images/sv-after-cast.png" />
-      </imageobject>
-    </mediaobject>
-
-  There is no longer an assurance failure in <guilabel>Null values</guilabel>.
-  Instead, we have a new trusted promise under the <guilabel>Vouches</guilabel>
-  category.</para>
   </section>
 </section>
