@@ -1075,11 +1075,14 @@ if (o == null) {
 	Database</guimenuitem> from the local team server view menu 
         (top right of the view) to delete the
 	<filename>.sierra-data/server</filename> directory from your
-	workspace. If you already started a local team server using the
+	workspace. A dialog checks that you really want this. Confirm by pressing <guibutton>OK</guibutton>.
+   If you already started a local team server using the
 	<guibutton>Start Server</guibutton>, stop it before you wipe
 	the database, however if you have never used the local team
 	server, e.g., if you just installed Sierra, this wipe step
-	may be safely skipped. Next, press the <guibutton>Start
+	may be safely skipped.</para>
+  
+   <para>Go ahead and press the <guibutton>Start
 	Server</guibutton> button on the view. A dialog will appear
 	warning you that the life of the server process you are
 	starting is not tied to the life of your Eclipse process. This
@@ -1424,7 +1427,7 @@ if (o == null) {
 	    <imageobject><imagedata fileref="images/tutorial-portal-connect-menu.png"/></imageobject>
 	  </mediaobject>	
 	
-	<para>Check the	SmallWorld project in the dialog that appears and press the <guibutton>OK</guibutton>
+	<para>Check the	SierraTutorial_SmallWorld project in the dialog that appears and press the <guibutton>OK</guibutton>
 	button.</para>
 	
 	  <mediaobject>
@@ -1436,6 +1439,12 @@ if (o == null) {
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-portal-teamservers-smallworld.png"/></imageobject>
 	  </mediaobject>
+
+    <para>To see the image above ensure that <guilabel>Show By Team Server</guilabel> is checked in the view menu as shown below.</para>
+
+    <mediaobject>
+      <imageobject><imagedata fileref="images/tutorial-portal-show-by-team-server.png"/></imageobject>
+    </mediaobject>
 
 	<para>A very useful feature of a team server is that it can
 	store the scan filter for your team. A scan filter defines the
