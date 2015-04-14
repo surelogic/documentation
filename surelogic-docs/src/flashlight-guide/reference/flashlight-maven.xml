@@ -117,9 +117,43 @@
     This is especially useful when using <code>flashlight:instrument</code> in
     conjunction with goals like <code>jetty:run</code>.  By selectively enabling
     this profile, you can control whether or not the compiled code has been
-    instrumented with flashlight.  For an example of how to do this, see the
-    <link linkend="sec-tutorial-maven">Maven tutorial</link>.
+    instrumented with flashlight.  For example, the additions below would allow
+    an invocation of maven such as <code>mvn -P with-fl jetty:run</code> might
+    allow a project to start an instance of Jetty with instrumented code.
   </para>
 
+  <programlisting>
+    &lt;profile&gt;
+      &lt;id&gt;with-fl&lt;/id&gt;
+      &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+          &lt;id&gt;fl-tools&lt;/id&gt;
+          &lt;name&gt;In Project Repo&lt;/name&gt;
+          &lt;url&gt;file:///path/to/flashlight-repo&lt;/url&gt;
+        &lt;/pluginRepository&gt;
+      &lt;/pluginRepositories&gt;
+      &lt;build&gt;
+        &lt;plugins&gt;
+          &lt;plugin&gt;
+            &lt;groupId&gt;com.surelogic&lt;/groupId&gt;
+            &lt;artifactId&gt;flashlight-plugin&lt;/artifactId&gt;
+            &lt;version&gt;5.6.0&lt;/version&gt;
+            &lt;configuration&gt;
+              &lt;dataDir&gt;/path/to/dataDir&lt;/dataDir&gt;
+            &lt;/configuration&gt;
+            &lt;executions&gt;
+              &lt;execution&gt;
+                &lt;phase&gt;test-compile&lt;/phase&gt;
+                &lt;goals&gt;
+                  &lt;goal&gt;instrument&lt;/goal&gt;
+                &lt;/goals&gt;
+              &lt;/execution&gt;
+            &lt;/executions&gt;
+          &lt;/plugin&gt;
+        &lt;/plugins&gt;
+      &lt;/build&gt;
+    &lt;/profile&gt;
+  </programlisting>
+  
 </section>
 
