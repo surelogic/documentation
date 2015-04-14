@@ -8,7 +8,7 @@
   <para>If your project uses <ulink url="http://maven.apache.org/">Apache
   Maven</ulink>, Flashlight provides a plugin that can help you produce
   instrumented versions of your jar or war files.  You can get the plugin from
-  the main menu by selecting <guimenu>Sierra</guimenu> | <inlinegraphic
+  the main menu by selecting <guimenu>Flashlight</guimenu> | <inlinegraphic
   fileref="../images/jar_saveas.gif" /> <guimenuitem>Save Maven Plugin
   As...</guimenuitem> from the main menu.  This will save a zip file in the
   location of your choosing that, when unzipped, inflates to a repository named
@@ -31,8 +31,14 @@
 ...
 &lt;/pluginRepositories&gt;  
   </programlisting>
-  <para>The Flashlight plugin currently only has one goal,
-  <code>flashlight:instrument-archive</code>, with the following configuration
+
+  <para>The flashlight plugin currently has two goals,
+  <code>flashlight:instrument-archive</code> and
+  <code>flashlight:instrument</code>.  The
+  <code>flashlight:instrument-archive</code> goal works for jar and war
+  packaging types, and produces an archive as output.  This archive is
+  equivalent in function to the normal package goal's output, but when run will
+  produce instrumentation data.  It has the following configuration
   attributes:</para>
   <informaltable>
     <tgroup cols='3' align='left'>
@@ -49,7 +55,7 @@
           <entry>The location of the Flashlight data directory.  This directory
           will be used to store the results of any runs performed with the
           instrumented archive.</entry>
-          <entry>Yes></entry>
+          <entry>Yes</entry>
         </row>
       </tbody>
     </tgroup>
@@ -58,7 +64,62 @@
   <code>mvn package</code>. It then instruments its contents and outputs a new
   archive file that can be dropped into any commonly used web server or, in the
   case of an executable jar, run from the command line.  The output file can be
-  found in the <directory>target</directory> folder and will be named
+  found in the &lt;directory&gt;target&lt;/directory&gt; folder and will be named
   &lt;project&gt;-&lt;version&gt;.inst.&lt;packaging>.</para>
+
+  <para>The second goal, <code>flashlight:instrument</code>, can be run after
+  the compilation phase in order to replace the class files with their
+  instrumented counterparts.  This is useful for projects that do not rely on
+  one of the standard packaging types, or when you want to produce an
+  instrumented run without fully building the package.  For example, if one were
+  making use of the <code>jetty:run</code> command, or wished to instrument
+  their code and then run a JUnit test suite, <code>flashlight:instrument</code>
+  would likely be a more appropriate choice. The
+  <code>flashlight:instrument</code> goal currently exposes the following
+  configuration attributes:</para>
+  <informaltable>
+    <tgroup cols='3' align='left'>
+      <thead>
+	<row>
+	  <entry>Attribute</entry>
+	  <entry>Description</entry>
+	  <entry>Required</entry>
+	</row>
+      </thead>
+      <tbody>
+        <row>
+          <entry>dataDir</entry>
+          <entry>The location of the Flashlight data directory.  This directory
+          will be used to store the results of any runs performed with the
+          instrumented archive.</entry>
+          <entry>Yes</entry>
+        </row>
+        <row>
+          <entry>collectionType</entry>
+          <entry>One of ALL or ONLY_LOCKS.  If ONLY_LOCKS is specified, then
+          Flashlight will only observer lock acquisitions.  This is not normally
+          needed.</entry>
+          <entry>No</entry>
+        </row>
+        <row>
+          <entry>properties</entry>
+          <entry>Specifies the location of a file that contains any properties
+          that need to be made available to the Flashlight runtime.  This is not
+          normally needed.</entry>
+          <entry>No</entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+  <para>
+    You may find it useful to create a profile in your
+    <filename>pom.xml</filename> file in order to enable Flashlight on demand.
+    This is especially useful when using <code>flashlight:instrument</code> in
+    conjunction with goals like <code>jetty:run</code>.  By selectively enabling
+    this profile, you can control whether or not the compiled code has been
+    instrumented with flashlight.  For an example of how to do this, see the
+    <link linkend="sec-tutorial-maven">Maven tutorial</link>.
+  </para>
+
 </section>
 

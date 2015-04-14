@@ -18,5 +18,6 @@
   <xi:include href="queries.xml"/>
   <xi:include href="flashlight-android.xml"/>
   <xi:include href="flashlight-ant.xml"/>    
+  <xi:include href="flashlight-maven.xml"/>    
   <xi:include href="bugs-and-tips.xml"/>    
 </chapter>

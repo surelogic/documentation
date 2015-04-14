@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<section id="sec-tutorial-maven" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Using Maven to instrument a web archive</title>
+  <para>The following tutorial is intended to provide you with a brief overview
+  of how to set up a maven project to take advantage of Flashlight in situations
+  where it is not feasible to simply launch from Eclipse.  This tutorial assumes
+  you have experience with Maven already. It is not intended to teach the Maven
+  build system, If you wish to learn how to use Maven, the <ulink
+  url="http://maven.apache.org/">web site</ulink> is a good place to start.  You
+  can also look into using the Eclipse plugin for Maven, <ulink
+  url="http://eclipse.org/m2e/">m2eclipse</ulink>.  This tutorial also focuses
+  solely on instrumenting and running with Flashlight from Maven .  If you wish
+  to learn how to explore the results of a run, you should look at the other
+  tutorials, starting with <link linkend="sec-tutorial-planetbaron-client">the
+  first</link>.</para>
+
+</section>
