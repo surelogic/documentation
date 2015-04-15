@@ -320,7 +320,7 @@
 	    <para><emphasis>Download Sierra:</emphasis> Download an archived update site file that contains
 	    the Sierra feature. Contact SureLogic about how to obtain
 	    this file, however the download is typically hosted
-	    <ulink url="http://www.surelogic.com/static/eclipse/install.html">here</ulink>. Please
+	    <ulink url="http://surelogic.com/static/eclipse/install.html">here</ulink>. Please
 	    note that Java 8 support you need Eclipse Luna (4.4) or above as your Eclipse.</para>
 	  </listitem>
 	  <listitem>
@@ -371,7 +371,7 @@
 	<para>You need to install a license to use Sierra.  If you do
 	not have a license file that was sent to you by SureLogic visit
 	<ulink
-	    url="http://www.surelogic.com">http://www.surelogic.com</ulink>
+	    url="http://surelogic.com">http://surelogic.com</ulink>
 	to obtain one.  To install the license select
 	<guimenuitem>Manage SureLogic Licenses</guimenuitem> from the
 	<guimenu>Sierra</guimenu> menu as shown in <xref
