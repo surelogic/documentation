@@ -5,19 +5,302 @@
 
 <section id="sec-tutorial-maven" xmlns:xlink="http://www.w3.org/1999/xlink">
   <title>Using Maven to instrument a web archive</title>
-  <para>The following tutorial is intended to provide you with a brief overview
-  of how to set up a maven project to take advantage of Flashlight in situations
-  where it is not feasible to simply launch from Eclipse.  This tutorial assumes
-  you have experience with Maven already. It is not intended to teach the Maven
-  build system, If you wish to learn how to use Maven, the <ulink
-  url="http://maven.apache.org/">web site</ulink> is a good place to start.  You
-  can also look into using the Eclipse plugin for Maven, <ulink
-  url="http://eclipse.org/m2e/">m2eclipse</ulink>.  This tutorial also focuses
-  solely on instrumenting and running with Flashlight from Maven .  If you wish
-  to learn how to explore the results of a run, you should look at the other
-  tutorials, starting with <link linkend="sec-tutorial-planetbaron-client">the
-  first</link>.</para>
+  <para>
+    The following tutorial is intended to provide you with a brief overview of
+    how to set up a maven project to take advantage of Flashlight in situations
+    where it is not feasible to simply launch from Eclipse.  This tutorial
+    assumes you have experience with Maven already. It is not intended to teach
+    the Maven build system, If you wish to learn how to use Maven, the <ulink
+    url="http://maven.apache.org/">web site</ulink> is a good place to start.
+    You can also look into using the Eclipse plugin for Maven, <ulink
+    url="http://eclipse.org/m2e/">m2eclipse</ulink>.  This tutorial also focuses
+    solely on instrumenting and running with Flashlight from Maven.  If you
+    wish to learn how to explore the results of a run, you should look at the
+    other tutorials, starting with <link
+    linkend="sec-tutorial-planetbaron-client">the first</link>.</para>
+  <note>
+    <title>Maven 3.2 or higher required</title>
+    <para>
+      In order to follow along, you will need to have maven installed,
+      preferably version 3.2 or higher.  If you don't have it already, you can
+      get the latest version <ulink
+      url="http://maven.apache.org/download.cgi">here</ulink>.
+    </para>
+  </note>
+  <para>
+    Before we set up a maven project to make use of Flashlight, we will need to
+    install the maven tools.  To do this, select <guimenu>Flashlight</guimenu> |
+    <inlinegraphic fileref="../images/jar_saveas.gif" /> <guimenuitem>Save Maven
+    Plugin As...</guimenuitem> from the main menu.  Then choose a directory to
+    save to.  Flashlight will save a file called
+    <filename>flashlight-maven-5.6.0.zip</filename> to the given directory.
+    This file contains a zip of a maven repository that contains everything you
+    need to use Flashlight in a maven project.  Go ahead and unzip it to a place
+    of your choosing.  For the purposes of this tutorial, we will assume that
+    you have unzipped it to a folder called
+    <filename>/path/to/flashlight-repo</filename>.
+  </para>
+  <para>
+    If you haven't done so yet, select
+    <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Run Flashlight
+    Tutorials</guimenuitem></menuchoice> from the workspace menu and add the
+    <application>FlashlightTutorial_Maven</application> project to your
+    workspace.  Note that the <filename>pom.xml</filename> at the top level is a
+    parent pom, and there are three submodules: <filename>admin</filename>,
+    <filename>core</filename>, and <filename>site</filename>.  There is also a
+    file in the root directory named <filename>build.properties</filename>.  You
+    will need to set the <literal>maven.home</literal> property to the location
+    of mvn on your file system, for example if the location of your maven
+    installation is <filename>/path/to/apache-maven-3.2.5</filename> then you
+    would change build.properties to this:
+  </para>
+  <programlisting><![CDATA[
+########
+#The following file is used to define runtime properties that will read by ant tasks. 
+#########
 
+#required
+maven.home=/path/to/apache-maven-3.2.5/]]>
+  </programlisting>
+  <para>
+    We can now verify the project builds and set ourselves up to work on it by
+    calling <command>mvn install</command>.  You should see output similar to
+    what follows:
+  </para>
   
+  <programlisting><![CDATA[
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ site ---
+[INFO] Installing /home/nathan/demospace/FlashlightTutorial_Maven/site/target/mycompany.war to /home/nathan/.m2/repository/com/mycompany/site/1.0/site-1.0.war
+[INFO] Installing /home/nathan/demospace/FlashlightTutorial_Maven/site/pom.xml to /home/nathan/.m2/repository/com/mycompany/site/1.0/site-1.0.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] ecommerce .......................................... SUCCESS [  1.563 s]
+[INFO] core ............................................... SUCCESS [22:14 min]
+[INFO] admin .............................................. SUCCESS [ 52.519 s]
+[INFO] site ............................................... SUCCESS [ 40.106 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 23:48 min
+[INFO] Finished at: 2015-04-14T22:07:59-04:00
+[INFO] Final Memory: 48M/146M
+[INFO] ------------------------------------------------------------------------]]>
+  </programlisting>
+
+  <para>
+    From here on, we will mostly concern ourselves with the site submodule.  Go
+    ahead and open up the pom.xml file at
+    <filename>FlashlightTutorial_Maven/site/pom.xml</filename>.  We are going to
+    make the flashlight build plugin available by adding the following to the
+    <code>pluginRepositories</code> section.  Make sure to replace
+    /path/to/flashlight-repo with the actual location of the repository unzipped
+    earlier in the tutorial.
+  </para>
+
+  <programlisting>
+&lt;pluginRepositories&gt;
+...
+  &lt;pluginRepository&gt;
+    &lt;id&gt;flashlight-tools&lt;/id&gt;
+    &lt;name&gt;In Project Repo&lt;/name&gt;
+    &lt;url&gt;file:///path/to/flashlight-repo&lt;/url&gt;
+  &lt;/pluginRepository&gt;
+...
+&lt;/pluginRepositories&gt;  
+  </programlisting>
+
+  <para>
+    We'll also want to configure our plugin.  Both flashlight goals take a
+    <guilabel>dataDir</guilabel> configuration entry that specifies where we
+    want data to be placed when an instrumented program is run.  A good value to
+    choose is the <filename>.flashlight-data</filename> directory in your
+    workspace.  For example, if your Eclipse workspace is located at
+    <filename>/path/to/workspace</filename>, then you should add the following
+    to <filename>pom.xml</filename>, under <code>plugins</code> in the
+    <code>build</code> section:
+  </para>
+
+  <programlisting>
+    &lt;build&gt;
+      ...
+      &lt;plugins&gt;
+        ...
+        &lt;plugin&gt;
+          &lt;groupId&gt;com.surelogic&lt;/groupId&gt;
+          &lt;artifactId&gt;flashlight-plugin&lt;/artifactId&gt;
+          &lt;version&gt;5.6.0&lt;/version&gt;
+          &lt;configuration&gt;
+            &lt;dataDir&gt;/path/to/workspace/.flashlight-data&lt;/dataDir&gt;
+          &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        ...
+      &lt;/plugins&gt;
+      ...
+    &lt;/build&gt;
+  </programlisting>
+
+  <para>
+    Now that the plugin is available, we can go ahead and produce a war that is
+    instrumented with our code.  We can do this by running <command>mvn
+    flashlight:instrument-archive</command>.  You should get output that resembles
+    the following:
+  </para>
   
+  <programlisting><![CDATA[
+[INFO] Packaging webapp
+[INFO] Assembling webapp [site] in [/home/nathan/demospace/FlashlightTutorial_Maven/site/target/mycompany]
+[INFO] Processing war project
+[INFO] Copying webapp resources [/home/nathan/demospace/FlashlightTutorial_Maven/site/src/main/webapp]
+[INFO] Webapp assembled in [8231 msecs]
+[INFO] Building war: /home/nathan/demospace/FlashlightTutorial_Maven/site/target/mycompany.war
+[INFO] WEB-INF/web.xml already added, skipping
+[INFO] 
+[INFO] <<< flashlight-plugin:5.6.0:instrument-archive (default-cli) < package @ site <<<
+[INFO] 
+[INFO] --- flashlight-plugin:5.6.0:instrument-archive (default-cli) @ site ---
+Downloading: file:///home/nathan/java/flashlight-repo/com/surelogic/flashlight-runtime/5.6.0/flashlight-runtime-5.6.0.jar
+Downloaded: file:///home/nathan/java/flashlight-repo/com/surelogic/flashlight-runtime/5.6.0/flashlight-runtime-5.6.0.jar (313 KB at 2839.1 KB/sec)
+[INFO] Instrumenting /home/nathan/demospace/FlashlightTutorial_Maven/site/target/mycompany.war -> /home/nathan/demospace/FlashlightTutorial_Maven/site/target/site-1.0.inst.war.
+	Data directory: /home/nathan/demospace/.flashlight-data
+	Runtime: /home/nathan/.m2/repository/com/surelogic/flashlight-runtime/5.6.0/flashlight-runtime-5.6.0.jar
+	
+[INFO] 	 Library dependencies[/home/nathan/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar]
+Some classes were not instrumented because their status is ambiguous.  The following classes appear on the classpath more than once and are not always instrumented.
+	javax.xml.transform.FactoryFinder : first uninstrumented in /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar
+...
+	org.w3c.dom.html.HTMLDListElement : first uninstrumented in /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar
+	javax.xml.transform.Result : first uninstrumented in /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 04:57 min
+[INFO] Finished at: 2015-04-14T22:42:14-04:00
+[INFO] Final Memory: 25M/613M
+[INFO] ------------------------------------------------------------------------
+
+  ]]></programlisting>
+
+  <para>
+    Note that you may receive a warning that some classes were not instrumented,
+    because their status was ambiguous.  In this particular case it is not a
+    problem.  If we look in the <filename>targets</filename> folder we can see
+    that there is an archive entitled <filename>site-1.0.inst.war</filename>.
+    This war will work just like the war normally produced by a <command>mvn
+    package</command> command - in this case <filename>mycompany.war</filename>.
+  </para>
+
+  <para>
+    If we were already running some sort of Java server installation, like
+    Apache Jetty, we could deploy our new war file directly and a new Flashlight
+    run would be produced automatically.  We are not, however, so we're going to
+    make use of Maven's Jetty plugin to get up and running.  In doing so, we'll
+    also demonstrate a second way to instrument code through Maven.  This time,
+    we're going to build a profile.  When our profile is active, Flashlight will
+    recompile class files just after the compilation step.  This allows us to
+    insert ourself into the existing build chain so that other plugins don't
+    have to be aware of what is going on.  Go ahead and add the following
+    profile to your <filename>pom.xml</filename> file in the site project.
+    Again, make sure that you change <filename>/path/to/workspace</filename> and
+    <filename>/path/to/flashlight-repo</filename> to your own locations.
+  </para>
+
+  <programlisting>
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;with-fl&lt;/id&gt;
+      &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+          &lt;id&gt;fl-tools&lt;/id&gt;
+          &lt;name&gt;In Project Repo&lt;/name&gt;
+          &lt;url&gt;file:///path/to/flashlight-repo&lt;/url&gt;
+        &lt;/pluginRepository&gt;
+      &lt;/pluginRepositories&gt;
+      &lt;build&gt;
+        &lt;plugins&gt;
+          &lt;plugin&gt;
+            &lt;groupId&gt;com.surelogic&lt;/groupId&gt;
+            &lt;artifactId&gt;flashlight-plugin&lt;/artifactId&gt;
+            &lt;version&gt;5.6.0&lt;/version&gt;
+            &lt;configuration&gt;
+              &lt;dataDir&gt;/path/to/workspace/.flashlight-data&lt;/dataDir&gt;
+            &lt;/configuration&gt;
+            &lt;executions&gt;
+              &lt;execution&gt;
+                &lt;phase&gt;test-compile&lt;/phase&gt;
+                &lt;goals&gt;
+                  &lt;goal&gt;instrument&lt;/goal&gt;
+                &lt;/goals&gt;
+              &lt;/execution&gt;
+            &lt;/executions&gt;
+          &lt;/plugin&gt;
+        &lt;/plugins&gt;
+      &lt;/build&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+  </programlisting>
+
+  <para>
+    Now that we have added that, we can try out our new profile.  If you take a
+    look at the <filename>build.xml</filename> file in the site module, you can
+    see that there are ant targets defined that will allow us to run the server.
+    Of particular interest is the <literal>jetty-demo</literal> target, excerpted
+    here:
+  </para>
+
+  <programlisting>
+    &lt;target name="jetty-demo" depends="start-db"&gt;
+        &lt;delete dir="war/WEB-INF/lib"/&gt;
+        &lt;artifact:mvn mavenHome="${maven.home}" fork="true"&gt;
+            &lt;jvmarg value="-XX:MaxPermSize=256M" /&gt;
+            &lt;jvmarg value="-Xmx512M" /&gt;
+            &lt;jvmarg value="-Xdebug" /&gt;
+            &lt;jvmarg value="-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n" /&gt;
+            &lt;jvmarg value="-javaagent:${spring.instrument.path}" /&gt;
+            &lt;jvmarg value="-Druntime.environment=${runtime.environment}" /&gt;  
+            &lt;arg value="compile"/&gt;
+            &lt;arg value="war:exploded"/&gt;
+            &lt;arg value="jetty:run"/&gt;
+        &lt;/artifact:mvn&gt;
+    &lt;/target&gt;
+  </programlisting>
+
+  <para>
+    You can verify for yourself that this starts up a website, available at
+    <literal>localhost:8080</literal>, when you run <command>ant -f build.xml
+    jetty-demo</command>.  Once you have verified that your installation works,
+    make sure to kill this process with Ctrl-C or the like before continuing.
+    We're going to add our own command, one that utilizes our new
+    <literal>with-fl</literal> profile.  Add this target to the build.xml file,
+    then run it by calling <command>ant -f build.xml start-db-with-fl</command>.
+  </para>
+
+  <programlisting>
+    &lt;target name="jetty-demo-with-fl" depends="start-db"&gt;
+        &lt;delete dir="war/WEB-INF/lib"/&gt;
+        &lt;artifact:mvn mavenHome="${maven.home}" fork="true"&gt;
+            &lt;jvmarg value="-XX:MaxPermSize=256M" /&gt;
+            &lt;jvmarg value="-Xmx512M" /&gt;
+            &lt;jvmarg value="-Xdebug" /&gt;
+            &lt;jvmarg value="-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n" /&gt;
+            &lt;jvmarg value="-javaagent:${spring.instrument.path}" /&gt;
+            &lt;jvmarg value="-Druntime.environment=${runtime.environment}" /&gt;  
+            &lt;arg value="-P"/&gt;
+            &lt;arg value="with-fl"/&gt;
+            &lt;arg value="compile"/&gt;
+            &lt;arg value="war:exploded"/&gt;
+            &lt;arg value="jetty:run"/&gt;
+        &lt;/artifact:mvn&gt;
+    &lt;/target&gt;
+  </programlisting>
+
+  <para>
+    Once the server is running fully (you will know when the console reads
+    <literal>[INFO] Started Jetty Server</literal>), you can experiment with the
+    website by opening a browser to <literal>localhost:8080</literal>.  When you
+    are done, shut down the server.  A Flashlight run should now have been
+    placed in your data directory, and available in Eclipse to be prepared.
+  </para>
+
+  <para>This completes the tutorial.</para>
 </section>

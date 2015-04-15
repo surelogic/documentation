@@ -384,11 +384,11 @@ Enter number your choice:
    from the <guilabel>Query Menu</guilabel> for this run. Notice that you obtain the same result we did for
    the previous run. This is because, as we discussed above, this query doesn't consider lock cycles.</para>
 
-  </section>
-
   <para>
     This completes the dining philosophers tutorial.
   </para>
+
+  </section>
 
 
 </section>

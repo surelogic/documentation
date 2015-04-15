@@ -38,6 +38,12 @@
 			This tutorial is presented in
 			 <xref linkend="sec-tutorial-query-editor" />.</para>
 		</listitem>
+		<listitem>
+			<para>(Advanced/Optional) <emphasis>Using Flashlight with Maven</emphasis> &ndash; This is an advanced tutorial that
+			shows how to configure a maven project to make use of Flashlight.
+			This tutorial is presented in
+			 <xref linkend="sec-tutorial-maven" />.</para>
+		</listitem>
 	</itemizedlist>
       
       
