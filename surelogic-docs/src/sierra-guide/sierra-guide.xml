@@ -1873,7 +1873,16 @@ if (o == null) {
         url="http://maven.apache.org/">web site</ulink> is a good place to
         start.  You can also look into using the Eclipse plugin for Maven,
         <ulink url="http://eclipse.org/m2e/">m2eclipse</ulink>.</para>
-
+        <note>
+          <title>Maven 3.2 or higher required</title>
+          <para>
+            In order to follow along, you will need to have maven installed,
+            preferably version 3.2 or higher.  If you don't have it already, you can
+            get the latest version <ulink
+            url="http://maven.apache.org/download.cgi">here</ulink>.
+          </para>
+        </note>
+        
 	<para>We're going to scan a project called
 	<application>SierraTutorial_SmallWorldMaven</application>. Select
 	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
@@ -3793,6 +3802,16 @@ if (o == null) {
       unzipped, inflates to a repository named <filename>sierra-repo</filename>
       containing our plugin and its dependencies.</para>
 
+      <note>
+        <title>Maven 3.2 or higher required</title>
+        <para>
+          In order to follow along, you will need to have maven installed,
+          preferably version 3.2 or higher.  If you don't have it already, you can
+          get the latest version <ulink
+          url="http://maven.apache.org/download.cgi">here</ulink>.
+        </para>
+      </note>
+      
       <para>The simplest way to add the plugin to a project is to add the
       repository to <filename>pom.xml</filename> file in your project.  If you
       have more than one project that makes use of sierra, you may find it more
