@@ -10,6 +10,38 @@
   features to try out, and known limitations to avoid or workaround.
   These are presented in the sections below for each released version of
   Flashlight.</para>
+  
+  <section>
+    <title>Flashlight version 5.6.0</title>
+    <para>This section describes the 5.6.0 version of Flashlight.</para>
+    <section>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this version of Flashlight.</para>
+      <orderedlist>
+        <listitem>
+          <para><emphasis>Improved happens-before analysis</emphasis> &mdash;
+          This release of Flashlight can now detect happens-before events for util.concurrent Executors as well as Android AsyncTasks
+          and Handlers.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Instrumented Android tests</emphasis> &mdash;
+          This release of Flashlight allows you to launch tests on Android projects. This allows Flashlight to be used on
+          automated device integration tests such as <ulink url="https://code.google.com/p/robotium/"><citetitle>robotium</citetitle></ulink>.</para>
+        </listitem>
+        
+        <listitem>
+          <para><emphasis>Flashlight Launched Control dialog updated</emphasis> &mdash; The Flashlight Launched Run Control dialog
+              has been reconfigured to be easier to use. It now includes a <guilabel>Close</guilabel> button which, while
+              generally useful to dismiss the dialog, was most needed on OS X.</para>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="images/release-notes-560-dialog.png" />
+            </imageobject>
+          </mediaobject>
+        </listitem>
+      </orderedlist>
+    </section>
+  </section>  
     <section>
     <title>Flashlight version 5.5.0</title>
     <para>This section describes the 5.5.0 version of Flashlight.</para>
