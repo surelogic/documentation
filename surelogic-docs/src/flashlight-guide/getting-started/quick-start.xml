@@ -106,7 +106,7 @@
   <para>When your program launches the <guilabel>Flashlight Launched Run Control Dialog</guilabel> appears. An
   example of this dialog is shown in <xref linkend="fig-quick-start-launched-run-control" />. Each
   running Flashlight-instrumented program gets a listing in this dialog&mdash;it can be though of as being similar to a web
-  browser download monitor dialog.</para>
+  browser download monitor dialog. This dialog is fully described in <xref linkend="flashlight-launched-run-control-dialog" /></para>
   
   <figure id="fig-quick-start-launched-run-control">
     <title>Dialog that shows the state of all running Flashlight-instrumented applications</title>
