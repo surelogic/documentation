@@ -30,7 +30,7 @@
   <para>
     Before we set up a maven project to make use of Flashlight, we will need to
     install the maven tools.  To do this, select <guimenu>Flashlight</guimenu> |
-    <inlinegraphic fileref="../images/jar_saveas.gif" /> <guimenuitem>Save Maven
+    <inlinegraphic fileref="images/jar_saveas.gif" /> <guimenuitem>Save Maven
     Plugin As...</guimenuitem> from the main menu.  Then choose a directory to
     save to.  Flashlight will save a file called
     <filename>flashlight-maven-5.6.0.zip</filename> to the given directory.
