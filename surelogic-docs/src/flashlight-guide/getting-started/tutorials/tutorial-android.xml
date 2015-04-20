@@ -17,8 +17,10 @@
   the instructions <link
   xlink:href="http://developer.android.com/sdk/installing.html">here</link>. The
   tutorial project references the Android 2.3.3 libraries, so you may need to
-  install them (or if you are an advanced Android developer, modify the
-  project's <filename>AndroidManifest.xml</filename>).</para>
+  install them or you can choose a version (e.g., 5.0.1) that you have.
+  If you need to do this right-click on the project and choose <guilabel>Properties</guilabel>.
+  Next select <guilabel>Android</guilabel> to the left and choose a project build
+  target at or above 2.3.3. The project should now compile.</para>
   
   	<note>
 		<title>This tutorial assumes you are an experienced Android developer</title>
