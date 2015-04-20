@@ -411,7 +411,7 @@
   
   <para>We can get a better idea of when we are writing to
   <structfield>f_connectDisconnectButton</structfield> by drilling in and
-  looking at each access that was made.  Right click on the main entry, and run
+  looking at each access that was made.  Right click on the <structfield>main</structfield> entry, and run
   <emphasis>Show every access of this field in this time range.</emphasis> The
   result of this query should look like <xref
   linkend="fig-tutorial-planetbaron-perspective-ctc3" /> and will show you each
