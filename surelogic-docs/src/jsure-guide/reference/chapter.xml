@@ -79,6 +79,41 @@
           </figure>
         </listitem>
         
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Save Ant Task As&hellip;</guimenuitem></title>
+            <para>This command copies the <code>jsure-ant-</code><emphasis>version</emphasis><code>.zip</code> to the disk. A dialog, shown in
+            <xref linkend="fig-save-ant-task-as-dialog"/>, is opened to let the user to
+            specify the directory the Zip file should be placed within. This command is useful if you want to run JSure scans in an Ant task.</para>
+          </formalpara>
+          
+           <figure id="fig-save-ant-task-as-dialog">
+            <title><guimenuitem>The Save Ant Task dialog box</guimenuitem></title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/save-ant-task-as-dialog.png"/></imageobject>
+            </mediaobject>
+          </figure>
+        </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Save Documentation As&hellip;</guimenuitem></title>
+            <para>This command copies the <code>jsure-html-docs.zip</code> to the disk. A dialog, shown in
+            <xref linkend="fig-save-html-docs-as-dialog"/>, is opened to let the user to
+            specify the directory the Zip file should be placed within. This command is useful if you want to
+            open the JSure documentation in your web browser. This file contains HTML versions of all the
+            JSure documentation also in your Eclipse help system. Many tool users prefer using a browser
+            for JSure documentation rather than the build-in Eclipse help system (each of search, and so on).</para>
+          </formalpara>
+          
+           <figure id="fig-save-html-docs-as-dialog">
+            <title><guimenuitem>The Save Documentation dialog box</guimenuitem></title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/save-html-docs-as-dialog.png"/></imageobject>
+            </mediaobject>
+          </figure>
+        </listitem>
+        
          <listitem>
           <formalpara>
             <title><guimenuitem>Open Library Annotations...</guimenuitem></title>
