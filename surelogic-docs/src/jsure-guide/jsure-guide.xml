@@ -20,7 +20,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 5.6.0&mdash;February 2015</pubdate>
+    <pubdate>Version 5.6.1&mdash;May 2015</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -50,6 +50,55 @@
     features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of JSure.</para>
+    
+           <section id="sec-jsure-release-5-6-1">
+    <title>JSure version 5.6.1</title>
+    <para>This section describes the 5.6.1 version of the JSure Eclipse
+      client.
+    </para>
+
+    <section>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this
+        version of JSure.
+      </para>
+      <orderedlist>
+        <listitem>
+          <para>
+            <emphasis>Improved Ant task</emphasis>
+            &mdash;
+            Several changes to the JSure Ant task are included in this version. If you use the Ant task you'll
+            have to make some changes to your scripts. If not, the improvements made in this tool release
+            may make the task useful in your development environment. A summary of the changes is listed below.
+          </para>
+          <orderedlist>
+          <listitem><para>The task is no longer included in the Eclipse distribution. It must be downloaded <ulink url="http://surelogic.com/static/eclipse/install.html#cl">here</ulink>
+          on the surelogic website. The reason for this change is to reduce the Eclipse tool distribution size. When adding the Ant task, JSure doubles in size, with Ant and Maven it is
+          3X the download size. Now folks can download only what they need.</para></listitem>
+          <listitem><para>The task has been simplified. It is still similar to the Ant <ulink url="https://ant.apache.org/manual/Tasks/javac.html">javac</ulink> task
+          but now has simpler setup.</para>
+          <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/release-notes-561-antscript.png" />
+              </imageobject>
+          </mediaobject>
+          </listitem>
+          <listitem><para>Output from the Ant task is a Zip file that can be loaded into Eclipse. The name of the file encodes
+          the information needed to load it into Eclipse.</para>
+          <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/release-notes-561-antmenu.png" />
+              </imageobject>
+          </mediaobject>
+          </listitem>
+          </orderedlist>
+          <para>This approach is also intended to be supported in Maven but the Maven plugin for JSure is not yet complete. Further we plan to use the
+          Ant and Maven to support predicates on the tool results (e.g., all annotations are consistent with the code). This
+          future work will enable automated use of JSure in a "back office" automated build.</para>
+        </listitem>
+      </orderedlist>
+    </section>
+  </section>
     
        <section id="sec-jsure-release-5-6-0">
 		<title>JSure version 5.6.0</title>
