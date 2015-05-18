@@ -45,7 +45,7 @@
 
         <listitem>
           <formalpara>
-            <title><guimenuitem>Add/Update Promises Library in Project...</guimenuitem></title>
+            <title><guimenuitem>Add/Update Promises Library in Project</guimenuitem></title>
             <para>This command lets the user add or update the
             promises library for a project. The dialog shown in <xref
             linkend="fig-add-update-promises-library-window"/> is opened to
@@ -54,69 +54,17 @@
             into the root of the project and adds the JAR to the project's classpath.</para>
           </formalpara>
 
-	  <figure id="fig-add-update-promises-library-window">
+	      <figure id="fig-add-update-promises-library-window">
             <title><guimenuitem>The Add/Update Promises Library dialog box</guimenuitem></title>
             <mediaobject>
               <imageobject><imagedata fileref="images/add-update-promises-library-dialog.png"/></imageobject>
             </mediaobject>
           </figure>
         </listitem>
-
-        <listitem>
-          <formalpara>
-            <title><guimenuitem>Save Promises Library As&hellip;</guimenuitem></title>
-            <para>This command copies the <code>promises-</code><emphasis>version</emphasis><code>.jar</code> to the disk. A dialog, shown in
-            <xref linkend="fig-save-promises-library-as-dialog"/>, is opened to let the user to
-            specify the directory the JAR file should be placed within. This command is useful if you need, for any reason,
-            to manually add the JSure annotation JAR file to a codebase.</para>
-          </formalpara>
-          
-           <figure id="fig-save-promises-library-as-dialog">
-            <title><guimenuitem>The Add/Update Promises Library dialog box</guimenuitem></title>
-            <mediaobject>
-              <imageobject><imagedata fileref="images/save-promises-library-as-dialog.png"/></imageobject>
-            </mediaobject>
-          </figure>
-        </listitem>
-        
-        <listitem>
-          <formalpara>
-            <title><guimenuitem>Save Ant Task As&hellip;</guimenuitem></title>
-            <para>This command copies the <code>jsure-ant-</code><emphasis>version</emphasis><code>.zip</code> to the disk. A dialog, shown in
-            <xref linkend="fig-save-ant-task-as-dialog"/>, is opened to let the user to
-            specify the directory the Zip file should be placed within. This command is useful if you want to run JSure scans in an Ant task.</para>
-          </formalpara>
-          
-           <figure id="fig-save-ant-task-as-dialog">
-            <title><guimenuitem>The Save Ant Task dialog box</guimenuitem></title>
-            <mediaobject>
-              <imageobject><imagedata fileref="images/save-ant-task-as-dialog.png"/></imageobject>
-            </mediaobject>
-          </figure>
-        </listitem>
-        
-        <listitem>
-          <formalpara>
-            <title><guimenuitem>Save Documentation As&hellip;</guimenuitem></title>
-            <para>This command copies the <code>jsure-html-docs.zip</code> to the disk. A dialog, shown in
-            <xref linkend="fig-save-html-docs-as-dialog"/>, is opened to let the user to
-            specify the directory the Zip file should be placed within. This command is useful if you want to
-            open the JSure documentation in your web browser. This file contains HTML versions of all the
-            JSure documentation also in your Eclipse help system. Many tool users prefer using a browser
-            for JSure documentation rather than the build-in Eclipse help system (each of search, and so on).</para>
-          </formalpara>
-          
-           <figure id="fig-save-html-docs-as-dialog">
-            <title><guimenuitem>The Save Documentation dialog box</guimenuitem></title>
-            <mediaobject>
-              <imageobject><imagedata fileref="images/save-html-docs-as-dialog.png"/></imageobject>
-            </mediaobject>
-          </figure>
-        </listitem>
         
          <listitem>
           <formalpara>
-            <title><guimenuitem>Open Library Annotations...</guimenuitem></title>
+            <title><guimenuitem>Open Library Annotations&hellip;</guimenuitem></title>
             <para>This command, similar to the Eclipse Java <guilabel>Open Type</guilabel> search, allows the
             tool user to open any type in the JSure library annotation editor. 
             A dialog, shown in
@@ -145,31 +93,59 @@
             and toolbars for perspectives.</para>
           </formalpara>
         </listitem>
-  
-        <listitem>
+        
+         <listitem>
           <formalpara>
-            <title><guimenuitem>Use Uniqueness Verifying Analysis</guimenuitem></title>
-             <para>This menu choice controls if the JSure alias analysis is executed during a scan.
-            This preference is off by default, but can be checked as shown in
-            <xref linkend="fig-uniqueness-turned-on"/>.</para>
+            <title><guimenuitem>Import Ant/Maven Scan&hellip;</guimenuitem></title>
+            <para>This command lets the user load a JSure scan made with the Ant task (in the future Maven).
+            For more information on using Ant please see <xref linkend="sec-ant-task"/>.
+            The dialog shown in <xref
+            linkend="fig-load-external-scan-dialog"/> is opened to
+            allow the user to select the scan Zip file to load into the Eclipse workspace.</para>
           </formalpara>
-          
-          <figure id="fig-uniqueness-turned-on">
-            <title><guimenuitem>The JSure main menu with uniqueness allowed to run</guimenuitem></title>
+
+        <figure id="fig-load-external-scan-dialog">
+            <title><guimenuitem>The Import JSure Ant/Maven Scan dialog box</guimenuitem></title>
             <mediaobject>
-              <imageobject><imagedata fileref="images/uniqueness-turned-on.png"/></imageobject>
+              <imageobject><imagedata fileref="images/load-external-scan-dialog.png"/></imageobject>
             </mediaobject>
           </figure>
-          
-        <note>
-			<title>The Uniqueness Verifying Analysis is not recommended for most uses of JSure</title>
+        </listitem>
 
-			<para>The uniqueness alias analysis built into JSure is not recommended for use in this release because
-			we are still working to make its use feasible on large Java codebases. In particular, the analysis currently
-			complains about most uses of iterators, due to aliasing of the collection into the iterator, unless
-			effects upper bounds annotations exist for all methods called within the scope of the iteration.
-			It is included in this release for experimental use by customers on small codebases.</para>
-	    </note>
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Save Promises Library As&hellip;</guimenuitem></title>
+            <para>This command copies the <code>promises-</code><emphasis>version</emphasis><code>.jar</code> to the disk. A dialog, shown in
+            <xref linkend="fig-save-promises-library-as-dialog"/>, is opened to let the user to
+            specify the directory the JAR file should be placed within. This command is useful if you need, for any reason,
+            to manually add the JSure annotation JAR file to a codebase.</para>
+          </formalpara>
+          
+           <figure id="fig-save-promises-library-as-dialog">
+            <title><guimenuitem>The Add/Update Promises Library dialog box</guimenuitem></title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/save-promises-library-as-dialog.png"/></imageobject>
+            </mediaobject>
+          </figure>
+        </listitem>
+        
+        <listitem>
+          <formalpara>
+            <title><guimenuitem>Save Documentation As&hellip;</guimenuitem></title>
+            <para>This command copies the <code>jsure-html-docs.zip</code> to the disk. A dialog, shown in
+            <xref linkend="fig-save-html-docs-as-dialog"/>, is opened to let the user to
+            specify the directory the Zip file should be placed within. This command is useful if you want to
+            open the JSure documentation in your web browser. This file contains HTML versions of all the
+            JSure documentation also in your Eclipse help system. Many tool users prefer using a browser
+            for JSure documentation rather than the build-in Eclipse help system (each of search, and so on).</para>
+          </formalpara>
+          
+           <figure id="fig-save-html-docs-as-dialog">
+            <title><guimenuitem>The Save Documentation dialog box</guimenuitem></title>
+            <mediaobject>
+              <imageobject><imagedata fileref="images/save-html-docs-as-dialog.png"/></imageobject>
+            </mediaobject>
+          </figure>
         </listitem>
   
         <listitem>
@@ -1884,7 +1860,6 @@
     the time you do not need to change these settings unless directed by SureLogic technical support.</para>
     
     </section>
-    
   </section>
 
 	<section id="sec-surelogic-tool-properties-file">
@@ -2050,6 +2025,12 @@
 	</informaltable>
 	</para>
 	</section>
+  
+    <section id="sec-ant-task">
+    <title>Using Ant</title>
+    
+    <para>Todo</para>
+  </section>
 
   <section id="sec-license-management">
     <title>License management</title>
