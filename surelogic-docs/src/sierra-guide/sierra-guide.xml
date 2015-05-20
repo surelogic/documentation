@@ -2217,7 +2217,7 @@ if (o == null) {
 	  Project</guimenuitem> command.</para>
 	</listitem>
 	<listitem>
-	  <para><emphasis><inlinegraphic fileref="images/sierra_load_scan.gif" />
+	  <para><emphasis><inlinegraphic fileref="images/file_drum.gif" />
 	  Import Ant Scan...</emphasis>
 	  &mdash; Allows the user to copy a Sierra scan created from one of the
         Sierra Ant tasks into the data directory. This allows the scan to be

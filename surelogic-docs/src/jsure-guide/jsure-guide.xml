@@ -64,6 +64,24 @@
       </para>
       <orderedlist>
         <listitem>
+        <para>
+          <emphasis>Reorganization of JSure menu</emphasis>
+          &mdash;
+          To make the JSure menu simpler to use we have reorganized it. Items are better grouped
+          by use. This was driven, in part, by several changes to the tool are discussed below.
+          The top section contains commands to operate JSure in Eclipse.
+          The second section contains commands that import or export files.
+          The third section contains commands to send feedback to SureLogic and run the JSure
+          tutorials.
+          The last section contains a command to open a dialog to manage your tool license.
+        </para>
+           <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/release-notes-561-menu.png" />
+                </imageobject>
+           </mediaobject>
+        </listitem>
+        <listitem>
           <para>
             <emphasis>Improved Ant task</emphasis>
             &mdash;
@@ -95,6 +113,21 @@
           <para>This approach is also intended to be supported in Maven but the Maven plugin for JSure is not yet complete. Further we plan to use the
           Ant and Maven to support predicates on the tool results (e.g., all annotations are consistent with the code). This
           future work will enable automated use of JSure in a "back office" automated build.</para>
+        </listitem>
+         <listitem>
+        <para>
+          <emphasis>HTML version of this documentation packaged with the tool</emphasis>
+          &mdash;
+          You can choose the <guilabel>Save Documentation As...</guilabel> menu item shown in the image below
+          to save a <filename>jsure-html-docs.zip</filename> file on your disk. Inside this Zip file is the
+          HTML version of this documentation that you can open in your browser. Some users prefer this format
+          because they can display it in the browser of their preference.
+        </para>
+           <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/release-notes-561-htmldocs.png" />
+                </imageobject>
+           </mediaobject>
         </listitem>
       </orderedlist>
     </section>
