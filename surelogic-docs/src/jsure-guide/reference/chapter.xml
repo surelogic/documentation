@@ -2029,7 +2029,118 @@
     <section id="sec-ant-task">
     <title>Using Ant</title>
     
-    <para>Todo</para>
+    <para>The JSure Ant task can scan a project and produce JSure results. It is, by design
+     intended to be similar to the javac Ant task. This task results in a Zip
+     file that can be loaded into Eclipse using the <guilabel>Import Ant/Maven Scan...</guilabel>
+     on the JSure menu. Once loaded into Eclipse the JSure scan results can be examined just like any other scan.</para>
+     
+     <para>The special attributes are given below, note that other javac task attributes work as well. The idea
+     is for you to copy or "clone" your javac task and modify it just a bit (with the attributes below) to be a JSure scan task.</para>
+     
+  <informaltable frame='all'>
+    <tgroup cols='3' align='left'>
+      <thead>
+        <row>
+          <entry>Attribute</entry>
+          <entry>Description</entry>
+          <entry>Required</entry>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <entry>jsureprojectname</entry>
+          <entry>
+            This attribute sets the name of your project when the scan is loaded into Eclipse.
+            This value is also used to name the resulting Zip file. <code>jsureprojectname="JSureTutorial_BoundedFIFO"</code>
+          </entry>
+          <entry>Yes</entry>
+        </row>
+        <row>
+          <entry>jsureanthome</entry>
+          <entry>
+            This attribute sets set this to the location of the bits for the JSure Ant task (where you unzipped them). Typically
+            you copy the pattern illustrated in the Ant script below and set this
+            path as the property "jsure.ant.home" so that it can be used to specify
+            the task classpath as well as the value of this attribute.
+             e.g.,<code>&lt;property name="jsure.ant.home" location="C:\\Users\\Tim\\jsure-ant" /&gt;</code>
+             <code>...</code>
+             <code>jsureanthome="${jsure.ant.home}"</code>
+          </entry>
+          <entry>Yes</entry>
+        </row>
+        <row>
+          <entry>jsurescandir</entry>
+          <entry>
+            This attribute sets a directory to create the scan Zip file
+            within. If it is not set then output is written to the current directory.
+            This may be useful if you want to gather results in a particular location
+            on your disk.
+           <code>jsurescandir="C:\\Users\\Tim\\myscans"</code>
+          </entry>
+          <entry>No, output defaults to the current directory.</entry>
+        </row>
+        <row>
+          <entry>surelogictoolspropertiesfile</entry>
+          <entry>
+            This attribute sets the location of a
+         <code>surelogic-tools.properties</code> file to be read to control the scan. This file
+         can control aspects of the JSure scan (please see the JSure documentation).
+         If this attribute is not set the tool looks for a <code>surelogic-tools.properties</code>
+         file in the current directory and uses that if it is found.
+         <code>surelogictoolspropertiesfile="C:\\Users\\Tim\\surelogic-tools.properties"</code>
+          </entry>
+          <entry>No, if not set the tool looks for a <code>surelogic-tools.properties</code> file in the current directory
+          (a useful default if you place the Ant script and the properties file at the root of a Java project). 
+          If found then that file is used, if not then no properties are used.</entry>
+        </row>
+        
+      </tbody>
+    </tgroup>
+  </informaltable>
+  
+  <para>For the JSureTutorial_BoundedFIFO project create a build.xml at the project root:</para>
+  
+  <programlisting>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="JSureTutorial_BoundedFIFO" default="scan" basedir="."&gt;
+
+  &lt;!-- (CHANGE) path to the unzipped the JSure Ant task --&gt;
+  &lt;property name="jsure.ant.home" location="C:\\Users\\Tim\\jsure-ant" /&gt;
+
+  &lt;!-- (COPY) JSure Ant task setup stuff --&gt;
+  &lt;path id="sl.classpath">
+    &lt;fileset dir="${jsure.ant.home}" includes="**/*.jar" /&gt;
+  &lt;/path&gt;
+  &lt;taskdef name="jsure-scan" classname="com.surelogic.jsure.ant.JSureScan"&gt;
+    &lt;classpath refid="sl.classpath" /&gt;
+  &lt;/taskdef&gt;
+
+  &lt;target name="scan"&gt;
+    &lt;jsure-scan srcdir="${basedir}/src"
+                classpath="${basedir}/*.jar"
+                source="1.6"
+                includeantruntime="false"
+                jsureanthome="${jsure.ant.home}"
+                jsureprojectname="JSureTutorial_BoundedFIFO" /&gt;
+  &lt;/target&gt;
+&lt;/project&gt;</programlisting>
+
+  <para>To run a scan open a prompt to this directory and run "ant" or
+  run as Ant task in your Eclipse. The output of the above Ant script on the JSureTutorial_BoundedFIFO project will look like</para>
+
+<programlisting>Buildfile: C:\Users\Tim\Source\eclipse-work\meta-work\JSureTutorial_BoundedFIFO\build.xml
+scan:
+[jsure-scan] Project to scan w/JSure = JSureTutorial_BoundedFIFO
+[jsure-scan] Scan output directory   = .
+[jsure-scan] Scan JSureTutorial_Bounde-2015.05.18-at-12.37.55.231 examining 3 Java files
+BUILD SUCCESSFUL
+Total time: 8 seconds</programlisting>
+
+  <para>Next you would load the <code>JSureTutorial_Bounde-2015.05.18-at-12.37.55.231.zip</code> file into
+  your Eclipse by choosing the
+  <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Import Ant/Maven Scan...</guimenuitem></menuchoice> from the Eclipse main menu.
+  The file is located at the root of the JSureTutorial_BoundedFIFO
+  project on your disk (where the script was located).</para>
+     
   </section>
 
   <section id="sec-license-management">
