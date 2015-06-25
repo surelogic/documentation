@@ -25,7 +25,7 @@
       <itemizedlist>
         <listitem>
           <formalpara>
-            <title><guimenuitem>Verify Project</guimenuitem></title>
+            <title><guimenuitem><inlinegraphic fileref="images/jsure_verify.gif"/> Verify</guimenuitem></title>
             <para>This command allows the user to choose which project
             should be assured by JSure. It is also available by pressing the
             <inlinegraphic fileref="images/jsure_verify.gif"/> icon on the Eclipse 
@@ -36,7 +36,7 @@
           </formalpara>
           
           <figure id="fig-verify-project-dialog">
-            <title><guimenuitem>The Verify Project dialog box</guimenuitem></title>
+            <title><guimenuitem>The Verify dialog box</guimenuitem></title>
             <mediaobject>
               <imageobject><imagedata fileref="images/verify-project-dialog.png"/></imageobject>
             </mediaobject>
@@ -45,7 +45,7 @@
 
         <listitem>
           <formalpara>
-            <title><guimenuitem>Add/Update Promises Library in Project</guimenuitem></title>
+            <title><guimenuitem><inlinegraphic fileref="images/jar.gif"/> Add/Update Promises Library</guimenuitem></title>
             <para>This command lets the user add or update the
             promises library for a project. The dialog shown in <xref
             linkend="fig-add-update-promises-library-window"/> is opened to
@@ -64,7 +64,7 @@
         
          <listitem>
           <formalpara>
-            <title><guimenuitem>Open Library Annotations&hellip;</guimenuitem></title>
+            <title><guimenuitem><inlinegraphic fileref="images/open_xml_type.gif"/> Open Library Annotations&hellip;</guimenuitem></title>
             <para>This command, similar to the Eclipse Java <guilabel>Open Type</guilabel> search, allows the
             tool user to open any type in the JSure library annotation editor. 
             A dialog, shown in
@@ -84,7 +84,7 @@
         
         <listitem>
           <formalpara>
-            <title><guimenuitem>Open Code Verification Perspective</guimenuitem></title>
+            <title><guimenuitem><inlinegraphic fileref="images/jsure_logo.gif"/> Open Code Verification Perspective</guimenuitem></title>
             <para>This menu choice opens the <guilabel>Code
             Verification</guilabel> perspective. This perspective is
             useful for examining the JSure assurance results;
@@ -96,7 +96,7 @@
         
          <listitem>
           <formalpara>
-            <title><guimenuitem>Import Ant/Maven Scan&hellip;</guimenuitem></title>
+            <title><guimenuitem><inlinegraphic fileref="images/file_drum.gif"/> Import Ant/Maven Scan&hellip;</guimenuitem></title>
             <para>This command lets the user load a JSure scan made with the Ant task (in the future Maven).
             For more information on using Ant please see <xref linkend="sec-ant-task"/>.
             The dialog shown in <xref
@@ -114,7 +114,7 @@
 
         <listitem>
           <formalpara>
-            <title><guimenuitem>Save Promises Library As&hellip;</guimenuitem></title>
+            <title><guimenuitem><inlinegraphic fileref="images/jar_saveas.gif"/> Save Promises Library As&hellip;</guimenuitem></title>
             <para>This command copies the <code>promises-</code><emphasis>version</emphasis><code>.jar</code> to the disk. A dialog, shown in
             <xref linkend="fig-save-promises-library-as-dialog"/>, is opened to let the user to
             specify the directory the JAR file should be placed within. This command is useful if you need, for any reason,
@@ -122,7 +122,7 @@
           </formalpara>
           
            <figure id="fig-save-promises-library-as-dialog">
-            <title><guimenuitem>The Add/Update Promises Library dialog box</guimenuitem></title>
+            <title><guimenuitem>The Save Promises Library dialog box</guimenuitem></title>
             <mediaobject>
               <imageobject><imagedata fileref="images/save-promises-library-as-dialog.png"/></imageobject>
             </mediaobject>
@@ -131,7 +131,7 @@
         
         <listitem>
           <formalpara>
-            <title><guimenuitem>Save Documentation As&hellip;</guimenuitem></title>
+            <title><guimenuitem><inlinegraphic fileref="images/file_saveas.gif"/> Save Documentation As&hellip;</guimenuitem></title>
             <para>This command copies the <code>jsure-html-docs.zip</code> to the disk. A dialog, shown in
             <xref linkend="fig-save-html-docs-as-dialog"/>, is opened to let the user to
             specify the directory the Zip file should be placed within. This command is useful if you want to
@@ -146,6 +146,17 @@
               <imageobject><imagedata fileref="images/save-html-docs-as-dialog.png"/></imageobject>
             </mediaobject>
           </figure>
+        </listitem>
+        
+        
+        <listitem>
+          <formalpara>
+            <title><guimenuitem><inlinegraphic fileref="images/import.gif"/> Install Tutorial Projects</guimenuitem></title> <para>This
+            command opens a dialog to allow the user to import one or more tutorial projects into
+            their workspace and open the JSure help to the step by
+            step tutorials.  For more information please see <xref
+            linkend="tutorials"/>.</para>
+          </formalpara>
         </listitem>
   
         <listitem>
@@ -178,21 +189,10 @@
             and fax it to SureLogic or save the message as a file and email it.</para>
           </formalpara>
         </listitem>
-
-	<listitem>
-	  <formalpara>
-	    <title><guimenuitem>Run JSure
-	    Tutorials</guimenuitem></title> <para>This command opens a
-	    dialog to allow the user to import tutorial projects into
-	    their workspace and open the JSure help to the step by
-	    step tutorials.  For more information please see <xref
-	    linkend="tutorials"/>.</para>
-	  </formalpara>
-	</listitem>
   
         <listitem>
           <formalpara>
-            <title><guimenuitem>Manage SureLogic Licenses</guimenuitem></title>
+            <title><guimenuitem><inlinegraphic fileref="images/sl.gif"/> Manage SureLogic Licenses</guimenuitem></title>
             <para>This command opens the SureLogic license management
             dialog. This dialog allows the user to install, view, and
             uninstall licenses for JSure and other SureLogic tools. For
@@ -2315,7 +2315,7 @@ Total time: 8 seconds</programlisting>
     print or save the text of your annotation changes (to fax or email).</para>
 
     <figure id="fig-bugs-and-tips-menu-library-annotations">
-      <title>Dialog allowing the user to enter a problem report about JSure</title>
+      <title>Dialog allowing the user to send library annotations to SureLogic</title>
       <mediaobject>
         <imageobject><imagedata fileref="images/bugs-and-tips-menu-library-annotations.png"/></imageobject>
       </mediaobject>
