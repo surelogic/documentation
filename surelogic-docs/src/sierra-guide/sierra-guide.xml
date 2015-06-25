@@ -2145,7 +2145,7 @@ if (o == null) {
 	tasks a Sierra team server. You now know how to use the Ant
 	tasks to add Sierra to your QA process or nightly
 	build. Reference documentation for the Sierra Ant tasks is
-	found in <xref linkend="sierra-ant-tasks" />.</para>
+	found in <xref linkend="using-ant" />.</para>
       </section>
     </section>
   </chapter>
@@ -2223,7 +2223,7 @@ if (o == null) {
         Sierra Ant tasks into the data directory. This allows the scan to be
         examined in the Eclipse tool user experience.  For more information
         about using Ant with Sierra please see <xref
-        linkend="sierra-ant-tasks" />.</para>
+        linkend="using-ant" />.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis><inlinegraphic fileref="images/jar_saveas.gif" />
@@ -2232,7 +2232,7 @@ if (o == null) {
 	  These tasks are primarily used to scan projects outside of Eclipse, such
 	  as in a automated build or when a codebase isn't developed in Eclipse.
 	  For more information please
-	  see <xref linkend="sierra-ant-tasks" />.</para>
+	  see <xref linkend="using-ant" />.</para>
 	</listitem>
 	<listitem>
 	  <para><emphasis><inlinegraphic fileref="images/sierra_investigate.gif" />
@@ -3807,108 +3807,8 @@ if (o == null) {
       </figure>
     </section>
 
-    <section id="maven-plugin">
-      <title>Maven plugin</title>
-      <para>Sierra provides a plugin that allows you to scan any project that
-      can use <ulink url="http://maven.apache.org/">Apache Maven</ulink> as a
-      build system.  You can get the plugin from the main menu by selecting
-      <guimenu>Sierra</guimenu> | <inlinegraphic fileref="images/jar_saveas.gif"
-      /> <guimenuitem>Save Maven Plugin As...</guimenuitem> from the main menu.
-      This will save a zip file in the location of your choosing that, when
-      unzipped, inflates to a repository named <filename>sierra-repo</filename>
-      containing our plugin and its dependencies.</para>
-
-      <note>
-        <title>Maven 3.2 or higher required</title>
-        <para>
-          In order to follow along, you will need to have maven installed,
-          preferably version 3.2 or higher.  If you don't have it already, you can
-          get the latest version <ulink
-          url="http://maven.apache.org/download.cgi">here</ulink>.
-        </para>
-      </note>
-      
-      <para>The simplest way to add the plugin to a project is to add the
-      repository to <filename>pom.xml</filename> file in your project.  If you
-      have more than one project that makes use of sierra, you may find it more
-      useful to add the repository to an active profile, as described <ulink
-      url="http://maven.apache.org/guides/mini/guide-multiple-repositories.html">here</ulink>.</para>
-
-      <programlisting>
-&lt;pluginRepositories&gt;
-...
-  &lt;pluginRepository&gt;
-    &lt;id&gt;sierra-tools&lt;/id&gt;
-    &lt;name&gt;In Project Repo&lt;/name&gt;
-    &lt;url&gt;file:///path/to/sierra-repo&lt;/url&gt;
-  &lt;/pluginRepository&gt;
-...
-&lt;/pluginRepositories&gt;  
-      </programlisting>
-
-      <para>The Sierra plugin currently only has one goal,
-      <code>sierra:scan</code>, with the following configuration
-      attributes:</para>
-      	<informaltable>
-	  <tgroup cols='3' align='left'>
-	    <thead>
-	      <row>
-		<entry>Attribute</entry>
-		<entry>Description</entry>
-		<entry>Required</entry>
-	      </row>
-	    </thead>
-	    <tbody>
-              <row>
-                <entry>toolHome</entry>
-                <entry>Sierra makes uses of a tool folder when it runs.  It can
-                create this automatically each time the tool runs, but you can
-                also specify a directory for it here to create or use, if you
-                want to use the same tool folder across multiple scans.</entry>
-                <entry>No</entry>
-              </row>
-              <row>
-                <entry>properties</entry>
-                <entry>The location of a properties file, as described in <xref
-                linkend="sec-surelogic-tool-properties-file"/>.</entry>
-                <entry>No</entry>
-              </row>
-              <row>
-                <entry>project</entry>
-                <entry>Sets the name of the project.  Defaults to the name specified in the pom.xml</entry>                
-                <entry>No</entry>
-              </row>
-              <row>
-                <entry>memoryInitialSize</entry>
-                <entry>Determines the initial memory footprint of the tool process (e.g. 256m)</entry>                
-                <entry>No</entry>
-              </row>
-              <row>
-                <entry>memoryMaximumSize</entry>
-                <entry>Determines the maximum memory footprint of the tool process (e.g 1G)</entry>                
-                <entry>No</entry>
-              </row>
-              <row>
-                <entry>outputDir</entry>
-		<entry>Defaults to the target folder, specifies the folder where
-		the new scan document should be written</entry>
-		<entry>No</entry>
-	      </row>
-              <row>
-                <entry>verbose</entry>
-                <entry>May be <code>true</code> or <code>false</code>, sets the verbosity level of the tool output.</entry>                
-                <entry>No</entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </informaltable>
-
-        <para>A tutorial on the use of this plugin can be found <link
-        linkend="sec-tutorial-maven">here</link>.</para>
-        
-    </section>
-    <section id="sierra-ant-tasks">
-      <title>Ant tasks</title>
+    <section id="using-ant">
+      <title>Using Ant</title>
 
       <para>Sierra provides two tasks that can be used to extend <ulink
       url="http://ant.apache.org">Apache Ant</ulink>. You can get them from the
@@ -4113,6 +4013,108 @@ if (o == null) {
 	</programlisting>
       </section>
     </section>
+    
+        <section id="using-maven">
+      <title>Using Maven</title>
+      <para>Sierra provides a plugin that allows you to scan any project that
+      can use <ulink url="http://maven.apache.org/">Apache Maven</ulink> as a
+      build system.  You can get the plugin from the main menu by selecting
+      <guimenu>Sierra</guimenu> | <inlinegraphic fileref="images/jar_saveas.gif"
+      /> <guimenuitem>Save Maven Plugin As...</guimenuitem> from the main menu.
+      This will save a zip file in the location of your choosing that, when
+      unzipped, inflates to a repository named <filename>sierra-repo</filename>
+      containing our plugin and its dependencies.</para>
+
+      <note>
+        <title>Maven 3.2 or higher required</title>
+        <para>
+          In order to follow along, you will need to have maven installed,
+          preferably version 3.2 or higher.  If you don't have it already, you can
+          get the latest version <ulink
+          url="http://maven.apache.org/download.cgi">here</ulink>.
+        </para>
+      </note>
+      
+      <para>The simplest way to add the plugin to a project is to add the
+      repository to <filename>pom.xml</filename> file in your project.  If you
+      have more than one project that makes use of sierra, you may find it more
+      useful to add the repository to an active profile, as described <ulink
+      url="http://maven.apache.org/guides/mini/guide-multiple-repositories.html">here</ulink>.</para>
+
+      <programlisting>
+&lt;pluginRepositories&gt;
+...
+  &lt;pluginRepository&gt;
+    &lt;id&gt;sierra-tools&lt;/id&gt;
+    &lt;name&gt;In Project Repo&lt;/name&gt;
+    &lt;url&gt;file:///path/to/sierra-repo&lt;/url&gt;
+  &lt;/pluginRepository&gt;
+...
+&lt;/pluginRepositories&gt;  
+      </programlisting>
+
+      <para>The Sierra plugin currently only has one goal,
+      <code>sierra:scan</code>, with the following configuration
+      attributes:</para>
+        <informaltable>
+    <tgroup cols='3' align='left'>
+      <thead>
+        <row>
+    <entry>Attribute</entry>
+    <entry>Description</entry>
+    <entry>Required</entry>
+        </row>
+      </thead>
+      <tbody>
+              <row>
+                <entry>toolHome</entry>
+                <entry>Sierra makes uses of a tool folder when it runs.  It can
+                create this automatically each time the tool runs, but you can
+                also specify a directory for it here to create or use, if you
+                want to use the same tool folder across multiple scans.</entry>
+                <entry>No</entry>
+              </row>
+              <row>
+                <entry>properties</entry>
+                <entry>The location of a properties file, as described in <xref
+                linkend="sec-surelogic-tool-properties-file"/>.</entry>
+                <entry>No</entry>
+              </row>
+              <row>
+                <entry>project</entry>
+                <entry>Sets the name of the project.  Defaults to the name specified in the pom.xml</entry>                
+                <entry>No</entry>
+              </row>
+              <row>
+                <entry>memoryInitialSize</entry>
+                <entry>Determines the initial memory footprint of the tool process (e.g. 256m)</entry>                
+                <entry>No</entry>
+              </row>
+              <row>
+                <entry>memoryMaximumSize</entry>
+                <entry>Determines the maximum memory footprint of the tool process (e.g 1G)</entry>                
+                <entry>No</entry>
+              </row>
+              <row>
+                <entry>outputDir</entry>
+    <entry>Defaults to the target folder, specifies the folder where
+    the new scan document should be written</entry>
+    <entry>No</entry>
+        </row>
+              <row>
+                <entry>verbose</entry>
+                <entry>May be <code>true</code> or <code>false</code>, sets the verbosity level of the tool output.</entry>                
+                <entry>No</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>
+
+        <para>A tutorial on the use of this plugin can be found <link
+        linkend="sec-tutorial-maven">here</link>.</para>
+        
+    </section>
+    
 
   </chapter>
 
@@ -4187,7 +4189,7 @@ if (o == null) {
 						<command>sierra-scan</command>
 						Ant task. Documentation for the ant tasks can be
 						found in
-						<xref linkend="sierra-ant-tasks" />
+						<xref linkend="using-ant" />
 					</para>
 				</listitem>
 				<listitem>

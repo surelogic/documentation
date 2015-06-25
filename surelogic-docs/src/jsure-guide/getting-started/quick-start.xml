@@ -66,7 +66,7 @@
     
     <para>For the impatient, this section provides a
     &ldquo;bare-bones&rdquo; description of how to prepare a Java
-    project for assurance by JSure.</para>
+    project for verification by JSure.</para>
     
     <para>JSure compares Java code with models of programmer design
     intent expressed using a set of Java annotation types. The tool
@@ -74,7 +74,7 @@
     project must be able to reference the SureLogic annotation types
     declared in package <package>com.surelogic</package>.  The
     SureLogic annotation types are bundled together in
-    <filename>promises-4.0.1.jar</filename>. This file must be on the
+    <filename>promises-<emphasis>version</emphasis>.jar</filename>. This file must be on the
     build path of your project for the annotations be to used.  As
     described below, the simplest way to add this JAR file to the
     project and its build path is to allow JSure to do it for
@@ -82,7 +82,7 @@
 
     <para>To manually add/update the JAR file select
     <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Add/Update
-    Promises Library in Project...</guimenuitem></menuchoice> from the Eclipse main
+    Promises Library</guimenuitem></menuchoice> from the Eclipse main
     menu as shown below.
 
     <mediaobject>
@@ -101,7 +101,8 @@
     <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Save
     Promises Library As...</guimenuitem></menuchoice> from the Eclipse
     main menu. This command will prompt you where to save the JAR file
-    to your disk.
+    to your disk. Then you can manually add it to any project's classpath
+    you wish.
     </para>
     
     <section>
@@ -113,8 +114,8 @@
       through the use of JSure.</para>
 
       <para>To scan one or more of your projects with JSure select
-      <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Verify
-      Project</guimenuitem></menuchoice> from the Eclipse main menu as
+      <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Verify</guimenuitem></menuchoice>
+      from the Eclipse main menu as
       shown below. Using the menu can become tedious in real tool use so
       this command is associated with the keyboard shortcut
       <keysym>Ctrl</keysym>+<keysym>Alt</keysym>+<keysym>Shift</keysym>+<keysym>V</keysym>. This
@@ -140,10 +141,9 @@
       you to select which projects are to be analyzed by JSure</para>
       
       <para>When a project is scanned, JSure does not check to see if
-      <filename>promises-4.0.1.jar</filename> is on the
+      promises Jar file is on the
       project&rsquo;s build path. Therefore make sure you add it to
-      the project's you want to verify (Unless you are using Java 1.4
-      in which case annotations are added as Javadoc).</para>
+      the project's you want to verify.</para>
       
       </section>
       
