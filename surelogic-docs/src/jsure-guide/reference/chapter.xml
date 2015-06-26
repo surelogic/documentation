@@ -2059,10 +2059,10 @@
         </thead>
         <tbody>
           <row>
-            <entry>jsureprojectname</entry>
+            <entry>projectname</entry>
             <entry>
               This attribute sets the name of your project when the scan is loaded into Eclipse.
-              This value is also used to name the resulting Zip file. <code>jsureprojectname="JSureTutorial_BoundedFIFO"</code>
+              This value is also used to name the resulting Zip file. <code>projectname="JSureTutorial_BoundedFIFO"</code>
             </entry>
             <entry>Yes</entry>
           </row>
@@ -2133,7 +2133,7 @@
                 source="1.6"
                 includeantruntime="false"
                 jsureanthome="${jsure.ant.home}"
-                jsureprojectname="JSureTutorial_BoundedFIFO" /&gt;
+                projectname="JSureTutorial_BoundedFIFO" /&gt;
   &lt;/target&gt;
 &lt;/project&gt;</programlisting>
 
