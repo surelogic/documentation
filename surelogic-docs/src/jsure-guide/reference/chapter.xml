@@ -2120,20 +2120,33 @@
   &lt;property name="jsure.ant.home" location="C:\\Users\\Tim\\jsure-ant" /&gt;
 
   &lt;!-- (COPY) JSure Ant task setup stuff --&gt;
-  &lt;path id="sl.classpath">
-    &lt;fileset dir="${jsure.ant.home}" includes="**/*.jar" /&gt;
+  &lt;path id="jsure-ant.classpath"&gt;
+    &lt;dirset  dir="${jsure.ant.home}" includes="lib/com.surelogic.*" /&gt;
+    &lt;fileset dir="${jsure.ant.home}" includes="lib/**/*.jar" /&gt;
   &lt;/path&gt;
   &lt;taskdef name="jsure-scan" classname="com.surelogic.jsure.ant.JSureScan"&gt;
-    &lt;classpath refid="sl.classpath" /&gt;
+    &lt;classpath refid="jsure-ant.classpath" /&gt;
   &lt;/taskdef&gt;
 
+  &lt;path id="tf.classpath"&gt;
+    &lt;fileset dir="${basedir}" includes="**/*.jar" /&gt;
+  &lt;/path&gt;
+
   &lt;target name="scan"&gt;
+    &lt;javac srcdir="${basedir}/src"
+           destdir="${basedir}/bin"
+           source="1.7"
+           includeantruntime="false">
+       &lt;classpath refid="tf.classpath" /&gt;
+    &lt;/javac&gt;
+
     &lt;jsure-scan srcdir="${basedir}/src"
-                classpath="${basedir}/*.jar"
-                source="1.6"
+                source="1.7"
                 includeantruntime="false"
                 jsureanthome="${jsure.ant.home}"
-                projectname="JSureTutorial_BoundedFIFO" /&gt;
+                projectname="JSureTutorial_BoundedFIFO"&gt;
+       &lt;classpath refid="tf.classpath" /&gt;
+    &lt;/jsure-scan&gt;
   &lt;/target&gt;
 &lt;/project&gt;</programlisting>
 
@@ -2148,7 +2161,7 @@ scan:
 BUILD SUCCESSFUL
 Total time: 8 seconds</programlisting>
 
-  <para>Next you would load the <code>JSureTutorial_Bounde-2015.05.18-at-12.37.55.231.zip</code> file into
+  <para>Next you would load the <code>JSureTutorial_Bounde-2015.05.18-at-12.37.55.231.jsure-scan.zip</code> file into
   your Eclipse by choosing the
   <menuchoice><guimenuitem>JSure</guimenuitem><guimenuitem>Import Ant/Maven Scan...</guimenuitem></menuchoice> from the Eclipse main menu.
   The file is located at the root of the JSureTutorial_BoundedFIFO
