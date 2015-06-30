@@ -24,7 +24,7 @@
       consequential damages in connection with or arising out of the use
       of the information or programs herein.</para>
     </legalnotice>
-    <pubdate>Version 5.6.0&mdash;February 2015</pubdate>
+    <pubdate>Version 5.6.1&mdash;July 2015</pubdate>
   </bookinfo>
 
   <preface id="preface">
@@ -387,10 +387,10 @@
 	</figure>
 
 	<para> This will cause the <guilabel>Manage SureLogic
-	Licenses</guilabel> to appear as shown in <xref
-	linkend="fig-quick-start-license-dialog-empty" />. Highlight the
-	Sierra row and select the <guibutton>Install License</guibutton>
-	button to install your license file.</para>
+	Licenses</guilabel> dialog to appear as shown in <xref
+	linkend="fig-quick-start-license-dialog-empty" />. Select either <guibutton>Install from File</guibutton>
+    or <guibutton>Install from Clipboard</guibutton>
+	to install your license file.</para>
 
 	<figure id="fig-quick-start-license-dialog-empty">
 	  <title>The SureLogic license management dialog</title>
@@ -416,8 +416,7 @@
 	description of how to scan code with Sierra and examine the
 	results that it reports.</para>
 
-	<para>From the Sierra main menu select the <guimenuitem>Scan
-	Project</guimenuitem> command as shown in <xref
+	<para>From the Sierra main menu select the <guimenuitem>Scan</guimenuitem> command as shown in <xref
 	linkend="fig-quick-start-menu" />. (If this is the first time
 	Sierra has been loaded into your Eclipse it might take a few
 	seconds to a minute for it to initialize, please be
@@ -516,8 +515,8 @@
 
 	<para>To start off, we'll run Sierra on a project called
 	<application>ShowOff</application>. Select
-	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
-	Tutorials</guimenuitem></menuchoice> from the workspace menu
+	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Install
+	Tutorial Projects</guimenuitem></menuchoice> from the workspace menu
 	and add all projects to your
 	workspace as shown in <xref
 	linkend="fig-tutorial-installing-projects" /> and <xref
@@ -2012,71 +2011,60 @@ if (o == null) {
 	<title>Scanning code using Ant</title>
 
 	<para>This tutorial will demonstrate how to use the Sierra Ant
-	tasks to scan the SmallWorld project and publish the resulting
-	scan document to your local team server.  The Sierra Ant tasks
-	are used to automate scans as part of a QA or nightly build
+	tasks to scan the SmallWorld project in a script and load the resulting
+	scan document into your Eclipse.  The Sierra Ant task
+	is used to automate scans as part of a QA or nightly build
 	process. This tutorial assumes you have run the previous
 	tutorial (See <xref linkend="sec-tutorial-team-server" />; You
-	can skip the previous tutorial if you create a new local team
-	server and add a <userinput>zork</userinput> user with
-	password <userinput>zork</userinput>).</para>
+	can skip the previous tutorial but you will need to load
+    the SierraTutorial_SmallWorld project into your workspace.</para>
 
-	<para>For this tutorial you will need your local team server
-	running. Open the <guilabel>Local Team Server</guilabel>
-	view. If the local team server is stopped press the
-	<guibutton>Start Server</guibutton> to get it running
-	again.</para>
-
-        <para>You will need to install the Sierra Ant tasks somewhere on your
-        computer.  You can get them from the main menu by selecting
-        <guimenu>Sierra</guimenu> | <inlinegraphic
-        fileref="images/jar_saveas.gif" /> <guimenuitem>Save Ant Task
-        As...</guimenuitem> Sierra will then create a file named
-        <filename>sierra-ant-&lt;version&gt;.zip</filename> containing the
-        current plugin version's sierra-ant installation.  You will need to
-        unzip this file to a location of your choosing before using the ant
-        tasks.</para>
-        
 	<para>In the SmallWorld project create a file at the root of
 	the project called <userinput>sierra-ant-scan.xml</userinput>
 	with the below contents.</para>
 
-	<programlisting><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
+	<programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <project name="SierraTutorial_SmallWorld" default="scan" basedir=".">
-  <property name="sl.home" value="/home/nathan/java/sierra-ant" />
-  <property name="sl.lib"  value="${sl.home}/lib" />
-  <path id="sl.classpath"><fileset dir="${sl.lib}" includes="**/*.jar" /></path>
-  <taskdef name="sierra-scan"
-           classname="com.surelogic.ant.sierra.SierraScan"
-           classpathref="sl.classpath" />
-  <taskdef name="sierra-publish"
-           classname="com.surelogic.ant.sierra.SierraPublish"
-           classpathref="sl.classpath" />
-  <tstamp />
 
-  
-  <property name="project" value="SierraTutorial_SmallWorld" />
-  <property name="document" value="${project}-${DSTAMP}${TSTAMP}" />
-  
-  <target name="scan">	  	  	
-    <sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
-                 classpath="${basedir}/jdom-1.0.jar" source="1.5"
-                 home="${sl.home}" document="${document}"
-                 projectname="${project}" />
+  <!-- (CHANGE) path to the unzipped SureLogic Ant tasks -->
+  <property name="sierra.ant.home" location="C:\\Users\\Tim\\sierra-ant" />
+
+  <!-- (COPY) SureLogic Ant task setup stuff -->
+  <path id="sierra-ant.classpath">
+    <dirset  dir="${sierra.ant.home}" includes="lib/com.surelogic.*" />
+    <fileset dir="${sierra.ant.home}" includes="lib/**/*.jar" />
+  </path>
+  <taskdef name="sierra-scan" classname="com.surelogic.sierra.ant.SierraScan">
+    <classpath refid="sierra-ant.classpath" />
+  </taskdef>
+
+  <path id="tf.classpath">
+    <fileset dir="${basedir}" includes="**/*.jar" />
+  </path>
+
+  <target name="scan">
+    <javac srcdir="${basedir}/src"
+           destdir="${basedir}/bina"
+           source="1.7"
+           includeantruntime="false">
+       <classpath refid="tf.classpath" />
+    </javac>
+
+    <!-- Make sure 'bina' is populated with class files for FindBugs -->
+
+    <sierra-scan srcdir="${basedir}/src"
+                 destdir="${basedir}/bina"
+                 source="1.7"
+                 includeantruntime="false"
+                 sierraanthome="${sierra.ant.home}"
+                 projectname="SierraTutorial_SmallWorld">
+       <classpath refid="tf.classpath" />
+    </sierra-scan>
   </target>
-  
-  <target name="scan-and-publish" depends="scan" >
-    <sierra-publish user="zork" password="zork" host="localhost"
-                    secure="false" port="13376" contextPath="/sl/"
-                    document="${document}" />  	    
-  </target>
-  
-</project>]]>
-        </programlisting>
+</project>]]></programlisting>
 
 	<para>You will have to modify the setting for
-	<userinput>sl.home</userinput> to reference where you located the
+	<userinput>sierra.ant.home</userinput> to reference where you located the
 	<filename>sierra-ant</filename> directory on your machine.</para>
 
 	<para>Within Eclipse run this as an Ant task by selecting the XML file
@@ -2086,7 +2074,7 @@ if (o == null) {
 	/>.</para>
 
 	<figure id="fig-tutorial-ant-console-scan">
-	  <title>Console output from scanning SmallWorld with Ant</title>
+	  <title>Console output from scanning SmallWorld with Ant inside Eclipse</title>
 	  <mediaobject>
 	    <imageobject><imagedata fileref="images/tutorial-ant-console-scan.png" /></imageobject>
 	  </mediaobject>
@@ -2094,15 +2082,14 @@ if (o == null) {
 
         <para>You should be able to see from the console output that the project
         was scanned, and a file containing the results was written to disk. In
-        our example, the file is located in the
-        <filename>/home/nathan/demospace/</filename> directory and is called
-        <filename>SierraTutorial_SmallWorld-201409121502.sierra.gz</filename>,
-        yours will be written to whatever directory
-        <userinput>sl.home</userinput> was set to.</para>
+        our example, the output file is located in the
+        <filename>SierraTutorial_SmallWorld</filename> directory and is called
+        <filename>SierraTutorial_SmallWorld.2015.06.30-at-14.29.01.442.sierra-scan.zip</filename>.
+        You can change the output directory by adding a sierrascandir attribute to the task.</para>
 
-        <para>We can import this scan into eclipse when we are ready to look at
-        the results.  To do this we choose <guimenuitem>Sierra</guimenuitem> |
-        <guimenuitem>Import Ant/Maven Scan</guimenuitem>.  The tool will then
+        <para>We can import this scan into Eclipse when we are ready to look at
+        the results.  To do this we choose <menuchoice><guimenu>Sierra</guimenu>
+            <guimenuitem>Import Ant/Maven Scan...</guimenuitem></menuchoice>.  The tool will then
         notify you once the scan has finished importing.</para>
 
 	<figure id="fig-tutorial-ant-">
@@ -2112,37 +2099,8 @@ if (o == null) {
 	  </mediaobject>
 	</figure>
 
-        <para>In addition to importing a scan, we can publish a scan directly to
-        a running server.  We'll do this with the second build target we set up,
-        "scan-and-publish".  Go ahead and change the default target of
-        <filename>sierra-ant-scan.xml</filename> to "scan-and-publish".  It
-        should look as follows: </para>
-
-	<programlisting><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="SierraTutorial_SmallWorld" default="scan-and-publish" basedir=".">
-...]]>
-        </programlisting>
-        <para>Now run the ant task again.  The output should appear as below.</para>
-        
-	<figure id="fig-tutorial-ant-console-publish">
-	  <title>Console output from scanning and publishing SmallWorld with Ant</title>
-	  <mediaobject>
-	    <imageobject><imagedata fileref="images/tutorial-ant-console-publish.png" /></imageobject>
-	  </mediaobject>
-	</figure>
-
-        
-	<para>Let's see that the scan was uploaded to the local team
-	server. First, log into the local team server with your web browser and
-	click on the <guilabel>Projects</guilabel> tab. Select
-	<guilabel>SmallWorld</guilabel> in the list of projects (to the
-	left). Note that the Ant scan will appear at the top of the Scans table
-	(at the bottom-right). You can click on time of the scan to list its
-	findings.</para>
-
 	<para>This tutorial has introduced the use of the Sierra Ant
-	tasks a Sierra team server. You now know how to use the Ant
+	task. You now know how to use the Ant
 	tasks to add Sierra to your QA process or nightly
 	build. Reference documentation for the Sierra Ant tasks is
 	found in <xref linkend="using-ant" />.</para>
@@ -2164,11 +2122,12 @@ if (o == null) {
 
       <para>The Sierra menu appears as an item on the Eclipse
       workspace main menu. This menu provides direct access to common
-      Sierra commands. The menu is divided into four sections. The top
+      Sierra commands. The menu is divided into five sections. The top
       section contains commands that are useful in a stand-alone
       client. The second section (from the top) contains commands that
       communicate with one or more Sierra team servers. The third
-      section contains commands to report problems about or suggest
+      section contains to import and export data. The fourth section contains 
+      commands to report problems about or suggest
       improvements to Sierra directly to SureLogic.  The bottom
       section allows access to the license management dialog.</para>
 
@@ -2176,8 +2135,8 @@ if (o == null) {
 
       <orderedlist>
 	<listitem>
-	  <para><emphasis><inlinegraphic fileref="images/sierra_scan.gif" />
-	  Scan Project</emphasis> &mdash; This command
+	  <formalpara><title><guimenuitem><inlinegraphic fileref="images/sierra_scan.gif" /> Scan</guimenuitem></title>
+      <para>This command
 	  starts a full scan on the selected set of projects. The
 	  scans are run in background jobs and progress can be seen in
 	  the Eclipse <guilabel>Progress</guilabel> view and (by
@@ -2202,11 +2161,12 @@ if (o == null) {
 	  <emphasis>Show this dialog even when projects are selected
 	  in the Package Explorer</emphasis> before you press the
 	  <guibutton>OK</guibutton> button.</para>
+    </formalpara>
 	</listitem>
+  
 	<listitem>
-	  <para><emphasis><inlinegraphic fileref="images/sierra_scan_delta.gif" />
-	  Re-Scan Changes in Project</emphasis>
-	  &mdash; This command starts a partial scan on only those
+	  <formalpara><title><guimenuitem><inlinegraphic fileref="images/sierra_scan_delta.gif" /> Re-Scan Changes</guimenuitem></title>
+      <para>This command starts a partial scan on only those
 	  Java types in the project that have been recompiled since
 	  the last scan. If little has been changed in a project then
 	  this choice will be quicker than running a full scan. For
@@ -2215,68 +2175,55 @@ if (o == null) {
 	  user to select the set of projects to run this command on
 	  that operates just like the <guimenuitem>Scan
 	  Project</guimenuitem> command.</para>
+    </formalpara>
 	</listitem>
+  
 	<listitem>
-	  <para><emphasis><inlinegraphic fileref="images/file_drum.gif" />
-	  Import Ant Scan...</emphasis>
-	  &mdash; Allows the user to copy a Sierra scan created from one of the
-        Sierra Ant tasks into the data directory. This allows the scan to be
-        examined in the Eclipse tool user experience.  For more information
-        about using Ant with Sierra please see <xref
-        linkend="using-ant" />.</para>
-	</listitem>
-	<listitem>
-	  <para><emphasis><inlinegraphic fileref="images/jar_saveas.gif" />
-	  Save Ant Task As...</emphasis>
-	  &mdash; Saves the Sierra Ant tasks to a directory of your choice.
-	  These tasks are primarily used to scan projects outside of Eclipse, such
-	  as in a automated build or when a codebase isn't developed in Eclipse.
-	  For more information please
-	  see <xref linkend="using-ant" />.</para>
-	</listitem>
-	<listitem>
-	  <para><emphasis><inlinegraphic fileref="images/sierra_investigate.gif" />
-	  Open Code Review Perspective</emphasis>
-	  &mdash; This menu choice opens the <guilabel>Code
+	  <formalpara><title><guimenuitem><inlinegraphic fileref="images/sierra_investigate.gif" /> Open Code Review Perspective</guimenuitem></title>
+      <para>This menu choice opens the <guilabel>Code
 	  Review</guilabel> perspective. This perspective is useful
 	  for examining and auditing analysis findings. This
 	  perspective may also be opened via the normal Eclipse menus
-	  and toolbars for perspectives.</para>
+	  and toolbars for perspectives. This perspective is described in <xref linkend="sec-code-review-perspective"/></para>
+    </formalpara>
 	</listitem>
+  
 	<listitem>
-	  <para><emphasis><inlinegraphic fileref="images/sierra_server.gif" />
-	  Configure Team Servers</emphasis> &mdash;
-	  This menu choice opens and gives the focus to the
+	  <formalpara><title><guimenuitem><inlinegraphic fileref="images/sierra_server.gif" /> Configure Team Servers</guimenuitem></title>
+      <para>This menu choice opens and gives the focus to the
 	  <guilabel>Sierra Servers</guilabel> view. This view is used
 	  to manage connections to Sierra team servers.  This view may
 	  also be opened via the normal Eclipse menus and toolbars for
 	  views.</para>
+    </formalpara>
 	</listitem>
+  
 	<listitem>
-	  <para><emphasis><inlinegraphic fileref="images/sierra_sync.gif" />
-	  Synchronize All</emphasis> &mdash; This menu
+	  <formalpara><title><guimenuitem><inlinegraphic fileref="images/sierra_sync.gif" /> Synchronize All</guimenuitem></title>
+      <para>This menu
 	  choice synchronizes audits for all the projects connected to
 	  all Sierra team servers. All BugLink data is synchronized as
 	  well. This command has the same effect as selecting each
 	  connected project and selecting the <guimenuitem>Synchronize
 	  Project</guimenuitem> menu item.</para>
+    </formalpara>
 	</listitem>
+  
 	<listitem>
-	  <para><emphasis>
-	  <inlinegraphic fileref="images/sierra_sync.gif" />
-	  Synchronize Project</emphasis> &mdash; This
-	  command sends all local audits to the Sierra team server the
+	  <formalpara><title><guimenuitem><inlinegraphic fileref="images/sierra_sync.gif" /> Synchronize Project</guimenuitem></title>
+      <para>This command sends all local audits to the Sierra team server the
 	  selected project is connected to. It also downloads all
 	  audits (made by other users) from the server to this client.
 	  A dialog is opened to allow the user to select the set of
 	  projects to run this command on that operates just like the
 	  <guimenuitem>Scan Project</guimenuitem> command.  All
 	  BugLink data is synchronized as well.</para>
+    </formalpara>
 	</listitem>
+  
 	<listitem>
-	  <para><emphasis><inlinegraphic fileref="images/sierra_publish.gif" />
-	  Publish Latest Scan</emphasis> &mdash; This
-	  command sends the scan results from the last full scan to
+      <formalpara><title><guimenuitem><inlinegraphic fileref="images/sierra_publish.gif" /> Publish Latest Scan</guimenuitem></title>
+      <para>This command sends the scan results from the last full scan to
 	  the Sierra team server that the project is connected
 	  to. Note that only <emphasis>full scans</emphasis> can be
 	  published to a team server.  A dialog is opened to allow the
@@ -2284,11 +2231,12 @@ if (o == null) {
 	  that operates just like the <guimenuitem>Scan
 	  Project</guimenuitem> command.
 	  </para>
+    </formalpara>
 	</listitem>
+  
 	<listitem>
-	  <para><emphasis><inlinegraphic fileref="images/sierra_disconnect.gif" />
-	  Disconnect</emphasis> &mdash; This command
-	  disconnects the selected project from the Sierra team server
+	  <formalpara><title><guimenuitem><inlinegraphic fileref="images/sierra_disconnect.gif" /> Disconnect</guimenuitem></title>
+      <para> This command disconnects the selected project from the Sierra team server
 	  it is currently connected to. This action causes all local
 	  information about the project to be deleted (so a new scan
 	  will have to be run on the project). The disconnected
@@ -2297,35 +2245,86 @@ if (o == null) {
 	  set of projects to run this command on that operates just
 	  like the <guimenuitem>Scan Project</guimenuitem>
 	  command.</para>
+    </formalpara>
 	</listitem>
-	<listitem>
-	  <para><emphasis>Send Tip for Improvement</emphasis> &mdash;
-	  This command opens a dialog to allow entry of a suggestion
-	  by the user to improve the Sierra tool. For more
-	  information please see <xref
-	  linkend="sec-bugs-and-tips"/>.</para>
-	</listitem>
-	<listitem>
-	  <para><emphasis>Send Problem Report</emphasis> &mdash; This
-	  command opens a dialog to allow entry of a problem report by
-	  the user about the Sierra tool. For more information please
-	  see <xref linkend="sec-bugs-and-tips"/>.</para>
-	</listitem>
-	<listitem>
-	  <para><emphasis>Run Sierra Tutorials</emphasis> &mdash; This
-	  command opens a dialog to allow the user to import tutorial
-	  projects into their workspace and open the Sierra help to
-	  the step by step tutorials. For more information please see
-	  <xref linkend="sec-tutorial"/>.</para>
-	</listitem>
-	<listitem>
-	  <para><emphasis>Manage SureLogic Licenses</emphasis> &mdash;
-	  This command opens the SureLogic license management
-	  dialog. This dialog allows the user to install, view, and
-	  uninstall licenses for Sierra and other SureLogic tools.
-	  For more information see <xref
-	  linkend="sec-license-management" />.</para>
-	</listitem>
+  
+     <listitem>
+      <formalpara>
+        <title><guimenuitem><inlinegraphic fileref="images/file_drum.gif"/> Import Ant/Maven Scan&hellip;</guimenuitem></title>
+        <para>This command lets the user load a Sierra scan made with the Ant task or Maven.
+        For more information on using Ant please see <xref linkend="using-ant"/>.
+        The dialog shown in <xref
+        linkend="fig-load-external-scan-dialog"/> is opened to
+        allow the user to select the scan Zip file to load into the Eclipse workspace.</para>
+      </formalpara>
+  
+    <figure id="fig-load-external-scan-dialog">
+        <title><guimenuitem>The Import Sierra Ant/Maven Scan dialog box</guimenuitem></title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/load-external-scan-dialog.png"/></imageobject>
+        </mediaobject>
+      </figure>
+    </listitem>
+
+    <listitem>
+      <formalpara>
+        <title><guimenuitem><inlinegraphic fileref="images/file_saveas.gif"/> Save Documentation As&hellip;</guimenuitem></title>
+        <para>This command copies the <code>sierra-html-docs.zip</code> to the disk. A dialog, shown in
+        <xref linkend="fig-save-html-docs-as-dialog"/>, is opened to let the user to
+        specify the directory the Zip file should be placed within. This command is useful if you want to
+        open the Sierra documentation in your web browser. This file contains HTML versions of all the
+        Sierra documentation also in your Eclipse help system. Many tool users prefer using a browser
+        for Sierra documentation rather than the build-in Eclipse help system (each of search, and so on).</para>
+      </formalpara>
+      
+       <figure id="fig-save-html-docs-as-dialog">
+        <title><guimenuitem>The Save Documentation dialog box</guimenuitem></title>
+        <mediaobject>
+          <imageobject><imagedata fileref="images/save-html-docs-as-dialog.png"/></imageobject>
+        </mediaobject>
+      </figure>
+    </listitem>
+        
+    <listitem>
+      <formalpara>
+        <title><guimenuitem><inlinegraphic fileref="images/import.gif"/> Install Tutorial Projects</guimenuitem></title> <para>This
+        command opens a dialog to allow the user to import one or more tutorial projects into
+        their workspace and open the Sierra help to the step by
+        step tutorials.  For more information please see <xref
+        linkend="sec-tutorial"/>.</para>
+      </formalpara>
+    </listitem>
+
+    <listitem>
+      <formalpara>
+        <title><guimenuitem>Send Tip for Improvement</guimenuitem></title>
+        <para>This command opens a dialog to allow entry of a
+        suggestion by the user to improve the Sierra tool. For more
+        information please see <xref
+        linkend="sec-bugs-and-tips"/>.</para>
+      </formalpara>
+    </listitem>
+  
+    <listitem>
+      <formalpara>
+        <title><guimenuitem>Send Problem Report</guimenuitem></title>
+        <para>This command opens a dialog to allow entry of a problem
+        report by the user about the Sierra tool. For more information
+        please see <xref linkend="sec-bugs-and-tips"/>.</para>
+      </formalpara>
+    </listitem>
+    
+    <listitem>
+      <formalpara>
+        <title><guimenuitem><inlinegraphic fileref="images/sl.gif"/> Manage SureLogic Licenses</guimenuitem></title>
+        <para>This command opens the SureLogic license management
+        dialog. This dialog allows the user to install, view, and
+        uninstall licenses for Sierra and other SureLogic tools. For
+        more information see <xref linkend="sec-license-management"
+        />.</para>
+      </formalpara>
+    </listitem>    
+  
       </orderedlist>
     </section>
 
@@ -3810,208 +3809,138 @@ if (o == null) {
     <section id="using-ant">
       <title>Using Ant</title>
 
-      <para>Sierra provides two tasks that can be used to extend <ulink
-      url="http://ant.apache.org">Apache Ant</ulink>. You can get them from the
-      main menu by selecting <guimenu>Sierra</guimenu> | <inlinegraphic
-      fileref="images/jar_saveas.gif" /> <guimenuitem>Save Ant Task
-      As...</guimenuitem> from the main menu.  Sierra will then create a folder
-      named <filename>sierra-ant-5.5.1</filename> in the directory of your
-      choosing, containing the sierra-ant installation.</para>
-
+    <para>The Sierra Ant task can scan a project and produce Sierra results. It is, by design
+     intended to be similar to the javac Ant task. This task results in a Zip
+     file that can be loaded into Eclipse using the <guilabel>Import Ant/Maven Scan...</guilabel>
+     on the Sierra menu. Once loaded into Eclipse the Sierra scan results can be examined just like any other scan.</para>
+     
+     <para>The Ant tasks are not included within the Eclipse plugin (to save space) but
+      can be downloaded <ulink url="http://surelogic.com/static/eclipse/install.html#cl">here</ulink> on
+      the SureLogic website.</para>
+     
+     <para>The special attributes are given below, note that other javac task attributes work as well. The idea
+     is for you to copy or "clone" your javac task and modify it just a bit (with the attributes below) to be a Sierra scan task.</para>
+     
+     <para>Note that you must run this task in a Java 7 VM (it can analyze any code).</para>
 
       <para>The below code shows and example of adding the Sierra
       tasks into Ant.</para>
 
-	<programlisting>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;project name="SmallWorld" default="scan" basedir="."&gt;
-  &lt;property name="sl.home" value="C:/Users/Tim/Documents/sierra-ant" /&gt;
-  &lt;property name="sl.lib"  value="${sl.home}/lib" /&gt;
-  &lt;path id="sl.classpath"&gt;&lt;fileset dir="${sl.lib}" includes="**/*.jar" /&gt;&lt;/path&gt;
-  &lt;taskdef name="sierra-scan"
-           classname="com.surelogic.ant.sierra.SierraScan"
-           classpathref="sl.classpath" /&gt;
-  &lt;taskdef name="sierra-publish"
-           classname="com.surelogic.ant.sierra.SierraPublish"
-           classpathref="sl.classpath" /&gt;
-  ...
-
-&lt;/project&gt;
-	</programlisting>
-
-	<para>You will have to modify the setting for
-	<userinput>sl.home</userinput> to reference where you located
-	the <filename>sierra-ant</filename> directory on your
-	machine.</para>
-
       <section>
-	<title>sierra-scan</title>
+	<title>sierra-scan task</title>
 
-	<para>This task scans code and produces a scan document file
-	on the disk. This task is, for convenience, very similar to
-	the <ulink
-	url="http://ant.apache.org/manual/CoreTasks/javac.html">javac</ulink>
-	task. The new attributes are:</para>
+	<para>This task scans code and produces a scan file
+    on the disk. This task is, for convenience, very similar to
+    the <ulink
+    url="http://ant.apache.org/manual/CoreTasks/javac.html">javac</ulink>
+    task. The new attributes are:</para>
 
-	<informaltable>
-	  <tgroup cols='3' align='left'>
-	    <thead>
-	      <row>
-		<entry>Attribute</entry>
-		<entry>Description</entry>
-		<entry>Required</entry>
-	      </row>
-	    </thead>
-	    <tbody>
-	      <row>
-		<entry>home</entry>
-		<entry>The path to the <filename>sierra-ant</filename>
-		directory, e.g., where
-		<filename>sierra-ant.zip</filename> was
-		unzipped.</entry>
-		<entry>Yes</entry>
-	      </row>
-	      <row>
-		<entry>projectname</entry>
-		<entry>The name of the project being scanned.</entry>
-		<entry>Yes</entry>
-	      </row>
-	      <row>
-		<entry>document</entry>
-		<entry>The name of the scan document to be
-		created. Includes the path to the file, but excludes
-		the extension <filename>.sierra.gz</filename>.</entry>
-		<entry>Yes</entry>
-	      </row>
-              <row>
-		<entry>properties</entry>
-		<entry>The location of a properties file, as described in <xref
-		linkend="sec-surelogic-tool-properties-file"/>.</entry>
-		<entry>No</entry>
-	      </row>
-	    </tbody>
-	  </tgroup>
-	</informaltable>
+    <informaltable frame='all'>
+      <tgroup cols='3' align='left'>
+        <thead>
+          <row>
+            <entry>Attribute</entry>
+            <entry>Description</entry>
+            <entry>Required</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>projectname</entry>
+            <entry>
+              This attribute sets the name of your project when the scan is loaded into Eclipse.
+              This value is also used to name the resulting Zip file. <code>projectname="SierraTutorial_SmallWorld"</code>
+            </entry>
+            <entry>Yes</entry>
+          </row>
+          <row>
+            <entry>sierraanthome</entry>
+            <entry>
+              This attribute sets set this to the location of the bits for the Sierra Ant task (where you unzipped them). Typically
+              you copy the pattern illustrated in the Ant script below and set this
+              path as the property "sierra.ant.home" so that it can be used to specify
+              the task classpath as well as the value of this attribute.
+               e.g.,<code>&lt;property name="sierra.ant.home" location="C:\\Users\\Tim\\sierra-ant" /&gt;</code>
+               <code>...</code>
+               <code>sierraanthome="${sierra.ant.home}"</code>
+            </entry>
+            <entry>Yes</entry>
+          </row>
+          <row>
+            <entry>sierrascandir</entry>
+            <entry>
+              This attribute sets a directory to create the scan Zip file
+              within. If it is not set then output is written to the current directory.
+              This may be useful if you want to gather results in a particular location
+              on your disk.
+             <code>sierrascandir="C:\\Users\\Tim\\myscans"</code>
+            </entry>
+            <entry>No, output defaults to the current directory.</entry>
+          </row>
+          <row>
+            <entry>surelogictoolspropertiesfile</entry>
+            <entry>
+              This attribute sets the location of a
+           <code>surelogic-tools.properties</code> file to be read to control the scan. This file
+           can control aspects of the Sierra scan (please see <xref linkend="sec-surelogic-tool-properties-file"/>.
+           If this attribute is not set the tool looks for a <code>surelogic-tools.properties</code>
+           file in the current directory and uses that if it is found.
+           <code>surelogictoolspropertiesfile="C:\\Users\\Tim\\surelogic-tools.properties"</code>
+            </entry>
+            <entry>No, if not set the tool looks for a <code>surelogic-tools.properties</code> file in the current directory
+            (a useful default if you place the Ant script and the properties file at the root of a Java project). 
+            If found then that file is used, if not then no properties are used.</entry>
+          </row>
+          
+        </tbody>
+      </tgroup>
+    </informaltable>
+    
+    </section>
 
-	<para>Below is a partial example, described in further detail
-	in <xref linkend="sec-tutorial-ant" />, of this task.</para>
+	<para>Below is an example Ant script for SierraTutorial_SmallWorld. This is described in further detail
+	in <xref linkend="sec-tutorial-ant" />.</para>
 
-	<programlisting>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;project name="SmallWorld" default="scan" basedir="."&gt;
-  ...
-  &lt;property name="project" value="SmallWorld" /&gt;
-  &lt;tstamp /&gt;
-  
-  &lt;target name="scan"&gt;	  	  	
-    &lt;property name="document" value="${project}-${DSTAMP}${TSTAMP}" /&gt;
+	<programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<project name="SierraTutorial_SmallWorld" default="scan" basedir=".">
 
-    &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
-                 classpath="${basedir}/jdom-1.0.jar" source="1.5"
-                 home="${sl.home}" document="${document}"
-                 projectname="${project}" properties="surelogic-tools.properties" /&gt;
+  <!-- (CHANGE) path to the unzipped SureLogic Ant tasks -->
+  <property name="sierra.ant.home" location="C:\\Users\\Tim\\sierra-ant" />
 
-    &lt;sierra-publish user="zork" password="zork" host="localhost"
-                    secure="false" port="13376" contextPath="/sl/"
-                    document="${document}" /&gt;
-  &lt;/target&gt;
-&lt;/project&gt;
-	</programlisting>
-      </section>
+  <!-- (COPY) SureLogic Ant task setup stuff -->
+  <path id="sierra-ant.classpath">
+    <dirset  dir="${sierra.ant.home}" includes="lib/com.surelogic.*" />
+    <fileset dir="${sierra.ant.home}" includes="lib/**/*.jar" />
+  </path>
+  <taskdef name="sierra-scan" classname="com.surelogic.sierra.ant.SierraScan">
+    <classpath refid="sierra-ant.classpath" />
+  </taskdef>
 
-      <section>
-	<title>sierra-publish</title>
+  <path id="tf.classpath">
+    <fileset dir="${basedir}" includes="**/*.jar" />
+  </path>
 
-	<para>This task publishes a scan document file on the disk to
-	a Sierra team server.</para>
+  <target name="scan">
+    <javac srcdir="${basedir}/src"
+           destdir="${basedir}/bina"
+           source="1.7"
+           includeantruntime="false">
+       <classpath refid="tf.classpath" />
+    </javac>
 
-	<informaltable>
-	  <tgroup cols='3' align='left'>
-	    <thead>
-	      <row>
-		<entry>Attribute</entry>
-		<entry>Description</entry>
-		<entry>Required</entry>
-	      </row>
-	    </thead>
-	    <tbody>
-	      <row>
-		<entry>contextPath</entry>
-		<entry>The path on the web server that the Sierra team
-		server is assigned to. This attribute defaults to
-		<userinput>/sl/</userinput> and only rarely needs to
-		be changed.</entry>
-		<entry>Yes</entry>
-	      </row>
-	      <row>
-		<entry>document</entry>
-		<entry>The name of the scan document to be
-		published. Includes the path to the file, but excludes
-		the extension <filename>.sierra.gz</filename>.</entry>
-		<entry>Yes</entry>
-	      </row>
-	      <row>
-		<entry>host</entry>
-		<entry>The name or IP address of the computer hosting
-		the Sierra team server.</entry>
-		<entry>No, defaults to
-		<filename>localhost</filename>.</entry>
-	      </row>
-	      <row>
-		<entry>password</entry>
-		<entry>The corresponding password for the given Sierra
-		team server user name.</entry>
-		<entry>Yes</entry>
-	      </row>
-	      <row>
-		<entry>port</entry>
-		<entry>The port that the Sierra team server is
-		listening on.</entry>
-		<entry>No, defaults to 13376.</entry>
-	      </row>
-	      <row>
-		<entry>secure</entry>
-		<entry>Set this attribute to
-		<userinput>true</userinput> if the server requires
-		using SSL encryption, e.g., https.</entry>
-		<entry>No, defaults to <userinput>false</userinput>,
-		e.g., using http.</entry>
-	      </row>
-	      <row>
-		<entry>user</entry>
-		<entry>The user name used to login to the Sierra team
-		server.</entry>
-		<entry>Yes</entry>
-	      </row>
-	    </tbody>
-	  </tgroup>
-	</informaltable>
+    <!-- Make sure 'bina' is populated with class files for FindBugs -->
 
-	<para>Below is a partial example, described in further detail
-	in <xref linkend="sec-tutorial-ant" />, of this task.</para>
+    <sierra-scan srcdir="${basedir}/src"
+                 destdir="${basedir}/bina"
+                 source="1.7"
+                 includeantruntime="false"
+                 sierraanthome="${sierra.ant.home}"
+                 projectname="SierraTutorial_SmallWorld">
+       <classpath refid="tf.classpath" />
+    </sierra-scan>
+  </target>
+</project>]]></programlisting>
 
-	<programlisting>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;project name="SmallWorld" default="scan" basedir="."&gt;
-  ...
-  &lt;property name="project" value="SmallWorld" /&gt;
-  &lt;tstamp /&gt;
-  
-  &lt;target name="scan"&gt;	  	  	
-    &lt;property name="document" value="${project}-${DSTAMP}${TSTAMP}" /&gt;
-
-    &lt;sierra-scan srcdir="${basedir}/src" destdir="${basedir}/bin"
-                 classpath="${basedir}/jdom-1.0.jar" source="1.5"
-                 home="${sl.home}" document="${document}"
-                 projectname="${project}" /&gt;
-
-    &lt;sierra-publish user="zork" password="zork" host="localhost"
-                    secure="false" port="13376" contextPath="/sl/"
-                    document="${document}" /&gt;
-  &lt;/target&gt;
-&lt;/project&gt;
-	</programlisting>
-      </section>
     </section>
     
         <section id="using-maven">
@@ -4125,6 +4054,90 @@ if (o == null) {
     noteworthy features to try out, and known limitations to avoid or
     workaround. These are presented in the sections below for each
     released version of Sierra.</para>
+    
+        <section id="sec-sierra-release-5-6-1">
+    <title>Sierra version 5.6.1</title>
+    <para>This section describes the 5.6.1 version of Sierra.</para>
+
+    <section>
+      <title>New and Noteworthy</title>
+      <para>This section describes new and noteworthy features in this
+        version of Sierra.
+      </para>
+      <orderedlist>
+        <listitem>
+        <para>
+          <emphasis>Reorganization of Sierra menu</emphasis>
+          &mdash;
+          To make the Sierra menu simpler to use we have reorganized it. Items are better grouped
+          by use. This was driven, in part, by several changes to the tool are discussed below.
+          The top section contains commands to operate Sierra in Eclipse.
+          The second section contains commands to setup or interact with a team server.
+          The third section contains commands that import or export files.
+          The fourth section contains commands to send feedback to SureLogic and run the Sierra
+          tutorials.
+          The last section contains a command to open a dialog to manage your tool license.
+        </para>
+           <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/release-notes-561-menu.png" />
+                </imageobject>
+           </mediaobject>
+        </listitem>
+        <listitem>
+          <para>
+            <emphasis>Improved Ant task</emphasis>
+            &mdash;
+            Several changes to the Sierra Ant task are included in this version. If you use the Ant task you'll
+            have to make some changes to your scripts. If not, the improvements made in this tool release
+            may make the task useful in your development environment. A summary of the changes is listed below.
+          </para>
+          <orderedlist>
+          <listitem><para>The task is no longer included in the Eclipse distribution. It must be downloaded <ulink url="http://surelogic.com/static/eclipse/install.html#cl">here</ulink>
+          on the surelogic website. The reason for this change is to reduce the Eclipse tool distribution size. When adding the Ant task, Sierra doubles in size, with Ant and Maven it is
+          3X the download size. Now folks can download only what they need.</para></listitem>
+          <listitem><para>The task has been simplified. It is still similar to the Ant <ulink url="https://ant.apache.org/manual/Tasks/javac.html">javac</ulink> task
+          but now has simpler setup.</para>
+          <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/release-notes-561-antscript.png" />
+              </imageobject>
+          </mediaobject>
+          </listitem>
+          <listitem><para>Output from the Ant task is a Zip file that can be loaded into Eclipse. The name of the file encodes
+          the information needed to load it into Eclipse.</para>
+          <mediaobject>
+              <imageobject>
+                <imagedata fileref="images/release-notes-561-antmenu.png" />
+              </imageobject>
+          </mediaobject>
+          </listitem>
+          <listitem><para>The sierra-publish task has been removed. This task has been removed as SureLogic considers how to better support command-line use of Sierra.
+          Please let us know if you rely upon this capability (we do not think this task has ever been widely used).</para>
+          </listitem>
+          </orderedlist>
+          <para>This approach is also intended to be supported in Maven but the Maven plugin for Sierra is not yet complete. Further we plan to use the
+          Ant and Maven to support predicates on the tool results (e.g., all annotations are consistent with the code). This
+          future work will enable automated use of Sierra in a "back office" automated build.</para>
+        </listitem>
+         <listitem>
+        <para>
+          <emphasis>HTML version of this documentation packaged with the tool</emphasis>
+          &mdash;
+          You can choose the <guilabel>Save Documentation As...</guilabel> menu item shown in the image below
+          to save a <filename>sierra-html-docs.zip</filename> file on your disk. Inside this Zip file is the
+          HTML version of this documentation that you can open in your browser. Some users prefer this format
+          because they can display it in the browser of their preference.
+        </para>
+           <mediaobject>
+                <imageobject>
+                  <imagedata fileref="images/release-notes-561-htmldocs.png" />
+                </imageobject>
+           </mediaobject>
+        </listitem>
+      </orderedlist>
+    </section>
+  </section>
 
   <section id="sec-sierra-release-5-6-0">
     <title>Sierra version 5.6.0</title>
@@ -4145,150 +4158,5 @@ if (o == null) {
     </section>
   </section>
 
-	<section id="sec-sierra-release-5-5-2">
-		<title>Sierra version 5.5.2</title>
-		<para>This section describes the 5.5.2 version of Sierra.</para>
-		<section>
-			<title>New and noteworthy</title>
-			<para>This section describes new and noteworthy features in this
-				version of Sierra.</para>
-			<orderedlist>
-				<listitem>
-					<para><emphasis>Scanned Projects view added to Sierra</emphasis> &mdash;
-					A new view has been added to show the project that have been scanned by Sierra.
-					This view shows when the scan was done, the exclusion specification read from
-					that project's <filename>surelogic-tools.properties</filename>
-							file, and the time of the prior scan (if any). This view allows you to
-							delete the scan data about a project and start a new scan.  A choice
-							on the view menu allows all scans to be deleted.</para>
-							
-					<mediaobject>
-							<imageobject>
-								<imagedata fileref="images/release-notes-552-new-view.png" />
-							</imageobject>
-					</mediaobject>
-					
-					<para>This new view makes the Scan Data page of the Sierra preferences obsolete. That preference page
-					has been removed in this release of the tool. A key driving consideration of this change was to 
-					make it straightforward for a tool user to find what exclusion specification read from
-					that project's <filename>surelogic-tools.properties</filename> was actually understood by the tool and used.
-					A reset of the Sierra perspective may be needed to see the new view.</para>
-					
-				</listitem>
-				<listitem>
-					<para>
-						<emphasis>
-							Support for
-							<filename>surelogic-tools.properties</filename>
-							files in the Ant tasks
-						</emphasis> &mdash;
-						This
-						release adds a new
-						<guilabel>properties</guilabel>
-						attribute to the
-						<command>sierra-scan</command>
-						Ant task. Documentation for the ant tasks can be
-						found in
-						<xref linkend="using-ant" />
-					</para>
-				</listitem>
-				<listitem>
-					<para>
-						<emphasis>
-							Updated reference documentation for the Sierra Eclipse client views
-						</emphasis> &mdash;
-						As part of our ongoing work to improve the Sierra reference documentation we
-						have done a major update of the descriptions of each view used by the
-						Sierra Eclipse client.
-					</para>
-				</listitem>
-			</orderedlist>
-		</section>
-	</section>
-    
-	<section id="sec-sierra-release-5-5-0">
-		<title>Sierra version 5.5.0</title>
-		<para>This section describes the 5.5.0 version of Sierra.</para>
-		<section>
-			<title>New and noteworthy</title>
-			<para>This section describes new and noteworthy features in this
-				version of Sierra.</para>
-			<orderedlist>
-				<listitem>
-					<para>
-						<emphasis>Java 8 language and virtual machine support</emphasis> &mdash;
-						This release of Sierra
-						fully supports the Java 8 programming
-						language and virtual machine. The
-						tool also supports scanning older
-						Java programs on a Java 8 virtual machine. To launch Java 8
-						programs a
-						version of Eclipse that
-						supports Java 8, e.g., Eclipse
-						Luna (4.4) or above, is required.
-					</para>
-				</listitem>
-				<listitem>
-					<para>
-						<emphasis>Updated analysis tools</emphasis> &mdash;
-						FindBugs has been updated to version 3.0.0. PMD has been updated
-						to
-						version 5.1.1. These updates
-						featured support for the Java 8
-						programming language.
-					</para>
-				</listitem>
-				<listitem>
-					<para>
-						<emphasis>Updated web portal library</emphasis> &mdash;
-						The Sierra portal has been updated to version 2.6.1 of GWT. This
-						update
-						should help with browser support as well as bug fixes to the
-						web
-						infrastructure.
-					</para>
-				</listitem>
-				<listitem>
-					<para>
-						<emphasis><guilabel>Findings Quick Search</guilabel> split into two new views: <guilabel>Sierra Quick Search</guilabel> and <guilabel>Results</guilabel></emphasis> &mdash;
-						The Sierra results display has been split into two views to improve usability of the tool. In particular, you can turn off the filter and simply
-						show all tool results.
-					</para>
-				</listitem>
-			</orderedlist>
-		</section>
-	</section>
-
-	<section id="sec-sierra-release-5-1-0">
-		<title>Sierra version 5.1.0</title>
-		<para>This section describes the 5.1.0 version of Sierra.</para>
-		<section>
-			<title>New and noteworthy</title>
-			<para>This section describes new and noteworthy features in this
-				version of Sierra.</para>
-			<orderedlist>
-				<listitem>
-					<para>
-						<emphasis>Support for IBM Jazz source control</emphasis> &mdash;
-						The source
-						control component of the IBM Jazz technology platform manages the source
-						code,
-						documents, and other artifacts that a team creates. The code is stored on a
-						server
-						and accessed as a URL by clients. This created a problem for Sierra
-						which, prior to
-						this release, expected the source code and binary artifacts of a
-						project to exist
-						as files on a local or remote filesystem. Changes were made to
-						Sierra in this release to support
-						IBM Jazz source control. Similar server-based URL-oriented systems
-						should also be supported by Sierra.
-					</para>
-				</listitem>
-
-			</orderedlist>
-		</section>
-
-    </section>
   </chapter> 
 </book>

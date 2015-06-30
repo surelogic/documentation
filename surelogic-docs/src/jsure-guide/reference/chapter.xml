@@ -2034,6 +2034,10 @@
      file that can be loaded into Eclipse using the <guilabel>Import Ant/Maven Scan...</guilabel>
      on the JSure menu. Once loaded into Eclipse the JSure scan results can be examined just like any other scan.</para>
      
+     <para>The Ant tasks are not included within the Eclipse plugin (to save space) but
+      can be downloaded <ulink url="http://surelogic.com/static/eclipse/install.html#cl">here</ulink> on
+      the SureLogic website.</para>
+     
      <para>The special attributes are given below, note that other javac task attributes work as well. The idea
      is for you to copy or "clone" your javac task and modify it just a bit (with the attributes below) to be a JSure scan task.</para>
      
@@ -2095,7 +2099,7 @@
             <entry>
               This attribute sets the location of a
            <code>surelogic-tools.properties</code> file to be read to control the scan. This file
-           can control aspects of the JSure scan (please see the JSure documentation).
+           can control aspects of the JSure scan (please see <xref linkend="sec-surelogic-tool-properties-file"/>).
            If this attribute is not set the tool looks for a <code>surelogic-tools.properties</code>
            file in the current directory and uses that if it is found.
            <code>surelogictoolspropertiesfile="C:\\Users\\Tim\\surelogic-tools.properties"</code>
