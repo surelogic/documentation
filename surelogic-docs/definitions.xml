@@ -90,7 +90,7 @@
   <!-- Name for the HTML docs zip file includes version information -->
   <property name="docs-zip-name" value="surelogic-html-docs-${release-version}" />
   <property name="jsure-docs-zip-name" value="../../jsure/jsure-client-eclipse/lib/jsure-html-docs.zip" />
-  <property name="flashlight-docs-zip-name" value="../../flashlight/flashlight-common/lib/flashlight-html-docs.zip" />
+  <property name="flashlight-docs-zip-name" value="../../flashlight/flashlight-client-eclipse/lib/flashlight-html-docs.zip" />
   <property name="sierra-docs-zip-name" value="../../sierra/sierra-client-eclipse/lib/sierra-html-docs.zip" />
 
   <!-- FOP engine class -->
