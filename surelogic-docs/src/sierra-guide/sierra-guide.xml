@@ -2044,16 +2044,16 @@ if (o == null) {
 
   <target name="scan">
     <javac srcdir="${basedir}/src"
-           destdir="${basedir}/bina"
+           destdir="${basedir}/bin"
            source="1.7"
            includeantruntime="false">
        <classpath refid="tf.classpath" />
     </javac>
 
-    <!-- Make sure 'bina' is populated with class files for FindBugs -->
+    <!-- Make sure 'bin' is populated with class files for FindBugs -->
 
     <sierra-scan srcdir="${basedir}/src"
-                 destdir="${basedir}/bina"
+                 destdir="${basedir}/bin"
                  source="1.7"
                  includeantruntime="false"
                  sierraanthome="${sierra.ant.home}"
@@ -3922,16 +3922,16 @@ if (o == null) {
 
   <target name="scan">
     <javac srcdir="${basedir}/src"
-           destdir="${basedir}/bina"
+           destdir="${basedir}/bin"
            source="1.7"
            includeantruntime="false">
        <classpath refid="tf.classpath" />
     </javac>
 
-    <!-- Make sure 'bina' is populated with class files for FindBugs -->
+    <!-- Make sure 'bin' is populated with class files for FindBugs -->
 
     <sierra-scan srcdir="${basedir}/src"
-                 destdir="${basedir}/bina"
+                 destdir="${basedir}/bin"
                  source="1.7"
                  includeantruntime="false"
                  sierraanthome="${sierra.ant.home}"
