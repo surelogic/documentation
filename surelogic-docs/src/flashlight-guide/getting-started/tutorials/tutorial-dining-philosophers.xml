@@ -269,7 +269,7 @@ Enter number your choice:
 		of the graph.
 	</para>
 
-	<para>The tabular part to the right of the graph helps you to understand what threads actually preformed the
+	<para>The tabular part to the right of the graph helps you to understand what threads actually performed the
 	acquisitions of more than one lock and when. This
 	can help diagnose if the cycle could have actually deadlocked. In this case it clearly could have. The occurrence
 	counts in the Threads column are a bit confusing&mdash;this run completed wouldn't we expect the occurrences
