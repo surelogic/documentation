@@ -5,13 +5,29 @@
 
 <section id="flashlight-ant-tasks"  xmlns:xlink="http://www.w3.org/1999/xlink">
   <title>Flashlight Ant tasks</title>
-
+  
   <para>Flashlight-related ANT tasks are declared in the JAR file
   flashlight-ant.jar. </para>
+  
+  <para>There are three ANT tasks, each designed to handle different scenarios:   
+  </para>
+  
+    <itemizedlist>
+      <listitem>Instrument is the most general and customizable, used to instrument classes in a jar or directory 
+          before running them, and so it can be inserted into an existing build file without 
+          greatly disturbing how the application is run.
+      </listitem>
+      <listitem>Instrument-archive is specialized for instrumenting standalone JAR or WAR files, and so it 
+          inserts various resources needed by Flashlight into the resulting output file.
+      </listitem>
+      <listitem>Record is meant for the simplest cases, where you can simply instrument a few jars or directories 
+          and immediately run them to get some data.
+      </listitem>      
+    </itemizedlist>
+  
   <section><title>Loading Flashlight tasks into Ant</title>
 
-  <para>The JAR file flashlight-ant.jar contains an antlib.xml file located at
-  com/surelogic/flashlight/ant/antlib.xml. The best way to load the Flashlight
+  <para>The best way to load the Flashlight
   ANT tasks into ANT and into their own namespace is to use the ANT
   &lt;taskdef&gt; tag:</para>
 
@@ -19,16 +35,27 @@
 <![CDATA[
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project ... xmlns:flashlight="antlib:com.surelogic.flashlight.ant">
-    <taskdef uri="antlib:com.surelogic.flashlight.ant"
-    		resource="com/surelogic/flashlight/ant/antlib.xml"
-    		classpath="path/to/flashlight-ant.jar"/>
+    <property name="flashlight.ant.home" location="path/to/flashlight-ant" />
+    
+    <path id="flashlight-ant.classpath">
+      <fileset dir="${flashlight.ant.home}" includes="lib/**/*.jar" />
+    </path>
+    
+    <taskdef name="flashlight-instrument" classname="com.surelogic.flashlight.ant.Instrument">
+      <classpath refid="flashlight-ant.classpath" />
+    </taskdef>
+    
+    <taskdef name="flashlight-record" classname="com.surelogic.flashlight.ant.Record">
+      <classpath refid="flashlight-ant.classpath" />
+    </taskdef>
     ...
 ]]>
   </programlisting>
   <para>
     The flashlight tasks can now be referred to using the the task names
-    &lt;flashlight:taskname&gt;.
+    &lt;flashlight-taskname&gt;.
   </para>
+  
   </section>
   <section>
     <title>Flashlight Ant task: instrument</title>
@@ -368,53 +395,53 @@
       <para>Rewrite the classfiles found in the <code>input</code> directory,
       writing them to the <code>output</code> directory:</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <dir srcdir="input" destdir="output"/>
-</flashlight:instrument>     
+</flashlight-instrument>     
       ]]></programlisting>
       <para>Rewrite the classfiles found in the directories <code>input1</code>
       and <code>input2</code>, writing them to the JAR files
       <code>output/input1.jar</code>, and <code>output/input2.jar</code>,
       respectively:</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <dir srcdir="input1" destdir="output" jar="true"/>
     <dir srcdir="input2" destdir="output" jar="true"/>
-</flashlight:instrument>      
+</flashlight-instrument>      
       ]]></programlisting>
       <para>Rewrite the classfiles found in the JAR file <code>app.jar</code>,
       writing them to the new JAR file <code>instrumented/app.jar</code>. In
       this case the manifest file will be updated to refer to the
       <code>flashlight-runtime.jar</code>:</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <jar srcfile="app.jar" destdir="instrumented"/>
-</flashlight:instrument>      
+</flashlight-instrument>      
       ]]></programlisting>
       <para>Rewrite the classfiles found in the JAR file <code>app.jar</code>,
       writing them to the directory <code>instrumented</code>. In this case the
       manifest file will be updated to refer to the
       <code>flashlight-runtime.jar</code>:</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <jar srcfile="app.jar" destdir="instrumented" unjar="true"/>
-</flashlight:instrument>      
+</flashlight-instrument>      
       ]]></programlisting>
       <para>Rewrite the classfiles found in the JAR file <code>app.jar</code>,
       writing them to the new JAR file <code>instrumented/app.jar</code>, but do
       not modify the manifest file:</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <jar srcfile="app.jar" destdir="instrumented" updatemanifest="false"/>
-</flashlight:instrument>      
+</flashlight-instrument>      
       ]]></programlisting>
       <para>Rewrite the classfiles found in the JAR file <code>app.jar</code>,
       writing them to the directory <code>instrumented</code>, and update the
       manifest file to refer to <code>flashlight-all.jar</code>:</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <jar srcfile="app.jar" destdir="instrumented" unjar="true" runtime="flashlight-all.jar"/>
-</flashlight:instrument>      
+</flashlight-instrument>      
       ]]></programlisting>
       <para>Rewrite the classfiles found in the JAR file <code>app.jar</code>,
       writing them to the new JAR file
@@ -422,10 +449,10 @@
       found in the JAR files in the directory <code>lib</code> and write them to
       new JAR files in the directory <code>instrumented/lib</code>.</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <jar srcfile="app.jar" destdir="instrumented"/>
     <jars srcdir="lib" destdir="instrumented/lib"/>
-</flashlight:instrument>      
+</flashlight-instrument>      
       ]]></programlisting>
       <para>Rewrite the classfiles found in the directories named by the
       property <code>projects</code>, all of which have similar subdirectories,
@@ -433,21 +460,21 @@
       assume that the <code>workspace</code> property has been set to the path
       of an Eclipse workspace.</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <dirs list="${projects}" replace="PROJECT"
         srcdirpattern="${workspace}/PROJECT/bin"
         destdirpattern="${workspace}/PROJECT/bin-instrumented"/>
-</flashlight:instrument>      
+</flashlight-instrument>      
       ]]></programlisting>
       <para>When <code>projects</code> is bound to <code>"project1 project2
       project3"</code>, and the value of workspace does not contain the
       substring <code>"PROJECT"</code>, the above is equivalent to</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <dir srcdir="${workspace}/project1/bin" destdir="${workspace}/project1/bin-instrumented"/>
     <dir srcdir="${workspace}/project2/bin" destdir="${workspace}/project2/bin-instrumented"/>
     <dir srcdir="${workspace}/project3/bin" destdir="${workspace}/project3/bin-instrumented"/>
-</flashlight:instrument>      
+</flashlight-instrument>      
       ]]></programlisting>
       <para>Rewrite the classfiles found in the directories named by the
       property <code>projects</code>, all of which have similar subdirectories,
@@ -455,40 +482,40 @@
       that the <code>workspace</code> property has been set to the path of an
       Eclipse workspace.</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <dirs list="${projects}" replace="PROJECT"
         srcdirpattern="${workspace}/PROJECT/bin"
         destfilepattern="${workspace}/PROJECT/instrumented/bin.jar"/>
-</flashlight:instrument>       
+</flashlight-instrument>       
       ]]></programlisting>
       <para>When <code>projects</code> is bound to <code>"project1 project2
       project3"</code>, and the value of <code>workspace</code> does not contain
       the substring <code>"PROJECT"</code>, the above is equivalent to</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <dir srcdir="${workspace}/project1/bin" destdir="${workspace}/project1/instrumented" jar="true"/>
     <dir srcdir="${workspace}/project2/bin" destdir="${workspace}/project2/instrumented" jar="true"/>
     <dir srcdir="${workspace}/project3/bin" destdir="${workspace}/project3/instrumented" jar="true"/>
-</flashlight:instrument>      
+</flashlight-instrument>      
       ]]></programlisting>
       <para>Use additional indirect access method definitions.</para>
       <programlisting><![CDATA[
-<flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
+<flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log">
     <methodFile file="support/methods.xml"/>
     <methodFile file="support/global.xml"/>
 
     <jar srcfile="app.jar" destdir="instrumented"/>
-</flashlight:instrument>      
+</flashlight-instrument>      
       ]]></programlisting>
       <para>Only instrument field accesses to fields that are declared in
       classes in the packages "com.foo.util" and "com.foo.io".</para>
       <programlisting><![CDATA[
- <flashlight:instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log" fieldFilter="DECLARED">
+ <flashlight-instrument fieldsfile="fields.txt" sitesfile="sites.txt" logfile="instrumentation.log" fieldFilter="DECLARED">
     <filter package="com/foo/util"/>
     <filter package="com/foo/io"/>
 
     <jar srcfile="app.jar" destdir="instrumented"/>
-</flashlight:instrument>     
+</flashlight-instrument>     
       ]]></programlisting>
     </section>
   </section>
@@ -594,9 +621,9 @@
         <code>flashlight.dataDir</code> Ant property.
       </para>
       <programlisting><![CDATA[
-<flashlight:instrument-archive srcFile="my.war" destfile="instrumented.war" runtime="${flashlight.dir}/flashlight-runtime.jar" dataDir="${flashlight.dataDir}">
+<flashlight-instrument-archive srcFile="my.war" destfile="instrumented.war" runtime="${flashlight.dir}/flashlight-runtime.jar" dataDir="${flashlight.dataDir}">
     <sources path="src"/>
-</flashlight:instrument>     
+</flashlight-instrument-archive>     
       ]]></programlisting>
     </section>
   </section>
