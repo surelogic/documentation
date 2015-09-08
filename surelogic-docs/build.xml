@@ -1,188 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="surelogic-docs" basedir="." default="fresh-build-and-install">
 
-  <import file="./definitions.xml" />
+	<import file="./definitions.xml" />
 
-  <target name="fresh-build-and-install"
-    depends="clean-and-uninstall, build-all-but-pdf, install-all" />
+	<target name="fresh-build-and-install" depends="clean-and-uninstall, build-all-but-pdf, install-all" />
 
-  <target name="build-and-install" depends="build-all-but-pdf, install-all" />
+	<target name="build-and-install" depends="build-all-but-pdf, install-all" />
 
-  <target name="clean-and-uninstall" depends="clean, uninstall-all" />
+	<target name="clean-and-uninstall" depends="clean, uninstall-all" />
 
-  <target name="build-all" depends="build-all-but-pdf, build-pdf" />
+	<target name="build-all" depends="build-all-but-pdf, build-pdf" />
 
-  <target name="build-all-but-pdf"
-    depends="jsure-guide, jsure-design-intent, sierra-guide, flashlight-guide, create-html-zip" />
+	<target name="build-all-but-pdf" depends="jsure-guide, jsure-design-intent, sierra-guide, flashlight-guide, create-html-zip" />
 
-  <target name="build-pdf"
-    depends="jsure-guide-pdf, jsure-design-intent-pdf, sierra-guide-pdf, flashlight-guide-pdf" />
+	<target name="build-pdf" depends="jsure-guide-pdf, jsure-design-intent-pdf, sierra-guide-pdf, flashlight-guide-pdf" />
 
-  <target name="create-html-zip" depends="jsure-create-html-zip, flashlight-create-html-zip, sierra-create-html-zip">
-    <zip destfile="${build}/${docs-zip-name}.zip">
-      <zipfileset dir="${je.html.dir}" prefix="${docs-zip-name}/${jsure-guide}/" />
-      <zipfileset dir="${di.html.dir}" prefix="${docs-zip-name}/${jsure-design-intent}/" />
-      <zipfileset dir="${sg.html.dir}" prefix="${docs-zip-name}/${sierra-guide}/" />
-      <zipfileset dir="${fg.html.dir}" prefix="${docs-zip-name}/${flashlight-guide}/" />
-    </zip>
-  </target>
+	<target name="create-html-zip" depends="jsure-create-html-zip, flashlight-create-html-zip, sierra-create-html-zip">
+		<zip destfile="${build}/${docs-zip-name}.zip">
+			<zipfileset dir="${je.html.dir}" prefix="${docs-zip-name}/${jsure-guide}/" />
+			<zipfileset dir="${sg.html.dir}" prefix="${docs-zip-name}/${sierra-guide}/" />
+			<zipfileset dir="${fg.html.dir}" prefix="${docs-zip-name}/${flashlight-guide}/" />
+		</zip>
+	</target>
 
-  <target name="jsure-create-html-zip">
-    <delete quiet="true" file="${jsure-docs-zip-name}" />
-    <zip destfile="${jsure-docs-zip-name}">
-      <zipfileset dir="${je.html.dir}" prefix="${jsure-guide}-${release-version}/" />
-      <zipfileset dir="${di.html.dir}" prefix="${jsure-design-intent}-${release-version}/" />
-    </zip>
-  </target>
+	<target name="jsure-create-html-zip">
+		<delete quiet="true" file="${jsure-docs-zip-name}" />
+		<zip destfile="${jsure-docs-zip-name}">
+			<zipfileset dir="${je.html.dir}" prefix="${jsure-guide}-${release-version}/" />
+		</zip>
+	</target>
 
-  <target name="flashlight-create-html-zip">
-    <delete quiet="true" file="${flashlight-docs-zip-name}" />
-    <zip destfile="${flashlight-docs-zip-name}">
-      <zipfileset dir="${fg.html.dir}" prefix="${flashlight-guide}-${release-version}/" />
-    </zip>
-  </target>
-  
-  <target name="sierra-create-html-zip">
-    <delete quiet="true" file="${sierra-docs-zip-name}" />
-    <zip destfile="${sierra-docs-zip-name}">
-      <zipfileset dir="${sg.html.dir}" prefix="${sierra-guide}-${release-version}/" />
-    </zip>
-  </target>
+	<target name="flashlight-create-html-zip">
+		<delete quiet="true" file="${flashlight-docs-zip-name}" />
+		<zip destfile="${flashlight-docs-zip-name}">
+			<zipfileset dir="${fg.html.dir}" prefix="${flashlight-guide}-${release-version}/" />
+		</zip>
+	</target>
 
-  <!-- JSure Guide -->
+	<target name="sierra-create-html-zip">
+		<delete quiet="true" file="${sierra-docs-zip-name}" />
+		<zip destfile="${sierra-docs-zip-name}">
+			<zipfileset dir="${sg.html.dir}" prefix="${sierra-guide}-${release-version}/" />
+		</zip>
+	</target>
 
-  <target name="jsure-guide" depends="jsure-guide-html, jsure-guide-eclipse-help" />
+	<!-- JSure Guide -->
 
-  <target name="jsure-guide-html">
-    <docbook-to-html srcdir="${je.source.dir}" srcfile="${je.source.file}"
-      destdir="${je.html.dir}" destfile="${je.html.file}" />
-  </target>
+	<target name="jsure-guide" depends="jsure-guide-html, jsure-guide-eclipse-help" />
 
-  <target name="jsure-guide-eclipse-help">
-    <docbook-to-eclipse-help srcdir="${je.source.dir}"
-      srcfile="${je.source.file}" destdir="${je.eclipse.help.dir}" />
-  </target>
+	<target name="jsure-guide-html">
+		<docbook-to-html srcdir="${je.source.dir}" srcfile="${je.source.file}" destdir="${je.html.dir}" destfile="${je.html.file}" />
+	</target>
 
-  <target name="jsure-guide-pdf">
-    <docbook-to-pdf srcfile="${je.source.file}" destfile="${je.pdf.file}"
-      destdir="${je.build.dir}" />
-  </target>
+	<target name="jsure-guide-eclipse-help">
+		<docbook-to-eclipse-help srcdir="${je.source.dir}" srcfile="${je.source.file}" destdir="${je.eclipse.help.dir}" />
+	</target>
 
-  <!-- JSure Design Intent -->
+	<target name="jsure-guide-pdf">
+		<docbook-to-pdf srcfile="${je.source.file}" destfile="${je.pdf.file}" destdir="${je.build.dir}" />
+	</target>
 
-  <target name="jsure-design-intent"
-    depends="jar-up-promises,jsure-design-intent-html,jsure-design-intent-eclipse-help" />
+	<!-- JSure Design Intent -->
 
-  <target name="jar-up-promises">
-    <ant antfile="build.xml" dir="../../jsure/promises-x"
-      inheritAll="false" />
-  </target>
+	<target name="jsure-design-intent" depends="jar-up-promises,jsure-design-intent-html" />
 
-  <target name="jsure-design-intent-html">
-    <docbook-to-html srcdir="${di.source.dir}" srcfile="${di.source.file}"
-      destdir="${di.html.dir}" destfile="${di.html.file}" />
-    <copy todir="${di.html.dir}/javadoc">
-      <fileset dir="../../jsure/promises-x/build/javadoc" />
-    </copy>
-  </target>
+	<target name="jar-up-promises">
+		<ant antfile="build.xml" dir="../../jsure/promises-x" inheritAll="false" />
+	</target>
 
-  <target name="jsure-design-intent-eclipse-help">
-    <docbook-to-eclipse-help srcdir="${di.source.dir}"
-      srcfile="${di.source.file}" destdir="${di.eclipse.help.dir}" />
-    <copy todir="${di.eclipse.help.dir}/javadoc">
-      <fileset dir="../../jsure/promises-x/build/javadoc" />
-    </copy>
-  </target>
+	<target name="jsure-design-intent-html">
+		<docbook-to-html srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.html.dir}" destfile="${di.html.file}" />
+		<copy todir="${di.html.dir}/javadoc">
+			<fileset dir="../../jsure/promises-x/build/javadoc" />
+		</copy>
+	</target>
 
-  <target name="jsure-design-intent-pdf">
-    <docbook-to-pdf srcfile="${di.source.file}" destfile="${di.pdf.file}"
-      destdir="${di.build.dir}" />
-  </target>
+	<target name="jsure-design-intent-pdf">
+		<docbook-to-pdf srcfile="${di.source.file}" destfile="${di.pdf.file}" destdir="${di.build.dir}" />
+	</target>
 
-  <!-- Sierra Guide -->
+	<!-- Sierra Guide -->
 
-  <target name="sierra-guide" depends="sierra-guide-html, sierra-guide-eclipse-help" />
+	<target name="sierra-guide" depends="sierra-guide-html, sierra-guide-eclipse-help" />
 
-  <target name="sierra-guide-html">
-    <docbook-to-html srcdir="${sg.source.dir}" srcfile="${sg.source.file}"
-      destdir="${sg.html.dir}" destfile="${sg.html.file}" />
-  </target>
+	<target name="sierra-guide-html">
+		<docbook-to-html srcdir="${sg.source.dir}" srcfile="${sg.source.file}" destdir="${sg.html.dir}" destfile="${sg.html.file}" />
+	</target>
 
-  <target name="sierra-guide-eclipse-help">
-    <docbook-to-eclipse-help srcdir="${sg.source.dir}"
-      srcfile="${sg.source.file}" destdir="${sg.eclipse.help.dir}" />
-  </target>
+	<target name="sierra-guide-eclipse-help">
+		<docbook-to-eclipse-help srcdir="${sg.source.dir}" srcfile="${sg.source.file}" destdir="${sg.eclipse.help.dir}" />
+	</target>
 
-  <target name="sierra-guide-pdf">
-    <docbook-to-pdf srcfile="${sg.source.file}" destfile="${sg.pdf.file}"
-      destdir="${sg.build.dir}" />
-  </target>
+	<target name="sierra-guide-pdf">
+		<docbook-to-pdf srcfile="${sg.source.file}" destfile="${sg.pdf.file}" destdir="${sg.build.dir}" />
+	</target>
 
-  <!-- Flashlight Guide -->
+	<!-- Flashlight Guide -->
 
-  <target name="flashlight-guide"
-    depends="flashlight-guide-html, flashlight-guide-eclipse-help" />
+	<target name="flashlight-guide" depends="flashlight-guide-html, flashlight-guide-eclipse-help" />
 
-  <target name="flashlight-guide-html">
-    <docbook-to-html srcdir="${fg.source.dir}" srcfile="${fg.source.file}"
-      destdir="${fg.html.dir}" destfile="${fg.html.file}" />
-  </target>
+	<target name="flashlight-guide-html">
+		<docbook-to-html srcdir="${fg.source.dir}" srcfile="${fg.source.file}" destdir="${fg.html.dir}" destfile="${fg.html.file}" />
+	</target>
 
-  <target name="flashlight-guide-eclipse-help">
-    <docbook-to-eclipse-help srcdir="${fg.source.dir}"
-      srcfile="${fg.source.file}" destdir="${fg.eclipse.help.dir}" />
-  </target>
+	<target name="flashlight-guide-eclipse-help">
+		<docbook-to-eclipse-help srcdir="${fg.source.dir}" srcfile="${fg.source.file}" destdir="${fg.eclipse.help.dir}" />
+	</target>
 
-  <target name="flashlight-guide-pdf">
-    <docbook-to-pdf srcfile="${fg.source.file}" destfile="${fg.pdf.file}"
-      destdir="${fg.build.dir}" />
-  </target>
+	<target name="flashlight-guide-pdf">
+		<docbook-to-pdf srcfile="${fg.source.file}" destfile="${fg.pdf.file}" destdir="${fg.build.dir}" />
+	</target>
 
-  <target name="clean">
-    <delete quiet="true" dir="${build}" />
-  </target>
+	<target name="clean">
+		<delete quiet="true" dir="${build}" />
+	</target>
 
-  <target name="install-all"
-    depends="install-jsure-guide, install-jsure-design-intent, install-sierra-guide, install-flashlight-guide" />
+	<target name="install-all" depends="install-jsure-guide, install-sierra-guide, install-flashlight-guide" />
 
-  <target name="install-jsure-guide">
-    <install-eclipse-help srcdir="${je.eclipse.help.dir}"
-      installdir="${je.install.dir}" />
-  </target>
+	<target name="install-jsure-guide">
+		<install-eclipse-help srcdir="${je.eclipse.help.dir}" installdir="${je.install.dir}" />
+	</target>
 
-  <target name="install-jsure-design-intent">
-    <install-eclipse-help srcdir="${di.eclipse.help.dir}"
-      installdir="${di.install.dir}" />
-  </target>
+	<target name="install-sierra-guide">
+		<install-eclipse-help srcdir="${sg.eclipse.help.dir}" installdir="${sg.install.dir}" />
+	</target>
 
-  <target name="install-sierra-guide">
-    <install-eclipse-help srcdir="${sg.eclipse.help.dir}"
-      installdir="${sg.install.dir}" />
-  </target>
-
-  <target name="install-flashlight-guide">
-    <install-eclipse-help srcdir="${fg.eclipse.help.dir}"
-      installdir="${fg.install.dir}" />
-  </target>
+	<target name="install-flashlight-guide">
+		<install-eclipse-help srcdir="${fg.eclipse.help.dir}" installdir="${fg.install.dir}" />
+	</target>
 
 
+	<target name="uninstall-all" depends="uninstall-jsure-guide, uninstall-sierra-guide, uninstall-flashlight-guide" />
 
-  <target name="uninstall-all"
-    depends="uninstall-jsure-guide, uninstall-jsure-design-intent, uninstall-sierra-guide, uninstall-flashlight-guide" />
+	<target name="uninstall-jsure-guide">
+		<uninstall-eclipse-help installdir="${je.install.dir}" />
+	</target>
 
-  <target name="uninstall-jsure-guide">
-    <uninstall-eclipse-help installdir="${je.install.dir}" />
-  </target>
+	<target name="uninstall-sierra-guide">
+		<uninstall-eclipse-help installdir="${sg.install.dir}" />
+	</target>
 
-  <target name="uninstall-jsure-design-intent">
-    <uninstall-eclipse-help installdir="${di.install.dir}" />
-  </target>
-
-  <target name="uninstall-sierra-guide">
-    <uninstall-eclipse-help installdir="${sg.install.dir}" />
-  </target>
-
-  <target name="uninstall-flashlight-guide">
-    <uninstall-eclipse-help installdir="${fg.install.dir}" />
-  </target>
+	<target name="uninstall-flashlight-guide">
+		<uninstall-eclipse-help installdir="${fg.install.dir}" />
+	</target>
 </project>
