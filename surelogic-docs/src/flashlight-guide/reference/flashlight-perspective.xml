@@ -925,7 +925,7 @@
 		/ delete or press the <guiicon><inlinegraphic
         fileref="images/gray_x.png" /></guiicon> (which will erase the text all at once)</para>
         
-        <para>There are two ways remove runs from the dialog that are ready for the user to query.
+        <para>There are two ways to remove runs from the dialog that are ready for the user to query.
         First, you can clear an individual run by pressing the <guiicon><inlinegraphic
         fileref="images/gray_x.png" /></guiicon> to its right. Second, you can press the <guibutton>Clear List</guibutton>
         button to the lower-left of the dialog. The <guibutton>Clear All Completed</guibutton>
@@ -936,19 +936,6 @@
 			<mediaobject>
 				<imageobject>
 					<imagedata fileref="images/flashlight-launched-run-control-clear.png" />
-				</imageobject>
-			</mediaobject>
-		</informalfigure>
-		
-		<para>We finish this section by noting that it is possible to bring up the <guilabel>Launched Run Control</guilabel>
-		dialog at any time using the <guimenu>Flashlight</guimenu> menu.  This is
-        done by selecting the <guilabel>Launched Run Control...</guilabel>
-		menu item as shown below.</para>
-
-        <informalfigure id="fig-flashlight-launched-run-control-open">
-			<mediaobject>
-				<imageobject>
-					<imagedata fileref="images/flashlight-launched-run-control-open.png" />
 				</imageobject>
 			</mediaobject>
 		</informalfigure>

@@ -112,8 +112,8 @@
       important to understand about Sierra.</para>
 
       <para>When Sierra examines your code, this is called a
-      <emphasis>scan</emphasis>.  By default, a Sierra scan runs three
-      analysis tools: FindBugs, PMD, and Reckoner.</para>
+      <emphasis>scan</emphasis>.  By default, a Sierra scan runs two
+      analysis tools: FindBugs and PMD.</para>
 
       <para>The output of a scan is a <emphasis>scan
       document</emphasis>.  A scan document is an XML file that
@@ -1862,150 +1862,6 @@ if (o == null) {
 	explore and make Sierra work the way you want it to.</para>
       </section>
 
-      <section id="sec-tutorial-maven">
-        <title>Scanning code using Maven</title>
-        <para>This tutorial will demonstrate how to use the Sierra maven plugin
-        to scan a project.  If you have projects that make use of Apache Maven
-        and you wish to produce scans as part of your automated build process,
-        you may find our maven plugin useful.  This tutorial does not explain
-        how use Apache Maven.  If you need to know how to use Maven, the <ulink
-        url="http://maven.apache.org/">web site</ulink> is a good place to
-        start.  You can also look into using the Eclipse plugin for Maven,
-        <ulink url="http://eclipse.org/m2e/">m2eclipse</ulink>.</para>
-        <note>
-          <title>Maven 3.2 or higher required</title>
-          <para>
-            In order to follow along, you will need to have maven installed,
-            preferably version 3.2 or higher.  If you don't have it already, you can
-            get the latest version <ulink
-            url="http://maven.apache.org/download.cgi">here</ulink>.
-          </para>
-        </note>
-        
-	<para>We're going to scan a project called
-	<application>SierraTutorial_SmallWorldMaven</application>. Select
-	<menuchoice><guimenu>Sierra</guimenu><guimenuitem>Run Sierra
-	Tutorials</guimenuitem></menuchoice> from the workspace menu and add the
-	<application>SierraTutorial_SmallWorldMaven</application> project to
-	your workspace.</para>
-
-        <para>We can verify that this project builds by calling <code>mvn
-        package</code>, which should produce something like the folllowing
-        output:</para>
-
-        <programlisting>
-[INFO] Scanning for projects...
-[INFO]                                                                         
-[INFO] ------------------------------------------------------------------------
-[INFO] Building SierraTutorial_SmallWorldMaven 1.0
-[INFO] ------------------------------------------------------------------------
-[INFO] 
-[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ SierraTutorial_SmallWorldMaven ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 8 resources
-...
-[INFO] 
-[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ SierraTutorial_SmallWorldMaven ---
-[INFO] Building jar: /home/nathan/demospace/SierraTutorial_SmallWorldMaven/target/SierraTutorial_SmallWorldMaven-1.0.jar
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 6.263 s
-[INFO] Finished at: 2015-02-11T12:15:04-05:00
-[INFO] Final Memory: 14M/89M
-[INFO] ------------------------------------------------------------------------
-        </programlisting>
-
-        <para>Now we want to allow it to be scanned.  The first step is to
-        install the Sierra Maven tools somewhere.  Do this now by selecting
-        <guimenu>Sierra</guimenu> | <inlinegraphic
-        fileref="images/jar_saveas.gif" /> <guimenuitem>Save Maven Plugin
-        As...</guimenuitem> from the main menu.  Choose a directory on your hard
-        drive, and a zip file named
-        <filename>sierra-maven-&lt;verstion&gt;.zip</filename> will be placed in
-        that location.  You should unzip this file now to a location of your
-        choosing.</para>
-
-        <para>Now we add the repository to our project.  There are several ways
-        to do this, but for the purposes of this tutorial, we will change the
-        <filename>pom.xml</filename> directly.  Add the following lines of code
-        the the <filename>pom.xml</filename> file located in the root directory
-        of <application>SierraTutorial_SmallWorldMaven</application>, ensuring
-        that <filename>/path/to/sierra-repo</filename> points to the
-        <filename>sierra-repo</filename> folder you unzipped earlier:</para>
-
-        <programlisting>
-  &lt;pluginRepositories&gt;
-    &lt;pluginRepository&gt;
-      &lt;id&gt;sierra-tools&lt;/id&gt;
-      &lt;name&gt;In Project Repo&lt;/name&gt;
-      &lt;url&gt;file:///path/to/sierra-repo&lt;/url&gt;
-    &lt;/pluginRepository&gt;
-  &lt;/pluginRepositories&gt;
-        </programlisting>
-
-        <para>You also need to add the sierra plugin to the build section of your directory as follows:</para>
-        <programlisting>
-    &lt;build&gt;
-      ...
-      &lt;plugins&gt;
-        ...
-        &lt;plugin&gt;
-          &lt;groupId&gt;com.surelogic&lt;/groupId&gt;
-          &lt;artifactId&gt;sierra-plugin&lt;/artifactId&gt;
-          &lt;version&gt;5.6.0&lt;/version&gt;
-        &lt;/plugin&gt;
-        ...
-      &lt;/plugins&gt;
-      ...
-    &lt;/build&gt;
-        </programlisting>
-        <para>Finally, we can run <code>mvn sierra:scan</code>.  You should get
-        something resembling this output:
-        </para>
-
-        <programlisting>
-[INFO] Scanning for projects...
-...
-[INFO] ------------------------------------------------------------------------
-[INFO] Building SierraTutorial_SmallWorldMaven 1.0
-[INFO] ------------------------------------------------------------------------
-[INFO] 
-[INFO] >>> sierra-plugin:5.6.0:scan (default-cli) > compile @ SierraTutorial_SmallWorldMaven >>>
-[INFO] 
-[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ SierraTutorial_SmallWorldMaven ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 8 resources
-...
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 20.529 s
-[INFO] Finished at: 2015-02-11T15:01:29-05:00
-[INFO] Final Memory: 17M/100M
-[INFO] ------------------------------------------------------------------------
-        </programlisting>
-        <para>Now our newly created scan is ready to be imported into the Sierra
-        tool.To do this we choose <guimenuitem>Sierra</guimenuitem> |
-        <guimenuitem>Import Ant/Maven Scan</guimenuitem>.  By default, the scan
-        appears in the <filename>target</filename> folder of The tool will then
-        notify you once the scan has finished importing.  Select the
-        <filename>SierraTutorial_SmallWorldMaven.sierra.gz</filename> and import
-        the scan.  The tool will notify you once the scan has finished
-        importing.
-        </para>
-
-	<figure id="fig-tutorial-maven">
-	  <title>Successful scan import</title>
-	  <mediaobject>
-	    <imageobject><imagedata fileref="images/tutorial-ant-import.png" /></imageobject>
-	  </mediaobject>
-	</figure>
-
-        <para>This concludes the tutorial. From this point you can do anything
-        with the scan that you could do to one generated by the Eclipse
-        too.</para>
-      </section>
 
       <section id="sec-tutorial-ant">
 	<title>Scanning code using Ant</title>
@@ -3943,107 +3799,6 @@ if (o == null) {
 
     </section>
     
-        <section id="using-maven">
-      <title>Using Maven</title>
-      <para>Sierra provides a plugin that allows you to scan any project that
-      can use <ulink url="http://maven.apache.org/">Apache Maven</ulink> as a
-      build system.  You can get the plugin from the main menu by selecting
-      <guimenu>Sierra</guimenu> | <inlinegraphic fileref="images/jar_saveas.gif"
-      /> <guimenuitem>Save Maven Plugin As...</guimenuitem> from the main menu.
-      This will save a zip file in the location of your choosing that, when
-      unzipped, inflates to a repository named <filename>sierra-repo</filename>
-      containing our plugin and its dependencies.</para>
-
-      <note>
-        <title>Maven 3.2 or higher required</title>
-        <para>
-          In order to follow along, you will need to have maven installed,
-          preferably version 3.2 or higher.  If you don't have it already, you can
-          get the latest version <ulink
-          url="http://maven.apache.org/download.cgi">here</ulink>.
-        </para>
-      </note>
-      
-      <para>The simplest way to add the plugin to a project is to add the
-      repository to <filename>pom.xml</filename> file in your project.  If you
-      have more than one project that makes use of sierra, you may find it more
-      useful to add the repository to an active profile, as described <ulink
-      url="http://maven.apache.org/guides/mini/guide-multiple-repositories.html">here</ulink>.</para>
-
-      <programlisting>
-&lt;pluginRepositories&gt;
-...
-  &lt;pluginRepository&gt;
-    &lt;id&gt;sierra-tools&lt;/id&gt;
-    &lt;name&gt;In Project Repo&lt;/name&gt;
-    &lt;url&gt;file:///path/to/sierra-repo&lt;/url&gt;
-  &lt;/pluginRepository&gt;
-...
-&lt;/pluginRepositories&gt;  
-      </programlisting>
-
-      <para>The Sierra plugin currently only has one goal,
-      <code>sierra:scan</code>, with the following configuration
-      attributes:</para>
-        <informaltable>
-    <tgroup cols='3' align='left'>
-      <thead>
-        <row>
-    <entry>Attribute</entry>
-    <entry>Description</entry>
-    <entry>Required</entry>
-        </row>
-      </thead>
-      <tbody>
-              <row>
-                <entry>toolHome</entry>
-                <entry>Sierra makes uses of a tool folder when it runs.  It can
-                create this automatically each time the tool runs, but you can
-                also specify a directory for it here to create or use, if you
-                want to use the same tool folder across multiple scans.</entry>
-                <entry>No</entry>
-              </row>
-              <row>
-                <entry>properties</entry>
-                <entry>The location of a properties file, as described in <xref
-                linkend="sec-surelogic-tool-properties-file"/>.</entry>
-                <entry>No</entry>
-              </row>
-              <row>
-                <entry>project</entry>
-                <entry>Sets the name of the project.  Defaults to the name specified in the pom.xml</entry>                
-                <entry>No</entry>
-              </row>
-              <row>
-                <entry>memoryInitialSize</entry>
-                <entry>Determines the initial memory footprint of the tool process (e.g. 256m)</entry>                
-                <entry>No</entry>
-              </row>
-              <row>
-                <entry>memoryMaximumSize</entry>
-                <entry>Determines the maximum memory footprint of the tool process (e.g 1G)</entry>                
-                <entry>No</entry>
-              </row>
-              <row>
-                <entry>outputDir</entry>
-    <entry>Defaults to the target folder, specifies the folder where
-    the new scan document should be written</entry>
-    <entry>No</entry>
-        </row>
-              <row>
-                <entry>verbose</entry>
-                <entry>May be <code>true</code> or <code>false</code>, sets the verbosity level of the tool output.</entry>                
-                <entry>No</entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </informaltable>
-
-        <para>A tutorial on the use of this plugin can be found <link
-        linkend="sec-tutorial-maven">here</link>.</para>
-        
-    </section>
-    
 
   </chapter>
 
@@ -4135,6 +3890,12 @@ if (o == null) {
                 </imageobject>
            </mediaobject>
         </listitem>
+        <listitem>
+          <para>
+            <emphasis>Updated analysis tools</emphasis> &mdash;
+            PMD has been updated to version 5.3.3.
+          </para>
+        </listitem>        
       </orderedlist>
     </section>
   </section>
