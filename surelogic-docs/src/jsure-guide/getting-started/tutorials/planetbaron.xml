@@ -711,9 +711,10 @@ public abstract class Thing {
       </mediaobject>
 
       Why is there a red dot on the verification result? In this
-      case it is because we have the uniqueness verifying analysis turned off.
+      case it is because of the use of <classname>Vouch</classname>
+      annotations.  
       It could also mean that the code contains a
-      <classname>Vouch</classname> or <classname>Assume</classname>
+      <classname>Assume</classname>
       annotation. The use of the <classname>Vouch</classname> turns
       what would have been an <inlinegraphic
       fileref="images/red_x.gif"/> result into a <inlinegraphic
