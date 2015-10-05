@@ -11,9 +11,9 @@
 
 	<target name="build-all" depends="build-all-but-pdf, build-pdf" />
 
-	<target name="build-all-but-pdf" depends="jsure-guide, jsure-design-intent, sierra-guide, flashlight-guide, create-html-zip" />
+	<target name="build-all-but-pdf" depends="jsure-guide, sierra-guide, flashlight-guide, create-html-zip" />
 
-	<target name="build-pdf" depends="jsure-guide-pdf, jsure-design-intent-pdf, sierra-guide-pdf, flashlight-guide-pdf" />
+	<target name="build-pdf" depends="jsure-guide-pdf, sierra-guide-pdf, flashlight-guide-pdf" />
 
 	<target name="create-html-zip" depends="jsure-create-html-zip, flashlight-create-html-zip, sierra-create-html-zip">
 		<zip destfile="${build}/${docs-zip-name}.zip">
@@ -58,25 +58,6 @@
 
 	<target name="jsure-guide-pdf">
 		<docbook-to-pdf srcfile="${je.source.file}" destfile="${je.pdf.file}" destdir="${je.build.dir}" />
-	</target>
-
-	<!-- JSure Design Intent -->
-
-	<target name="jsure-design-intent" depends="jar-up-promises,jsure-design-intent-html" />
-
-	<target name="jar-up-promises">
-		<ant antfile="build.xml" dir="../../jsure/promises-x" inheritAll="false" />
-	</target>
-
-	<target name="jsure-design-intent-html">
-		<docbook-to-html srcdir="${di.source.dir}" srcfile="${di.source.file}" destdir="${di.html.dir}" destfile="${di.html.file}" />
-		<copy todir="${di.html.dir}/javadoc">
-			<fileset dir="../../jsure/promises-x/build/javadoc" />
-		</copy>
-	</target>
-
-	<target name="jsure-design-intent-pdf">
-		<docbook-to-pdf srcfile="${di.source.file}" destfile="${di.pdf.file}" destdir="${di.build.dir}" />
 	</target>
 
 	<!-- Sierra Guide -->
