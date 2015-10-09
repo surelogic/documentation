@@ -16,8 +16,8 @@
   the Android SDK and ADT installed, you should do so at this time by following
   the instructions <link
   xlink:href="http://developer.android.com/sdk/installing.html">here</link>. The
-  tutorial project references the Android 2.3.3 libraries, so you may need to
-  install them or you can choose a version (e.g., 5.0.1) that you have.
+  tutorial project references the Android 2.3.3 libraries, so you can
+  install them or you can choose a version (e.g., 5.1.1) that you have (and your device supports).
   If you need to do this right-click on the project and choose <guilabel>Properties</guilabel>.
   Next select <guilabel>Android</guilabel> to the left and choose a project build
   target at or above 2.3.3. The project should now compile.</para>
@@ -243,7 +243,8 @@
 
   <para>As this query result reports, there should be four instances of
   <structfield>f_threadLocalCounts</structfield> in the program&mdash;one for
-  each counter thread.  Select <structfield>f_threadLocalCounts</structfield> in
+  each counter thread (or a multiple of four if you checked and unchecked the check box
+  multiple times in your run).  Select <structfield>f_threadLocalCounts</structfield> in
   the <guilabel>Query Results</guilabel> view and run (by double click or right
   click) the <emphasis>What instances contain this field and have an empty lock
   set?</emphasis> query.</para>
@@ -317,7 +318,7 @@
   Happens-Before column indicates that there was indeed a Happens-Before
   relationship in between every time that
   <structfield>f_threadLocalCounts</structfield> was accessed by two different
-  threads.  This means that we can be assured that this field was accessed in a
+  threads.  This means that with respect to the Java memory model this field was accessed in a
   thread-safe manner.</para>
 
 

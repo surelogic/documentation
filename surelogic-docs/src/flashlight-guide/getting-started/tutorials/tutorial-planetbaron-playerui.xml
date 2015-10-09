@@ -96,8 +96,9 @@
     </mediaobject>
   </figure>
   
-  <para>Go ahead and double-click on each cycle. Let's focus on the two lock cycle
-  between a <classname>ReentrantReadWriteLock</classname> and an <classname>Object</classname>.
+  <para>Go ahead and double-click on both cycles and take a look. Let's focus on the two lock cycle
+  between a <classname>ReentrantReadWriteLock</classname> and an <classname>Object</classname>. This was
+  the first cycle in our run, but it might be the second in yours.
   This result is shown in the <xref linkend="fig-tutorial-planetbaron-deadlock1" />.</para>
 
   <figure id="fig-tutorial-planetbaron-deadlock1">

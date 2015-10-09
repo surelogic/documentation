@@ -28,6 +28,17 @@
 		the other project supports Java 6 or Java 7.</para>
   </note>
   
+  <note>
+  <title>Delete the project you are not going to use from your workspace</title>
+
+    <para>Linking to code is somewhat heuristic in Eclipse. So it is a good idea to delete the project
+        you are not going to use for this tutorial.  Delete either <guilabel>FlashlightTutorial_DiningPhilosophers</guilabel>
+    or <guilabel>FlashlightTutorial_DiningPhilosophersJava8</guilabel>.
+    This will help to make sure that links from a Flashlight query result highlight
+    the correct line of Java code in Eclipse (and do not point to the wrong project).
+    </para>
+  </note>
+  
   <section>
   <title>Running the program</title>
   
