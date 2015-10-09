@@ -1103,7 +1103,7 @@ if (o == null) {
 	</figure>
 
 	<para>The traffic light will change to green when the team
-	server is up and running. When this occurs click on the
+	server is up and running (this could take a while on a slow computer). When this occurs click on the
 	hyperlink <emphasis>here</emphasis> within the message line
 	<emphasis>A team server is running. Click here to open a
 	browser.</emphasis> to open a web browser within Eclipse on the
