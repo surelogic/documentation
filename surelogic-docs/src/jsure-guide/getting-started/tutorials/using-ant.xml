@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<section id="sec-tutorial-ant">
+  <title>Scanning code using Ant</title>
+
+  <para>This tutorial will demonstrate how to use the JSure Ant
+    task to scan the PlanetBaron project in a script and load the resulting
+    scan document into your Eclipse. The JSure Ant task
+    is used to automate scans as part of a QA or nightly build
+    process. This tutorial assumes you have run the previous
+    tutorial. You may skip the previous tutorial but you will need to load
+    the JSureTutorial_PlanetBaron project into your workspace.
+  </para>
+
+  <para>
+    First you will need to download and unzip the JSure Ant task from
+    <ulink url="http://surelogic.com/static/eclipse/install.html#cl">this location</ulink>
+    on the SureLogic web site.
+    This will create a <filename>jsure-ant</filename> directory on your machine at the
+    location you unzip the file.
+  </para>
+
+  <para>
+    In the PlanetBaron project create a file at the root of
+    the project called
+    <userinput>jsure-ant-scan.xml</userinput>
+    with the below contents.
+  </para>
+
+  <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<project name="JSureTutorial_PlanetBaron" default="scan" basedir=".">
+
+	<!-- (CHANGE) path to the unzipped the JSure Ant task -->
+	<property name="jsure.ant.home" location="C:\\Users\\Tim\\jsure-ant" />
+
+	<!-- (COPY) JSure Ant task setup stuff -->
+	<path id="jsure-ant.classpath">
+		<dirset dir="${jsure.ant.home}" includes="lib/com.surelogic.*" />
+		<fileset dir="${jsure.ant.home}" includes="lib/**/*.jar" />
+	</path>
+	<taskdef name="jsure-scan" classname="com.surelogic.jsure.ant.JSureScan">
+		<classpath refid="jsure-ant.classpath" />
+	</taskdef>
+
+
+	<path id="prj.classpath">
+		<fileset dir="${basedir}" includes="**/*.jar" />
+	</path>
+
+	<target name="scan">
+		<javac srcdir="${basedir}/src" destdir="${basedir}/bin" source="1.7"
+			includeantruntime="false">
+			<classpath refid="prj.classpath" />
+		</javac>
+
+		<jsure-scan srcdir="${basedir}/src" source="1.7"
+			includeantruntime="false" jsureanthome="${jsure.ant.home}"
+			projectname="JSureTutorial_PlanetBaron">
+			<classpath refid="prj.classpath" />
+		</jsure-scan>
+	</target>
+</project>]]></programlisting>
+
+  <para>
+    You will have to modify the setting for <userinput>jsure.ant.home</userinput>
+    to reference where you located the <filename>jsure-ant</filename>
+    directory on your machine.
+  </para>
+
+  <para>
+    Within Eclipse run this as an Ant task by selecting the XML file
+    and selecting <guimenuitem>Run As</guimenuitem> | <guimenuitem>Ant Build</guimenuitem>.
+    Output from the running task will appear in the console as seen in
+    <xref linkend="fig-tutorial-ant-console-scan" />.
+  </para>
+
+  <figure id="fig-tutorial-ant-console-scan">
+    <title>Console output from scanning PlanetBaron with Ant inside
+      Eclipse</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-ant-console-scan.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    You should be able to see from the console output that the project
+    was scanned, and a file containing the results was written to disk.
+    In
+    our example, the output file is located in the
+    <filename>JSureTutorial_PlanetBaron</filename>
+    directory and is called
+    <filename>JSureTutorial_PlanetBaron.2015.06.30-at-14.29.01.442.jsure-scan.zip</filename>.
+    You can change the output directory by adding a jsurescandir attribute to the task.
+  </para>
+
+  <para>
+    We can import this scan into Eclipse when we are ready to look at
+    the results. To do this we choose
+    <menuchoice><guimenu>JSure</guimenu><guimenuitem>Import Ant/Maven Scan...</guimenuitem></menuchoice>.
+    The tool will then notify you once the scan has finished importing.
+  </para>
+
+  <figure id="fig-tutorial-ant-">
+    <title>Successful scan import</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-ant-import.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    This tutorial has introduced the use of the JSure Ant
+    task. You now know how to use the Ant
+    tasks to add JSure to your QA process or nightly
+    build. Reference documentation for the JSure Ant tasks is
+    found in <xref linkend="sec-ant-task" />.
+  </para>
+</section>
