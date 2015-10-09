@@ -703,7 +703,10 @@ if (o == null) {
 	right-click in the left-hand margin of the editor and check
 	<guimenuitem>Show Line Numbers</guimenuitem>.)</para>
 
-	<para>Now save your change and scan the project again. The finding
+	<para>Now save your change and scan the project again. You can start a re-scan
+    using the <guilabel>Sierra</guilabel> main menu or
+    by pressing the <inlinegraphic fileref="images/sierra_re_scan.gif" /> on the toolbar
+    in the <guilabel>Scanned Projects</guilabel> view (upper-left view).  The finding
 	seems to disappear, however, the tool knows it has been
 	fixed.</para>
 
