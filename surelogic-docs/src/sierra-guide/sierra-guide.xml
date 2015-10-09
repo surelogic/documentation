@@ -1874,9 +1874,15 @@ if (o == null) {
 	scan document into your Eclipse.  The Sierra Ant task
 	is used to automate scans as part of a QA or nightly build
 	process. This tutorial assumes you have run the previous
-	tutorial (See <xref linkend="sec-tutorial-team-server" />; You
-	can skip the previous tutorial but you will need to load
+	tutorial. You
+	may skip the previous tutorial but you will need to load
     the SierraTutorial_SmallWorld project into your workspace.</para>
+    
+    <para>First you will need to download and unzip the Sierra Ant task from
+    <ulink url="http://surelogic.com/static/eclipse/install.html#cl">this location</ulink>
+    on the SureLogic web site.
+    This will create a <filename>sierra-ant</filename> directory on your machine at the
+    location you unzip the file.</para>
 
 	<para>In the SmallWorld project create a file at the root of
 	the project called <userinput>sierra-ant-scan.xml</userinput>
