@@ -4,12 +4,20 @@
 "../../../lib/docbook-xml-4.5/docbookx.dtd">
 
 <section id="flashlight-ant-tasks"  xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>Flashlight Ant tasks</title>
+  <title>Using Ant</title>
   
-  <para>Flashlight-related ANT tasks are declared in the JAR file
-  flashlight-ant.jar. </para>
+  <para>The Flashlight Ant tasks can instrument and run a program and produce JSure results.
+     A program run results in a Zip
+     file that can be loaded into Eclipse using the <guilabel>Import Ant/Maven Run...</guilabel>
+     on the Flashlight menu. Once loaded into Eclipse the Flashlight run results can be examined just like any other scan.</para>
+     
+     <para>The Ant tasks are not included within the Eclipse plugin (to save space) but
+      can be downloaded <ulink url="http://surelogic.com/static/eclipse/install.html#cl">here</ulink> on
+      the SureLogic website.</para>
+     
+     <para>Note that you must run this task in a Java 7 VM (it can instrument any code).</para>
   
-  <para>There are three ANT tasks, each designed to handle different scenarios:   
+  <para>There are three Flashlight Ant tasks, each designed to handle different scenarios:   
   </para>
   
     <itemizedlist>
@@ -28,7 +36,7 @@
   <section><title>Loading Flashlight tasks into Ant</title>
 
   <para>The best way to load the Flashlight
-  ANT tasks into ANT and into their own namespace is to use the ANT
+  Ant tasks into Ant and into their own namespace is to use the Ant
   &lt;taskdef&gt; tag:</para>
 
   <programlisting>
@@ -226,10 +234,10 @@
       be replaced as well as the "FOO" in the pattern.</para>
       <para>The purpose of the <code>dirs</code> element is to allow the list of
       directories that are to be instrumented to be specified by the value of an
-      ANT property. This property could list the name of Java projects in an
+      Ant property. This property could list the name of Java projects in an
       Eclipse workspace, for example. See the examples below for more
       detail. This is useful, for example, when the list of directories is also
-      used to drive other ANT tasks, such as cleanup or installation.</para>
+      used to drive other Ant tasks, such as cleanup or installation.</para>
 
       <formalpara id="instrument-task-jar">
         <title>Jar</title>        
@@ -765,14 +773,14 @@
     <code>java.ext.dirs</code>. You would want to explicitly specify
     <code>bootclasspath</code> or <code>extdirs</code> if the intended execution
     environment of the application is different from that being used to execute
-    the ANT task. For example,
+    the Ant task. For example,
     </para>
     <itemizedlist>
       <listitem>If the application is expected to run on a different JVM version
-      than the one being used to execute the ANT Task, you would want to specify
+      than the one being used to execute the Ant Task, you would want to specify
       <code>bootclasspath</code> and <code>extDirs</code> to refer to the boot
       classpath and extension directories appropriate to the expected JVM
-      version. (This is important because the Flashlight Instrument ANT task
+      version. (This is important because the Flashlight Instrument Ant task
       requires at least Java 5 to run.)</listitem>
       <listitem>If the application expects different Java extensions then are
       standard, you would want to explicitly specify the

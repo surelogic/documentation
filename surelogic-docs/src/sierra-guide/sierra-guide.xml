@@ -1866,7 +1866,7 @@ if (o == null) {
       </section>
 
 
-      <section id="sec-tutorial-ant">
+    <section id="sec-tutorial-ant">
 	<title>Scanning code using Ant</title>
 
 	<para>This tutorial will demonstrate how to use the Sierra Ant
@@ -3806,8 +3806,14 @@ if (o == null) {
   </target>
 </project>]]></programlisting>
 
-    </section>
+  </section>
     
+  <section id="sec-maven-task">
+    <title>Using Maven</title>
+    <para>A Maven task for Sierra is still under development. A workaround is to use Ant within Maven as discussed <ulink
+    url="https://maven.apache.org/guides/mini/guide-using-ant.html">here</ulink> and
+    <ulink url="https://maven.apache.org/plugins/maven-antrun-plugin/">here</ulink>.</para>
+  </section>
 
   </chapter>
 
