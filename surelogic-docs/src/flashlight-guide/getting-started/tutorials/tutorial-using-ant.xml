@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"../../../../lib/docbook-xml-4.5/docbookx.dtd">
+
+<section id="sec-tutorial-ant">
+  <title>Scanning code using Ant</title>
+
+  <para>This tutorial will demonstrate how to use the Flashlight Ant
+    task to instrument and launch a PlanetBaron server in a script and load the resulting
+    data into your Eclipse. The Flashlight Ant task
+    is used to automate scans as part of a QA or nightly build
+    process. This tutorial assumes you have run the previous
+    tutorial. You may skip the previous tutorial but you will need to load
+    the FlashlightTutorial_PlanetBaron project into your workspace.
+  </para>
+
+  <para>
+    First you will need to download and unzip the Flashlight Ant task from
+    <ulink url="http://surelogic.com/static/eclipse/install.html#cl">this location</ulink>
+    on the SureLogic web site.
+    This will create a <filename>jsure-ant</filename> directory on your machine at the
+    location you unzip the file.
+  </para>
+
+  <para>
+    In the PlanetBaron project create a file at the root of
+    the project called
+    <userinput>flashlight-server.xml</userinput>
+    with the below contents.
+  </para>
+
+  <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<project name="FlashlightTutorial_PlanetBaron" default="server" basedir=".">
+
+  <!-- (CHANGE) path to the unzipped the Flashlight Ant task -->
+  <property name="flashlight.ant.home" location="C:\\Users\\Tim\\flashlight-ant" />
+
+  <!-- (COPY) Flashlight Ant task setup stuff -->
+  <property name="flashlight.runtime"
+    location="${flashlight.ant.home}\\lib\\runtime\\flashlight-runtime.jar" />
+  <path id="flashlight-ant.classpath">
+    <fileset dir="${flashlight.ant.home}" includes="lib/**/*.jar" />
+  </path>
+  <taskdef name="flashlight-instrument-archive" classname="com.surelogic.flashlight.ant.InstrumentArchive">
+    <classpath refid="flashlight-ant.classpath" />
+  </taskdef>
+
+  <target name="server">
+    <!-- First create working jar of your program -->
+    <jar destfile="server.jar" basedir="bin">
+      <manifest>
+        <attribute name="Main-Class" value="com.surelogic.planetbaron.server.Server" />
+      </manifest>
+    </jar>
+    <!-- Next instrument this JAR to collect information during a run -->
+    <flashlight-instrument-archive srcfile="server.jar"
+      destfile="flserver.jar" runtime="${flashlight.runtime}" />
+
+    <echo>Flashlight instrumentation complete...launching...</echo>
+    <!-- Next run the program from Ant -->
+    <!-- Note the flashlight runtime MUST be before the instrumented JAR -->
+    <java classname="com.surelogic.planetbaron.server.Server" fork="yes">
+      <classpath>
+        <pathelement location="${flashlight.runtime}" />
+        <pathelement location="flserver.jar" />
+      </classpath>
+      <!-- Name of the run (when loaded in the IDE) -->
+      <jvmarg value="-DFL_RUN=Server" />
+      <!-- Place the output in a 'data' subdir under the project -->
+      <jvmarg value="-DFL_RUN_FOLDER=data" />
+    </java>
+  </target>
+</project>]]></programlisting>
+
+  <para>
+    You will have to modify the setting for <userinput>flashlight.ant.home</userinput>
+    to reference where you located the <filename>flashlight-ant</filename>
+    directory on your machine.
+  </para>
+
+  <para>
+    Within Eclipse run this as an Ant task by selecting the XML file
+    and selecting <guimenuitem>Run As</guimenuitem> | <guimenuitem>Ant Build</guimenuitem>.
+    Output from the running task will appear in the console as seen in
+    <xref linkend="fig-tutorial-ant-console-scan" />.
+  </para>
+
+  <figure id="fig-tutorial-ant-console-scan">
+    <title>Console output from scanning PlanetBaron with Ant inside
+      Eclipse</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-ant-console-scan.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    In the server run logged above I stared one PlayerUI and used
+    the ChatTestClient to terminate the server when I was done playing.
+    The output data is located in the
+    <filename>FlashlightTutorial_PlanetBaron/data</filename>
+    directory and is called
+    <filename>Server-2015.10.16-at-15.24.41.361</filename>. Of course, your timestamp will
+    be different in the directory name.
+    You can change the output directory by changing the -DFL_RUN_FOLDER sent to the java task.
+  </para>
+  
+  <para>It is possible to launch the program from the command line. Under Windows this looks like the below command</para>
+  
+  <programlisting><![CDATA[java -cp "C:\Users\Tim\flashlight-ant\lib\runtime\flashlight-runtime.jar;flserver.jar" -DFL_RUN=Server -DFL_RUN_FOLDER=data com.surelogic.planetbaron.server.Server]]></programlisting>
+
+  <para>Mac and Linux are similar (separate classpath entries with a semicolon not a colon). Depending upon what you are
+      doing launching with Ant or via another script may be useful to you.</para>
+  
+  <para>
+    We can import this run into Eclipse when we are ready to look at
+    the results. To do this we choose
+    <menuchoice><guimenu>Flashlight</guimenu><guimenuitem>Import Ant/Maven Scan...</guimenuitem></menuchoice>.
+    The tool will then notify you once the run has finished importing. At this point you need to double-click
+    the run in <guilabel>Flashlight Runs</guilabel> view to have it prepared for querying in Eclipse.
+  </para>
+
+  <figure id="fig-tutorial-ant-">
+    <title>Successful scan import</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images/tutorial-ant-import.png" />
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para>
+    This tutorial has introduced the use of the Flashlight Ant
+    task. You now know how to use the Ant
+    tasks to add Flashlight to your QA process or nightly
+    build. Reference documentation for the Flashlight Ant task is
+    found in <xref linkend="flashlight-ant-tasks" />.
+  </para>
+</section>
