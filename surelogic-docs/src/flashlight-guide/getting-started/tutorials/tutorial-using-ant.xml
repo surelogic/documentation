@@ -113,6 +113,15 @@
 
   <para>Mac and Linux are similar (separate classpath entries with a semicolon not a colon). Depending upon what you are
       doing launching with Ant or via another script may be useful to you.</para>
+      
+  <note>
+    <title>The Flashlight runtime JAR must be before the instrumented JAR in your classpath</title>
+
+    <para>In the example Ant script and command line java command above the <filename>flashlight-runtime.jar</filename>
+        is placed ahead of <filename>flserver.jar</filename> in the program's classpath. This is required, and
+        the program will fail to execute if it is not done. Any other JARS your project needs may come in the
+        usual order. It is a good idea to always put the <filename>flashlight-runtime.jar</filename> first.</para>
+  </note>
   
   <para>
     We can import this run into Eclipse when we are ready to look at
@@ -136,6 +145,6 @@
     task. You now know how to use the Ant
     tasks to add Flashlight to your QA process or nightly
     build. Reference documentation for the Flashlight Ant task is
-    found in <xref linkend="flashlight-ant-tasks" />.
+    found in <xref linkend="sec-ant-task" />.
   </para>
 </section>
