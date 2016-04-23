@@ -2,5 +2,5 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: JSure Client On-Line Help
 Bundle-SymbolicName: com.surelogic.jsure.client.help;singleton:=true
-Bundle-Version: 5.7.1.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-Vendor: SureLogic, Inc.
